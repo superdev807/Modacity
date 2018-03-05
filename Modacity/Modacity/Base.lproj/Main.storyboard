@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="87D-AM-Dd3">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="xnx-Ec-3e9">
+            <objects>
+                <navigationController navigationBarHidden="YES" id="87D-AM-Dd3" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="dHX-Rf-05i">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="wtR-Tj-5xn" kind="relationship" relationship="rootViewController" id="NZp-kR-ZlD"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tu3-Gl-0pM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-332" y="169"/>
+        </scene>
+        <!--Splash View Controller-->
+        <scene sceneID="mwT-BZ-WFs">
+            <objects>
+                <viewController id="wtR-Tj-5xn" customClass="SplashViewController" customModule="Modacity" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="N35-5x-2ig">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_intro" translatesAutoresizingMaskIntoConstraints="NO" id="ZKJ-EZ-II1">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_logo_welcome" translatesAutoresizingMaskIntoConstraints="NO" id="sfh-XF-fsR">
+                                <rect key="frame" x="122" y="270" width="131" height="147"/>
+                            </imageView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="IeJ-d7-9CU">
+                                <rect key="frame" x="177" y="600" width="20" height="20"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ZKJ-EZ-II1" firstAttribute="leading" secondItem="Jqq-bV-6JJ" secondAttribute="leading" id="26R-ew-tGh"/>
+                            <constraint firstItem="Jqq-bV-6JJ" firstAttribute="bottom" secondItem="IeJ-d7-9CU" secondAttribute="bottom" constant="47" id="BPH-gy-evd"/>
+                            <constraint firstItem="sfh-XF-fsR" firstAttribute="centerX" secondItem="Jqq-bV-6JJ" secondAttribute="centerX" id="Dzi-Hm-kWQ"/>
+                            <constraint firstItem="ZKJ-EZ-II1" firstAttribute="bottom" secondItem="Jqq-bV-6JJ" secondAttribute="bottom" id="V7g-Sp-opv"/>
+                            <constraint firstItem="IeJ-d7-9CU" firstAttribute="centerX" secondItem="ZKJ-EZ-II1" secondAttribute="centerX" id="buI-eC-HZT"/>
+                            <constraint firstItem="ZKJ-EZ-II1" firstAttribute="trailing" secondItem="Jqq-bV-6JJ" secondAttribute="trailing" id="lUh-pf-tZj"/>
+                            <constraint firstItem="sfh-XF-fsR" firstAttribute="centerY" secondItem="Jqq-bV-6JJ" secondAttribute="centerY" id="qMh-36-MEz"/>
+                            <constraint firstItem="ZKJ-EZ-II1" firstAttribute="top" secondItem="N35-5x-2ig" secondAttribute="top" id="xQa-ia-Loe"/>
+                            <constraint firstItem="IeJ-d7-9CU" firstAttribute="centerX" secondItem="Jqq-bV-6JJ" secondAttribute="centerX" id="zPC-h8-A2T"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Jqq-bV-6JJ"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Sx0-Jb-DWY"/>
+                    <connections>
+                        <segue destination="kyk-Ey-mBX" kind="show" identifier="sid_home" id="LnI-bT-DmF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iw7-Fo-lDX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="446" y="169"/>
+        </scene>
+        <!--Tab Bar View Controller-->
+        <scene sceneID="pRd-DJ-0ZZ">
+            <objects>
+                <tabBarController storyboardIdentifier="TabBarViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="kyk-Ey-mBX" customClass="TabBarViewController" customModule="Modacity" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Rwt-8V-Z7e">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rz2-hy-dQH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1273" y="169"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="bg_intro" width="375" height="667"/>
+        <image name="img_logo_welcome" width="131" height="147"/>
+    </resources>
+</document>
