@@ -75,38 +75,6 @@ class CreateAccountViewController: UIViewController {
                 AppUtils.showSimpleAlertMessage(for: self, title: nil, message: error)
             }
         }
-        
-//        _ = self.viewModel.authorizing.asObservable().subscribe { (event) in
-//            if let value = event.element {
-//                switch value {
-//                case .signup:
-//                    self.view.isUserInteractionEnabled = false
-//                    self.spinnerCreateAccount.startAnimating()
-//                case .google:
-//                    self.view.isUserInteractionEnabled = false
-//                    self.spinnerGoogle.startAnimating()
-//                case .facebook:
-//                    self.view.isUserInteractionEnabled = false
-//                    self.spinnerFacebook.startAnimating()
-//                default:
-//                    self.view.isUserInteractionEnabled = true
-//                    self.spinnerCreateAccount.stopAnimating()
-//                    self.spinnerGoogle.stopAnimating()
-//                    self.spinnerFacebook.stopAnimating()
-//                }
-//
-//                if value == .succeeded {
-//                    self.openHome()
-//                }
-//            }
-//        }
-        
-//        _ = self.viewModel.authorizeError.asObservable().subscribe { (event) in
-//            if let error = event.element {
-//                AppUtils.showSimpleAlertMessage(for: self, title: nil, message: error)
-//            }
-//        }
-        
     }
     
     func openHome() {

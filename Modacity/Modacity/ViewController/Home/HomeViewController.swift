@@ -13,13 +13,104 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var textfieldTotalHours: UITextField!
     @IBOutlet weak var textfieldDayStreak: UITextField!
     @IBOutlet weak var textfieldImprovements: UITextField!
+    @IBOutlet weak var viewEmptyPanel: UIView!
+    @IBOutlet weak var collectionViewRecentPlaylists: UICollectionView!
+    @IBOutlet weak var collectionViewFavoritePlaylists: UICollectionView!
+    @IBOutlet weak var labelFavoritesHeader: UILabel!
+    @IBOutlet weak var labelRecentHeader: UILabel!
+    @IBOutlet weak var labelTotalTimeCaption: UILabel!
+    @IBOutlet weak var labelWelcome: UILabel!
+    @IBOutlet weak var labelEmpty: UILabel!
+    @IBOutlet weak var constraintForHeaderImageViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var constraintForContentViewTopSpace: NSLayoutConstraint!
+    
+    @IBOutlet weak var constraintForRecentCollectionViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var constraintForFavoritesCollectionViewHeight: NSLayoutConstraint!
     
     private var formatter: NumberFormatter!
+    
+    private var viewModel = HomeViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        NotificationCenter.default.addObserver(self, selector: #selector(configureNameLabels), name: AppConfig.appNotificationProfileUpdated, object: nil)
+        self.configureUI()
+        self.bindViewModel()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationItem.title = "Home"
+        self.viewModel.loadRecentPlaylists()
+    }
+    
+    
+    func bindViewModel() {
         
+        self.viewModel.subscribe(to: "dashboardPlaylistsCount") { _, _, count in
+            if let count = count as? Int {
+                if count > 0 {
+                    self.viewEmptyPanel.isHidden = true
+                    self.labelRecentHeader.isHidden = false
+                    return
+                }
+            }
+            self.labelRecentHeader.isHidden = true
+            self.viewEmptyPanel.isHidden = false
+        }
+        
+        self.viewModel.subscribe(to: "recentPlaylists") { (_, _, _) in
+            self.collectionViewRecentPlaylists.reloadData()
+        }
+        
+        self.viewModel.subscribe(to: "favoritePlaylists") { (_, _, favoritePlaylists) in
+            if let playlists = favoritePlaylists as? [Playlist] {
+                if playlists.count > 0 {
+                    self.labelFavoritesHeader.isHidden = false
+                } else {
+                    self.labelFavoritesHeader.isHidden = true
+                }
+                self.collectionViewFavoritePlaylists.reloadData()
+                return
+            }
+            self.labelFavoritesHeader.isHidden = true
+        }
+        
+        self.viewModel.subscribe(to: "totalWorkingSeconds") { (_, _, totalWorkingSeconds) in
+            if let seconds = totalWorkingSeconds as? Int {
+                if seconds < 30 * 60 {
+                    self.textfieldTotalHours.text = String(format:"%.1f", Double(seconds) / 60.0)
+                    self.labelTotalTimeCaption.text = "Total Minutes"
+                } else {
+                    self.textfieldTotalHours.text = String(format:"%.1f", Double(seconds) / 3600.0)
+                    self.labelTotalTimeCaption.text = "Total Hours"
+                }
+            } else {
+                self.textfieldTotalHours.text = "0"
+                self.labelTotalTimeCaption.text = "Total Hours"
+            }
+        }
+        
+        self.viewModel.subscribe(to: "totalImprovements") { (_, _, totalImprovements) in
+            self.textfieldImprovements.text = "\(totalImprovements as? Int ?? 0)"
+        }
+        
+        self.viewModel.subscribe(to: "streakDays") { (_, _, streakDays) in
+            self.textfieldDayStreak.text = "\(streakDays as? Int ?? 0)"
+        }
+    }
+    
+    func configureUI() {
         self.textfieldTotalHours.delegate = self
         self.textfieldTotalHours.tintColor = Color.white
         
@@ -32,16 +123,38 @@ class HomeViewController: UIViewController {
         self.formatter = NumberFormatter()
         self.formatter.numberStyle = .decimal
         self.formatter.minimum = 0
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
+        self.labelFavoritesHeader.isHidden = true
+        
+        if AppUtils.sizeModelOfiPhone() == .iphone4_35in {
+            self.constraintForHeaderImageViewHeight.constant = 250
+            self.constraintForContentViewTopSpace.constant = 220
+            self.constraintForRecentCollectionViewHeight.constant = 80
+            self.constraintForFavoritesCollectionViewHeight.constant  = 80
+        } else if AppUtils.sizeModelOfiPhone() == .iphone5_4in {
+            self.constraintForHeaderImageViewHeight.constant = 250
+            self.constraintForContentViewTopSpace.constant = 220
+            self.constraintForRecentCollectionViewHeight.constant = 120
+            self.constraintForFavoritesCollectionViewHeight.constant  = 120
+        } else {
+            self.constraintForHeaderImageViewHeight.constant = 286
+            self.constraintForContentViewTopSpace.constant = 266
+            self.constraintForRecentCollectionViewHeight.constant = 120
+            self.constraintForFavoritesCollectionViewHeight.constant  = 120
+        }
+        
+        configureNameLabels()
+        
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationItem.title = "Home"
+    @objc func configureNameLabels() {
+        if let me = MyProfileLocalManager.manager.me {
+            self.labelWelcome.text = "Welcome \(me.displayName())!"
+            self.labelEmpty.text = "Hi \(me.displayName()), it looks like you’re new here."
+        } else {
+            self.labelWelcome.text = "Welcome!"
+            self.labelEmpty.text = "It looks like you're new here."
+        }
     }
 
     @IBAction func onTotalHours(_ sender: Any) {
@@ -78,4 +191,49 @@ extension HomeViewController: UITextFieldDelegate {
         }
         return formatter.number(from:"\(textField.text ?? "")\(string)") != nil
     }
+}
+
+extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if collectionView == self.collectionViewRecentPlaylists {
+            return self.viewModel.recentPlaylists.count
+        } else {
+            return self.viewModel.favoritePlaylists.count
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PlaylistCell", for: indexPath)
+        if let label = cell.viewWithTag(10) as? UILabel {
+            if collectionView == self.collectionViewRecentPlaylists {
+                label.text = self.viewModel.recentPlaylists[indexPath.row].name
+            } else {
+                label.text = self.viewModel.favoritePlaylists[indexPath.row].name
+            }
+        }
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let deliverViewModel = PlaylistDeliverModel()
+        if collectionView == self.collectionViewRecentPlaylists {
+            deliverViewModel.deliverPlaylist = self.viewModel.recentPlaylists[indexPath.row]
+        } else {
+            deliverViewModel.deliverPlaylist = self.viewModel.favoritePlaylists[indexPath.row]
+        }
+        let controller = UIStoryboard(name: "playlist", bundle: nil).instantiateViewController(withIdentifier: "PlaylistDetailsViewController") as! PlaylistDetailsViewController
+        controller.parentViewModel = deliverViewModel
+        let nav = UINavigationController(rootViewController: controller)
+        nav.isNavigationBarHidden = true
+        self.tabBarController?.present(nav, animated: true, completion: nil)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if AppUtils.sizeModelOfiPhone() == .iphone4_35in {
+            return CGSize(width: 80, height: 70)
+        }
+        return CGSize(width: 130, height: 115)
+    }
+    
 }

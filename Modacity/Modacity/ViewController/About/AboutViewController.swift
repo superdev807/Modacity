@@ -11,6 +11,7 @@ import UIKit
 class AboutViewController: UIViewController {
     
     @IBOutlet weak var tableViewMain: UITableView!
+    @IBOutlet weak var constraintForHeaderImageViewHeight: NSLayoutConstraint!
     
     let icons = ["icon_share_white", "icon_settings_twitter", "icon_settings_facebook", "icon_settings_web"]
     let captions = ["Share the App", "Modacity on Twitter", "Modacity on Facebook", "www.modacity.co"]
@@ -18,10 +19,27 @@ class AboutViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        if AppUtils.iphoneIsXModel() {
+            self.constraintForHeaderImageViewHeight.constant = 108
+        } else {
+            self.constraintForHeaderImageViewHeight.constant = 88
+        }
     }
 
-    @IBAction func onMenu() {
+    @IBAction func onMenu(_ sender: Any) {
         self.sideMenuController?.showLeftViewAnimated()
+    }
+    
+    @IBAction func onAcknowledgement(_ sender: Any) {
+        UIApplication.shared.open(URL(string:AppConfig.appConfigHomeUrlLink)!, options: [:], completionHandler: nil)
+    }
+    
+    @IBAction func onPrivacy(_ sender: Any) {
+        UIApplication.shared.open(URL(string:AppConfig.appConfigPrivacyUrlLink)!, options: [:], completionHandler: nil)
+    }
+    
+    @IBAction func onTerms(_ sender: Any) {
+        UIApplication.shared.open(URL(string:AppConfig.appConfigTermsUrlLink)!, options: [:], completionHandler: nil)
     }
 }
 

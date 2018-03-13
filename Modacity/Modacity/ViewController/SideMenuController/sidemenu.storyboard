@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -87,7 +87,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_simple_gradient" translatesAutoresizingMaskIntoConstraints="NO" id="l5d-dB-n5y">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="707"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -95,7 +95,7 @@
                             <constraint firstItem="l5d-dB-n5y" firstAttribute="leading" secondItem="8Ts-Hg-dKB" secondAttribute="leading" id="8t5-HK-cTm"/>
                             <constraint firstItem="l5d-dB-n5y" firstAttribute="trailing" secondItem="8Ts-Hg-dKB" secondAttribute="trailing" id="bPt-IP-jwh"/>
                             <constraint firstItem="l5d-dB-n5y" firstAttribute="top" secondItem="yeu-vo-0UB" secondAttribute="top" id="y9l-qj-wlJ"/>
-                            <constraint firstItem="l5d-dB-n5y" firstAttribute="bottom" secondItem="8Ts-Hg-dKB" secondAttribute="bottom" id="zuA-Ej-uwT"/>
+                            <constraint firstItem="l5d-dB-n5y" firstAttribute="bottom" secondItem="8Ts-Hg-dKB" secondAttribute="bottom" constant="40" id="zuA-Ej-uwT"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="8Ts-Hg-dKB"/>
                     </view>

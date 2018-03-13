@@ -48,6 +48,13 @@ class AppUtils: NSObject {
         }
     }
     
+    class func iphoneIsXModel() -> Bool {
+        if max(UIScreen.main.nativeBounds.size.height, UIScreen.main.nativeBounds.size.width) == 2436 {
+            return true
+        }
+        return false
+    }
+    
     class func weekDaysString(withShortMode : Bool, fromSunday : Bool, lowercaseMode: Int = 0) -> [String] {
         
         // lowercasemode : 0 : SUN
@@ -205,6 +212,14 @@ public extension String {
     func toJSON() -> Any? {
         guard let data = self.data(using: .utf8, allowLossyConversion: false) else { return nil }
         return try? JSONSerialization.jsonObject(with: data, options: .mutableContainers)
+    }
+    
+    func capitalizingFirstLetter() -> String {
+        return prefix(1).uppercased() + dropFirst()
+    }
+    
+    mutating func capitalizeFirstLetter() {
+        self = self.capitalizingFirstLetter()
     }
 
 }

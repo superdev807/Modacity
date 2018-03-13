@@ -153,7 +153,9 @@ extension LeftMenuViewController: UITableViewDataSource, UITableViewDelegate {
                     feedbackRootViewController.changePageUIMode(to: 1)
                 }
             } else {
-                let controller = UIStoryboard(name:"feedback", bundle:nil).instantiateViewController(withIdentifier: "feedbackscene")
+                let controller = UIStoryboard(name:"feedback", bundle:nil).instantiateViewController(withIdentifier: "feedbackscene") as! UINavigationController
+                let feedbackRootViewController = controller.viewControllers[0] as! FeedbackRootViewController
+                feedbackRootViewController.pageUIMode = 1
                 self.sideMenuController?.rootViewController = controller
             }
             self.sideMenuController?.hideLeftViewAnimated()

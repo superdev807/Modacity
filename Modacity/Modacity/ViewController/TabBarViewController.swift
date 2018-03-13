@@ -114,7 +114,11 @@ class TabBarViewController: UITabBarController {
         self.viewTabbar.addConstraint(constraintLeading)
         let constraintTrailing = NSLayoutConstraint(item: backgroundImageView, attribute: .trailing, relatedBy: .equal, toItem: self.viewTabbar, attribute: .trailing, multiplier: 1, constant: 0)
         self.viewTabbar.addConstraint(constraintTrailing)
-        let constraintTabbarViewHeight = NSLayoutConstraint(item: backgroundImageView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 64)
+        var tabbarHeight = CGFloat(64)
+        if AppUtils.iphoneIsXModel() {
+            tabbarHeight = 84
+        }
+        let constraintTabbarViewHeight = NSLayoutConstraint(item: backgroundImageView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: tabbarHeight)
         backgroundImageView.addConstraint(constraintTabbarViewHeight)
         
     }
@@ -135,7 +139,11 @@ class TabBarViewController: UITabBarController {
         let constraintTop = NSLayoutConstraint(item: self.viewTabbarButtonsContainer, attribute: .top, relatedBy: .equal, toItem: self.viewTabbar, attribute: .top, multiplier: 1, constant: 0)
         self.viewTabbar.addConstraint(constraintTop)
         
-        let constraintBottom = NSLayoutConstraint(item: self.viewTabbarButtonsContainer, attribute: .bottom, relatedBy: .equal, toItem: self.viewTabbar, attribute: .bottom, multiplier: 1, constant: 0)
+        var bottomConstraint = CGFloat(0)
+        if AppUtils.iphoneIsXModel() {
+            bottomConstraint = -20
+        }
+        let constraintBottom = NSLayoutConstraint(item: self.viewTabbarButtonsContainer, attribute: .bottom, relatedBy: .equal, toItem: self.viewTabbar, attribute: .bottom, multiplier: 1, constant: bottomConstraint)
         self.viewTabbar.addConstraint(constraintBottom)
         
         let constraintLeading = NSLayoutConstraint(item: self.viewTabbarButtonsContainer, attribute: .leading, relatedBy: .equal, toItem: self.viewTabbar, attribute: .leading, multiplier: 1, constant: 15)
@@ -206,7 +214,11 @@ class TabBarViewController: UITabBarController {
         
         buttonAddPlaylist.translatesAutoresizingMaskIntoConstraints = false
         
-        let constraintBottom = NSLayoutConstraint(item:self.view , attribute: .bottom, relatedBy: .equal, toItem: buttonAddPlaylist, attribute: .bottom, multiplier: 1, constant: 10)
+        var bottomConstraing = CGFloat(10)
+        if AppUtils.iphoneIsXModel() {
+            bottomConstraing = 30
+        }
+        let constraintBottom = NSLayoutConstraint(item:self.view , attribute: .bottom, relatedBy: .equal, toItem: buttonAddPlaylist, attribute: .bottom, multiplier: 1, constant: bottomConstraing)
         self.view.addConstraint(constraintBottom)
         let constraintTrailing = NSLayoutConstraint(item: self.view, attribute: .trailing, relatedBy: .equal, toItem: buttonAddPlaylist, attribute: .trailing, multiplier: 1, constant: 10)
         self.view.addConstraint(constraintTrailing)

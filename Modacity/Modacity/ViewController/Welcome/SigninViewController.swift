@@ -63,29 +63,6 @@ class SigninViewController: UIViewController {
             }
         }
         
-//        _ = self.viewModel.authorizing.asObservable().subscribe { (event) in
-//            if let value = event.element {
-//                switch value {
-//                case .signin:
-//                    self.view.isUserInteractionEnabled = false
-//                    self.spinerSignIn.startAnimating()
-//                default:
-//                    self.view.isUserInteractionEnabled = true
-//                    self.spinerSignIn.stopAnimating()
-//                }
-//
-//                if value == .succeeded {
-//                    self.openHome()
-//                }
-//            }
-//        }
-        
-//        _ = self.viewModel.authorizeError.asObservable().subscribe { (event) in
-//            if let error = event.element {
-//                AppUtils.showSimpleAlertMessage(for: self, title: nil, message: error)
-//            }
-//        }
-        
     }
     
     func openHome() {

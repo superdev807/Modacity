@@ -55,11 +55,16 @@ class SettingsCellWithDropdown: UITableViewCell {
 class SettingsViewController: UIViewController {
     
     @IBOutlet weak var tableViewSettings: UITableView!
+    @IBOutlet weak var constraintForHeaderImageViewHeight: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
+        if AppUtils.iphoneIsXModel() {
+            self.constraintForHeaderImageViewHeight.constant = 108
+        } else {
+            self.constraintForHeaderImageViewHeight.constant = 88
+        }
     }
 
     @IBAction func onMenu(_ sender: Any) {

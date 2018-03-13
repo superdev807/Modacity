@@ -11,9 +11,7 @@ import ObjectMapper
 
 class PracticeItem: Mappable {
     
-    var id: String!
     var name: String!
-    var createdAt: String!
     var rate: Double!
     
     required init?(map: Map) {
@@ -21,10 +19,8 @@ class PracticeItem: Mappable {
     }
     
     func mapping(map: Map) {
-        id          <- map["id"]
-        createdAt   <- map["created_at"]
-        name        <- map["name"]
-        rate        <- map["rate"]
+        rate       <- map["rate"]
+        name       <- map["name"]
     }
     
 }

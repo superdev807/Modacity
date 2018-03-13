@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		14A63A48B0FA29B0F7388A3B /* Pods_Modacity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C77FB2C0A58ED4E886E0F33 /* Pods_Modacity.framework */; };
+		8E16B46D2052ECDE00A9BF8A /* PracticeItemEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E16B46C2052ECDE00A9BF8A /* PracticeItemEntry.swift */; };
+		8E1EFEFC20500E7A000DE107 /* PlaylistPracticeDurationKeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1EFEFB20500E7A000DE107 /* PlaylistPracticeDurationKeyboardViewController.swift */; };
 		8E3596202049A61C00F2E6DF /* PlaylistDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E35961F2049A61C00F2E6DF /* PlaylistDetailsViewModel.swift */; };
 		8E3596222049AA9500F2E6DF /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3596212049AA9500F2E6DF /* Playlist.swift */; };
 		8E37A0B92005B3AD00747B61 /* PracticeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E37A0B82005B3AD00747B61 /* PracticeViewController.swift */; };
@@ -29,9 +31,19 @@
 		8E58B44520446AE40022704B /* AppOveralDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E58B44120446AE40022704B /* AppOveralDataManager.swift */; };
 		8E58B44620446AE40022704B /* MyProfileLocalManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E58B44220446AE40022704B /* MyProfileLocalManager.swift */; };
 		8E58B44820446B180022704B /* settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E58B44720446B180022704B /* settings.storyboard */; };
+		8E64B7A82056332300900775 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E64B7A72056332300900775 /* HomeViewModel.swift */; };
+		8E64B7AA2056A09F00900775 /* Recording.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E64B7A92056A09E00900775 /* Recording.swift */; };
+		8E64B7AC2056A35200900775 /* RecordingsLocalManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E64B7AB2056A35200900775 /* RecordingsLocalManager.swift */; };
+		8E64B7AE2056AA7C00900775 /* RecordingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E64B7AD2056AA7C00900775 /* RecordingViewModel.swift */; };
 		8E6B120B200651A40071FC75 /* ViewDroneFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6B120A200651A40071FC75 /* ViewDroneFrame.swift */; };
+		8E84CA6520577E7600D2D1CB /* ImproveHypothesisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E84CA6420577E7600D2D1CB /* ImproveHypothesisViewController.swift */; };
+		8E84CA6720577F3500D2D1CB /* ImprovementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E84CA6620577F3500D2D1CB /* ImprovementViewModel.swift */; };
+		8E84CA692057858400D2D1CB /* ImprovementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E84CA682057858400D2D1CB /* ImprovementViewController.swift */; };
+		8E994FC8204EF92F0092B338 /* PracticeRateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E994FC7204EF92F0092B338 /* PracticeRateViewController.swift */; };
+		8E994FCB204EFFEC0092B338 /* FloatRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E994FCA204EFFEB0092B338 /* FloatRatingView.swift */; };
 		8E99A067204072E900A9A9B8 /* MetrodoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E99A066204072E900A9A9B8 /* MetrodoneViewController.swift */; };
 		8E99A069204072F900A9A9B8 /* metrodone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E99A068204072F900A9A9B8 /* metrodone.storyboard */; };
+		8E9DF9052057CF47003F5FE8 /* Improvement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9DF9042057CF47003F5FE8 /* Improvement.swift */; };
 		8EA33BA120052A3300539A3F /* playlist.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EA33BA020052A3300539A3F /* playlist.storyboard */; };
 		8EA33BA320052A4A00539A3F /* PlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA33BA220052A4A00539A3F /* PlaylistViewController.swift */; };
 		8EA33BA520052D0600539A3F /* recording.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EA33BA420052D0600539A3F /* recording.storyboard */; };
@@ -40,8 +52,15 @@
 		8EA9E7CD20429F140019EFA5 /* FeedbackRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA9E7CC20429F140019EFA5 /* FeedbackRootViewController.swift */; };
 		8EAC121320052668004232A2 /* home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EAC121220052668004232A2 /* home.storyboard */; };
 		8EAC1215200526BB004232A2 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAC1214200526BB004232A2 /* HomeViewController.swift */; };
+		8EAE1651204FE1050012450E /* PlaylistFinishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAE1650204FE1050012450E /* PlaylistFinishViewController.swift */; };
 		8EB479B920458B7100BE6461 /* about.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EB479B820458B7000BE6461 /* about.storyboard */; };
 		8EB479BB20458B7C00BE6461 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB479BA20458B7C00BE6461 /* AboutViewController.swift */; };
+		8EB9DB99204DA67200689C1D /* PlaylistLocalManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB9DB98204DA67200689C1D /* PlaylistLocalManager.swift */; };
+		8EB9DB9B204DABFD00689C1D /* PlaylistViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB9DB9A204DABFD00689C1D /* PlaylistViewModel.swift */; };
+		8ECCAF952056EABE000E2B75 /* PlaylistDeliverModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECCAF942056EABE000E2B75 /* PlaylistDeliverModel.swift */; };
+		8ECCAF972056F5B9000E2B75 /* ding.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8ECCAF962056F5B9000E2B75 /* ding.wav */; };
+		8ED001CD2057671200536122 /* improve.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8ED001CC2057671200536122 /* improve.storyboard */; };
+		8ED001CF205768C100536122 /* ImproveSuggestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED001CE205768C100536122 /* ImproveSuggestionViewController.swift */; };
 		8ED335E42048EBC700FB61C1 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED335E32048EBC700FB61C1 /* ViewModel.swift */; };
 		8ED83FC220031EF400052256 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED83FC120031EF400052256 /* SplashViewController.swift */; };
 		8ED83FC72003262D00052256 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED83FC62003262D00052256 /* TabBarViewController.swift */; };
@@ -91,6 +110,8 @@
 		2FF7BD2AC6BB692D2CB30434 /* Pods-ModacityUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ModacityUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ModacityUITests/Pods-ModacityUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		3798BA6D596582574229E4BD /* Pods-Modacity.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Modacity.release.xcconfig"; path = "Pods/Target Support Files/Pods-Modacity/Pods-Modacity.release.xcconfig"; sourceTree = "<group>"; };
 		64FC86E6BC6EB03A27EBFF9B /* Pods-Modacity.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Modacity.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Modacity/Pods-Modacity.debug.xcconfig"; sourceTree = "<group>"; };
+		8E16B46C2052ECDE00A9BF8A /* PracticeItemEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PracticeItemEntry.swift; sourceTree = "<group>"; };
+		8E1EFEFB20500E7A000DE107 /* PlaylistPracticeDurationKeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistPracticeDurationKeyboardViewController.swift; sourceTree = "<group>"; };
 		8E35961F2049A61C00F2E6DF /* PlaylistDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistDetailsViewModel.swift; sourceTree = "<group>"; };
 		8E3596212049AA9500F2E6DF /* Playlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
 		8E37A0B82005B3AD00747B61 /* PracticeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeViewController.swift; sourceTree = "<group>"; };
@@ -118,9 +139,19 @@
 		8E58B44120446AE40022704B /* AppOveralDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppOveralDataManager.swift; sourceTree = "<group>"; };
 		8E58B44220446AE40022704B /* MyProfileLocalManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyProfileLocalManager.swift; sourceTree = "<group>"; };
 		8E58B44720446B180022704B /* settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = settings.storyboard; sourceTree = "<group>"; };
+		8E64B7A72056332300900775 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		8E64B7A92056A09E00900775 /* Recording.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recording.swift; sourceTree = "<group>"; };
+		8E64B7AB2056A35200900775 /* RecordingsLocalManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingsLocalManager.swift; sourceTree = "<group>"; };
+		8E64B7AD2056AA7C00900775 /* RecordingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingViewModel.swift; sourceTree = "<group>"; };
 		8E6B120A200651A40071FC75 /* ViewDroneFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewDroneFrame.swift; sourceTree = "<group>"; };
+		8E84CA6420577E7600D2D1CB /* ImproveHypothesisViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImproveHypothesisViewController.swift; sourceTree = "<group>"; };
+		8E84CA6620577F3500D2D1CB /* ImprovementViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImprovementViewModel.swift; sourceTree = "<group>"; };
+		8E84CA682057858400D2D1CB /* ImprovementViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImprovementViewController.swift; sourceTree = "<group>"; };
+		8E994FC7204EF92F0092B338 /* PracticeRateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeRateViewController.swift; sourceTree = "<group>"; };
+		8E994FCA204EFFEB0092B338 /* FloatRatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatRatingView.swift; sourceTree = "<group>"; };
 		8E99A066204072E900A9A9B8 /* MetrodoneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetrodoneViewController.swift; sourceTree = "<group>"; };
 		8E99A068204072F900A9A9B8 /* metrodone.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = metrodone.storyboard; sourceTree = "<group>"; };
+		8E9DF9042057CF47003F5FE8 /* Improvement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Improvement.swift; sourceTree = "<group>"; };
 		8EA33BA020052A3300539A3F /* playlist.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = playlist.storyboard; sourceTree = "<group>"; };
 		8EA33BA220052A4A00539A3F /* PlaylistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistViewController.swift; sourceTree = "<group>"; };
 		8EA33BA420052D0600539A3F /* recording.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = recording.storyboard; sourceTree = "<group>"; };
@@ -129,8 +160,15 @@
 		8EA9E7CC20429F140019EFA5 /* FeedbackRootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackRootViewController.swift; sourceTree = "<group>"; };
 		8EAC121220052668004232A2 /* home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = home.storyboard; sourceTree = "<group>"; };
 		8EAC1214200526BB004232A2 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		8EAE1650204FE1050012450E /* PlaylistFinishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistFinishViewController.swift; sourceTree = "<group>"; };
 		8EB479B820458B7000BE6461 /* about.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = about.storyboard; sourceTree = "<group>"; };
 		8EB479BA20458B7C00BE6461 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
+		8EB9DB98204DA67200689C1D /* PlaylistLocalManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistLocalManager.swift; sourceTree = "<group>"; };
+		8EB9DB9A204DABFD00689C1D /* PlaylistViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistViewModel.swift; sourceTree = "<group>"; };
+		8ECCAF942056EABE000E2B75 /* PlaylistDeliverModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistDeliverModel.swift; sourceTree = "<group>"; };
+		8ECCAF962056F5B9000E2B75 /* ding.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = ding.wav; path = Audios/ding.wav; sourceTree = "<group>"; };
+		8ED001CC2057671200536122 /* improve.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = improve.storyboard; sourceTree = "<group>"; };
+		8ED001CE205768C100536122 /* ImproveSuggestionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImproveSuggestionViewController.swift; sourceTree = "<group>"; };
 		8ED335E32048EBC700FB61C1 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		8ED83FC120031EF400052256 /* SplashViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		8ED83FC62003262D00052256 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
@@ -218,6 +256,7 @@
 				8E37A0BA2005B3BB00747B61 /* practice.storyboard */,
 				8E37A0B82005B3AD00747B61 /* PracticeViewController.swift */,
 				8E6B120A200651A40071FC75 /* ViewDroneFrame.swift */,
+				8E994FC7204EF92F0092B338 /* PracticeRateViewController.swift */,
 			);
 			path = Practice;
 			sourceTree = "<group>";
@@ -304,8 +343,18 @@
 				8E58B44120446AE40022704B /* AppOveralDataManager.swift */,
 				8E58B44220446AE40022704B /* MyProfileLocalManager.swift */,
 				8EDA6195204828F1006D3208 /* PracticeItemLocalManager.swift */,
+				8EB9DB98204DA67200689C1D /* PlaylistLocalManager.swift */,
+				8E64B7AB2056A35200900775 /* RecordingsLocalManager.swift */,
 			);
 			path = LocalManager;
+			sourceTree = "<group>";
+		};
+		8E994FC9204EFFEB0092B338 /* Libs */ = {
+			isa = PBXGroup;
+			children = (
+				8E994FCA204EFFEB0092B338 /* FloatRatingView.swift */,
+			);
+			path = Libs;
 			sourceTree = "<group>";
 		};
 		8E99A065204072C100A9A9B8 /* Metrodone */ = {
@@ -336,12 +385,26 @@
 			path = About;
 			sourceTree = "<group>";
 		};
+		8ED001CB205766F200536122 /* Improve */ = {
+			isa = PBXGroup;
+			children = (
+				8ED001CC2057671200536122 /* improve.storyboard */,
+				8ED001CE205768C100536122 /* ImproveSuggestionViewController.swift */,
+				8E84CA6420577E7600D2D1CB /* ImproveHypothesisViewController.swift */,
+				8E84CA682057858400D2D1CB /* ImprovementViewController.swift */,
+			);
+			path = Improve;
+			sourceTree = "<group>";
+		};
 		8ED83FBE20031EF400052256 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				8EDEB712203DE4B300E8D48D /* Me.swift */,
 				8EDA6193204827DE006D3208 /* PracticeItem.swift */,
+				8E16B46C2052ECDE00A9BF8A /* PracticeItemEntry.swift */,
 				8E3596212049AA9500F2E6DF /* Playlist.swift */,
+				8E64B7A92056A09E00900775 /* Recording.swift */,
+				8E9DF9042057CF47003F5FE8 /* Improvement.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -351,8 +414,13 @@
 			children = (
 				8EDEB6F1203DD7A800E8D48D /* AuthViewModel.swift */,
 				8E58B438204468100022704B /* ProfileViewModel.swift */,
+				8EB9DB9A204DABFD00689C1D /* PlaylistViewModel.swift */,
+				8E84CA6620577F3500D2D1CB /* ImprovementViewModel.swift */,
+				8ECCAF942056EABE000E2B75 /* PlaylistDeliverModel.swift */,
 				8E35961F2049A61C00F2E6DF /* PlaylistDetailsViewModel.swift */,
 				8EDA619720484580006D3208 /* PracticeItemViewModel.swift */,
+				8E64B7AD2056AA7C00900775 /* RecordingViewModel.swift */,
+				8E64B7A72056332300900775 /* HomeViewModel.swift */,
 				8ED335E32048EBC700FB61C1 /* ViewModel.swift */,
 			);
 			path = ViewModel;
@@ -372,6 +440,7 @@
 				8EA9E7C920429EC10019EFA5 /* AskFeedbacks */,
 				8ED83FC5200325FC00052256 /* Recording */,
 				8E37A0B72005B22600747B61 /* Practice */,
+				8ED001CB205766F200536122 /* Improve */,
 				8ED83FC62003262D00052256 /* TabBarViewController.swift */,
 			);
 			path = ViewController;
@@ -393,6 +462,8 @@
 				8EA33BA220052A4A00539A3F /* PlaylistViewController.swift */,
 				8E455D102045A84F003FDB80 /* PlaylistDetailsViewController.swift */,
 				8E455D122045B870003FDB80 /* PracticeItemListViewController.swift */,
+				8EAE1650204FE1050012450E /* PlaylistFinishViewController.swift */,
+				8E1EFEFB20500E7A000DE107 /* PlaylistPracticeDurationKeyboardViewController.swift */,
 			);
 			path = Playlist;
 			sourceTree = "<group>";
@@ -409,6 +480,8 @@
 		8EDEB6F9203DE38F00E8D48D /* Supporting */ = {
 			isa = PBXGroup;
 			children = (
+				8ECCAF962056F5B9000E2B75 /* ding.wav */,
+				8E994FC9204EFFEB0092B338 /* Libs */,
 				8E58B44020446AE40022704B /* LocalManager */,
 				8E58B43D20446AE40022704B /* RemoteManager */,
 				8EDEB6FA203DE38F00E8D48D /* Fonts */,
@@ -584,8 +657,10 @@
 				8E4551E620030F7F002061AE /* Assets.xcassets in Resources */,
 				8EA33BA520052D0600539A3F /* recording.storyboard in Resources */,
 				8E99A069204072F900A9A9B8 /* metrodone.storyboard in Resources */,
+				8ED001CD2057671200536122 /* improve.storyboard in Resources */,
 				8EA9E7CB20429EE00019EFA5 /* feedback.storyboard in Resources */,
 				8EDEB71A203DFB9A00E8D48D /* sidemenu.storyboard in Resources */,
+				8ECCAF972056F5B9000E2B75 /* ding.wav in Resources */,
 				8E4551E420030F7F002061AE /* Main.storyboard in Resources */,
 				8EDEB707203DE38F00E8D48D /* lato-italic.ttf in Resources */,
 				8EE2BD22203DAEDA00D6D7A8 /* welcome.storyboard in Resources */,
@@ -736,15 +811,18 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Modacity/Pods-Modacity-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/BWHorizontalTableView/BWHorizontalTableView.framework",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FDWaveformView/FDWaveformView.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/LGSideMenuController/LGSideMenuController.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
+				"${BUILT_PRODUCTS_DIR}/SCSiriWaveformView/SCSiriWaveformView.framework",
 				"${BUILT_PRODUCTS_DIR}/TPKeyboardAvoiding/TPKeyboardAvoiding.framework",
 				"${BUILT_PRODUCTS_DIR}/UITextView+Placeholder/UITextView_Placeholder.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
@@ -752,15 +830,18 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BWHorizontalTableView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FDWaveformView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LGSideMenuController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SCSiriWaveformView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TPKeyboardAvoiding.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UITextView_Placeholder.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
@@ -800,10 +881,14 @@
 				8EDEB6F0203DD3B900E8D48D /* SigninViewController.swift in Sources */,
 				8E58B43520445BC20022704B /* FeedbackSentViewController.swift in Sources */,
 				8E6B120B200651A40071FC75 /* ViewDroneFrame.swift in Sources */,
+				8E64B7AA2056A09F00900775 /* Recording.swift in Sources */,
 				8EA33BA320052A4A00539A3F /* PlaylistViewController.swift in Sources */,
 				8EDEB718203DFAC200E8D48D /* SideMenuController.swift in Sources */,
 				8ED335E42048EBC700FB61C1 /* ViewModel.swift in Sources */,
+				8EAE1651204FE1050012450E /* PlaylistFinishViewController.swift in Sources */,
+				8EB9DB99204DA67200689C1D /* PlaylistLocalManager.swift in Sources */,
 				8E58B44420446AE40022704B /* MyProfileRemoteManager.swift in Sources */,
+				8E1EFEFC20500E7A000DE107 /* PlaylistPracticeDurationKeyboardViewController.swift in Sources */,
 				8EDEB70E203DE38F00E8D48D /* DateUtility.swift in Sources */,
 				8EA33BA720052D2700539A3F /* RecordingViewController.swift in Sources */,
 				8EDEB6F2203DD7A800E8D48D /* AuthViewModel.swift in Sources */,
@@ -811,10 +896,14 @@
 				8EDEB70C203DE38F00E8D48D /* AppConfig.swift in Sources */,
 				8EB479BB20458B7C00BE6461 /* AboutViewController.swift in Sources */,
 				8E58B44520446AE40022704B /* AppOveralDataManager.swift in Sources */,
+				8E9DF9052057CF47003F5FE8 /* Improvement.swift in Sources */,
 				8E58B439204468100022704B /* ProfileViewModel.swift in Sources */,
 				8E37A0B92005B3AD00747B61 /* PracticeViewController.swift in Sources */,
+				8E64B7AC2056A35200900775 /* RecordingsLocalManager.swift in Sources */,
+				8E994FC8204EF92F0092B338 /* PracticeRateViewController.swift in Sources */,
 				8EDA6194204827DE006D3208 /* PracticeItem.swift in Sources */,
 				8E3596202049A61C00F2E6DF /* PlaylistDetailsViewModel.swift in Sources */,
+				8E64B7A82056332300900775 /* HomeViewModel.swift in Sources */,
 				8EDEB6EE203DCD2200E8D48D /* CreateAccountViewController.swift in Sources */,
 				8E455D112045A84F003FDB80 /* PlaylistDetailsViewController.swift in Sources */,
 				8E4551DF20030F7F002061AE /* AppDelegate.swift in Sources */,
@@ -822,15 +911,24 @@
 				8EDEB70D203DE38F00E8D48D /* AppUtils.swift in Sources */,
 				8EDA619820484580006D3208 /* PracticeItemViewModel.swift in Sources */,
 				8ED83FC72003262D00052256 /* TabBarViewController.swift in Sources */,
+				8E64B7AE2056AA7C00900775 /* RecordingViewModel.swift in Sources */,
+				8E84CA6720577F3500D2D1CB /* ImprovementViewModel.swift in Sources */,
 				8EAC1215200526BB004232A2 /* HomeViewController.swift in Sources */,
+				8ECCAF952056EABE000E2B75 /* PlaylistDeliverModel.swift in Sources */,
 				8E58B44320446AE40022704B /* Authorizer.swift in Sources */,
 				8E99A067204072E900A9A9B8 /* MetrodoneViewController.swift in Sources */,
+				8E84CA692057858400D2D1CB /* ImprovementViewController.swift in Sources */,
 				8EDA6196204828F1006D3208 /* PracticeItemLocalManager.swift in Sources */,
+				8E84CA6520577E7600D2D1CB /* ImproveHypothesisViewController.swift in Sources */,
 				8EDEB71C203DFC0200E8D48D /* LeftMenuViewController.swift in Sources */,
 				8EE2BD24203DB2AF00D6D7A8 /* TutorialViewController.swift in Sources */,
 				8EDEB713203DE4B300E8D48D /* Me.swift in Sources */,
+				8E16B46D2052ECDE00A9BF8A /* PracticeItemEntry.swift in Sources */,
+				8ED001CF205768C100536122 /* ImproveSuggestionViewController.swift in Sources */,
+				8EB9DB9B204DABFD00689C1D /* PlaylistViewModel.swift in Sources */,
 				8EA9E7CD20429F140019EFA5 /* FeedbackRootViewController.swift in Sources */,
 				8ED83FC220031EF400052256 /* SplashViewController.swift in Sources */,
+				8E994FCB204EFFEC0092B338 /* FloatRatingView.swift in Sources */,
 				8E58B43C204469E20022704B /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1005,7 +1103,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.app.Modacity;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8ca67713-d18c-47eb-8c9d-a39985bdf882";
+				PROVISIONING_PROFILE = "eff733d5-1ee5-4e1b-8576-136442b5b5ba";
 				PROVISIONING_PROFILE_SPECIFIER = ModacityAppDevelopmentProvision;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;

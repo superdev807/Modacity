@@ -10,6 +10,7 @@ import UIKit
 
 class MetrodoneViewController: UIViewController {
 
+    @IBOutlet weak var constraintForHeaderImageViewHeight: NSLayoutConstraint!
     @IBOutlet weak var constraintForSubdivisionButtonWidth: NSLayoutConstraint!
     @IBOutlet weak var constraintForDroneViewLeading: NSLayoutConstraint!
     @IBOutlet weak var constraintForDroneViewTrailing: NSLayoutConstraint!
@@ -30,6 +31,13 @@ class MetrodoneViewController: UIViewController {
     }
     
     func configureLayout() {
+        
+        if AppUtils.iphoneIsXModel() {
+            self.constraintForHeaderImageViewHeight.constant = 108
+        } else {
+            self.constraintForHeaderImageViewHeight.constant = 88
+        }
+        
         if AppUtils.sizeModelOfiPhone() == .iphone5_4in {
             self.constraintForSubdivisionButtonWidth.constant = 90
         } else {

@@ -21,8 +21,11 @@ class FeedbackRootViewController: UIViewController {
     @IBOutlet weak var labelSubTitle: UILabel!
     @IBOutlet weak var viewAttachMostRecentAudio: UIView!
     @IBOutlet weak var segmentedControlMode: UISegmentedControl!
+    @IBOutlet weak var constraintForHeaderImageViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var imageViewTopLeft: UIImageView!
     
     var checkIconSelected = false
+    var pageIsRootFromMenu = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +36,17 @@ class FeedbackRootViewController: UIViewController {
         self.imageViewCheckIcon.image = UIImage(named:"icon_checkmark_blue_deselected")
         self.textViewMessage.placeholder = "Type your message here"
         self.textViewMessage.placeholderColor = Color(hexString:"#9F9EAD")
+        if AppUtils.iphoneIsXModel() {
+            self.constraintForHeaderImageViewHeight.constant = 108
+        } else {
+            self.constraintForHeaderImageViewHeight.constant = 88
+        }
+        
+        if self.pageIsRootFromMenu {
+            self.imageViewTopLeft.image = UIImage(named: "icon_menu")
+        } else {
+            self.imageViewTopLeft.image = UIImage(named: "icon_close")
+        }
         
         self.configurePageForMode()
         
@@ -92,7 +106,11 @@ class FeedbackRootViewController: UIViewController {
     }
     
     @IBAction func onMenu(_ sender: Any) {
-        self.sideMenuController?.showLeftViewAnimated()
+        if self.pageIsRootFromMenu {
+            self.sideMenuController?.showLeftViewAnimated()
+        } else {
+            self.navigationController?.dismiss(animated: true, completion: nil)
+        }
     }
     
     @IBAction func onTaponView(_ sender: Any) {

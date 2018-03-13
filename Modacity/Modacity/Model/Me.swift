@@ -29,7 +29,24 @@ class Me: Mappable {
     
     func displayName() -> String {
         if name == nil || name == "" {
-            return email.components(separatedBy: "@")[0]
+            let emailPref = email.components(separatedBy: "@")[0]
+            var names = [String]()
+            var name = ""
+            for idx in 0..<emailPref.count {
+                let letter = String(emailPref[emailPref.index(emailPref.startIndex, offsetBy: idx)])
+                if letter.lowercased() < "a" || letter.lowercased() > "z" {
+                    if name != "" {
+                        names.append(name.capitalizingFirstLetter())
+                        name = ""
+                    }
+                } else {
+                    name = name + letter
+                }
+            }
+            if name != "" {
+                names.append(name)
+            }
+            return names.joined(separator: " ")
         } else {
             return name!
         }

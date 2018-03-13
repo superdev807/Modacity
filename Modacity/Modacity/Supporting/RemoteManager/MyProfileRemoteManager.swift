@@ -27,6 +27,7 @@ class MyProfileRemoteManager {
                 if snapshot.exists() {
                     if let profile = snapshot.value as? [String:Any] {
                         MyProfileLocalManager.manager.me = Me(JSON: profile)
+                        NotificationCenter.default.post(name: AppConfig.appNotificationProfileUpdated, object: nil)
                     }
                 }
             }

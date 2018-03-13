@@ -14,12 +14,13 @@ class Playlist: Mappable {
     var id: String!
     var name: String!
     var createdAt: String!
-    var practiceItems: [String]?
+    var practiceItems: [PracticeItemEntry]!
     
     init() {
+        id = ""
         name = ""
         createdAt = "\(Date().timeIntervalSince1970)"
-        practiceItems = [String]()
+        practiceItems = [PracticeItemEntry]()
     }
     
     required init?(map: Map) {

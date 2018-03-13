@@ -41,4 +41,31 @@ class PracticeItemLocalManager {
         } catch {
         }
     }
+    
+    func isFavoritePracticeItem(for item:String) -> Bool {
+        return UserDefaults.standard.bool(forKey: "favorite_\(item)")
+    }
+    
+    func setFavoritePracticeItem(for item:String) {
+        let isFavorite = UserDefaults.standard.bool(forKey: "favorite_\(item)")
+        if isFavorite {
+            UserDefaults.standard.removeObject(forKey: "favorite_\(item)")
+        } else {
+            UserDefaults.standard.set(true, forKey: "favorite_\(item)")
+        }
+        UserDefaults.standard.synchronize()
+    }
+    
+    func ratingValue(forPracticeItem: String) -> Double? {
+        if UserDefaults.standard.object(forKey:"rating-" + forPracticeItem) == nil {
+            return nil
+        } else {
+            return UserDefaults.standard.double(forKey:"rating-" + forPracticeItem)
+        }
+    }
+    
+    func setRatingValue(forPracticeItem: String, rating: Double) {
+        UserDefaults.standard.set(rating, forKey: "rating-" + forPracticeItem)
+        UserDefaults.standard.synchronize()
+    }
 }
