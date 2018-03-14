@@ -145,7 +145,7 @@
                                             <constraint firstAttribute="height" constant="12" id="zzp-Lf-zUu"/>
                                         </constraints>
                                     </imageView>
-                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Oe8-rC-QBR">
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.10000000000000001" maxValue="0.98999999999999999" translatesAutoresizingMaskIntoConstraints="NO" id="Oe8-rC-QBR">
                                         <rect key="frame" x="218.66666666666666" y="5.6666666666666856" width="118.33333333333334" height="13"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="12" id="b58-Hp-VkT"/>
@@ -153,6 +153,9 @@
                                         <color key="minimumTrackTintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <color key="maximumTrackTintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <color key="thumbTintColor" red="0.20392156859999999" green="0.1960784314" blue="0.32156862749999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <action selector="onDurationChanged:" destination="U5I-Ap-dmF" eventType="valueChanged" id="zhG-LC-vJb"/>
+                                        </connections>
                                     </slider>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Duration" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ayl-QN-CM2">
                                         <rect key="frame" x="170.66666666666666" y="2" width="40" height="20"/>
@@ -196,6 +199,11 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6My-F5-oWc">
                                                 <rect key="frame" x="7.0000000000000284" y="4.6666666666667425" width="30" height="30"/>
                                                 <state key="normal" image="icon_plus"/>
+                                                <connections>
+                                                    <action selector="onChangeBPMStop:" destination="U5I-Ap-dmF" eventType="touchUpInside" id="CgB-5A-a2l"/>
+                                                    <action selector="onChangeBPMStop:" destination="U5I-Ap-dmF" eventType="touchUpOutside" id="iTj-XD-Ue1"/>
+                                                    <action selector="onIncreaseBPMTouch:" destination="U5I-Ap-dmF" eventType="touchDown" id="Iwd-BD-7vc"/>
+                                                </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="18" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nA9-Kq-9EG">
                                                 <rect key="frame" x="37.000000000000028" y="10.666666666666742" width="36" height="19"/>
@@ -209,6 +217,11 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hwe-7c-ypv">
                                                 <rect key="frame" x="73.000000000000028" y="4.6666666666667425" width="30" height="30"/>
                                                 <state key="normal" image="icon_minus"/>
+                                                <connections>
+                                                    <action selector="onChangeBPMStop:" destination="U5I-Ap-dmF" eventType="touchUpInside" id="aDK-hk-t78"/>
+                                                    <action selector="onChangeBPMStop:" destination="U5I-Ap-dmF" eventType="touchUpOutside" id="ng9-bx-px3"/>
+                                                    <action selector="onDecreaseBPMTouch:" destination="U5I-Ap-dmF" eventType="touchDown" id="39j-i9-LmC"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -229,6 +242,9 @@
                                             <constraint firstAttribute="width" secondItem="0za-oA-9Ec" secondAttribute="height" multiplier="1:1" id="vig-Yl-Jms"/>
                                         </constraints>
                                         <state key="normal" image="btn_drone_play_large"/>
+                                        <connections>
+                                            <action selector="onBtnPlay:" destination="U5I-Ap-dmF" eventType="touchUpInside" id="cZL-VF-swb"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O0c-uk-TJe">
                                         <rect key="frame" x="88.666666666666686" y="192.66666666666663" width="88.333333333333314" height="88.333333333333314"/>
@@ -236,6 +252,11 @@
                                             <constraint firstAttribute="width" secondItem="O0c-uk-TJe" secondAttribute="height" multiplier="1:1" id="V5G-eO-mVM"/>
                                         </constraints>
                                         <state key="normal" image="btn_drone_tap"/>
+                                        <connections>
+                                            <action selector="onTapDown:" destination="U5I-Ap-dmF" eventType="touchDown" id="wCc-gf-T9J"/>
+                                            <action selector="onTapTouchup:" destination="U5I-Ap-dmF" eventType="touchUpInside" id="NSC-wy-Wyb"/>
+                                            <action selector="onTapTouchup:" destination="U5I-Ap-dmF" eventType="touchUpOutside" id="fsE-40-X0b"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="METRODRONE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hp2-Y5-8nZ">
                                         <rect key="frame" x="0.0" y="170.66666666666663" width="71.666666666666671" height="12"/>
@@ -314,10 +335,14 @@
                     </view>
                     <navigationItem key="navigationItem" id="DGx-X4-a7X"/>
                     <connections>
+                        <outlet property="buttonPlay" destination="0za-oA-9Ec" id="LRR-SQ-2FZ"/>
                         <outlet property="constraintForDroneViewLeading" destination="T6m-T2-y38" id="mus-Pu-kPV"/>
                         <outlet property="constraintForDroneViewTrailing" destination="OXV-Vi-5aG" id="LlH-nS-qFQ"/>
                         <outlet property="constraintForHeaderImageViewHeight" destination="rcp-0U-ora" id="TKN-KN-tpG"/>
                         <outlet property="constraintForSubdivisionButtonWidth" destination="0As-9v-Cyk" id="Gm5-sU-cjp"/>
+                        <outlet property="labelTempo" destination="nA9-Kq-9EG" id="CDV-hb-vfg"/>
+                        <outlet property="sliderDuration" destination="Oe8-rC-QBR" id="ai7-Y5-ktb"/>
+                        <outlet property="viewDroneFrame" destination="51d-D2-uYL" id="WJg-oL-DHH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sFe-wT-VGF" userLabel="First Responder" sceneMemberID="firstResponder"/>

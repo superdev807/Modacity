@@ -19,6 +19,7 @@ class ViewDroneFrame: UIView {
     let offsetBetweenCenter = CGFloat(4)
     
     var selectedDronFrameIdx = -1
+    var delegate: DroneFrameDelegate?
     
     var niceImage: UIImage {
 
@@ -143,15 +144,29 @@ class ViewDroneFrame: UIView {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        detectDroneIndex(forEvent: event!)
+        let index = detectDroneIndex(forEvent: event!)
+        if (delegate != nil) {
+            delegate?.selectedIndexChanged(newIndex: index)
+            delegate?.toneWheelNoteDown()
+        } 
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let index = detectDroneIndex(forEvent: event!)
+        if (delegate != nil) {
+            delegate?.selectedIndexChanged(newIndex: index)
+        }
         
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
+        if (delegate != nil) {
+            delegate?.toneWheelNoteUp()
+        }
+    }
+    
+    func updateVisuals() {
+        self.setNeedsDisplay()
     }
     
     func detectDroneIndex(forEvent: UIEvent) -> Int {
