@@ -143,7 +143,21 @@ class ViewDroneFrame: UIView {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let touch = event?.allTouches?.first {
+        detectDroneIndex(forEvent: event!)
+    }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+    }
+    
+    func detectDroneIndex(forEvent: UIEvent) -> Int {
+        var returnIndex = -1
+        
+        if let touch = forEvent.allTouches?.first {
             let touchPoint = touch.location(in: self)
             let dx = touchPoint.x - self.frame.size.width / 2
             let dy = touchPoint.y - self.frame.size.height / 2
@@ -171,17 +185,11 @@ class ViewDroneFrame: UIView {
                 let idx = Int(angle / Double.pi * 6)
                 print("touch on \(idx)")
                 selectedDronFrameIdx = idx
+                returnIndex = selectedDronFrameIdx
                 setNeedsDisplay()
             }
         }
-    }
-    
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
+        return returnIndex
     }
 
 }

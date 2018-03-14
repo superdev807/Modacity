@@ -128,7 +128,7 @@ class PracticeItemListViewController: UIViewController {
         self.viewModel.subscribe(to: "selectedItems") { (event, _, _) in
             if self.viewModel.selectedItems.count > 0 {
                 self.buttonAddButton.isHidden = false
-                self.buttonAddButton.setTitle("Add \(self.viewModel.selectedItems.count) practice", for: .normal)
+                self.buttonAddButton.setTitle("Add \(self.viewModel.selectedItems.count) Practices", for: .normal)
             } else {
                 self.buttonAddButton.isHidden = true
             }
@@ -178,7 +178,7 @@ extension PracticeItemListViewController: UITextFieldDelegate {
         let newKeyword = self.textfieldSearch.text ?? ""
         if newKeyword != "" && !self.viewModel.practiceItemContains(itemName: newKeyword) {
             self.viewStoreNewItemPanel.isHidden = false
-            self.labelStoreNewItem.text = "Add practice \"\(newKeyword)\"."
+            self.labelStoreNewItem.text = "\"\(newKeyword)\""
             self.constraintForTableViewTopSpace.constant = 100
         } else {
             self.viewStoreNewItemPanel.isHidden = true
