@@ -431,7 +431,9 @@
                                                 </constraints>
                                                 <state key="normal" image="icon_backward"/>
                                                 <connections>
-                                                    <action selector="onAudioBackward:" destination="ruu-CR-fPU" eventType="touchUpInside" id="zaG-hY-vcJ"/>
+                                                    <action selector="onTouchDownOnBackward:" destination="ruu-CR-fPU" eventType="touchDown" id="cP1-MK-lYs"/>
+                                                    <action selector="onTouchUpInsideOnBackward:" destination="ruu-CR-fPU" eventType="touchUpInside" id="0LM-sx-MpY"/>
+                                                    <action selector="onTouchUpOutsideOnBackward:" destination="ruu-CR-fPU" eventType="touchUpOutside" id="cbB-3f-6HF"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c98-Ae-dDF">
@@ -453,7 +455,9 @@
                                                 </constraints>
                                                 <state key="normal" image="icon_forward_white"/>
                                                 <connections>
-                                                    <action selector="onAudioForward:" destination="ruu-CR-fPU" eventType="touchUpInside" id="8fp-hE-wmr"/>
+                                                    <action selector="onTouchDownOnForward:" destination="ruu-CR-fPU" eventType="touchDown" id="7Dn-DU-G2H"/>
+                                                    <action selector="onTouchUpInsideOnForward:" destination="ruu-CR-fPU" eventType="touchUpInside" id="RLe-mh-TNy"/>
+                                                    <action selector="onTouchUpOutsideOnForward:" destination="ruu-CR-fPU" eventType="touchUpOutside" id="XK4-1a-a1e"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ovm-8S-GaC">
@@ -975,6 +979,8 @@ You can tap timer to pause your session.</string>
                     <navigationItem key="navigationItem" id="R6x-lj-ztp"/>
                     <connections>
                         <outlet property="btnRecord" destination="rFP-in-7sp" id="uST-Cm-nj4"/>
+                        <outlet property="buttonAudioBackward" destination="xAo-yA-VmF" id="meC-8g-Svl"/>
+                        <outlet property="buttonAudioForward" destination="o4y-t0-Wkn" id="KvJ-nT-O8R"/>
                         <outlet property="buttonAudioPlay" destination="c98-Ae-dDF" id="U49-Zj-t1W"/>
                         <outlet property="buttonFavorite" destination="CqK-vm-U6A" id="LxK-kB-F3y"/>
                         <outlet property="buttonMetrodronePlay" destination="y2g-Dd-GPv" id="7aX-Wc-hZw"/>

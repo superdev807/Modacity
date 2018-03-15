@@ -13,56 +13,60 @@ import FDWaveformView
 
 class PracticeViewController: MetrodroneBaseViewController {
     
+    var playlistViewModel: PlaylistDetailsViewModel!
+    
+    @IBOutlet weak var labelPracticeItemName: UILabel!
     @IBOutlet weak var buttonFavorite: UIButton!
+    
+    // MARK:- Property values for timer
     @IBOutlet weak var labelHour: UILabel!
     @IBOutlet weak var labelMinute: UILabel!
     @IBOutlet weak var labelSeconds: UILabel!
-    @IBOutlet weak var viewMinimizedDrone: UIView!
-    @IBOutlet weak var viewMaximizedDrone: UIView!
-    @IBOutlet weak var viewPromptPanel: UIView!
-    @IBOutlet weak var btnRecord: UIButton!
-    @IBOutlet weak var imageViewHeader: UIImageView!
-    @IBOutlet weak var labelPracticeItemName: UILabel!
-    @IBOutlet weak var constraintForMaximizedDroneBottomSpace: NSLayoutConstraint!
-    
-    @IBOutlet weak var waveformAudioPlay: FDWaveformView!
-    @IBOutlet weak var viewAudioPlayer: UIView!
-    @IBOutlet weak var viewSiriWaveFormView: SCSiriWaveformView!
-    
-    @IBOutlet weak var buttonAudioPlay: UIButton!
-    
-    @IBOutlet weak var labelPlayerRemainsTime: UILabel!
-    @IBOutlet weak var labelPlayerCurrentTime: UILabel!
-    
     @IBOutlet weak var viewTimeArea: UIView!
     @IBOutlet weak var viewTimeAreaPausedPanel: UIView!
+    var timer: Timer!
+    var timerRunning = false
+    var timerStarted: Date!
+    var secondsPrevPlayed: Int!
+    var isCountDown = false
+    var countDownTimerStart = 0
+    var timerShouldStartFrom = 0
+    var timerShouldDown = false
+    var timerShouldFinish = 0
+    var dingSoundPlayer: AVAudioPlayer? = nil
     
+    // MARK: - Properties for prompt panel processing
+    @IBOutlet weak var viewPromptPanel: UIView!
+    
+    // MARK: - Properties for recording
+    @IBOutlet weak var btnRecord: UIButton!
+    @IBOutlet weak var waveformAudioPlay: FDWaveformView!
+    var recorder: AVAudioRecorder!
+    var isRecording = false
+    
+    // MARK: - Properties for audio player
+    @IBOutlet weak var viewAudioPlayer: UIView!
+    @IBOutlet weak var viewSiriWaveFormView: SCSiriWaveformView!
+    @IBOutlet weak var buttonAudioPlay: UIButton!
+    @IBOutlet weak var buttonAudioForward: UIButton!
+    @IBOutlet weak var buttonAudioBackward: UIButton!
+    @IBOutlet weak var labelPlayerRemainsTime: UILabel!
+    @IBOutlet weak var labelPlayerCurrentTime: UILabel!
+    var player: AVAudioPlayer?
+    var audioPlayerTimer: Timer?
+    var isPlaying = false
+    
+    
+    // MARK: - Properties for drone
+    @IBOutlet weak var viewMinimizedDrone: UIView!
+    @IBOutlet weak var viewMaximizedDrone: UIView!
+    @IBOutlet weak var imageViewHeader: UIImageView!
+    @IBOutlet weak var constraintForMaximizedDroneBottomSpace: NSLayoutConstraint!
     @IBOutlet weak var viewDroneFrame: ViewDroneFrame!
     @IBOutlet weak var sliderDuration: UISlider!
     @IBOutlet weak var labelTempo: UILabel!
     @IBOutlet weak var buttonMetrodronePlay: UIButton!
     @IBOutlet weak var buttonSustain: UIButton!
-    
-    var timer: Timer!
-    var timerRunning = false
-    var timerStarted: Date!
-    var secondsPrevPlayed: Int!
-    
-    var isCountDown = false
-    var countDownTimerStart = 0
-    
-    var timerShouldStartFrom = 0
-    var timerShouldDown = false
-    var timerShouldFinish = 0
-    
-    var playlistViewModel: PlaylistDetailsViewModel!
-    
-    var recorder: AVAudioRecorder!
-    var isRecording = false
-    
-    var player: AVAudioPlayer?
-    var audioPlayerTimer: Timer?
-    var isPlaying = false
     
     @IBOutlet weak var viewBottomXBar: UIView!
     
@@ -70,83 +74,20 @@ class PracticeViewController: MetrodroneBaseViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        initializeOutlets(lblTempo: labelTempo, droneFrame: viewDroneFrame, playButton: buttonMetrodronePlay, durationSlider: sliderDuration,
+        initializeOutlets(lblTempo: labelTempo,
+                          droneFrame: viewDroneFrame,
+                          playButton: buttonMetrodronePlay,
+                          durationSlider: sliderDuration,
                           sustainButton: buttonSustain)
         
         self.playlistViewModel.storePlaylist()
-        
-        self.viewBottomXBar.backgroundColor = Color(hexString:"#292a4a")
-        self.viewPromptPanel.layer.cornerRadius = 5
-        
-        self.constraintForMaximizedDroneBottomSpace.constant =  self.view.bounds.size.height * 336/667 - 40
         self.labelPracticeItemName.text = self.playlistViewModel.currentPracticeItem.name
+        
+        self.initializeDroneUIs()
         self.processFavoriteIconImage()
-        self.viewSiriWaveFormView.isHidden = true
-        self.viewAudioPlayer.isHidden = true
-        
-        if self.playlistViewModel.tooltipAlreadyShown() {
-            self.viewPromptPanel.isHidden = true
-        } else {
-            self.viewPromptPanel.isHidden = false
-            self.playlistViewModel.didTooltipShown()
-        }
-        
-        self.viewTimeAreaPausedPanel.isHidden = true
-        self.processTimerStarting()
-        self.perform(#selector(onTimerStart), with: nil, afterDelay: 0.5)
-        
-        if let countDownTimer =  self.playlistViewModel.currentPracticeItem.countDownDuration {
-            
-            if countDownTimer > 0 {
-                
-                self.isCountDown = true
-                
-                if let timePracticed = self.playlistViewModel.duration(forPracticeItem: self.playlistViewModel.currentPracticeItem.entryId) {
-                    
-                    if timePracticed < countDownTimer {
-                        self.countDownTimerStart = countDownTimer - timePracticed
-                    } else {
-                        self.countDownTimerStart = 0
-                    }
-                }
-            }
-        }
-        
-        self.viewTimeArea.layer.cornerRadius = 10
-        self.viewTimeArea.layer.masksToBounds = true
-    }
-    
-    func processTimerStarting() {
-        var timeAlreadyPracticed = 0
-        if let timePracticed = self.playlistViewModel.duration(forPracticeItem: self.playlistViewModel.currentPracticeItem.entryId) {
-            timeAlreadyPracticed = timePracticed
-        }
-        
-        if let countDownTimer =  self.playlistViewModel.currentPracticeItem.countDownDuration {
-            if countDownTimer > 0 {
-                
-                if let reseted = self.playlistViewModel.countdownReseted[self.playlistViewModel.currentPracticeItem.entryId] {
-                    if reseted {
-                        timerShouldDown = true
-                        timerShouldStartFrom = countDownTimer
-                        self.playlistViewModel.countdownReseted[self.playlistViewModel.currentPracticeItem.entryId] = false
-                        return
-                    }
-                }
-                
-                if timeAlreadyPracticed >= countDownTimer {
-                    timerShouldDown = false
-                    timerShouldStartFrom = timeAlreadyPracticed
-                } else {
-                    timerShouldDown = true
-                    timerShouldStartFrom = countDownTimer - timeAlreadyPracticed
-                }
-                return
-            }
-        }
-        
-        timerShouldDown = false
-        timerShouldStartFrom = timeAlreadyPracticed
+        self.initializeAudioPlayerUI()
+        self.initializeTipPromptPanel()
+        self.initializeTimer()
     }
     
     func processFavoriteIconImage() {
@@ -182,11 +123,83 @@ class PracticeViewController: MetrodroneBaseViewController {
             controller.playlistViewModel = self.playlistViewModel
         }
     }
+}
+
+// MARK: - Metrodone processing
+extension PracticeViewController {
     
+    func initializeDroneUIs() {
+        self.viewBottomXBar.backgroundColor = Color(hexString:"#292a4a")
+        self.constraintForMaximizedDroneBottomSpace.constant =  self.view.bounds.size.height * 336/667 - 40
+    }
+    
+    @IBAction func onShowDrones(_ sender: Any) {
+        if !self.viewPromptPanel.isHidden {
+            self.onCloseAlertPanel(sender)
+        }
+        
+        self.viewMaximizedDrone.isHidden = false
+        self.constraintForMaximizedDroneBottomSpace.constant = 0
+        UIView.animate(withDuration: 1.0) {
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    @IBAction func onHideDrones(_ sender: Any) {
+        self.constraintForMaximizedDroneBottomSpace.constant =  self.view.bounds.size.height * 336/667 - 40
+        UIView.animate(withDuration: 1.0, animations: {
+            self.view.layoutIfNeeded()
+        }) { (finished) in
+            if finished {
+                self.viewMinimizedDrone.isHidden = false
+                self.viewMaximizedDrone.isHidden = true
+            }
+        }
+    }
+    
+    @IBAction func onSustainButton(_ sender: Any) {
+        let isOn = toggleSustain()
+        buttonSustain.alpha = (isOn) ? 1.0 : 0.50
+    }
+    
+    @IBAction func onDurationChanged(_ sender: Any) {
+        changeDuration(newValue: sliderDuration.value)
+    }
+    
+    @IBAction func onBtnPlay(_ sender: Any) {
+        if (!isMetrodronePlaying) {
+            goMetronome()
+        } else {
+            stopMetrodrone()
+        }
+    }
+    
+    @IBAction func onTapDown(_ sender: Any) {
+        tapDown()
+    }
+    
+    @IBAction func onTapTouchup(_ sender: Any) {
+        tapUp()
+    }
+    
+    @IBAction func onIncreaseBPMTouch(_ sender: Any) {
+        increaseBPMTouch()
+    }
+    
+    @IBAction func onDecreaseBPMTouch(_ sender: Any) {
+        decreaseBPMTouch()
+    }
+    
+    @IBAction func onChangeBPMStop(_ sender: Any) {
+        stopBPMChangeTimer()
+    }
+}
+
+// MARK: - Process navigations
+extension PracticeViewController {
     @IBAction func onEnd(_ sender: Any) {
         
         if !isCountDown {
-            
             var duration = 0
             if timerRunning {
                 duration = Int(Date().timeIntervalSince1970 - self.timerStarted.timeIntervalSince1970) + self.secondsPrevPlayed
@@ -217,122 +230,186 @@ class PracticeViewController: MetrodroneBaseViewController {
         self.processFavoriteIconImage()
     }
     
-    @IBAction func onCloseAlertPanel(_ sender: Any) {
-        UIView.animate(withDuration: 0.5, animations: {
-            self.viewPromptPanel.alpha = 0
-        }) { (_) in
-            self.viewPromptPanel.isHidden = true
+    @IBAction func onImprove(_ sender: Any) {
+        
+        if recorder != nil && recorder.isRecording {
+            AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Please stop recording first to do improvements!")
+            return
         }
+        let controller = UIStoryboard(name: "improve", bundle: nil).instantiateViewController(withIdentifier: "improve_scene") as! UINavigationController
+        let root = controller.viewControllers[0] as! ImproveSuggestionViewController
+        root.playlistModel = self.playlistViewModel
+        self.present(controller, animated: true, completion: nil)
     }
     
-    @IBAction func onTapTimer(_ sender: Any) {
+    @IBAction func onAskExpert(_ sender: Any) {
         
-        if !self.viewPromptPanel.isHidden {
-            self.onCloseAlertPanel(sender)
-        }
-        
-        if self.timerRunning {
-            self.secondsPrevPlayed = Int(Date().timeIntervalSince1970 - self.timerStarted.timeIntervalSince1970) + self.secondsPrevPlayed
-            self.timer.invalidate()
-            self.timerRunning = false
-            self.viewTimeAreaPausedPanel.isHidden = false
-        } else {
-            self.timerStarted = Date()
-            self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(onTimer), userInfo: nil, repeats: true)
-            self.timerRunning = true
-            self.viewTimeAreaPausedPanel.isHidden = true
-        }
-    }
-    
-    @objc func onTimerStart() {
-        self.timerStarted = Date()
-        self.secondsPrevPlayed = 0
-        self.labelHour.text = String(format:"%02d", timerShouldStartFrom / 3600)
-        self.labelMinute.text = String(format:"%02d", (timerShouldStartFrom % 3600) / 60)
-        self.labelSeconds.text = String(format:"%02d", timerShouldStartFrom % 60)
-        
-        self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(onTimer), userInfo: nil, repeats: true)
-        self.timerRunning = true
-    }
-    
-    @objc func onTimer() {
-        
-        let date = Date()
-        var durationSeconds = Int(date.timeIntervalSince1970 - self.timerStarted.timeIntervalSince1970) + self.secondsPrevPlayed
-        
-        if timerShouldDown {
-            if durationSeconds >= timerShouldStartFrom {
-                self.finishCountDownTimer()
-                return
-            } else {
-                durationSeconds = timerShouldStartFrom - durationSeconds
-            }
-            
-        } else {
-            durationSeconds = durationSeconds + timerShouldStartFrom
-        }
-        
-        self.labelHour.text = String(format:"%02d", durationSeconds / 3600)
-        self.labelMinute.text = String(format:"%02d", (durationSeconds % 3600) / 60)
-        self.labelSeconds.text = String(format:"%02d", durationSeconds % 60)
+        let controller = UIStoryboard(name:"feedback", bundle:nil).instantiateViewController(withIdentifier: "feedbackscene") as! UINavigationController
+        let feedbackRootViewController = controller.viewControllers[0] as! FeedbackRootViewController
+        feedbackRootViewController.pageIsRootFromMenu = false
+        feedbackRootViewController.pageUIMode = 0
+        self.present(controller, animated: true, completion: nil)
         
     }
     
-    var dingSoundPlayer: AVAudioPlayer? = nil
+    @IBAction func onFeedback(_ sender: Any) {
+        let controller = UIStoryboard(name:"feedback", bundle:nil).instantiateViewController(withIdentifier: "feedbackscene") as! UINavigationController
+        let feedbackRootViewController = controller.viewControllers[0] as! FeedbackRootViewController
+        feedbackRootViewController.pageIsRootFromMenu = false
+        feedbackRootViewController.pageUIMode = 1
+        self.present(controller, animated: true, completion: nil)
+    }
+}
+
+// MARK: - Process audio player
+extension PracticeViewController: AVAudioPlayerDelegate {
     
-    func playDingSound() {
+    func initializeAudioPlayerUI() {
+        self.viewSiriWaveFormView.isHidden = true
+        self.viewAudioPlayer.isHidden = true
+    }
+    
+    @IBAction func onTouchDownOnBackward(_ sender: Any) {
+        if let player = self.player {
+            player.rate = 0.5
+        }
+    }
+    
+    @IBAction func onTouchUpOutsideOnBackward(_ sender: Any) {
+        if let player = self.player {
+            player.rate = 1.0
+        }
+    }
+    
+    @IBAction func onTouchUpInsideOnBackward(_ sender: Any) {
+        if let player = self.player {
+            player.rate = 1.0
+        }
+    }
+    
+    @IBAction func onTouchDownOnForward(_ sender: Any) {
+        if let player = self.player {
+            player.rate = 2.0
+        }
+    }
+    
+    @IBAction func onTouchUpOutsideOnForward(_ sender: Any) {
+        if let player = self.player {
+            player.rate = 1.0
+        }
+    }
+    
+    @IBAction func onTouchUpInsideOnForward(_ sender: Any) {
+        if let player = self.player {
+            player.rate = 1.0
+        }
+    }
+    
+    func prepareAudioPlay() {
+        self.viewSiriWaveFormView.isHidden = true
+        self.viewAudioPlayer.isHidden = false
         
-        guard let url = Bundle.main.url(forResource: "ding", withExtension: "wav") else { return }
+        let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+        let soundFilePath = dirPath[0] + "/recording.wav"
+        let url = URL(fileURLWithPath: soundFilePath)
         
         do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
-            self.dingSoundPlayer = try AVAudioPlayer(contentsOf: url)
-            self.dingSoundPlayer!.prepareToPlay()
-            self.dingSoundPlayer!.play()
+            try AVAudioSession.sharedInstance().overrideOutputAudioPort(.speaker)
+            player = try AVAudioPlayer(contentsOf: url)
+            guard let player = player else { return }
+            player.enableRate = true
+            player.prepareToPlay()
+            player.delegate = self
         } catch let error {
-            print("Audio player (ding sound) error \(error)")
+            print("Audio player error \(error)")
+        }
+        
+        self.isPlaying = false
+        
+        self.waveformAudioPlay.audioURL = url
+        self.waveformAudioPlay.doesAllowStretch = false
+        self.waveformAudioPlay.doesAllowScroll = false
+        self.waveformAudioPlay.doesAllowScrubbing = true
+        self.waveformAudioPlay.wavesColor = Color.white.alpha(0.5)
+        self.waveformAudioPlay.progressColor = Color.white
+        self.waveformAudioPlay.delegate = self
+        
+        self.audioPlayerTimer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: true, block: { (_) in
+            if let player = self.player {
+                self.waveformAudioPlay.highlightedSamples = 0..<Int(Double(self.waveformAudioPlay.totalSamples) * (player.currentTime / player.duration))
+                self.labelPlayerCurrentTime.text = String(format:"%d:%02d", Int(player.currentTime) / 60, Int(player.currentTime) % 60)
+                self.labelPlayerRemainsTime.text = String(format:"-%d:%02d", Int(player.duration - player.currentTime) / 60, Int(player.duration - player.currentTime) % 60)
+            }
+        })
+    }
+    
+    @IBAction func onPlayPauseAudio(_ sender: Any) {
+        if self.isPlaying {
+            if let player = player {
+                player.pause()
+            }
+            self.isPlaying = false
+            self.buttonAudioPlay.setImage(UIImage(named: "icon_play"), for: .normal)
+        } else {
+            startPlayAudio()
         }
     }
     
-    func finishCountDownTimer() {
-        self.playDingSound()
-        self.labelHour.text = "00"
-        self.labelMinute.text = "00"
-        self.labelSeconds.text = "00"
-        self.timer.invalidate()
-        
-        let duration = Int(Date().timeIntervalSince1970 - self.timerStarted.timeIntervalSince1970) + self.secondsPrevPlayed
-        self.playlistViewModel.setDuration(forPracticeItem: self.playlistViewModel.currentPracticeItem.entryId,
-                                           duration: duration + (self.playlistViewModel.duration(forPracticeItem: self.playlistViewModel.currentPracticeItem.entryId) ?? 0))
-        self.performSegue(withIdentifier: "sid_rate", sender: nil)
-        
+    func startPlayAudio() {
+        if let player = player {
+            player.play()
+        }
+        self.isPlaying = true
+        self.buttonAudioPlay.setImage(UIImage(named: "icon_pause_white"), for: .normal)
     }
     
-    @IBAction func onShowDrones(_ sender: Any) {
-        
-        if !self.viewPromptPanel.isHidden {
-            self.onCloseAlertPanel(sender)
-        }
-        
-        self.viewMaximizedDrone.isHidden = false
-        self.constraintForMaximizedDroneBottomSpace.constant = 0
-        UIView.animate(withDuration: 1.0) {
-            self.view.layoutIfNeeded()
+    @IBAction func onAudioBackward(_ sender: Any) {
+        if let player = player {
+            player.currentTime = player.currentTime - 1.0
         }
     }
     
-    @IBAction func onHideDrones(_ sender: Any) {
-        self.constraintForMaximizedDroneBottomSpace.constant =  self.view.bounds.size.height * 336/667 - 40
-        UIView.animate(withDuration: 1.0, animations: {
-            self.view.layoutIfNeeded()
-        }) { (finished) in
-            if finished {
-                self.viewMinimizedDrone.isHidden = false
-                self.viewMaximizedDrone.isHidden = true
+    @IBAction func onAudioForward(_ sender: Any) {
+        if let player = player {
+            player.rate = 2
+        }
+    }
+    
+    @IBAction func onSaveRecord(_ sender: Any) {
+        let alertController = UIAlertController(title: nil, message: "Enter the file name!", preferredStyle: .alert)
+        alertController.addTextField { (textField) in
+            if var practiceName = self.playlistViewModel.currentPracticeItem.name {
+                practiceName = String(practiceName.prefix(16))
+                let autoIncrementedNumber = self.playlistViewModel.fileNameAutoIncrementedNumber()
+                textField.text = "\(practiceName)_\(Date().toString(format: "yyyyMMdd"))_\(String(format:"%02d", autoIncrementedNumber))"
             }
         }
+        alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
+            if let name = alertController.textFields?[0].text {
+                if name != "" {
+                    self.playlistViewModel.increaseAutoIncrementedNumber()
+                    self.playlistViewModel.saveCurrentRecording(toFileName: name)
+                }
+            }
+        }))
+        alertController.addAction(UIAlertAction(title: "Cancel", style:.cancel, handler:nil))
+        self.present(alertController, animated: true, completion: nil)
     }
     
+    @IBAction func onAudioToFirst(_ sender: Any) {
+        if let player = player {
+            player.currentTime = 0
+        }
+    }
+    
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        self.isPlaying = false
+        self.buttonAudioPlay.setImage(UIImage(named: "icon_play"), for: .normal)
+    }
+}
+
+// MARK: - Process recording
+extension PracticeViewController {
     @IBAction func onRecordStart(_ sender: Any) {
         
         if !self.viewPromptPanel.isHidden {
@@ -360,6 +437,7 @@ class PracticeViewController: MetrodroneBaseViewController {
             self.isRecording = false
             
             self.prepareAudioPlay()
+            self.startPlayAudio()
         }
     }
     
@@ -403,187 +481,168 @@ class PracticeViewController: MetrodroneBaseViewController {
     
     func stopRecording() {
         recorder.stop()
-        self.startPlayAudio()
-    }
-    
-    @IBAction func onImprove(_ sender: Any) {
-        
-        if recorder != nil && recorder.isRecording {
-            AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Please stop recording first to do improvements!")
-            return
-        }
-        let controller = UIStoryboard(name: "improve", bundle: nil).instantiateViewController(withIdentifier: "improve_scene") as! UINavigationController
-        let root = controller.viewControllers[0] as! ImproveSuggestionViewController
-        root.playlistModel = self.playlistViewModel
-        self.present(controller, animated: true, completion: nil)
-    }
-    
-    @IBAction func onAskExpert(_ sender: Any) {
-        
-        let controller = UIStoryboard(name:"feedback", bundle:nil).instantiateViewController(withIdentifier: "feedbackscene") as! UINavigationController
-        let feedbackRootViewController = controller.viewControllers[0] as! FeedbackRootViewController
-        feedbackRootViewController.pageIsRootFromMenu = false
-        feedbackRootViewController.pageUIMode = 0
-        self.present(controller, animated: true, completion: nil)
-        
-    }
-    
-    @IBAction func onFeedback(_ sender: Any) {
-        let controller = UIStoryboard(name:"feedback", bundle:nil).instantiateViewController(withIdentifier: "feedbackscene") as! UINavigationController
-        let feedbackRootViewController = controller.viewControllers[0] as! FeedbackRootViewController
-        feedbackRootViewController.pageIsRootFromMenu = false
-        feedbackRootViewController.pageUIMode = 1
-        self.present(controller, animated: true, completion: nil)
-    }
-
-//MARK Metrodrone UI
-
-    @IBAction func onSustainButton(_ sender: Any) {
-        let isOn = toggleSustain()
-        buttonSustain.alpha = (isOn) ? 1.0 : 0.50
-    }
-    
-    
-    @IBAction func onDurationChanged(_ sender: Any) {
-        changeDuration(newValue: sliderDuration.value)
-        
-    }
-    
-    @IBAction func onBtnPlay(_ sender: Any) {
-        if (!isMetrodronePlaying) {
-            goMetronome()
-        } else {
-            stopMetrodrone()
-        }
-    }
-    
-    @IBAction func onTapDown(_ sender: Any) {
-        tapDown()
-    }
-    
-    @IBAction func onTapTouchup(_ sender: Any) {
-        tapUp()
-    }
-    
-    @IBAction func onIncreaseBPMTouch(_ sender: Any) {
-        increaseBPMTouch()
-    }
-    
-    
-    @IBAction func onDecreaseBPMTouch(_ sender: Any) {
-        decreaseBPMTouch()
-        
-    }
-    
-    @IBAction func onChangeBPMStop(_ sender: Any) {
-        stopBPMChangeTimer()
     }
 }
 
-extension PracticeViewController: AVAudioPlayerDelegate {
+// MARK: - Tip prompt panel processing
+extension PracticeViewController {
     
-    func prepareAudioPlay() {
-        self.viewSiriWaveFormView.isHidden = true
-        self.viewAudioPlayer.isHidden = false
-        
-        let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
-        let soundFilePath = dirPath[0] + "/recording.wav"
-        let url = URL(fileURLWithPath: soundFilePath)
-        
-        do {
-            try AVAudioSession.sharedInstance().overrideOutputAudioPort(.speaker)
-            player = try AVAudioPlayer(contentsOf: url)
-            guard let player = player else { return }
-            player.prepareToPlay()
-            
-            player.delegate = self
-            
-        } catch let error {
-            print("Audio player error \(error)")
-        }
-        
-        self.isPlaying = false
-        
-        self.waveformAudioPlay.audioURL = url
-        self.waveformAudioPlay.doesAllowStretch = false
-        self.waveformAudioPlay.doesAllowScroll = false
-        self.waveformAudioPlay.doesAllowScrubbing = false
-        self.waveformAudioPlay.wavesColor = Color.white.alpha(0.5)
-        self.waveformAudioPlay.progressColor = Color.white
-        
-        self.audioPlayerTimer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: true, block: { (_) in
-            if let player = self.player {
-                self.waveformAudioPlay.highlightedSamples = 0..<Int(Double(self.waveformAudioPlay.totalSamples) * (player.currentTime / player.duration))
-                self.labelPlayerCurrentTime.text = String(format:"%d:%02d", Int(player.currentTime) / 60, Int(player.currentTime) % 60)
-                self.labelPlayerRemainsTime.text = String(format:"-%d:%02d", Int(player.duration - player.currentTime) / 60, Int(player.duration - player.currentTime) % 60)
-            }
-        })
-    }
-    
-    @IBAction func onPlayPauseAudio(_ sender: Any) {
-        
-        if self.isPlaying {
-            if let player = player {
-                player.pause()
-            }
-            self.isPlaying = false
-            self.buttonAudioPlay.setImage(UIImage(named: "icon_play"), for: .normal)
+    func initializeTipPromptPanel() {
+        self.viewPromptPanel.layer.cornerRadius = 5
+        if self.playlistViewModel.tooltipAlreadyShown() {
+            self.viewPromptPanel.isHidden = true
         } else {
-            startPlayAudio()
+            self.viewPromptPanel.isHidden = false
+            self.playlistViewModel.didTooltipShown()
         }
     }
     
-    func startPlayAudio() {
-        if let player = player {
-            player.play()
-        }
-        self.isPlaying = true
-        self.buttonAudioPlay.setImage(UIImage(named: "icon_pause_white"), for: .normal)
-    }
-    
-    @IBAction func onAudioBackward(_ sender: Any) {
-        if let player = player {
-            player.currentTime = player.currentTime - 1.0
+    @IBAction func onCloseAlertPanel(_ sender: Any) {
+        UIView.animate(withDuration: 0.5, animations: {
+            self.viewPromptPanel.alpha = 0
+        }) { (_) in
+            self.viewPromptPanel.isHidden = true
         }
     }
     
-    @IBAction func onAudioForward(_ sender: Any) {
-        if let player = player {
-            player.currentTime = player.currentTime + 1.0
-        }
-    }
+}
+
+// MARK: - Timer processing
+extension PracticeViewController {
     
-    @IBAction func onSaveRecord(_ sender: Any) {
-        let alertController = UIAlertController(title: nil, message: "Enter the file name!", preferredStyle: .alert)
-        alertController.addTextField { (textField) in
-            if var practiceName = self.playlistViewModel.currentPracticeItem.name {
-                practiceName = String(practiceName.prefix(16))
-                let autoIncrementedNumber = self.playlistViewModel.fileNameAutoIncrementedNumber()
-                textField.text = "\(practiceName)_\(Date().toString(format: "yyyyMMdd"))_\(String(format:"%02d", autoIncrementedNumber))"
-            }
-        }
-        alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
-            if let name = alertController.textFields?[0].text {
-                if name != "" {
-                    self.playlistViewModel.increaseAutoIncrementedNumber()
-                    self.playlistViewModel.saveCurrentRecording(toFileName: name)
+    func initializeTimer() {
+        self.viewTimeAreaPausedPanel.isHidden = true
+        self.viewTimeArea.layer.cornerRadius = 10
+        self.viewTimeArea.layer.masksToBounds = true
+        self.processTimerStarting()
+        self.perform(#selector(onTimerStart), with: nil, afterDelay: 0.5)
+        if let countDownTimer =  self.playlistViewModel.currentPracticeItem.countDownDuration {
+            if countDownTimer > 0 {
+                self.isCountDown = true
+                if let timePracticed = self.playlistViewModel.duration(forPracticeItem: self.playlistViewModel.currentPracticeItem.entryId) {
+                    if timePracticed < countDownTimer {
+                        self.countDownTimerStart = countDownTimer - timePracticed
+                    } else {
+                        self.countDownTimerStart = 0
+                    }
                 }
             }
-        }))
-        alertController.addAction(UIAlertAction(title: "Cancel", style:.cancel, handler:nil))
-        self.present(alertController, animated: true, completion: nil)
-    }
-    
-    @IBAction func onAudioToFirst(_ sender: Any) {
-        if let player = player {
-            player.currentTime = 0
         }
     }
     
-    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        self.isPlaying = false
-        self.buttonAudioPlay.setImage(UIImage(named: "icon_play"), for: .normal)
+    @IBAction func onTapTimer(_ sender: Any) {
+        if !self.viewPromptPanel.isHidden {
+            self.onCloseAlertPanel(sender)
+        }
+        
+        if self.timerRunning {
+            self.secondsPrevPlayed = Int(Date().timeIntervalSince1970 - self.timerStarted.timeIntervalSince1970) + self.secondsPrevPlayed
+            self.timer.invalidate()
+            self.timerRunning = false
+            self.viewTimeAreaPausedPanel.isHidden = false
+        } else {
+            self.timerStarted = Date()
+            self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(onTimer), userInfo: nil, repeats: true)
+            self.timerRunning = true
+            self.viewTimeAreaPausedPanel.isHidden = true
+        }
+    }
+    
+    @objc func onTimerStart() {
+        self.timerStarted = Date()
+        self.secondsPrevPlayed = 0
+        self.labelHour.text = String(format:"%02d", timerShouldStartFrom / 3600)
+        self.labelMinute.text = String(format:"%02d", (timerShouldStartFrom % 3600) / 60)
+        self.labelSeconds.text = String(format:"%02d", timerShouldStartFrom % 60)
+        
+        self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(onTimer), userInfo: nil, repeats: true)
+        self.timerRunning = true
+    }
+    
+    @objc func onTimer() {
+        let date = Date()
+        var durationSeconds = Int(date.timeIntervalSince1970 - self.timerStarted.timeIntervalSince1970) + self.secondsPrevPlayed
+        
+        if timerShouldDown {
+            if durationSeconds >= timerShouldStartFrom {
+                self.finishCountDownTimer()
+                return
+            } else {
+                durationSeconds = timerShouldStartFrom - durationSeconds
+            }
+        } else {
+            durationSeconds = durationSeconds + timerShouldStartFrom
+        }
+        
+        self.labelHour.text = String(format:"%02d", durationSeconds / 3600)
+        self.labelMinute.text = String(format:"%02d", (durationSeconds % 3600) / 60)
+        self.labelSeconds.text = String(format:"%02d", durationSeconds % 60)
+    }
+    
+    func playDingSound() {
+        guard let url = Bundle.main.url(forResource: "ding", withExtension: "wav") else { return }
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            self.dingSoundPlayer = try AVAudioPlayer(contentsOf: url)
+            self.dingSoundPlayer!.prepareToPlay()
+            self.dingSoundPlayer!.play()
+        } catch let error {
+            print("Audio player (ding sound) error \(error)")
+        }
+    }
+    
+    func finishCountDownTimer() {
+        self.playDingSound()
+        self.labelHour.text = "00"
+        self.labelMinute.text = "00"
+        self.labelSeconds.text = "00"
+        self.timer.invalidate()
+        
+        let duration = Int(Date().timeIntervalSince1970 - self.timerStarted.timeIntervalSince1970) + self.secondsPrevPlayed
+        self.playlistViewModel.setDuration(forPracticeItem: self.playlistViewModel.currentPracticeItem.entryId,
+                                           duration: duration + (self.playlistViewModel.duration(forPracticeItem: self.playlistViewModel.currentPracticeItem.entryId) ?? 0))
+        self.performSegue(withIdentifier: "sid_rate", sender: nil)
+    }
+    
+    func processTimerStarting() {
+        var timeAlreadyPracticed = 0
+        if let timePracticed = self.playlistViewModel.duration(forPracticeItem: self.playlistViewModel.currentPracticeItem.entryId) {
+            timeAlreadyPracticed = timePracticed
+        }
+        
+        if let countDownTimer =  self.playlistViewModel.currentPracticeItem.countDownDuration {
+            if countDownTimer > 0 {
+                if let reseted = self.playlistViewModel.countdownReseted[self.playlistViewModel.currentPracticeItem.entryId] {
+                    if reseted {
+                        timerShouldDown = true
+                        timerShouldStartFrom = countDownTimer
+                        self.playlistViewModel.countdownReseted[self.playlistViewModel.currentPracticeItem.entryId] = false
+                        return
+                    }
+                }
+                
+                if timeAlreadyPracticed >= countDownTimer {
+                    timerShouldDown = false
+                    timerShouldStartFrom = timeAlreadyPracticed
+                } else {
+                    timerShouldDown = true
+                    timerShouldStartFrom = countDownTimer - timeAlreadyPracticed
+                }
+                return
+            }
+        }
+        
+        timerShouldDown = false
+        timerShouldStartFrom = timeAlreadyPracticed
     }
 }
 
 
+// MARK: - FDWaveformViewDelegate
+extension PracticeViewController: FDWaveformViewDelegate {
+    func waveformDidEndScrubbing(_ waveformView: FDWaveformView) {
+        if let player = self.player {
+            player.currentTime = player.duration * (Double(self.waveformAudioPlay.highlightedSamples?.count ?? 0) / Double(self.waveformAudioPlay.totalSamples))
+        }
+    }
+}
