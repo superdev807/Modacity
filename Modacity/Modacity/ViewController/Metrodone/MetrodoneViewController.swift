@@ -8,11 +8,6 @@
 
 import UIKit
 
-protocol DroneFrameDelegate : class {
-    func selectedIndexChanged(newIndex: Int)
-    func toneWheelNoteDown()
-    func toneWheelNoteUp()
-}
 
 class MetrodoneViewController: MetrodroneBaseViewController {
 
@@ -25,22 +20,14 @@ class MetrodoneViewController: MetrodroneBaseViewController {
     @IBOutlet weak var sliderDuration: UISlider!
     @IBOutlet weak var labelTempo: UILabel!
     @IBOutlet weak var buttonPlay: UIButton!
-    
-    
-   /* let noteNames : [String] = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#"]
-    */
-    /* { didSet {
-        labelTempo.text = String(self.tempo)
-        }
-    }*/
-    
+    @IBOutlet weak var btnSustain: UIButton!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        initializeOutlets(lblTempo: labelTempo, droneFrame: viewDroneFrame, playButton: buttonPlay, durationSlider: sliderDuration)
+        initializeOutlets(lblTempo: labelTempo, droneFrame: viewDroneFrame, playButton: buttonPlay, durationSlider: sliderDuration, sustainButton: btnSustain)
         
         self.configureLayout()
     }
@@ -105,6 +92,10 @@ class MetrodoneViewController: MetrodroneBaseViewController {
         increaseBPMTouch()
     }
     
+    @IBAction func onSustainButton(_ sender: Any) {
+        let isOn = toggleSustain()
+        btnSustain.alpha = (isOn) ? 1.0 : 0.50
+    }
     
     @IBAction func onDecreaseBPMTouch(_ sender: Any) {
         decreaseBPMTouch()

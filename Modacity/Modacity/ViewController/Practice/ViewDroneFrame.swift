@@ -8,7 +8,12 @@
 
 import UIKit
 
-class ViewDroneFrame: UIView {
+protocol MetrodroneUIDelegate : class {
+    func setSelectedIndex(_ index: Int)
+    func getSelectedIndex() -> Int
+}
+
+class ViewDroneFrame: UIView, MetrodroneUIDelegate {
 
     var size = CGSize.zero
     
@@ -144,33 +149,54 @@ class ViewDroneFrame: UIView {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let index = detectDroneIndex(forEvent: event!)
+       let changed = updateDroneIndex(forEvent: event!)
+       
         if (delegate != nil) {
-            delegate?.selectedIndexChanged(newIndex: index)
+            print("Touches now at \(selectedDronFrameIdx)")
+            if (changed) { delegate?.selectedIndexChanged(newIndex: selectedDronFrameIdx) }
             delegate?.toneWheelNoteDown()
-        } 
+        }
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let index = detectDroneIndex(forEvent: event!)
+        let changed = updateDroneIndex(forEvent: event!)
+        print("Touches now at \(selectedDronFrameIdx)")
         if (delegate != nil) {
-            delegate?.selectedIndexChanged(newIndex: index)
+            if (changed) {
+                delegate?.selectedIndexChanged(newIndex: selectedDronFrameIdx)
+            }
         }
-        
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        print("Touches now at \(selectedDronFrameIdx)")
         if (delegate != nil) {
             delegate?.toneWheelNoteUp()
         }
+    }
+    
+    func setDelegate(_ del: DroneFrameDelegate) {
+        self.delegate = del
+        del.UIDelegate = self
     }
     
     func updateVisuals() {
         self.setNeedsDisplay()
     }
     
-    func detectDroneIndex(forEvent: UIEvent) -> Int {
+    func getSelectedIndex() -> Int {
+        return selectedDronFrameIdx
+    }
+    
+    func setSelectedIndex(_ index: Int) {
+        self.selectedDronFrameIdx = index
+        updateVisuals()
+    }
+    
+    //func detectDroneIndex(forEvent: UIEvent) -> Int {
+    func updateDroneIndex(forEvent: UIEvent) -> Bool {
         var returnIndex = -1
+        var changed: Bool = false
         
         if let touch = forEvent.allTouches?.first {
             let touchPoint = touch.location(in: self)
@@ -197,14 +223,17 @@ class ViewDroneFrame: UIView {
                         angle = Double.pi / 2 * (-1)
                     }
                 }
-                let idx = Int(angle / Double.pi * 6)
-                print("touch on \(idx)")
-                selectedDronFrameIdx = idx
-                returnIndex = selectedDronFrameIdx
-                setNeedsDisplay()
+                returnIndex = Int(angle / Double.pi * 6)
+            }
+            else {
+                // no selected drone
+                returnIndex = -1
             }
         }
-        return returnIndex
+        changed = (returnIndex != self.selectedDronFrameIdx)
+        self.selectedDronFrameIdx = returnIndex
+        if (changed) { setNeedsDisplay() }
+        return changed
     }
 
 }

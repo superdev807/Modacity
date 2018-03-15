@@ -10,6 +10,13 @@
 import UIKit
 import AVFoundation
 
+protocol DroneFrameDelegate : class {
+    func selectedIndexChanged(newIndex: Int)
+    func toneWheelNoteDown()
+    func toneWheelNoteUp()
+    var UIDelegate: MetrodroneUIDelegate? {get set}
+}
+
 
 class MetrodroneBaseViewController: UIViewController, DroneFrameDelegate {
     
@@ -17,27 +24,42 @@ class MetrodroneBaseViewController: UIViewController, DroneFrameDelegate {
     var _labelTempo: UILabel!
     var _buttonPlayPause: UIButton!
     var _sliderDuration: UISlider!
+    var _buttonSustain: UIButton!
+    
+    var UIDelegate: MetrodroneUIDelegate?
     
     var timerBPMAdjust: Timer!
     var durationRatio: Float = 0.5
-    var currNote : String = "C"
+    var currNote : String = "X"
+    
+    var sustain  : Bool = false
     var isMetrodronePlaying : Bool = false
     var tempoDetective : DetectTapTempo = DetectTapTempo(timeOut: 1.5, minimumTaps: 3)
     var clickSound : Bool = false
     var tempo: Int = 120
+    var subdivisions: Int = 1
+    
+    let highClick: URL = {
+     return Bundle.main.url(forResource: "High", withExtension: "wav", subdirectory: "waveforms")!
+    }()
+    
+    let lowClick: URL = {
+        Bundle.main.url(forResource: "Low", withExtension: "wav", subdirectory: "waveforms")!
+    }()
     
     var metrodrone : Metrodrone = {
         let highUrl = Bundle.main.url(forResource: "monodrone_A", withExtension: "wav", subdirectory: "waveforms")!
         return Metrodrone(mainClickFile: highUrl)
     }()
     
-    func initializeOutlets(lblTempo: UILabel!, droneFrame: ViewDroneFrame!, playButton: UIButton!, durationSlider: UISlider!) {
+    func initializeOutlets(lblTempo: UILabel!, droneFrame: ViewDroneFrame!, playButton: UIButton!, durationSlider: UISlider!, sustainButton: UIButton!) {
         self._viewDroneFrame = droneFrame // maybe a better way to do this?
         self._labelTempo = lblTempo
         self._buttonPlayPause = playButton
         self._sliderDuration = durationSlider
-        _viewDroneFrame.delegate = self
+        self._buttonSustain = sustainButton
         
+        _viewDroneFrame.setDelegate(self) // establish bi-directional relationships
         updateMetrodroneOutlets()
     }
     
@@ -45,12 +67,28 @@ class MetrodroneBaseViewController: UIViewController, DroneFrameDelegate {
         // updates labels, sliders, etc.
         _labelTempo.text = String(tempo)
         _sliderDuration.value = durationRatio
-        
+        _buttonSustain.alpha = (sustain) ? 1.0 : 0.5
     }
     
     func changeDuration(newValue: Float) {
         durationRatio = newValue
         goMetronome()
+    }
+    
+    func toggleSustain() -> Bool {
+        sustain = !sustain
+        if (!sustain && !isMetrodronePlaying) {
+            stopMetrodrone()
+        }
+        return sustain
+    }
+    
+    func setSubdivision(_ divisions:Int) {
+        if (self.subdivisions != divisions) {
+            self.subdivisions = divisions
+            goMetronome()
+        }
+        
     }
     
     func stopBPMChangeTimer() {
@@ -90,17 +128,25 @@ class MetrodroneBaseViewController: UIViewController, DroneFrameDelegate {
     func selectedIndexChanged(newIndex: Int) {
         //newIndex = -1 means none selected
         //else ranges from 0 to 11
+
+        
         if (newIndex < 0) {
-            print("negative drone idnex")
-            currNote = "C"
-            return
+            currNote = "X"
+        } else {
+            currNote = _viewDroneFrame.droneLetters[newIndex]
         }
-        currNote = _viewDroneFrame.droneLetters[newIndex]
-        updateMetrodroneNote()
+        //updateMetrodroneNote()
+        toneWheelNoteDown()
     }
     
     func toneWheelNoteDown() {
         clickSound = isMetrodronePlaying
+        
+        if (UIDelegate!.getSelectedIndex() < 0) {
+            metrodrone.stop()
+            return
+        }
+        
         updateMetrodroneNote()
         if (!isMetrodronePlaying) {
             metrodrone.playUntimed()
@@ -111,25 +157,28 @@ class MetrodroneBaseViewController: UIViewController, DroneFrameDelegate {
     
     func toneWheelNoteUp() {
         //updateMetrodroneNote()
-        if (!isMetrodronePlaying){
+        if (!isMetrodronePlaying && !sustain) {
             metrodrone.stop()
+            UIDelegate?.setSelectedIndex(-1)
         }
         
     }
     
     func goMetronome() {
-        var sub = 1 // segmentSubdivision.selectedSegmentIndex + 1 // start at 1= quarter, 2=eighth,etc.
         clickSound = true
         updateMetrodroneNote()
-        metrodrone.play(bpm: Double(tempo), ratio: durationRatio, subdivision: sub)
+        metrodrone.play(bpm: Double(tempo), ratio: durationRatio, subdivision: subdivisions)
         isMetrodronePlaying = true
         setPauseImage()
+        _buttonSustain.isEnabled = false
+        _buttonSustain.alpha = 0.50
     }
     
     func stopMetrodrone() {
         metrodrone.stop()
         isMetrodronePlaying = false
         setPlayImage()
+        _buttonSustain.isEnabled = true
     }
     
     func setPlayImage() {
@@ -142,11 +191,13 @@ class MetrodroneBaseViewController: UIViewController, DroneFrameDelegate {
     
     func tapDown() {
         if let bpm = tempoDetective.addTap() {
+            // if BPM is detected (after ~3 taps)
             print("bpm = \(bpm) detected")
             setNewTempo(Int(bpm))
             clickSound = true
             goMetronome()
         } else {
+            // if we are still pre-detection
             stopMetrodrone()
             clickSound = false
             updateMetrodroneNote()
@@ -155,7 +206,7 @@ class MetrodroneBaseViewController: UIViewController, DroneFrameDelegate {
     }
     
     func tapUp() {
-        if (!clickSound) { // stand in for if we haven't found BPM
+        if (!clickSound) { // if we haven't found BPM, clickSound will be false
             stopMetrodrone()
         }
     }
@@ -163,6 +214,13 @@ class MetrodroneBaseViewController: UIViewController, DroneFrameDelegate {
     func updateMetrodroneNote() {
         var fileMain = "monodrone_" + currNote
         var fileSub = fileMain
+        
+        if (currNote == "X") {
+            // no tone
+            metrodrone.loadDrone(droneMain: highClick,
+                                 droneSub: lowClick)
+            return
+        }
         
         if (clickSound) {
             fileMain = "high-" + fileMain

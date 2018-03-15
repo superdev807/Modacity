@@ -41,7 +41,7 @@ class PracticeViewController: MetrodroneBaseViewController {
     @IBOutlet weak var sliderDuration: UISlider!
     @IBOutlet weak var labelTempo: UILabel!
     @IBOutlet weak var buttonMetrodronePlay: UIButton!
-    
+    @IBOutlet weak var buttonSustain: UIButton!
     
     var timer: Timer!
     var timerRunning = false
@@ -70,7 +70,8 @@ class PracticeViewController: MetrodroneBaseViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        initializeOutlets(lblTempo: labelTempo, droneFrame: viewDroneFrame, playButton: buttonMetrodronePlay, durationSlider: sliderDuration)
+        initializeOutlets(lblTempo: labelTempo, droneFrame: viewDroneFrame, playButton: buttonMetrodronePlay, durationSlider: sliderDuration,
+                          sustainButton: buttonSustain)
         
         self.playlistViewModel.storePlaylist()
         
@@ -437,7 +438,11 @@ class PracticeViewController: MetrodroneBaseViewController {
 
 //MARK Metrodrone UI
 
-
+    @IBAction func onSustainButton(_ sender: Any) {
+        let isOn = toggleSustain()
+        buttonSustain.alpha = (isOn) ? 1.0 : 0.50
+    }
+    
     
     @IBAction func onDurationChanged(_ sender: Any) {
         changeDuration(newValue: sliderDuration.value)
