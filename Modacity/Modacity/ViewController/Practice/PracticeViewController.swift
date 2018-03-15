@@ -11,7 +11,7 @@ import AVFoundation
 import SCSiriWaveformView
 import FDWaveformView
 
-class PracticeViewController: UIViewController {
+class PracticeViewController: MetrodroneBaseViewController {
     
     @IBOutlet weak var buttonFavorite: UIButton!
     @IBOutlet weak var labelHour: UILabel!
@@ -36,6 +36,12 @@ class PracticeViewController: UIViewController {
     
     @IBOutlet weak var viewTimeArea: UIView!
     @IBOutlet weak var viewTimeAreaPausedPanel: UIView!
+    
+    @IBOutlet weak var viewDroneFrame: ViewDroneFrame!
+    @IBOutlet weak var sliderDuration: UISlider!
+    @IBOutlet weak var labelTempo: UILabel!
+    @IBOutlet weak var buttonMetrodronePlay: UIButton!
+    
     
     var timer: Timer!
     var timerRunning = false
@@ -63,6 +69,8 @@ class PracticeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        initializeOutlets(lblTempo: labelTempo, droneFrame: viewDroneFrame, playButton: buttonMetrodronePlay, durationSlider: sliderDuration)
         
         self.playlistViewModel.storePlaylist()
         
@@ -394,6 +402,7 @@ class PracticeViewController: UIViewController {
     
     func stopRecording() {
         recorder.stop()
+        self.startPlayAudio()
     }
     
     @IBAction func onImprove(_ sender: Any) {
@@ -424,6 +433,45 @@ class PracticeViewController: UIViewController {
         feedbackRootViewController.pageIsRootFromMenu = false
         feedbackRootViewController.pageUIMode = 1
         self.present(controller, animated: true, completion: nil)
+    }
+
+//MARK Metrodrone UI
+
+
+    
+    @IBAction func onDurationChanged(_ sender: Any) {
+        changeDuration(newValue: sliderDuration.value)
+        
+    }
+    
+    @IBAction func onBtnPlay(_ sender: Any) {
+        if (!isMetrodronePlaying) {
+            goMetronome()
+        } else {
+            stopMetrodrone()
+        }
+    }
+    
+    @IBAction func onTapDown(_ sender: Any) {
+        tapDown()
+    }
+    
+    @IBAction func onTapTouchup(_ sender: Any) {
+        tapUp()
+    }
+    
+    @IBAction func onIncreaseBPMTouch(_ sender: Any) {
+        increaseBPMTouch()
+    }
+    
+    
+    @IBAction func onDecreaseBPMTouch(_ sender: Any) {
+        decreaseBPMTouch()
+        
+    }
+    
+    @IBAction func onChangeBPMStop(_ sender: Any) {
+        stopBPMChangeTimer()
     }
 }
 
@@ -468,6 +516,7 @@ extension PracticeViewController: AVAudioPlayerDelegate {
     }
     
     @IBAction func onPlayPauseAudio(_ sender: Any) {
+        
         if self.isPlaying {
             if let player = player {
                 player.pause()
@@ -475,12 +524,16 @@ extension PracticeViewController: AVAudioPlayerDelegate {
             self.isPlaying = false
             self.buttonAudioPlay.setImage(UIImage(named: "icon_play"), for: .normal)
         } else {
-            if let player = player {
-                player.play()
-            }
-            self.isPlaying = true
-            self.buttonAudioPlay.setImage(UIImage(named: "icon_pause_white"), for: .normal)
+            startPlayAudio()
         }
+    }
+    
+    func startPlayAudio() {
+        if let player = player {
+            player.play()
+        }
+        self.isPlaying = true
+        self.buttonAudioPlay.setImage(UIImage(named: "icon_pause_white"), for: .normal)
     }
     
     @IBAction func onAudioBackward(_ sender: Any) {
@@ -527,3 +580,5 @@ extension PracticeViewController: AVAudioPlayerDelegate {
         self.buttonAudioPlay.setImage(UIImage(named: "icon_play"), for: .normal)
     }
 }
+
+
