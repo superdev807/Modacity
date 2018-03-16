@@ -19,6 +19,8 @@ protocol DroneFrameDelegate : class {
 
 
 class MetrodroneBaseViewController: UIViewController, DroneFrameDelegate {
+    static let minDurationValue: Float = 0.01
+    static let maxDurationValue: Float = 0.99
     
     var _viewDroneFrame: ViewDroneFrame!
     var _labelTempo: UILabel!
@@ -59,6 +61,11 @@ class MetrodroneBaseViewController: UIViewController, DroneFrameDelegate {
         self._buttonPlayPause = playButton
         self._sliderDuration = durationSlider
         self._buttonSustain = sustainButton
+        
+        // Make sure the duration slider has the right range, and set it in the middle.
+        self._sliderDuration.maximumValue = MetrodroneBaseViewController.maxDurationValue
+        self._sliderDuration.minimumValue = MetrodroneBaseViewController.minDurationValue
+        self._sliderDuration.value = 0.5 * (MetrodroneBaseViewController.minDurationValue + MetrodroneBaseViewController.maxDurationValue)
         
         _viewDroneFrame.setDelegate(self) // establish bi-directional relationships
         updateMetrodroneOutlets()
