@@ -8,6 +8,7 @@
 
 import UIKit
 import UITextView_Placeholder
+import MessageUI
 
 class FeedbackRootViewController: UIViewController {
     
@@ -132,7 +133,73 @@ class FeedbackRootViewController: UIViewController {
     }
     
     @IBAction func onSent(_ sender: Any) {
-        self.performSegue(withIdentifier: "sid_sent", sender: nil)
+        let type :ModacityEmailType = (pageUIMode == 0) ? .AskExpert : .Feedback
+        
+        sendMail(type: type, body: self.textViewMessage.text)
+        confirmSent()
     }
     
+    @objc func confirmSent() {
+        self.performSegue(withIdentifier: "sid_sent", sender: nil)
+    }
+}
+
+enum ModacityEmailType { case Feedback, AskExpert }
+
+//--------- MAIL
+extension FeedbackRootViewController : MFMailComposeViewControllerDelegate {
+    
+    
+    func sendMail(type: ModacityEmailType, body:String, includeAudio: Bool=false) {
+        if( MFMailComposeViewController.canSendMail() ) {
+            print("Can send email.")
+            
+            let mailComposer = MFMailComposeViewController()
+            mailComposer.mailComposeDelegate = self
+            
+            //Set the subject and message of the email
+            let recipient = (type == .Feedback) ? "feedback@modacity.co" : "expert@modacity.co"
+            
+            let subject = generateEmailSubject(type)
+            
+            mailComposer.setToRecipients([recipient])
+            mailComposer.setSubject(subject)
+            mailComposer.setMessageBody(body, isHTML: false)
+            
+            if (includeAudio) {
+                let fileURL = Recording.currentRecordingURL()
+                
+                do  {
+                    let fileData = try Data.init(contentsOf: fileURL)
+                    print("File data loaded.")
+                    mailComposer.addAttachmentData(fileData, mimeType: "audio/wav", fileName: "all_good_getting_better")
+                    
+                } catch let error {
+                    print("\(error.localizedDescription)")
+                }
+            }
+            
+            /*self.present(mailComposer, animated: true, completion: { () in
+             self.confirmSent()
+             })*/
+            self.present(mailComposer, animated: true, completion: nil)
+        }
+    }
+    
+    func generateEmailSubject(_ type: ModacityEmailType) -> String {
+        switch(type) {
+        case .Feedback:
+            return "User feedback" // plus unique info
+        case .AskExpert:
+            return "Expert Ask!" // plus unique info
+        }
+    }
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        print("Result: " + String(describing: result))
+        self.dismiss(animated: true, completion: { () in
+            self.confirmSent()
+        }
+        )
+    }
 }
