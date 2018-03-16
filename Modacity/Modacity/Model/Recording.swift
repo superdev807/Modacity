@@ -28,4 +28,12 @@ class Recording: Mappable {
         practiceName    <- map["practice_name"]
         practiceEntryId <- map["practice_entry_id"]
     }
+    
+    static func currentRecordingURL() -> URL {
+        let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+        let soundFilePath = dirPath[0] + "/recording.wav"
+        let url = URL(fileURLWithPath: soundFilePath)
+        
+        return url
+    }
 }

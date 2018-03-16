@@ -1,4 +1,4 @@
-//
+ //
 //  ViewDroneFrame.swift
 //  Modacity
 //
@@ -231,7 +231,9 @@ class ViewDroneFrame: UIView, MetrodroneUIDelegate {
             }
         }
         changed = (returnIndex != self.selectedDronFrameIdx)
+        
         self.selectedDronFrameIdx = returnIndex
+        
         if (changed) { setNeedsDisplay() }
         return changed
     }
