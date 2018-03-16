@@ -367,6 +367,7 @@ to improve?</string>
                         <outlet property="buttonCloseBox" destination="XiW-8A-0Jh" id="0Dc-mO-Xfr"/>
                         <outlet property="buttonTryAgain" destination="DRq-ko-RoK" id="TXh-JB-9Do"/>
                         <outlet property="constraintForTryAgainButtonBottomSpace" destination="3pb-5k-mVN" id="3pR-NP-ahh"/>
+                        <outlet property="labelHeaderNote" destination="Sm0-yO-zPq" id="XD7-RN-qGq"/>
                         <outlet property="labelPracticeName" destination="wRI-PG-GAA" id="NII-a7-eXL"/>
                         <outlet property="labelSuggestionName" destination="hI4-7k-Ypn" id="8r9-xY-eNb"/>
                         <outlet property="tableViewHypothesis" destination="06b-zD-X1N" id="79M-hw-nE2"/>
@@ -422,7 +423,7 @@ to improve?</string>
                                 <rect key="frame" x="0.0" y="470" width="375" height="157"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yeP-au-9km">
-                                        <rect key="frame" x="106.5" y="57.5" width="162" height="43.5"/>
+                                        <rect key="frame" x="107" y="57" width="162" height="43.5"/>
                                         <string key="text">Start recording your session. 
 Once finished, you’ll be prompted
 to answer a few questions.</string>
@@ -435,7 +436,8 @@ to answer a few questions.</string>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vzf-zL-h4w">
                                                 <rect key="frame" x="43" y="0.0" width="156.5" height="29"/>
-                                                <string key="text">Did this create the improvementyou wanted?</string>
+                                                <string key="text">Did this create the improvement
+you wanted?</string>
                                                 <fontDescription key="fontDescription" name="Lato-Italic" family="Lato" pointSize="12"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
@@ -468,29 +470,29 @@ to answer a few questions.</string>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Ih-8m-wdH">
-                                        <rect key="frame" x="66" y="18.5" width="242" height="120"/>
+                                        <rect key="frame" x="66" y="19" width="242" height="119"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nice work!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8n5-fT-z8Z">
-                                                <rect key="frame" x="83" y="0.0" width="77" height="19.5"/>
+                                                <rect key="frame" x="83" y="0.0" width="77" height="19"/>
                                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Do you want practice it again?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M71-Z8-7Fk">
-                                                <rect key="frame" x="47" y="29.5" width="146.5" height="14.5"/>
+                                                <rect key="frame" x="47" y="29" width="146.5" height="14"/>
                                                 <fontDescription key="fontDescription" name="Lato-Italic" family="Lato" pointSize="12"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GDV-Ee-hXD">
-                                                <rect key="frame" x="0.0" y="54" width="106" height="66"/>
+                                                <rect key="frame" x="0.0" y="53" width="106" height="66"/>
                                                 <state key="normal" image="btn_improved_next"/>
                                                 <connections>
                                                     <action selector="onImprovedNext:" destination="hg1-Xl-tGd" eventType="touchUpInside" id="RuF-Dx-Ao3"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bk9-1f-gy3">
-                                                <rect key="frame" x="136" y="54" width="106" height="66"/>
+                                                <rect key="frame" x="136" y="53" width="106" height="66"/>
                                                 <state key="normal" image="btn_improved_yes"/>
                                                 <connections>
                                                     <action selector="onImproveAgain:" destination="hg1-Xl-tGd" eventType="touchUpInside" id="HbZ-a3-uS4"/>
@@ -564,6 +566,35 @@ to answer a few questions.</string>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aTW-CL-rL9">
+                                                <rect key="frame" x="162" y="18.5" width="49.5" height="16"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_forward_white" translatesAutoresizingMaskIntoConstraints="NO" id="dUA-x6-Fip">
+                                                        <rect key="frame" x="0.0" y="0.0" width="24" height="16"/>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="x 2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xHg-Ts-hbz">
+                                                        <rect key="frame" x="29" y="-1" width="20.5" height="18"/>
+                                                        <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="15"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="bottom" secondItem="dUA-x6-Fip" secondAttribute="bottom" id="HNK-AF-dKH"/>
+                                                    <constraint firstItem="dUA-x6-Fip" firstAttribute="top" secondItem="aTW-CL-rL9" secondAttribute="top" id="IcC-dd-FvF"/>
+                                                    <constraint firstAttribute="trailing" secondItem="xHg-Ts-hbz" secondAttribute="trailing" id="ZHf-of-E6P"/>
+                                                    <constraint firstItem="xHg-Ts-hbz" firstAttribute="leading" secondItem="dUA-x6-Fip" secondAttribute="trailing" constant="5" id="chf-a9-eRe"/>
+                                                    <constraint firstItem="dUA-x6-Fip" firstAttribute="leading" secondItem="aTW-CL-rL9" secondAttribute="leading" id="joN-rl-bMz"/>
+                                                    <constraint firstItem="xHg-Ts-hbz" firstAttribute="centerY" secondItem="aTW-CL-rL9" secondAttribute="centerY" id="q8N-ih-7Ru"/>
+                                                </constraints>
+                                            </view>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CfN-Ke-sgT">
+                                                <rect key="frame" x="308" y="17.5" width="30" height="18"/>
+                                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="15"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VP4-H5-1iE">
                                                 <rect key="frame" x="111" y="45.5" width="44" height="44"/>
                                                 <constraints>
@@ -608,12 +639,6 @@ to answer a few questions.</string>
                                                     <action selector="onSaveRecord:" destination="hg1-Xl-tGd" eventType="touchUpInside" id="2ck-JL-wNz"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CfN-Ke-sgT">
-                                                <rect key="frame" x="308" y="17.5" width="30" height="18"/>
-                                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="15"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -622,10 +647,12 @@ to answer a few questions.</string>
                                             <constraint firstItem="MOH-Sk-ebe" firstAttribute="centerX" secondItem="1w7-KL-uFb" secondAttribute="centerX" id="HnV-pX-NVi"/>
                                             <constraint firstItem="nHf-WG-1Zm" firstAttribute="leading" secondItem="MOH-Sk-ebe" secondAttribute="trailing" constant="10" id="Jxh-Rg-nwB"/>
                                             <constraint firstAttribute="bottom" secondItem="k1a-LM-mdL" secondAttribute="bottom" id="OMF-o0-6eE"/>
+                                            <constraint firstItem="aTW-CL-rL9" firstAttribute="centerX" secondItem="MOH-Sk-ebe" secondAttribute="centerX" id="P7s-0N-0YO"/>
                                             <constraint firstAttribute="bottom" secondItem="nHf-WG-1Zm" secondAttribute="bottom" id="PSf-Hs-IhI"/>
                                             <constraint firstItem="CfN-Ke-sgT" firstAttribute="centerY" secondItem="dJx-9q-VU0" secondAttribute="centerY" id="Y2l-io-yun"/>
                                             <constraint firstAttribute="bottom" secondItem="VP4-H5-1iE" secondAttribute="bottom" id="aPW-IA-SxO"/>
                                             <constraint firstAttribute="trailing" secondItem="Fco-M1-yrF" secondAttribute="trailing" constant="30" id="c2s-ee-S3n"/>
+                                            <constraint firstItem="aTW-CL-rL9" firstAttribute="centerY" secondItem="dJx-9q-VU0" secondAttribute="centerY" id="fan-0L-9oT"/>
                                             <constraint firstItem="dJx-9q-VU0" firstAttribute="centerX" secondItem="k1a-LM-mdL" secondAttribute="centerX" id="har-Kv-gFp"/>
                                             <constraint firstItem="MOH-Sk-ebe" firstAttribute="leading" secondItem="VP4-H5-1iE" secondAttribute="trailing" constant="10" id="lN3-oW-ce5"/>
                                             <constraint firstItem="k1a-LM-mdL" firstAttribute="top" secondItem="dJx-9q-VU0" secondAttribute="bottom" constant="10" id="yis-lJ-UZg"/>
@@ -934,7 +961,7 @@ to answer a few questions.</string>
                                                 <state key="normal" image="btn_subdivision"/>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="METRODRONE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hiO-TK-gfm">
-                                                <rect key="frame" x="20" y="221" width="71.5" height="20"/>
+                                                <rect key="frame" x="19.5" y="221" width="71.5" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="20" id="r2v-S8-Fsc"/>
                                                 </constraints>
@@ -1057,11 +1084,13 @@ til the very end of the…</string>
                         <outlet property="buttonAudioPlay" destination="MOH-Sk-ebe" id="4OI-4F-5nC"/>
                         <outlet property="constraintForMaximizedDroneBottomSpace" destination="92a-O5-mgX" id="mRc-8d-Tdd"/>
                         <outlet property="imageViewHeader" destination="Esx-De-EDu" id="UGa-G6-UeC"/>
+                        <outlet property="imageViewRateDirection" destination="dUA-x6-Fip" id="FvS-OU-HLz"/>
                         <outlet property="labelHypothesis" destination="dOc-S4-3Wh" id="lAZ-Yw-tfV"/>
                         <outlet property="labelImprovementNote" destination="yeP-au-9km" id="7Bu-wj-bvj"/>
                         <outlet property="labelPlayerCurrentTime" destination="dJx-9q-VU0" id="1f9-9A-oRf"/>
                         <outlet property="labelPlayerRemainsTime" destination="CfN-Ke-sgT" id="Zkp-Gc-rCB"/>
                         <outlet property="labelPracticeItemName" destination="wki-fw-BgE" id="s2Z-w2-u0Q"/>
+                        <outlet property="labelRateValue" destination="xHg-Ts-hbz" id="wGq-U6-2Fu"/>
                         <outlet property="labelSuggestion" destination="Ydd-hg-7BO" id="Q0q-Ku-7Zd"/>
                         <outlet property="viewAudioPlayer" destination="jEu-dO-6EC" id="dUe-9d-eTB"/>
                         <outlet property="viewBottomXBar" destination="glh-Og-M5h" id="tyh-3f-U8Z"/>
@@ -1069,6 +1098,7 @@ til the very end of the…</string>
                         <outlet property="viewImprovedYesPanel" destination="1Ih-8m-wdH" id="H64-3h-ATl"/>
                         <outlet property="viewMaximizedDrone" destination="RDU-al-hFq" id="AOs-H5-O8h"/>
                         <outlet property="viewMinimizedDrone" destination="5UR-eI-xHV" id="ciG-l1-aIV"/>
+                        <outlet property="viewRatePanel" destination="aTW-CL-rL9" id="Agm-Fs-miv"/>
                         <outlet property="viewSiriWaveFormView" destination="dga-Px-fPn" id="Ocb-0V-sbA"/>
                         <outlet property="waveformAudioPlay" destination="LCr-ZW-I4Z" id="W1T-gb-3ul"/>
                     </connections>

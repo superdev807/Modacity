@@ -16,6 +16,7 @@ class ImproveHypothesisViewController: UIViewController {
     @IBOutlet weak var tableViewHypothesis: UITableView!
     @IBOutlet weak var labelPracticeName: UILabel!
     @IBOutlet weak var labelSuggestionName: UILabel!
+    @IBOutlet weak var labelHeaderNote: UILabel!
     @IBOutlet weak var textfieldInputBox: UITextField!
     @IBOutlet weak var viewInputBox: UIView!
     @IBOutlet weak var collectionViewMain: UICollectionView!
@@ -48,16 +49,25 @@ class ImproveHypothesisViewController: UIViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if self.viewModel.alreadyTried {
+            self.labelHeaderNote.text = "Try your hypothesis again or set a new one."
+            self.textfieldInputBox.text = self.viewModel.selectedHypothesis
+        }
+    }
+    
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
 
     @IBAction func onClose(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
+        self.viewModel.alreadyTried = false
     }
 
     @IBAction func onHideKeyboard(_ sender: Any) {
-        self.textfieldInputBox.resignFirstResponder()
+//        self.textfieldInputBox.resignFirstResponder()
     }
     
     @IBAction func onDidEndOnExit(_ sender: Any) {
@@ -81,6 +91,7 @@ class ImproveHypothesisViewController: UIViewController {
     
     @objc func onKeyboardWillHide() {
         self.buttonCloseBox.isHidden = true
+        self.constraintForTryAgainButtonBottomSpace.constant = 20
     }
     
     @IBAction func onTryAgain(_ sender: Any) {

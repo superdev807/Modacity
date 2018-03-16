@@ -131,7 +131,7 @@ extension PlaylistViewController: UITableViewDelegate, UITableViewDataSource {
         let delete = UITableViewRowAction(style: .destructive, title: "") { (action, indexPath) in
             self.viewModel.deletePlaylist(at: indexPath.row)
         }
-        delete.setIcon(iconImage: UIImage(named:"icon_delete_white")!, backColor: Color(hexString: "#6815CE"), cellHeight: 64, iconSizePercentage: 0.25)
+        delete.setIcon(iconImage: UIImage(named:"icon_row_delete")!, backColor: Color(hexString: "#6815CE"), cellHeight: 64, iconSizePercentage: 0.25)
         
         return [delete]
         

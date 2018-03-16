@@ -235,6 +235,16 @@ class PracticeItemViewModel: ViewModel {
         return false
     }
     
+    func canReplaceItem(name: String, to: String) -> Bool {
+        for idx in 0..<self.itemNames.count {
+            let selectedItem = self.itemNames[idx]
+            if selectedItem == to {
+                return false
+            }
+        }
+        return true
+    }
+    
     func replaceItem(name: String, to: String) {
         for idx in 0..<self.selectedItems.count {
             let selectedItem = self.selectedItems[idx]

@@ -69,6 +69,7 @@ class PracticeItemListViewController: UIViewController {
     @IBOutlet weak var constraintForHeaderImageViewConstant: NSLayoutConstraint!
     
     var practiceItemNameEditingCell: PracticeItemCell? = nil
+    var editingSection: Int = 0
     var editingRow: Int = 0
     
     var parentViewModel = PlaylistDetailsViewModel()
@@ -159,8 +160,19 @@ extension PracticeItemListViewController {
     @IBAction func cancelCellEditingMode() {
         if self.practiceItemNameEditingCell != nil {
             self.practiceItemNameEditingCell!.textfieldInputPracticeItemName.isHidden = true
+            let originalPracticeItemName = self.viewModel.sectionResult(section: self.editingSection, row: self.editingRow)
+            let newPracticeItemName = self.practiceItemNameEditingCell!.textfieldInputPracticeItemName.text ?? ""
+            if newPracticeItemName != originalPracticeItemName {
+                if newPracticeItemName == "" {
+                    self.practiceItemNameEditingCell!.labelPracticeItemName.text = originalPracticeItemName
+                } else if self.viewModel.canReplaceItem(name: originalPracticeItemName, to: newPracticeItemName) {
+                    self.viewModel.replaceItem(name: self.viewModel.searchResult(at: self.editingRow), to: newPracticeItemName)
+                } else {
+                    self.practiceItemNameEditingCell!.labelPracticeItemName.text = originalPracticeItemName
+                    AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "You've already same practice item name.")
+                }
+            }
             self.practiceItemNameEditingCell!.labelPracticeItemName.isHidden = false
-            self.viewModel.replaceItem(name: self.viewModel.searchResult(at: self.editingRow), to: self.practiceItemNameEditingCell!.textfieldInputPracticeItemName.text ?? "")
             self.practiceItemNameEditingCell = nil
         }
     }
@@ -262,6 +274,7 @@ extension PracticeItemListViewController: UITableViewDelegate, UITableViewDataSo
         let edit = UITableViewRowAction(style: .default, title: "") { (action, indexPath) in
             if let cell = self.tableViewMain.cellForRow(at: indexPath) as? PracticeItemCell {
                 self.practiceItemNameEditingCell = cell
+                self.editingSection = indexPath.section
                 self.editingRow = indexPath.row
                 cell.textfieldInputPracticeItemName.isHidden = false
                 cell.labelPracticeItemName.isHidden = true

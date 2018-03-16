@@ -50,7 +50,7 @@ class ImproveSuggestionViewController: UIViewController {
     }
     
     @IBAction func onHideKeyboard(_ sender: Any) {
-        self.textfieldInputBox.resignFirstResponder()
+//        self.textfieldInputBox.resignFirstResponder()
     }
     
     @IBAction func onDidEndOnExit(_ sender: Any) {

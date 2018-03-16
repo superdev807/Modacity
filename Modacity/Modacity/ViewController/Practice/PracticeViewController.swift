@@ -17,6 +17,7 @@ class PracticeViewController: MetrodroneBaseViewController {
     
     @IBOutlet weak var labelPracticeItemName: UILabel!
     @IBOutlet weak var buttonFavorite: UIButton!
+    @IBOutlet weak var imageViewHeader: UIImageView!
     
     // MARK:- Property values for timer
     @IBOutlet weak var labelHour: UILabel!
@@ -45,6 +46,10 @@ class PracticeViewController: MetrodroneBaseViewController {
     var isRecording = false
     
     // MARK: - Properties for audio player
+    var player: AVAudioPlayer?
+    var audioPlayerTimer: Timer?
+    var isPlaying = false
+    var currentRate = 1.0
     @IBOutlet weak var viewAudioPlayer: UIView!
     @IBOutlet weak var viewSiriWaveFormView: SCSiriWaveformView!
     @IBOutlet weak var buttonAudioPlay: UIButton!
@@ -52,21 +57,27 @@ class PracticeViewController: MetrodroneBaseViewController {
     @IBOutlet weak var buttonAudioBackward: UIButton!
     @IBOutlet weak var labelPlayerRemainsTime: UILabel!
     @IBOutlet weak var labelPlayerCurrentTime: UILabel!
-    var player: AVAudioPlayer?
-    var audioPlayerTimer: Timer?
-    var isPlaying = false
-    
+    @IBOutlet weak var viewRatePanel: UIView!
+    @IBOutlet weak var imageViewRateDirection: UIImageView!
+    @IBOutlet weak var labelRateValue: UILabel!
     
     // MARK: - Properties for drone
     @IBOutlet weak var viewMinimizedDrone: UIView!
     @IBOutlet weak var viewMaximizedDrone: UIView!
-    @IBOutlet weak var imageViewHeader: UIImageView!
     @IBOutlet weak var constraintForMaximizedDroneBottomSpace: NSLayoutConstraint!
     @IBOutlet weak var viewDroneFrame: ViewDroneFrame!
     @IBOutlet weak var sliderDuration: UISlider!
     @IBOutlet weak var labelTempo: UILabel!
     @IBOutlet weak var buttonMetrodronePlay: UIButton!
     @IBOutlet weak var buttonSustain: UIButton!
+    
+    @IBOutlet weak var viewSubdivision: UIView!
+    @IBOutlet weak var buttonSubdivisionNote1: UIButton!
+    @IBOutlet weak var buttonSubdivisionNote2: UIButton!
+    @IBOutlet weak var buttonSubdivisionNote3: UIButton!
+    @IBOutlet weak var buttonSubdivisionNote4: UIButton!
+    var selectedSubdivisionNote: Int = -1
+    var subdivisionPanelShown = false
     
     @IBOutlet weak var viewBottomXBar: UIView!
     
@@ -106,6 +117,14 @@ class PracticeViewController: MetrodroneBaseViewController {
             self.audioPlayerTimer!.invalidate()
             self.audioPlayerTimer = nil
         }
+        
+        if self.recorder != nil && self.recorder.isRecording {
+            self.recorder.stop()
+        }
+        
+        if self.player != nil && self.player!.isPlaying {
+            self.player!.stop()
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -123,6 +142,15 @@ class PracticeViewController: MetrodroneBaseViewController {
             controller.playlistViewModel = self.playlistViewModel
         }
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if let _ = self.player {
+            if self.isPlaying {
+                self.onPlayPauseAudio(self)
+            }
+        }
+    }
 }
 
 // MARK: - Metrodone processing
@@ -131,9 +159,70 @@ extension PracticeViewController {
     func initializeDroneUIs() {
         self.viewBottomXBar.backgroundColor = Color(hexString:"#292a4a")
         self.constraintForMaximizedDroneBottomSpace.constant =  self.view.bounds.size.height * 336/667 - 40
+        self.viewSubdivision.isHidden = true
+        self.configureSubdivisionNoteSelectionGUI()
+    }
+    
+    func configureSubdivisionNoteSelectionGUI() {
+        self.buttonSubdivisionNote1.alpha = 0.5
+        self.buttonSubdivisionNote2.alpha = 0.5
+        self.buttonSubdivisionNote3.alpha = 0.5
+        self.buttonSubdivisionNote4.alpha = 0.5
+        switch self.selectedSubdivisionNote {
+        case 0:
+            self.buttonSubdivisionNote1.alpha = 1.0
+        case 1:
+            self.buttonSubdivisionNote2.alpha = 1.0
+        case 2:
+            self.buttonSubdivisionNote3.alpha = 1.0
+        case 3:
+            self.buttonSubdivisionNote4.alpha = 1.0
+        default:
+            return
+        }
+    }
+    
+    func processSubdivision() {
+        // TODO : here, drone media programming for subdivisions
+        // self.selectedSubdivisionNote value will be used here
+    }
+    
+    @IBAction func onSubdivisionNotes(_ sender: UIButton) {
+        if sender == self.buttonSubdivisionNote1 {
+            self.selectedSubdivisionNote = 0
+        } else if sender == self.buttonSubdivisionNote2 {
+            self.selectedSubdivisionNote = 1
+        } else if sender == self.buttonSubdivisionNote3 {
+            self.selectedSubdivisionNote = 2
+        } else if sender == self.buttonSubdivisionNote4 {
+            self.selectedSubdivisionNote = 3
+        }
+        
+        self.configureSubdivisionNoteSelectionGUI()
+        self.processSubdivision()
+    }
+    
+    @IBAction func onSubdivision(_ sender: Any) {
+        if !self.subdivisionPanelShown {
+            self.viewSubdivision.isHidden = false
+        } else {
+            self.viewSubdivision.isHidden = true
+        }
+        
+        self.subdivisionPanelShown = !self.subdivisionPanelShown
     }
     
     @IBAction func onShowDrones(_ sender: Any) {
+        
+        if self.recorder != nil && self.recorder.isRecording {
+            AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Please stop recording before leaving the page.")
+            return
+        }
+        
+        if self.player != nil && self.isPlaying {
+            self.onPlayPauseAudio(sender)
+        }
+        
         if !self.viewPromptPanel.isHidden {
             self.onCloseAlertPanel(sender)
         }
@@ -146,6 +235,11 @@ extension PracticeViewController {
     }
     
     @IBAction func onHideDrones(_ sender: Any) {
+        
+        if self.subdivisionPanelShown {
+            self.onSubdivision(sender)
+        }
+        
         self.constraintForMaximizedDroneBottomSpace.constant =  self.view.bounds.size.height * 336/667 - 40
         UIView.animate(withDuration: 1.0, animations: {
             self.view.layoutIfNeeded()
@@ -197,7 +291,13 @@ extension PracticeViewController {
 
 // MARK: - Process navigations
 extension PracticeViewController {
+    
     @IBAction func onEnd(_ sender: Any) {
+        
+        if self.recorder != nil && self.recorder.isRecording {
+            AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Please stop recording before leaving the page.")
+            return
+        }
         
         if !isCountDown {
             var duration = 0
@@ -232,10 +332,11 @@ extension PracticeViewController {
     
     @IBAction func onImprove(_ sender: Any) {
         
-        if recorder != nil && recorder.isRecording {
-            AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Please stop recording first to do improvements!")
+        if self.recorder != nil && self.recorder.isRecording {
+            AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Please stop recording before leaving the page.")
             return
         }
+        
         let controller = UIStoryboard(name: "improve", bundle: nil).instantiateViewController(withIdentifier: "improve_scene") as! UINavigationController
         let root = controller.viewControllers[0] as! ImproveSuggestionViewController
         root.playlistModel = self.playlistViewModel
@@ -243,6 +344,11 @@ extension PracticeViewController {
     }
     
     @IBAction func onAskExpert(_ sender: Any) {
+        
+        if self.recorder != nil && self.recorder.isRecording {
+            AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Please stop recording before leaving the page.")
+            return
+        }
         
         let controller = UIStoryboard(name:"feedback", bundle:nil).instantiateViewController(withIdentifier: "feedbackscene") as! UINavigationController
         let feedbackRootViewController = controller.viewControllers[0] as! FeedbackRootViewController
@@ -253,6 +359,12 @@ extension PracticeViewController {
     }
     
     @IBAction func onFeedback(_ sender: Any) {
+        
+        if self.recorder != nil && self.recorder.isRecording {
+            AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Please stop recording before leaving the page.")
+            return
+        }
+        
         let controller = UIStoryboard(name:"feedback", bundle:nil).instantiateViewController(withIdentifier: "feedbackscene") as! UINavigationController
         let feedbackRootViewController = controller.viewControllers[0] as! FeedbackRootViewController
         feedbackRootViewController.pageIsRootFromMenu = false
@@ -262,47 +374,62 @@ extension PracticeViewController {
 }
 
 // MARK: - Process audio player
-extension PracticeViewController: AVAudioPlayerDelegate {
+extension PracticeViewController: AVAudioPlayerDelegate, FDWaveformViewDelegate {
     
     func initializeAudioPlayerUI() {
         self.viewSiriWaveFormView.isHidden = true
         self.viewAudioPlayer.isHidden = true
+        self.viewRatePanel.isHidden = true
+    }
+    
+    func showRateValue() {
+        if self.currentRate == 1.0 {
+            self.viewRatePanel.isHidden = true
+        } else {
+            self.viewRatePanel.isHidden = false
+            if self.currentRate < 1 {
+                self.imageViewRateDirection.image = UIImage(named:"icon_backward")
+                self.labelRateValue.text = "\(Int(1.0 / self.currentRate))"
+            } else {
+                self.imageViewRateDirection.image = UIImage(named:"icon_forward_white")
+                self.labelRateValue.text = "\(Int(self.currentRate))"
+            }
+        }
     }
     
     @IBAction func onTouchDownOnBackward(_ sender: Any) {
         if let player = self.player {
-            player.rate = 0.5
+            self.currentRate = self.currentRate / 2.0
+            if self.currentRate < 1 / 16.0 {
+                self.currentRate = 1.0
+            }
+            player.rate = Float(self.currentRate)
+            self.showRateValue()
         }
     }
     
     @IBAction func onTouchUpOutsideOnBackward(_ sender: Any) {
-        if let player = self.player {
-            player.rate = 1.0
-        }
     }
     
     @IBAction func onTouchUpInsideOnBackward(_ sender: Any) {
-        if let player = self.player {
-            player.rate = 1.0
-        }
+        
     }
     
     @IBAction func onTouchDownOnForward(_ sender: Any) {
         if let player = self.player {
-            player.rate = 2.0
+            self.currentRate = self.currentRate * 2.0
+            if self.currentRate > 16.0 {
+                self.currentRate = 1.0
+            }
+            player.rate = Float(self.currentRate)
+            self.showRateValue()
         }
     }
     
     @IBAction func onTouchUpOutsideOnForward(_ sender: Any) {
-        if let player = self.player {
-            player.rate = 1.0
-        }
     }
     
     @IBAction func onTouchUpInsideOnForward(_ sender: Any) {
-        if let player = self.player {
-            player.rate = 1.0
-        }
     }
     
     func prepareAudioPlay() {
@@ -363,18 +490,6 @@ extension PracticeViewController: AVAudioPlayerDelegate {
         self.buttonAudioPlay.setImage(UIImage(named: "icon_pause_white"), for: .normal)
     }
     
-    @IBAction func onAudioBackward(_ sender: Any) {
-        if let player = player {
-            player.currentTime = player.currentTime - 1.0
-        }
-    }
-    
-    @IBAction func onAudioForward(_ sender: Any) {
-        if let player = player {
-            player.rate = 2
-        }
-    }
-    
     @IBAction func onSaveRecord(_ sender: Any) {
         let alertController = UIAlertController(title: nil, message: "Enter the file name!", preferredStyle: .alert)
         alertController.addTextField { (textField) in
@@ -405,6 +520,12 @@ extension PracticeViewController: AVAudioPlayerDelegate {
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         self.isPlaying = false
         self.buttonAudioPlay.setImage(UIImage(named: "icon_play"), for: .normal)
+    }
+    
+    func waveformDidEndScrubbing(_ waveformView: FDWaveformView) {
+        if let player = self.player {
+            player.currentTime = player.duration * (Double(self.waveformAudioPlay.highlightedSamples?.count ?? 0) / Double(self.waveformAudioPlay.totalSamples))
+        }
     }
 }
 
@@ -634,15 +755,5 @@ extension PracticeViewController {
         
         timerShouldDown = false
         timerShouldStartFrom = timeAlreadyPracticed
-    }
-}
-
-
-// MARK: - FDWaveformViewDelegate
-extension PracticeViewController: FDWaveformViewDelegate {
-    func waveformDidEndScrubbing(_ waveformView: FDWaveformView) {
-        if let player = self.player {
-            player.currentTime = player.duration * (Double(self.waveformAudioPlay.highlightedSamples?.count ?? 0) / Double(self.waveformAudioPlay.totalSamples))
-        }
     }
 }

@@ -49,6 +49,6 @@ class PlaylistFinishViewController: UIViewController {
     }
     
     @IBAction func onSkip(_ sender: Any) {
-        
+        self.navigationController?.dismiss(animated: true, completion: nil)
     }
 }

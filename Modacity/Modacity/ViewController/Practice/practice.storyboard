@@ -423,6 +423,35 @@
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VGv-Xf-hGZ">
+                                                <rect key="frame" x="162.5" y="41.5" width="49.5" height="16"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_forward_white" translatesAutoresizingMaskIntoConstraints="NO" id="iMA-wC-dQ5">
+                                                        <rect key="frame" x="0.0" y="0.0" width="24" height="16"/>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="x 2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kfb-qe-xMm">
+                                                        <rect key="frame" x="29" y="-1" width="20.5" height="18"/>
+                                                        <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="15"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstItem="iMA-wC-dQ5" firstAttribute="leading" secondItem="VGv-Xf-hGZ" secondAttribute="leading" id="0JN-bg-fba"/>
+                                                    <constraint firstAttribute="bottom" secondItem="iMA-wC-dQ5" secondAttribute="bottom" id="8iv-1k-Qs1"/>
+                                                    <constraint firstItem="Kfb-qe-xMm" firstAttribute="leading" secondItem="iMA-wC-dQ5" secondAttribute="trailing" constant="5" id="Fr6-sF-l7o"/>
+                                                    <constraint firstItem="iMA-wC-dQ5" firstAttribute="top" secondItem="VGv-Xf-hGZ" secondAttribute="top" id="S62-dS-DMl"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Kfb-qe-xMm" secondAttribute="trailing" id="hmJ-gV-Mmo"/>
+                                                    <constraint firstItem="Kfb-qe-xMm" firstAttribute="centerY" secondItem="VGv-Xf-hGZ" secondAttribute="centerY" id="qKT-Qg-h48"/>
+                                                </constraints>
+                                            </view>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XM8-9t-DLh">
+                                                <rect key="frame" x="308" y="40.5" width="30" height="18"/>
+                                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="15"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xAo-yA-VmF">
                                                 <rect key="frame" x="111" y="68.5" width="44" height="44"/>
                                                 <constraints>
@@ -471,12 +500,6 @@
                                                     <action selector="onSaveRecord:" destination="ruu-CR-fPU" eventType="touchUpInside" id="oMf-Eg-Ld7"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XM8-9t-DLh">
-                                                <rect key="frame" x="308" y="40.5" width="30" height="18"/>
-                                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="15"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -484,12 +507,14 @@
                                             <constraint firstItem="c98-Ae-dDF" firstAttribute="leading" secondItem="xAo-yA-VmF" secondAttribute="trailing" constant="10" id="3YN-FD-hHc"/>
                                             <constraint firstAttribute="bottom" secondItem="o4y-t0-Wkn" secondAttribute="bottom" id="6DB-px-1J1"/>
                                             <constraint firstItem="GBc-LJ-730" firstAttribute="leading" secondItem="gAn-xN-kCD" secondAttribute="leading" constant="30" id="Kzf-SD-7go"/>
+                                            <constraint firstItem="VGv-Xf-hGZ" firstAttribute="centerY" secondItem="94I-KR-pyD" secondAttribute="centerY" id="LLF-lD-KTK"/>
                                             <constraint firstAttribute="bottom" secondItem="c98-Ae-dDF" secondAttribute="bottom" id="Tgv-xq-Szf"/>
                                             <constraint firstItem="GBc-LJ-730" firstAttribute="top" secondItem="94I-KR-pyD" secondAttribute="bottom" constant="10" id="WV0-mS-78b"/>
                                             <constraint firstItem="94I-KR-pyD" firstAttribute="centerX" secondItem="GBc-LJ-730" secondAttribute="centerX" id="X3R-Hd-Ovt"/>
                                             <constraint firstAttribute="bottom" secondItem="xAo-yA-VmF" secondAttribute="bottom" id="Xi0-kd-Vqc"/>
                                             <constraint firstAttribute="bottom" secondItem="Ovm-8S-GaC" secondAttribute="bottom" id="Xig-w2-LD8"/>
                                             <constraint firstAttribute="bottom" secondItem="GBc-LJ-730" secondAttribute="bottom" id="aHS-cx-Pb2"/>
+                                            <constraint firstItem="c98-Ae-dDF" firstAttribute="centerX" secondItem="VGv-Xf-hGZ" secondAttribute="centerX" id="oMc-ND-lee"/>
                                             <constraint firstItem="o4y-t0-Wkn" firstAttribute="leading" secondItem="c98-Ae-dDF" secondAttribute="trailing" constant="10" id="ocP-qW-Iig"/>
                                             <constraint firstAttribute="trailing" secondItem="Ovm-8S-GaC" secondAttribute="trailing" constant="30" id="qha-rk-hoI"/>
                                             <constraint firstItem="XM8-9t-DLh" firstAttribute="centerY" secondItem="94I-KR-pyD" secondAttribute="centerY" id="swJ-dw-Fa9"/>
@@ -827,7 +852,81 @@
                                                     <constraint firstAttribute="height" constant="48" id="nPG-OG-JfT"/>
                                                 </constraints>
                                                 <state key="normal" image="btn_subdivision"/>
+                                                <connections>
+                                                    <action selector="onSubdivision:" destination="ruu-CR-fPU" eventType="touchUpInside" id="mLL-e4-kYs"/>
+                                                </connections>
                                             </button>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DlB-Ud-NdT">
+                                                <rect key="frame" x="7" y="-99" width="96" height="272"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_subdivision" translatesAutoresizingMaskIntoConstraints="NO" id="93L-qN-IE0">
+                                                        <rect key="frame" x="0.0" y="0.0" width="96" height="272"/>
+                                                    </imageView>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sv6-Nd-Lqp">
+                                                        <rect key="frame" x="0.0" y="0.0" width="88" height="258"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O5o-J5-OTA">
+                                                                <rect key="frame" x="0.0" y="0.0" width="88" height="64.5"/>
+                                                                <state key="normal" image="icon_note_1"/>
+                                                                <connections>
+                                                                    <action selector="onSubdivisionNotes:" destination="ruu-CR-fPU" eventType="touchUpInside" id="WOx-KY-rG0"/>
+                                                                </connections>
+                                                            </button>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1QG-6r-cTq">
+                                                                <rect key="frame" x="0.0" y="64.5" width="88" height="64.5"/>
+                                                                <state key="normal" image="icon_note_2"/>
+                                                                <connections>
+                                                                    <action selector="onSubdivisionNotes:" destination="ruu-CR-fPU" eventType="touchUpInside" id="5eM-Zw-n1J"/>
+                                                                </connections>
+                                                            </button>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gNm-4t-shn">
+                                                                <rect key="frame" x="0.0" y="129" width="88" height="64.5"/>
+                                                                <state key="normal" image="icon_note_3"/>
+                                                                <connections>
+                                                                    <action selector="onSubdivisionNotes:" destination="ruu-CR-fPU" eventType="touchUpInside" id="dXE-oX-ohg"/>
+                                                                </connections>
+                                                            </button>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wh3-Wi-UDY">
+                                                                <rect key="frame" x="0.0" y="196" width="88" height="64.5"/>
+                                                                <state key="normal" image="icon_note_4"/>
+                                                                <connections>
+                                                                    <action selector="onSubdivisionNotes:" destination="ruu-CR-fPU" eventType="touchUpInside" id="A9x-YB-c0i"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <constraints>
+                                                            <constraint firstItem="1QG-6r-cTq" firstAttribute="width" secondItem="O5o-J5-OTA" secondAttribute="width" id="Gbd-99-2z8"/>
+                                                            <constraint firstItem="1QG-6r-cTq" firstAttribute="height" secondItem="O5o-J5-OTA" secondAttribute="height" id="IIK-f1-P5F"/>
+                                                            <constraint firstItem="1QG-6r-cTq" firstAttribute="top" secondItem="O5o-J5-OTA" secondAttribute="bottom" id="IZB-lw-jKN"/>
+                                                            <constraint firstItem="1QG-6r-cTq" firstAttribute="leading" secondItem="O5o-J5-OTA" secondAttribute="leading" id="OcC-Jk-osY"/>
+                                                            <constraint firstItem="O5o-J5-OTA" firstAttribute="width" secondItem="Sv6-Nd-Lqp" secondAttribute="width" id="OwV-Ne-97v"/>
+                                                            <constraint firstItem="gNm-4t-shn" firstAttribute="leading" secondItem="O5o-J5-OTA" secondAttribute="leading" id="YLe-hX-0Xz"/>
+                                                            <constraint firstItem="Wh3-Wi-UDY" firstAttribute="height" secondItem="O5o-J5-OTA" secondAttribute="height" id="Z07-sb-96B"/>
+                                                            <constraint firstItem="Wh3-Wi-UDY" firstAttribute="top" secondItem="gNm-4t-shn" secondAttribute="bottom" constant="2.5" id="agU-SZ-jOC"/>
+                                                            <constraint firstItem="gNm-4t-shn" firstAttribute="width" secondItem="O5o-J5-OTA" secondAttribute="width" id="cN7-mI-ltg"/>
+                                                            <constraint firstItem="O5o-J5-OTA" firstAttribute="height" secondItem="Sv6-Nd-Lqp" secondAttribute="height" multiplier="1/4" id="fnj-Nd-zCJ"/>
+                                                            <constraint firstItem="O5o-J5-OTA" firstAttribute="top" secondItem="Sv6-Nd-Lqp" secondAttribute="top" id="hQs-Rh-a4M"/>
+                                                            <constraint firstItem="O5o-J5-OTA" firstAttribute="leading" secondItem="Sv6-Nd-Lqp" secondAttribute="leading" id="kk7-fn-SNi"/>
+                                                            <constraint firstItem="gNm-4t-shn" firstAttribute="top" secondItem="1QG-6r-cTq" secondAttribute="bottom" id="qIs-6o-OI5"/>
+                                                            <constraint firstItem="Wh3-Wi-UDY" firstAttribute="leading" secondItem="O5o-J5-OTA" secondAttribute="leading" id="r9x-mT-tZu"/>
+                                                            <constraint firstItem="gNm-4t-shn" firstAttribute="height" secondItem="O5o-J5-OTA" secondAttribute="height" id="vFz-Bb-wsw"/>
+                                                            <constraint firstItem="Wh3-Wi-UDY" firstAttribute="width" secondItem="O5o-J5-OTA" secondAttribute="width" id="zOI-MV-3QY"/>
+                                                        </constraints>
+                                                    </view>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstItem="Sv6-Nd-Lqp" firstAttribute="top" secondItem="DlB-Ud-NdT" secondAttribute="top" id="0Ku-lY-i2J"/>
+                                                    <constraint firstItem="Sv6-Nd-Lqp" firstAttribute="leading" secondItem="DlB-Ud-NdT" secondAttribute="leading" id="0PD-sV-crl"/>
+                                                    <constraint firstAttribute="bottom" secondItem="Sv6-Nd-Lqp" secondAttribute="bottom" constant="14" id="Ba7-eg-gEY"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Sv6-Nd-Lqp" secondAttribute="trailing" constant="8" id="IGq-X2-wbQ"/>
+                                                    <constraint firstAttribute="bottom" secondItem="93L-qN-IE0" secondAttribute="bottom" id="KLQ-Yk-uxC"/>
+                                                    <constraint firstItem="93L-qN-IE0" firstAttribute="top" secondItem="DlB-Ud-NdT" secondAttribute="top" id="PqK-O1-Cse"/>
+                                                    <constraint firstAttribute="trailing" secondItem="93L-qN-IE0" secondAttribute="trailing" id="RME-AE-2x9"/>
+                                                    <constraint firstItem="93L-qN-IE0" firstAttribute="leading" secondItem="DlB-Ud-NdT" secondAttribute="leading" id="e92-na-WDc"/>
+                                                </constraints>
+                                            </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="METRODRONE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AfB-km-ES8">
                                                 <rect key="frame" x="20" y="221" width="71.5" height="20"/>
                                                 <constraints>
@@ -847,6 +946,7 @@
                                             <constraint firstItem="wIy-jc-7UN" firstAttribute="leading" secondItem="cpl-Rd-z0P" secondAttribute="leading" constant="-2" id="Kt9-N3-b3G"/>
                                             <constraint firstAttribute="trailing" secondItem="wIy-jc-7UN" secondAttribute="trailing" id="OMa-3i-bE6"/>
                                             <constraint firstAttribute="bottom" secondItem="AfB-km-ES8" secondAttribute="bottom" id="SUT-A2-RgD"/>
+                                            <constraint firstItem="dfQ-ug-E0R" firstAttribute="top" secondItem="DlB-Ud-NdT" secondAttribute="bottom" id="TqG-FY-rIA"/>
                                             <constraint firstItem="AfB-km-ES8" firstAttribute="top" secondItem="dfQ-ug-E0R" secondAttribute="bottom" id="WKx-so-fXS"/>
                                             <constraint firstItem="AfB-km-ES8" firstAttribute="centerX" secondItem="cpl-Rd-z0P" secondAttribute="centerX" id="dI8-dQ-Xvd"/>
                                             <constraint firstItem="y2g-Dd-GPv" firstAttribute="top" secondItem="cpl-Rd-z0P" secondAttribute="top" id="iZ7-TH-Pyt"/>
@@ -854,6 +954,7 @@
                                             <constraint firstAttribute="trailing" secondItem="LKu-uA-5lA" secondAttribute="trailing" id="lRW-jv-6rp"/>
                                             <constraint firstItem="y2g-Dd-GPv" firstAttribute="leading" secondItem="cpl-Rd-z0P" secondAttribute="leading" constant="-1" id="odz-EW-Km2"/>
                                             <constraint firstItem="dfQ-ug-E0R" firstAttribute="centerX" secondItem="cpl-Rd-z0P" secondAttribute="centerX" id="rnd-f7-Lop"/>
+                                            <constraint firstItem="DlB-Ud-NdT" firstAttribute="centerX" secondItem="dfQ-ug-E0R" secondAttribute="centerX" id="ucD-cI-5Dt"/>
                                             <constraint firstItem="LKu-uA-5lA" firstAttribute="leading" secondItem="cpl-Rd-z0P" secondAttribute="leading" id="zh6-Ur-ew2"/>
                                         </constraints>
                                     </view>
@@ -984,14 +1085,20 @@ You can tap timer to pause your session.</string>
                         <outlet property="buttonAudioPlay" destination="c98-Ae-dDF" id="U49-Zj-t1W"/>
                         <outlet property="buttonFavorite" destination="CqK-vm-U6A" id="LxK-kB-F3y"/>
                         <outlet property="buttonMetrodronePlay" destination="y2g-Dd-GPv" id="7aX-Wc-hZw"/>
+                        <outlet property="buttonSubdivisionNote1" destination="O5o-J5-OTA" id="tUD-0q-7rX"/>
+                        <outlet property="buttonSubdivisionNote2" destination="1QG-6r-cTq" id="hDL-wf-Pzd"/>
+                        <outlet property="buttonSubdivisionNote3" destination="gNm-4t-shn" id="4d7-M9-MNy"/>
+                        <outlet property="buttonSubdivisionNote4" destination="Wh3-Wi-UDY" id="JiD-1B-eSZ"/>
                         <outlet property="buttonSustain" destination="iUX-z6-kKw" id="886-ty-kvO"/>
                         <outlet property="constraintForMaximizedDroneBottomSpace" destination="X6d-TH-uth" id="Wpg-gB-pw8"/>
                         <outlet property="imageViewHeader" destination="6oE-xZ-flo" id="RMa-og-Ba8"/>
+                        <outlet property="imageViewRateDirection" destination="iMA-wC-dQ5" id="mgW-3I-c6b"/>
                         <outlet property="labelHour" destination="dNS-M9-GZA" id="8Nd-RH-BnZ"/>
                         <outlet property="labelMinute" destination="pU1-Oc-PW6" id="EaO-Mc-cja"/>
                         <outlet property="labelPlayerCurrentTime" destination="94I-KR-pyD" id="KO3-Qq-2IH"/>
                         <outlet property="labelPlayerRemainsTime" destination="XM8-9t-DLh" id="fRE-Nj-k7W"/>
                         <outlet property="labelPracticeItemName" destination="RLr-qK-k0M" id="kTI-DJ-erj"/>
+                        <outlet property="labelRateValue" destination="Kfb-qe-xMm" id="4Ea-s2-DWw"/>
                         <outlet property="labelSeconds" destination="Q8r-rh-dfF" id="nDf-qw-q2y"/>
                         <outlet property="labelTempo" destination="Q3o-hL-bNX" id="zOE-jF-oy8"/>
                         <outlet property="sliderDuration" destination="Wo1-KC-Q5v" id="oWs-Mn-R3c"/>
@@ -1001,7 +1108,9 @@ You can tap timer to pause your session.</string>
                         <outlet property="viewMaximizedDrone" destination="U1r-XY-SBh" id="s4k-h3-fNI"/>
                         <outlet property="viewMinimizedDrone" destination="AHE-Lf-Bg1" id="jXK-WU-e8T"/>
                         <outlet property="viewPromptPanel" destination="B5x-Ol-sgc" id="CVd-Ye-ebm"/>
+                        <outlet property="viewRatePanel" destination="VGv-Xf-hGZ" id="ufh-qV-7MN"/>
                         <outlet property="viewSiriWaveFormView" destination="Mgx-Ny-ARF" id="aat-cJ-5R6"/>
+                        <outlet property="viewSubdivision" destination="DlB-Ud-NdT" id="G9Y-zA-1Ya"/>
                         <outlet property="viewTimeArea" destination="nOB-0N-33h" id="9gq-gQ-BVX"/>
                         <outlet property="viewTimeAreaPausedPanel" destination="8ap-88-Eh9" id="CL7-kU-ZgW"/>
                         <outlet property="waveformAudioPlay" destination="gYe-b1-8hr" id="pID-86-Xaw"/>
@@ -1010,7 +1119,7 @@ You can tap timer to pause your session.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="esx-Oz-hVV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1440.8" y="-770.68965517241384"/>
+            <point key="canvasLocation" x="1440.8" y="-771.36431784107947"/>
         </scene>
         <!--Practice Rate View Controller-->
         <scene sceneID="vyO-gd-fHH">
@@ -1137,6 +1246,7 @@ You can tap timer to pause your session.</string>
         <image name="bg_drone_large" width="375" height="348"/>
         <image name="bg_practice_header" width="375" height="519"/>
         <image name="bg_simple_gradient" width="375" height="667"/>
+        <image name="bg_subdivision" width="96" height="272"/>
         <image name="btn_play" width="112" height="65"/>
         <image name="btn_practice_next" width="130" height="66"/>
         <image name="btn_subdivision" width="112" height="48"/>
@@ -1153,6 +1263,10 @@ You can tap timer to pause your session.</string>
         <image name="icon_forward_white" width="24" height="16"/>
         <image name="icon_heart" width="16" height="15"/>
         <image name="icon_minus" width="30" height="30"/>
+        <image name="icon_note_1" width="9" height="22"/>
+        <image name="icon_note_2" width="21" height="26"/>
+        <image name="icon_note_3" width="30" height="35"/>
+        <image name="icon_note_4" width="44" height="32"/>
         <image name="icon_pause_white" width="17" height="20"/>
         <image name="icon_play" width="28" height="30"/>
         <image name="icon_plus" width="30" height="30"/>

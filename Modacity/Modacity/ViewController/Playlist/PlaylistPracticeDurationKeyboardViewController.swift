@@ -22,7 +22,7 @@ class PlaylistPracticeDurationKeyboardViewController: UIViewController {
     @IBOutlet weak var constraintForSubPanelHeight: NSLayoutConstraint!
     
     var viewModel: PlaylistDetailsViewModel!
-    var inputIndicatorPoint = 4
+    var inputIndicatorPoint = 5
     var inputDigits: [Int] = [Int](repeating: 0, count: 6)
     
     override func viewDidLoad() {
@@ -45,15 +45,15 @@ class PlaylistPracticeDurationKeyboardViewController: UIViewController {
         inputDigits[inputIndicatorPoint] = 0
         switch inputIndicatorPoint {
         case 1:
-            inputIndicatorPoint = 0
-        case 0:
-            inputIndicatorPoint = 3
-        case 3:
             inputIndicatorPoint = 2
-        case 2:
-            inputIndicatorPoint = 5
-        case 5:
+        case 0:
+            inputIndicatorPoint = 1
+        case 3:
             inputIndicatorPoint = 4
+        case 2:
+            inputIndicatorPoint = 3
+        case 4:
+            inputIndicatorPoint = 5
         default:
             break
         }
@@ -66,15 +66,15 @@ class PlaylistPracticeDurationKeyboardViewController: UIViewController {
         
         switch inputIndicatorPoint {
         case 4:
-            inputIndicatorPoint = 5
-        case 5:
-            inputIndicatorPoint = 2
-        case 2:
             inputIndicatorPoint = 3
-        case 3:
-            inputIndicatorPoint = 0
-        case 0:
+        case 5:
+            inputIndicatorPoint = 4
+        case 2:
             inputIndicatorPoint = 1
+        case 3:
+            inputIndicatorPoint = 2
+        case 1:
+            inputIndicatorPoint = 0
         default:
             break
         }
