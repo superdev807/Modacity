@@ -187,11 +187,12 @@ extension FeedbackRootViewController : MFMailComposeViewControllerDelegate {
     }
     
     func generateEmailSubject(_ type: ModacityEmailType) -> String {
+        let uuid: String = (MyProfileLocalManager.manager.me?.uid)!
         switch(type) {
         case .Feedback:
-            return "User feedback" // plus unique info
+            return "Beta feedback \(uuid)" // plus unique info
         case .AskExpert:
-            return "Expert Ask!" // plus unique info
+            return "Expert Ask \(uuid)" // plus unique info
         }
     }
     

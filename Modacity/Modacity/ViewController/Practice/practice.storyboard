@@ -604,10 +604,19 @@
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U1r-XY-SBh">
                                 <rect key="frame" x="0.0" y="331" width="375" height="336"/>
                                 <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ffc-rl-i64" userLabel="Hide Button">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="aay-U3-ooA"/>
+                                        </constraints>
+                                        <connections>
+                                            <action selector="onHideDrones:" destination="ruu-CR-fPU" eventType="touchUpInside" id="ODP-s3-aor"/>
+                                        </connections>
+                                    </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_drone_large" translatesAutoresizingMaskIntoConstraints="NO" id="V1m-zz-BJU">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="336"/>
                                     </imageView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ag5-F4-hch">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ag5-F4-hch" userLabel="Metrodrone Title">
                                         <rect key="frame" x="139.5" y="8" width="95" height="36"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="METRODRONE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mTo-ny-fAw">
@@ -715,7 +724,7 @@
                                             <constraint firstItem="t6q-qo-fDs" firstAttribute="centerY" secondItem="vlS-K1-vrr" secondAttribute="centerY" id="ree-ue-WSp"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vlb-e8-zS0">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vlb-e8-zS0" userLabel="Drone Duration">
                                         <rect key="frame" x="14" y="277" width="208" height="24"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DRONE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h2N-a9-wCS">
@@ -779,7 +788,7 @@
                                             <constraint firstAttribute="width" constant="1" id="cb9-9m-k7J"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cpl-Rd-z0P">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cpl-Rd-z0P" userLabel="View Play">
                                         <rect key="frame" x="251" y="60" width="110" height="241"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y2g-Dd-GPv" userLabel="btn Play">
@@ -865,7 +874,7 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sv6-Nd-Lqp">
                                                         <rect key="frame" x="0.0" y="0.0" width="88" height="258"/>
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O5o-J5-OTA">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O5o-J5-OTA" userLabel="Button Subdivision 1">
                                                                 <rect key="frame" x="0.0" y="0.0" width="88" height="64.5"/>
                                                                 <state key="normal" image="icon_note_1"/>
                                                                 <connections>
@@ -958,15 +967,6 @@
                                             <constraint firstItem="LKu-uA-5lA" firstAttribute="leading" secondItem="cpl-Rd-z0P" secondAttribute="leading" id="zh6-Ur-ew2"/>
                                         </constraints>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ffc-rl-i64">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="aay-U3-ooA"/>
-                                        </constraints>
-                                        <connections>
-                                            <action selector="onHideDrones:" destination="ruu-CR-fPU" eventType="touchUpInside" id="ODP-s3-aor"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -977,10 +977,10 @@
                                     <constraint firstItem="cpl-Rd-z0P" firstAttribute="top" secondItem="nHf-GH-hRo" secondAttribute="top" constant="5" id="7C9-DP-fsg"/>
                                     <constraint firstItem="V1m-zz-BJU" firstAttribute="top" secondItem="U1r-XY-SBh" secondAttribute="top" id="CNT-KN-faQ"/>
                                     <constraint firstItem="ffc-rl-i64" firstAttribute="leading" secondItem="U1r-XY-SBh" secondAttribute="leading" id="DDV-n6-OaR"/>
-                                    <constraint firstAttribute="trailing" secondItem="ffc-rl-i64" secondAttribute="trailing" id="Ehd-aP-jCN"/>
                                     <constraint firstItem="Ag5-F4-hch" firstAttribute="top" secondItem="U1r-XY-SBh" secondAttribute="top" constant="8" id="FZ4-y5-c3l"/>
                                     <constraint firstItem="V1m-zz-BJU" firstAttribute="leading" secondItem="U1r-XY-SBh" secondAttribute="leading" id="FdN-9a-fqp"/>
                                     <constraint firstAttribute="trailing" secondItem="V1m-zz-BJU" secondAttribute="trailing" id="GKv-np-8h8"/>
+                                    <constraint firstAttribute="trailing" secondItem="ffc-rl-i64" secondAttribute="trailing" id="Sdi-GT-GJh"/>
                                     <constraint firstItem="vlS-K1-vrr" firstAttribute="leading" secondItem="U1r-XY-SBh" secondAttribute="leading" constant="14" id="TEb-Ni-MW8"/>
                                     <constraint firstAttribute="bottom" secondItem="V1m-zz-BJU" secondAttribute="bottom" id="VuK-xk-Ziv"/>
                                     <constraint firstItem="cpl-Rd-z0P" firstAttribute="leading" secondItem="nHf-GH-hRo" secondAttribute="trailing" constant="14" id="XTd-BR-7t7"/>

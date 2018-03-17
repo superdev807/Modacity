@@ -21,6 +21,8 @@ protocol DroneFrameDelegate : class {
 class MetrodroneBaseViewController: UIViewController, DroneFrameDelegate {
     static let minDurationValue: Float = 0.01
     static let maxDurationValue: Float = 0.99
+    static let minBPM: Int = 30
+    static let maxBPM: Int = 300
     
     var _viewDroneFrame: ViewDroneFrame!
     var _labelTempo: UILabel!
@@ -54,6 +56,14 @@ class MetrodroneBaseViewController: UIViewController, DroneFrameDelegate {
         let highUrl = Bundle.main.url(forResource: "monodrone_A", withExtension: "wav", subdirectory: "waveforms")!
         return Metrodrone(mainClickFile: highUrl)
     }()
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if (self.isMetrodronePlaying) {
+            metrodrone.stop()
+        }
+    }
     
     func initializeOutlets(lblTempo: UILabel!, droneFrame: ViewDroneFrame!, playButton: UIButton!, durationSlider: UISlider!, sustainButton: UIButton!) {
         self._viewDroneFrame = droneFrame // maybe a better way to do this?
@@ -133,9 +143,16 @@ class MetrodroneBaseViewController: UIViewController, DroneFrameDelegate {
     }
     
     func setNewTempo(_ bpm: Int) {
-        
-        //stopMetrodrone()
         tempo = bpm
+        
+        if (bpm < MetrodroneBaseViewController.minBPM) {
+            tempo = MetrodroneBaseViewController.minBPM
+        }
+        if (bpm > MetrodroneBaseViewController.maxBPM) {
+            tempo = MetrodroneBaseViewController.maxBPM
+        }
+        
+        
         _labelTempo.text = String(tempo)
         if (isMetrodronePlaying) {
             goMetronome()

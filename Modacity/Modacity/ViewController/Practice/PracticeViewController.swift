@@ -150,6 +150,7 @@ class PracticeViewController: MetrodroneBaseViewController {
                 self.onPlayPauseAudio(self)
             }
         }
+
     }
 }
 
@@ -185,7 +186,10 @@ extension PracticeViewController {
     func processSubdivision() {
         // TODO : here, drone media programming for subdivisions
         // self.selectedSubdivisionNote value will be used here
-        self.setSubdivision(self.selectedSubdivisionNote)
+        if ((self.selectedSubdivisionNote < 0) || (self.selectedSubdivisionNote > 3)) {
+            self.selectedSubdivisionNote = 0
+        }
+        self.setSubdivision(self.selectedSubdivisionNote+1)
     }
     
     @IBAction func onSubdivisionNotes(_ sender: UIButton) {
@@ -239,11 +243,11 @@ extension PracticeViewController {
     @IBAction func onHideDrones(_ sender: Any) {
         
         if self.subdivisionPanelShown {
-            self.onSubdivision(sender)
+            self.onSubdivision(sender as! UIButton)
         }
         
         self.constraintForMaximizedDroneBottomSpace.constant =  self.view.bounds.size.height * 336/667 - 40
-        UIView.animate(withDuration: 1.0, animations: {
+        UIView.animate(withDuration: 0.66, animations: {
             self.view.layoutIfNeeded()
         }) { (finished) in
             if finished {
