@@ -784,15 +784,18 @@ you wanted?</string>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mfd-r2-htd">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mfd-r2-htd" userLabel="Sustain">
                                                                 <rect key="frame" x="25" y="70.5" width="70" height="35"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="mfd-r2-htd" secondAttribute="height" multiplier="2:1" id="O1W-Av-lks"/>
                                                                     <constraint firstAttribute="width" constant="70" id="sDB-rl-HEa"/>
                                                                 </constraints>
                                                                 <state key="normal" image="btn_sustain"/>
+                                                                <connections>
+                                                                    <action selector="onSustainButton:" destination="hg1-Xl-tGd" eventType="touchUpInside" id="OrD-Gy-jHS"/>
+                                                                </connections>
                                                             </button>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M4g-ck-2TM">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M4g-ck-2TM" userLabel="labelOctave">
                                                                 <rect key="frame" x="42.5" y="42" width="36" height="19"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="36" id="rIK-x0-Bo3"/>
@@ -801,11 +804,11 @@ you wanted?</string>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="soY-GL-1GH">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="soY-GL-1GH" userLabel="octave+">
                                                                 <rect key="frame" x="17.5" y="37" width="30" height="30"/>
                                                                 <state key="normal" image="icon_plus"/>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2yu-WV-yNR">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2yu-WV-yNR" userLabel="octave-">
                                                                 <rect key="frame" x="73.5" y="37" width="30" height="30"/>
                                                                 <state key="normal" image="icon_minus"/>
                                                             </button>
@@ -870,6 +873,9 @@ you wanted?</string>
                                                 <color key="minimumTrackTintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <color key="maximumTrackTintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <color key="thumbTintColor" red="0.20392156859999999" green="0.1960784314" blue="0.32156862749999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <connections>
+                                                    <action selector="onDurationChanged:" destination="hg1-Xl-tGd" eventType="valueChanged" id="vh8-jj-5Gl"/>
+                                                </connections>
                                             </slider>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Duration" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Dd-cz-ElQ">
                                                 <rect key="frame" x="159.5" y="2" width="40" height="20"/>
@@ -913,6 +919,9 @@ you wanted?</string>
                                                     <constraint firstAttribute="width" secondItem="HpL-Wr-MgN" secondAttribute="height" multiplier="112:65" id="88T-tD-NUU"/>
                                                 </constraints>
                                                 <state key="normal" image="btn_play"/>
+                                                <connections>
+                                                    <action selector="onBtnPlay:" destination="hg1-Xl-tGd" eventType="touchUpInside" id="crV-IF-oIU"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DNb-sJ-yol">
                                                 <rect key="frame" x="-2" y="65" width="112" height="65"/>
@@ -920,15 +929,25 @@ you wanted?</string>
                                                     <constraint firstAttribute="width" secondItem="DNb-sJ-yol" secondAttribute="height" multiplier="112:65" id="0ou-jK-StY"/>
                                                 </constraints>
                                                 <state key="normal" image="btn_tap"/>
+                                                <connections>
+                                                    <action selector="onTapDown:" destination="hg1-Xl-tGd" eventType="touchDown" id="Ry0-mM-GbX"/>
+                                                    <action selector="onTapTouchup:" destination="hg1-Xl-tGd" eventType="touchUpInside" id="2gl-wt-d2Z"/>
+                                                    <action selector="onTapTouchup:" destination="hg1-Xl-tGd" eventType="touchUpOutside" id="LwN-Nu-SOr"/>
+                                                </connections>
                                             </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gby-wu-4ug">
                                                 <rect key="frame" x="0.0" y="130" width="110" height="40"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dpB-zg-V1E">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dpB-zg-V1E" userLabel="bpm+">
                                                         <rect key="frame" x="7" y="4.5" width="30" height="30"/>
                                                         <state key="normal" image="icon_plus"/>
+                                                        <connections>
+                                                            <action selector="onChangeBPMStop:" destination="hg1-Xl-tGd" eventType="touchUpOutside" id="cUQ-b9-sEm"/>
+                                                            <action selector="onChangeBPMStop:" destination="hg1-Xl-tGd" eventType="touchUpInside" id="uXP-Et-La1"/>
+                                                            <action selector="onIncreaseBPMTouch:" destination="hg1-Xl-tGd" eventType="touchDown" id="Qvr-JR-0UL"/>
+                                                        </connections>
                                                     </button>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="18" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WBn-dd-UwQ">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="18" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WBn-dd-UwQ" userLabel="BPM">
                                                         <rect key="frame" x="37" y="10.5" width="36" height="19"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="36" id="S17-Q5-HSr"/>
@@ -937,9 +956,14 @@ you wanted?</string>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aQI-LY-vvX">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aQI-LY-vvX" userLabel="bpm-">
                                                         <rect key="frame" x="73" y="4.5" width="30" height="30"/>
                                                         <state key="normal" image="icon_minus"/>
+                                                        <connections>
+                                                            <action selector="onChangeBPMStop:" destination="hg1-Xl-tGd" eventType="touchUpInside" id="duO-4S-6ol"/>
+                                                            <action selector="onChangeBPMStop:" destination="hg1-Xl-tGd" eventType="touchUpOutside" id="nho-b1-oAL"/>
+                                                            <action selector="onDecreaseBPMTouch:" destination="hg1-Xl-tGd" eventType="touchDown" id="R59-5Y-XNH"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -952,7 +976,7 @@ you wanted?</string>
                                                     <constraint firstItem="dpB-zg-V1E" firstAttribute="centerY" secondItem="Gby-wu-4ug" secondAttribute="centerY" id="uet-Fm-A3d"/>
                                                 </constraints>
                                             </view>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uf7-04-phj">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uf7-04-phj" userLabel="btnSubdivision">
                                                 <rect key="frame" x="-1" y="173" width="112" height="48"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="112" id="FrF-ya-97P"/>
@@ -1082,9 +1106,13 @@ til the very end of the…</string>
                     <connections>
                         <outlet property="btnRecord" destination="D1v-0o-Nrh" id="62z-G8-cq4"/>
                         <outlet property="buttonAudioPlay" destination="MOH-Sk-ebe" id="4OI-4F-5nC"/>
+                        <outlet property="buttonMetroPlay" destination="HpL-Wr-MgN" id="pXP-Q6-gZN"/>
+                        <outlet property="buttonSustain" destination="mfd-r2-htd" id="NXC-09-chZ"/>
+                        <outlet property="buttonTap" destination="DNb-sJ-yol" id="WdT-fh-Vtr"/>
                         <outlet property="constraintForMaximizedDroneBottomSpace" destination="92a-O5-mgX" id="mRc-8d-Tdd"/>
                         <outlet property="imageViewHeader" destination="Esx-De-EDu" id="UGa-G6-UeC"/>
                         <outlet property="imageViewRateDirection" destination="dUA-x6-Fip" id="FvS-OU-HLz"/>
+                        <outlet property="labelBPM" destination="WBn-dd-UwQ" id="sNi-R4-V8m"/>
                         <outlet property="labelHypothesis" destination="dOc-S4-3Wh" id="lAZ-Yw-tfV"/>
                         <outlet property="labelImprovementNote" destination="yeP-au-9km" id="7Bu-wj-bvj"/>
                         <outlet property="labelPlayerCurrentTime" destination="dJx-9q-VU0" id="1f9-9A-oRf"/>
@@ -1092,8 +1120,10 @@ til the very end of the…</string>
                         <outlet property="labelPracticeItemName" destination="wki-fw-BgE" id="s2Z-w2-u0Q"/>
                         <outlet property="labelRateValue" destination="xHg-Ts-hbz" id="wGq-U6-2Fu"/>
                         <outlet property="labelSuggestion" destination="Ydd-hg-7BO" id="Q0q-Ku-7Zd"/>
+                        <outlet property="sliderDuration" destination="4bs-7F-27b" id="deW-bD-WWR"/>
                         <outlet property="viewAudioPlayer" destination="jEu-dO-6EC" id="dUe-9d-eTB"/>
                         <outlet property="viewBottomXBar" destination="glh-Og-M5h" id="tyh-3f-U8Z"/>
+                        <outlet property="viewDroneFrame" destination="UKY-Pa-EGz" id="3s3-z0-bg3"/>
                         <outlet property="viewImprovedAlert" destination="UK5-ym-lGY" id="sWG-yJ-s3b"/>
                         <outlet property="viewImprovedYesPanel" destination="1Ih-8m-wdH" id="H64-3h-ATl"/>
                         <outlet property="viewMaximizedDrone" destination="RDU-al-hFq" id="AOs-H5-O8h"/>
