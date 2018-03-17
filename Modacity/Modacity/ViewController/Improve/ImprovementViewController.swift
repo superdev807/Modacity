@@ -11,7 +11,7 @@ import AVFoundation
 import SCSiriWaveformView
 import FDWaveformView
 
-class ImprovementViewController: UIViewController {
+class ImprovementViewController: MetrodroneBaseViewController {
     
     var playlistViewModel: PlaylistDetailsViewModel!
     var viewModel: ImprovementViewModel!
@@ -47,6 +47,14 @@ class ImprovementViewController: UIViewController {
     @IBOutlet weak var constraintForMaximizedDroneBottomSpace: NSLayoutConstraint!
     @IBOutlet weak var viewBottomXBar: UIView!
     
+    // MARK: - Properties for drone
+    @IBOutlet weak var viewDroneFrame: ViewDroneFrame!
+    @IBOutlet weak var buttonSustain: UIButton!
+    @IBOutlet weak var sliderDuration: UISlider!
+    @IBOutlet weak var buttonMetroPlay: UIButton!
+    @IBOutlet weak var buttonTap: UIButton!
+    @IBOutlet weak var labelBPM: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -60,6 +68,7 @@ class ImprovementViewController: UIViewController {
         self.viewAudioPlayer.isHidden = true
         
         self.initializeImproveActionViews()
+        self.initializeOutlets(lblTempo: labelBPM, droneFrame: viewDroneFrame, playButton: buttonMetroPlay, durationSlider: sliderDuration, sustainButton: buttonSustain)
     }
     
     deinit {
@@ -112,6 +121,7 @@ class ImprovementViewController: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
+   
 }
 
 // MARK: - Drone processing
@@ -141,7 +151,48 @@ extension ImprovementViewController {
             }
         }
     }
+
+    
+    @IBAction func onSustainButton(_ sender: Any) {
+        let isOn = toggleSustain()
+        buttonSustain.alpha = (isOn) ? 1.0 : 0.50
+    }
+    
+    @IBAction func onDurationChanged(_ sender: Any) {
+        changeDuration(newValue: sliderDuration.value)
+    }
+    
+    @IBAction func onBtnPlay(_ sender: Any) {
+        if (!isMetrodronePlaying) {
+            goMetronome()
+        } else {
+            stopMetrodrone()
+        }
+    }
+    
+    @IBAction func onTapDown(_ sender: Any) {
+        tapDown()
+    }
+    
+    @IBAction func onTapTouchup(_ sender: Any) {
+        tapUp()
+    }
+    
+    @IBAction func onIncreaseBPMTouch(_ sender: Any) {
+        increaseBPMTouch()
+    }
+    
+    @IBAction func onDecreaseBPMTouch(_ sender: Any) {
+        decreaseBPMTouch()
+    }
+    
+    @IBAction func onChangeBPMStop(_ sender: Any) {
+        stopBPMChangeTimer()
+    }
 }
+
+
+
 
 // MARK: - Audio playing
 extension ImprovementViewController: AVAudioPlayerDelegate, FDWaveformViewDelegate {

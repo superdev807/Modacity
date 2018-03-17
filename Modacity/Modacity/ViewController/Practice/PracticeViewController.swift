@@ -85,7 +85,7 @@ class PracticeViewController: MetrodroneBaseViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        initializeOutlets(lblTempo: labelTempo,
+        self.initializeOutlets(lblTempo: labelTempo,
                           droneFrame: viewDroneFrame,
                           playButton: buttonMetrodronePlay,
                           durationSlider: sliderDuration,
@@ -185,11 +185,13 @@ extension PracticeViewController {
     func processSubdivision() {
         // TODO : here, drone media programming for subdivisions
         // self.selectedSubdivisionNote value will be used here
+        self.setSubdivision(self.selectedSubdivisionNote)
     }
     
     @IBAction func onSubdivisionNotes(_ sender: UIButton) {
         if sender == self.buttonSubdivisionNote1 {
             self.selectedSubdivisionNote = 0
+            
         } else if sender == self.buttonSubdivisionNote2 {
             self.selectedSubdivisionNote = 1
         } else if sender == self.buttonSubdivisionNote3 {
