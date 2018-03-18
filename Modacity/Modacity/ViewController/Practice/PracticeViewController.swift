@@ -25,6 +25,7 @@ class PracticeViewController: MetrodroneBaseViewController {
     @IBOutlet weak var labelSeconds: UILabel!
     @IBOutlet weak var viewTimeArea: UIView!
     @IBOutlet weak var viewTimeAreaPausedPanel: UIView!
+    @IBOutlet weak var buttonTimerUpDownArrow: UIButton!
     var timer: Timer!
     var timerRunning = false
     var timerStarted: Date!
@@ -638,13 +639,17 @@ extension PracticeViewController {
 extension PracticeViewController {
     
     func initializeTimer() {
+        
         self.viewTimeAreaPausedPanel.isHidden = true
         self.viewTimeArea.layer.cornerRadius = 10
         self.viewTimeArea.layer.masksToBounds = true
+        
         self.processTimerStarting()
         self.perform(#selector(onTimerStart), with: nil, afterDelay: 0.5)
+        self.buttonTimerUpDownArrow.setImage(UIImage(named:"icon_timer_arrow_count_up"), for: .normal)
         if let countDownTimer =  self.playlistViewModel.currentPracticeItem.countDownDuration {
             if countDownTimer > 0 {
+                self.buttonTimerUpDownArrow.setImage(UIImage(named:"icon_timer_arrow_count_down"), for: .normal)
                 self.isCountDown = true
                 if let timePracticed = self.playlistViewModel.duration(forPracticeItem: self.playlistViewModel.currentPracticeItem.entryId) {
                     if timePracticed < countDownTimer {
@@ -655,6 +660,7 @@ extension PracticeViewController {
                 }
             }
         }
+        
     }
     
     @IBAction func onTapTimer(_ sender: Any) {

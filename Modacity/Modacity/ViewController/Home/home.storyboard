@@ -277,13 +277,13 @@ first playlist and start practicing.</string>
                                                         <rect key="frame" x="0.0" y="0.0" width="375" height="427"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RECENT" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9qr-R3-BeI">
-                                                                <rect key="frame" x="20" y="20" width="38.5" height="12"/>
+                                                                <rect key="frame" x="20" y="5" width="38.5" height="12"/>
                                                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="10"/>
                                                                 <color key="textColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="NdI-26-i6m">
-                                                                <rect key="frame" x="0.0" y="42" width="375" height="120"/>
+                                                                <rect key="frame" x="0.0" y="27" width="375" height="120"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="120" id="MD6-dc-QWi"/>
@@ -306,23 +306,36 @@ first playlist and start practicing.</string>
                                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_home_box" translatesAutoresizingMaskIntoConstraints="NO" id="W13-Ts-AqC">
                                                                                     <rect key="frame" x="0.0" y="0.0" width="130" height="115"/>
                                                                                 </imageView>
-                                                                                <label opaque="NO" userInteractionEnabled="NO" tag="10" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RECENT" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="10M-9o-3qL">
-                                                                                    <rect key="frame" x="10" y="10" width="110" height="95"/>
+                                                                                <label opaque="NO" userInteractionEnabled="NO" tag="10" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RECENT" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="10M-9o-3qL">
+                                                                                    <rect key="frame" x="15" y="10" width="100" height="75"/>
                                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                                     <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="15"/>
                                                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
+                                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_playlist_blue" translatesAutoresizingMaskIntoConstraints="NO" id="Udj-nS-7tz">
+                                                                                    <rect key="frame" x="10" y="89" width="19" height="16"/>
+                                                                                </imageView>
+                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PLAYLIST" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M7Q-vS-CJi">
+                                                                                    <rect key="frame" x="82" y="92" width="35" height="10"/>
+                                                                                    <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="8"/>
+                                                                                    <color key="textColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
+                                                                                    <nil key="highlightedColor"/>
+                                                                                </label>
                                                                             </subviews>
                                                                         </view>
                                                                         <constraints>
-                                                                            <constraint firstAttribute="trailing" secondItem="10M-9o-3qL" secondAttribute="trailing" constant="10" id="24K-fS-uC0"/>
+                                                                            <constraint firstAttribute="trailing" secondItem="10M-9o-3qL" secondAttribute="trailing" constant="15" id="24K-fS-uC0"/>
                                                                             <constraint firstItem="10M-9o-3qL" firstAttribute="top" secondItem="GNK-cC-bdx" secondAttribute="top" constant="10" id="9A0-Ty-pOr"/>
                                                                             <constraint firstItem="W13-Ts-AqC" firstAttribute="leading" secondItem="GNK-cC-bdx" secondAttribute="leading" id="DmE-3B-GV8"/>
+                                                                            <constraint firstItem="Udj-nS-7tz" firstAttribute="leading" secondItem="GNK-cC-bdx" secondAttribute="leading" constant="10" id="G76-pd-VSz"/>
                                                                             <constraint firstAttribute="trailing" secondItem="W13-Ts-AqC" secondAttribute="trailing" id="Mq7-8o-OUe"/>
+                                                                            <constraint firstItem="M7Q-vS-CJi" firstAttribute="centerY" secondItem="Udj-nS-7tz" secondAttribute="centerY" id="PIV-ER-WVr"/>
+                                                                            <constraint firstAttribute="bottom" secondItem="Udj-nS-7tz" secondAttribute="bottom" constant="10" id="PhC-qc-p3S"/>
+                                                                            <constraint firstAttribute="trailing" secondItem="M7Q-vS-CJi" secondAttribute="trailing" constant="13" id="Qwa-3c-Zja"/>
                                                                             <constraint firstItem="W13-Ts-AqC" firstAttribute="top" secondItem="GNK-cC-bdx" secondAttribute="top" id="Wee-dq-MRS"/>
-                                                                            <constraint firstItem="10M-9o-3qL" firstAttribute="leading" secondItem="GNK-cC-bdx" secondAttribute="leading" constant="10" id="jnK-eX-m2c"/>
-                                                                            <constraint firstAttribute="bottom" secondItem="10M-9o-3qL" secondAttribute="bottom" constant="10" id="r7a-vC-MS0"/>
+                                                                            <constraint firstItem="10M-9o-3qL" firstAttribute="leading" secondItem="GNK-cC-bdx" secondAttribute="leading" constant="15" id="jnK-eX-m2c"/>
+                                                                            <constraint firstAttribute="bottom" secondItem="10M-9o-3qL" secondAttribute="bottom" constant="30" id="r7a-vC-MS0"/>
                                                                             <constraint firstAttribute="bottom" secondItem="W13-Ts-AqC" secondAttribute="bottom" id="xdm-j9-aLc"/>
                                                                         </constraints>
                                                                     </collectionViewCell>
@@ -333,13 +346,13 @@ first playlist and start practicing.</string>
                                                                 </connections>
                                                             </collectionView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FAVORITES" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="da3-DE-qjr">
-                                                                <rect key="frame" x="20" y="167" width="53" height="12"/>
+                                                                <rect key="frame" x="20" y="152" width="53" height="12"/>
                                                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="10"/>
                                                                 <color key="textColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="rAI-c8-Ze7">
-                                                                <rect key="frame" x="0.0" y="189" width="375" height="120"/>
+                                                                <rect key="frame" x="0.0" y="174" width="375" height="120"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="120" id="Utl-1w-aET"/>
@@ -362,21 +375,34 @@ first playlist and start practicing.</string>
                                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_home_box" translatesAutoresizingMaskIntoConstraints="NO" id="esI-Jb-1Jp">
                                                                                     <rect key="frame" x="0.0" y="0.0" width="130" height="115"/>
                                                                                 </imageView>
-                                                                                <label opaque="NO" userInteractionEnabled="NO" tag="10" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RECENT" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="05b-f3-i0E">
-                                                                                    <rect key="frame" x="10" y="10" width="110" height="95"/>
+                                                                                <label opaque="NO" userInteractionEnabled="NO" tag="10" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RECENT" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="05b-f3-i0E">
+                                                                                    <rect key="frame" x="15" y="10" width="100" height="75"/>
                                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                                     <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="15"/>
                                                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
+                                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_playlist_blue" translatesAutoresizingMaskIntoConstraints="NO" id="4sG-bC-ZeT">
+                                                                                    <rect key="frame" x="10" y="89" width="19" height="16"/>
+                                                                                </imageView>
+                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PLAYLIST" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G9W-eO-wIx">
+                                                                                    <rect key="frame" x="84" y="92" width="35" height="10"/>
+                                                                                    <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="8"/>
+                                                                                    <color key="textColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
+                                                                                    <nil key="highlightedColor"/>
+                                                                                </label>
                                                                             </subviews>
                                                                         </view>
                                                                         <constraints>
-                                                                            <constraint firstAttribute="bottom" secondItem="05b-f3-i0E" secondAttribute="bottom" constant="10" id="Cae-rz-gX5"/>
+                                                                            <constraint firstAttribute="bottom" secondItem="4sG-bC-ZeT" secondAttribute="bottom" constant="10" id="B8l-Ks-7J6"/>
+                                                                            <constraint firstAttribute="bottom" secondItem="05b-f3-i0E" secondAttribute="bottom" constant="30" id="Cae-rz-gX5"/>
                                                                             <constraint firstItem="05b-f3-i0E" firstAttribute="top" secondItem="sNh-Sg-y2z" secondAttribute="top" constant="10" id="EhM-de-e66"/>
-                                                                            <constraint firstAttribute="trailing" secondItem="05b-f3-i0E" secondAttribute="trailing" constant="10" id="abg-9m-tjV"/>
+                                                                            <constraint firstItem="G9W-eO-wIx" firstAttribute="centerY" secondItem="4sG-bC-ZeT" secondAttribute="centerY" id="I7c-Ro-ti8"/>
+                                                                            <constraint firstAttribute="trailing" secondItem="G9W-eO-wIx" secondAttribute="trailing" constant="11" id="Wqs-4w-0CM"/>
+                                                                            <constraint firstItem="4sG-bC-ZeT" firstAttribute="leading" secondItem="sNh-Sg-y2z" secondAttribute="leading" constant="10" id="XlX-OO-Szq"/>
+                                                                            <constraint firstAttribute="trailing" secondItem="05b-f3-i0E" secondAttribute="trailing" constant="15" id="abg-9m-tjV"/>
                                                                             <constraint firstItem="esI-Jb-1Jp" firstAttribute="top" secondItem="sNh-Sg-y2z" secondAttribute="top" id="eEE-xY-ake"/>
-                                                                            <constraint firstItem="05b-f3-i0E" firstAttribute="leading" secondItem="sNh-Sg-y2z" secondAttribute="leading" constant="10" id="j0P-Tf-xBR"/>
+                                                                            <constraint firstItem="05b-f3-i0E" firstAttribute="leading" secondItem="sNh-Sg-y2z" secondAttribute="leading" constant="15" id="j0P-Tf-xBR"/>
                                                                             <constraint firstItem="esI-Jb-1Jp" firstAttribute="leading" secondItem="sNh-Sg-y2z" secondAttribute="leading" id="jY5-kG-fDG"/>
                                                                             <constraint firstAttribute="bottom" secondItem="esI-Jb-1Jp" secondAttribute="bottom" id="x2B-HG-Ioj"/>
                                                                             <constraint firstAttribute="trailing" secondItem="esI-Jb-1Jp" secondAttribute="trailing" id="xNy-t6-wNS"/>
@@ -396,7 +422,7 @@ first playlist and start practicing.</string>
                                                             <constraint firstAttribute="trailing" secondItem="rAI-c8-Ze7" secondAttribute="trailing" id="P8i-kj-cvJ"/>
                                                             <constraint firstAttribute="trailing" secondItem="NdI-26-i6m" secondAttribute="trailing" id="Pjf-ZO-RIW"/>
                                                             <constraint firstItem="9qr-R3-BeI" firstAttribute="leading" secondItem="zsm-h9-2QW" secondAttribute="leading" constant="20" id="S7C-o6-4xh"/>
-                                                            <constraint firstItem="9qr-R3-BeI" firstAttribute="top" secondItem="zsm-h9-2QW" secondAttribute="top" constant="20" id="UvN-2K-2BD"/>
+                                                            <constraint firstItem="9qr-R3-BeI" firstAttribute="top" secondItem="zsm-h9-2QW" secondAttribute="top" constant="5" id="UvN-2K-2BD"/>
                                                             <constraint firstItem="da3-DE-qjr" firstAttribute="top" secondItem="NdI-26-i6m" secondAttribute="bottom" constant="5" id="b5H-3e-3wC"/>
                                                             <constraint firstItem="NdI-26-i6m" firstAttribute="leading" secondItem="zsm-h9-2QW" secondAttribute="leading" id="hCs-Wg-Fx9"/>
                                                             <constraint firstItem="NdI-26-i6m" firstAttribute="top" secondItem="9qr-R3-BeI" secondAttribute="bottom" constant="10" id="lpF-wF-waz"/>
@@ -500,7 +526,7 @@ first playlist and start practicing.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YSd-C5-07k" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="24.800000000000001" y="162.5615763546798"/>
+            <point key="canvasLocation" x="24.800000000000001" y="162.3688155922039"/>
         </scene>
     </scenes>
     <resources>
@@ -509,5 +535,6 @@ first playlist and start practicing.</string>
         <image name="bg_header" width="375" height="286"/>
         <image name="bg_home_box" width="130" height="115"/>
         <image name="icon_menu" width="20" height="14"/>
+        <image name="icon_playlist_blue" width="19" height="16"/>
     </resources>
 </document>

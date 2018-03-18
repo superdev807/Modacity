@@ -26,12 +26,12 @@ class PracticeItemCell: UITableViewCell {
         } else {
             let range = NSString(string:name.lowercased()).range(of: keyword.lowercased())
             let attributed = NSMutableAttributedString(string: name)
-            attributed.addAttributes([NSAttributedStringKey.foregroundColor: Color.green], range: range)
+            attributed.addAttributes([NSAttributedStringKey.foregroundColor: AppConfig.appConfigTimerGreenColor], range: range)
             self.labelPracticeItemName.attributedText = attributed
         }
         
         if isSelected {
-            self.imageViewIcon.image = UIImage(named:"icon_checked_white_large")
+            self.imageViewIcon.image = UIImage(named:"icon_selected_blue")
         } else {
             self.imageViewIcon.image = UIImage(named:"icon_plus")
         }
@@ -64,9 +64,11 @@ class PracticeItemListViewController: UIViewController {
     @IBOutlet weak var tableViewMain: UITableView!
     @IBOutlet weak var constraintForTableViewTopSpace: NSLayoutConstraint!
     @IBOutlet weak var constraintForAddButtonBottomSpace: NSLayoutConstraint!
-    @IBOutlet weak var buttonAddButton: UIButton!
     @IBOutlet weak var buttonRemoveKeyword: UIButton!
     @IBOutlet weak var constraintForHeaderImageViewConstant: NSLayoutConstraint!
+    
+    @IBOutlet weak var viewAddPracticeButtonContainer: UIView!
+    @IBOutlet weak var labelAddPracticeItemButton: UILabel!
     
     var practiceItemNameEditingCell: PracticeItemCell? = nil
     var editingSection: Int = 0
@@ -100,7 +102,7 @@ class PracticeItemListViewController: UIViewController {
         self.viewStoreNewItemPanel.isHidden = true
         self.tableViewMain.tableFooterView = UIView()
         self.constraintForTableViewTopSpace.constant = 10
-        self.buttonAddButton.isHidden = true
+        self.viewAddPracticeButtonContainer.isHidden = true
         self.tableViewMain.sectionIndexBackgroundColor = Color.clear
         self.tableViewMain.sectionIndexColor = Color.white
         self.buttonRemoveKeyword.isHidden = true
@@ -128,10 +130,10 @@ class PracticeItemListViewController: UIViewController {
         
         self.viewModel.subscribe(to: "selectedItems") { (event, _, _) in
             if self.viewModel.selectedItems.count > 0 {
-                self.buttonAddButton.isHidden = false
-                self.buttonAddButton.setTitle("Add \(self.viewModel.selectedItems.count) Practices", for: .normal)
+                self.viewAddPracticeButtonContainer.isHidden = false
+                self.labelAddPracticeItemButton.text = "Add \(self.viewModel.selectedItems.count) Practices"
             } else {
-                self.buttonAddButton.isHidden = true
+                self.viewAddPracticeButtonContainer.isHidden = true
             }
             
             self.tableViewMain.reloadData()
@@ -190,8 +192,8 @@ extension PracticeItemListViewController: UITextFieldDelegate {
         let newKeyword = self.textfieldSearch.text ?? ""
         if newKeyword != "" && !self.viewModel.practiceItemContains(itemName: newKeyword) {
             self.viewStoreNewItemPanel.isHidden = false
-            self.labelStoreNewItem.text = "\"\(newKeyword)\""
-            self.constraintForTableViewTopSpace.constant = 100
+            self.labelStoreNewItem.text = "\(newKeyword)"
+            self.constraintForTableViewTopSpace.constant = 80
         } else {
             self.viewStoreNewItemPanel.isHidden = true
             self.labelStoreNewItem.text = ""
@@ -227,13 +229,13 @@ extension PracticeItemListViewController: UITableViewDelegate, UITableViewDataSo
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let returnedView = UIView(frame: CGRect(x:0, y:0, width:tableViewMain.frame.size.width, height:33))
+        let returnedView = UIView(frame: CGRect(x:0, y:0, width:tableViewMain.frame.size.width, height:40))
         returnedView.backgroundColor = Color.white.alpha(0.3)
         
-        let label = UILabel(frame: CGRect(x:10, y:0, width:tableViewMain.frame.size.width - 20, height:33))
+        let label = UILabel(frame: CGRect(x:10, y:0, width:tableViewMain.frame.size.width - 20, height:24))
         label.text = self.viewModel.sortedSectionedResult()[section]
-        label.textColor = Color.white
-        label.font = UIFont(name: AppConfig.appFontLatoBold, size: 14)
+        label.textColor = Color.white.alpha(0.8)
+        label.font = UIFont(name: AppConfig.appFontLatoRegular, size: 14)
         returnedView.addSubview(label)
         return returnedView
     }

@@ -62,11 +62,11 @@
                                     <size key="itemSize" width="96" height="64"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="10" minY="30" maxX="10" maxY="20"/>
+                                    <inset key="sectionInset" minX="30" minY="30" maxX="30" maxY="20"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SuggestCell" id="9PQ-8Z-QNf">
-                                        <rect key="frame" x="10" y="30" width="96" height="64"/>
+                                        <rect key="frame" x="30" y="30" width="96" height="64"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                             <rect key="frame" x="0.0" y="0.0" width="96" height="64"/>
@@ -478,15 +478,15 @@ you wanted?</string>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Do you want practice it again?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M71-Z8-7Fk">
-                                                <rect key="frame" x="47" y="29" width="146.5" height="14"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Do you want to practice this improvement again?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M71-Z8-7Fk">
+                                                <rect key="frame" x="1.5" y="29" width="237.5" height="14"/>
                                                 <fontDescription key="fontDescription" name="Lato-Italic" family="Lato" pointSize="12"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GDV-Ee-hXD">
                                                 <rect key="frame" x="0.0" y="53" width="106" height="66"/>
-                                                <state key="normal" image="btn_improved_next"/>
+                                                <state key="normal" image="btn_improved_no"/>
                                                 <connections>
                                                     <action selector="onImprovedNext:" destination="hg1-Xl-tGd" eventType="touchUpInside" id="RuF-Dx-Ao3"/>
                                                 </connections>
@@ -805,7 +805,7 @@ you wanted?</string>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="soY-GL-1GH" userLabel="octave+">
-                                                                <rect key="frame" x="17.5" y="37" width="30" height="30"/>
+                                                                <rect key="frame" x="23.5" y="40" width="24" height="24"/>
                                                                 <state key="normal" image="icon_plus"/>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2yu-WV-yNR" userLabel="octave-">
@@ -939,7 +939,7 @@ you wanted?</string>
                                                 <rect key="frame" x="0.0" y="130" width="110" height="40"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dpB-zg-V1E" userLabel="bpm+">
-                                                        <rect key="frame" x="7" y="4.5" width="30" height="30"/>
+                                                        <rect key="frame" x="13" y="7.5" width="24" height="24"/>
                                                         <state key="normal" image="icon_plus"/>
                                                         <connections>
                                                             <action selector="onChangeBPMStop:" destination="hg1-Xl-tGd" eventType="touchUpOutside" id="cUQ-b9-sEm"/>
@@ -1147,7 +1147,6 @@ til the very end of the…</string>
         <image name="bg_hypothesis_box" width="314" height="50"/>
         <image name="bg_improvement_normal" width="375" height="453"/>
         <image name="bg_improvement_suggestion_box" width="106" height="74"/>
-        <image name="btn_improved_next" width="106" height="66"/>
         <image name="btn_improved_no" width="106" height="66"/>
         <image name="btn_improved_yes" width="106" height="66"/>
         <image name="btn_play" width="112" height="65"/>
@@ -1162,7 +1161,7 @@ til the very end of the…</string>
         <image name="icon_forward_white" width="24" height="16"/>
         <image name="icon_minus" width="30" height="30"/>
         <image name="icon_play" width="28" height="30"/>
-        <image name="icon_plus" width="30" height="30"/>
+        <image name="icon_plus" width="24" height="24"/>
         <image name="icon_save_record" width="15" height="19"/>
         <image name="icon_to_first" width="19" height="19"/>
         <image name="img_max_track" width="115" height="16"/>

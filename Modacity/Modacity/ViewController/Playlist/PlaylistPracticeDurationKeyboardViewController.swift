@@ -22,7 +22,7 @@ class PlaylistPracticeDurationKeyboardViewController: UIViewController {
     @IBOutlet weak var constraintForSubPanelHeight: NSLayoutConstraint!
     
     var viewModel: PlaylistDetailsViewModel!
-    var inputIndicatorPoint = 5
+    var inputIndicatorPoint = 6
     var inputDigits: [Int] = [Int](repeating: 0, count: 6)
     
     override func viewDidLoad() {
@@ -42,82 +42,64 @@ class PlaylistPracticeDurationKeyboardViewController: UIViewController {
     }
     
     @IBAction func onBackspace(_ sender: Any) {
-        inputDigits[inputIndicatorPoint] = 0
-        switch inputIndicatorPoint {
-        case 1:
-            inputIndicatorPoint = 2
-        case 0:
-            inputIndicatorPoint = 1
-        case 3:
-            inputIndicatorPoint = 4
-        case 2:
-            inputIndicatorPoint = 3
-        case 4:
-            inputIndicatorPoint = 5
-        default:
-            break
+        if self.inputIndicatorPoint < 6 {
+            for idx in ((self.inputIndicatorPoint + 1)..<6).reversed() {
+                inputDigits[idx] = inputDigits[idx - 1]
+            }
+            inputDigits[self.inputIndicatorPoint] = 0
+            self.inputIndicatorPoint = self.inputIndicatorPoint + 1
         }
         displayDigits()
     }
     
     @IBAction func onTapLetter(_ sender: UIButton) {
         let digit = sender.tag - 100
-        inputDigits[inputIndicatorPoint] = digit
-        
-        switch inputIndicatorPoint {
-        case 4:
-            inputIndicatorPoint = 3
-        case 5:
-            inputIndicatorPoint = 4
-        case 2:
-            inputIndicatorPoint = 1
-        case 3:
-            inputIndicatorPoint = 2
-        case 1:
-            inputIndicatorPoint = 0
-        default:
-            break
+
+        if self.inputIndicatorPoint > 0 {
+            for idx in self.inputIndicatorPoint..<6 {
+                inputDigits[idx - 1] = inputDigits[idx]
+            }
+            inputDigits[5] = digit
+            inputIndicatorPoint = inputIndicatorPoint - 1
         }
         
         displayDigits()
     }
     
     @IBAction func onTapHours(_ sender: Any) {
-        inputIndicatorPoint = 0
-        displayDigits()
     }
     
     @IBAction func onTapMinutes(_ sender: Any) {
-        inputIndicatorPoint = 2
-        displayDigits()
     }
     
     @IBAction func onTapSeconds(_ sender: Any) {
-        inputIndicatorPoint = 4
-        displayDigits()
     }
     
     func displayDigits() {
+        
         self.labelHours.text = "\(inputDigits[0])\(inputDigits[1])"
         self.labelMinutes.text = "\(inputDigits[2])\(inputDigits[3])"
         self.labelSeconds.text = "\(inputDigits[4])\(inputDigits[5])"
         self.labelHours.textColor = Color.white
         self.labelMinutes.textColor = Color.white
         self.labelSeconds.textColor = Color.white
-        if self.inputIndicatorPoint < 2 {
-            let attributedString = NSMutableAttributedString(string: "\(inputDigits[0])\(inputDigits[1])")
-            attributedString.setAttributes([NSAttributedStringKey.foregroundColor: Color.green], range: NSMakeRange(self.inputIndicatorPoint, 1))
-            self.labelHours.attributedText = attributedString
-        } else if self.inputIndicatorPoint < 4 {
+        
+        if self.inputIndicatorPoint > 3 {
+            let attributedString = NSMutableAttributedString(string: "\(inputDigits[4])\(inputDigits[5])")
+            attributedString.setAttributes([NSAttributedStringKey.foregroundColor: AppConfig.appConfigTimerGreenColor], range: NSMakeRange(self.inputIndicatorPoint - 4, 6 - self.inputIndicatorPoint))
+            self.labelSeconds.attributedText = attributedString
+        } else if self.inputIndicatorPoint > 1 {
+            self.labelSeconds.textColor = AppConfig.appConfigTimerGreenColor
             let attributedString = NSMutableAttributedString(string: "\(inputDigits[2])\(inputDigits[3])")
-            attributedString.setAttributes([NSAttributedStringKey.foregroundColor: Color.green], range: NSMakeRange(self.inputIndicatorPoint - 2, 1))
+            attributedString.setAttributes([NSAttributedStringKey.foregroundColor: AppConfig.appConfigTimerGreenColor], range: NSMakeRange(self.inputIndicatorPoint - 2, 4 - self.inputIndicatorPoint))
             self.labelMinutes.attributedText = attributedString
         } else {
-            let attributedString = NSMutableAttributedString(string: "\(inputDigits[4])\(inputDigits[5])")
-            attributedString.setAttributes([NSAttributedStringKey.foregroundColor: Color.green], range: NSMakeRange(self.inputIndicatorPoint - 4, 1))
-            self.labelSeconds.attributedText = attributedString
+            self.labelSeconds.textColor = AppConfig.appConfigTimerGreenColor
+            self.labelMinutes.textColor = AppConfig.appConfigTimerGreenColor
+            let attributedString = NSMutableAttributedString(string: "\(inputDigits[0])\(inputDigits[1])")
+            attributedString.setAttributes([NSAttributedStringKey.foregroundColor: AppConfig.appConfigTimerGreenColor], range: NSMakeRange(self.inputIndicatorPoint, 2 - self.inputIndicatorPoint))
+            self.labelHours.attributedText = attributedString
         }
-        
     }
     
     func calculateSeconds() -> Int {
@@ -168,7 +150,13 @@ class PlaylistPracticeDurationKeyboardViewController: UIViewController {
             inputDigits[2] = ((timer % 3600) / 60) / 10
             inputDigits[1] = (timer / 3600) % 10
             inputDigits[0] = (timer / 3600) / 10
-            
+            self.inputIndicatorPoint = 6
+            for idx in 0...5 {
+                if inputDigits[idx] > 0 {
+                    self.inputIndicatorPoint = idx
+                    break
+                }
+            }
             self.displayDigits()
         }
     }

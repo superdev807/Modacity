@@ -15,6 +15,7 @@ class AppConfig: NSObject {
     
     static let appConfigTabbarSelectedIconColor = Color(hexString: "#2b67f5")
     static let appConfigTabbarNormalIconColor = Color(hexString: "#60637c")
+    static let appConfigTimerGreenColor = Color(hexString: "#1bbcb6")
     
     static let appConfigHomeUrlLink = "https://www.modacity.co/?utm_source=app&utm_medium=link&utm_campaign=about-us"
     static let appConfigPrivacyUrlLink = "https://www.modacity.co/legal/#privacy/?utm_source=app&utm_medium=link&utm_campaign=about-us"

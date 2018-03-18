@@ -90,14 +90,14 @@ class HomeViewController: UIViewController {
             if let seconds = totalWorkingSeconds as? Int {
                 if seconds < 30 * 60 {
                     self.textfieldTotalHours.text = String(format:"%.1f", Double(seconds) / 60.0)
-                    self.labelTotalTimeCaption.text = "Total Minutes"
+                    self.labelTotalTimeCaption.text = "TOTAL MINUTES"
                 } else {
                     self.textfieldTotalHours.text = String(format:"%.1f", Double(seconds) / 3600.0)
-                    self.labelTotalTimeCaption.text = "Total Hours"
+                    self.labelTotalTimeCaption.text = "TOTAL HOURS"
                 }
             } else {
                 self.textfieldTotalHours.text = "0"
-                self.labelTotalTimeCaption.text = "Total Hours"
+                self.labelTotalTimeCaption.text = "TOTAL HOURS"
             }
         }
         
