@@ -21,6 +21,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         FirebaseApp.configure()
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
+        PracticeItemLocalManager.manager.syncWithOlderVersions()
+        PlaylistLocalManager.manager.syncWithOlderVersion()
+        
         return true
     }
 

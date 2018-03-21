@@ -12,140 +12,198 @@ class PracticeItemViewModel: ViewModel {
     
     var keyword = "" {
         didSet {
-            self.searchResult = self.searchPracticeItems(keyword: keyword)
+//            self.searchResult = self.searchPracticeItems(keyword: keyword)
+            self.searchedPracticeItems = self.searchPracticeItems(keyword: keyword)
             self.configureSectionedResult()
         }
     }
     
     private var removing = 0
     
-    private var itemNames: [String] = [String]() {
+    private var practiceItems: [PracticeItem] = [PracticeItem]() {
         didSet {
-            if let callback = self.callBacks["itemNames"] {
-                if oldValue.count > itemNames.count {
-                    callback(.deleted, oldValue, itemNames)
-                } else if oldValue.count < itemNames.count {
-                    callback(.inserted, oldValue, itemNames)
+            if let callback = self.callBacks["practiceItems"] {
+                if oldValue.count > practiceItems.count {
+                    callback(.deleted, oldValue, practiceItems)
+                } else if oldValue.count < practiceItems.count {
+                    callback(.inserted, oldValue, practiceItems)
                 } else {
-                    callback(.simpleChange, oldValue, itemNames)
+                    callback(.simpleChange, oldValue, practiceItems)
                 }
             }
         }
     }
     
-    private var searchResult: [String] = [String]() {
+//    private var itemNames: [String] = [String]() {
+//        didSet {
+//            if let callback = self.callBacks["itemNames"] {
+//                if oldValue.count > itemNames.count {
+//                    callback(.deleted, oldValue, itemNames)
+//                } else if oldValue.count < itemNames.count {
+//                    callback(.inserted, oldValue, itemNames)
+//                } else {
+//                    callback(.simpleChange, oldValue, itemNames)
+//                }
+//            }
+//        }
+//    }
+    
+    private var searchedPracticeItems: [PracticeItem] = [PracticeItem]() {
         didSet {
-            if let callback = self.callBacks["searchResult"] {
-                callback(.simpleChange, oldValue, searchResult)
+            if let callback = self.callBacks["searchedPracticeItems"] {
+                callback(.simpleChange, oldValue, searchedPracticeItems)
             }
         }
     }
     
-    var selectedItems: [String] = [String]() {
+//    private var searchResult: [String] = [String]() {
+//        didSet {
+//            if let callback = self.callBacks["searchResult"] {
+//                callback(.simpleChange, oldValue, searchResult)
+//            }
+//        }
+//    }
+
+    var selectedPracticeItems: [PracticeItem] = [PracticeItem]() {
         didSet {
-            if let callback = self.callBacks["selectedItems"] {
+            if let callback = self.callBacks["selectedPracticeItems"] {
                 if self.removing > 0 {
-                    callback(.deleted, oldValue, selectedItems)
+                    callback(.deleted, oldValue, selectedPracticeItems)
                     self.removing = self.removing - 1
                 } else {
-                    callback(.simpleChange, oldValue, selectedItems)
+                    callback(.simpleChange, oldValue, selectedPracticeItems)
                 }
             }
         }
     }
     
-    var sectionedResult: [String: [String]] = [:] {
+//    var selectedItems: [String] = [String]() {
+//        didSet {
+//            if let callback = self.callBacks["selectedItems"] {
+//                if self.removing > 0 {
+//                    callback(.deleted, oldValue, selectedItems)
+//                    self.removing = self.removing - 1
+//                } else {
+//                    callback(.simpleChange, oldValue, selectedItems)
+//                }
+//            }
+//        }
+//    }
+    
+    var sectionedPracticeItems: [String:[PracticeItem]] = [:] {
         didSet {
-            if let callback = self.callBacks["sectionedResult"] {
+            if let callback = self.callBacks["sectionedPracticeItems"] {
                 if self.removing > 0 {
-                    callback(.deleted, oldValue, sectionedResult)
+                    callback(.deleted, oldValue, sectionedPracticeItems)
                     self.removing = self.removing - 1
                 } else {
-                    callback(.simpleChange, oldValue, sectionedResult)
+                    callback(.simpleChange, oldValue, sectionedPracticeItems)
                 }
             }
         }
     }
+    
+//    var sectionedResult: [String: [String]] = [:] {
+//        didSet {
+//            if let callback = self.callBacks["sectionedResult"] {
+//                if self.removing > 0 {
+//                    callback(.deleted, oldValue, sectionedResult)
+//                    self.removing = self.removing - 1
+//                } else {
+//                    callback(.simpleChange, oldValue, sectionedResult)
+//                }
+//            }
+//        }
+//    }
     
     func loadItemNames() {
-        if let items = PracticeItemLocalManager.manager.loadAllPracticeItemNames() {
-            itemNames = items
+        if let items = PracticeItemLocalManager.manager.loadPracticeItems() {
+            practiceItems = items
         } else {
-            itemNames = [String]()
+            practiceItems = [PracticeItem]()
         }
-        
-        self.searchResult = itemNames
+        searchedPracticeItems = practiceItems
         self.configureSectionedResult()
     }
     
     func addItemtoStore(with name:String) {
-        itemNames.append(name)
-        searchResult = self.searchPracticeItems(keyword: keyword)
-        PracticeItemLocalManager.manager.addNewPracticeItem(with: name)
-        selectedItems.append(name)
+        let practiceItem = PracticeItem()
+        practiceItem.id = UUID().uuidString
+        practiceItem.name = name
+        
+        practiceItems.append(practiceItem)
+        searchedPracticeItems = self.searchPracticeItems(keyword: keyword)
+        self.selectedPracticeItems.append(practiceItem)
         self.configureSectionedResult()
+        
+        PracticeItemLocalManager.manager.storePracticeItems(practiceItems)
     }
     
     func searchResultCount() -> Int {
         var selectedSearchResultCount = 0
-        for search in self.searchResult {
+        for search in self.searchedPracticeItems {
             if self.isSelected(for: search) {
                 selectedSearchResultCount = selectedSearchResultCount + 1
             }
         }
-        return searchResult.count + self.selectedItems.count - selectedSearchResultCount
+        return searchedPracticeItems.count + self.selectedPracticeItems.count - selectedSearchResultCount
     }
     
     func sortedSectionedResult() -> [String] {
-        return self.sectionedResult.keys.sorted()
+        return self.sectionedPracticeItems.keys.sorted()
     }
     
     func sectionedSearchSectionCount() -> Int {
-        return self.sectionedResult.keys.count
+        return self.sectionedPracticeItems.keys.count
     }
     
     func sectionedSearchResultCount(in sectionNumber:Int) -> Int {
-        let sectionedSortResult = self.sectionedResult.keys.sorted()
-        return self.sectionedResult[sectionedSortResult[sectionNumber]]!.count
+        return self.sectionedPracticeItems[self.sortedSectionedResult()[sectionNumber]]!.count
     }
     
-    func sectionResult(section: Int, row: Int) -> String {
-        return self.sectionedResult[self.sortedSectionedResult()[section]]![row]
+    func sectionResult(section: Int, row: Int) -> PracticeItem {
+        return self.sectionedPracticeItems[self.sortedSectionedResult()[section]]![row]
     }
     
     func configureSectionedResult() {
         
-        var totalResult = selectedItems
-        for search in searchResult {
+        var totalResult = selectedPracticeItems
+        for search in searchedPracticeItems {
             if !self.isSelected(for: search) {
                 totalResult.append(search)
             }
         }
         
-        var finalResult = [String:[String]]()
+        var finalResult = [String:[PracticeItem]]()
         
-        for result in totalResult.sorted() {
+        totalResult = totalResult.sorted(by: { (item1, item2) -> Bool in
+            return item1.name > item2.name
+        })
+        
+        for item in totalResult {
             var firstCharacter: String!
             
-            if result.first == nil || result.lowercased().first! < "a" || result.lowercased().first! > "z" {
-                firstCharacter = "#"
-            } else {
-                firstCharacter = "\(result.first!)".uppercased()
-            }
-            
-            if finalResult[firstCharacter] != nil {
-                finalResult[firstCharacter]!.append(result)
-            } else {
-                finalResult[firstCharacter] = [result]
+            if let result = item.name {
+                if result.first == nil || result.lowercased().first! < "a" || result.lowercased().first! > "z" {
+                    firstCharacter = "#"
+                } else {
+                    firstCharacter = "\(result.first!)".uppercased()
+                }
+                
+                if finalResult[firstCharacter] != nil {
+                    finalResult[firstCharacter]!.append(item)
+                } else {
+                    finalResult[firstCharacter] = [item]
+                }
             }
         }
         
-        self.sectionedResult = finalResult
+        self.sectionedPracticeItems = finalResult
     }
     
-    func searchResult(at row:Int) -> String {
-        var finalResult = selectedItems
-        for search in searchResult {
+    func searchResult(at row:Int) -> PracticeItem {
+        var finalResult = selectedPracticeItems
+        for search in searchedPracticeItems {
             if !self.isSelected(for: search) {
                 finalResult.append(search)
             }
@@ -153,46 +211,48 @@ class PracticeItemViewModel: ViewModel {
         return finalResult[row]
     }
     
-    func removePracticeItem(for item:String) {
-        for idx in 0..<self.itemNames.count {
-            let itemName = self.itemNames[idx]
-            if itemName.lowercased() == item.lowercased() {
-                self.itemNames.remove(at: idx)
+    func removePracticeItem(for item:PracticeItem) {
+        for idx in 0..<self.practiceItems.count {
+            let practiceItem = self.practiceItems[idx]
+            if practiceItem.id == item.id {
+                self.practiceItems.remove(at: idx)
                 break
             }
         }
         
         self.removing = 1
         
-        for idx in 0..<self.searchResult.count {
-            let itemName = self.searchResult[idx]
-            if itemName.lowercased() == item.lowercased() {
-                self.searchResult.remove(at: idx)
+        for idx in 0..<self.searchedPracticeItems.count {
+            let practiceItem = self.searchedPracticeItems[idx]
+            if practiceItem.id == item.id {
+                self.searchedPracticeItems.remove(at: idx)
                 break
             }
         }
         
-        for idx in 0..<self.selectedItems.count {
-            let itemName = self.selectedItems[idx]
-            if itemName.lowercased() == item.lowercased() {
+        for idx in 0..<self.selectedPracticeItems.count {
+            let practiceItem = self.selectedPracticeItems[idx]
+            if practiceItem.id == item.id {
                 self.removing = self.removing + 1
-                self.selectedItems.remove(at: idx)
+                self.selectedPracticeItems.remove(at: idx)
                 break
             }
         }
+        
+        PracticeItemLocalManager.manager.removePracticeItem(for: item)
+        PracticeItemLocalManager.manager.storePracticeItems(self.practiceItems)
         
         self.configureSectionedResult()
-        PracticeItemLocalManager.manager.replacePracticeItemNames(newValue: itemNames)
     }
     
-    func searchPracticeItems(keyword: String) -> [String] {
+    func searchPracticeItems(keyword: String) -> [PracticeItem] {
         if keyword == "" {
-            return self.itemNames
+            return self.practiceItems
         }
         
-        var searchResult = [String]()
-        for item in self.itemNames {
-            if item.lowercased().contains(keyword.lowercased()) {
+        var searchResult = [PracticeItem]()
+        for item in self.practiceItems {
+            if item.name.lowercased().contains(keyword.lowercased()) {
                 searchResult.append(item)
             }
         }
@@ -205,8 +265,8 @@ class PracticeItemViewModel: ViewModel {
     }
     
     func practiceItemContains(itemName: String) -> Bool {
-        for item in self.itemNames {
-            if itemName.lowercased() == item.lowercased() {
+        for item in self.practiceItems {
+            if itemName.lowercased() == item.name.lowercased() {
                 return true
             }
         }
@@ -214,67 +274,70 @@ class PracticeItemViewModel: ViewModel {
         return false
     }
     
-    func selectItem(for item:String) {
-        for idx in 0..<self.selectedItems.count {
-            let selectedItem = self.selectedItems[idx]
-            if selectedItem == item {
-                self.selectedItems.remove(at: idx)
+    func selectItem(for item:PracticeItem) {
+        for idx in 0..<self.selectedPracticeItems.count {
+            let selectedItem = self.selectedPracticeItems[idx]
+            if selectedItem.id == item.id {
+                self.selectedPracticeItems.remove(at: idx)
                 return
             }
         }
-        self.selectedItems.append(item)
+        self.selectedPracticeItems.append(item)
     }
     
-    func isSelected(for name:String) -> Bool {
-        for idx in 0..<self.selectedItems.count {
-            let selectedItem = self.selectedItems[idx]
-            if selectedItem == name {
+    func isSelected(for item:PracticeItem) -> Bool {
+        for idx in 0..<self.selectedPracticeItems.count {
+            let selectedItem = self.selectedPracticeItems[idx]
+            if selectedItem.id == item.id {
                 return true
             }
         }
         return false
     }
     
-    func canReplaceItem(name: String, to: String) -> Bool {
-        for idx in 0..<self.itemNames.count {
-            let selectedItem = self.itemNames[idx]
-            if selectedItem == to {
+    func canChangeItemName(to: String, forItem: PracticeItem) -> Bool {
+        for idx in 0..<self.practiceItems.count {
+            let selectedItem = self.practiceItems[idx]
+            if selectedItem.id != forItem.id && selectedItem.name == to {
                 return false
             }
         }
         return true
     }
     
-    func replaceItem(name: String, to: String) {
-        for idx in 0..<self.selectedItems.count {
-            let selectedItem = self.selectedItems[idx]
-            if selectedItem == name {
-                self.selectedItems[idx] = to
+    func changeItemName(to: String, forItem: PracticeItem) {
+        for idx in 0..<self.selectedPracticeItems.count {
+            let selectedItem = self.selectedPracticeItems[idx]
+            if selectedItem.id == forItem.id {
+                selectedItem.name = to
+                self.selectedPracticeItems[idx] = selectedItem
                 break
             }
         }
         
-        for idx in 0..<self.searchResult.count {
-            let selectedItem = self.searchResult[idx]
-            if selectedItem == name {
-                self.searchResult[idx] = to
+        for idx in 0..<self.searchedPracticeItems.count {
+            let item = self.searchedPracticeItems[idx]
+            if item.id == forItem.id {
+                item.name = to
+                self.searchedPracticeItems[idx] = item
                 break
             }
         }
         
-        for idx in 0..<self.itemNames.count {
-            let selectedItem = self.itemNames[idx]
-            if selectedItem == name {
-                self.itemNames[idx] = to
+        for idx in 0..<self.practiceItems.count {
+            let item = self.practiceItems[idx]
+            if item.id == forItem.id {
+                item.name = to
+                self.practiceItems[idx] = item
                 break
             }
         }
         
         self.configureSectionedResult()
-        PracticeItemLocalManager.manager.replacePracticeItemNames(newValue: itemNames)
+        PracticeItemLocalManager.manager.storePracticeItems(self.practiceItems)
     }
     
-    func ratingValue(forPracticeItem: String) -> Double? {
-        return PracticeItemLocalManager.manager.ratingValue(forPracticeItem:forPracticeItem)
+    func ratingValue(forPracticeItem: PracticeItem) -> Double? {
+        return PracticeItemLocalManager.manager.ratingValue(for: forPracticeItem.id)
     }
 }

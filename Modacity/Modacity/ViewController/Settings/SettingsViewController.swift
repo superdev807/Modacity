@@ -49,7 +49,6 @@ class SettingsCellWithDropdown: UITableViewCell {
     
     @IBOutlet weak var labelStorageLimit: UILabel!
     
-    
 }
 
 class SettingsViewController: UIViewController {

@@ -17,6 +17,9 @@ class FeedbackSentViewController: UIViewController {
     @IBOutlet weak var labelSubTitle: UILabel!
     @IBOutlet weak var labelEmailAddress: UILabel!
     
+    var parentRootController: FeedbackRootViewController?
+    var pageIsRootFromMenu = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -24,7 +27,11 @@ class FeedbackSentViewController: UIViewController {
     }
 
     @IBAction func onBack(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+        if self.pageIsRootFromMenu {
+            self.navigationController?.popViewController(animated: true)
+        } else {
+            self.navigationController?.dismiss(animated: true, completion: nil)
+        }
     }
     
     func configureForPageMode() {

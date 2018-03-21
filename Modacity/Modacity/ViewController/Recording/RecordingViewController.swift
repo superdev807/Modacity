@@ -12,16 +12,17 @@ import AVFoundation
 
 protocol RecordingCellDelegate {
     func onPlayOrPause(_ recording:Recording)
+    func onExpand(_ recording:Recording)
     func onAudioPlayOrPause()
     func onAudioBackward()
     func onAudioForward()
     func onAudioToFirst()
-    
+    func onAudioSeekTo(_ time:Double)
     func onShare(_ recording:Recording)
     func onDelete(_ recording:Recording)
 }
 
-class RecordingCell: UITableViewCell {
+class RecordingCell: UITableViewCell, FDWaveformViewDelegate {
     
     @IBOutlet weak var imageViewPlayIcon: UIImageView!
     @IBOutlet weak var labelPracticeName: UILabel!
@@ -33,6 +34,10 @@ class RecordingCell: UITableViewCell {
     @IBOutlet weak var labelRemainingTime: UILabel!
     @IBOutlet weak var buttonRemove: UIButton!
     
+    @IBOutlet weak var viewAudioPlaybackRatePanel: UIView!
+    @IBOutlet weak var labelAudioPlaybackRateValue: UILabel!
+    @IBOutlet weak var imageViewAudioPlaybackRate: UIImageView!
+    
     var recording: Recording!
     var delegate: RecordingCellDelegate? = nil
     
@@ -41,10 +46,10 @@ class RecordingCell: UITableViewCell {
         self.recording = recording
         self.labelPracticeName.text = recording.practiceName
         self.labelRecordedTime.text = (Date(timeIntervalSince1970: Double(recording.createdAt) ?? 0)).toString(format: "MM/dd/yy @ h:mm a")
+        self.viewAudioPlaybackRatePanel.isHidden = true
         
         if isPlaying {
             self.buttonRemove.isHidden = false
-            self.imageViewPlayIcon.image = UIImage(named: "icon_pause_white")
             self.viewPlayingPanel.isHidden = false
             
             let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
@@ -54,14 +59,17 @@ class RecordingCell: UITableViewCell {
             self.waveformAudio.audioURL = url
             self.waveformAudio.doesAllowStretch = false
             self.waveformAudio.doesAllowScroll = false
-            self.waveformAudio.doesAllowScrubbing = false
+            self.waveformAudio.doesAllowScrubbing = true
             self.waveformAudio.wavesColor = Color.white.alpha(0.5)
             self.waveformAudio.progressColor = Color.white
+            self.waveformAudio.delegate = self
             
             if isAudioPlaying {
                 self.buttonAudioPlaying.setImage(UIImage(named:"icon_pause_white"), for: .normal)
+                self.imageViewPlayIcon.image = UIImage(named:"icon_pause_white")
             } else {
                 self.buttonAudioPlaying.setImage(UIImage(named:"icon_play"), for: .normal)
+                self.imageViewPlayIcon.image = UIImage(named:"icon_play")
             }
             
             if let player = withAudioPlayer {
@@ -74,6 +82,28 @@ class RecordingCell: UITableViewCell {
             self.buttonRemove.isHidden = true
             self.imageViewPlayIcon.image = UIImage(named: "icon_play")
             self.viewPlayingPanel.isHidden = true
+        }
+    }
+    
+    func processsAudioPlaybackRate(player: AVAudioPlayer) {
+        
+        if player.rate == 1.0 {
+            self.viewAudioPlaybackRatePanel.isHidden = true
+        } else {
+            self.viewAudioPlaybackRatePanel.isHidden = false
+            if player.rate < 1.0 {
+                self.imageViewAudioPlaybackRate.image = UIImage(named:"icon_backward")
+                self.labelAudioPlaybackRateValue.text = "x \(Int(1 / player.rate))"
+            } else {
+                self.imageViewAudioPlaybackRate.image = UIImage(named:"icon_forward_white")
+                self.labelAudioPlaybackRateValue.text = "x \(Int(player.rate))"
+            }
+        }
+    }
+    
+    func waveformDidEndScrubbing(_ waveformView: FDWaveformView) {
+        if let delegate = self.delegate {
+            delegate.onAudioSeekTo(Double(self.waveformAudio.highlightedSamples?.count ?? 0) / Double(self.waveformAudio.totalSamples))
         }
     }
     
@@ -113,6 +143,12 @@ class RecordingCell: UITableViewCell {
         }
     }
     
+    @IBAction func onExpand(_ sender: Any) {
+        if self.delegate != nil {
+            self.delegate!.onExpand(self.recording)
+        }
+    }
+    
     @IBAction func onShare(_ sender: Any) {
         if self.delegate != nil {
             self.delegate!.onShare(self.recording)
@@ -130,6 +166,7 @@ class RecordingViewController: UIViewController {
     var audioPlayer : AVAudioPlayer? = nil
     var audioPlaying = false
     var audioPlayerTimer: Timer?
+    var currentRate = 1.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -239,6 +276,19 @@ extension RecordingViewController: UITableViewDelegate, UITableViewDataSource {
 extension RecordingViewController: RecordingCellDelegate {
     
     func onPlayOrPause(_ recording:Recording) {
+        
+        if let currentPlaying = self.viewModel.playingRecording {
+            if currentPlaying.id == recording.id {
+                self.onAudioPlayOrPause()
+                return
+            }
+        }
+        
+        self.expandRecordingCell(recording: recording)
+        self.onAudioPlayOrPause()
+    }
+    
+    func expandRecordingCell(recording:Recording) {
         if let currentPlaying = self.viewModel.playingRecording {
             if currentPlaying.id == recording.id {
                 self.viewModel.playingRecording = nil
@@ -256,6 +306,7 @@ extension RecordingViewController: RecordingCellDelegate {
                 self.audioPlayer = nil
             }
         }
+        
         self.viewModel.playingRecording = recording
     }
     
@@ -275,8 +326,10 @@ extension RecordingViewController: RecordingCellDelegate {
         if let cell = self.playingCell() {
             if self.audioPlaying {
                 cell.buttonAudioPlaying.setImage(UIImage(named:"icon_pause_white"), for: .normal)
+                cell.imageViewPlayIcon.image = UIImage(named:"icon_pause_white")
             } else {
                 cell.buttonAudioPlaying.setImage(UIImage(named:"icon_play"), for: .normal)
+                cell.imageViewPlayIcon.image = UIImage(named:"icon_play")
             }
         }
     }
@@ -296,15 +349,35 @@ extension RecordingViewController: RecordingCellDelegate {
         return -1
     }
     
+    func onAudioSeekTo(_ time:Double) {
+        if let player = self.audioPlayer {
+            player.currentTime = player.duration * time
+        }
+    }
+    
     func onAudioForward() {
         if let player = self.audioPlayer {
-            player.currentTime = player.currentTime - 1.0
+            self.currentRate = self.currentRate / 2.0
+            if self.currentRate < 1 / 16.0 {
+                self.currentRate = 1.0
+            }
+            player.rate = Float(self.currentRate)
+            if let cell = self.playingCell() {
+                cell.processsAudioPlaybackRate(player: player)
+            }
         }
     }
     
     func onAudioBackward() {
         if let player = self.audioPlayer {
-            player.currentTime = player.currentTime + 1.0
+            self.currentRate = self.currentRate * 2.0
+            if self.currentRate > 16.0 {
+                self.currentRate = 1.0
+            }
+            player.rate = Float(self.currentRate)
+            if let cell = self.playingCell() {
+                cell.processsAudioPlaybackRate(player: player)
+            }
         }
     }
     
@@ -340,6 +413,10 @@ extension RecordingViewController: RecordingCellDelegate {
         }
     }
     
+    func onExpand(_ recording: Recording) {
+        self.expandRecordingCell(recording: recording)
+    }
+    
 }
 
 extension RecordingViewController: AVAudioPlayerDelegate {
@@ -355,6 +432,7 @@ extension RecordingViewController: AVAudioPlayerDelegate {
                 try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
                 self.audioPlayer = try AVAudioPlayer(contentsOf: url)
                 guard let player = self.audioPlayer else { return }
+                player.enableRate = true
                 player.prepareToPlay()
                 player.delegate = self
             } catch let error {
@@ -380,6 +458,7 @@ extension RecordingViewController: AVAudioPlayerDelegate {
         self.audioPlaying = false
         if let cell = self.playingCell() {
             cell.buttonAudioPlaying.setImage(UIImage(named: "icon_play"), for: .normal)
+            cell.imageViewPlayIcon.image = UIImage(named:"icon_play")
         }
     }
 }

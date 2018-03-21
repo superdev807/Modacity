@@ -9,11 +9,11 @@
 import UIKit
 
 protocol PlaylistPracticeItemDelegate {
-    func onLike(item: String)
-    func onClock(item: String)
-    func onDelete(item: String)
+    func onLike(item: PracticeItem?)
+    func onClock(item: PlaylistPracticeEntry)
+    func onDelete(item: PlaylistPracticeEntry)
     
-    func onSwipeToLeft(on item:String)
+    func onSwipeToLeft(on item:PlaylistPracticeEntry)
 }
 
 class  PlaylistPracticeItem: UITableViewCell {
@@ -27,17 +27,15 @@ class  PlaylistPracticeItem: UITableViewCell {
     @IBOutlet weak var constraintForSubPanelHeight: NSLayoutConstraint!
     @IBOutlet weak var labelCountDownTimer: UILabel!
     
-    var practiceItemName: String!
-    var practiceItemEntryId: String!
     var delegate: PlaylistPracticeItemDelegate? = nil
+    var practiceItem: PlaylistPracticeEntry!
     
-    func confgure(for item:String, entryId: String, isFavorite: Bool, isEditing: Bool, duration: Int?, rating: Double?, countDownTimer: Int?) {
+    func confgure(for item:PlaylistPracticeEntry, isFavorite: Bool, rate: Double, isEditing: Bool, duration: Int?) {
         
-        self.practiceItemEntryId = entryId
-        self.practiceItemName = item
-        self.labelPracticeName.text = item
+        self.practiceItem = item
+        self.labelPracticeName.text = item.practiceItem()?.name ?? "___"
         
-        if !isFavorite {
+        if !isFavorite/*(item.practiceItem()?.favorite ?? false)*/ {
             self.buttonHeart.setImage(UIImage(named:"icon_heart"), for: .normal)
             self.buttonHeart.alpha = 0.3
         } else {
@@ -61,17 +59,17 @@ class  PlaylistPracticeItem: UITableViewCell {
             self.labelPracticeDuration.text = String(format:"%d:%02d", duration / 60, duration % 60)
             self.constraintForSubPanelHeight.constant = 16
             
-            if let rating = rating {
+            if rate/*(item.practiceItem()?.rate ?? 0)*/ > 0 {
                 self.ratingView.isHidden = false
-                self.ratingView.rating = rating
+                self.ratingView.rating = rate//(item.practiceItem()?.rate ?? 0)
             } else {
                 self.ratingView.isHidden = true
             }
         } else {
             self.labelPracticeDuration.text = ""
-            if let rating = rating {
+            if rate/*(item.practiceItem()?.rate ?? 0)*/ > 0 {
                 self.ratingView.isHidden = false
-                self.ratingView.rating = rating
+                self.ratingView.rating = rate//(item.practiceItem()?.rate ?? 0)
                 self.constraintForSubPanelHeight.constant = 16
             } else {
                 self.ratingView.isHidden = true
@@ -79,7 +77,7 @@ class  PlaylistPracticeItem: UITableViewCell {
             }
         }
         
-        if let countDownTimer = countDownTimer {
+        if let countDownTimer = item.countDownDuration {
             if countDownTimer > 0 {
                 self.labelCountDownTimer.isHidden = false
                 self.labelCountDownTimer.text = String(format: "%d:%02d", countDownTimer / 60, countDownTimer % 60)
@@ -98,25 +96,25 @@ class  PlaylistPracticeItem: UITableViewCell {
     
     @objc func handleSwipes() {
         if self.delegate != nil {
-            self.delegate!.onSwipeToLeft(on: self.practiceItemEntryId)
+            self.delegate!.onSwipeToLeft(on: self.practiceItem)
         }
     }
     
     @IBAction func onHeart(_ sender: Any) {
         if self.delegate != nil {
-            self.delegate!.onLike(item: self.practiceItemName)
+            self.delegate!.onLike(item: self.practiceItem.practiceItem())
         }
     }
     
     @IBAction func onDelete(_ sender: Any) {
         if self.delegate != nil {
-            self.delegate!.onDelete(item: self.practiceItemEntryId)
+            self.delegate!.onDelete(item: self.practiceItem)
         }
     }
     
     @IBAction func onClockl(_ sender: Any) {
         if self.delegate != nil {
-            self.delegate!.onClock(item: self.practiceItemEntryId)
+            self.delegate!.onClock(item: self.practiceItem)
         }
     }
 }
@@ -132,6 +130,7 @@ class PlaylistDetailsViewController: UIViewController {
     @IBOutlet weak var buttonAddPracticeItem: UIButton!
     @IBOutlet weak var constraintHeaderImageViewHeight: NSLayoutConstraint!
     @IBOutlet weak var labelImprovementsCount: UILabel!
+    @IBOutlet weak var buttonEditPlaylistNameLarge: UIButton!
     
     
     var isNameEditing = false
@@ -162,6 +161,11 @@ class PlaylistDetailsViewController: UIViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tableViewMain.reloadData()
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "sid_select_practice_item" {
             let controller = segue.destination as! PracticeItemListViewController
@@ -182,6 +186,8 @@ class PlaylistDetailsViewController: UIViewController {
         
         self.buttonStartPlaylist.isEnabled = false
         self.buttonStartPlaylist.alpha = 0.5
+        
+        self.buttonEditPlaylistNameLarge.isHidden = false
     }
 
     @IBAction func onBack(_ sender: Any) {
@@ -226,11 +232,13 @@ class PlaylistDetailsViewController: UIViewController {
     func changeNameEditMode() {
         isNameEditing = !isNameEditing
         if isNameEditing {
+            self.buttonEditPlaylistNameLarge.isHidden = true
             self.labelPlaylistName.isHidden = true
             self.textfieldPlaylistName.isHidden = false
             self.textfieldPlaylistName.becomeFirstResponder()
             self.buttonEditName.setImage(UIImage(named:"icon_done"), for: .normal)
         } else {
+            self.buttonEditPlaylistNameLarge.isHidden = false
             self.labelPlaylistName.isHidden = false
             self.textfieldPlaylistName.isHidden = true
             self.textfieldPlaylistName.resignFirstResponder()
@@ -300,7 +308,7 @@ class PlaylistDetailsViewController: UIViewController {
             }
         })
         
-        self.viewModel.currentPracticeItem = self.viewModel.practiceItems[withItem]
+        self.viewModel.currentPracticeEntry = self.viewModel.playlistPracticeEntries[withItem]
         let controller = UIStoryboard(name: "practice", bundle: nil).instantiateViewController(withIdentifier: "PracticeViewController") as! PracticeViewController
         controller.playlistViewModel = self.viewModel
         self.navigationController?.pushViewController(controller, animated: true)
@@ -333,19 +341,17 @@ class PlaylistDetailsViewController: UIViewController {
 extension PlaylistDetailsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.viewModel.practiceItems.count
+        return self.viewModel.playlistPracticeEntries.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PlaylistPracticeItem") as! PlaylistPracticeItem
-        let practiceItem = self.viewModel.practiceItems[indexPath.row]
-        cell.confgure(for: practiceItem.name,
-                      entryId: practiceItem.entryId,
-                      isFavorite: self.viewModel.isFavoritePracticeItem(for: practiceItem.name),
+        let practiceItem = self.viewModel.playlistPracticeEntries[indexPath.row]
+        cell.confgure(for: practiceItem,
+                      isFavorite: self.viewModel.isFavoritePracticeItem(forItemId: practiceItem.practiceItemId),
+                      rate: self.viewModel.rating(forPracticeItemId: practiceItem.practiceItemId) ?? 0,
                       isEditing: indexPath.row == self.viewModel.editingRow,
-                      duration: self.viewModel.duration(forPracticeItem: practiceItem.entryId),
-                      rating: self.viewModel.ratingValue(for: practiceItem.name),
-                      countDownTimer: /*self.viewModel.countDownTimer[practiceItem.name]*/practiceItem.countDownDuration)
+                      duration: self.viewModel.duration(forPracticeItem: practiceItem.entryId))
         cell.delegate = self
         return cell
     }
@@ -362,7 +368,7 @@ extension PlaylistDetailsViewController: UITableViewDelegate, UITableViewDataSou
         if !self.isPlaying {
             self.startPractice(withItem: indexPath.row)
         } else {
-            self.viewModel.currentPracticeItem = self.viewModel.practiceItems[indexPath.row]
+            self.viewModel.currentPracticeEntry = self.viewModel.playlistPracticeEntries[indexPath.row]
             let controller = UIStoryboard(name: "practice", bundle: nil).instantiateViewController(withIdentifier: "PracticeViewController") as! PracticeViewController
             controller.playlistViewModel = self.viewModel
             self.navigationController?.pushViewController(controller, animated: true)
@@ -390,26 +396,28 @@ extension PlaylistDetailsViewController: UITableViewDelegate, UITableViewDataSou
 }
 
 extension PlaylistDetailsViewController: PlaylistPracticeItemDelegate {
-    func onLike(item: String) {
-        self.viewModel.setLikePracticeItem(for: item)
-        self.tableViewMain.reloadData()
+    func onLike(item: PracticeItem?) {
+        if let item = item {
+            self.viewModel.setLikePracticeItem(for: item)
+            self.tableViewMain.reloadData()
+        }
     }
     
-    func onDelete(item: String) {
+    func onDelete(item: PlaylistPracticeEntry) {
         self.viewModel.editingRow = -1
         self.viewModel.deletePracticeItem(for: item)
     }
     
-    func onClock(item: String) {
+    func onClock(item: PlaylistPracticeEntry) {
         self.openClockEdit(for: item)
     }
     
-    func onSwipeToLeft(on item:String) {
+    func onSwipeToLeft(on item:PlaylistPracticeEntry) {
         self.viewModel.setEditingRow(for: item)
     }
     
-    func openClockEdit(for item:String) {
-        self.viewModel.clockEditingPracticeItemId = item
+    func openClockEdit(for item:PlaylistPracticeEntry) {
+        self.viewModel.clockEditingPracticeItemId = item.entryId
         self.performSegue(withIdentifier: "sid_edit_duration", sender: nil)
     }
 }

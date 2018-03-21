@@ -46,7 +46,7 @@ class FeedbackRootViewController: UIViewController {
         if self.pageIsRootFromMenu {
             self.imageViewTopLeft.image = UIImage(named: "icon_menu")
         } else {
-            self.imageViewTopLeft.image = UIImage(named: "icon_close")
+            self.imageViewTopLeft.image = UIImage(named: "icon_arrow_left")
         }
         
         self.configurePageForMode()
@@ -68,6 +68,8 @@ class FeedbackRootViewController: UIViewController {
         if segue.identifier == "sid_sent" {
             let controller = segue.destination as! FeedbackSentViewController
             controller.pageUIMode = self.pageUIMode
+            controller.pageIsRootFromMenu = self.pageIsRootFromMenu
+            controller.parentRootController = self
         }
     }
     

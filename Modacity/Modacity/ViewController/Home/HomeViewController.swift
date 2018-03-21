@@ -73,8 +73,8 @@ class HomeViewController: UIViewController {
             self.collectionViewRecentPlaylists.reloadData()
         }
         
-        self.viewModel.subscribe(to: "favoritePlaylists") { (_, _, favoritePlaylists) in
-            if let playlists = favoritePlaylists as? [Playlist] {
+        self.viewModel.subscribe(to: "favoriteItems") { (_, _, favoriteItems) in
+            if let playlists = favoriteItems as? [[String:Any]] {
                 if playlists.count > 0 {
                     self.labelFavoritesHeader.isHidden = false
                 } else {
@@ -199,7 +199,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         if collectionView == self.collectionViewRecentPlaylists {
             return self.viewModel.recentPlaylists.count
         } else {
-            return self.viewModel.favoritePlaylists.count
+            return self.viewModel.favoriteItems.count
         }
     }
     
@@ -209,7 +209,25 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             if collectionView == self.collectionViewRecentPlaylists {
                 label.text = self.viewModel.recentPlaylists[indexPath.row].name
             } else {
-                label.text = self.viewModel.favoritePlaylists[indexPath.row].name
+                if let iconView = cell.viewWithTag(11) as? UIImageView {
+                    let item = self.viewModel.favoriteItems[indexPath.row]
+                    let typeLabel = cell.viewWithTag(12) as! UILabel
+                    if let type = item["type"] as? String {
+                        if type == "playlist" {
+                            if let playlist = item["data"] as? Playlist {
+                                label.text = playlist.name
+                                typeLabel.text = "PLAYLIST"
+                            }
+                            iconView.image = UIImage(named: "icon_playlist_blue")
+                        } else {
+                            if let practiceItem = item["data"] as? PracticeItem {
+                                label.text = practiceItem.name
+                                typeLabel.text = "MUSIC"
+                            }
+                            iconView.image = UIImage(named: "icon_music_pink")
+                        }
+                    }
+                }
             }
         }
         return cell
@@ -220,8 +238,15 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         if collectionView == self.collectionViewRecentPlaylists {
             deliverViewModel.deliverPlaylist = self.viewModel.recentPlaylists[indexPath.row]
         } else {
-            deliverViewModel.deliverPlaylist = self.viewModel.favoritePlaylists[indexPath.row]
+            let item = self.viewModel.favoriteItems[indexPath.row]
+            if (item["type"] as? String ?? "") == "playlist" {
+                deliverViewModel.deliverPlaylist = item["data"] as! Playlist
+            } else {
+                AppUtils.showSimpleAlertMessage(for: self, title: "Coming soon...", message: "we plan to show your practice statistics for this item. Let us know if you expect a different behavior. feedback@modacity.co")
+                return
+            }
         }
+        
         let controller = UIStoryboard(name: "playlist", bundle: nil).instantiateViewController(withIdentifier: "PlaylistDetailsViewController") as! PlaylistDetailsViewController
         controller.parentViewModel = deliverViewModel
         let nav = UINavigationController(rootViewController: controller)

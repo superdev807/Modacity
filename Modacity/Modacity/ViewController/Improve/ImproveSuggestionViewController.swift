@@ -27,7 +27,7 @@ class ImproveSuggestionViewController: UIViewController {
         self.textfieldInputBox.attributedPlaceholder = NSAttributedString(string: "Type here or choose a suggestion", attributes: [NSAttributedStringKey.foregroundColor:Color.white.alpha(0.5)])
         self.viewInputBox.layer.cornerRadius = 5
         self.buttonCloseBox.isHidden = true
-        self.labelPracticeName.text = self.playlistModel.currentPracticeItem.name
+        self.labelPracticeName.text = self.playlistModel.currentPracticeEntry.practiceItem()?.name ?? ""
         
         NotificationCenter.default.addObserver(self, selector: #selector(onKeyboardWillShow), name: Notification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(onKeyboardWillHide), name: Notification.Name.UIKeyboardWillHide, object: nil)

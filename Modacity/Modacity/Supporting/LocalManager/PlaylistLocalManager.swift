@@ -12,6 +12,30 @@ class PlaylistLocalManager: NSObject {
     
     static let manager = PlaylistLocalManager()
     
+    func syncWithOlderVersion() {
+        if let playlists = self.loadPlaylists() {
+            var newPlaylists = [Playlist]()
+            for playlist in playlists {
+                var newPracticeItems = [PlaylistPracticeEntry]()
+                for item in playlist.playlistPracticeEntries {
+                    if item.practiceItemId == nil && item.name != nil && item.name != "" {
+                        if let newPracticeItem = PracticeItemLocalManager.manager.searchPracticeItem(byName: item.name) {
+                            item.practiceItemId = newPracticeItem.id
+                            item.name = ""
+                            newPracticeItems.append(item)
+                        }
+                    } else if item.practiceItemId != nil {
+                        newPracticeItems.append(item)
+                    }
+                }
+                playlist.playlistPracticeEntries = newPracticeItems
+                newPlaylists.append(playlist)
+            }
+            self.storePlaylists(newPlaylists)
+        }
+    }
+    
+    
     func storePlaylist(_ playlist: Playlist) {
         if playlist.id != "" {
             
@@ -60,6 +84,11 @@ class PlaylistLocalManager: NSObject {
         } else {
             return nil
         }
+    }
+    
+    func deletePlaylist(_ playlist: Playlist) {
+        UserDefaults.standard.removeObject(forKey: "playlist:id:" + playlist.id)
+        UserDefaults.standard.synchronize()
     }
     
     func storePlaylists(_ playlists: [Playlist]) {

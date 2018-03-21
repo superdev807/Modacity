@@ -13,8 +13,8 @@ class AboutViewController: UIViewController {
     @IBOutlet weak var tableViewMain: UITableView!
     @IBOutlet weak var constraintForHeaderImageViewHeight: NSLayoutConstraint!
     
-    let icons = ["icon_share_white", "icon_settings_twitter", "icon_settings_facebook", "icon_settings_web"]
-    let captions = ["Share the App", "Modacity on Twitter", "Modacity on Facebook", "www.modacity.co"]
+    let icons = ["icon_share_white", "icon_instagram", "icon_settings_twitter", "icon_settings_facebook", "icon_settings_web"]
+    let captions = ["Share the App", "Modacity on Instagram", "Modacity on Twitter", "Modacity on Facebook", "www.modacity.co"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,7 +52,7 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AboutCell")!
         let imageView = cell.viewWithTag(10) as! UIImageView
         imageView.image = UIImage(named:icons[indexPath.row])
-        if indexPath.row == 0 {
+        if indexPath.row == 0 || indexPath.row == 1 {
             imageView.alpha = 0.5
         } else {
             imageView.alpha = 1
@@ -71,8 +71,10 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
         if indexPath.row == 0 {
             UIApplication.shared.open(URL(string:AppConfig.appConfigShareTheAppUrlLink)!, options: [:], completionHandler: nil)
         } else if indexPath.row == 1 {
-            UIApplication.shared.open(URL(string:AppConfig.appConfigTwitterLink)!, options: [:], completionHandler: nil)
+            UIApplication.shared.open(URL(string:AppConfig.appConfigInstagramLink)!, options: [:], completionHandler: nil)
         } else if indexPath.row == 2 {
+            UIApplication.shared.open(URL(string:AppConfig.appConfigTwitterLink)!, options: [:], completionHandler: nil)
+        } else if indexPath.row == 3 {
             UIApplication.shared.open(URL(string:AppConfig.appConfigFacebookLink)!, options: [:], completionHandler: nil)
         } else {
             UIApplication.shared.open(URL(string:AppConfig.appConfigWebsiteLink)!, options: [:], completionHandler: nil)

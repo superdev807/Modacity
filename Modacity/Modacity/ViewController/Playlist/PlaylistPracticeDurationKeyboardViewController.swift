@@ -109,7 +109,7 @@ class PlaylistPracticeDurationKeyboardViewController: UIViewController {
     func showValues() {
         self.labelPracticeName.text = self.viewModel.clockEditingPracticeItem.name
         
-        if !(self.viewModel.isFavoritePracticeItem(for: self.viewModel.clockEditingPracticeItem.name)) {
+        if (self.viewModel.isFavoritePracticeItem(forItemId: self.viewModel.clockEditingPracticeItem.practiceItemId)) {
             self.buttonHeart.setImage(UIImage(named:"icon_heart"), for: .normal)
             self.buttonHeart.alpha = 0.3
         } else {
@@ -118,23 +118,32 @@ class PlaylistPracticeDurationKeyboardViewController: UIViewController {
         }
         
         self.ratingView.contentMode = .scaleAspectFit
-        if let duration = self.viewModel.duration(forPracticeItem: self.viewModel.clockEditingPracticeItem.name) {
+        if let duration = self.viewModel.duration(forPracticeItem: self.viewModel.clockEditingPracticeItem.entryId) {
             
             self.labelPracticeDuration.text = String(format:"%d:%02d", duration / 60, duration % 60)
             self.constraintForSubPanelHeight.constant = 16
             
-            if let rating = self.viewModel.ratingValue(for: self.viewModel.clockEditingPracticeItem.name) {
-                self.ratingView.isHidden = false
-                self.ratingView.rating = rating
+            if let rating = self.viewModel.rating(forPracticeItemId: self.viewModel.clockEditingPracticeItem.practiceItemId) {
+                if rating > 0 {
+                    self.ratingView.isHidden = false
+                    self.ratingView.rating = rating
+                } else {
+                    self.ratingView.isHidden = true
+                }
             } else {
                 self.ratingView.isHidden = true
             }
         } else {
             self.labelPracticeDuration.text = ""
-            if let rating = self.viewModel.ratingValue(for: self.viewModel.clockEditingPracticeItem.name) {
-                self.ratingView.isHidden = false
-                self.ratingView.rating = rating
-                self.constraintForSubPanelHeight.constant = 16
+            if let rating = self.viewModel.rating(forPracticeItemId: self.viewModel.clockEditingPracticeItem.practiceItemId) {
+                if rating > 0 {
+                    self.ratingView.isHidden = false
+                    self.ratingView.rating = rating
+                    self.constraintForSubPanelHeight.constant = 16
+                } else {
+                    self.ratingView.isHidden = true
+                    self.constraintForSubPanelHeight.constant = 0
+                }
             } else {
                 self.ratingView.isHidden = true
                 self.constraintForSubPanelHeight.constant = 0

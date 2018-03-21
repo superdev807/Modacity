@@ -59,7 +59,7 @@ class ImprovementViewController: MetrodroneBaseViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        self.labelPracticeItemName.text = self.playlistViewModel.currentPracticeItem.name
+        self.labelPracticeItemName.text = self.playlistViewModel.currentPracticeEntry.practiceItem()?.name ?? ""
         self.labelHypothesis.text = self.viewModel.selectedHypothesis
         self.labelSuggestion.text = self.viewModel.selectedSuggestion
         
@@ -298,7 +298,7 @@ extension ImprovementViewController: AVAudioPlayerDelegate, FDWaveformViewDelega
     @IBAction func onSaveRecord(_ sender: Any) {
         let alertController = UIAlertController(title: nil, message: "Enter the file name!", preferredStyle: .alert)
         alertController.addTextField { (textField) in
-            if var practiceName = self.playlistViewModel.currentPracticeItem.name {
+            if var practiceName = self.playlistViewModel.currentPracticeEntry.practiceItem()?.name {
                 practiceName = String(practiceName.prefix(16))
                 let autoIncrementedNumber = self.playlistViewModel.fileNameAutoIncrementedNumber()
                 textField.text = "\(practiceName)_\(Date().toString(format: "yyyyMMdd"))_\(String(format:"%02d", autoIncrementedNumber))"
@@ -422,7 +422,7 @@ extension ImprovementViewController {
     }
     
     @IBAction func onImprovedYes(_ sender: Any) {
-        self.playlistViewModel.addNewImprovement(self.viewModel.generateImprovement(with: self.playlistViewModel.playlist, practice: self.playlistViewModel.currentPracticeItem))
+        self.playlistViewModel.addNewImprovement(self.viewModel.generateImprovement(with: self.playlistViewModel.playlist, practice: self.playlistViewModel.currentPracticeEntry))
         self.viewImprovedAlert.isHidden = true
         self.viewImprovedYesPanel.isHidden = false
     }

@@ -79,9 +79,8 @@
                                                         <action selector="onHeart:" destination="0xc-sp-kB3" eventType="touchUpInside" id="LnG-vv-giC"/>
                                                     </connections>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Marc's awesome playlist" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F4M-b0-gjK">
-                                                    <rect key="frame" x="46" y="23.5" width="148.5" height="17"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Marc's awesome playlist" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F4M-b0-gjK">
+                                                    <rect key="frame" x="46" y="23.666666666666671" width="148.66666666666666" height="17"/>
                                                     <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -90,6 +89,8 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstItem="ww2-0l-dnY" firstAttribute="width" secondItem="ww2-0l-dnY" secondAttribute="height" multiplier="8:11" id="62o-FI-PJx"/>
+                                                <constraint firstItem="F4M-b0-gjK" firstAttribute="leading" secondItem="ww2-0l-dnY" secondAttribute="trailing" constant="6" id="Bt7-E8-TnF"/>
+                                                <constraint firstItem="F4M-b0-gjK" firstAttribute="centerY" secondItem="GlG-Rw-uuO" secondAttribute="centerY" id="Scu-7x-yKV"/>
                                                 <constraint firstItem="ww2-0l-dnY" firstAttribute="centerX" secondItem="GlG-Rw-uuO" secondAttribute="leading" constant="20" id="uag-gs-7KS"/>
                                                 <constraint firstItem="ww2-0l-dnY" firstAttribute="centerY" secondItem="GlG-Rw-uuO" secondAttribute="centerY" id="vzs-Io-Qqp"/>
                                             </constraints>
@@ -383,6 +384,15 @@
                                     <outlet property="delegate" destination="2UX-vR-wCX" id="WJg-ai-DbK"/>
                                 </connections>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e86-gn-Ddo">
+                                <rect key="frame" x="50" y="45" width="275" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="Jsh-2N-8bj"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="onEditName:" destination="2UX-vR-wCX" eventType="touchUpInside" id="Mat-mF-YpZ"/>
+                                </connections>
+                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What are you working on?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EzC-os-pk6">
                                 <rect key="frame" x="83" y="96" width="210" height="22"/>
                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="18"/>
@@ -463,6 +473,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="e86-gn-Ddo" firstAttribute="centerY" secondItem="Be4-54-9ng" secondAttribute="centerY" id="1hN-P5-CCI"/>
                             <constraint firstItem="EzC-os-pk6" firstAttribute="centerX" secondItem="haL-Cz-zas" secondAttribute="centerX" id="831-N3-fKQ"/>
                             <constraint firstItem="KL5-uc-g9w" firstAttribute="top" secondItem="qrw-ma-BZY" secondAttribute="top" id="8XX-aS-fhH"/>
                             <constraint firstItem="Be4-54-9ng" firstAttribute="centerY" secondItem="AJP-yH-Wef" secondAttribute="centerY" id="CH3-JJ-ruT"/>
@@ -481,6 +492,7 @@
                             <constraint firstItem="9Oe-7j-x9G" firstAttribute="trailing" secondItem="rco-fu-gUR" secondAttribute="trailing" constant="10" id="XCT-WQ-QHj"/>
                             <constraint firstItem="yF0-AV-yc8" firstAttribute="top" secondItem="lGu-k3-Wd3" secondAttribute="bottom" id="YZH-CP-Y80"/>
                             <constraint firstItem="AJP-yH-Wef" firstAttribute="leading" secondItem="9Oe-7j-x9G" secondAttribute="leading" constant="16" id="b6g-LK-1PF"/>
+                            <constraint firstItem="e86-gn-Ddo" firstAttribute="leading" secondItem="9Oe-7j-x9G" secondAttribute="leading" constant="50" id="bvf-oT-Sp8"/>
                             <constraint firstItem="dnc-dX-9ia" firstAttribute="leading" secondItem="qrw-ma-BZY" secondAttribute="leading" id="c7r-GS-WPw"/>
                             <constraint firstItem="9Oe-7j-x9G" firstAttribute="trailing" secondItem="Be4-54-9ng" secondAttribute="trailing" constant="10" id="cvQ-2y-b8Y"/>
                             <constraint firstItem="URf-yU-XAy" firstAttribute="bottom" secondItem="9Oe-7j-x9G" secondAttribute="bottom" constant="40" id="hKz-tD-uLu"/>
@@ -498,6 +510,7 @@
                             <constraint firstItem="URf-yU-XAy" firstAttribute="top" secondItem="qrw-ma-BZY" secondAttribute="top" id="t9E-F2-HDy"/>
                             <constraint firstItem="YZj-6x-Drz" firstAttribute="centerY" secondItem="haL-Cz-zas" secondAttribute="centerY" id="vwU-Ta-LQB"/>
                             <constraint firstItem="yF0-AV-yc8" firstAttribute="bottom" secondItem="9Oe-7j-x9G" secondAttribute="bottom" id="wUy-Rt-r91"/>
+                            <constraint firstItem="9Oe-7j-x9G" firstAttribute="trailing" secondItem="e86-gn-Ddo" secondAttribute="trailing" constant="50" id="zuh-Oe-lhe"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="9Oe-7j-x9G"/>
                     </view>
@@ -505,6 +518,7 @@
                     <connections>
                         <outlet property="buttonAddPracticeItem" destination="93d-fu-5Ec" id="FeF-OK-ilj"/>
                         <outlet property="buttonEditName" destination="Be4-54-9ng" id="Gop-w5-pkE"/>
+                        <outlet property="buttonEditPlaylistNameLarge" destination="e86-gn-Ddo" id="ReU-So-xRD"/>
                         <outlet property="buttonStartPlaylist" destination="rco-fu-gUR" id="3Mc-9l-n7X"/>
                         <outlet property="constraintHeaderImageViewHeight" destination="83d-vn-LIX" id="TPt-A0-R7N"/>
                         <outlet property="labelImprovementsCount" destination="Cha-N6-vcd" id="Wvz-nF-sH0"/>

@@ -15,17 +15,17 @@ class PracticeItemCell: UITableViewCell {
     @IBOutlet weak var textfieldInputPracticeItemName: UITextField!
     @IBOutlet weak var ratingView: FloatRatingView!
     
-    func configure(with name:String,
+    func configure(with item: PracticeItem,
+                   rate: Double,
                    keyword: String,
-                   isSelected:Bool,
-                   rating: Double?) {
+                   isSelected:Bool) {
         
         if keyword == "" {
             self.labelPracticeItemName.attributedText = nil
-            self.labelPracticeItemName.text = name
+            self.labelPracticeItemName.text = item.name
         } else {
-            let range = NSString(string:name.lowercased()).range(of: keyword.lowercased())
-            let attributed = NSMutableAttributedString(string: name)
+            let range = NSString(string:item.name.lowercased()).range(of: keyword.lowercased())
+            let attributed = NSMutableAttributedString(string: item.name)
             attributed.addAttributes([NSAttributedStringKey.foregroundColor: AppConfig.appConfigTimerGreenColor], range: range)
             self.labelPracticeItemName.attributedText = attributed
         }
@@ -36,14 +36,14 @@ class PracticeItemCell: UITableViewCell {
             self.imageViewIcon.image = UIImage(named:"icon_plus")
         }
         
-        self.textfieldInputPracticeItemName.text = name
+        self.textfieldInputPracticeItemName.text = item.name
         self.textfieldInputPracticeItemName.isHidden = true
         self.labelPracticeItemName.isHidden = false
         
         self.ratingView.contentMode = .scaleAspectFit
-        if let rating = rating {
+        if rate > 0 {
             self.ratingView.isHidden = false
-            self.ratingView.rating = rating
+            self.ratingView.rating = rate
         } else {
             self.ratingView.isHidden = true
         }
@@ -124,14 +124,14 @@ class PracticeItemListViewController: UIViewController {
     }
     
     func bindViewModel() {
-        self.viewModel.subscribe(to: "sectionedResult") { (event, _, _) in
+        self.viewModel.subscribe(to: "sectionedPracticeItems") { (event, _, _) in
             self.tableViewMain.reloadData()
         }
         
-        self.viewModel.subscribe(to: "selectedItems") { (event, _, _) in
-            if self.viewModel.selectedItems.count > 0 {
+        self.viewModel.subscribe(to: "selectedPracticeItems") { (event, _, _) in
+            if self.viewModel.selectedPracticeItems.count > 0 {
                 self.viewAddPracticeButtonContainer.isHidden = false
-                self.labelAddPracticeItemButton.text = "Add \(self.viewModel.selectedItems.count) Practices"
+                self.labelAddPracticeItemButton.text = "Add \(self.viewModel.selectedPracticeItems.count) Practices"
             } else {
                 self.viewAddPracticeButtonContainer.isHidden = true
             }
@@ -162,15 +162,16 @@ extension PracticeItemListViewController {
     @IBAction func cancelCellEditingMode() {
         if self.practiceItemNameEditingCell != nil {
             self.practiceItemNameEditingCell!.textfieldInputPracticeItemName.isHidden = true
-            let originalPracticeItemName = self.viewModel.sectionResult(section: self.editingSection, row: self.editingRow)
+            let originalPracticeItemName = self.viewModel.sectionResult(section: self.editingSection, row: self.editingRow).name
             let newPracticeItemName = self.practiceItemNameEditingCell!.textfieldInputPracticeItemName.text ?? ""
             if newPracticeItemName != originalPracticeItemName {
                 if newPracticeItemName == "" {
                     self.practiceItemNameEditingCell!.labelPracticeItemName.text = originalPracticeItemName
-                } else if self.viewModel.canReplaceItem(name: originalPracticeItemName, to: newPracticeItemName) {
-                    self.viewModel.replaceItem(name: self.viewModel.searchResult(at: self.editingRow), to: newPracticeItemName)
+                } else if self.viewModel.canChangeItemName(to: newPracticeItemName, forItem: self.viewModel.sectionResult(section: self.editingSection, row: self.editingRow)) {
+                    self.viewModel.changeItemName(to: newPracticeItemName, forItem: self.viewModel.sectionResult(section: self.editingSection, row: self.editingRow))
                 } else {
                     self.practiceItemNameEditingCell!.labelPracticeItemName.text = originalPracticeItemName
+                    self.practiceItemNameEditingCell!.textfieldInputPracticeItemName.text = originalPracticeItemName
                     AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "You've already same practice item name.")
                 }
             }
@@ -180,7 +181,7 @@ extension PracticeItemListViewController {
     }
     
     @IBAction func onSelectItems(_ sender: Any) {
-        self.parentViewModel.addPracticeItems(itemNames: self.viewModel.selectedItems)
+        self.parentViewModel.addPracticeItems(self.viewModel.selectedPracticeItems)
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -211,6 +212,9 @@ extension PracticeItemListViewController: UITextFieldDelegate {
     
     @IBAction func onDidEndOnExitOnField(_ sender: Any) {
         self.textfieldSearch.resignFirstResponder()
+        if !self.viewStoreNewItemPanel.isHidden {
+            self.onAddtoStore(sender)
+        }
     }
 }
 
@@ -242,11 +246,11 @@ extension PracticeItemListViewController: UITableViewDelegate, UITableViewDataSo
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PracticeItemCell") as! PracticeItemCell
-        let itemName = self.viewModel.sectionResult(section: indexPath.section, row: indexPath.row)
-        cell.configure(with: itemName,
+        let item = self.viewModel.sectionResult(section: indexPath.section, row: indexPath.row)
+        cell.configure(with: item,
+                       rate: self.viewModel.ratingValue(forPracticeItem: item) ?? 0,
                        keyword: self.textfieldSearch.text ?? "",
-                       isSelected: self.viewModel.isSelected(for: itemName),
-                       rating: self.viewModel.ratingValue(forPracticeItem: itemName))
+                       isSelected: self.viewModel.isSelected(for: item))
         return cell
     }
     

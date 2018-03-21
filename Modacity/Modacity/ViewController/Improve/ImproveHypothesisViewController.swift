@@ -31,7 +31,7 @@ class ImproveHypothesisViewController: UIViewController {
         self.textfieldInputBox.attributedPlaceholder = NSAttributedString(string: "Type here or choose a suggestion", attributes: [NSAttributedStringKey.foregroundColor:Color.white.alpha(0.5)])
         self.viewInputBox.layer.cornerRadius = 5
         self.buttonCloseBox.isHidden = true
-        self.labelPracticeName.text = self.playlistModel.currentPracticeItem.name
+        self.labelPracticeName.text = self.playlistModel.currentPracticeEntry.practiceItem()?.name ?? ""
         self.labelSuggestionName.text = self.viewModel.selectedSuggestion
         self.buttonTryAgain.isHidden = true
         self.bindViewModel()

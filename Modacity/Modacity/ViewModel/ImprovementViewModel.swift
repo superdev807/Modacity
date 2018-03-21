@@ -46,7 +46,7 @@ class ImprovementViewModel: ViewModel {
         return hypotheses[selectedSuggestion] ?? ["Visualize a perfect outcome", "Perform it as a single gesture", "Simplify the concept"]
     }
     
-    func generateImprovement(with playlist: Playlist, practice: PracticeItemEntry) -> Improvement {
+    func generateImprovement(with playlist: Playlist, practice: PlaylistPracticeEntry) -> Improvement {
         return Improvement(JSON: ["id":UUID().uuidString,
                                   "playlist_id": playlist.id,
                                   "practice_name":practice.name,

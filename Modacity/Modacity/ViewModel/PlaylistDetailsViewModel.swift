@@ -22,18 +22,17 @@ class PlaylistDetailsViewModel: ViewModel {
         }
     }
     
-    var practiceItems:[PracticeItemEntry] = [PracticeItemEntry]() {
+    var playlistPracticeEntries:[PlaylistPracticeEntry] = [PlaylistPracticeEntry]() {
         didSet {
-            self.playlist.practiceItems = practiceItems
+            self.playlist.playlistPracticeEntries = playlistPracticeEntries
             self.storePlaylist()
             if !disableCallbackForRowEditing {
                 if let callback = self.callBacks["practiceItems"] {
-                    callback(.simpleChange, oldValue, practiceItems)
+                    callback(.simpleChange, oldValue, playlistPracticeEntries)
                 }
             }
         }
     }
-    
     
     // Playing data
     var timePracticed: [String:Int] = [String:Int]() {
@@ -63,14 +62,14 @@ class PlaylistDetailsViewModel: ViewModel {
         }
     }
     
-    var currentPracticeItem : PracticeItemEntry!
+    var currentPracticeEntry : PlaylistPracticeEntry!
     var disableCallbackForRowEditing = false
     var sessionDurationInSecond: Int!
     var sessionCompleted = false
     
     var clockEditingPracticeItemId = "" {
         didSet {
-            for practiceItem in self.practiceItems {
+            for practiceItem in self.playlistPracticeEntries {
                 if practiceItem.entryId == clockEditingPracticeItemId {
                     self.clockEditingPracticeItem = practiceItem
                     break
@@ -78,7 +77,7 @@ class PlaylistDetailsViewModel: ViewModel {
             }
         }
     }
-    var clockEditingPracticeItem: PracticeItemEntry!
+    var clockEditingPracticeItem: PlaylistPracticeEntry!
     
     override init() {
         super.init()
@@ -88,9 +87,9 @@ class PlaylistDetailsViewModel: ViewModel {
     func setPlaylist(_ playlist: Playlist) {
         self.playlist = playlist
         self.playlistName = playlist.name
-        self.practiceItems = playlist.practiceItems
+        self.playlistPracticeEntries = playlist.playlistPracticeEntries
         
-        for practiceItem in self.practiceItems {
+        for practiceItem in self.playlistPracticeEntries {
             if let countDownDuration = practiceItem.countDownDuration {
                 if countDownDuration > 0 {
                     self.countdownReseted[practiceItem.entryId] = true
@@ -99,12 +98,14 @@ class PlaylistDetailsViewModel: ViewModel {
         }
     }
     
-    func addPracticeItems(itemNames: [String]) {
-        for item in itemNames {
-            self.practiceItems.append(PracticeItemEntry(name: item))
+    func addPracticeItems(_ items: [PracticeItem]) {
+        for item in items {
+            let practiceItemEntry = PlaylistPracticeEntry()
+            practiceItemEntry.practiceItemId = item.id
+            self.playlistPracticeEntries.append(practiceItemEntry)
         }
         
-        self.playlist.practiceItems = self.practiceItems
+        self.playlist.playlistPracticeEntries = self.playlistPracticeEntries
         
         if self.playlist.id == "" {
             self.playlist.id = UUID().uuidString
@@ -117,26 +118,26 @@ class PlaylistDetailsViewModel: ViewModel {
         self.storePlaylist()
     }
     
-    func setLikePracticeItem(for name: String) {
-        PracticeItemLocalManager.manager.setFavoritePracticeItem(for: name)
+    func isFavoritePracticeItem(forItemId: String) -> Bool {
+        return PracticeItemLocalManager.manager.isFavoritePracticeItem(for:forItemId)
     }
     
-    func isFavoritePracticeItem(for name:String) -> Bool {
-        return PracticeItemLocalManager.manager.isFavoritePracticeItem(for:name)
+    func setLikePracticeItem(for item: PracticeItem) {
+        PracticeItemLocalManager.manager.setFavoritePracticeItem(forItemId: item.id)
     }
     
     func chaneOrder(source: Int, target: Int) {
         disableCallbackForRowEditing = true
         var tempEditingItemEntryId = ""
         if editingRow != -1 {
-            tempEditingItemEntryId = self.practiceItems[editingRow].entryId
+            tempEditingItemEntryId = self.playlistPracticeEntries[editingRow].entryId
         }
-        let movedObject = self.practiceItems[source]
-        self.practiceItems.remove(at: source)
-        self.practiceItems.insert(movedObject, at: target)
+        let movedObject = self.playlistPracticeEntries[source]
+        self.playlistPracticeEntries.remove(at: source)
+        self.playlistPracticeEntries.insert(movedObject, at: target)
         if editingRow != -1 {
-            for idx in 0..<self.practiceItems.count {
-                if self.practiceItems[idx].entryId == tempEditingItemEntryId {
+            for idx in 0..<self.playlistPracticeEntries.count {
+                if self.playlistPracticeEntries[idx].entryId == tempEditingItemEntryId {
                     editingRow = idx
                     break
                 }
@@ -158,34 +159,34 @@ class PlaylistDetailsViewModel: ViewModel {
         }
     }
     
-    func deletePracticeItem(for entryId:String) {
-        for idx in 0..<self.practiceItems.count {
-            if entryId == self.practiceItems[idx].entryId {
-                self.practiceItems.remove(at: idx)
+    func deletePracticeItem(for practiceItem:PlaylistPracticeEntry) {
+        for idx in 0..<self.playlistPracticeEntries.count {
+            if practiceItem.entryId == self.playlistPracticeEntries[idx].entryId {
+                self.playlistPracticeEntries.remove(at: idx)
                 return
             }
         }
     }
     
-    func setRating(forPracticeItem: String, rating: Double) {
-        PracticeItemLocalManager.manager.setRatingValue(forPracticeItem: forPracticeItem, rating: rating)
+    func setRating(for practiceItem: PracticeItem, rating: Double) {
+        PracticeItemLocalManager.manager.setRatingValue(forItemId: practiceItem.id, rating: rating)
     }
     
-    func ratingValue(for practiceItem: String) -> Double? {
-        return PracticeItemLocalManager.manager.ratingValue(forPracticeItem:practiceItem)
+    func rating(forPracticeItemId: String) -> Double? {
+        return PracticeItemLocalManager.manager.ratingValue(for:forPracticeItemId)
     }
     
-    func duration(forPracticeItem: String) -> Int? {
-        return self.timePracticed[forPracticeItem]
+    func duration(forPracticeItem entryId: String) -> Int? {
+        return self.timePracticed[entryId]
     }
     
-    func setDuration(forPracticeItem: String, duration: Int) {
-        self.timePracticed[forPracticeItem] = duration
+    func setDuration(forPracticeItem entryId: String, duration: Int) {
+        self.timePracticed[entryId] = duration
     }
     
-    func setEditingRow(for entryId:String) {
-        for idx in 0..<self.practiceItems.count {
-            if practiceItems[idx].entryId == entryId {
+    func setEditingRow(for item:PlaylistPracticeEntry) {
+        for idx in 0..<self.playlistPracticeEntries.count {
+            if playlistPracticeEntries[idx].entryId == item.entryId {
                 self.editingRow = idx
                 return
             }
@@ -194,32 +195,32 @@ class PlaylistDetailsViewModel: ViewModel {
     
     func changeCountDownDuration(for entryId:String, duration: Int) {
 
-        for idx in 0..<self.practiceItems.count {
-            if self.practiceItems[idx].entryId == entryId {
-                let oldCountDownDuration = self.practiceItems[idx].countDownDuration ?? 0
+        for idx in 0..<self.playlistPracticeEntries.count {
+            if self.playlistPracticeEntries[idx].entryId == entryId {
+                let oldCountDownDuration = self.playlistPracticeEntries[idx].countDownDuration ?? 0
                 if oldCountDownDuration != duration {
                     self.countdownReseted[entryId] = true
                 }
-                self.practiceItems[idx].countDownDuration = duration
+                self.playlistPracticeEntries[idx].countDownDuration = duration
                 break
             }
         }
         
-        self.playlist.practiceItems = practiceItems
+        self.playlist.playlistPracticeEntries = self.playlistPracticeEntries
         self.storePlaylist()
         
         if let callback = self.callBacks["practiceItems"] {
-            callback(.simpleChange, practiceItems, practiceItems)
+            callback(.simpleChange, self.playlistPracticeEntries, playlistPracticeEntries)
         }
     }
     
     func next() -> Bool {
-        for idx in 0..<self.practiceItems.count {
-            if practiceItems[idx].entryId == self.currentPracticeItem.entryId {
-                if idx == self.practiceItems.count - 1 {
+        for idx in 0..<self.playlistPracticeEntries.count {
+            if playlistPracticeEntries[idx].entryId == self.currentPracticeEntry.entryId {
+                if idx == self.playlistPracticeEntries.count - 1 {
                     return false
                 }
-                self.currentPracticeItem = practiceItems[idx + 1]
+                self.currentPracticeEntry = playlistPracticeEntries[idx + 1]
                 return true
             }
         }
@@ -256,7 +257,7 @@ class PlaylistDetailsViewModel: ViewModel {
     }
     
     func saveCurrentRecording(toFileName: String) {
-        RecordingsLocalManager.manager.saveCurrentRecording(toFileName: toFileName, playlistId: self.playlist.id, practiceName: self.currentPracticeItem.name, practiceEntryId: self.currentPracticeItem.entryId)
+        RecordingsLocalManager.manager.saveCurrentRecording(toFileName: toFileName, playlistId: self.playlist.id, practiceName: self.currentPracticeEntry.practiceItem()?.name ?? "", practiceEntryId: self.currentPracticeEntry.entryId)
     }
     
     func addNewImprovement(_ improvement: Improvement) {

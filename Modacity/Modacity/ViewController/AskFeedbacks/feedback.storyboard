@@ -238,7 +238,7 @@ how to improve? Connect with one of our experts.</string>
                         <outlet property="textViewMessage" destination="kD5-hw-U8I" id="Nau-Yq-WxJ"/>
                         <outlet property="viewAttachMostRecentAudio" destination="TqK-u1-l3d" id="jIB-Xz-aGb"/>
                         <outlet property="viewTextContainer" destination="Hrk-2e-o4E" id="o6Z-Qa-eKU"/>
-                        <segue destination="qz1-pT-38s" kind="presentation" identifier="sid_sent" modalTransitionStyle="crossDissolve" id="Fm4-jU-q8t"/>
+                        <segue destination="qz1-pT-38s" kind="show" identifier="sid_sent" id="Fm4-jU-q8t"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mLh-sf-fnx" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -304,8 +304,8 @@ Was Received!</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="reg-Mu-bQ2">
-                                        <rect key="frame" x="134.66666666666666" y="223.33333333333337" width="106" height="66"/>
-                                        <state key="normal" image="btn_back"/>
+                                        <rect key="frame" x="135" y="223.33333333333337" width="106" height="66"/>
+                                        <state key="normal" image="btn_ok"/>
                                         <connections>
                                             <action selector="onBack:" destination="qz1-pT-38s" eventType="touchUpInside" id="a4k-My-Klb"/>
                                         </connections>
@@ -368,7 +368,7 @@ Was Received!</string>
         <image name="bg_common" width="375" height="667"/>
         <image name="bg_header_small" width="375" height="126"/>
         <image name="bg_simple_gradient" width="375" height="667"/>
-        <image name="btn_back" width="106" height="66"/>
+        <image name="btn_ok" width="106" height="66"/>
         <image name="btn_rate" width="129" height="42"/>
         <image name="btn_send" width="99" height="43"/>
         <image name="icon_arrow_left" width="10" height="15"/>

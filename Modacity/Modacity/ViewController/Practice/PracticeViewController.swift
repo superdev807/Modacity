@@ -93,7 +93,7 @@ class PracticeViewController: MetrodroneBaseViewController {
                           sustainButton: buttonSustain)
         
         self.playlistViewModel.storePlaylist()
-        self.labelPracticeItemName.text = self.playlistViewModel.currentPracticeItem.name
+        self.labelPracticeItemName.text = self.playlistViewModel.currentPracticeEntry.practiceItem()?.name ?? ""
         
         self.initializeDroneUIs()
         self.processFavoriteIconImage()
@@ -103,7 +103,7 @@ class PracticeViewController: MetrodroneBaseViewController {
     }
     
     func processFavoriteIconImage() {
-        if !(self.playlistViewModel.isFavoritePracticeItem(for: self.playlistViewModel.currentPracticeItem.name)) {
+        if !(self.playlistViewModel.isFavoritePracticeItem(forItemId: self.playlistViewModel.currentPracticeEntry.practiceItemId)) {
             self.buttonFavorite.setImage(UIImage(named:"icon_heart"), for: .normal)
             self.buttonFavorite.alpha = 0.5
         } else {
@@ -314,8 +314,8 @@ extension PracticeViewController {
                 duration = self.secondsPrevPlayed
             }
             self.timer.invalidate()
-            self.playlistViewModel.setDuration(forPracticeItem: self.playlistViewModel.currentPracticeItem.entryId,
-                                               duration: duration + (self.playlistViewModel.duration(forPracticeItem: self.playlistViewModel.currentPracticeItem.entryId) ?? 0))
+            self.playlistViewModel.setDuration(forPracticeItem: self.playlistViewModel.currentPracticeEntry.entryId,
+                                               duration: duration + (self.playlistViewModel.duration(forPracticeItem: self.playlistViewModel.currentPracticeEntry.entryId) ?? 0))
             self.performSegue(withIdentifier: "sid_rate", sender: nil)
         } else {
             var duration = 0
@@ -325,16 +325,18 @@ extension PracticeViewController {
                 duration = self.secondsPrevPlayed
             }
             self.timer.invalidate()
-            self.playlistViewModel.setDuration(forPracticeItem: self.playlistViewModel.currentPracticeItem.entryId,
-                                               duration: duration + (self.playlistViewModel.duration(forPracticeItem: self.playlistViewModel.currentPracticeItem.entryId) ?? 0))
+            self.playlistViewModel.setDuration(forPracticeItem: self.playlistViewModel.currentPracticeEntry.entryId,
+                                               duration: duration + (self.playlistViewModel.duration(forPracticeItem: self.playlistViewModel.currentPracticeEntry.entryId) ?? 0))
             self.navigationController?.popViewController(animated: true)
         }
         
     }
     
     @IBAction func onToggleFavorite(_ sender: Any) {
-        self.playlistViewModel.setLikePracticeItem(for: self.playlistViewModel.currentPracticeItem.name)
-        self.processFavoriteIconImage()
+        if let practiceItem = self.playlistViewModel.currentPracticeEntry.practiceItem() {
+            self.playlistViewModel.setLikePracticeItem(for: practiceItem)
+            self.processFavoriteIconImage()
+        }
     }
     
     @IBAction func onImprove(_ sender: Any) {
@@ -419,7 +421,6 @@ extension PracticeViewController: AVAudioPlayerDelegate, FDWaveformViewDelegate 
     }
     
     @IBAction func onTouchUpInsideOnBackward(_ sender: Any) {
-        
     }
     
     @IBAction func onTouchDownOnForward(_ sender: Any) {
@@ -500,7 +501,7 @@ extension PracticeViewController: AVAudioPlayerDelegate, FDWaveformViewDelegate 
     @IBAction func onSaveRecord(_ sender: Any) {
         let alertController = UIAlertController(title: nil, message: "Enter the file name!", preferredStyle: .alert)
         alertController.addTextField { (textField) in
-            if var practiceName = self.playlistViewModel.currentPracticeItem.name {
+            if var practiceName = self.playlistViewModel.currentPracticeEntry.practiceItem()?.name {
                 practiceName = String(practiceName.prefix(16))
                 let autoIncrementedNumber = self.playlistViewModel.fileNameAutoIncrementedNumber()
                 textField.text = "\(practiceName)_\(Date().toString(format: "yyyyMMdd"))_\(String(format:"%02d", autoIncrementedNumber))"
@@ -647,11 +648,11 @@ extension PracticeViewController {
         self.processTimerStarting()
         self.perform(#selector(onTimerStart), with: nil, afterDelay: 0.5)
         self.buttonTimerUpDownArrow.setImage(UIImage(named:"icon_timer_arrow_count_up"), for: .normal)
-        if let countDownTimer =  self.playlistViewModel.currentPracticeItem.countDownDuration {
+        if let countDownTimer =  self.playlistViewModel.currentPracticeEntry.countDownDuration {
             if countDownTimer > 0 {
                 self.buttonTimerUpDownArrow.setImage(UIImage(named:"icon_timer_arrow_count_down"), for: .normal)
                 self.isCountDown = true
-                if let timePracticed = self.playlistViewModel.duration(forPracticeItem: self.playlistViewModel.currentPracticeItem.entryId) {
+                if let timePracticed = self.playlistViewModel.duration(forPracticeItem: self.playlistViewModel.currentPracticeEntry.entryId) {
                     if timePracticed < countDownTimer {
                         self.countDownTimerStart = countDownTimer - timePracticed
                     } else {
@@ -732,24 +733,24 @@ extension PracticeViewController {
         self.timer.invalidate()
         
         let duration = Int(Date().timeIntervalSince1970 - self.timerStarted.timeIntervalSince1970) + self.secondsPrevPlayed
-        self.playlistViewModel.setDuration(forPracticeItem: self.playlistViewModel.currentPracticeItem.entryId,
-                                           duration: duration + (self.playlistViewModel.duration(forPracticeItem: self.playlistViewModel.currentPracticeItem.entryId) ?? 0))
+        self.playlistViewModel.setDuration(forPracticeItem: self.playlistViewModel.currentPracticeEntry.entryId,
+                                           duration: duration + (self.playlistViewModel.duration(forPracticeItem: self.playlistViewModel.currentPracticeEntry.entryId) ?? 0))
         self.performSegue(withIdentifier: "sid_rate", sender: nil)
     }
     
     func processTimerStarting() {
         var timeAlreadyPracticed = 0
-        if let timePracticed = self.playlistViewModel.duration(forPracticeItem: self.playlistViewModel.currentPracticeItem.entryId) {
+        if let timePracticed = self.playlistViewModel.duration(forPracticeItem: self.playlistViewModel.currentPracticeEntry.entryId) {
             timeAlreadyPracticed = timePracticed
         }
         
-        if let countDownTimer =  self.playlistViewModel.currentPracticeItem.countDownDuration {
+        if let countDownTimer =  self.playlistViewModel.currentPracticeEntry.countDownDuration {
             if countDownTimer > 0 {
-                if let reseted = self.playlistViewModel.countdownReseted[self.playlistViewModel.currentPracticeItem.entryId] {
+                if let reseted = self.playlistViewModel.countdownReseted[self.playlistViewModel.currentPracticeEntry.entryId] {
                     if reseted {
                         timerShouldDown = true
                         timerShouldStartFrom = countDownTimer
-                        self.playlistViewModel.countdownReseted[self.playlistViewModel.currentPracticeItem.entryId] = false
+                        self.playlistViewModel.countdownReseted[self.playlistViewModel.currentPracticeEntry.entryId] = false
                         return
                     }
                 }

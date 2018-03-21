@@ -14,13 +14,13 @@ class Playlist: Mappable {
     var id: String!
     var name: String!
     var createdAt: String!
-    var practiceItems: [PracticeItemEntry]!
+    var playlistPracticeEntries: [PlaylistPracticeEntry]!
     
     init() {
         id = ""
         name = ""
         createdAt = "\(Date().timeIntervalSince1970)"
-        practiceItems = [PracticeItemEntry]()
+        playlistPracticeEntries = [PlaylistPracticeEntry]()
     }
     
     required init?(map: Map) {
@@ -30,6 +30,6 @@ class Playlist: Mappable {
         id              <- map["id"]
         createdAt       <- map["created_at"]
         name            <- map["name"]
-        practiceItems   <- map["practice_items"]
+        playlistPracticeEntries   <- map["practice_items"]
     }
 }

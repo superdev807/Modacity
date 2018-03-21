@@ -18,7 +18,7 @@ class PracticeRateViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        self.labelPracticeName.text = self.playlistViewModel.currentPracticeItem.name
+        self.labelPracticeName.text = self.playlistViewModel.currentPracticeEntry.practiceItem()?.name ?? ""
         self.rateView.editable = true
         self.rateView.maxRating = 5
         self.rateView.type = .halfRatings
@@ -77,6 +77,9 @@ extension PracticeRateViewController: FloatRatingViewDelegate {
     }
     
     func floatRatingView(_ ratingView: FloatRatingView, didUpdate rating: Double) {
-        self.playlistViewModel.setRating(forPracticeItem: self.playlistViewModel.currentPracticeItem.name, rating: ratingView.rating)
+        if let practiceItem = self.playlistViewModel.currentPracticeEntry.practiceItem() {
+            self.playlistViewModel.setRating(for: practiceItem, rating: ratingView.rating)
+//        self.playlistViewModel.setRating(forPracticeItem: self.playlistViewModel.currentPracticeItem.name, rating: ratingView.rating)
+        }
     }
 }
