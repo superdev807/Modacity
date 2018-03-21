@@ -24,7 +24,7 @@ let hypEnjoyment=["Have more fun!","Forgive flaws and appreciate reality","Avoid
 class ImprovementViewModel: ViewModel {
 
     
-    let suggestions = ["Notes", "Rythm", "Consistency", "Tone", "Emotion", "Phrasing", "Technique", "Enjoyment", "Ease"]
+    let suggestions = ["Notes", "Rhythm", "Consistency", "Tone", "Emotion", "Phrasing", "Technique", "Enjoyment", "Ease"]
     
     let hypotheses: [String:[String]] = [
         "Notes":hypNotes, "Rhythm":hypRhythm, "Consistency":hypConsistency,
