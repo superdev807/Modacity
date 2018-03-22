@@ -105,4 +105,12 @@ class MetrodoneViewController: MetrodroneBaseViewController {
     @IBAction func onChangeBPMStop(_ sender: Any) {
         stopBPMChangeTimer()
     }
+    
+    override func setPlayImage() {
+        _buttonPlayPause.setImage(UIImage(named:"btn_drone_play_large"), for: .normal)
+    }
+    
+    override func setPauseImage() {
+        _buttonPlayPause.setImage(UIImage(named:"btn_drone_pause_large"), for: .normal)
+    }
 }

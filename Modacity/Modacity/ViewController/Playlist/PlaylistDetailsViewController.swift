@@ -35,7 +35,7 @@ class  PlaylistPracticeItem: UITableViewCell {
         self.practiceItem = item
         self.labelPracticeName.text = item.practiceItem()?.name ?? "___"
         
-        if !isFavorite/*(item.practiceItem()?.favorite ?? false)*/ {
+        if !isFavorite {
             self.buttonHeart.setImage(UIImage(named:"icon_heart"), for: .normal)
             self.buttonHeart.alpha = 0.3
         } else {
@@ -59,17 +59,17 @@ class  PlaylistPracticeItem: UITableViewCell {
             self.labelPracticeDuration.text = String(format:"%d:%02d", duration / 60, duration % 60)
             self.constraintForSubPanelHeight.constant = 16
             
-            if rate/*(item.practiceItem()?.rate ?? 0)*/ > 0 {
+            if rate > 0 {
                 self.ratingView.isHidden = false
-                self.ratingView.rating = rate//(item.practiceItem()?.rate ?? 0)
+                self.ratingView.rating = rate
             } else {
                 self.ratingView.isHidden = true
             }
         } else {
             self.labelPracticeDuration.text = ""
-            if rate/*(item.practiceItem()?.rate ?? 0)*/ > 0 {
+            if rate > 0 {
                 self.ratingView.isHidden = false
-                self.ratingView.rating = rate//(item.practiceItem()?.rate ?? 0)
+                self.ratingView.rating = rate
                 self.constraintForSubPanelHeight.constant = 16
             } else {
                 self.ratingView.isHidden = true
@@ -138,7 +138,7 @@ class PlaylistDetailsViewController: UIViewController {
     var viewModel = PlaylistDetailsViewModel()
     var isPlaying = false
     var playingStartedTime: Date? = nil
-    var sessionTimer : Timer?
+    var sessionTimer : Timer? = nil
     var currentRow = 0
     var playlistPracticeTotalTimeInSec = 0
     
@@ -164,6 +164,7 @@ class PlaylistDetailsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tableViewMain.reloadData()
+        self.showSessionTime()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -195,8 +196,8 @@ class PlaylistDetailsViewController: UIViewController {
         if self.isPlaying {
             let alertController = UIAlertController(title: nil, message: "This will end your practice session. Are you sure to close the page?", preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (_) in
-                let currentTime = Date()
-                self.playlistPracticeTotalTimeInSec = Int(currentTime.timeIntervalSince1970 - self.playingStartedTime!.timeIntervalSince1970)
+//                let currentTime = Date()
+                self.playlistPracticeTotalTimeInSec = self.viewModel.totalPracticedTime()//Int(currentTime.timeIntervalSince1970 - self.playingStartedTime!.timeIntervalSince1970)
                 self.viewModel.addPracticeTotalTime(inSec: self.playlistPracticeTotalTimeInSec)
                 if self.navigationController?.viewControllers.count == 1 {
                     self.navigationController?.dismiss(animated: true, completion: nil)
@@ -290,6 +291,14 @@ class PlaylistDetailsViewController: UIViewController {
         }
     }
     
+    func showSessionTime() {
+        let timerInSec = self.viewModel.totalPracticedTime()
+        self.labelTimer.text = String(format: "%02d", timerInSec / 3600) + ":" +
+                                String(format:"%02d", (timerInSec % 3600) / 60) + ":" +
+                                 String(format:"%02d", timerInSec % 60)
+    }
+    
+    
     func startPractice(withItem: Int) {
         self.isPlaying = true
         self.currentRow = 0
@@ -297,16 +306,16 @@ class PlaylistDetailsViewController: UIViewController {
         self.playingStartedTime = Date()
         self.buttonStartPlaylist.setImage(UIImage(named:"btn_playlist_finish"), for: .normal)
         
-        self.sessionTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { (_) in
-            let currentTime = Date()
-            let timerInSec = Int(currentTime.timeIntervalSince1970 - self.playingStartedTime!.timeIntervalSince1970)
-            self.playlistPracticeTotalTimeInSec = timerInSec
-            DispatchQueue.main.async {
-                self.labelTimer.text = String(format: "%02d", timerInSec / 3600) + ":" +
-                    String(format:"%02d", (timerInSec % 3600) / 60) + ":" +
-                    String(format:"%02d", timerInSec % 60)
-            }
-        })
+//        self.sessionTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { (_) in
+//            let currentTime = Date()
+//            let timerInSec = Int(currentTime.timeIntervalSince1970 - self.playingStartedTime!.timeIntervalSince1970)
+//            self.playlistPracticeTotalTimeInSec = timerInSec
+//            DispatchQueue.main.async {
+//                self.labelTimer.text = String(format: "%02d", timerInSec / 3600) + ":" +
+//                    String(format:"%02d", (timerInSec % 3600) / 60) + ":" +
+//                    String(format:"%02d", timerInSec % 60)
+//            }
+//        })
         
         self.viewModel.currentPracticeEntry = self.viewModel.playlistPracticeEntries[withItem]
         let controller = UIStoryboard(name: "practice", bundle: nil).instantiateViewController(withIdentifier: "PracticeViewController") as! PracticeViewController
@@ -320,8 +329,8 @@ class PlaylistDetailsViewController: UIViewController {
             self.startPractice(withItem: 0)
         } else {
             
-            let currentTime = Date()
-            self.playlistPracticeTotalTimeInSec = Int(currentTime.timeIntervalSince1970 - self.playingStartedTime!.timeIntervalSince1970)
+//            let currentTime = Date()
+            self.playlistPracticeTotalTimeInSec = self.viewModel.totalPracticedTime()//Int(currentTime.timeIntervalSince1970 - self.playingStartedTime!.timeIntervalSince1970)
             self.viewModel.addPracticeTotalTime(inSec: self.playlistPracticeTotalTimeInSec)
             
             if let sessionTimer = self.sessionTimer {

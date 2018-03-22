@@ -236,11 +236,11 @@ class MetrodroneBaseViewController: UIViewController, DroneFrameDelegate {
     }
     
     func setPlayImage() {
-        _buttonPlayPause.setImage(#imageLiteral(resourceName: "btn_drone_play_large"), for: .normal)
+        _buttonPlayPause.setImage(UIImage(named:"btn_drone_play"), for: .normal)
     }
     
     func setPauseImage() {
-        _buttonPlayPause.setImage(#imageLiteral(resourceName: "icon_pause_white"), for: .normal)
+        _buttonPlayPause.setImage(UIImage(named:"btn_drone_pause"), for: .normal)
     }
     
     func tapDown() {

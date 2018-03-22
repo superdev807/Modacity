@@ -177,9 +177,7 @@ class RecordingViewController: UIViewController {
         } else {
             self.constraintForHeaderImageViewHeight.constant = 88
         }
-        self.audioPlayerTimer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: true, block: { (_) in
-            self.audioPlayingProgressUpdate()
-        })
+        self.audioPlayerTimer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(audioPlayingProgressUpdate), userInfo: nil, repeats: true)
         self.bindViewModel()
     }
 
@@ -442,7 +440,7 @@ extension RecordingViewController: AVAudioPlayerDelegate {
         
     }
     
-    func audioPlayingProgressUpdate() {
+    @objc func audioPlayingProgressUpdate() {
         if let _ = self.viewModel.playingRecording {
             if let player = self.audioPlayer {
                 if let cell = self.playingCell() {

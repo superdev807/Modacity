@@ -31,15 +31,27 @@ class AboutViewController: UIViewController {
     }
     
     @IBAction func onAcknowledgement(_ sender: Any) {
-        UIApplication.shared.open(URL(string:AppConfig.appConfigHomeUrlLink)!, options: [:], completionHandler: nil)
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(URL(string:AppConfig.appConfigHomeUrlLink)!, options: [:], completionHandler: nil)
+        } else {
+            UIApplication.shared.openURL(URL(string:AppConfig.appConfigHomeUrlLink)!)
+        }
     }
     
     @IBAction func onPrivacy(_ sender: Any) {
-        UIApplication.shared.open(URL(string:AppConfig.appConfigPrivacyUrlLink)!, options: [:], completionHandler: nil)
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(URL(string:AppConfig.appConfigPrivacyUrlLink)!, options: [:], completionHandler: nil)
+        } else {
+            UIApplication.shared.openURL(URL(string:AppConfig.appConfigPrivacyUrlLink)!)
+        }
     }
     
     @IBAction func onTerms(_ sender: Any) {
-        UIApplication.shared.open(URL(string:AppConfig.appConfigTermsUrlLink)!, options: [:], completionHandler: nil)
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(URL(string:AppConfig.appConfigTermsUrlLink)!, options: [:], completionHandler: nil)
+        } else {
+            UIApplication.shared.openURL(URL(string:AppConfig.appConfigTermsUrlLink)!)
+        }
     }
 }
 
@@ -69,15 +81,36 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.row == 0 {
-            UIApplication.shared.open(URL(string:AppConfig.appConfigShareTheAppUrlLink)!, options: [:], completionHandler: nil)
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(URL(string:AppConfig.appConfigShareTheAppUrlLink)!, options: [:], completionHandler: nil)
+            } else {
+                // Fallback on earlier versions
+                UIApplication.shared.openURL(URL(string:AppConfig.appConfigShareTheAppUrlLink)!)
+            }
         } else if indexPath.row == 1 {
-            UIApplication.shared.open(URL(string:AppConfig.appConfigInstagramLink)!, options: [:], completionHandler: nil)
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(URL(string:AppConfig.appConfigInstagramLink)!, options: [:], completionHandler: nil)
+            } else {
+                UIApplication.shared.openURL(URL(string:AppConfig.appConfigInstagramLink)!)
+            }
         } else if indexPath.row == 2 {
-            UIApplication.shared.open(URL(string:AppConfig.appConfigTwitterLink)!, options: [:], completionHandler: nil)
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(URL(string:AppConfig.appConfigTwitterLink)!, options: [:], completionHandler: nil)
+            } else {
+                UIApplication.shared.openURL(URL(string:AppConfig.appConfigTwitterLink)!)
+            }
         } else if indexPath.row == 3 {
-            UIApplication.shared.open(URL(string:AppConfig.appConfigFacebookLink)!, options: [:], completionHandler: nil)
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(URL(string:AppConfig.appConfigFacebookLink)!, options: [:], completionHandler: nil)
+            } else {
+                UIApplication.shared.openURL(URL(string:AppConfig.appConfigFacebookLink)!)
+            }
         } else {
-            UIApplication.shared.open(URL(string:AppConfig.appConfigWebsiteLink)!, options: [:], completionHandler: nil)
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(URL(string:AppConfig.appConfigWebsiteLink)!, options: [:], completionHandler: nil)
+            } else {
+                UIApplication.shared.openURL(URL(string:AppConfig.appConfigWebsiteLink)!)
+            }
         }
     }
 }

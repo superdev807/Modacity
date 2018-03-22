@@ -84,6 +84,14 @@ class PlaylistDetailsViewModel: ViewModel {
         self.playlist.name = playlistName
     }
     
+    func totalPracticedTime() -> Int {
+        var total = 0
+        for entry in self.playlistPracticeEntries {
+            total = total + (self.timePracticed[entry.entryId] ?? 0)
+        }
+        return total
+    }
+    
     func setPlaylist(_ playlist: Playlist) {
         self.playlist = playlist
         self.playlistName = playlist.name

@@ -469,13 +469,15 @@ extension PracticeViewController: AVAudioPlayerDelegate, FDWaveformViewDelegate 
         self.waveformAudioPlay.progressColor = Color.white
         self.waveformAudioPlay.delegate = self
         
-        self.audioPlayerTimer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: true, block: { (_) in
-            if let player = self.player {
-                self.waveformAudioPlay.highlightedSamples = 0..<Int(Double(self.waveformAudioPlay.totalSamples) * (player.currentTime / player.duration))
-                self.labelPlayerCurrentTime.text = String(format:"%d:%02d", Int(player.currentTime) / 60, Int(player.currentTime) % 60)
-                self.labelPlayerRemainsTime.text = String(format:"-%d:%02d", Int(player.duration - player.currentTime) / 60, Int(player.duration - player.currentTime) % 60)
-            }
-        })
+        self.audioPlayerTimer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(onAudioTimer), userInfo: nil, repeats: true)
+    }
+    
+    @objc func onAudioTimer() {
+        if let player = self.player {
+            self.waveformAudioPlay.highlightedSamples = 0..<Int(Double(self.waveformAudioPlay.totalSamples) * (player.currentTime / player.duration))
+            self.labelPlayerCurrentTime.text = String(format:"%d:%02d", Int(player.currentTime) / 60, Int(player.currentTime) % 60)
+            self.labelPlayerRemainsTime.text = String(format:"-%d:%02d", Int(player.duration - player.currentTime) / 60, Int(player.duration - player.currentTime) % 60)
+        }
     }
     
     @IBAction func onPlayPauseAudio(_ sender: Any) {
