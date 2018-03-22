@@ -39,6 +39,7 @@ class ImproveSuggestionViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "sid_next" {
+            AmplitudeTracker.LogEvent(.ImprovementChosen, extraParamName: "Improvement", extraParamValue: viewModel.selectedSuggestion)
             let controller = segue.destination as! ImproveHypothesisViewController
             controller.viewModel = self.viewModel
             controller.playlistModel = self.playlistModel

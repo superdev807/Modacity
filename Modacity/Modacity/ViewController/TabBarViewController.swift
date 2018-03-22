@@ -263,6 +263,7 @@ class TabBarViewController: UITabBarController {
     @objc func onNewPlaylist() {
         let playlistCreateNew = UIStoryboard(name:"playlist", bundle: nil).instantiateViewController(withIdentifier: "playlist_control_scene")
 //        let practiceScene = UIStoryboard(name: "practice", bundle: nil).instantiateViewController(withIdentifier: "PracticeScene")
+        AmplitudeTracker.LogEvent(.NewPlaylist)
         self.present(playlistCreateNew, animated: true, completion: nil)
     }
 

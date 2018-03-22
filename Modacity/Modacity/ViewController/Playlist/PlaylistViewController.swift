@@ -119,6 +119,9 @@ extension PlaylistViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         self.viewModel.detailSelection = self.viewModel.playlist(at: indexPath.row)
+        
+        AmplitudeTracker.LogEvent(.NewPlaylist, extraParamName: "Playlist", extraParamValue: self.viewModel.detailSelection!.name)
+        
         self.performSegue(withIdentifier: "sid_details", sender: nil)
     }
     

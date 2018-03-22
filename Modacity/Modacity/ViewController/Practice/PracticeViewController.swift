@@ -100,6 +100,8 @@ class PracticeViewController: MetrodroneBaseViewController {
         self.initializeAudioPlayerUI()
         self.initializeTipPromptPanel()
         self.initializeTimer()
+        
+        AmplitudeTracker.LogEvent(.StartPracticeItem, extraParamName: "ItemName", extraParamValue: self.labelPracticeItemName.text)
     }
     
     func processFavoriteIconImage() {
@@ -220,7 +222,7 @@ extension PracticeViewController {
     }
     
     @IBAction func onShowDrones(_ sender: Any) {
-        
+        AmplitudeTracker.LogEvent(.MetrodroneDrawerOpen)
         if self.recorder != nil && self.recorder.isRecording {
             AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Please stop recording before leaving the page.")
             return
@@ -242,7 +244,7 @@ extension PracticeViewController {
     }
     
     @IBAction func onHideDrones(_ sender: Any) {
-        
+        AmplitudeTracker.LogEvent(.MetrodroneDrawerClose)
         if self.subdivisionPanelShown {
             self.onSubdivision(sender as! UIButton)
         }
@@ -301,6 +303,8 @@ extension PracticeViewController {
     
     @IBAction func onEnd(_ sender: Any) {
         
+        AmplitudeTracker.LogEvent(.FinishPracticeItem)
+        
         if self.recorder != nil && self.recorder.isRecording {
             AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Please stop recording before leaving the page.")
             return
@@ -340,7 +344,7 @@ extension PracticeViewController {
     }
     
     @IBAction func onImprove(_ sender: Any) {
-        
+        AmplitudeTracker.LogEvent(.PressedImprove)
         if self.recorder != nil && self.recorder.isRecording {
             AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Please stop recording before leaving the page.")
             return
@@ -353,7 +357,7 @@ extension PracticeViewController {
     }
     
     @IBAction func onAskExpert(_ sender: Any) {
-        
+        AmplitudeTracker.LogEvent(.PressedAsk)
         if self.recorder != nil && self.recorder.isRecording {
             AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Please stop recording before leaving the page.")
             return
@@ -368,7 +372,7 @@ extension PracticeViewController {
     }
     
     @IBAction func onFeedback(_ sender: Any) {
-        
+        AmplitudeTracker.LogEvent(.PressedFeedback)
         if self.recorder != nil && self.recorder.isRecording {
             AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Please stop recording before leaving the page.")
             return
@@ -573,7 +577,7 @@ extension PracticeViewController {
     }
     
     func startRecording() {
-        
+        AmplitudeTracker.LogEvent(.RecordStart)
         let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
         let soundFilePath = dirPath[0] + "/recording.wav"
         let url = URL(fileURLWithPath: soundFilePath)
@@ -611,6 +615,7 @@ extension PracticeViewController {
     }
     
     func stopRecording() {
+        AmplitudeTracker.LogEvent(.RecordStop)
         recorder.stop()
     }
 }
