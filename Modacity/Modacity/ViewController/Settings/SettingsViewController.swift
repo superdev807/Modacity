@@ -82,7 +82,7 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
         if section == 0 {
             return 4
         } else if section == 1 {
-            return 2
+            return 3
         } else if section == 2 {
             return 3
         } else {
@@ -142,9 +142,13 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCellWithDropdown") as! SettingsCellWithDropdown
                 return cell
-            } else {
+            } else if indexPath.row == 1 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCellWithSwitch") as! SettingsCellWithSwitch
                 cell.configure(caption: "Light Mode", isOn: false)
+                return cell
+            } else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCellWithSwitch") as! SettingsCellWithSwitch
+                cell.configure(caption: "Prevent phone sleep during audio activity", isOn: true)
                 return cell
             }
         } else if indexPath.section == 2 {

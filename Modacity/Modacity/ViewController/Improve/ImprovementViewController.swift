@@ -71,6 +71,11 @@ class ImprovementViewController: MetrodroneBaseViewController {
         self.initializeOutlets(lblTempo: labelBPM, droneFrame: viewDroneFrame, playButton: buttonMetroPlay, durationSlider: sliderDuration, sustainButton: buttonSustain)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        UIApplication.shared.isIdleTimerDisabled = true
+    }
+    
     deinit {
         if self.audioPlayerTimer != nil {
             self.audioPlayerTimer!.invalidate()
@@ -104,6 +109,7 @@ class ImprovementViewController: MetrodroneBaseViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        UIApplication.shared.isIdleTimerDisabled = false
         if let _ = self.player {
             if self.isPlaying {
                 self.onPlayPauseAudio(self)

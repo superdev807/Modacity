@@ -61,6 +61,7 @@
 		8EAE1651204FE1050012450E /* PlaylistFinishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAE1650204FE1050012450E /* PlaylistFinishViewController.swift */; };
 		8EB479B920458B7100BE6461 /* about.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EB479B820458B7000BE6461 /* about.storyboard */; };
 		8EB479BB20458B7C00BE6461 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB479BA20458B7C00BE6461 /* AboutViewController.swift */; };
+		8EB81FCB2063D33E00EADDA5 /* SetReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB81FCA2063D33E00EADDA5 /* SetReminderViewController.swift */; };
 		8EB9DB99204DA67200689C1D /* PlaylistLocalManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB9DB98204DA67200689C1D /* PlaylistLocalManager.swift */; };
 		8EB9DB9B204DABFD00689C1D /* PlaylistViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB9DB9A204DABFD00689C1D /* PlaylistViewModel.swift */; };
 		8ECCAF952056EABE000E2B75 /* PlaylistDeliverModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECCAF942056EABE000E2B75 /* PlaylistDeliverModel.swift */; };
@@ -175,6 +176,7 @@
 		8EAE1650204FE1050012450E /* PlaylistFinishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistFinishViewController.swift; sourceTree = "<group>"; };
 		8EB479B820458B7000BE6461 /* about.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = about.storyboard; sourceTree = "<group>"; };
 		8EB479BA20458B7C00BE6461 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
+		8EB81FCA2063D33E00EADDA5 /* SetReminderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetReminderViewController.swift; sourceTree = "<group>"; };
 		8EB9DB98204DA67200689C1D /* PlaylistLocalManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistLocalManager.swift; sourceTree = "<group>"; };
 		8EB9DB9A204DABFD00689C1D /* PlaylistViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistViewModel.swift; sourceTree = "<group>"; };
 		8ECCAF942056EABE000E2B75 /* PlaylistDeliverModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistDeliverModel.swift; sourceTree = "<group>"; };
@@ -490,6 +492,7 @@
 				8E455D122045B870003FDB80 /* PracticeItemListViewController.swift */,
 				8EAE1650204FE1050012450E /* PlaylistFinishViewController.swift */,
 				8E1EFEFB20500E7A000DE107 /* PlaylistPracticeDurationKeyboardViewController.swift */,
+				8EB81FCA2063D33E00EADDA5 /* SetReminderViewController.swift */,
 			);
 			path = Playlist;
 			sourceTree = "<group>";
@@ -758,7 +761,7 @@
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -851,6 +854,7 @@
 				"${BUILT_PRODUCTS_DIR}/LGSideMenuController/LGSideMenuController.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/SCSiriWaveformView/SCSiriWaveformView.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftMessages/SwiftMessages.framework",
 				"${BUILT_PRODUCTS_DIR}/TPKeyboardAvoiding/TPKeyboardAvoiding.framework",
 				"${BUILT_PRODUCTS_DIR}/UITextView+Placeholder/UITextView_Placeholder.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
@@ -871,6 +875,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LGSideMenuController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SCSiriWaveformView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftMessages.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TPKeyboardAvoiding.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UITextView_Placeholder.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
@@ -938,6 +943,7 @@
 				8E64B7A82056332300900775 /* HomeViewModel.swift in Sources */,
 				10F352BF2063546C006132DB /* AmplitudeTracking.swift in Sources */,
 				8EDEB6EE203DCD2200E8D48D /* CreateAccountViewController.swift in Sources */,
+				8EB81FCB2063D33E00EADDA5 /* SetReminderViewController.swift in Sources */,
 				8E455D112045A84F003FDB80 /* PlaylistDetailsViewController.swift in Sources */,
 				8E4551DF20030F7F002061AE /* AppDelegate.swift in Sources */,
 				8E58B44620446AE40022704B /* MyProfileLocalManager.swift in Sources */,

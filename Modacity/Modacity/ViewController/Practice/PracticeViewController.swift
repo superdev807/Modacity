@@ -146,8 +146,14 @@ class PracticeViewController: MetrodroneBaseViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        UIApplication.shared.isIdleTimerDisabled = true
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        UIApplication.shared.isIdleTimerDisabled = false
         if let _ = self.player {
             if self.isPlaying {
                 self.onPlayPauseAudio(self)

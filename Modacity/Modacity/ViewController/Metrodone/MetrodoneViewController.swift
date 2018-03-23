@@ -32,17 +32,19 @@ class MetrodoneViewController: MetrodroneBaseViewController {
         self.configureLayout()
     }
     
-    
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        UIApplication.shared.isIdleTimerDisabled = true
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        UIApplication.shared.isIdleTimerDisabled = false
+    }
+
     @IBAction func onMenu(_ sender: Any) {
         self.sideMenuController?.showLeftViewAnimated()
     }
-    
     
     func configureLayout() {
         

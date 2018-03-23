@@ -150,6 +150,7 @@ extension PracticeItemListViewController {
     }
     
     @IBAction func onAddtoStore(_ sender: Any) {
+        let newName = self.textfieldSearch.text!
         self.viewModel.addItemtoStore(with: self.textfieldSearch.text!)
         self.viewStoreNewItemPanel.isHidden = true
         self.constraintForTableViewTopSpace.constant = 10
@@ -157,6 +158,22 @@ extension PracticeItemListViewController {
         self.textfieldSearch.text = ""
         self.buttonRemoveKeyword.isHidden = true
         self.viewModel.changeKeyword(to: "")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.scrollTableView(to:newName)
+        }
+    }
+    
+    func scrollTableView(to name:String) {
+        for section in 0..<self.viewModel.sectionedSearchSectionCount() {
+            for row in 0..<self.viewModel.sectionedSearchResultCount(in: section) {
+                let item = self.viewModel.sectionResult(section: section, row: row)
+                if item.name.lowercased() == name.lowercased() {
+                    self.tableViewMain.scrollToRow(at: IndexPath(row: row, section: section), at: .top, animated: true)
+                    return
+                }
+            }
+        }
     }
     
     @IBAction func cancelCellEditingMode() {

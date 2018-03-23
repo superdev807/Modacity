@@ -11,6 +11,7 @@ import Firebase
 import FBSDKCoreKit
 import GoogleSignIn
 import Amplitude_iOS
+import SwiftMessages
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -56,8 +57,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AmplitudeTracker.LogEvent(.Terminate)
     }
     
+    func application(_ application: UIApplication, didReceive notification: UILocalNotification) {
+        self.showNotificationView(title:notification.alertTitle ?? "", body: notification.alertBody ?? "")
+    }
+    
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         return FBSDKApplicationDelegate.sharedInstance().application(app, open: url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String ?? "", annotation: options[UIApplicationOpenURLOptionsKey.annotation]) || GIDSignIn.sharedInstance().handle(url,                                                                                                                                                                                                                                                                                         sourceApplication:options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String,                                                                                                                                          annotation: [:])
+    }
+    
+    func showNotificationView(title: String, body: String) {
+        let view = MessageView.viewFromNib(layout: .cardView)
+        
+        var config = SwiftMessages.Config()
+        config.presentationContext = .window(windowLevel: UIWindowLevelStatusBar)
+        config.duration = .seconds(seconds: 10)
+        config.dimMode = .gray(interactive: true)
+        config.interactiveHide = true
+        
+        view.configureTheme(.warning)
+        view.configureDropShadow()
+        view.backgroundView.backgroundColor = Color(hexString:"#5756E6")
+        view.button?.setTitle("Close", for: .normal)
+        view.button?.setTitleColor(Color.white, for: .normal)
+        view.button?.backgroundColor = Color(hexString:"#51BE38")
+        view.buttonTapHandler = { _ in
+            SwiftMessages.hide()
+        }
+        view.configureContent(title: title, body: body)
+        SwiftMessages.show(config: config, view: view)
     }
 }
 

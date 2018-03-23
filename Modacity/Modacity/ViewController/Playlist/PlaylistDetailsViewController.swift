@@ -32,6 +32,10 @@ class  PlaylistPracticeItem: UITableViewCell {
     
     func confgure(for item:PlaylistPracticeEntry, isFavorite: Bool, rate: Double, isEditing: Bool, duration: Int?) {
         
+        let bgColorView = UIView()
+        bgColorView.backgroundColor = Color.white.alpha(0.1)
+        self.selectedBackgroundView = bgColorView
+        
         self.practiceItem = item
         self.labelPracticeName.text = item.practiceItem()?.name ?? "___"
         
@@ -88,9 +92,9 @@ class  PlaylistPracticeItem: UITableViewCell {
             self.labelCountDownTimer.isHidden = true
         }
         
-        let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipes))
-        leftSwipe.direction = .left
-        self.contentView.addGestureRecognizer(leftSwipe)
+//        let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipes))
+//        leftSwipe.direction = .left
+//        self.contentView.addGestureRecognizer(leftSwipe)
         
     }
     
@@ -142,6 +146,9 @@ class PlaylistDetailsViewController: UIViewController {
     var currentRow = 0
     var playlistPracticeTotalTimeInSec = 0
     
+    var snapshot: UIView? = nil
+    var sourceIndexPath: IndexPath? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -182,8 +189,10 @@ class PlaylistDetailsViewController: UIViewController {
     
     func configureGUI() {
         self.tableViewMain.tableFooterView = UIView()
-        self.tableViewMain.isEditing = true
         self.tableViewMain.allowsSelectionDuringEditing = true
+        
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressGestureRecognized))
+        self.tableViewMain.addGestureRecognizer(longPressGesture)
         
         self.buttonStartPlaylist.isEnabled = false
         self.buttonStartPlaylist.alpha = 0.5
@@ -361,6 +370,7 @@ extension PlaylistDetailsViewController: UITableViewDelegate, UITableViewDataSou
                       rate: self.viewModel.rating(forPracticeItemId: practiceItem.practiceItemId) ?? 0,
                       isEditing: indexPath.row == self.viewModel.editingRow,
                       duration: self.viewModel.duration(forPracticeItem: practiceItem.entryId))
+        cell.accessoryType = .disclosureIndicator
         cell.delegate = self
         return cell
     }
@@ -389,10 +399,11 @@ extension PlaylistDetailsViewController: UITableViewDelegate, UITableViewDataSou
     }
     
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        if indexPath.row == self.viewModel.editingRow {
-            return false
-        }
-        return true
+        return false
+//        if indexPath.row == self.viewModel.editingRow {
+//            return false
+//        }
+//        return true
     }
     
     func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
@@ -401,6 +412,95 @@ extension PlaylistDetailsViewController: UITableViewDelegate, UITableViewDataSou
     
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         self.viewModel.chaneOrder(source: sourceIndexPath.row, target: destinationIndexPath.row)
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        
+        let delete = UITableViewRowAction(style: .destructive, title: "") { (action, indexPath) in
+            self.viewModel.editingRow = -1
+            self.viewModel.deletePracticeItem(for: self.viewModel.playlistPracticeEntries[indexPath.row])
+        }
+        delete.setIcon(iconImage: UIImage(named:"icon_delete_white")!, backColor: Color(hexString: "#6815CE"), cellHeight: 64, iconSizePercentage: 0.25)
+        let calendar = UITableViewRowAction(style: .default, title: "") { (action, indexPath) in
+            self.openClockEdit(for: self.viewModel.playlistPracticeEntries[indexPath.row])
+        }
+        calendar.setIcon(iconImage: UIImage(named:"icon_row_clock")!, backColor: Color(hexString: "#2E64E5"), cellHeight: 64, iconSizePercentage: 0.25)
+        
+        return [delete, calendar]
+    }
+    
+    func customSnapshot(from view:UIView) -> UIView {
+        UIGraphicsBeginImageContext(view.bounds.size)
+        view.layer.render(in: UIGraphicsGetCurrentContext()!)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        let snapshot = UIImageView(image: image)
+        snapshot.layer.masksToBounds = false
+        snapshot.layer.cornerRadius = 0.0
+        snapshot.layer.shadowOffset = CGSize(width: -5.0, height: 0.0)
+        snapshot.layer.shadowRadius = 5.0
+        snapshot.layer.shadowOpacity = 0.4
+        
+        return snapshot
+    }
+    
+    @objc func longPressGestureRecognized(_ sender:UILongPressGestureRecognizer) {
+        
+        let state = sender.state
+        let location = sender.location(in: self.tableViewMain)
+        let indexPath = self.tableViewMain.indexPathForRow(at: location)
+        
+        switch state {
+        case .began:
+            if let indexPath = indexPath {
+                self.sourceIndexPath = indexPath
+                if let cell = self.tableViewMain.cellForRow(at: indexPath) {
+                    self.snapshot = self.customSnapshot(from:cell)
+                    var center = cell.center
+                    self.snapshot?.center = center
+                    self.snapshot?.alpha = 0.0
+                    self.tableViewMain.addSubview(snapshot!)
+                    UIView.animate(withDuration: 0.25, animations: {
+                        center.y = location.y
+                        self.snapshot?.center = center
+                        self.snapshot?.transform = CGAffineTransform(scaleX: 1.05, y: 1.05)
+                        self.snapshot?.alpha = 0.98
+                    }, completion: { (finished) in
+                        cell.isHidden = true
+                    })
+                }
+            }
+            break
+        case .changed:
+            var center = self.snapshot?.center
+            center!.y = location.y
+            self.snapshot?.center = center!
+            
+            if let indexPath = indexPath {
+                if !(indexPath == sourceIndexPath) {
+                    self.viewModel.chaneOrder(source: indexPath.row, target: self.sourceIndexPath!.row)
+                    self.tableViewMain.moveRow(at: sourceIndexPath!, to: indexPath)
+                    sourceIndexPath = indexPath
+                }
+            }
+            
+            break
+        default:
+            let cell = self.tableViewMain.cellForRow(at: sourceIndexPath!)
+            cell?.isHidden = false
+            cell?.alpha = 1.0
+            UIView.animate(withDuration: 0.25, animations: {
+                self.snapshot?.center = cell!.center
+                self.snapshot?.transform = CGAffineTransform.identity
+                self.snapshot?.alpha = 0
+            }, completion: { (finished) in
+                self.sourceIndexPath = nil
+                self.snapshot?.removeFromSuperview()
+                self.snapshot = nil
+            })
+            return
+        }
     }
 }
 

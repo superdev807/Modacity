@@ -107,9 +107,9 @@ class PlaylistPracticeDurationKeyboardViewController: UIViewController {
     }
     
     func showValues() {
-        self.labelPracticeName.text = self.viewModel.clockEditingPracticeItem.name
+        self.labelPracticeName.text = self.viewModel.clockEditingPracticeItem.practiceItem()?.name ?? ""
         
-        if (self.viewModel.isFavoritePracticeItem(forItemId: self.viewModel.clockEditingPracticeItem.practiceItemId)) {
+        if !(self.viewModel.isFavoritePracticeItem(forItemId: self.viewModel.clockEditingPracticeItem.practiceItemId)) {
             self.buttonHeart.setImage(UIImage(named:"icon_heart"), for: .normal)
             self.buttonHeart.alpha = 0.3
         } else {
