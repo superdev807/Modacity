@@ -32,7 +32,7 @@ class PlaylistFinishViewController: UIViewController {
             }
         }
         
-        self.labelSessionImprovements.text = "\(self.playlistDetailsViewModel.totalImprovements)"
+        self.labelSessionImprovements.text = "\(AppOveralDataManager.manager.calculateStreakDays())"
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

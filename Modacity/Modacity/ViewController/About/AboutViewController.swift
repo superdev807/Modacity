@@ -64,8 +64,10 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AboutCell")!
         let imageView = cell.viewWithTag(10) as! UIImageView
         imageView.image = UIImage(named:icons[indexPath.row])
-        if indexPath.row == 0 || indexPath.row == 1 {
-            imageView.alpha = 0.5
+        if indexPath.row == 0 {
+            imageView.alpha = 0.4
+        } else if indexPath.row == 1 {
+            imageView.alpha = 0.3
         } else {
             imageView.alpha = 1
         }

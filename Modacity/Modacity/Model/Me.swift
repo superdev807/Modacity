@@ -44,7 +44,7 @@ class Me: Mappable {
                 }
             }
             if name != "" {
-                names.append(name)
+                names.append(name.capitalizingFirstLetter())
             }
             return names.joined(separator: " ")
         } else {

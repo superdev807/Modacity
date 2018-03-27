@@ -56,7 +56,7 @@ class Authorizer: NSObject {
                 let errorCode = UInt((error! as NSError).code)
                 if errorCode == AuthErrorCode.invalidEmail.rawValue || errorCode == AuthErrorCode.userNotFound.rawValue {
                     completion("User not found!")
-                } else if errorCode == AuthErrorCode.invalidCredential.rawValue {
+                } else if errorCode == AuthErrorCode.invalidCredential.rawValue || errorCode == AuthErrorCode.wrongPassword.rawValue {
                     completion("Password is incorrect.")
                 } else {
                     completion(error!.localizedDescription)

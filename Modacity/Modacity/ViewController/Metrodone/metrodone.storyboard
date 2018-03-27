@@ -93,7 +93,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l9U-am-zUA">
-                                                        <rect key="frame" x="53.333333333333329" y="87.000000000000028" width="30" height="30"/>
+                                                        <rect key="frame" x="59.333333333333329" y="90.000000000000028" width="24" height="24"/>
                                                         <state key="normal" image="icon_plus"/>
                                                     </button>
                                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HIO-nH-2F8">
@@ -196,12 +196,15 @@
                                             <constraint firstAttribute="width" secondItem="bUR-cw-pNK" secondAttribute="height" multiplier="7:3" id="w4Q-Pp-Ree"/>
                                         </constraints>
                                         <state key="normal" image="btn_subdivision"/>
+                                        <connections>
+                                            <action selector="onSubdivision:" destination="U5I-Ap-dmF" eventType="touchUpInside" id="jlM-F6-3X6"/>
+                                        </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KoV-Qw-HBC">
                                         <rect key="frame" x="235.66666666666663" y="192.66666666666663" width="110" height="40"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6My-F5-oWc">
-                                                <rect key="frame" x="7.0000000000000284" y="4.6666666666667425" width="30" height="30"/>
+                                                <rect key="frame" x="13.000000000000028" y="7.6666666666667425" width="24" height="24"/>
                                                 <state key="normal" image="icon_plus"/>
                                                 <connections>
                                                     <action selector="onChangeBPMStop:" destination="U5I-Ap-dmF" eventType="touchUpInside" id="CgB-5A-a2l"/>
@@ -308,6 +311,77 @@
                                     <constraint firstItem="O0c-uk-TJe" firstAttribute="bottom" secondItem="0za-oA-9Ec" secondAttribute="bottom" id="v6Y-9Q-WR0"/>
                                 </constraints>
                             </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6lD-c4-L3b">
+                                <rect key="frame" x="269" y="456" width="96" height="272"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_subdivision" translatesAutoresizingMaskIntoConstraints="NO" id="kff-V0-9Pr">
+                                        <rect key="frame" x="0.0" y="0.0" width="96" height="272"/>
+                                    </imageView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nch-HZ-jjL">
+                                        <rect key="frame" x="0.0" y="0.0" width="88" height="258"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RX1-uJ-ONz" userLabel="Button Subdivision 1">
+                                                <rect key="frame" x="0.0" y="0.0" width="88" height="64.666666666666671"/>
+                                                <state key="normal" image="icon_note_1"/>
+                                                <connections>
+                                                    <action selector="onSubdivisionNotes:" destination="U5I-Ap-dmF" eventType="touchUpInside" id="Pyn-3W-kbk"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nKZ-VE-dlp">
+                                                <rect key="frame" x="0.0" y="64.666666666666629" width="88" height="64.333333333333314"/>
+                                                <state key="normal" image="icon_note_2"/>
+                                                <connections>
+                                                    <action selector="onSubdivisionNotes:" destination="U5I-Ap-dmF" eventType="touchUpInside" id="GYD-oO-ElF"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bP1-E4-D2t">
+                                                <rect key="frame" x="0.0" y="129" width="88" height="64.666666666666686"/>
+                                                <state key="normal" image="icon_note_3"/>
+                                                <connections>
+                                                    <action selector="onSubdivisionNotes:" destination="U5I-Ap-dmF" eventType="touchUpInside" id="xK4-m7-jW2"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2ie-Vg-n8c">
+                                                <rect key="frame" x="0.0" y="196" width="88" height="64.666666666666686"/>
+                                                <state key="normal" image="icon_note_4"/>
+                                                <connections>
+                                                    <action selector="onSubdivisionNotes:" destination="U5I-Ap-dmF" eventType="touchUpInside" id="n4c-mu-HFf"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="bP1-E4-D2t" firstAttribute="width" secondItem="RX1-uJ-ONz" secondAttribute="width" id="0Sx-yy-yKH"/>
+                                            <constraint firstItem="RX1-uJ-ONz" firstAttribute="top" secondItem="nch-HZ-jjL" secondAttribute="top" id="4oI-1p-3Mu"/>
+                                            <constraint firstItem="bP1-E4-D2t" firstAttribute="leading" secondItem="RX1-uJ-ONz" secondAttribute="leading" id="5i1-uy-ebU"/>
+                                            <constraint firstItem="RX1-uJ-ONz" firstAttribute="width" secondItem="nch-HZ-jjL" secondAttribute="width" id="5yT-P2-fGc"/>
+                                            <constraint firstItem="RX1-uJ-ONz" firstAttribute="height" secondItem="nch-HZ-jjL" secondAttribute="height" multiplier="1/4" id="CH1-Xn-cTg"/>
+                                            <constraint firstItem="bP1-E4-D2t" firstAttribute="top" secondItem="nKZ-VE-dlp" secondAttribute="bottom" id="OxI-cK-c5Q"/>
+                                            <constraint firstItem="2ie-Vg-n8c" firstAttribute="width" secondItem="RX1-uJ-ONz" secondAttribute="width" id="P5s-WE-KwX"/>
+                                            <constraint firstItem="2ie-Vg-n8c" firstAttribute="top" secondItem="bP1-E4-D2t" secondAttribute="bottom" constant="2.5" id="UNP-Ha-bF4"/>
+                                            <constraint firstItem="nKZ-VE-dlp" firstAttribute="height" secondItem="RX1-uJ-ONz" secondAttribute="height" id="WM7-Yr-S5A"/>
+                                            <constraint firstItem="bP1-E4-D2t" firstAttribute="height" secondItem="RX1-uJ-ONz" secondAttribute="height" id="bBW-fZ-DKV"/>
+                                            <constraint firstItem="RX1-uJ-ONz" firstAttribute="leading" secondItem="nch-HZ-jjL" secondAttribute="leading" id="bw2-Oh-MS9"/>
+                                            <constraint firstItem="2ie-Vg-n8c" firstAttribute="leading" secondItem="RX1-uJ-ONz" secondAttribute="leading" id="jzE-HD-wEL"/>
+                                            <constraint firstItem="nKZ-VE-dlp" firstAttribute="leading" secondItem="RX1-uJ-ONz" secondAttribute="leading" id="ljY-hT-N6v"/>
+                                            <constraint firstItem="nKZ-VE-dlp" firstAttribute="top" secondItem="RX1-uJ-ONz" secondAttribute="bottom" id="seo-LW-2iw"/>
+                                            <constraint firstItem="2ie-Vg-n8c" firstAttribute="height" secondItem="RX1-uJ-ONz" secondAttribute="height" id="zqR-dr-sbk"/>
+                                            <constraint firstItem="nKZ-VE-dlp" firstAttribute="width" secondItem="RX1-uJ-ONz" secondAttribute="width" id="zzK-KH-Zob"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="kff-V0-9Pr" secondAttribute="trailing" id="2G9-70-2tH"/>
+                                    <constraint firstAttribute="bottom" secondItem="kff-V0-9Pr" secondAttribute="bottom" id="8EL-8G-Ecd"/>
+                                    <constraint firstItem="nch-HZ-jjL" firstAttribute="top" secondItem="6lD-c4-L3b" secondAttribute="top" id="XA9-JA-Aza"/>
+                                    <constraint firstItem="kff-V0-9Pr" firstAttribute="top" secondItem="6lD-c4-L3b" secondAttribute="top" id="Yog-Qu-G0O"/>
+                                    <constraint firstItem="nch-HZ-jjL" firstAttribute="leading" secondItem="6lD-c4-L3b" secondAttribute="leading" id="ote-NF-CbW"/>
+                                    <constraint firstAttribute="bottom" secondItem="nch-HZ-jjL" secondAttribute="bottom" constant="14" id="qPV-LX-nei"/>
+                                    <constraint firstAttribute="trailing" secondItem="nch-HZ-jjL" secondAttribute="trailing" constant="8" id="sDw-FE-XDZ"/>
+                                    <constraint firstItem="kff-V0-9Pr" firstAttribute="leading" secondItem="6lD-c4-L3b" secondAttribute="leading" id="uaO-7o-UD8"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -321,8 +395,10 @@
                             <constraint firstItem="PDS-pn-jne" firstAttribute="trailing" secondItem="1Ql-dh-zlE" secondAttribute="trailing" id="S8K-PK-ZxB"/>
                             <constraint firstItem="1Ql-dh-zlE" firstAttribute="leading" secondItem="5Bb-bQ-UPn" secondAttribute="leading" constant="20" id="SEl-wE-ZEb"/>
                             <constraint firstItem="51d-D2-uYL" firstAttribute="leading" secondItem="5Bb-bQ-UPn" secondAttribute="leading" constant="20" id="T6m-T2-y38"/>
+                            <constraint firstItem="5Bb-bQ-UPn" firstAttribute="trailing" secondItem="6lD-c4-L3b" secondAttribute="trailing" constant="10" id="Vev-cO-83j"/>
                             <constraint firstItem="Ur4-Os-72Y" firstAttribute="trailing" secondItem="5Bb-bQ-UPn" secondAttribute="trailing" id="Y4C-2c-h4R"/>
                             <constraint firstItem="0q3-67-hWE" firstAttribute="leading" secondItem="5Bb-bQ-UPn" secondAttribute="leading" id="YHq-Fo-gQc"/>
+                            <constraint firstItem="5Bb-bQ-UPn" firstAttribute="bottom" secondItem="6lD-c4-L3b" secondAttribute="bottom" constant="50" id="aKq-cn-72N"/>
                             <constraint firstItem="PDS-pn-jne" firstAttribute="leading" secondItem="1Ql-dh-zlE" secondAttribute="leading" id="aXQ-rw-o45"/>
                             <constraint firstItem="1Ql-dh-zlE" firstAttribute="top" secondItem="51d-D2-uYL" secondAttribute="bottom" constant="20" id="bya-Qi-0MP"/>
                             <constraint firstItem="51d-D2-uYL" firstAttribute="top" secondItem="0q3-67-hWE" secondAttribute="bottom" constant="20" id="eAA-Yw-bg0"/>
@@ -341,6 +417,10 @@
                     <connections>
                         <outlet property="btnSustain" destination="euc-vE-Txc" id="Ds6-1J-LJc"/>
                         <outlet property="buttonPlay" destination="0za-oA-9Ec" id="LRR-SQ-2FZ"/>
+                        <outlet property="buttonSubdivisionNote1" destination="RX1-uJ-ONz" id="Czl-HC-p2L"/>
+                        <outlet property="buttonSubdivisionNote2" destination="nKZ-VE-dlp" id="aOH-FG-rih"/>
+                        <outlet property="buttonSubdivisionNote3" destination="bP1-E4-D2t" id="kPs-HI-ftd"/>
+                        <outlet property="buttonSubdivisionNote4" destination="2ie-Vg-n8c" id="N5J-Gn-FIt"/>
                         <outlet property="constraintForDroneViewLeading" destination="T6m-T2-y38" id="mus-Pu-kPV"/>
                         <outlet property="constraintForDroneViewTrailing" destination="OXV-Vi-5aG" id="LlH-nS-qFQ"/>
                         <outlet property="constraintForHeaderImageViewHeight" destination="rcp-0U-ora" id="TKN-KN-tpG"/>
@@ -348,6 +428,7 @@
                         <outlet property="labelTempo" destination="nA9-Kq-9EG" id="CDV-hb-vfg"/>
                         <outlet property="sliderDuration" destination="Oe8-rC-QBR" id="ai7-Y5-ktb"/>
                         <outlet property="viewDroneFrame" destination="51d-D2-uYL" id="WJg-oL-DHH"/>
+                        <outlet property="viewSubdivision" destination="6lD-c4-L3b" id="ZZr-xB-b3Q"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sFe-wT-VGF" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -358,13 +439,18 @@
     <resources>
         <image name="bg_common" width="375" height="667"/>
         <image name="bg_header_small" width="375" height="126"/>
+        <image name="bg_subdivision" width="96" height="272"/>
         <image name="btn_drone_play_large" width="102" height="96"/>
         <image name="btn_drone_tap" width="102" height="96"/>
         <image name="btn_subdivision" width="112" height="48"/>
         <image name="btn_sustain" width="72" height="40"/>
         <image name="icon_menu" width="20" height="14"/>
         <image name="icon_minus" width="30" height="30"/>
-        <image name="icon_plus" width="30" height="30"/>
+        <image name="icon_note_1" width="9" height="22"/>
+        <image name="icon_note_2" width="21" height="26"/>
+        <image name="icon_note_3" width="30" height="35"/>
+        <image name="icon_note_4" width="44" height="32"/>
+        <image name="icon_plus" width="24" height="24"/>
         <image name="img_max_track" width="115" height="16"/>
     </resources>
 </document>

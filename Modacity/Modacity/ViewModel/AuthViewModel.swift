@@ -30,7 +30,7 @@ class AuthViewModel: ViewModel {
     var authorizeError: String? = nil {
         didSet {
             if let callback = self.callBacks["authorizeError"] {
-                callback(.simpleChange, oldValue, authorizing)
+                callback(.simpleChange, oldValue, authorizeError)
             }
         }
     }

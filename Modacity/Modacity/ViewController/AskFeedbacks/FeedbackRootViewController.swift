@@ -137,8 +137,7 @@ class FeedbackRootViewController: UIViewController {
     @IBAction func onSent(_ sender: Any) {
         let type :ModacityEmailType = (pageUIMode == 0) ? .AskExpert : .Feedback
         
-        sendMail(type: type, body: self.textViewMessage.text)
-        confirmSent()
+        sendMail(type: type, body: self.textViewMessage.text, includeAudio: (type == .AskExpert && self.checkIconSelected))
     }
     
     @objc func confirmSent() {
@@ -181,10 +180,20 @@ extension FeedbackRootViewController : MFMailComposeViewControllerDelegate {
                 }
             }
             
-            /*self.present(mailComposer, animated: true, completion: { () in
-             self.confirmSent()
-             })*/
             self.present(mailComposer, animated: true, completion: nil)
+        } else {
+            let alertController = UIAlertController(title: nil, message: "Your device can't sent message. Please check Email settings on the device.", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "Settings", style: .default, handler: { (_) in
+                guard let settingsUrl = URL(string: UIApplicationOpenSettingsURLString) else {
+                    return
+                }
+                
+                if UIApplication.shared.canOpenURL(settingsUrl) {
+                    UIApplication.shared.openURL(settingsUrl)
+                }
+            }))
+            alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            self.present(alertController, animated: true, completion: nil)
         }
     }
     
@@ -199,10 +208,16 @@ extension FeedbackRootViewController : MFMailComposeViewControllerDelegate {
     }
     
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
-        print("Result: " + String(describing: result))
-        self.dismiss(animated: true, completion: { () in
-            self.confirmSent()
+        controller.dismiss(animated: true) {
+            if let error = error {
+                AppUtils.showSimpleAlertMessage(for: self, title: nil, message: error.localizedDescription)
+            } else {
+                if result == .sent {
+                    self.confirmSent()
+                } else {
+                    AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Message has not been sent.")
+                }
+            }
         }
-        )
     }
 }

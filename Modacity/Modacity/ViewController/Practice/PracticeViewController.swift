@@ -204,7 +204,6 @@ extension PracticeViewController {
     @IBAction func onSubdivisionNotes(_ sender: UIButton) {
         if sender == self.buttonSubdivisionNote1 {
             self.selectedSubdivisionNote = 0
-            
         } else if sender == self.buttonSubdivisionNote2 {
             self.selectedSubdivisionNote = 1
         } else if sender == self.buttonSubdivisionNote3 {

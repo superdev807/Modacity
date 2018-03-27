@@ -251,13 +251,14 @@ extension PracticeItemListViewController: UITableViewDelegate, UITableViewDataSo
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let returnedView = UIView(frame: CGRect(x:0, y:0, width:tableViewMain.frame.size.width, height:40))
-        returnedView.backgroundColor = Color.white.alpha(0.3)
-        
+        returnedView.backgroundColor = Color(hexString: "#7f7f7f")
+
         let label = UILabel(frame: CGRect(x:10, y:0, width:tableViewMain.frame.size.width - 20, height:24))
         label.text = self.viewModel.sortedSectionedResult()[section]
         label.textColor = Color.white.alpha(0.8)
         label.font = UIFont(name: AppConfig.appFontLatoRegular, size: 14)
         returnedView.addSubview(label)
+
         return returnedView
     }
     

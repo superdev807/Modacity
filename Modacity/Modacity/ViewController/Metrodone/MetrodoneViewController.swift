@@ -21,14 +21,22 @@ class MetrodoneViewController: MetrodroneBaseViewController {
     @IBOutlet weak var labelTempo: UILabel!
     @IBOutlet weak var buttonPlay: UIButton!
     @IBOutlet weak var btnSustain: UIButton!
-    
+
+    var subdivisionPanelShown = false
+    var selectedSubdivisionNote: Int = -1
+    @IBOutlet weak var viewSubdivision: UIView!
+    @IBOutlet weak var buttonSubdivisionNote1: UIButton!
+    @IBOutlet weak var buttonSubdivisionNote2: UIButton!
+    @IBOutlet weak var buttonSubdivisionNote3: UIButton!
+    @IBOutlet weak var buttonSubdivisionNote4: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
         initializeOutlets(lblTempo: labelTempo, droneFrame: viewDroneFrame, playButton: buttonPlay, durationSlider: sliderDuration, sustainButton: btnSustain)
-        
+        self.viewSubdivision.isHidden = true
+        self.configureSubdivisionNoteSelectionGUI()
         self.configureLayout()
     }
     
@@ -114,5 +122,58 @@ class MetrodoneViewController: MetrodroneBaseViewController {
     
     override func setPauseImage() {
         _buttonPlayPause.setImage(UIImage(named:"btn_drone_pause_large"), for: .normal)
+    }
+    
+    @IBAction func onSubdivision(_ sender: Any) {
+        if !self.subdivisionPanelShown {
+            self.viewSubdivision.isHidden = false
+        } else {
+            self.viewSubdivision.isHidden = true
+        }
+        
+        self.subdivisionPanelShown = !self.subdivisionPanelShown
+    }
+    
+    func processSubdivision() {
+        // TODO : here, drone media programming for subdivisions
+        // self.selectedSubdivisionNote value will be used here
+        if ((self.selectedSubdivisionNote < 0) || (self.selectedSubdivisionNote > 3)) {
+            self.selectedSubdivisionNote = 0
+        }
+        self.setSubdivision(self.selectedSubdivisionNote+1)
+    }
+    
+    @IBAction func onSubdivisionNotes(_ sender: UIButton) {
+        if sender == self.buttonSubdivisionNote1 {
+            self.selectedSubdivisionNote = 0
+        } else if sender == self.buttonSubdivisionNote2 {
+            self.selectedSubdivisionNote = 1
+        } else if sender == self.buttonSubdivisionNote3 {
+            self.selectedSubdivisionNote = 2
+        } else if sender == self.buttonSubdivisionNote4 {
+            self.selectedSubdivisionNote = 3
+        }
+        
+        self.configureSubdivisionNoteSelectionGUI()
+        self.processSubdivision()
+    }
+    
+    func configureSubdivisionNoteSelectionGUI() {
+        self.buttonSubdivisionNote1.alpha = 0.5
+        self.buttonSubdivisionNote2.alpha = 0.5
+        self.buttonSubdivisionNote3.alpha = 0.5
+        self.buttonSubdivisionNote4.alpha = 0.5
+        switch self.selectedSubdivisionNote {
+        case 0:
+            self.buttonSubdivisionNote1.alpha = 1.0
+        case 1:
+            self.buttonSubdivisionNote2.alpha = 1.0
+        case 2:
+            self.buttonSubdivisionNote3.alpha = 1.0
+        case 3:
+            self.buttonSubdivisionNote4.alpha = 1.0
+        default:
+            return
+        }
     }
 }
