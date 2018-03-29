@@ -219,6 +219,11 @@ class MetrodroneBaseViewController: UIViewController, DroneFrameDelegate {
     }
     
     func goMetronome() {
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+        } catch let error {
+            print(error)
+        }
         clickSound = true
         updateMetrodroneNote()
         metrodrone.play(bpm: Double(tempo), ratio: durationRatio, subdivision: subdivisions)
@@ -293,7 +298,24 @@ class MetrodroneBaseViewController: UIViewController, DroneFrameDelegate {
         return Bundle.main.url(forResource: wavename, withExtension: "wav", subdirectory: "waveforms")
     }
     
+    func audioSessionOutputSetting() {
+        let audioSession = AVAudioSession.sharedInstance()
+        do {
+            try audioSession.setCategory(AVAudioSessionCategoryPlayback)
+        } catch let error  {
+            print("audio session error \(error)")
+        }
+    }
     
+    func audioSessionInputSetting() {
+        let audioSession = AVAudioSession.sharedInstance()
+        do {
+            try audioSession.setCategory(AVAudioSessionCategoryRecord)
+//            try audioSession.setActive(true)
+        } catch let error  {
+            print("audio session error \(error)")
+        }
+    }
     
 }
 /*class MetrodroneBaseViewController: UIViewController, DroneFrameDelegate {

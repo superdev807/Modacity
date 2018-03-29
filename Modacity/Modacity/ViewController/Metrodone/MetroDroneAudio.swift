@@ -16,13 +16,13 @@ class Metrodrone {
     
     init (mainClickFile: URL, subClickFile: URL? = nil) {
         
-        let audioSession = AVAudioSession.sharedInstance()
-        do {
-            try audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
-            try audioSession.overrideOutputAudioPort(AVAudioSessionPortOverride.speaker)
-        } catch {
-            print("Setting category to AVAudioSessionCategoryPlayback failed.")
-        }
+//        let audioSession = AVAudioSession.sharedInstance()
+//        do {
+//            try audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
+//            try audioSession.overrideOutputAudioPort(AVAudioSessionPortOverride.speaker)
+//        } catch {
+//            print("Setting category to AVAudioSessionCategoryPlayback failed.")
+//        }
         
         audioFileMainClick = try! AVAudioFile(forReading: mainClickFile)
         audioFileSubClick = try! AVAudioFile(forReading: subClickFile ?? mainClickFile)
@@ -159,6 +159,9 @@ class Metrodrone {
         if audioPlayerNode.isPlaying {
             audioPlayerNode.scheduleBuffer(buffer, at: nil, options: .interruptsAtLoop, completionHandler: nil)
         } else {
+            if self.audioEngine.isRunning {
+                self.audioEngine.stop()
+            }
             self.audioPlayerNode.play()
         }
         

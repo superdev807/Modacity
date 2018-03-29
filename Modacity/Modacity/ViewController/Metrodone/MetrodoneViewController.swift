@@ -43,6 +43,7 @@ class MetrodoneViewController: MetrodroneBaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         UIApplication.shared.isIdleTimerDisabled = true
+        self.audioSessionOutputSetting()
     }
     
     override func viewWillDisappear(_ animated: Bool) {

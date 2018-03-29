@@ -457,8 +457,10 @@ extension PracticeViewController: AVAudioPlayerDelegate, FDWaveformViewDelegate 
         let soundFilePath = dirPath[0] + "/recording.wav"
         let url = URL(fileURLWithPath: soundFilePath)
         
+        self.audioSessionOutputSetting()
+        
         do {
-            try AVAudioSession.sharedInstance().overrideOutputAudioPort(.speaker)
+            
             player = try AVAudioPlayer(contentsOf: url)
             guard let player = player else { return }
             player.enableRate = true
@@ -596,9 +598,10 @@ extension PracticeViewController {
             AVEncoderAudioQualityKey: AVAudioQuality.min.rawValue
         ]
         
+        self.audioSessionInputSetting()
+        
         do {
             recorder = try AVAudioRecorder(url: url, settings: settings)
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord)
             
             recorder.prepareToRecord()
             recorder.isMeteringEnabled = true
