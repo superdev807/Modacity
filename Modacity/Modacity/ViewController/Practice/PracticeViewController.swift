@@ -750,6 +750,7 @@ extension PracticeViewController {
         self.performSegue(withIdentifier: "sid_rate", sender: nil)
     }
     
+  
     func processTimerStarting() {
         var timeAlreadyPracticed = 0
         if let timePracticed = self.playlistViewModel.duration(forPracticeItem: self.playlistViewModel.currentPracticeEntry.entryId) {
