@@ -9,7 +9,7 @@
 import UIKit
 
 
-class MetrodoneViewController: MetrodroneBaseViewController {
+class MetrodoneViewController: UIViewController {
 
     @IBOutlet weak var constraintForHeaderImageViewHeight: NSLayoutConstraint!
     @IBOutlet weak var constraintForSubdivisionButtonWidth: NSLayoutConstraint!
@@ -30,11 +30,13 @@ class MetrodoneViewController: MetrodroneBaseViewController {
     @IBOutlet weak var buttonSubdivisionNote3: UIButton!
     @IBOutlet weak var buttonSubdivisionNote4: UIButton!
     
+    var metrodonePlayer = MetrodronePlayer()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        initializeOutlets(lblTempo: labelTempo, droneFrame: viewDroneFrame, playButton: buttonPlay, durationSlider: sliderDuration, sustainButton: btnSustain)
+        metrodonePlayer.initializeOutlets(lblTempo: labelTempo, droneFrame: viewDroneFrame, playButton: buttonPlay, durationSlider: sliderDuration, sustainButton: btnSustain)
         self.viewSubdivision.isHidden = true
         self.configureSubdivisionNoteSelectionGUI()
         self.configureLayout()
@@ -43,12 +45,13 @@ class MetrodoneViewController: MetrodroneBaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         UIApplication.shared.isIdleTimerDisabled = true
-        self.audioSessionOutputSetting()
+//        self.metrodonePlayer.audioSessionOutputSetting()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         UIApplication.shared.isIdleTimerDisabled = false
+        self.metrodonePlayer.stopPlayer()
     }
 
     @IBAction func onMenu(_ sender: Any) {
@@ -79,51 +82,49 @@ class MetrodoneViewController: MetrodroneBaseViewController {
     }
 
     @IBAction func onDurationChanged(_ sender: Any) {
-        changeDuration(newValue: sliderDuration.value)
-        
+        self.metrodonePlayer.changeDuration(newValue: sliderDuration.value)
     }
     
     @IBAction func onBtnPlay(_ sender: Any) {
-        if (!isMetrodronePlaying) {
-            goMetronome()
+        if (!self.metrodonePlayer.isMetrodronePlaying) {
+            self.metrodonePlayer.goMetronome()
         } else {
-            stopMetrodrone()
+            self.metrodonePlayer.stopMetrodrone()
         }
     }
     
     @IBAction func onTapDown(_ sender: Any) {
-        tapDown()
+        self.metrodonePlayer.tapDown()
     }
     
     @IBAction func onTapTouchup(_ sender: Any) {
-        stopMetrodrone()
+        self.metrodonePlayer.stopMetrodrone()
     }
     
     @IBAction func onIncreaseBPMTouch(_ sender: Any) {
-        increaseBPMTouch()
+        self.metrodonePlayer.increaseBPMTouch()
     }
     
     @IBAction func onSustainButton(_ sender: Any) {
-        let isOn = toggleSustain()
+        let isOn = self.metrodonePlayer.toggleSustain()
         btnSustain.alpha = (isOn) ? 1.0 : 0.50
     }
     
     @IBAction func onDecreaseBPMTouch(_ sender: Any) {
-        decreaseBPMTouch()
-        
+        self.metrodonePlayer.decreaseBPMTouch()
     }
     
     @IBAction func onChangeBPMStop(_ sender: Any) {
-        stopBPMChangeTimer()
+        self.metrodonePlayer.stopBPMChangeTimer()
     }
     
-    override func setPlayImage() {
-        _buttonPlayPause.setImage(UIImage(named:"btn_drone_play_large"), for: .normal)
-    }
-    
-    override func setPauseImage() {
-        _buttonPlayPause.setImage(UIImage(named:"btn_drone_pause_large"), for: .normal)
-    }
+//    func setPlayImage() {
+//        _buttonPlayPause.setImage(UIImage(named:"btn_drone_play_large"), for: .normal)
+//    }
+//
+//    func setPauseImage() {
+//        _buttonPlayPause.setImage(UIImage(named:"btn_drone_pause_large"), for: .normal)
+//    }
     
     @IBAction func onSubdivision(_ sender: Any) {
         if !self.subdivisionPanelShown {
@@ -141,7 +142,7 @@ class MetrodoneViewController: MetrodroneBaseViewController {
         if ((self.selectedSubdivisionNote < 0) || (self.selectedSubdivisionNote > 3)) {
             self.selectedSubdivisionNote = 0
         }
-        self.setSubdivision(self.selectedSubdivisionNote+1)
+        self.metrodonePlayer.setSubdivision(self.selectedSubdivisionNote + 1)
     }
     
     @IBAction func onSubdivisionNotes(_ sender: UIButton) {

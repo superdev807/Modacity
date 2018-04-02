@@ -534,57 +534,6 @@
                                     <constraint firstItem="gYe-b1-8hr" firstAttribute="leading" secondItem="NsF-v0-8c8" secondAttribute="leading" id="ulJ-DM-zlf"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AHE-Lf-Bg1">
-                                <rect key="frame" x="0.0" y="627" width="375" height="40"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_bottom_strip" translatesAutoresizingMaskIntoConstraints="NO" id="sqM-dQ-sBj">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
-                                    </imageView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GaW-Zp-Sx6">
-                                        <rect key="frame" x="142.5" y="4" width="90" height="36"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="METRODRONE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5gb-Z7-EPS">
-                                                <rect key="frame" x="0.0" y="12" width="70" height="12"/>
-                                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="10"/>
-                                                <color key="textColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_arrow_up" translatesAutoresizingMaskIntoConstraints="NO" id="aOS-OD-N72">
-                                                <rect key="frame" x="80.5" y="15" width="10" height="6"/>
-                                            </imageView>
-                                        </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstItem="aOS-OD-N72" firstAttribute="centerY" secondItem="GaW-Zp-Sx6" secondAttribute="centerY" id="0fY-Df-B1E"/>
-                                            <constraint firstItem="5gb-Z7-EPS" firstAttribute="leading" secondItem="GaW-Zp-Sx6" secondAttribute="leading" id="3rC-5f-r3N"/>
-                                            <constraint firstItem="5gb-Z7-EPS" firstAttribute="centerY" secondItem="GaW-Zp-Sx6" secondAttribute="centerY" id="58w-s6-zUy"/>
-                                            <constraint firstAttribute="trailing" secondItem="aOS-OD-N72" secondAttribute="trailing" id="6U3-Rw-M3r"/>
-                                            <constraint firstItem="aOS-OD-N72" firstAttribute="leading" secondItem="5gb-Z7-EPS" secondAttribute="trailing" constant="10" id="GrC-UG-w54"/>
-                                            <constraint firstAttribute="height" constant="36" id="Shj-I9-JO7"/>
-                                        </constraints>
-                                    </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uu7-yC-ARf">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
-                                        <connections>
-                                            <action selector="onShowDrones:" destination="ruu-CR-fPU" eventType="touchUpInside" id="7YZ-w0-R1r"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="sqM-dQ-sBj" secondAttribute="trailing" id="2JX-Cw-hhB"/>
-                                    <constraint firstItem="uu7-yC-ARf" firstAttribute="top" secondItem="AHE-Lf-Bg1" secondAttribute="top" id="BEf-WP-HCV"/>
-                                    <constraint firstItem="sqM-dQ-sBj" firstAttribute="leading" secondItem="AHE-Lf-Bg1" secondAttribute="leading" id="BMU-qq-BJD"/>
-                                    <constraint firstItem="sqM-dQ-sBj" firstAttribute="top" secondItem="AHE-Lf-Bg1" secondAttribute="top" id="PpY-cQ-V3w"/>
-                                    <constraint firstAttribute="height" constant="40" id="Vao-Ft-78O"/>
-                                    <constraint firstAttribute="bottom" secondItem="GaW-Zp-Sx6" secondAttribute="bottom" id="WRg-ri-DZz"/>
-                                    <constraint firstAttribute="trailing" secondItem="uu7-yC-ARf" secondAttribute="trailing" id="bFj-LW-8a2"/>
-                                    <constraint firstAttribute="bottom" secondItem="sqM-dQ-sBj" secondAttribute="bottom" id="ea1-R2-f88"/>
-                                    <constraint firstItem="uu7-yC-ARf" firstAttribute="leading" secondItem="AHE-Lf-Bg1" secondAttribute="leading" id="g8B-Sy-55V"/>
-                                    <constraint firstItem="GaW-Zp-Sx6" firstAttribute="centerX" secondItem="AHE-Lf-Bg1" secondAttribute="centerX" id="iGM-Af-agh"/>
-                                    <constraint firstAttribute="bottom" secondItem="uu7-yC-ARf" secondAttribute="bottom" id="u7p-Km-4H6"/>
-                                </constraints>
-                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eWg-AM-3qY">
                                 <rect key="frame" x="0.0" y="661" width="375" height="40"/>
                                 <subviews>
@@ -601,8 +550,8 @@
                                     <constraint firstAttribute="height" constant="40" id="k8V-uE-imQ"/>
                                 </constraints>
                             </view>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U1r-XY-SBh">
-                                <rect key="frame" x="0.0" y="331" width="375" height="336"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U1r-XY-SBh">
+                                <rect key="frame" x="0.0" y="371" width="375" height="336"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_drone_large" translatesAutoresizingMaskIntoConstraints="NO" id="V1m-zz-BJU">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="336"/>
@@ -893,9 +842,6 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="aay-U3-ooA"/>
                                         </constraints>
-                                        <connections>
-                                            <action selector="onHideDrones:" destination="ruu-CR-fPU" eventType="touchUpInside" id="ODP-s3-aor"/>
-                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1035,7 +981,6 @@ You can tap timer to pause your session.</string>
                             <constraint firstItem="NsF-v0-8c8" firstAttribute="bottom" secondItem="Mgx-Ny-ARF" secondAttribute="bottom" id="9gc-N5-pGI"/>
                             <constraint firstItem="fvc-u8-dWp" firstAttribute="top" secondItem="nIj-Pg-beq" secondAttribute="top" id="Dfp-Ep-dxp"/>
                             <constraint firstItem="CqK-vm-U6A" firstAttribute="top" secondItem="klf-jy-ZRu" secondAttribute="top" constant="-20" id="EUU-Do-Mpy"/>
-                            <constraint firstItem="AHE-Lf-Bg1" firstAttribute="leading" secondItem="nIj-Pg-beq" secondAttribute="leading" id="Ewo-9i-9nL"/>
                             <constraint firstItem="B5x-Ol-sgc" firstAttribute="top" secondItem="rFP-in-7sp" secondAttribute="bottom" constant="20" id="GVL-xR-kfi"/>
                             <constraint firstItem="iGP-Iw-poe" firstAttribute="top" secondItem="nOB-0N-33h" secondAttribute="top" id="HLN-T1-c3v"/>
                             <constraint firstItem="Mgx-Ny-ARF" firstAttribute="top" secondItem="rFP-in-7sp" secondAttribute="bottom" constant="8" id="HfQ-Ea-6RZ"/>
@@ -1051,14 +996,13 @@ You can tap timer to pause your session.</string>
                             <constraint firstItem="nOB-0N-33h" firstAttribute="top" secondItem="klf-jy-ZRu" secondAttribute="top" constant="100" id="SsS-Si-uPf"/>
                             <constraint firstItem="rFP-in-7sp" firstAttribute="top" secondItem="nOB-0N-33h" secondAttribute="bottom" constant="40" id="VzI-8s-UOD"/>
                             <constraint firstItem="nOB-0N-33h" firstAttribute="centerX" secondItem="klf-jy-ZRu" secondAttribute="centerX" id="Whu-fn-doK"/>
-                            <constraint firstItem="U1r-XY-SBh" firstAttribute="bottom" secondItem="klf-jy-ZRu" secondAttribute="bottom" id="X6d-TH-uth"/>
+                            <constraint firstItem="U1r-XY-SBh" firstAttribute="bottom" secondItem="klf-jy-ZRu" secondAttribute="bottom" constant="40" id="X6d-TH-uth"/>
                             <constraint firstItem="f8a-H0-NGY" firstAttribute="top" secondItem="6oE-xZ-flo" secondAttribute="bottom" constant="-5" id="X84-Kb-Zkg"/>
                             <constraint firstItem="f8a-H0-NGY" firstAttribute="leading" secondItem="klf-jy-ZRu" secondAttribute="leading" id="Ytw-dd-cfF"/>
                             <constraint firstItem="iGP-Iw-poe" firstAttribute="leading" secondItem="nOB-0N-33h" secondAttribute="trailing" constant="-5" id="ZKQ-6b-Xu2"/>
                             <constraint firstItem="f6j-O8-RAm" firstAttribute="top" secondItem="klf-jy-ZRu" secondAttribute="top" constant="-20" id="bsg-g1-FJf"/>
                             <constraint firstItem="RLr-qK-k0M" firstAttribute="top" secondItem="klf-jy-ZRu" secondAttribute="top" constant="16" id="cg6-4Q-sSr"/>
                             <constraint firstItem="fvc-u8-dWp" firstAttribute="leading" secondItem="klf-jy-ZRu" secondAttribute="leading" id="d7F-rf-6Za"/>
-                            <constraint firstAttribute="trailing" secondItem="AHE-Lf-Bg1" secondAttribute="trailing" id="dBm-Vg-yVj"/>
                             <constraint firstItem="fvc-u8-dWp" firstAttribute="bottom" secondItem="klf-jy-ZRu" secondAttribute="bottom" constant="40" id="dg6-sN-1FJ"/>
                             <constraint firstItem="klf-jy-ZRu" firstAttribute="trailing" secondItem="Mgx-Ny-ARF" secondAttribute="trailing" id="dgD-fx-HYB"/>
                             <constraint firstItem="6oE-xZ-flo" firstAttribute="leading" secondItem="klf-jy-ZRu" secondAttribute="leading" id="eTL-Iz-7BY"/>
@@ -1067,7 +1011,6 @@ You can tap timer to pause your session.</string>
                             <constraint firstItem="Mgx-Ny-ARF" firstAttribute="bottom" secondItem="6oE-xZ-flo" secondAttribute="bottom" constant="-30" id="g13-k6-mdZ"/>
                             <constraint firstItem="6oE-xZ-flo" firstAttribute="top" secondItem="nIj-Pg-beq" secondAttribute="top" id="g7u-Pd-X65"/>
                             <constraint firstItem="NsF-v0-8c8" firstAttribute="leading" secondItem="Mgx-Ny-ARF" secondAttribute="leading" id="jXF-Wa-c6j"/>
-                            <constraint firstItem="klf-jy-ZRu" firstAttribute="bottom" secondItem="AHE-Lf-Bg1" secondAttribute="bottom" id="jph-Yb-Z95"/>
                             <constraint firstItem="klf-jy-ZRu" firstAttribute="trailing" secondItem="B5x-Ol-sgc" secondAttribute="trailing" constant="60" id="sHP-vW-ogP"/>
                             <constraint firstItem="fvc-u8-dWp" firstAttribute="trailing" secondItem="klf-jy-ZRu" secondAttribute="trailing" id="tpU-Od-Mtw"/>
                             <constraint firstItem="klf-jy-ZRu" firstAttribute="trailing" secondItem="DlB-Ud-NdT" secondAttribute="trailing" constant="20" id="uin-6U-5e0"/>
@@ -1109,7 +1052,6 @@ You can tap timer to pause your session.</string>
                         <outlet property="viewBottomXBar" destination="eWg-AM-3qY" id="5h0-BP-Wh9"/>
                         <outlet property="viewDroneFrame" destination="vlS-K1-vrr" id="OV1-8u-Syh"/>
                         <outlet property="viewMaximizedDrone" destination="U1r-XY-SBh" id="s4k-h3-fNI"/>
-                        <outlet property="viewMinimizedDrone" destination="AHE-Lf-Bg1" id="jXK-WU-e8T"/>
                         <outlet property="viewPromptPanel" destination="B5x-Ol-sgc" id="CVd-Ye-ebm"/>
                         <outlet property="viewRatePanel" destination="VGv-Xf-hGZ" id="ufh-qV-7MN"/>
                         <outlet property="viewSiriWaveFormView" destination="Mgx-Ny-ARF" id="aat-cJ-5R6"/>
@@ -1142,29 +1084,29 @@ You can tap timer to pause your session.</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Slm-tj-hhU">
-                                <rect key="frame" x="67" y="238" width="240" height="211"/>
+                                <rect key="frame" x="67" y="237.5" width="240" height="212"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rate Your Mastery" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hjk-5K-vbm">
-                                        <rect key="frame" x="70.5" y="0.0" width="99" height="14"/>
+                                        <rect key="frame" x="71.5" y="0.0" width="97" height="14"/>
                                         <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How did it go?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f0n-45-xgb">
-                                        <rect key="frame" x="28.5" y="19" width="183.5" height="33"/>
+                                        <rect key="frame" x="37" y="19" width="167" height="34"/>
                                         <fontDescription key="fontDescription" name="Lato-Light" family="Lato" pointSize="28"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nMg-GA-nKF">
-                                        <rect key="frame" x="55" y="147" width="130" height="66"/>
+                                        <rect key="frame" x="55" y="148" width="130" height="66"/>
                                         <state key="normal" image="btn_practice_next"/>
                                         <connections>
                                             <action selector="onNext:" destination="Q2z-jX-Ays" eventType="touchUpInside" id="yde-Kf-uCb"/>
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PoT-2i-X5M" customClass="FloatRatingView" customModule="Modacity" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="72" width="240" height="45"/>
+                                        <rect key="frame" x="0.0" y="73" width="240" height="45"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="45" id="hR3-v6-Rst"/>
@@ -1243,7 +1185,6 @@ You can tap timer to pause your session.</string>
         </scene>
     </scenes>
     <resources>
-        <image name="bg_bottom_strip" width="375" height="40"/>
         <image name="bg_bottom_strip_extra" width="373" height="39"/>
         <image name="bg_common" width="375" height="667"/>
         <image name="bg_drone_large" width="375" height="348"/>
@@ -1258,7 +1199,6 @@ You can tap timer to pause your session.</string>
         <image name="icon_airplane" width="34" height="32"/>
         <image name="icon_arrow_down" width="15" height="10"/>
         <image name="icon_arrow_left" width="10" height="15"/>
-        <image name="icon_arrow_up" width="10" height="6"/>
         <image name="icon_arrow_updown" width="22" height="20"/>
         <image name="icon_backward" width="24" height="16"/>
         <image name="icon_chat" width="31" height="29"/>

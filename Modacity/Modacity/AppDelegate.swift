@@ -22,12 +22,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         FirebaseApp.configure()
-        let clientID = FirebaseApp.app()?.options.clientID
-        GIDSignIn.sharedInstance().clientID = clientID
+        GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
         PracticeItemLocalManager.manager.syncWithOlderVersions()
         PlaylistLocalManager.manager.syncWithOlderVersion()
         Amplitude.instance().initializeApiKey("91054e0297cb647ebb3a32443f33c2db")
         AmplitudeTracker.LogEvent(.Launch)
+        ModacityAudioEngine.engine.initEngine()
         return true
     }
 

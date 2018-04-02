@@ -17,7 +17,8 @@ protocol DroneFrameDelegate : class {
     var UIDelegate: MetrodroneUIDelegate? {get set}
 }
 
-class MetrodroneBaseViewController: UIViewController, DroneFrameDelegate {
+class MetrodronePlayer: DroneFrameDelegate {
+    
     static let minDurationValue: Float = 0.01
     static let maxDurationValue: Float = 0.99
     static let minBPM: Int = 30
@@ -56,9 +57,7 @@ class MetrodroneBaseViewController: UIViewController, DroneFrameDelegate {
         return MetroDroneAudio(mainClickFile: highUrl)
     }()
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
+    func stopPlayer() {
         if (self.isMetrodronePlaying) {
             metrodrone.stop()
         }
@@ -72,9 +71,9 @@ class MetrodroneBaseViewController: UIViewController, DroneFrameDelegate {
         self._buttonSustain = sustainButton
         
         // Make sure the duration slider has the right range, and set it in the middle.
-        self._sliderDuration.maximumValue = MetrodroneBaseViewController.maxDurationValue
-        self._sliderDuration.minimumValue = MetrodroneBaseViewController.minDurationValue
-        self._sliderDuration.value = 0.5 * (MetrodroneBaseViewController.minDurationValue + MetrodroneBaseViewController.maxDurationValue)
+        self._sliderDuration.maximumValue = MetrodronePlayer.maxDurationValue
+        self._sliderDuration.minimumValue = MetrodronePlayer.minDurationValue
+        self._sliderDuration.value = 0.5 * (MetrodronePlayer.minDurationValue + MetrodronePlayer.maxDurationValue)
         
         _viewDroneFrame.setDelegate(self) // establish bi-directional relationships
         updateMetrodroneOutlets()
@@ -144,11 +143,11 @@ class MetrodroneBaseViewController: UIViewController, DroneFrameDelegate {
     func setNewTempo(_ bpm: Int) {
         tempo = bpm
         
-        if (bpm < MetrodroneBaseViewController.minBPM) {
-            tempo = MetrodroneBaseViewController.minBPM
+        if (bpm < MetrodronePlayer.minBPM) {
+            tempo = MetrodronePlayer.minBPM
         }
-        if (bpm > MetrodroneBaseViewController.maxBPM) {
-            tempo = MetrodroneBaseViewController.maxBPM
+        if (bpm > MetrodronePlayer.maxBPM) {
+            tempo = MetrodronePlayer.maxBPM
         }
         
         

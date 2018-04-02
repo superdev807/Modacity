@@ -11,7 +11,7 @@ import AVFoundation
 import SCSiriWaveformView
 import FDWaveformView
 
-class PracticeViewController: MetrodroneBaseViewController {
+class PracticeViewController: UIViewController {
     
     var playlistViewModel: PlaylistDetailsViewModel!
     
@@ -63,7 +63,6 @@ class PracticeViewController: MetrodroneBaseViewController {
     @IBOutlet weak var labelRateValue: UILabel!
     
     // MARK: - Properties for drone
-    @IBOutlet weak var viewMinimizedDrone: UIView!
     @IBOutlet weak var viewMaximizedDrone: UIView!
     @IBOutlet weak var constraintForMaximizedDroneBottomSpace: NSLayoutConstraint!
     @IBOutlet weak var viewDroneFrame: ViewDroneFrame!
@@ -79,18 +78,18 @@ class PracticeViewController: MetrodroneBaseViewController {
     @IBOutlet weak var buttonSubdivisionNote4: UIButton!
     var selectedSubdivisionNote: Int = -1
     var subdivisionPanelShown = false
-    
     @IBOutlet weak var viewBottomXBar: UIView!
+    
+    var metrodonePlayer : MetrodronePlayer? = nil
+    
+    var panGesture  = UIPanGestureRecognizer()
+    let metrodroneViewHeight = CGFloat(336)
+    let metrodroneViewMinHeight = CGFloat(40)
+    var metrodronePlayerShown  = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
-        self.initializeOutlets(lblTempo: labelTempo,
-                          droneFrame: viewDroneFrame,
-                          playButton: buttonMetrodronePlay,
-                          durationSlider: sliderDuration,
-                          sustainButton: buttonSustain)
         
         self.playlistViewModel.storePlaylist()
         self.labelPracticeItemName.text = self.playlistViewModel.currentPracticeEntry.practiceItem()?.name ?? ""
@@ -168,9 +167,12 @@ extension PracticeViewController {
     
     func initializeDroneUIs() {
         self.viewBottomXBar.backgroundColor = Color(hexString:"#292a4a")
-        self.constraintForMaximizedDroneBottomSpace.constant =  self.view.bounds.size.height * 336/667 - 40
+        self.constraintForMaximizedDroneBottomSpace.constant =  metrodroneViewHeight - metrodroneViewMinHeight
         self.viewSubdivision.isHidden = true
         self.configureSubdivisionNoteSelectionGUI()
+        
+        self.panGesture = UIPanGestureRecognizer(target: self, action: #selector(draggingDroneView))
+        self.viewMaximizedDrone.addGestureRecognizer(panGesture)
     }
     
     func configureSubdivisionNoteSelectionGUI() {
@@ -195,10 +197,13 @@ extension PracticeViewController {
     func processSubdivision() {
         // TODO : here, drone media programming for subdivisions
         // self.selectedSubdivisionNote value will be used here
+        
         if ((self.selectedSubdivisionNote < 0) || (self.selectedSubdivisionNote > 3)) {
             self.selectedSubdivisionNote = 0
         }
-        self.setSubdivision(self.selectedSubdivisionNote+1)
+        if let mPlayer = self.metrodonePlayer {
+            mPlayer.setSubdivision(self.selectedSubdivisionNote+1)
+        }
     }
     
     @IBAction func onSubdivisionNotes(_ sender: UIButton) {
@@ -226,80 +231,142 @@ extension PracticeViewController {
         self.subdivisionPanelShown = !self.subdivisionPanelShown
     }
     
-    @IBAction func onShowDrones(_ sender: Any) {
-        AmplitudeTracker.LogEvent(.MetrodroneDrawerOpen)
-        if self.recorder != nil && self.recorder.isRecording {
-            AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Please stop recording before leaving the page.")
-            return
+    @objc func draggingDroneView(_ sender: UIPanGestureRecognizer) {
+        
+        let translation = sender.translation(in: self.view)
+        
+        let direction = self.constraintForMaximizedDroneBottomSpace.constant > (metrodroneViewHeight - metrodroneViewMinHeight) / 2
+        
+        if sender.state == .ended {
+            if direction {
+                self.closeDroneView()
+            } else {
+                self.openDroneView()
+            }
+        } else {
+            if self.metrodronePlayerShown {
+                let newPosition = translation.y
+                if newPosition <  metrodroneViewHeight - metrodroneViewMinHeight {
+                    self.constraintForMaximizedDroneBottomSpace.constant = newPosition
+                }
+            } else {
+                let newPosition = metrodroneViewHeight - metrodroneViewMinHeight + translation.y
+                if newPosition > 0 {
+                    self.constraintForMaximizedDroneBottomSpace.constant = newPosition
+                }
+            }
         }
         
-        if self.player != nil && self.isPlaying {
-            self.onPlayPauseAudio(sender)
-        }
-        
-        if !self.viewPromptPanel.isHidden {
-            self.onCloseAlertPanel(sender)
-        }
-        
-        self.viewMaximizedDrone.isHidden = false
-        self.constraintForMaximizedDroneBottomSpace.constant = 0
-        UIView.animate(withDuration: 1.0) {
-            self.view.layoutIfNeeded()
-        }
     }
     
-    @IBAction func onHideDrones(_ sender: Any) {
-        AmplitudeTracker.LogEvent(.MetrodroneDrawerClose)
-        if self.subdivisionPanelShown {
-            self.onSubdivision(sender as! UIButton)
-        }
+    func openDroneView() {
         
-        self.constraintForMaximizedDroneBottomSpace.constant =  self.view.bounds.size.height * 336/667 - 40
-        UIView.animate(withDuration: 0.66, animations: {
+        let distance = abs(self.constraintForMaximizedDroneBottomSpace.constant)
+        self.constraintForMaximizedDroneBottomSpace.constant = 0
+        
+        UIView.animate(withDuration: TimeInterval(distance / (metrodroneViewHeight - metrodroneViewMinHeight) * CGFloat(2.0)), animations: {
             self.view.layoutIfNeeded()
         }) { (finished) in
             if finished {
-                self.viewMinimizedDrone.isHidden = false
-                self.viewMaximizedDrone.isHidden = true
+                if !self.metrodronePlayerShown {
+                    self.startMetrodrone()
+                }
             }
         }
     }
     
+    func startMetrodrone() {
+        AmplitudeTracker.LogEvent(.MetrodroneDrawerOpen)
+        if !self.viewPromptPanel.isHidden {
+            self.onCloseAlertPanel(self.view)
+        }
+        self.metrodonePlayer = MetrodronePlayer()
+        self.metrodonePlayer!.initializeOutlets(lblTempo: self.labelTempo,
+                                                droneFrame: self.viewDroneFrame,
+                                                playButton: self.buttonMetrodronePlay,
+                                                durationSlider: self.sliderDuration,
+                                                sustainButton: self.buttonSustain)
+        self.metrodronePlayerShown = true
+    }
+    
+    func closeDroneView() {
+        
+        let distance = abs(metrodroneViewHeight - metrodroneViewMinHeight - self.constraintForMaximizedDroneBottomSpace.constant)
+        self.constraintForMaximizedDroneBottomSpace.constant = metrodroneViewHeight - metrodroneViewMinHeight
+        
+        UIView.animate(withDuration: TimeInterval(distance / (metrodroneViewHeight - metrodroneViewMinHeight) * CGFloat(2.0)), animations: {
+            self.view.layoutIfNeeded()
+        }) { (finished) in
+            if finished {
+                self.endMetrodrone()
+            }
+        }
+    }
+    
+    func endMetrodrone() {
+        AmplitudeTracker.LogEvent(.MetrodroneDrawerClose)
+        if self.subdivisionPanelShown {
+            self.onSubdivision(self.view)
+        }
+        if self.metrodronePlayerShown {
+            if let metrodronePlayer = self.metrodonePlayer {
+                metrodronePlayer.stopPlayer()
+            }
+            self.metrodronePlayerShown = false
+        }
+    }
+    
     @IBAction func onSustainButton(_ sender: Any) {
-        let isOn = toggleSustain()
-        buttonSustain.alpha = (isOn) ? 1.0 : 0.50
+        if let mPlayer = self.metrodonePlayer {
+            let isOn = mPlayer.toggleSustain()
+            self.buttonSustain.alpha = (isOn) ? 1.0 : 0.50
+        }
     }
     
     @IBAction func onDurationChanged(_ sender: Any) {
-        changeDuration(newValue: sliderDuration.value)
+        if let mPlayer = self.metrodonePlayer {
+            mPlayer.changeDuration(newValue: self.sliderDuration.value)
+        }
     }
     
     @IBAction func onBtnPlay(_ sender: Any) {
-        if (!isMetrodronePlaying) {
-            goMetronome()
-        } else {
-            stopMetrodrone()
+        if let mPlayer = self.metrodonePlayer {
+            if (!mPlayer.isMetrodronePlaying) {
+                mPlayer.goMetronome()
+            } else {
+                mPlayer.stopMetrodrone()
+            }
         }
     }
     
     @IBAction func onTapDown(_ sender: Any) {
-        tapDown()
+        if let mPlayer = self.metrodonePlayer {
+            mPlayer.tapDown()
+        }
     }
     
     @IBAction func onTapTouchup(_ sender: Any) {
-        tapUp()
+        if let mPlayer = self.metrodonePlayer {
+            mPlayer.tapUp()
+        }
     }
     
     @IBAction func onIncreaseBPMTouch(_ sender: Any) {
-        increaseBPMTouch()
+        if let mPlayer = self.metrodonePlayer {
+            mPlayer.increaseBPMTouch()
+        }
     }
     
     @IBAction func onDecreaseBPMTouch(_ sender: Any) {
-        decreaseBPMTouch()
+        if let mPlayer = self.metrodonePlayer {
+            mPlayer.decreaseBPMTouch()
+        }
     }
     
     @IBAction func onChangeBPMStop(_ sender: Any) {
-        stopBPMChangeTimer()
+        if let mPlayer = self.metrodonePlayer {
+            mPlayer.stopBPMChangeTimer()
+        }
     }
 }
 
@@ -457,7 +524,7 @@ extension PracticeViewController: AVAudioPlayerDelegate, FDWaveformViewDelegate 
         let soundFilePath = dirPath[0] + "/recording.wav"
         let url = URL(fileURLWithPath: soundFilePath)
         
-        self.audioSessionOutputSetting()
+//        self.audioSessionOutputSetting()
         
         do {
             
@@ -598,7 +665,7 @@ extension PracticeViewController {
             AVEncoderAudioQualityKey: AVAudioQuality.min.rawValue
         ]
         
-        self.audioSessionInputSetting()
+//        self.audioSessionInputSetting()
         
         do {
             recorder = try AVAudioRecorder(url: url, settings: settings)

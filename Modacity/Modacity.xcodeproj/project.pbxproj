@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1013425D2058E5FD00A9734B /* ModacityAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1013425C2058E5FD00A9734B /* ModacityAudio.swift */; };
-		1013425F2058EB4A00A9734B /* MetroDroneAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1013425E2058EB4A00A9734B /* MetroDroneAudio.swift */; };
+		1013425D2058E5FD00A9734B /* ModacityAudioEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1013425C2058E5FD00A9734B /* ModacityAudioEngine.swift */; };
 		101342612058EE2700A9734B /* waveforms in Resources */ = {isa = PBXBuildFile; fileRef = 101342602058EE2700A9734B /* waveforms */; };
 		101342632059020300A9734B /* TapTempo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101342622059020300A9734B /* TapTempo.swift */; };
-		101342652059FF7200A9734B /* MetrodroneBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101342642059FF7200A9734B /* MetrodroneBaseViewController.swift */; };
 		10F352BF2063546C006132DB /* AmplitudeTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F352BE2063546C006132DB /* AmplitudeTracking.swift */; };
 		14A63A48B0FA29B0F7388A3B /* Pods_Modacity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C77FB2C0A58ED4E886E0F33 /* Pods_Modacity.framework */; };
+		8E15F2BB207259C900CC1D9B /* MetroDroneAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E15F2BA207259C800CC1D9B /* MetroDroneAudio.swift */; };
+		8E15F2BD2072759200CC1D9B /* MetrodronePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E15F2BC2072759200CC1D9B /* MetrodronePlayer.swift */; };
 		8E16B46D2052ECDE00A9BF8A /* PlaylistPracticeEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E16B46C2052ECDE00A9BF8A /* PlaylistPracticeEntry.swift */; };
 		8E1EFEFC20500E7A000DE107 /* PlaylistPracticeDurationKeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1EFEFB20500E7A000DE107 /* PlaylistPracticeDurationKeyboardViewController.swift */; };
 		8E3596202049A61C00F2E6DF /* PlaylistDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E35961F2049A61C00F2E6DF /* PlaylistDetailsViewModel.swift */; };
@@ -113,16 +113,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1013425C2058E5FD00A9734B /* ModacityAudio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModacityAudio.swift; sourceTree = "<group>"; };
-		1013425E2058EB4A00A9734B /* MetroDroneAudio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetroDroneAudio.swift; sourceTree = "<group>"; };
+		1013425C2058E5FD00A9734B /* ModacityAudioEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModacityAudioEngine.swift; sourceTree = "<group>"; };
 		101342602058EE2700A9734B /* waveforms */ = {isa = PBXFileReference; lastKnownFileType = folder; path = waveforms; sourceTree = "<group>"; };
 		101342622059020300A9734B /* TapTempo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapTempo.swift; sourceTree = "<group>"; };
-		101342642059FF7200A9734B /* MetrodroneBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetrodroneBaseViewController.swift; sourceTree = "<group>"; };
 		10F352BE2063546C006132DB /* AmplitudeTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmplitudeTracking.swift; sourceTree = "<group>"; };
 		1C77FB2C0A58ED4E886E0F33 /* Pods_Modacity.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Modacity.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2FF7BD2AC6BB692D2CB30434 /* Pods-ModacityUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ModacityUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ModacityUITests/Pods-ModacityUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		3798BA6D596582574229E4BD /* Pods-Modacity.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Modacity.release.xcconfig"; path = "Pods/Target Support Files/Pods-Modacity/Pods-Modacity.release.xcconfig"; sourceTree = "<group>"; };
 		64FC86E6BC6EB03A27EBFF9B /* Pods-Modacity.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Modacity.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Modacity/Pods-Modacity.debug.xcconfig"; sourceTree = "<group>"; };
+		8E15F2BA207259C800CC1D9B /* MetroDroneAudio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetroDroneAudio.swift; sourceTree = "<group>"; };
+		8E15F2BC2072759200CC1D9B /* MetrodronePlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetrodronePlayer.swift; sourceTree = "<group>"; };
 		8E16B46C2052ECDE00A9BF8A /* PlaylistPracticeEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistPracticeEntry.swift; sourceTree = "<group>"; };
 		8E1EFEFB20500E7A000DE107 /* PlaylistPracticeDurationKeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistPracticeDurationKeyboardViewController.swift; sourceTree = "<group>"; };
 		8E35961F2049A61C00F2E6DF /* PlaylistDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistDetailsViewModel.swift; sourceTree = "<group>"; };
@@ -244,7 +244,9 @@
 		1013425B2058E56000A9734B /* Audio Engine */ = {
 			isa = PBXGroup;
 			children = (
-				1013425C2058E5FD00A9734B /* ModacityAudio.swift */,
+				8E15F2BC2072759200CC1D9B /* MetrodronePlayer.swift */,
+				8E15F2BA207259C800CC1D9B /* MetroDroneAudio.swift */,
+				1013425C2058E5FD00A9734B /* ModacityAudioEngine.swift */,
 			);
 			path = "Audio Engine";
 			sourceTree = "<group>";
@@ -386,9 +388,7 @@
 			children = (
 				8E99A068204072F900A9A9B8 /* metrodone.storyboard */,
 				8E99A066204072E900A9A9B8 /* MetrodoneViewController.swift */,
-				1013425E2058EB4A00A9734B /* MetroDroneAudio.swift */,
 				101342622059020300A9734B /* TapTempo.swift */,
-				101342642059FF7200A9734B /* MetrodroneBaseViewController.swift */,
 			);
 			path = Metrodone;
 			sourceTree = "<group>";
@@ -766,7 +766,7 @@
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -918,6 +918,7 @@
 			files = (
 				8E455D132045B870003FDB80 /* PracticeItemListViewController.swift in Sources */,
 				8EDEB6F0203DD3B900E8D48D /* SigninViewController.swift in Sources */,
+				8E15F2BB207259C900CC1D9B /* MetroDroneAudio.swift in Sources */,
 				8E58B43520445BC20022704B /* FeedbackSentViewController.swift in Sources */,
 				8E6B120B200651A40071FC75 /* ViewDroneFrame.swift in Sources */,
 				8E64B7AA2056A09F00900775 /* Recording.swift in Sources */,
@@ -933,7 +934,6 @@
 				8EDEB6F2203DD7A800E8D48D /* AuthViewModel.swift in Sources */,
 				8E3596222049AA9500F2E6DF /* Playlist.swift in Sources */,
 				8EDEB70C203DE38F00E8D48D /* AppConfig.swift in Sources */,
-				101342652059FF7200A9734B /* MetrodroneBaseViewController.swift in Sources */,
 				8EB479BB20458B7C00BE6461 /* AboutViewController.swift in Sources */,
 				8E58B44520446AE40022704B /* AppOveralDataManager.swift in Sources */,
 				101342632059020300A9734B /* TapTempo.swift in Sources */,
@@ -944,7 +944,6 @@
 				8E994FC8204EF92F0092B338 /* PracticeRateViewController.swift in Sources */,
 				8EDA6194204827DE006D3208 /* PracticeItem.swift in Sources */,
 				8E3596202049A61C00F2E6DF /* PlaylistDetailsViewModel.swift in Sources */,
-				1013425F2058EB4A00A9734B /* MetroDroneAudio.swift in Sources */,
 				8E64B7A82056332300900775 /* HomeViewModel.swift in Sources */,
 				10F352BF2063546C006132DB /* AmplitudeTracking.swift in Sources */,
 				8EDEB6EE203DCD2200E8D48D /* CreateAccountViewController.swift in Sources */,
@@ -961,7 +960,7 @@
 				8ECCAF952056EABE000E2B75 /* PlaylistDeliverModel.swift in Sources */,
 				8E58B44320446AE40022704B /* Authorizer.swift in Sources */,
 				8E99A067204072E900A9A9B8 /* MetrodoneViewController.swift in Sources */,
-				1013425D2058E5FD00A9734B /* ModacityAudio.swift in Sources */,
+				1013425D2058E5FD00A9734B /* ModacityAudioEngine.swift in Sources */,
 				8E84CA692057858400D2D1CB /* ImprovementViewController.swift in Sources */,
 				8EDA6196204828F1006D3208 /* PracticeItemLocalManager.swift in Sources */,
 				8E84CA6520577E7600D2D1CB /* ImproveHypothesisViewController.swift in Sources */,
@@ -973,6 +972,7 @@
 				8EB9DB9B204DABFD00689C1D /* PlaylistViewModel.swift in Sources */,
 				8EA9E7CD20429F140019EFA5 /* FeedbackRootViewController.swift in Sources */,
 				8ED83FC220031EF400052256 /* SplashViewController.swift in Sources */,
+				8E15F2BD2072759200CC1D9B /* MetrodronePlayer.swift in Sources */,
 				8E994FCB204EFFEC0092B338 /* FloatRatingView.swift in Sources */,
 				8E58B43C204469E20022704B /* SettingsViewController.swift in Sources */,
 			);

@@ -17,19 +17,21 @@ class PlaylistLocalManager: NSObject {
             var newPlaylists = [Playlist]()
             for playlist in playlists {
                 var newPracticeItems = [PlaylistPracticeEntry]()
-                for item in playlist.playlistPracticeEntries {
-                    if item.practiceItemId == nil && item.name != nil && item.name != "" {
-                        if let newPracticeItem = PracticeItemLocalManager.manager.searchPracticeItem(byName: item.name) {
-                            item.practiceItemId = newPracticeItem.id
-                            item.name = ""
+                if playlist.playlistPracticeEntries != nil {
+                    for item in playlist.playlistPracticeEntries {
+                        if item.practiceItemId == nil && item.name != nil && item.name != "" {
+                            if let newPracticeItem = PracticeItemLocalManager.manager.searchPracticeItem(byName: item.name) {
+                                item.practiceItemId = newPracticeItem.id
+                                item.name = ""
+                                newPracticeItems.append(item)
+                            }
+                        } else if item.practiceItemId != nil {
                             newPracticeItems.append(item)
                         }
-                    } else if item.practiceItemId != nil {
-                        newPracticeItems.append(item)
                     }
+                    playlist.playlistPracticeEntries = newPracticeItems
+                    newPlaylists.append(playlist)
                 }
-                playlist.playlistPracticeEntries = newPracticeItems
-                newPlaylists.append(playlist)
             }
             self.storePlaylists(newPlaylists)
         }

@@ -6,42 +6,19 @@
 
 import AVFoundation
 
-class Metrodrone {
+class MetroDroneAudio {
     
     private var audioPlayerNode:AVAudioPlayerNode
     private var audioFileMainClick:AVAudioFile
     private var audioFileSubClick:AVAudioFile
-    private var audioEngine:AVAudioEngine
     var decay: Float = 0.5
     
     init (mainClickFile: URL, subClickFile: URL? = nil) {
-        
-//        let audioSession = AVAudioSession.sharedInstance()
-//        do {
-//            try audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
-//            try audioSession.overrideOutputAudioPort(AVAudioSessionPortOverride.speaker)
-//        } catch {
-//            print("Setting category to AVAudioSessionCategoryPlayback failed.")
-//        }
-        
         audioFileMainClick = try! AVAudioFile(forReading: mainClickFile)
         audioFileSubClick = try! AVAudioFile(forReading: subClickFile ?? mainClickFile)
-        
         audioPlayerNode = AVAudioPlayerNode()
         
-        audioEngine = AVAudioEngine()
-        audioEngine.attach(self.audioPlayerNode)
-        
-    /*    print("Vol: " + String(audioPlayerNode.volume))
-        audioPlayerNode.volume = 1.0
-        
-        print("audioEngine output: " + String(audioEngine.mainMixerNode.outputVolume))
-        audioEngine.mainMixerNode.outputVolume = 1.0
- */
-        
-        audioEngine.connect(audioPlayerNode, to: audioEngine.mainMixerNode, format: audioFileMainClick.processingFormat)
-        try! audioEngine.start()
-        
+        connectWithEngine()
     }
     
     func loadDrone(droneMain: URL, droneSub: URL) {
@@ -49,6 +26,11 @@ class Metrodrone {
         audioFileSubClick = try! AVAudioFile(forReading: droneSub)
     }
     
+    func connectWithEngine() {
+        ModacityAudioEngine.engine.attachAudio(node: self.audioPlayerNode)
+        ModacityAudioEngine.engine.connectAudio(node: audioPlayerNode, format: audioFileMainClick.processingFormat)
+        ModacityAudioEngine.engine.startEngine()
+    }
     
     private func generateSubdivided(bpm: Double, subdivisions: Int, droneRatio: Float) -> AVAudioPCMBuffer {
         
@@ -159,9 +141,6 @@ class Metrodrone {
         if audioPlayerNode.isPlaying {
             audioPlayerNode.scheduleBuffer(buffer, at: nil, options: .interruptsAtLoop, completionHandler: nil)
         } else {
-            if self.audioEngine.isRunning {
-                self.audioEngine.stop()
-            }
             self.audioPlayerNode.play()
         }
         
