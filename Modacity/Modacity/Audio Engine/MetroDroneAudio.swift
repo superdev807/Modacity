@@ -150,6 +150,7 @@ class MetroDroneAudio {
     
     func stop() {
         audioPlayerNode.stop()
+//        ModacityAudioEngine.engine.audioEngine.detach(audioPlayerNode)
     }
     
 }

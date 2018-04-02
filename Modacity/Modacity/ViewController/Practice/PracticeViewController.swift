@@ -304,11 +304,13 @@ extension PracticeViewController {
     }
     
     func endMetrodrone() {
-        AmplitudeTracker.LogEvent(.MetrodroneDrawerClose)
-        if self.subdivisionPanelShown {
-            self.onSubdivision(self.view)
-        }
         if self.metrodronePlayerShown {
+            
+            AmplitudeTracker.LogEvent(.MetrodroneDrawerClose)
+            if self.subdivisionPanelShown {
+                self.onSubdivision(self.view)
+            }
+            
             if let metrodronePlayer = self.metrodonePlayer {
                 metrodronePlayer.stopPlayer()
             }

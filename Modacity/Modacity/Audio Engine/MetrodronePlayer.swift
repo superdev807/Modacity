@@ -58,8 +58,9 @@ class MetrodronePlayer: DroneFrameDelegate {
     }()
     
     func stopPlayer() {
+        
         if (self.isMetrodronePlaying) {
-            metrodrone.stop()
+            stopMetrodrone()
         }
     }
     
