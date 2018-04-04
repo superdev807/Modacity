@@ -44,6 +44,8 @@ class MetrodronePlayer: DroneFrameDelegate {
     var tempo: Int = 120
     var subdivisions: Int = 1
     
+    
+    
     let highClick: URL = {
         return Bundle.main.url(forResource: "High", withExtension: "wav", subdirectory: "waveforms")!
     }()
@@ -243,6 +245,8 @@ class MetrodronePlayer: DroneFrameDelegate {
     }
     
     func tapDown() {
+        
+        
         if let bpm = tempoDetective.addTap() {
             // if BPM is detected (after ~3 taps)
             print("bpm = \(bpm) detected")
@@ -256,9 +260,11 @@ class MetrodronePlayer: DroneFrameDelegate {
             updateMetrodroneNote()
             metrodrone.playUntimed()
         }
+        
     }
     
     func tapUp() {
+        
         if (!clickSound) { // if we haven't found BPM, clickSound will be false
             stopMetrodrone()
         }
@@ -292,7 +298,7 @@ class MetrodronePlayer: DroneFrameDelegate {
         return Bundle.main.url(forResource: wavename, withExtension: "wav", subdirectory: "waveforms")
     }
     
-    func audioSessionOutputSetting() {
+    /*func audioSessionOutputSetting() {
         let audioSession = AVAudioSession.sharedInstance()
         do {
             try audioSession.setCategory(AVAudioSessionCategoryPlayback)
@@ -310,5 +316,6 @@ class MetrodronePlayer: DroneFrameDelegate {
             print("audio session error \(error)")
         }
     }
+ */
     
 }

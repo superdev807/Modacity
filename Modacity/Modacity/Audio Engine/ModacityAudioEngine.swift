@@ -21,7 +21,7 @@ class ModacityAudio {
         audioEngine = AVAudioEngine()
         let audioSession = AVAudioSession.sharedInstance()
         do {
-            try audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
+            try audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord, with: AVAudioSessionCategoryOptions.defaultToSpeaker)
         } catch let error  {
             print("audio session error \(error)")
         }

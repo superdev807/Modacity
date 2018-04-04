@@ -427,7 +427,8 @@ extension RecordingViewController: AVAudioPlayerDelegate {
             let url = URL(fileURLWithPath: soundFilePath)
             
             do {
-                try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+                //try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+                //asdasdasd
                 self.audioPlayer = try AVAudioPlayer(contentsOf: url)
                 guard let player = self.audioPlayer else { return }
                 player.enableRate = true

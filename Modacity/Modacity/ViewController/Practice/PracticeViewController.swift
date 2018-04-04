@@ -800,7 +800,8 @@ extension PracticeViewController {
     func playDingSound() {
         guard let url = Bundle.main.url(forResource: "ding", withExtension: "wav") else { return }
         do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            //try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            //asdasdasd
             self.dingSoundPlayer = try AVAudioPlayer(contentsOf: url)
             self.dingSoundPlayer!.prepareToPlay()
             self.dingSoundPlayer!.play()
