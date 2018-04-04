@@ -46,6 +46,7 @@ class ImprovementViewController: UIViewController {
     @IBOutlet weak var viewMaximizedDrone: UIView!
     @IBOutlet weak var constraintForMaximizedDroneBottomSpace: NSLayoutConstraint!
     @IBOutlet weak var viewBottomXBar: UIView!
+    @IBOutlet weak var imageViewMetrodroneViewShowingArrow: UIImageView!
     
     // MARK: - Properties for drone
     
@@ -63,6 +64,12 @@ class ImprovementViewController: UIViewController {
     @IBOutlet weak var buttonSubdivisionNote2: UIButton!
     @IBOutlet weak var buttonSubdivisionNote3: UIButton!
     @IBOutlet weak var buttonSubdivisionNote4: UIButton!
+    
+    @IBOutlet weak var viewMinTrack: UIView!
+    @IBOutlet weak var constraintForMinTrackViewWidth: NSLayoutConstraint!
+    @IBOutlet weak var constraintForMinTrackImageWidth: NSLayoutConstraint!
+    @IBOutlet weak var imageViewMaxTrack: UIImageView!
+    
     var selectedSubdivisionNote: Int = -1
     var subdivisionPanelShown = false
     
@@ -114,6 +121,7 @@ class ImprovementViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        self.constraintForMinTrackViewWidth.constant = self.imageViewMaxTrack.frame.size.width * CGFloat((self.sliderDuration.value - self.sliderDuration.minimumValue) / (self.sliderDuration.maximumValue - self.sliderDuration.minimumValue))
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -130,6 +138,10 @@ class ImprovementViewController: UIViewController {
             if self.isPlaying {
                 self.onPlayPauseAudio(self)
             }
+        }
+        if let mPlayer = self.metrodonePlayer {
+            mPlayer.stopPlayer()
+            self.metrodonePlayer = nil
         }
     }
     
@@ -154,7 +166,7 @@ extension ImprovementViewController {
         self.constraintForMaximizedDroneBottomSpace.constant =  metrodroneViewHeight - metrodroneViewMinHeight
         self.viewSubdivision.isHidden = true
         self.configureSubdivisionNoteSelectionGUI()
-        
+        self.imageViewMetrodroneViewShowingArrow.image = UIImage(named:"icon_arrow_up")
         self.panGesture = UIPanGestureRecognizer(target: self, action: #selector(draggingDroneView))
         self.viewMaximizedDrone.addGestureRecognizer(panGesture)
     }
@@ -230,7 +242,7 @@ extension ImprovementViewController {
         } else {
             if self.metrodronePlayerShown {
                 let newPosition = translation.y
-                if newPosition <  metrodroneViewHeight - metrodroneViewMinHeight {
+                if newPosition <  metrodroneViewHeight - metrodroneViewMinHeight && newPosition > 0 {
                     self.constraintForMaximizedDroneBottomSpace.constant = newPosition
                 }
             } else {
@@ -252,6 +264,7 @@ extension ImprovementViewController {
             self.view.layoutIfNeeded()
         }) { (finished) in
             if finished {
+                self.imageViewMetrodroneViewShowingArrow.image = UIImage(named:"icon_arrow_down")
                 if !self.metrodronePlayerShown {
                     self.startMetrodrone()
                 }
@@ -261,12 +274,14 @@ extension ImprovementViewController {
     
     func startMetrodrone() {
         AmplitudeTracker.LogEvent(.MetrodroneDrawerOpen)
-        self.metrodonePlayer = MetrodronePlayer()
-        self.metrodonePlayer!.initializeOutlets(lblTempo: self.labelBPM,
-                                                droneFrame: self.viewDroneFrame,
-                                                playButton: self.buttonMetroPlay,
-                                                durationSlider: self.sliderDuration,
-                                                sustainButton: self.buttonSustain)
+        if self.metrodonePlayer == nil {
+            self.metrodonePlayer = MetrodronePlayer()
+            self.metrodonePlayer!.initializeOutlets(lblTempo: self.labelBPM,
+                                                    droneFrame: self.viewDroneFrame,
+                                                    playButton: self.buttonMetroPlay,
+                                                    durationSlider: self.sliderDuration,
+                                                    sustainButton: self.buttonSustain)
+        }
         self.metrodronePlayerShown = true
     }
     
@@ -279,6 +294,7 @@ extension ImprovementViewController {
             self.view.layoutIfNeeded()
         }) { (finished) in
             if finished {
+                self.imageViewMetrodroneViewShowingArrow.image = UIImage(named:"icon_arrow_up")
                 self.endMetrodrone()
             }
         }
@@ -290,9 +306,6 @@ extension ImprovementViewController {
             self.onSubdivision(self.view)
         }
         if self.metrodronePlayerShown {
-            if let metrodronePlayer = self.metrodonePlayer {
-                metrodronePlayer.stopPlayer()
-            }
             self.metrodronePlayerShown = false
         }
     }
@@ -300,12 +313,12 @@ extension ImprovementViewController {
     
     @IBAction func onSustainButton(_ sender: Any) {
         if let mPlayer = self.metrodonePlayer {
-            let isOn = mPlayer.toggleSustain()
-            self.buttonSustain.alpha = (isOn) ? 1.0 : 0.50
+            self.buttonSustain.isSelected = mPlayer.toggleSustain()
         }
     }
     
     @IBAction func onDurationChanged(_ sender: Any) {
+        self.constraintForMinTrackViewWidth.constant = self.imageViewMaxTrack.frame.size.width * CGFloat((self.sliderDuration.value - self.sliderDuration.minimumValue) / (self.sliderDuration.maximumValue - self.sliderDuration.minimumValue))
         if let mPlayer = self.metrodonePlayer {
             mPlayer.changeDuration(newValue: self.sliderDuration.value)
         }

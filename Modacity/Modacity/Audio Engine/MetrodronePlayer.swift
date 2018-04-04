@@ -29,6 +29,8 @@ class MetrodronePlayer: DroneFrameDelegate {
     var _buttonPlayPause: UIButton!
     var _sliderDuration: UISlider!
     var _buttonSustain: UIButton!
+    var _playButtonImage: UIImage!
+    var _pauseButtonImage: UIImage!
     
     var UIDelegate: MetrodroneUIDelegate?
     
@@ -64,7 +66,14 @@ class MetrodronePlayer: DroneFrameDelegate {
         }
     }
     
-    func initializeOutlets(lblTempo: UILabel!, droneFrame: ViewDroneFrame!, playButton: UIButton!, durationSlider: UISlider!, sustainButton: UIButton!) {
+    func initializeOutlets(lblTempo: UILabel!,
+                           droneFrame: ViewDroneFrame!,
+                           playButton: UIButton!,
+                           durationSlider: UISlider!,
+                           sustainButton: UIButton!,
+                           playButtonImage: UIImage! = UIImage(named:"btn_drone_play"),
+                           pauseButtonImage: UIImage! = UIImage(named:"btn_drone_pause")) {
+        
         self._viewDroneFrame = droneFrame // maybe a better way to do this?
         self._labelTempo = lblTempo
         self._buttonPlayPause = playButton
@@ -76,6 +85,9 @@ class MetrodronePlayer: DroneFrameDelegate {
         self._sliderDuration.minimumValue = MetrodronePlayer.minDurationValue
         self._sliderDuration.value = 0.5 * (MetrodronePlayer.minDurationValue + MetrodronePlayer.maxDurationValue)
         
+        self._playButtonImage = playButtonImage
+        self._pauseButtonImage = pauseButtonImage
+        
         _viewDroneFrame.setDelegate(self) // establish bi-directional relationships
         updateMetrodroneOutlets()
     }
@@ -84,7 +96,7 @@ class MetrodronePlayer: DroneFrameDelegate {
         // updates labels, sliders, etc.
         _labelTempo.text = String(tempo)
         _sliderDuration.value = durationRatio
-        _buttonSustain.alpha = (sustain) ? 1.0 : 0.5
+        _buttonSustain.isSelected = sustain
     }
     
     func changeDuration(newValue: Float) {
@@ -232,14 +244,15 @@ class MetrodronePlayer: DroneFrameDelegate {
         isMetrodronePlaying = false
         setPlayImage()
         _buttonSustain.isEnabled = true
+        _buttonSustain.alpha = 1
     }
     
     func setPlayImage() {
-        _buttonPlayPause.setImage(UIImage(named:"btn_drone_play"), for: .normal)
+        _buttonPlayPause.setImage(self._playButtonImage, for: .normal)
     }
     
     func setPauseImage() {
-        _buttonPlayPause.setImage(UIImage(named:"btn_drone_pause"), for: .normal)
+        _buttonPlayPause.setImage(self._pauseButtonImage, for: .normal)
     }
     
     func tapDown() {

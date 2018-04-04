@@ -33,14 +33,19 @@ class PracticeRateViewController: UIViewController {
     
     @IBAction func onNext(_ sender: Any) {
         if !self.playlistViewModel.next() {
-            if let controllers = self.navigationController?.viewControllers {
-                for controller in controllers {
-                    if controller is PlaylistDetailsViewController {
-                        self.navigationController?.popToViewController(controller, animated: true)
-                        return
+            if var controllers = self.navigationController?.viewControllers {
+                for idx in 0..<controllers.count {
+                    if controllers[idx] is PracticeViewController {
+                        controllers.remove(at: idx)
+                        break
                     }
                 }
+                controllers.removeLast()
+                let controller = UIStoryboard(name: "playlist", bundle: nil).instantiateViewController(withIdentifier: "PlaylistFinishViewController") as! PlaylistFinishViewController
+                controller.playlistDetailsViewModel = self.playlistViewModel
+                self.navigationController?.pushViewController(controller, animated: true)
             }
+            
         } else {
             if var controllers = self.navigationController?.viewControllers {
                 for idx in 0..<controllers.count {

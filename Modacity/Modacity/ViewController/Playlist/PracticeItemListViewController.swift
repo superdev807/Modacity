@@ -69,6 +69,7 @@ class PracticeItemListViewController: UIViewController {
     
     @IBOutlet weak var viewAddPracticeButtonContainer: UIView!
     @IBOutlet weak var labelAddPracticeItemButton: UILabel!
+    @IBOutlet weak var constraintForAddPracticeButtonHeight: NSLayoutConstraint!
     
     var practiceItemNameEditingCell: PracticeItemCell? = nil
     var editingSection: Int = 0
@@ -103,6 +104,7 @@ class PracticeItemListViewController: UIViewController {
         self.tableViewMain.tableFooterView = UIView()
         self.constraintForTableViewTopSpace.constant = 10
         self.viewAddPracticeButtonContainer.isHidden = true
+        self.constraintForAddPracticeButtonHeight.constant = 0
         self.tableViewMain.sectionIndexBackgroundColor = Color.clear
         self.tableViewMain.sectionIndexColor = Color.white
         self.buttonRemoveKeyword.isHidden = true
@@ -131,9 +133,11 @@ class PracticeItemListViewController: UIViewController {
         self.viewModel.subscribe(to: "selectedPracticeItems") { (event, _, _) in
             if self.viewModel.selectedPracticeItems.count > 0 {
                 self.viewAddPracticeButtonContainer.isHidden = false
+                self.constraintForAddPracticeButtonHeight.constant = 64
                 self.labelAddPracticeItemButton.text = "Add \(self.viewModel.selectedPracticeItems.count) Practices"
             } else {
                 self.viewAddPracticeButtonContainer.isHidden = true
+                self.constraintForAddPracticeButtonHeight.constant = 0
             }
             
             self.tableViewMain.reloadData()
@@ -294,7 +298,7 @@ extension PracticeItemListViewController: UITableViewDelegate, UITableViewDataSo
         let delete = UITableViewRowAction(style: .destructive, title: "") { (action, indexPath) in
             self.viewModel.removePracticeItem(for: self.viewModel.sectionResult(section: indexPath.section, row: indexPath.row))
         }
-        delete.setIcon(iconImage: UIImage(named:"icon_delete_white")!, backColor: Color(hexString: "#6815CE"), cellHeight: 64, iconSizePercentage: 0.25)
+        delete.setIcon(iconImage: UIImage(named:"icon_row_delete")!, backColor: Color(hexString: "#6815CE"), cellHeight: 64, iconSizePercentage: 0.25)
         let edit = UITableViewRowAction(style: .default, title: "") { (action, indexPath) in
             if let cell = self.tableViewMain.cellForRow(at: indexPath) as? PracticeItemCell {
                 self.practiceItemNameEditingCell = cell

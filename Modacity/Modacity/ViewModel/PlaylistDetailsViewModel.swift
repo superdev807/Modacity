@@ -92,6 +92,10 @@ class PlaylistDetailsViewModel: ViewModel {
         return total
     }
     
+    func checkPlaylist() {
+        
+    }
+    
     func setPlaylist(_ playlist: Playlist) {
         self.playlist = playlist
         self.playlistName = playlist.name

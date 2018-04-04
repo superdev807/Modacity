@@ -105,6 +105,7 @@ class PracticeItemLocalManager {
     func removePracticeItem(for item:PracticeItem) {
         UserDefaults.standard.removeObject(forKey: "practice:id:" + item.id)
         UserDefaults.standard.synchronize()
+        PlaylistLocalManager.manager.processPracticeItemRemove(item.id)
     }
     
     func updatePracticeItem(_ item:PracticeItem) {

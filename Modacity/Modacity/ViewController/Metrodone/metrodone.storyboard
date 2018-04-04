@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -71,14 +72,14 @@
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <button opaque="NO" alpha="0.69999999999999996" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="euc-vE-Txc" userLabel="Sustain">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="euc-vE-Txc" userLabel="Sustain">
                                                         <rect key="frame" x="66.333333333333329" y="134.00000000000003" width="69.999999999999986" height="35"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="70" id="BW5-P9-gve"/>
                                                             <constraint firstAttribute="width" secondItem="euc-vE-Txc" secondAttribute="height" multiplier="2:1" id="idk-sd-rde"/>
                                                         </constraints>
-                                                        <state key="normal" image="btn_sustain"/>
-                                                        <state key="disabled" image="btn_sustain"/>
+                                                        <state key="normal" image="btn_sustain_grey"/>
+                                                        <state key="selected" image="btn_sustain"/>
                                                         <connections>
                                                             <action selector="onSustainButton:" destination="U5I-Ap-dmF" eventType="touchUpInside" id="91x-yY-mBA"/>
                                                         </connections>
@@ -143,8 +144,26 @@
                                         <color key="textColor" red="1" green="1" blue="1" alpha="0.75" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a5v-UY-2Ix">
+                                        <rect key="frame" x="220" y="6" width="50" height="12"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_min_track" translatesAutoresizingMaskIntoConstraints="NO" id="emv-Ga-uwy">
+                                                <rect key="frame" x="-0.66666666666665719" y="0.0" width="115" height="12"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="115" id="ffn-Bd-DQ6"/>
+                                                    <constraint firstAttribute="height" constant="12" id="hYZ-cW-hD1"/>
+                                                </constraints>
+                                            </imageView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="50" id="ahb-zR-pmd"/>
+                                            <constraint firstItem="emv-Ga-uwy" firstAttribute="leading" secondItem="a5v-UY-2Ix" secondAttribute="leading" id="t5d-j2-6Jx"/>
+                                            <constraint firstItem="emv-Ga-uwy" firstAttribute="top" secondItem="a5v-UY-2Ix" secondAttribute="top" id="uKK-Dx-PKs"/>
+                                        </constraints>
+                                    </view>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_max_track" translatesAutoresizingMaskIntoConstraints="NO" id="7Ua-Yk-I99">
-                                        <rect key="frame" x="220.66666666666663" y="6" width="115" height="12"/>
+                                        <rect key="frame" x="220" y="6" width="115" height="12"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="12" id="zzp-Lf-zUu"/>
                                         </constraints>
@@ -178,10 +197,13 @@
                                     <constraint firstItem="Oe8-rC-QBR" firstAttribute="centerY" secondItem="1Ql-dh-zlE" secondAttribute="centerY" id="8v3-Cx-wfO"/>
                                     <constraint firstAttribute="trailing" secondItem="Oe8-rC-QBR" secondAttribute="trailing" id="979-NC-cFU"/>
                                     <constraint firstItem="Oe8-rC-QBR" firstAttribute="leading" secondItem="ayl-QN-CM2" secondAttribute="trailing" constant="10" id="9F0-tQ-wf5"/>
+                                    <constraint firstItem="a5v-UY-2Ix" firstAttribute="bottom" secondItem="7Ua-Yk-I99" secondAttribute="bottom" id="C4y-h8-6EO"/>
                                     <constraint firstItem="ayl-QN-CM2" firstAttribute="centerY" secondItem="1Ql-dh-zlE" secondAttribute="centerY" id="Kk6-Wj-z3m"/>
                                     <constraint firstItem="Oe8-rC-QBR" firstAttribute="leading" secondItem="7Ua-Yk-I99" secondAttribute="leading" id="SiP-CC-kXu"/>
                                     <constraint firstAttribute="height" constant="24" id="U2E-As-xbv"/>
+                                    <constraint firstItem="a5v-UY-2Ix" firstAttribute="top" secondItem="7Ua-Yk-I99" secondAttribute="top" id="ViX-oM-Ffe"/>
                                     <constraint firstItem="6gg-wh-nCq" firstAttribute="centerY" secondItem="1Ql-dh-zlE" secondAttribute="centerY" id="Xc4-GO-l4B"/>
+                                    <constraint firstItem="a5v-UY-2Ix" firstAttribute="leading" secondItem="7Ua-Yk-I99" secondAttribute="leading" id="e6p-Gb-sez"/>
                                     <constraint firstItem="6gg-wh-nCq" firstAttribute="leading" secondItem="1Ql-dh-zlE" secondAttribute="leading" id="giu-S4-0cQ"/>
                                     <constraint firstItem="Oe8-rC-QBR" firstAttribute="trailing" secondItem="7Ua-Yk-I99" secondAttribute="trailing" id="oII-0A-59R"/>
                                 </constraints>
@@ -195,7 +217,8 @@
                                             <constraint firstAttribute="width" constant="90" id="0As-9v-Cyk"/>
                                             <constraint firstAttribute="width" secondItem="bUR-cw-pNK" secondAttribute="height" multiplier="7:3" id="w4Q-Pp-Ree"/>
                                         </constraints>
-                                        <state key="normal" image="btn_subdivision"/>
+                                        <state key="normal" image="btn_subdivision_grey"/>
+                                        <state key="selected" image="btn_subdivision"/>
                                         <connections>
                                             <action selector="onSubdivision:" destination="U5I-Ap-dmF" eventType="touchUpInside" id="jlM-F6-3X6"/>
                                         </connections>
@@ -312,7 +335,7 @@
                                 </constraints>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6lD-c4-L3b">
-                                <rect key="frame" x="269" y="456" width="96" height="272"/>
+                                <rect key="frame" x="257" y="456" width="96" height="272"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_subdivision" translatesAutoresizingMaskIntoConstraints="NO" id="kff-V0-9Pr">
                                         <rect key="frame" x="0.0" y="0.0" width="96" height="272"/>
@@ -395,7 +418,7 @@
                             <constraint firstItem="PDS-pn-jne" firstAttribute="trailing" secondItem="1Ql-dh-zlE" secondAttribute="trailing" id="S8K-PK-ZxB"/>
                             <constraint firstItem="1Ql-dh-zlE" firstAttribute="leading" secondItem="5Bb-bQ-UPn" secondAttribute="leading" constant="20" id="SEl-wE-ZEb"/>
                             <constraint firstItem="51d-D2-uYL" firstAttribute="leading" secondItem="5Bb-bQ-UPn" secondAttribute="leading" constant="20" id="T6m-T2-y38"/>
-                            <constraint firstItem="5Bb-bQ-UPn" firstAttribute="trailing" secondItem="6lD-c4-L3b" secondAttribute="trailing" constant="10" id="Vev-cO-83j"/>
+                            <constraint firstItem="5Bb-bQ-UPn" firstAttribute="trailing" secondItem="6lD-c4-L3b" secondAttribute="centerX" constant="70" id="Vev-cO-83j"/>
                             <constraint firstItem="Ur4-Os-72Y" firstAttribute="trailing" secondItem="5Bb-bQ-UPn" secondAttribute="trailing" id="Y4C-2c-h4R"/>
                             <constraint firstItem="0q3-67-hWE" firstAttribute="leading" secondItem="5Bb-bQ-UPn" secondAttribute="leading" id="YHq-Fo-gQc"/>
                             <constraint firstItem="5Bb-bQ-UPn" firstAttribute="bottom" secondItem="6lD-c4-L3b" secondAttribute="bottom" constant="50" id="aKq-cn-72N"/>
@@ -424,10 +447,14 @@
                         <outlet property="constraintForDroneViewLeading" destination="T6m-T2-y38" id="mus-Pu-kPV"/>
                         <outlet property="constraintForDroneViewTrailing" destination="OXV-Vi-5aG" id="LlH-nS-qFQ"/>
                         <outlet property="constraintForHeaderImageViewHeight" destination="rcp-0U-ora" id="TKN-KN-tpG"/>
+                        <outlet property="constraintForMinTrickImageWidth" destination="ffn-Bd-DQ6" id="BHU-zs-dRZ"/>
+                        <outlet property="constraintForMinTrickViewWidth" destination="ahb-zR-pmd" id="MRz-Jb-SeR"/>
                         <outlet property="constraintForSubdivisionButtonWidth" destination="0As-9v-Cyk" id="Gm5-sU-cjp"/>
+                        <outlet property="imageViewMaxTrick" destination="7Ua-Yk-I99" id="34h-Vo-uEe"/>
                         <outlet property="labelTempo" destination="nA9-Kq-9EG" id="CDV-hb-vfg"/>
                         <outlet property="sliderDuration" destination="Oe8-rC-QBR" id="ai7-Y5-ktb"/>
                         <outlet property="viewDroneFrame" destination="51d-D2-uYL" id="WJg-oL-DHH"/>
+                        <outlet property="viewMintrick" destination="a5v-UY-2Ix" id="rJa-dR-xuf"/>
                         <outlet property="viewSubdivision" destination="6lD-c4-L3b" id="ZZr-xB-b3Q"/>
                     </connections>
                 </viewController>
@@ -443,7 +470,9 @@
         <image name="btn_drone_play_large" width="102" height="96"/>
         <image name="btn_drone_tap" width="102" height="96"/>
         <image name="btn_subdivision" width="112" height="48"/>
+        <image name="btn_subdivision_grey" width="120" height="48"/>
         <image name="btn_sustain" width="72" height="40"/>
+        <image name="btn_sustain_grey" width="72" height="40"/>
         <image name="icon_menu" width="20" height="14"/>
         <image name="icon_minus" width="30" height="30"/>
         <image name="icon_note_1" width="9" height="22"/>
@@ -452,5 +481,6 @@
         <image name="icon_note_4" width="44" height="32"/>
         <image name="icon_plus" width="24" height="24"/>
         <image name="img_max_track" width="115" height="16"/>
+        <image name="img_min_track" width="115" height="16"/>
     </resources>
 </document>

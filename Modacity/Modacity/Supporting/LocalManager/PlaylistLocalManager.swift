@@ -176,6 +176,23 @@ class PlaylistLocalManager: NSObject {
         UserDefaults.standard.synchronize()
     }
     
+    func processPracticeItemRemove(_ practiceItemId: String) {
+        if let playlists = self.loadPlaylists() {
+            for playlist in playlists {
+                if let practiceEntries = playlist.playlistPracticeEntries {
+                    var newEntries = [PlaylistPracticeEntry]()
+                    for entry in practiceEntries {
+                        if entry.practiceItemId != practiceItemId {
+                            newEntries.append(entry)
+                        }
+                    }
+                    playlist.playlistPracticeEntries = newEntries
+                }
+            }
+            
+            self.storePlaylists(playlists)
+        }
+    }
     
     
 }
