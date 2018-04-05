@@ -79,6 +79,11 @@ class PracticeViewController: UIViewController {
     var selectedSubdivisionNote: Int = -1
     var subdivisionPanelShown = false
     @IBOutlet weak var viewBottomXBar: UIView!
+    @IBOutlet weak var imageViewMetrodroneViewShowingArrow: UIImageView!
+    @IBOutlet weak var viewMinTrack: UIView!
+    @IBOutlet weak var constraintForMinTrackViewWidth: NSLayoutConstraint!
+    @IBOutlet weak var constraintForMinTrackImageWidth: NSLayoutConstraint!
+    @IBOutlet weak var imageViewMaxTrack: UIImageView!
     
     var metrodonePlayer : MetrodronePlayer? = nil
     
@@ -136,6 +141,7 @@ class PracticeViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        self.constraintForMinTrackViewWidth.constant = self.imageViewMaxTrack.frame.size.width * CGFloat((self.sliderDuration.value - self.sliderDuration.minimumValue) / (self.sliderDuration.maximumValue - self.sliderDuration.minimumValue))
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -158,7 +164,11 @@ class PracticeViewController: UIViewController {
                 self.onPlayPauseAudio(self)
             }
         }
-
+        
+        if let mPlayer = self.metrodonePlayer {
+            mPlayer.stopPlayer()
+            self.metrodonePlayer = nil
+        }
     }
 }
 
@@ -170,7 +180,7 @@ extension PracticeViewController {
         self.constraintForMaximizedDroneBottomSpace.constant =  metrodroneViewHeight - metrodroneViewMinHeight
         self.viewSubdivision.isHidden = true
         self.configureSubdivisionNoteSelectionGUI()
-        
+        self.imageViewMetrodroneViewShowingArrow.image = UIImage(named:"icon_arrow_up")
         self.panGesture = UIPanGestureRecognizer(target: self, action: #selector(draggingDroneView))
         self.viewMaximizedDrone.addGestureRecognizer(panGesture)
     }
@@ -244,9 +254,10 @@ extension PracticeViewController {
                 self.openDroneView()
             }
         } else {
+            
             if self.metrodronePlayerShown {
                 let newPosition = translation.y
-                if newPosition <  metrodroneViewHeight - metrodroneViewMinHeight {
+                if newPosition <  metrodroneViewHeight - metrodroneViewMinHeight && newPosition > 0 {
                     self.constraintForMaximizedDroneBottomSpace.constant = newPosition
                 }
             } else {
@@ -268,6 +279,7 @@ extension PracticeViewController {
             self.view.layoutIfNeeded()
         }) { (finished) in
             if finished {
+                self.imageViewMetrodroneViewShowingArrow.image = UIImage(named:"icon_arrow_down")
                 if !self.metrodronePlayerShown {
                     self.startMetrodrone()
                 }
@@ -280,12 +292,14 @@ extension PracticeViewController {
         if !self.viewPromptPanel.isHidden {
             self.onCloseAlertPanel(self.view)
         }
-        self.metrodonePlayer = MetrodronePlayer()
-        self.metrodonePlayer!.initializeOutlets(lblTempo: self.labelTempo,
-                                                droneFrame: self.viewDroneFrame,
-                                                playButton: self.buttonMetrodronePlay,
-                                                durationSlider: self.sliderDuration,
-                                                sustainButton: self.buttonSustain)
+        if self.metrodonePlayer == nil {
+            self.metrodonePlayer = MetrodronePlayer()
+            self.metrodonePlayer!.initializeOutlets(lblTempo: self.labelTempo,
+                                                    droneFrame: self.viewDroneFrame,
+                                                    playButton: self.buttonMetrodronePlay,
+                                                    durationSlider: self.sliderDuration,
+                                                    sustainButton: self.buttonSustain)
+        }
         self.metrodronePlayerShown = true
     }
     
@@ -298,6 +312,7 @@ extension PracticeViewController {
             self.view.layoutIfNeeded()
         }) { (finished) in
             if finished {
+                self.imageViewMetrodroneViewShowingArrow.image = UIImage(named:"icon_arrow_up")
                 self.endMetrodrone()
             }
         }
@@ -311,21 +326,21 @@ extension PracticeViewController {
                 self.onSubdivision(self.view)
             }
             
-            if let metrodronePlayer = self.metrodonePlayer {
-                metrodronePlayer.stopPlayer()
-            }
+//            if let metrodronePlayer = self.metrodonePlayer {
+//                metrodronePlayer.stopPlayer()
+//            }
             self.metrodronePlayerShown = false
         }
     }
     
     @IBAction func onSustainButton(_ sender: Any) {
         if let mPlayer = self.metrodonePlayer {
-            let isOn = mPlayer.toggleSustain()
-            self.buttonSustain.alpha = (isOn) ? 1.0 : 0.50
+            self.buttonSustain.isSelected = mPlayer.toggleSustain()
         }
     }
     
     @IBAction func onDurationChanged(_ sender: Any) {
+        self.constraintForMinTrackViewWidth.constant = self.imageViewMaxTrack.frame.size.width * CGFloat((self.sliderDuration.value - self.sliderDuration.minimumValue) / (self.sliderDuration.maximumValue - self.sliderDuration.minimumValue))
         if let mPlayer = self.metrodonePlayer {
             mPlayer.changeDuration(newValue: self.sliderDuration.value)
         }

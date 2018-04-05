@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -551,7 +552,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U1r-XY-SBh">
-                                <rect key="frame" x="0.0" y="371" width="375" height="336"/>
+                                <rect key="frame" x="0.0" y="331" width="375" height="336"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_drone_large" translatesAutoresizingMaskIntoConstraints="NO" id="V1m-zz-BJU">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="336"/>
@@ -568,7 +569,7 @@
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_arrow_down" translatesAutoresizingMaskIntoConstraints="NO" id="Lha-yi-n3F">
+                                            <imageView userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_arrow_down" translatesAutoresizingMaskIntoConstraints="NO" id="Lha-yi-n3F">
                                                 <rect key="frame" x="80.5" y="13" width="15" height="10"/>
                                             </imageView>
                                         </subviews>
@@ -597,13 +598,14 @@
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iUX-z6-kKw" userLabel="Sustain">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iUX-z6-kKw" userLabel="Sustain">
                                                                 <rect key="frame" x="25" y="70.5" width="70" height="35"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="70" id="KmD-Er-TSA"/>
                                                                     <constraint firstAttribute="width" secondItem="iUX-z6-kKw" secondAttribute="height" multiplier="2:1" id="Vh9-WB-Mum"/>
                                                                 </constraints>
-                                                                <state key="normal" image="btn_sustain"/>
+                                                                <state key="normal" image="btn_sustain_grey"/>
+                                                                <state key="selected" image="btn_sustain"/>
                                                                 <connections>
                                                                     <action selector="onSustainButton:" destination="ruu-CR-fPU" eventType="touchUpInside" id="uUI-Lo-h9v"/>
                                                                 </connections>
@@ -680,6 +682,24 @@
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="0.75" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lZf-s4-sUh">
+                                                <rect key="frame" x="45" y="6" width="50" height="12"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_min_track" translatesAutoresizingMaskIntoConstraints="NO" id="AXO-Ur-a02">
+                                                        <rect key="frame" x="-0.5" y="0.0" width="115" height="12"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="115" id="eHf-tN-BqU"/>
+                                                            <constraint firstAttribute="height" constant="12" id="v4z-rW-9ve"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstItem="AXO-Ur-a02" firstAttribute="leading" secondItem="lZf-s4-sUh" secondAttribute="leading" id="UfI-uv-Dyo"/>
+                                                    <constraint firstAttribute="width" constant="50" id="dld-uR-D75"/>
+                                                    <constraint firstItem="AXO-Ur-a02" firstAttribute="top" secondItem="lZf-s4-sUh" secondAttribute="top" id="gEP-Gh-ZT0"/>
+                                                </constraints>
+                                            </view>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_max_track" translatesAutoresizingMaskIntoConstraints="NO" id="CiS-WY-RMt">
                                                 <rect key="frame" x="45" y="6" width="110" height="12"/>
                                                 <constraints>
@@ -716,9 +736,12 @@
                                             <constraint firstItem="dYh-Il-HZD" firstAttribute="centerY" secondItem="Vlb-e8-zS0" secondAttribute="centerY" id="Gie-hr-Bc1"/>
                                             <constraint firstItem="h2N-a9-wCS" firstAttribute="centerY" secondItem="Vlb-e8-zS0" secondAttribute="centerY" id="QQ1-D7-kSr"/>
                                             <constraint firstItem="Wo1-KC-Q5v" firstAttribute="leading" secondItem="CiS-WY-RMt" secondAttribute="leading" id="U7B-Lq-N6H"/>
+                                            <constraint firstItem="lZf-s4-sUh" firstAttribute="leading" secondItem="CiS-WY-RMt" secondAttribute="leading" id="ZOw-vx-ZaC"/>
                                             <constraint firstAttribute="height" constant="24" id="crY-xf-d6I"/>
                                             <constraint firstItem="Wo1-KC-Q5v" firstAttribute="trailing" secondItem="CiS-WY-RMt" secondAttribute="trailing" id="dMn-xJ-m9j"/>
                                             <constraint firstAttribute="trailing" secondItem="dYh-Il-HZD" secondAttribute="trailing" constant="8.5" id="iqL-3I-2iF"/>
+                                            <constraint firstItem="lZf-s4-sUh" firstAttribute="top" secondItem="CiS-WY-RMt" secondAttribute="top" id="lwZ-Us-dov"/>
+                                            <constraint firstItem="lZf-s4-sUh" firstAttribute="bottom" secondItem="CiS-WY-RMt" secondAttribute="bottom" id="qqc-jM-cyM"/>
                                             <constraint firstItem="Wo1-KC-Q5v" firstAttribute="leading" secondItem="h2N-a9-wCS" secondAttribute="trailing" constant="5" id="ri8-rx-fEX"/>
                                             <constraint firstItem="dYh-Il-HZD" firstAttribute="leading" secondItem="Wo1-KC-Q5v" secondAttribute="trailing" constant="5" id="skm-mz-IDF"/>
                                             <constraint firstItem="h2N-a9-wCS" firstAttribute="leading" secondItem="Vlb-e8-zS0" secondAttribute="leading" id="wM8-C6-FbY"/>
@@ -837,12 +860,6 @@
                                             <constraint firstItem="LKu-uA-5lA" firstAttribute="leading" secondItem="cpl-Rd-z0P" secondAttribute="leading" id="zh6-Ur-ew2"/>
                                         </constraints>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ffc-rl-i64" userLabel="Hide Button">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="aay-U3-ooA"/>
-                                        </constraints>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -851,18 +868,15 @@
                                     <constraint firstItem="Vlb-e8-zS0" firstAttribute="leading" secondItem="U1r-XY-SBh" secondAttribute="leading" constant="14" id="4Sd-LD-7Ud"/>
                                     <constraint firstItem="Ag5-F4-hch" firstAttribute="centerX" secondItem="U1r-XY-SBh" secondAttribute="centerX" id="4tN-Dm-oDx"/>
                                     <constraint firstItem="cpl-Rd-z0P" firstAttribute="top" secondItem="nHf-GH-hRo" secondAttribute="top" constant="5" id="7C9-DP-fsg"/>
-                                    <constraint firstItem="ffc-rl-i64" firstAttribute="leading" secondItem="U1r-XY-SBh" secondAttribute="leading" id="DDV-n6-OaR"/>
                                     <constraint firstItem="Ag5-F4-hch" firstAttribute="top" secondItem="V1m-zz-BJU" secondAttribute="top" constant="8" id="FZ4-y5-c3l"/>
                                     <constraint firstItem="V1m-zz-BJU" firstAttribute="leading" secondItem="U1r-XY-SBh" secondAttribute="leading" id="FdN-9a-fqp"/>
                                     <constraint firstAttribute="trailing" secondItem="V1m-zz-BJU" secondAttribute="trailing" id="GKv-np-8h8"/>
-                                    <constraint firstAttribute="trailing" secondItem="ffc-rl-i64" secondAttribute="trailing" id="Sdi-GT-GJh"/>
                                     <constraint firstItem="vlS-K1-vrr" firstAttribute="leading" secondItem="U1r-XY-SBh" secondAttribute="leading" constant="14" id="TEb-Ni-MW8"/>
                                     <constraint firstAttribute="bottom" secondItem="V1m-zz-BJU" secondAttribute="bottom" id="VuK-xk-Ziv"/>
                                     <constraint firstItem="cpl-Rd-z0P" firstAttribute="leading" secondItem="nHf-GH-hRo" secondAttribute="trailing" constant="14" id="XTd-BR-7t7"/>
                                     <constraint firstItem="V1m-zz-BJU" firstAttribute="top" secondItem="U1r-XY-SBh" secondAttribute="top" id="YBd-db-xgq"/>
                                     <constraint firstItem="vlS-K1-vrr" firstAttribute="top" secondItem="nHf-GH-hRo" secondAttribute="top" constant="5" id="b5O-ui-6V7"/>
                                     <constraint firstAttribute="trailing" secondItem="cpl-Rd-z0P" secondAttribute="trailing" constant="14" id="bcE-as-pSM"/>
-                                    <constraint firstItem="ffc-rl-i64" firstAttribute="top" secondItem="U1r-XY-SBh" secondAttribute="top" id="ddg-xd-PVx"/>
                                     <constraint firstItem="nHf-GH-hRo" firstAttribute="leading" secondItem="Vlb-e8-zS0" secondAttribute="trailing" constant="14" id="flA-T4-f86"/>
                                     <constraint firstItem="nHf-GH-hRo" firstAttribute="leading" secondItem="vlS-K1-vrr" secondAttribute="trailing" constant="12" id="jB9-i1-fe8"/>
                                     <constraint firstItem="Vlb-e8-zS0" firstAttribute="bottom" secondItem="nHf-GH-hRo" secondAttribute="bottom" constant="-5" id="vE9-8d-YdE"/>
@@ -870,7 +884,7 @@
                                 </constraints>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DlB-Ud-NdT">
-                                <rect key="frame" x="259" y="295" width="96" height="272"/>
+                                <rect key="frame" x="257" y="295" width="96" height="272"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_subdivision" translatesAutoresizingMaskIntoConstraints="NO" id="93L-qN-IE0">
                                         <rect key="frame" x="0.0" y="0.0" width="96" height="272"/>
@@ -996,7 +1010,7 @@ You can tap timer to pause your session.</string>
                             <constraint firstItem="nOB-0N-33h" firstAttribute="top" secondItem="klf-jy-ZRu" secondAttribute="top" constant="100" id="SsS-Si-uPf"/>
                             <constraint firstItem="rFP-in-7sp" firstAttribute="top" secondItem="nOB-0N-33h" secondAttribute="bottom" constant="40" id="VzI-8s-UOD"/>
                             <constraint firstItem="nOB-0N-33h" firstAttribute="centerX" secondItem="klf-jy-ZRu" secondAttribute="centerX" id="Whu-fn-doK"/>
-                            <constraint firstItem="U1r-XY-SBh" firstAttribute="bottom" secondItem="klf-jy-ZRu" secondAttribute="bottom" constant="40" id="X6d-TH-uth"/>
+                            <constraint firstItem="U1r-XY-SBh" firstAttribute="bottom" secondItem="klf-jy-ZRu" secondAttribute="bottom" id="X6d-TH-uth"/>
                             <constraint firstItem="f8a-H0-NGY" firstAttribute="top" secondItem="6oE-xZ-flo" secondAttribute="bottom" constant="-5" id="X84-Kb-Zkg"/>
                             <constraint firstItem="f8a-H0-NGY" firstAttribute="leading" secondItem="klf-jy-ZRu" secondAttribute="leading" id="Ytw-dd-cfF"/>
                             <constraint firstItem="iGP-Iw-poe" firstAttribute="leading" secondItem="nOB-0N-33h" secondAttribute="trailing" constant="-5" id="ZKQ-6b-Xu2"/>
@@ -1013,7 +1027,7 @@ You can tap timer to pause your session.</string>
                             <constraint firstItem="NsF-v0-8c8" firstAttribute="leading" secondItem="Mgx-Ny-ARF" secondAttribute="leading" id="jXF-Wa-c6j"/>
                             <constraint firstItem="klf-jy-ZRu" firstAttribute="trailing" secondItem="B5x-Ol-sgc" secondAttribute="trailing" constant="60" id="sHP-vW-ogP"/>
                             <constraint firstItem="fvc-u8-dWp" firstAttribute="trailing" secondItem="klf-jy-ZRu" secondAttribute="trailing" id="tpU-Od-Mtw"/>
-                            <constraint firstItem="klf-jy-ZRu" firstAttribute="trailing" secondItem="DlB-Ud-NdT" secondAttribute="trailing" constant="20" id="uin-6U-5e0"/>
+                            <constraint firstItem="klf-jy-ZRu" firstAttribute="trailing" secondItem="DlB-Ud-NdT" secondAttribute="centerX" constant="70" id="uin-6U-5e0"/>
                             <constraint firstItem="CqK-vm-U6A" firstAttribute="trailing" secondItem="klf-jy-ZRu" secondAttribute="trailing" id="v9C-2X-FGh"/>
                             <constraint firstItem="Mgx-Ny-ARF" firstAttribute="leading" secondItem="klf-jy-ZRu" secondAttribute="leading" id="vCZ-PO-YK1"/>
                             <constraint firstItem="f6j-O8-RAm" firstAttribute="leading" secondItem="klf-jy-ZRu" secondAttribute="leading" id="vUG-NE-ful"/>
@@ -1037,7 +1051,11 @@ You can tap timer to pause your session.</string>
                         <outlet property="buttonSustain" destination="iUX-z6-kKw" id="886-ty-kvO"/>
                         <outlet property="buttonTimerUpDownArrow" destination="iGP-Iw-poe" id="Jus-ve-2AA"/>
                         <outlet property="constraintForMaximizedDroneBottomSpace" destination="X6d-TH-uth" id="Wpg-gB-pw8"/>
+                        <outlet property="constraintForMinTrackImageWidth" destination="eHf-tN-BqU" id="KOZ-bs-2YR"/>
+                        <outlet property="constraintForMinTrackViewWidth" destination="dld-uR-D75" id="4lP-Ux-Ilr"/>
                         <outlet property="imageViewHeader" destination="6oE-xZ-flo" id="RMa-og-Ba8"/>
+                        <outlet property="imageViewMaxTrack" destination="CiS-WY-RMt" id="FWU-73-bUQ"/>
+                        <outlet property="imageViewMetrodroneViewShowingArrow" destination="Lha-yi-n3F" id="1IQ-ps-CqE"/>
                         <outlet property="imageViewRateDirection" destination="iMA-wC-dQ5" id="mgW-3I-c6b"/>
                         <outlet property="labelHour" destination="dNS-M9-GZA" id="8Nd-RH-BnZ"/>
                         <outlet property="labelMinute" destination="pU1-Oc-PW6" id="EaO-Mc-cja"/>
@@ -1052,6 +1070,7 @@ You can tap timer to pause your session.</string>
                         <outlet property="viewBottomXBar" destination="eWg-AM-3qY" id="5h0-BP-Wh9"/>
                         <outlet property="viewDroneFrame" destination="vlS-K1-vrr" id="OV1-8u-Syh"/>
                         <outlet property="viewMaximizedDrone" destination="U1r-XY-SBh" id="s4k-h3-fNI"/>
+                        <outlet property="viewMinTrack" destination="lZf-s4-sUh" id="nk8-bR-As8"/>
                         <outlet property="viewPromptPanel" destination="B5x-Ol-sgc" id="CVd-Ye-ebm"/>
                         <outlet property="viewRatePanel" destination="VGv-Xf-hGZ" id="ufh-qV-7MN"/>
                         <outlet property="viewSiriWaveFormView" destination="Mgx-Ny-ARF" id="aat-cJ-5R6"/>
@@ -1195,6 +1214,7 @@ You can tap timer to pause your session.</string>
         <image name="btn_practice_next" width="130" height="66"/>
         <image name="btn_subdivision" width="112" height="48"/>
         <image name="btn_sustain" width="72" height="40"/>
+        <image name="btn_sustain_grey" width="72" height="40"/>
         <image name="btn_tap" width="112" height="65"/>
         <image name="icon_airplane" width="34" height="32"/>
         <image name="icon_arrow_down" width="15" height="10"/>
@@ -1217,6 +1237,7 @@ You can tap timer to pause your session.</string>
         <image name="icon_to_first" width="19" height="19"/>
         <image name="img_btn_logo" width="33" height="32"/>
         <image name="img_max_track" width="115" height="16"/>
+        <image name="img_min_track" width="115" height="16"/>
         <image name="img_record" width="74" height="74"/>
         <image name="img_star_filled" width="40" height="38"/>
         <image name="img_star_unfilled" width="40" height="38"/>

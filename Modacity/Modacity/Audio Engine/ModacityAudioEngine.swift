@@ -21,7 +21,13 @@ class ModacityAudio {
         audioEngine = AVAudioEngine()
         let audioSession = AVAudioSession.sharedInstance()
         do {
-            try audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord, with: AVAudioSessionCategoryOptions.defaultToSpeaker)
+            try audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
+            
+            if let inputs = audioSession.availableInputs {
+                if inputs.count == 1 {
+                    try audioSession.overrideOutputAudioPort(.speaker)
+                }
+            }
         } catch let error  {
             print("audio session error \(error)")
         }

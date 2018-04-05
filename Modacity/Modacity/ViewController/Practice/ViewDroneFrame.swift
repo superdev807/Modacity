@@ -132,14 +132,15 @@ class ViewDroneFrame: UIView, MetrodroneUIDelegate {
         let center = CGPoint(x: rect.size.width / 2, y: rect.size.height / 2)
         let radius = CGFloat((size.width - offsetForShadow * 2 - selectedDroneSizeDifference * 2) / 2 - size.width / 12.0)//rect.size.width / 2 - 3 - (rect.size.width / 12)
         
-        for letter in self.droneLetters {
-            let textFont = UIFont(name: "Lato-Bold", size: 16)!
+        for idx in 0..<self.droneLetters.count {
+            let letter = self.droneLetters[idx]
+            let textFont = UIFont(name: "Lato-Regular", size: 14)!
             let textStyle = NSMutableParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
             textStyle.alignment = .center
             let textFontAttributes:[NSAttributedStringKey : Any] = [
                 .font: textFont,
                 .paragraphStyle:textStyle,
-                .foregroundColor: Color.white,
+                .foregroundColor: (idx == selectedDronFrameIdx) ? Color.white : Color.white.alpha(0.7),
                 ]
             let point = CGPoint(x:center.x + radius * CGFloat(cos(angle)), y: center.y + radius * CGFloat(sin(angle)))
             letter.draw(in: CGRect(x: point.x - 20, y: point.y - 10, width: 40, height: 20), withAttributes: textFontAttributes)

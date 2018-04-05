@@ -399,7 +399,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Be4-54-9ng">
+                            <button opaque="NO" alpha="0.69999999999999996" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Be4-54-9ng">
                                 <rect key="frame" x="321" y="45" width="44" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="M5O-1P-nxy"/>
@@ -561,17 +561,12 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="818"/>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zKb-Ke-2s1" customClass="TPKeyboardAvoidingTableView">
-                                <rect key="frame" x="0.0" y="189" width="375" height="589"/>
+                                <rect key="frame" x="0.0" y="189" width="375" height="525"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" red="1" green="1" blue="1" alpha="0.20000000000000001" colorSpace="calibratedRGB"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="wwj-2G-7fu">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="10"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                                <view key="tableFooterView" contentMode="scaleToFill" id="1cS-UH-080">
-                                    <rect key="frame" x="0.0" y="102" width="375" height="64"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
@@ -816,10 +811,10 @@
                             <constraint firstItem="tcR-aC-iao" firstAttribute="trailing" secondItem="xiy-fe-ypl" secondAttribute="trailing" id="Hi1-Wz-XQc"/>
                             <constraint firstItem="B1F-HR-dj2" firstAttribute="leading" secondItem="xiy-fe-ypl" secondAttribute="leading" id="MQ8-4Y-tFh"/>
                             <constraint firstItem="9Nw-d0-Uyj" firstAttribute="top" secondItem="xiy-fe-ypl" secondAttribute="top" constant="-20" id="OF8-80-ZqV"/>
-                            <constraint firstItem="zKb-Ke-2s1" firstAttribute="bottom" secondItem="xiy-fe-ypl" secondAttribute="bottom" id="PKT-7L-ypU"/>
                             <constraint firstItem="SNP-Cv-i0e" firstAttribute="trailing" secondItem="xiy-fe-ypl" secondAttribute="trailing" id="RWe-Qs-Gx6"/>
                             <constraint firstItem="B1F-HR-dj2" firstAttribute="trailing" secondItem="xiy-fe-ypl" secondAttribute="trailing" id="Tbl-Zy-2Jl"/>
                             <constraint firstItem="tcR-aC-iao" firstAttribute="leading" secondItem="xiy-fe-ypl" secondAttribute="leading" id="YQN-9p-UL1"/>
+                            <constraint firstItem="tcR-aC-iao" firstAttribute="top" secondItem="zKb-Ke-2s1" secondAttribute="bottom" id="Zu9-wq-6Uh"/>
                             <constraint firstItem="zKb-Ke-2s1" firstAttribute="leading" secondItem="xiy-fe-ypl" secondAttribute="leading" id="cSw-ML-TFu"/>
                             <constraint firstItem="C30-g4-clB" firstAttribute="leading" secondItem="xiy-fe-ypl" secondAttribute="leading" constant="16" id="iOz-KG-vxw"/>
                             <constraint firstItem="9Nw-d0-Uyj" firstAttribute="leading" secondItem="xiy-fe-ypl" secondAttribute="leading" id="iu0-pU-YQv"/>
@@ -837,6 +832,7 @@
                     <connections>
                         <outlet property="buttonRemoveKeyword" destination="aiF-9M-cod" id="Pcg-kx-AU7"/>
                         <outlet property="constraintForAddButtonBottomSpace" destination="1S9-1R-DoS" id="CSA-pA-ZdT"/>
+                        <outlet property="constraintForAddPracticeButtonHeight" destination="FaQ-jy-zdF" id="ar9-8Q-FW7"/>
                         <outlet property="constraintForHeaderImageViewConstant" destination="IR0-gI-v15" id="dZz-PB-fjo"/>
                         <outlet property="constraintForTableViewTopSpace" destination="4vc-hl-GA8" id="sCN-hY-fWb"/>
                         <outlet property="labelAddPracticeItemButton" destination="uDs-dc-V4z" id="ZuV-7a-76v"/>
@@ -855,7 +851,7 @@
         <!--Playlist Finish View Controller-->
         <scene sceneID="u6a-y0-Nf7">
             <objects>
-                <viewController storyboardIdentifier="PracticeRateViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="0bp-de-LWD" customClass="PlaylistFinishViewController" customModule="Modacity" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PlaylistFinishViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="0bp-de-LWD" customClass="PlaylistFinishViewController" customModule="Modacity" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cmo-0L-9VB">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

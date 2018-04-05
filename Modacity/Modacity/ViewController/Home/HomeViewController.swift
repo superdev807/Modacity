@@ -54,7 +54,6 @@ class HomeViewController: UIViewController {
         self.viewModel.loadRecentPlaylists()
     }
     
-    
     func bindViewModel() {
         
         self.viewModel.subscribe(to: "dashboardPlaylistsCount") { _, _, count in

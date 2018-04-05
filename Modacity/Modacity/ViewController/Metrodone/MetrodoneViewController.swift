@@ -30,13 +30,25 @@ class MetrodoneViewController: UIViewController {
     @IBOutlet weak var buttonSubdivisionNote3: UIButton!
     @IBOutlet weak var buttonSubdivisionNote4: UIButton!
     
+    @IBOutlet weak var imageViewMaxTrick: UIImageView!
+    @IBOutlet weak var viewMintrick: UIView!
+    @IBOutlet weak var constraintForMinTrickViewWidth: NSLayoutConstraint!
+    @IBOutlet weak var constraintForMinTrickImageWidth: NSLayoutConstraint!
+    
+    
     var metrodonePlayer = MetrodronePlayer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        metrodonePlayer.initializeOutlets(lblTempo: labelTempo, droneFrame: viewDroneFrame, playButton: buttonPlay, durationSlider: sliderDuration, sustainButton: btnSustain)
+        metrodonePlayer.initializeOutlets(lblTempo: labelTempo,
+                                          droneFrame: viewDroneFrame,
+                                          playButton: buttonPlay,
+                                          durationSlider: sliderDuration,
+                                          sustainButton: btnSustain,
+                                          playButtonImage: UIImage(named:"btn_drone_play_large"),
+                                          pauseButtonImage: UIImage(named:"btn_drone_pause_large"))
         self.viewSubdivision.isHidden = true
         self.configureSubdivisionNoteSelectionGUI()
         self.configureLayout()
@@ -45,13 +57,19 @@ class MetrodoneViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         UIApplication.shared.isIdleTimerDisabled = true
-//        self.metrodonePlayer.audioSessionOutputSetting()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         UIApplication.shared.isIdleTimerDisabled = false
         self.metrodonePlayer.stopPlayer()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.viewMintrick.layer.masksToBounds = true
+        self.constraintForMinTrickImageWidth.constant = self.imageViewMaxTrick.frame.size.width
+        self.constraintForMinTrickViewWidth.constant = self.imageViewMaxTrick.frame.size.width * CGFloat((self.sliderDuration.value - self.sliderDuration.minimumValue) / (self.sliderDuration.maximumValue - self.sliderDuration.minimumValue))
     }
 
     @IBAction func onMenu(_ sender: Any) {
@@ -82,6 +100,7 @@ class MetrodoneViewController: UIViewController {
     }
 
     @IBAction func onDurationChanged(_ sender: Any) {
+        self.constraintForMinTrickViewWidth.constant = self.imageViewMaxTrick.frame.size.width * CGFloat((self.sliderDuration.value - self.sliderDuration.minimumValue) / (self.sliderDuration.maximumValue - self.sliderDuration.minimumValue))
         self.metrodonePlayer.changeDuration(newValue: sliderDuration.value)
     }
     
@@ -106,8 +125,7 @@ class MetrodoneViewController: UIViewController {
     }
     
     @IBAction func onSustainButton(_ sender: Any) {
-        let isOn = self.metrodonePlayer.toggleSustain()
-        btnSustain.alpha = (isOn) ? 1.0 : 0.50
+        btnSustain.isSelected = self.metrodonePlayer.toggleSustain()
     }
     
     @IBAction func onDecreaseBPMTouch(_ sender: Any) {
@@ -117,14 +135,6 @@ class MetrodoneViewController: UIViewController {
     @IBAction func onChangeBPMStop(_ sender: Any) {
         self.metrodonePlayer.stopBPMChangeTimer()
     }
-    
-//    func setPlayImage() {
-//        _buttonPlayPause.setImage(UIImage(named:"btn_drone_play_large"), for: .normal)
-//    }
-//
-//    func setPauseImage() {
-//        _buttonPlayPause.setImage(UIImage(named:"btn_drone_pause_large"), for: .normal)
-//    }
     
     @IBAction func onSubdivision(_ sender: Any) {
         if !self.subdivisionPanelShown {
@@ -137,8 +147,6 @@ class MetrodoneViewController: UIViewController {
     }
     
     func processSubdivision() {
-        // TODO : here, drone media programming for subdivisions
-        // self.selectedSubdivisionNote value will be used here
         if ((self.selectedSubdivisionNote < 0) || (self.selectedSubdivisionNote > 3)) {
             self.selectedSubdivisionNote = 0
         }
