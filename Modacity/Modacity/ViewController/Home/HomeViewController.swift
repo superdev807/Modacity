@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import Amplitude_iOS
 class HomeViewController: UIViewController {
 
     @IBOutlet weak var textfieldTotalHours: UITextField!
@@ -37,6 +37,7 @@ class HomeViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(configureNameLabels), name: AppConfig.appNotificationProfileUpdated, object: nil)
         self.configureUI()
         self.bindViewModel()
+        
     }
     
     deinit {
@@ -151,6 +152,7 @@ class HomeViewController: UIViewController {
         if let me = MyProfileLocalManager.manager.me {
             self.labelWelcome.text = "Welcome \(me.displayName())!"
             self.labelEmpty.text = "Hi \(me.displayName()), it looks like you’re new here."
+            Amplitude.instance().setUserId(me.email)
         } else {
             self.labelWelcome.text = "Welcome!"
             self.labelEmpty.text = "It looks like you're new here."

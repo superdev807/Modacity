@@ -24,6 +24,7 @@ class ViewDroneFrame: UIView, MetrodroneUIDelegate {
     let offsetBetweenCenter = CGFloat(4)
     
     var selectedDronFrameIdx = -1
+    var currentTouchedIdx = -1
     var delegate: DroneFrameDelegate?
     
     var niceImage: UIImage {
@@ -228,6 +229,7 @@ class ViewDroneFrame: UIView, MetrodroneUIDelegate {
             else {
                 // no selected drone
                 returnIndex = -1
+                //return false
             }
         }
         changed = (returnIndex != self.selectedDronFrameIdx)

@@ -236,7 +236,10 @@ class PlaylistDetailsViewController: UIViewController {
     }
     
     @IBAction func onEditingChangedOnNameInputField(_ sender: Any) {
+        let newName = self.textfieldPlaylistName.text
+        //if
         self.viewModel.playlistName = self.textfieldPlaylistName.text ?? ""
+        self.labelPlaylistName.alpha = 1.0
     }
     
     func changeNameEditMode() {
