@@ -26,6 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         PracticeItemLocalManager.manager.syncWithOlderVersions()
         PlaylistLocalManager.manager.syncWithOlderVersion()
         Amplitude.instance().initializeApiKey("91054e0297cb647ebb3a32443f33c2db")
+        
         AmplitudeTracker.LogEvent(.Launch)
         ModacityAudioEngine.engine.initEngine()
         return true

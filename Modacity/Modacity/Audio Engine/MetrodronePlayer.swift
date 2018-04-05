@@ -111,7 +111,9 @@ class MetrodronePlayer: DroneFrameDelegate {
         if (!isMetrodronePlaying) {
             if (sustain) {
                 updateMetrodroneNote()
-                metrodrone.playUntimed()
+                if (currNote != "X") {
+                    metrodrone.playUntimed()
+                }
             } else {
                 stopMetrodrone() //
             }
@@ -217,6 +219,8 @@ class MetrodronePlayer: DroneFrameDelegate {
             updateMetrodroneNote()
             if (isMetrodronePlaying) {
                 goMetronome()
+            } else {
+                stopMetrodrone()
             }
             
         }

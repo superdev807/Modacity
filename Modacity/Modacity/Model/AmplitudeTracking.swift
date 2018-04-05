@@ -33,6 +33,7 @@ enum ModacityEvent:String {
 
 
 class AmplitudeTracker {
+    
     static func LogEvent(_ event: ModacityEvent) {
         AmplitudeTracker.LogEvent(event, extraParamName: nil, extraParamValue: nil)
     }
