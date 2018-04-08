@@ -293,7 +293,7 @@ extension PracticeViewController {
             self.onCloseAlertPanel(self.view)
         }
         if self.metrodonePlayer == nil {
-            self.metrodonePlayer = MetrodronePlayer()
+            self.metrodonePlayer = MetrodronePlayer.instance
             self.metrodonePlayer!.initializeOutlets(lblTempo: self.labelTempo,
                                                     droneFrame: self.viewDroneFrame,
                                                     playButton: self.buttonMetrodronePlay,

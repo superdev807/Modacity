@@ -11,6 +11,7 @@ import UIKit
 protocol MetrodroneUIDelegate : class {
     func setSelectedIndex(_ index: Int)
     func getSelectedIndex() -> Int
+    func setSelectedNote(_ noteName: String)
 }
 
 class ViewDroneFrame: UIView, MetrodroneUIDelegate {
@@ -193,6 +194,11 @@ class ViewDroneFrame: UIView, MetrodroneUIDelegate {
     func setSelectedIndex(_ index: Int) {
         self.selectedDronFrameIdx = index
         updateVisuals()
+    }
+    
+    func setSelectedNote(_ noteName: String) {
+        let index = droneLetters.index(of: noteName)  ?? -1
+        setSelectedIndex(index)
     }
     
     //func detectDroneIndex(forEvent: UIEvent) -> Int {

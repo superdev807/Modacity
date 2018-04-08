@@ -18,6 +18,7 @@ protocol DroneFrameDelegate : class {
 }
 
 class MetrodronePlayer: DroneFrameDelegate {
+    static var instance : MetrodronePlayer = MetrodronePlayer()
     
     static let minDurationValue: Float = 0.01
     static let maxDurationValue: Float = 0.99
@@ -45,7 +46,6 @@ class MetrodronePlayer: DroneFrameDelegate {
     var clickSound : Bool = false
     var tempo: Int = 120
     var subdivisions: Int = 1
-    
     
     
     let highClick: URL = {
@@ -99,6 +99,7 @@ class MetrodronePlayer: DroneFrameDelegate {
         _labelTempo.text = String(tempo)
         _sliderDuration.value = durationRatio
         _buttonSustain.isSelected = sustain
+        _viewDroneFrame.setSelectedNote(currNote)
     }
     
     func changeDuration(newValue: Float) {
@@ -152,6 +153,8 @@ class MetrodronePlayer: DroneFrameDelegate {
     @objc func rapidFireDown() {
         singleFire(-10)
     }
+    
+ 
     
     @objc func rapidFireUp() {
         singleFire(+10)
@@ -275,7 +278,8 @@ class MetrodronePlayer: DroneFrameDelegate {
             stopMetrodrone()
             clickSound = false
             updateMetrodroneNote()
-            metrodrone.playUntimed()
+            let loop: Bool = (currNote == "X") ? false : true
+            metrodrone.playUntimed(withLooping: loop)
         }
         
     }
