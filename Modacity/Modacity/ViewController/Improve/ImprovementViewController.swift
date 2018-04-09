@@ -275,7 +275,7 @@ extension ImprovementViewController {
     func startMetrodrone() {
         AmplitudeTracker.LogEvent(.MetrodroneDrawerOpen)
         if self.metrodonePlayer == nil {
-            self.metrodonePlayer = MetrodronePlayer()
+            self.metrodonePlayer = MetrodronePlayer.instance
             self.metrodonePlayer!.initializeOutlets(lblTempo: self.labelBPM,
                                                     droneFrame: self.viewDroneFrame,
                                                     playButton: self.buttonMetroPlay,

@@ -122,7 +122,7 @@ class MetroDroneAudio {
         return bufferLoopWave!
     }
     
-    func playUntimed() {
+    func playUntimed(withLooping: Bool = true) {
         let buffer = generateUntimed()
         if audioPlayerNode.isPlaying {
             audioPlayerNode.scheduleBuffer(buffer, at: nil, options: .interrupts, completionHandler: nil)
@@ -130,7 +130,10 @@ class MetroDroneAudio {
             self.audioPlayerNode.play()
         }
         
-        self.audioPlayerNode.scheduleBuffer(buffer, at: nil, options: .loops, completionHandler: nil)
+        let option: AVAudioPlayerNodeBufferOptions = (withLooping) ? .loops : .interrupts
+        
+            self.audioPlayerNode.scheduleBuffer(buffer, at: nil, options: option, completionHandler: nil)
+    
         
     }
     

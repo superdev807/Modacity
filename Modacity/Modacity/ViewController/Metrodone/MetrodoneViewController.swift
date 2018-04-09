@@ -36,7 +36,7 @@ class MetrodoneViewController: UIViewController {
     @IBOutlet weak var constraintForMinTrickImageWidth: NSLayoutConstraint!
     
     
-    var metrodonePlayer = MetrodronePlayer()
+    var metrodonePlayer = MetrodronePlayer.instance
     
     override func viewDidLoad() {
         super.viewDidLoad()
