@@ -122,6 +122,10 @@ class PracticeItemLocalManager {
         return nil
     }
     
+    func practiceItemRemoved(forId: String) -> Bool {
+        return UserDefaults.standard.object(forKey: "practice:id:" + forId) == nil
+    }
+    
     func loadAllPracticeItemNames() -> [String]? {
         if let practiceItemNamesJSONString = UserDefaults.standard.string(forKey: "practice_item_names") {
             return practiceItemNamesJSONString.toJSON() as? [String]
@@ -199,5 +203,9 @@ class PracticeItemLocalManager {
             return result
         }
         return nil
+    }
+    
+    func syncWithServer() {
+        
     }
 }

@@ -50,6 +50,7 @@ class FeedbackRootViewController: UIViewController {
         }
         
         self.configurePageForMode()
+        self.textViewMessage.becomeFirstResponder()
         
     }
 

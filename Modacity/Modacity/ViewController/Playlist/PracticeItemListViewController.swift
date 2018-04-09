@@ -297,6 +297,7 @@ extension PracticeItemListViewController: UITableViewDelegate, UITableViewDataSo
         
         let delete = UITableViewRowAction(style: .destructive, title: "") { (action, indexPath) in
             self.viewModel.removePracticeItem(for: self.viewModel.sectionResult(section: indexPath.section, row: indexPath.row))
+            self.parentViewModel.checkPlaylistForPracticeItemRemoved()
         }
         delete.setIcon(iconImage: UIImage(named:"icon_row_delete")!, backColor: Color(hexString: "#6815CE"), cellHeight: 64, iconSizePercentage: 0.25)
         let edit = UITableViewRowAction(style: .default, title: "") { (action, indexPath) in

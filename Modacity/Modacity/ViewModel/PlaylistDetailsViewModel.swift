@@ -92,8 +92,22 @@ class PlaylistDetailsViewModel: ViewModel {
         return total
     }
     
-    func checkPlaylist() {
-        
+    func checkPlaylistForPracticeItemRemoved() {
+        var newEntries = [PlaylistPracticeEntry]()
+        var changed = false
+        for entry in self.playlistPracticeEntries {
+            if PracticeItemLocalManager.manager.practiceItemRemoved(forId: entry.practiceItemId) {
+                changed = true
+                if self.timePracticed[entry.practiceItemId] != nil {
+                    self.timePracticed.removeValue(forKey: entry.practiceItemId)
+                }
+            } else {
+                newEntries.append(entry)
+            }
+        }
+        if changed {
+            self.playlistPracticeEntries = newEntries
+        }
     }
     
     func setPlaylist(_ playlist: Playlist) {

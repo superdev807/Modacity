@@ -205,8 +205,7 @@ class PlaylistDetailsViewController: UIViewController {
         if self.isPlaying {
             let alertController = UIAlertController(title: nil, message: "This will end your practice session. Are you sure to close the page?", preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (_) in
-//                let currentTime = Date()
-                self.playlistPracticeTotalTimeInSec = self.viewModel.totalPracticedTime()//Int(currentTime.timeIntervalSince1970 - self.playingStartedTime!.timeIntervalSince1970)
+                self.playlistPracticeTotalTimeInSec = self.viewModel.totalPracticedTime()
                 self.viewModel.addPracticeTotalTime(inSec: self.playlistPracticeTotalTimeInSec)
                 if self.navigationController?.viewControllers.count == 1 {
                     self.navigationController?.dismiss(animated: true, completion: nil)
@@ -236,8 +235,6 @@ class PlaylistDetailsViewController: UIViewController {
     }
     
     @IBAction func onEditingChangedOnNameInputField(_ sender: Any) {
-        let newName = self.textfieldPlaylistName.text
-        //if
         self.viewModel.playlistName = self.textfieldPlaylistName.text ?? ""
         self.labelPlaylistName.alpha = 1.0
     }
@@ -318,17 +315,6 @@ class PlaylistDetailsViewController: UIViewController {
         self.playingStartedTime = Date()
         self.buttonStartPlaylist.setImage(UIImage(named:"btn_playlist_finish"), for: .normal)
         
-//        self.sessionTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { (_) in
-//            let currentTime = Date()
-//            let timerInSec = Int(currentTime.timeIntervalSince1970 - self.playingStartedTime!.timeIntervalSince1970)
-//            self.playlistPracticeTotalTimeInSec = timerInSec
-//            DispatchQueue.main.async {
-//                self.labelTimer.text = String(format: "%02d", timerInSec / 3600) + ":" +
-//                    String(format:"%02d", (timerInSec % 3600) / 60) + ":" +
-//                    String(format:"%02d", timerInSec % 60)
-//            }
-//        })
-        
         self.viewModel.currentPracticeEntry = self.viewModel.playlistPracticeEntries[withItem]
         let controller = UIStoryboard(name: "practice", bundle: nil).instantiateViewController(withIdentifier: "PracticeViewController") as! PracticeViewController
         controller.playlistViewModel = self.viewModel
@@ -340,9 +326,7 @@ class PlaylistDetailsViewController: UIViewController {
         if !self.isPlaying {
             self.startPractice(withItem: 0)
         } else {
-            
-//            let currentTime = Date()
-            self.playlistPracticeTotalTimeInSec = self.viewModel.totalPracticedTime()//Int(currentTime.timeIntervalSince1970 - self.playingStartedTime!.timeIntervalSince1970)
+            self.playlistPracticeTotalTimeInSec = self.viewModel.totalPracticedTime()
             self.viewModel.addPracticeTotalTime(inSec: self.playlistPracticeTotalTimeInSec)
             
             if let sessionTimer = self.sessionTimer {

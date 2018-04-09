@@ -193,6 +193,4 @@ class PlaylistLocalManager: NSObject {
             self.storePlaylists(playlists)
         }
     }
-    
-    
 }
