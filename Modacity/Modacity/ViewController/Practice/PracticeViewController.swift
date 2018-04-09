@@ -83,12 +83,13 @@ class PracticeViewController: UIViewController {
     @IBOutlet weak var viewMinTrack: UIView!
     @IBOutlet weak var constraintForMinTrackViewWidth: NSLayoutConstraint!
     @IBOutlet weak var constraintForMinTrackImageWidth: NSLayoutConstraint!
+    @IBOutlet weak var constraintForDroneBackgroundImageViewHeight: NSLayoutConstraint!
     @IBOutlet weak var imageViewMaxTrack: UIImageView!
     
     var metrodonePlayer : MetrodronePlayer? = nil
     
     var panGesture  = UIPanGestureRecognizer()
-    let metrodroneViewHeight = CGFloat(336)
+    var metrodroneViewHeight = CGFloat(336)
     let metrodroneViewMinHeight = CGFloat(40)
     var metrodronePlayerShown  = false
     
@@ -98,6 +99,11 @@ class PracticeViewController: UIViewController {
         
         self.playlistViewModel.storePlaylist()
         self.labelPracticeItemName.text = self.playlistViewModel.currentPracticeEntry.practiceItem()?.name ?? ""
+        
+        if AppUtils.sizeModelOfiPhone() == .iphone6p_55in {
+            metrodroneViewHeight = CGFloat(380)
+            constraintForDroneBackgroundImageViewHeight.constant = CGFloat(380)
+        }
         
         self.initializeDroneUIs()
         self.processFavoriteIconImage()
@@ -153,7 +159,7 @@ class PracticeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        UIApplication.shared.isIdleTimerDisabled = true
+        UIApplication.shared.isIdleTimerDisabled = AppOveralDataManager.manager.settingsPhoneSleepPrevent()
     }
     
     override func viewWillDisappear(_ animated: Bool) {

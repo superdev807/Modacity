@@ -16,14 +16,15 @@ class MyProfileLocalManager {
     var me:Me? = nil
     
     func userId() -> String? {
-        if me?.uid == nil {
+        if let myUid = me?.uid {
+            return myUid
+        } else {
             if Auth.auth().currentUser != nil {
                 return Auth.auth().currentUser?.uid
             } else {
                 return nil
             }
         }
-        return nil
     }
     
     func signout() {

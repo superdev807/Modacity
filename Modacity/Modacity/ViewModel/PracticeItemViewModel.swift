@@ -12,7 +12,6 @@ class PracticeItemViewModel: ViewModel {
     
     var keyword = "" {
         didSet {
-//            self.searchResult = self.searchPracticeItems(keyword: keyword)
             self.searchedPracticeItems = self.searchPracticeItems(keyword: keyword)
             self.configureSectionedResult()
         }
@@ -34,20 +33,6 @@ class PracticeItemViewModel: ViewModel {
         }
     }
     
-//    private var itemNames: [String] = [String]() {
-//        didSet {
-//            if let callback = self.callBacks["itemNames"] {
-//                if oldValue.count > itemNames.count {
-//                    callback(.deleted, oldValue, itemNames)
-//                } else if oldValue.count < itemNames.count {
-//                    callback(.inserted, oldValue, itemNames)
-//                } else {
-//                    callback(.simpleChange, oldValue, itemNames)
-//                }
-//            }
-//        }
-//    }
-    
     private var searchedPracticeItems: [PracticeItem] = [PracticeItem]() {
         didSet {
             if let callback = self.callBacks["searchedPracticeItems"] {
@@ -56,14 +41,6 @@ class PracticeItemViewModel: ViewModel {
         }
     }
     
-//    private var searchResult: [String] = [String]() {
-//        didSet {
-//            if let callback = self.callBacks["searchResult"] {
-//                callback(.simpleChange, oldValue, searchResult)
-//            }
-//        }
-//    }
-
     var selectedPracticeItems: [PracticeItem] = [PracticeItem]() {
         didSet {
             if let callback = self.callBacks["selectedPracticeItems"] {
@@ -77,19 +54,6 @@ class PracticeItemViewModel: ViewModel {
         }
     }
     
-//    var selectedItems: [String] = [String]() {
-//        didSet {
-//            if let callback = self.callBacks["selectedItems"] {
-//                if self.removing > 0 {
-//                    callback(.deleted, oldValue, selectedItems)
-//                    self.removing = self.removing - 1
-//                } else {
-//                    callback(.simpleChange, oldValue, selectedItems)
-//                }
-//            }
-//        }
-//    }
-    
     var sectionedPracticeItems: [String:[PracticeItem]] = [:] {
         didSet {
             if let callback = self.callBacks["sectionedPracticeItems"] {
@@ -102,19 +66,6 @@ class PracticeItemViewModel: ViewModel {
             }
         }
     }
-    
-//    var sectionedResult: [String: [String]] = [:] {
-//        didSet {
-//            if let callback = self.callBacks["sectionedResult"] {
-//                if self.removing > 0 {
-//                    callback(.deleted, oldValue, sectionedResult)
-//                    self.removing = self.removing - 1
-//                } else {
-//                    callback(.simpleChange, oldValue, sectionedResult)
-//                }
-//            }
-//        }
-//    }
     
     func loadItemNames() {
         if let items = PracticeItemLocalManager.manager.loadPracticeItems() {
@@ -136,7 +87,9 @@ class PracticeItemViewModel: ViewModel {
         self.selectedPracticeItems.append(practiceItem)
         self.configureSectionedResult()
         
+        
         PracticeItemLocalManager.manager.storePracticeItems(practiceItems)
+        PracticeItemRemoteManager.manager.add(item: practiceItem)
     }
     
     func searchResultCount() -> Int {
@@ -329,6 +282,7 @@ class PracticeItemViewModel: ViewModel {
             if item.id == forItem.id {
                 item.name = to
                 self.practiceItems[idx] = item
+                PracticeItemRemoteManager.manager.update(item: item)
                 break
             }
         }

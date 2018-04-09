@@ -37,7 +37,6 @@ class PlaylistLocalManager: NSObject {
         }
     }
     
-    
     func storePlaylist(_ playlist: Playlist) {
         if playlist.id != "" {
             
@@ -91,6 +90,7 @@ class PlaylistLocalManager: NSObject {
     func deletePlaylist(_ playlist: Playlist) {
         UserDefaults.standard.removeObject(forKey: "playlist:id:" + playlist.id)
         UserDefaults.standard.synchronize()
+        PlaylistRemoteManager.manager.removePlaylist(for: playlist.id)
     }
     
     func storePlaylists(_ playlists: [Playlist]) {
@@ -189,7 +189,6 @@ class PlaylistLocalManager: NSObject {
                     playlist.playlistPracticeEntries = newEntries
                 }
             }
-            
             self.storePlaylists(playlists)
         }
     }

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -80,7 +80,7 @@
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Marc's awesome playlist" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F4M-b0-gjK">
-                                                    <rect key="frame" x="46" y="23.666666666666671" width="148.33333333333334" height="17"/>
+                                                    <rect key="frame" x="46" y="23.666666666666671" width="286" height="17"/>
                                                     <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -89,6 +89,7 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstItem="ww2-0l-dnY" firstAttribute="width" secondItem="ww2-0l-dnY" secondAttribute="height" multiplier="8:11" id="62o-FI-PJx"/>
+                                                <constraint firstAttribute="trailing" secondItem="F4M-b0-gjK" secondAttribute="trailing" constant="10" id="82T-lv-2Uz"/>
                                                 <constraint firstItem="F4M-b0-gjK" firstAttribute="leading" secondItem="ww2-0l-dnY" secondAttribute="trailing" constant="6" id="Bt7-E8-TnF"/>
                                                 <constraint firstItem="F4M-b0-gjK" firstAttribute="centerY" secondItem="GlG-Rw-uuO" secondAttribute="centerY" id="Scu-7x-yKV"/>
                                                 <constraint firstItem="ww2-0l-dnY" firstAttribute="centerX" secondItem="GlG-Rw-uuO" secondAttribute="leading" constant="20" id="uag-gs-7KS"/>
@@ -260,16 +261,16 @@
                                                     </connections>
                                                 </button>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8p0-hg-ZXB">
-                                                    <rect key="frame" x="68" y="14" width="179" height="36"/>
+                                                    <rect key="frame" x="68" y="14.000000000000004" width="179" height="36.333333333333343"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Practice Item" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="hpB-E4-hN7">
-                                                            <rect key="frame" x="0.0" y="0.0" width="92.333333333333329" height="19"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="169" height="19.333333333333332"/>
                                                             <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="16"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="qfp-6T-gX7">
-                                                            <rect key="frame" x="0.0" y="24" width="26" height="12"/>
+                                                            <rect key="frame" x="0.0" y="24.333333333333336" width="25.666666666666668" height="12"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="12" id="gYq-f0-ClT"/>
                                                             </constraints>
@@ -278,7 +279,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Npi-xG-tGE" customClass="FloatRatingView" customModule="Modacity" customModuleProvider="target">
-                                                            <rect key="frame" x="31" y="24" width="60" height="12"/>
+                                                            <rect key="frame" x="30.666666666666671" y="24.333333333333336" width="60" height="12"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="60" id="kVV-HP-srp"/>
@@ -302,6 +303,7 @@
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstItem="Npi-xG-tGE" firstAttribute="centerY" secondItem="qfp-6T-gX7" secondAttribute="centerY" id="02I-X0-PTU"/>
+                                                        <constraint firstAttribute="trailing" secondItem="hpB-E4-hN7" secondAttribute="trailing" constant="10" id="E38-ZX-Tyw"/>
                                                         <constraint firstItem="qfp-6T-gX7" firstAttribute="top" secondItem="hpB-E4-hN7" secondAttribute="bottom" constant="5" id="RWh-SG-e5W"/>
                                                         <constraint firstItem="hpB-E4-hN7" firstAttribute="leading" secondItem="8p0-hg-ZXB" secondAttribute="leading" id="aIu-3I-9gK"/>
                                                         <constraint firstItem="hpB-E4-hN7" firstAttribute="top" secondItem="8p0-hg-ZXB" secondAttribute="top" id="cJ4-JH-lAn"/>
@@ -586,7 +588,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Practice Item" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="2Pr-2A-5Lx">
-                                                    <rect key="frame" x="50" y="22.666666666666671" width="305" height="19"/>
+                                                    <rect key="frame" x="50" y="22.666666666666671" width="305" height="19.333333333333329"/>
                                                     <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="16"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -727,7 +729,7 @@
                                         <rect key="frame" x="10" y="13" width="24" height="24"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&quot;Practice Item Name Only&quot;" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="goa-Zl-kb7">
-                                        <rect key="frame" x="44" y="17" width="281" height="16"/>
+                                        <rect key="frame" x="44" y="17.333333333333329" width="281" height="15.666666666666664"/>
                                         <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="13"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -860,7 +862,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="818"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Playlist name" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2P2-vP-yD3">
-                                <rect key="frame" x="40" y="60" width="295" height="19"/>
+                                <rect key="frame" x="40" y="60.000000000000007" width="295" height="19.333333333333336"/>
                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -1110,16 +1112,16 @@
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IQt-GS-Ome">
-                                        <rect key="frame" x="60" y="14" width="185" height="36"/>
+                                        <rect key="frame" x="60" y="14.000000000000004" width="185" height="36.333333333333343"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Practice Item" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="42X-91-EEQ">
-                                                <rect key="frame" x="0.0" y="0.0" width="92.333333333333329" height="19"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="175" height="19.333333333333332"/>
                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="16"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="uaJ-tA-Dym">
-                                                <rect key="frame" x="0.0" y="24" width="26" height="12"/>
+                                                <rect key="frame" x="0.0" y="24.333333333333329" width="25.666666666666668" height="12"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="12" id="fW7-5b-IpE"/>
                                                 </constraints>
@@ -1128,7 +1130,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NzC-Ds-dRP" customClass="FloatRatingView" customModule="Modacity" customModuleProvider="target">
-                                                <rect key="frame" x="31" y="24" width="60" height="12"/>
+                                                <rect key="frame" x="30.666666666666671" y="24.333333333333329" width="60" height="12"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="60" id="KUw-FG-50L"/>
@@ -1159,6 +1161,7 @@
                                             <constraint firstAttribute="bottom" secondItem="uaJ-tA-Dym" secondAttribute="bottom" id="SHT-nj-g8w"/>
                                             <constraint firstItem="NzC-Ds-dRP" firstAttribute="leading" secondItem="uaJ-tA-Dym" secondAttribute="trailing" constant="5" id="WSZ-1D-GMo"/>
                                             <constraint firstItem="uaJ-tA-Dym" firstAttribute="top" secondItem="42X-91-EEQ" secondAttribute="bottom" constant="5" id="Z4n-7c-UYt"/>
+                                            <constraint firstAttribute="trailing" secondItem="42X-91-EEQ" secondAttribute="trailing" constant="10" id="qhv-Fb-x93"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -1217,7 +1220,7 @@
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HOURS" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="P5n-WY-Dhs">
-                                                        <rect key="frame" x="74" y="114" width="28.666666666666671" height="10"/>
+                                                        <rect key="frame" x="74.333333333333329" y="114" width="28.333333333333329" height="9.6666666666666714"/>
                                                         <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="8"/>
                                                         <color key="textColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -1238,7 +1241,7 @@
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MINUTES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="hfH-vs-jzZ">
-                                                        <rect key="frame" x="140" y="114" width="36" height="10"/>
+                                                        <rect key="frame" x="140" y="114" width="36" height="9.6666666666666714"/>
                                                         <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="8"/>
                                                         <color key="textColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -1259,7 +1262,7 @@
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SECONDS" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="24V-qk-pQg">
-                                                        <rect key="frame" x="208.66666666666666" y="114" width="37.333333333333343" height="10"/>
+                                                        <rect key="frame" x="208.66666666666666" y="114" width="37.333333333333343" height="9.6666666666666714"/>
                                                         <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="8"/>
                                                         <color key="textColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>

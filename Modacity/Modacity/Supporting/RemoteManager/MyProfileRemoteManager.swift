@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 import FirebaseDatabase
 
 class MyProfileRemoteManager {
@@ -23,6 +24,7 @@ class MyProfileRemoteManager {
     
     func configureMyProfileListener() {
         if let userId = MyProfileLocalManager.manager.userId() {
+            print("user id - \(userId)")
             self.profileListnerHandler = self.refUser.child(userId).child("profile").observe(.value) { (snapshot) in
                 if snapshot.exists() {
                     if let profile = snapshot.value as? [String:Any] {
@@ -31,7 +33,39 @@ class MyProfileRemoteManager {
                     }
                 }
             }
+            
+            PracticeItemRemoteManager.manager.syncFirst()
+            PlaylistRemoteManager.manager.syncFirst()
         }
+    }
+    
+    func updateDisplayName(to name:String) {
+        if let userId = MyProfileLocalManager.manager.userId() {
+            self.refUser.child(userId).child("profile").updateChildValues(["name": name])
+        }
+    }
+    
+    func updatePassword(current: String, newPassword: String, completion: @escaping (String?)->()) {
+        if let currentUser = Auth.auth().currentUser {
+            if let email = currentUser.email {
+                currentUser.reauthenticate(with: EmailAuthProvider.credential(withEmail: email, password: current)) { (error) in
+                    if let error = error {
+                        completion(error.localizedDescription)
+                    } else {
+                        currentUser.updatePassword(to: newPassword, completion: { (error) in
+                            if let error = error {
+                                completion(error.localizedDescription)
+                            } else {
+                                completion(nil)
+                            }
+                        })
+                    }
+                }
+                return
+            }
+        }
+        
+        completion("Unknown error!")
     }
     
     func signout() {

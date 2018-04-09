@@ -54,6 +54,7 @@ class PlaylistViewModel: ViewModel {
     func deletePlaylist(at row: Int) {
         let playlist = self.playlists[row]
         PlaylistLocalManager.manager.deletePlaylist(playlist)
+        PlaylistRemoteManager.manager.removePlaylist(for: playlist.id)
         self.playlists.remove(at: row)
         PlaylistLocalManager.manager.storePlaylists(self.playlists)
     }

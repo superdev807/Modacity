@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -80,8 +80,8 @@
                                     <action selector="onToggleFavorite:" destination="ruu-CR-fPU" eventType="touchUpInside" id="23I-vv-o4S"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Warm Up" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RLr-qK-k0M">
-                                <rect key="frame" x="153.5" y="36" width="68" height="19"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Warm Up" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RLr-qK-k0M">
+                                <rect key="frame" x="60" y="36" width="255" height="19.5"/>
                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -590,16 +590,16 @@
                                                 <rect key="frame" x="35" y="34.5" width="140" height="140.5"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jyI-0B-yUT" userLabel="Octave Sustain">
-                                                        <rect key="frame" x="10" y="10" width="120" height="120.5"/>
+                                                        <rect key="frame" x="10.5" y="10" width="120" height="120.5"/>
                                                         <subviews>
                                                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OCTAVE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LiB-os-MHt">
-                                                                <rect key="frame" x="40" y="19" width="39" height="12"/>
+                                                                <rect key="frame" x="40.5" y="19" width="39" height="12"/>
                                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="10"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iUX-z6-kKw" userLabel="Sustain">
-                                                                <rect key="frame" x="25" y="70.5" width="70" height="35"/>
+                                                                <rect key="frame" x="25.5" y="70.5" width="70" height="35"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="70" id="KmD-Er-TSA"/>
                                                                     <constraint firstAttribute="width" secondItem="iUX-z6-kKw" secondAttribute="height" multiplier="2:1" id="Vh9-WB-Mum"/>
@@ -991,6 +991,7 @@ You can tap timer to pause your session.</string>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="U1r-XY-SBh" firstAttribute="leading" secondItem="klf-jy-ZRu" secondAttribute="leading" id="2wb-VZ-EOL"/>
+                            <constraint firstItem="RLr-qK-k0M" firstAttribute="leading" secondItem="klf-jy-ZRu" secondAttribute="leading" constant="60" id="4XK-Zd-t4m"/>
                             <constraint firstItem="eWg-AM-3qY" firstAttribute="leading" secondItem="nIj-Pg-beq" secondAttribute="leading" id="59W-UK-Kto"/>
                             <constraint firstItem="NsF-v0-8c8" firstAttribute="bottom" secondItem="Mgx-Ny-ARF" secondAttribute="bottom" id="9gc-N5-pGI"/>
                             <constraint firstItem="fvc-u8-dWp" firstAttribute="top" secondItem="nIj-Pg-beq" secondAttribute="top" id="Dfp-Ep-dxp"/>
@@ -1032,7 +1033,7 @@ You can tap timer to pause your session.</string>
                             <constraint firstItem="Mgx-Ny-ARF" firstAttribute="leading" secondItem="klf-jy-ZRu" secondAttribute="leading" id="vCZ-PO-YK1"/>
                             <constraint firstItem="f6j-O8-RAm" firstAttribute="leading" secondItem="klf-jy-ZRu" secondAttribute="leading" id="vUG-NE-ful"/>
                             <constraint firstItem="6oE-xZ-flo" firstAttribute="height" secondItem="fvc-u8-dWp" secondAttribute="height" multiplier="513/667" id="xBx-N6-Jnd"/>
-                            <constraint firstItem="RLr-qK-k0M" firstAttribute="centerX" secondItem="klf-jy-ZRu" secondAttribute="centerX" id="zkH-95-nEe"/>
+                            <constraint firstItem="klf-jy-ZRu" firstAttribute="trailing" secondItem="RLr-qK-k0M" secondAttribute="trailing" constant="60" id="xEo-Zm-Hbs"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="klf-jy-ZRu"/>
                     </view>
@@ -1050,6 +1051,7 @@ You can tap timer to pause your session.</string>
                         <outlet property="buttonSubdivisionNote4" destination="Wh3-Wi-UDY" id="JiD-1B-eSZ"/>
                         <outlet property="buttonSustain" destination="iUX-z6-kKw" id="886-ty-kvO"/>
                         <outlet property="buttonTimerUpDownArrow" destination="iGP-Iw-poe" id="Jus-ve-2AA"/>
+                        <outlet property="constraintForDroneBackgroundImageViewHeight" destination="UFZ-SZ-hRv" id="XWQ-Tz-ros"/>
                         <outlet property="constraintForMaximizedDroneBottomSpace" destination="X6d-TH-uth" id="Wpg-gB-pw8"/>
                         <outlet property="constraintForMinTrackImageWidth" destination="eHf-tN-BqU" id="KOZ-bs-2YR"/>
                         <outlet property="constraintForMinTrackViewWidth" destination="dld-uR-D75" id="4lP-Ux-Ilr"/>
@@ -1096,8 +1098,8 @@ You can tap timer to pause your session.</string>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_simple_gradient" translatesAutoresizingMaskIntoConstraints="NO" id="012-Ue-0i4">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="707"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Warm Up" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sxi-nk-BRo">
-                                <rect key="frame" x="153.5" y="36" width="68" height="19"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Warm Up" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sxi-nk-BRo">
+                                <rect key="frame" x="60" y="36" width="255" height="19.5"/>
                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -1118,8 +1120,8 @@ You can tap timer to pause your session.</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nMg-GA-nKF">
-                                        <rect key="frame" x="55" y="148" width="130" height="66"/>
-                                        <state key="normal" image="btn_practice_next"/>
+                                        <rect key="frame" x="67" y="148" width="106" height="66"/>
+                                        <state key="normal" image="btn_thumbup"/>
                                         <connections>
                                             <action selector="onNext:" destination="Q2z-jX-Ays" eventType="touchUpInside" id="yde-Kf-uCb"/>
                                         </connections>
@@ -1161,7 +1163,7 @@ You can tap timer to pause your session.</string>
                                 </constraints>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_arrow_left" translatesAutoresizingMaskIntoConstraints="NO" id="221-vr-5HC">
-                                <rect key="frame" x="25" y="38" width="10" height="15"/>
+                                <rect key="frame" x="25" y="38.5" width="10" height="15"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nl6-eX-Joh">
                                 <rect key="frame" x="0.0" y="0.0" width="60" height="90"/>
@@ -1178,7 +1180,7 @@ You can tap timer to pause your session.</string>
                         <constraints>
                             <constraint firstItem="nl6-eX-Joh" firstAttribute="leading" secondItem="dDx-wf-hcL" secondAttribute="leading" id="7tk-B4-u3a"/>
                             <constraint firstItem="221-vr-5HC" firstAttribute="leading" secondItem="dDx-wf-hcL" secondAttribute="leading" constant="25" id="Fej-4k-Dfg"/>
-                            <constraint firstItem="Sxi-nk-BRo" firstAttribute="centerX" secondItem="dDx-wf-hcL" secondAttribute="centerX" id="LaL-8C-uYB"/>
+                            <constraint firstItem="Sxi-nk-BRo" firstAttribute="leading" secondItem="dDx-wf-hcL" secondAttribute="leading" constant="60" id="ODK-xG-XdL"/>
                             <constraint firstItem="012-Ue-0i4" firstAttribute="leading" secondItem="dDx-wf-hcL" secondAttribute="leading" id="TL6-Yv-fnI"/>
                             <constraint firstItem="nl6-eX-Joh" firstAttribute="top" secondItem="7IG-eK-HOf" secondAttribute="top" id="TzC-cX-460"/>
                             <constraint firstItem="012-Ue-0i4" firstAttribute="trailing" secondItem="dDx-wf-hcL" secondAttribute="trailing" id="UZs-al-dtN"/>
@@ -1186,6 +1188,7 @@ You can tap timer to pause your session.</string>
                             <constraint firstItem="012-Ue-0i4" firstAttribute="top" secondItem="7IG-eK-HOf" secondAttribute="top" id="cpZ-1w-lpj"/>
                             <constraint firstItem="Slm-tj-hhU" firstAttribute="centerY" secondItem="dDx-wf-hcL" secondAttribute="centerY" id="eo2-al-vNm"/>
                             <constraint firstItem="012-Ue-0i4" firstAttribute="bottom" secondItem="dDx-wf-hcL" secondAttribute="bottom" constant="40" id="qSo-6g-U1d"/>
+                            <constraint firstItem="dDx-wf-hcL" firstAttribute="trailing" secondItem="Sxi-nk-BRo" secondAttribute="trailing" constant="60" id="xL5-pi-OGd"/>
                             <constraint firstItem="Slm-tj-hhU" firstAttribute="leading" secondItem="dDx-wf-hcL" secondAttribute="leading" constant="67" id="zSH-uQ-DrY"/>
                             <constraint firstItem="Sxi-nk-BRo" firstAttribute="top" secondItem="dDx-wf-hcL" secondAttribute="top" constant="16" id="zmp-RA-ahs"/>
                             <constraint firstItem="221-vr-5HC" firstAttribute="centerY" secondItem="Sxi-nk-BRo" secondAttribute="centerY" id="znz-3n-52F"/>
@@ -1211,11 +1214,11 @@ You can tap timer to pause your session.</string>
         <image name="bg_simple_gradient" width="375" height="667"/>
         <image name="bg_subdivision" width="96" height="272"/>
         <image name="btn_drone_play" width="112" height="65"/>
-        <image name="btn_practice_next" width="130" height="66"/>
         <image name="btn_subdivision" width="112" height="48"/>
         <image name="btn_sustain" width="72" height="40"/>
         <image name="btn_sustain_grey" width="72" height="40"/>
         <image name="btn_tap" width="112" height="65"/>
+        <image name="btn_thumbup" width="106" height="66"/>
         <image name="icon_airplane" width="34" height="32"/>
         <image name="icon_arrow_down" width="15" height="10"/>
         <image name="icon_arrow_left" width="10" height="15"/>

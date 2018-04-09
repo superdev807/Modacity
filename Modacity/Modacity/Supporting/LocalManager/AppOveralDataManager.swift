@@ -89,4 +89,13 @@ class AppOveralDataManager {
         UserDefaults.standard.set(improvements + 1, forKey: "total_improvements")
         UserDefaults.standard.synchronize()
     }
+    
+    func settingsPhoneSleepPrevent() -> Bool {
+        return !UserDefaults.standard.bool(forKey: "not_prevent_phone_sleep")
+    }
+    
+    func changePhoneSleepPrevent() {
+        UserDefaults.standard.set(settingsPhoneSleepPrevent(), forKey: "not_prevent_phone_sleep")
+        UserDefaults.standard.synchronize()
+    }
 }

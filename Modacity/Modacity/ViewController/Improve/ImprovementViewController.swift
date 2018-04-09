@@ -70,11 +70,12 @@ class ImprovementViewController: UIViewController {
     @IBOutlet weak var constraintForMinTrackImageWidth: NSLayoutConstraint!
     @IBOutlet weak var imageViewMaxTrack: UIImageView!
     
+    @IBOutlet weak var constraintForDroneBackgroundImageViewHeight: NSLayoutConstraint!
     var selectedSubdivisionNote: Int = -1
     var subdivisionPanelShown = false
     
     var panGesture  = UIPanGestureRecognizer()
-    let metrodroneViewHeight = CGFloat(336)
+    var metrodroneViewHeight = CGFloat(336)
     let metrodroneViewMinHeight = CGFloat(40)
     var metrodronePlayerShown  = false
     
@@ -86,6 +87,11 @@ class ImprovementViewController: UIViewController {
         self.labelHypothesis.text = self.viewModel.selectedHypothesis
         self.labelSuggestion.text = self.viewModel.selectedSuggestion
         
+        if AppUtils.sizeModelOfiPhone() == .iphone6p_55in {
+            metrodroneViewHeight = CGFloat(380)
+            constraintForDroneBackgroundImageViewHeight.constant = CGFloat(380)
+        }
+        
         self.initializeDronesUI()
         self.initializeAudioPlayerUI()
         self.viewAudioPlayer.isHidden = true
@@ -96,7 +102,7 @@ class ImprovementViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        UIApplication.shared.isIdleTimerDisabled = true
+        UIApplication.shared.isIdleTimerDisabled = AppOveralDataManager.manager.settingsPhoneSleepPrevent()
     }
     
     deinit {

@@ -133,12 +133,13 @@ class PlaylistDetailsViewModel: ViewModel {
         
         self.playlist.playlistPracticeEntries = self.playlistPracticeEntries
         
-        if self.playlist.id == "" {
-            self.playlist.id = UUID().uuidString
-        }
-        
         if self.playlist.createdAt == "" {
             self.playlist.createdAt = "\(Date().timeIntervalSince1970)"
+        }
+        
+        if self.playlist.id == "" {
+            self.playlist.id = UUID().uuidString
+            PlaylistRemoteManager.manager.add(item: self.playlist)
         }
         
         self.storePlaylist()
@@ -181,6 +182,7 @@ class PlaylistDetailsViewModel: ViewModel {
     func storePlaylist() {
         if self.playlist.id != "" {
             PlaylistLocalManager.manager.storePlaylist(self.playlist)
+            PlaylistRemoteManager.manager.update(item: self.playlist)
             NotificationCenter.default.post(Notification(name: AppConfig.appNotificationPlaylistUpdated))
         }
     }

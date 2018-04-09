@@ -99,6 +99,9 @@ class PracticeItemLocalManager {
             
             UserDefaults.standard.set(practiceItem.toJSON(), forKey: "practice:id:" + practiceItemId)
             UserDefaults.standard.synchronize()
+            
+            PracticeItemRemoteManager.manager.add(item: practiceItem)
+            
         }
     }
     
@@ -106,11 +109,13 @@ class PracticeItemLocalManager {
         UserDefaults.standard.removeObject(forKey: "practice:id:" + item.id)
         UserDefaults.standard.synchronize()
         PlaylistLocalManager.manager.processPracticeItemRemove(item.id)
+        PracticeItemRemoteManager.manager.removePracticeItem(for: item.id)
     }
     
     func updatePracticeItem(_ item:PracticeItem) {
         UserDefaults.standard.set(item.toJSON(), forKey: "practice:id:" + item.id)
         UserDefaults.standard.synchronize()
+        PracticeItemRemoteManager.manager.update(item:item)
     }
     
     func practiceItem(forId: String) -> PracticeItem? {
@@ -203,9 +208,5 @@ class PracticeItemLocalManager {
             return result
         }
         return nil
-    }
-    
-    func syncWithServer() {
-        
     }
 }

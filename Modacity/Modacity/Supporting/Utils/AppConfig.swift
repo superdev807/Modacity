@@ -30,4 +30,6 @@ class AppConfig: NSObject {
     static let appNotificationProfileUpdated = Notification.Name(rawValue: "appNotificationProfileUpdated")
     
     static let appMaxNumberForRecentPlaylists = 10
+    
+    static let appIdOnAppStore = "1351617981"
 }
