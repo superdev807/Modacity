@@ -13,7 +13,7 @@ class SideMenuController: LGSideMenuController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        AmplitudeTracker.LogStringEvent("Opened Side Menu")
         self.swipeGestureArea = .full
         self.leftViewSwipeGestureRange = LGSideMenuSwipeGestureRangeMake(44, 88)
         self.leftViewWidth = 250

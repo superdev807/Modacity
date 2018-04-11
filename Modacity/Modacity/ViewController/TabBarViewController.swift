@@ -246,23 +246,27 @@ class TabBarViewController: UITabBarController {
     }
     
     @objc func onTabHome() {
+        AmplitudeTracker.LogStringEvent("Pressed Home Tab")
         self.selectedIndex = 0
         self.processButtonsSelection()
     }
     
     @objc func onTabPlaylist() {
+        AmplitudeTracker.LogStringEvent("Pressed Playlist Tab")
         self.selectedIndex = 1
         self.processButtonsSelection()
     }
     
     @objc func onTabRecord() {
         self.selectedIndex = 2
+        AmplitudeTracker.LogStringEvent("Pressed Recording Tab")
         self.processButtonsSelection()
     }
 
     @objc func onNewPlaylist() {
         let playlistCreateNew = UIStoryboard(name:"playlist", bundle: nil).instantiateViewController(withIdentifier: "playlist_control_scene")
 //        let practiceScene = UIStoryboard(name: "practice", bundle: nil).instantiateViewController(withIdentifier: "PracticeScene")
+        
         AmplitudeTracker.LogEvent(.NewPlaylist)
         self.present(playlistCreateNew, animated: true, completion: nil)
     }

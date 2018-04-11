@@ -88,23 +88,29 @@ class CreateAccountViewController: UIViewController {
 extension CreateAccountViewController {     // actions
     
     @IBAction func onCreateAccount(_ sender: Any) {
+        
+        AmplitudeTracker.LogStringEvent("Pressed Create Account w/ Email")
         if self.processInputValidation() {
             self.view.endEditing(true)
             self.viewModel.createAccount(email: self.textfieldEmailAddress.text ?? "", password: self.textfieldPassword.text ?? "")
+            AmplitudeTracker.LogStringEvent("Created Account for \(self.textfieldEmailAddress.text ?? "error-unspecified")")
         }
     }
     
     @IBAction func onFacebook(_ sender: Any) {
         self.view.endEditing(true)
+        AmplitudeTracker.LogStringEvent("Pressed Facebook Login")
         self.viewModel.fbLogin(controller: self)
     }
     
     @IBAction func onGoogle(_ sender: Any) {
         self.view.endEditing(true)
+        AmplitudeTracker.LogStringEvent("Pressed Google Login")
         self.viewModel.googleLogin()
     }
     
     @IBAction func onSignin(_ sender: Any) {
+        AmplitudeTracker.LogStringEvent("Pressed 'Sign In for Existing Account'")
         self.performSegue(withIdentifier: "sid_signin", sender: nil)
     }
     

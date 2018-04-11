@@ -397,8 +397,7 @@ extension PracticeViewController {
 extension PracticeViewController {
     
     @IBAction func onEnd(_ sender: Any) {
-        
-        AmplitudeTracker.LogEvent(.FinishPracticeItem)
+        AmplitudeTracker.LogStringEvent("Pressed End Practice Item")
         
         if self.recorder != nil && self.recorder.isRecording {
             AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Please stop recording before leaving the page.")
@@ -436,6 +435,7 @@ extension PracticeViewController {
             self.playlistViewModel.setLikePracticeItem(for: practiceItem)
             self.processFavoriteIconImage()
         }
+        AmplitudeTracker.LogStringEvent("Toggled Favorite")
     }
     
     @IBAction func onImprove(_ sender: Any) {
@@ -615,6 +615,9 @@ extension PracticeViewController: AVAudioPlayerDelegate, FDWaveformViewDelegate 
                 if name != "" {
                     self.playlistViewModel.increaseAutoIncrementedNumber()
                     self.playlistViewModel.saveCurrentRecording(toFileName: name)
+                    AmplitudeTracker.LogStringEvent("Saved Practice Recording",
+                                                    extraParamName: "filename",
+                                                    extraParamValue:name)
                 }
             }
         }))
@@ -775,11 +778,13 @@ extension PracticeViewController {
         }
         
         if self.timerRunning {
+             AmplitudeTracker.LogStringEvent("Paused Practice Timer")
             self.secondsPrevPlayed = Int(Date().timeIntervalSince1970 - self.timerStarted.timeIntervalSince1970) + self.secondsPrevPlayed
             self.timer.invalidate()
             self.timerRunning = false
             self.viewTimeAreaPausedPanel.isHidden = false
         } else {
+            AmplitudeTracker.LogStringEvent("Resumed Practice Timer")
             self.timerStarted = Date()
             self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(onTimer), userInfo: nil, repeats: true)
             self.timerRunning = true
@@ -841,6 +846,7 @@ extension PracticeViewController {
         let duration = Int(Date().timeIntervalSince1970 - self.timerStarted.timeIntervalSince1970) + self.secondsPrevPlayed
         self.playlistViewModel.setDuration(forPracticeItem: self.playlistViewModel.currentPracticeEntry.entryId,
                                            duration: duration + (self.playlistViewModel.duration(forPracticeItem: self.playlistViewModel.currentPracticeEntry.entryId) ?? 0))
+        AmplitudeTracker.LogStringEvent("Finished Practice Countdown Timer")
         self.performSegue(withIdentifier: "sid_rate", sender: nil)
     }
     

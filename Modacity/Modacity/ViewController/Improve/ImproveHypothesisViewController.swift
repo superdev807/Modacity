@@ -65,6 +65,7 @@ class ImproveHypothesisViewController: UIViewController {
     }
 
     @IBAction func onClose(_ sender: Any) {
+         AmplitudeTracker.LogStringEvent("Closed Hypothesis Screen")
         self.navigationController?.popViewController(animated: true)
         self.viewModel.alreadyTried = false
     }

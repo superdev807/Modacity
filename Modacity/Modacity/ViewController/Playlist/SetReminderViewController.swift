@@ -42,6 +42,7 @@ class SetReminderViewController: UIViewController {
     }
     
     @IBAction func onBack(_ sender: Any) {
+        AmplitudeTracker.LogStringEvent("Reminder Screen Back Button")
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -98,7 +99,7 @@ class SetReminderViewController: UIViewController {
             let center = UNUserNotificationCenter.current()
             let content = UNMutableNotificationContent()
             content.title = "Modacity playlist \(self.labelPlaylistName.text ?? "")"
-            content.body = "Please practice the playlist \(self.labelPlaylistName.text ?? "") in Modacity."
+            content.body = "Time to practice \(self.labelPlaylistName.text ?? "") in Modacity."
             content.categoryIdentifier = "alarm"
             content.sound = UNNotificationSound.default()
             content.userInfo = self.playlistParentViewModel.playlist.toJSON()
@@ -113,12 +114,13 @@ class SetReminderViewController: UIViewController {
             let notification = UILocalNotification()
             notification.fireDate = self.selectedDate
             notification.alertBody = "Modacity playlist \(self.labelPlaylistName.text ?? "")"
-            notification.alertAction = "Please practice the playlist \(self.labelPlaylistName.text ?? "") in Modacity."
+            notification.alertAction = "Time to practice \(self.labelPlaylistName.text ?? "") in Modacity."
             notification.soundName = UILocalNotificationDefaultSoundName
             notification.userInfo = self.playlistParentViewModel.playlist.toJSON()
             UIApplication.shared.scheduleLocalNotification(notification)
         }
         
+        AmplitudeTracker.LogStringEvent("Reminder Set", extraParamName: "when", extraParamValue: self.labelTimeAndDate.text)
         self.navigationController?.dismiss(animated: true, completion: nil)
     }
 }

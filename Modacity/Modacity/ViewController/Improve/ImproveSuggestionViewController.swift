@@ -47,6 +47,7 @@ class ImproveSuggestionViewController: UIViewController {
     }
 
     @IBAction func onClose(_ sender: Any) {
+        AmplitudeTracker.LogStringEvent("Closed Improve Screen")
         self.navigationController?.dismiss(animated: true, completion: nil)
     }
     

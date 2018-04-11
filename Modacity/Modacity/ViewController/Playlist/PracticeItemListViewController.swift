@@ -155,6 +155,7 @@ extension PracticeItemListViewController {
     
     @IBAction func onAddtoStore(_ sender: Any) {
         let newName = self.textfieldSearch.text!
+        AmplitudeTracker.LogStringEvent("Created Practice Item", extraParamName: "name", extraParamValue: newName)
         self.viewModel.addItemtoStore(with: self.textfieldSearch.text!)
         self.viewStoreNewItemPanel.isHidden = true
         self.constraintForTableViewTopSpace.constant = 10
@@ -202,6 +203,7 @@ extension PracticeItemListViewController {
     }
     
     @IBAction func onSelectItems(_ sender: Any) {
+        AmplitudeTracker.LogStringEvent("Added Practice Item to Playlist", extraParamName: "Item Count", extraParamValue: self.viewModel.selectedPracticeItems.count)
         self.parentViewModel.addPracticeItems(self.viewModel.selectedPracticeItems)
         self.navigationController?.popViewController(animated: true)
     }

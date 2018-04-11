@@ -37,6 +37,7 @@ class HomeViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(configureNameLabels), name: AppConfig.appNotificationProfileUpdated, object: nil)
         self.configureUI()
         self.bindViewModel()
+        AmplitudeTracker.LogStringEvent("Home Screen")
         
     }
     
@@ -236,13 +237,20 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let deliverViewModel = PlaylistDeliverModel()
+        
         if collectionView == self.collectionViewRecentPlaylists {
+            //Recents
             deliverViewModel.deliverPlaylist = self.viewModel.recentPlaylists[indexPath.row]
         } else {
+            //Favorites
             let item = self.viewModel.favoriteItems[indexPath.row]
             if (item["type"] as? String ?? "") == "playlist" {
                 deliverViewModel.deliverPlaylist = item["data"] as! Playlist
+                AmplitudeTracker.LogStringEvent("Selected Favorite Playlist", extraParamName: "Name", extraParamValue: deliverViewModel.deliverPlaylist.name)
             } else {
+                let practiceItem = item["data"] as! PracticeItem
+                AmplitudeTracker.LogStringEvent("Selected Favorite Item", extraParamName: "Name", extraParamValue: practiceItem.name)
+                
                 AppUtils.showSimpleAlertMessage(for: self, title: "Coming soon...", message: "we plan to show your practice statistics for this item. Let us know if you expect a different behavior. feedback@modacity.co")
                 return
             }

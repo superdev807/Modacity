@@ -316,9 +316,11 @@ extension RecordingViewController: RecordingCellDelegate {
         if !self.audioPlaying {
             self.audioPlaying = true
             self.audioPlayer!.play()
+            AmplitudeTracker.LogStringEvent("Recordings Tab: Play")
         } else {
             self.audioPlaying = false
             self.audioPlayer!.pause()
+            AmplitudeTracker.LogStringEvent("Recordings Tab: Pause")
         }
         
         if let cell = self.playingCell() {
@@ -388,6 +390,8 @@ extension RecordingViewController: RecordingCellDelegate {
     func onShare(_ recording:Recording) {
         let shareText = "My recording for " + recording.practiceName
         
+        AmplitudeTracker.LogStringEvent("Shared Recording", extraParamName: "name", extraParamValue: recording.fileName)
+        
         let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
         let targetUrl = URL(fileURLWithPath: dirPath[0] + "/" + recording.fileName + ".wav")
         
@@ -396,6 +400,7 @@ extension RecordingViewController: RecordingCellDelegate {
     }
     
     func onDelete(_ recording:Recording) {
+         AmplitudeTracker.LogStringEvent("Deleted Recording", extraParamName: "name", extraParamValue: recording.fileName)
         if let playingRecording = self.viewModel.playingRecording {
             if playingRecording.id == recording.id {
                 self.audioPlaying = false

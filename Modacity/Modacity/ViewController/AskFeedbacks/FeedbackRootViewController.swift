@@ -124,8 +124,10 @@ class FeedbackRootViewController: UIViewController {
     @IBAction func onAttachMostRecentAudio(_ sender: Any) {
         self.checkIconSelected = !self.checkIconSelected
         if self.checkIconSelected {
+            AmplitudeTracker.LogStringEvent("Selected Attach Audio")
             self.imageViewCheckIcon.image = UIImage(named:"icon_checkmark_blue_selected")
         } else {
+            AmplitudeTracker.LogStringEvent("Deselected Attach Audio")
             self.imageViewCheckIcon.image = UIImage(named:"icon_checkmark_blue_deselected")
         }
     }
@@ -137,6 +139,12 @@ class FeedbackRootViewController: UIViewController {
     
     @IBAction func onSent(_ sender: Any) {
         let type :ModacityEmailType = (pageUIMode == 0) ? .AskExpert : .Feedback
+        
+        if (type == .AskExpert) {
+            AmplitudeTracker.LogStringEvent("Pressed Send Ask Expert")
+        } else {
+            AmplitudeTracker.LogStringEvent("Pressed Send Feedback")
+        }
         
         sendMail(type: type, body: self.textViewMessage.text, includeAudio: (type == .AskExpert && self.checkIconSelected))
     }
