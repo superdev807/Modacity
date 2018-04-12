@@ -84,19 +84,19 @@ class MetrodoneViewController: UIViewController {
             self.constraintForHeaderImageViewHeight.constant = 88
         }
         
-        if AppUtils.sizeModelOfiPhone() == .iphone5_4in {
-            self.constraintForSubdivisionButtonWidth.constant = 90
-        } else {
-            self.constraintForSubdivisionButtonWidth.constant = 112
-        }
+//        if AppUtils.sizeModelOfiPhone() == .iphone5_4in {
+//            self.constraintForSubdivisionButtonWidth.constant = 90
+//        } else {
+//            self.constraintForSubdivisionButtonWidth.constant = 112
+//        }
         
-        if AppUtils.sizeModelOfiPhone() == .iphone4_35in {
-            self.constraintForDroneViewLeading.constant = 60
-            self.constraintForDroneViewTrailing.constant = 60
-        } else {
-            self.constraintForDroneViewLeading.constant = 20
-            self.constraintForDroneViewTrailing.constant = 20
-        }
+//        if AppUtils.sizeModelOfiPhone() == .iphone4_35in {
+//            self.constraintForDroneViewLeading.constant = 60
+//            self.constraintForDroneViewTrailing.constant = 60
+//        } else {
+//            self.constraintForDroneViewLeading.constant = 20
+//            self.constraintForDroneViewTrailing.constant = 20
+//        }
     }
 
     @IBAction func onDurationChanged(_ sender: Any) {

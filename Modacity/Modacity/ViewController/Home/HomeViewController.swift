@@ -235,7 +235,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let deliverViewModel = PlaylistDeliverModel()
+        let deliverViewModel = PlaylistAndPracticeDeliverModel()
         if collectionView == self.collectionViewRecentPlaylists {
             deliverViewModel.deliverPlaylist = self.viewModel.recentPlaylists[indexPath.row]
         } else {
@@ -243,8 +243,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             if (item["type"] as? String ?? "") == "playlist" {
                 deliverViewModel.deliverPlaylist = item["data"] as! Playlist
             } else {
-                AppUtils.showSimpleAlertMessage(for: self, title: "Coming soon...", message: "we plan to show your practice statistics for this item. Let us know if you expect a different behavior. feedback@modacity.co")
-                return
+                deliverViewModel.deliverPracticeItem = item["data"] as! PracticeItem
             }
         }
         

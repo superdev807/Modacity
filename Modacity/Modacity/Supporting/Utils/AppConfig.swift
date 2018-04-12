@@ -10,6 +10,9 @@ import UIKit
 
 class AppConfig: NSObject {
     
+    static let appAmplitudeApiKey = "91054e0297cb647ebb3a32443f33c2db"
+    static let appGoogleAnalyticsTrackingId = "111435557"
+    
     static let appFontLatoRegular = "Lato-Regular"
     static let appFontLatoBold = "Lato-Bold"
     

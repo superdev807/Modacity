@@ -59,6 +59,19 @@ class PlaylistViewModel: ViewModel {
         PlaylistLocalManager.manager.storePlaylists(self.playlists)
     }
     
+    func deletePlaylist(for playlist:Playlist) {
+        PlaylistLocalManager.manager.deletePlaylist(playlist)
+        PlaylistRemoteManager.manager.removePlaylist(for: playlist.id)
+        
+        for row in 0..<self.playlists.count {
+            if self.playlists[row].id == playlist.id {
+                self.playlists.remove(at: row)
+                break
+            }
+        }
+        PlaylistLocalManager.manager.storePlaylists(self.playlists)
+    }
+    
     func isFavorite(_ playlist:Playlist)->Bool {
         return PlaylistLocalManager.manager.isFavoritePlaylist(playlist)
     }

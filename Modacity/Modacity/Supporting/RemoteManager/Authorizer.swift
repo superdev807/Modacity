@@ -31,7 +31,9 @@ class Authorizer: NSObject {
                 MyProfileRemoteManager.manager.createMyProfile(userId: user!.uid, data: ["uid":user!.uid,
                                                                       "email":email,
                                                                       "created":"\(Date().timeIntervalSince1970)"])
-                MyProfileRemoteManager.manager.configureMyProfileListener()
+                DispatchQueue.global(qos: .background).async {
+                    MyProfileRemoteManager.manager.configureMyProfileListener()
+                }
                 completion(nil)
                 
             } else {
@@ -50,7 +52,9 @@ class Authorizer: NSObject {
     func signin(email: String, password: String, completion: @escaping (String?)->()) {
         Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
             if error == nil {
-                MyProfileRemoteManager.manager.configureMyProfileListener()
+                DispatchQueue.global(qos: .background).async {
+                    MyProfileRemoteManager.manager.configureMyProfileListener()
+                }
                 completion(nil)
             } else {
                 let errorCode = UInt((error! as NSError).code)
@@ -79,7 +83,9 @@ class Authorizer: NSObject {
                         if error == nil {
                             self.database.child("users").child(user!.uid).child("profile").observeSingleEvent(of: .value, with: { (snapshot) in
                                 if snapshot.exists() {
-                                    MyProfileRemoteManager.manager.configureMyProfileListener()
+                                    DispatchQueue.global(qos: .background).async {
+                                        MyProfileRemoteManager.manager.configureMyProfileListener()
+                                    }
                                     completion(nil)
                                 } else {
                                     FBSDKGraphRequest(graphPath: "me", parameters: ["fields":"id,name,first_name,last_name,picture.type(large), email"]).start(completionHandler: { (connection, result, error) in
@@ -103,7 +109,9 @@ class Authorizer: NSObject {
                                                     "fbId": result["id"] as? String ?? "",
                                                     "authorizedBy":"fb",
                                                     "created":"\(Date().timeIntervalSince1970)"])
-                                                MyProfileRemoteManager.manager.configureMyProfileListener()
+                                                DispatchQueue.global(qos: .background).async {
+                                                    MyProfileRemoteManager.manager.configureMyProfileListener()
+                                                }
                                                 completion(nil)
                                             } else {
                                                 loginManager.logOut()
@@ -143,7 +151,9 @@ class Authorizer: NSObject {
             if error == nil {
                 self.database.child("users").child(user!.uid).child("profile").observeSingleEvent(of: .value, with: { (snapshot) in
                     if snapshot.exists() {
-                        MyProfileRemoteManager.manager.configureMyProfileListener()
+                        DispatchQueue.global(qos: .background).async {
+                            MyProfileRemoteManager.manager.configureMyProfileListener()
+                        }
                         self.completionCallbackForGoogleSignin!(nil)
                     } else {
                         var avatarUrl = ""
@@ -159,7 +169,9 @@ class Authorizer: NSObject {
                             "googleId": googleUser.userID,
                             "authorizedBy":"google",
                             "created":"\(Date().timeIntervalSince1970)"])
-                        MyProfileRemoteManager.manager.configureMyProfileListener()
+                        DispatchQueue.global(qos: .background).async {
+                            MyProfileRemoteManager.manager.configureMyProfileListener()
+                        }
                         self.completionCallbackForGoogleSignin!(nil)
                     }
                 })

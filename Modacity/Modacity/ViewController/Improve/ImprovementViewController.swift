@@ -279,7 +279,7 @@ extension ImprovementViewController {
     }
     
     func startMetrodrone() {
-        AmplitudeTracker.LogEvent(.MetrodroneDrawerOpen)
+        ModacityAnalytics.LogEvent(.MetrodroneDrawerOpen)
         if self.metrodonePlayer == nil {
             self.metrodonePlayer = MetrodronePlayer.instance
             self.metrodonePlayer!.initializeOutlets(lblTempo: self.labelBPM,
@@ -307,7 +307,7 @@ extension ImprovementViewController {
     }
     
     func endMetrodrone() {
-        AmplitudeTracker.LogEvent(.MetrodroneDrawerClose)
+        ModacityAnalytics.LogEvent(.MetrodroneDrawerClose)
         if self.subdivisionPanelShown {
             self.onSubdivision(self.view)
         }

@@ -10,10 +10,12 @@ import UIKit
 
 protocol PlaylistCellDelegate {
     func onFavorite(_ playlist: Playlist)
+    func onMenu(_ playlist: Playlist, buttonMenu: UIButton)
 }
 
 class PlaylistCell: UITableViewCell {
     
+    @IBOutlet weak var buttonMenu: UIButton!
     @IBOutlet weak var labelPlaylistName: UILabel!
     @IBOutlet weak var buttonFavorite: UIButton!
     var playlist: Playlist!
@@ -37,6 +39,14 @@ class PlaylistCell: UITableViewCell {
             self.delegate!.onFavorite(self.playlist)
         }
     }
+    
+    @IBAction func onMenu(_ sender: Any) {
+        if self.delegate != nil {
+            self.delegate!.onMenu(self.playlist, buttonMenu: self.buttonMenu)
+        }
+    }
+    
+    
 }
 
 class PlaylistViewController: UIViewController {
@@ -73,7 +83,7 @@ class PlaylistViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "sid_details" {
             let controller = (segue.destination as! UINavigationController).viewControllers[0] as! PlaylistDetailsViewController
-            let model = PlaylistDeliverModel()
+            let model = PlaylistAndPracticeDeliverModel()
             model.deliverPlaylist = self.viewModel.detailSelection
             controller.parentViewModel = model
         }
@@ -120,31 +130,31 @@ extension PlaylistViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
         self.viewModel.detailSelection = self.viewModel.playlist(at: indexPath.row)
         
-        AmplitudeTracker.LogEvent(.NewPlaylist, extraParamName: "Playlist", extraParamValue: self.viewModel.detailSelection!.name)
+        ModacityAnalytics.LogEvent(.NewPlaylist, extraParamName: "Playlist", extraParamValue: self.viewModel.detailSelection!.name)
         
         self.performSegue(withIdentifier: "sid_details", sender: nil)
     }
-    
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        
-        let delete = UITableViewRowAction(style: .destructive, title: "") { (action, indexPath) in
-            self.viewModel.deletePlaylist(at: indexPath.row)
-        }
-        delete.setIcon(iconImage: UIImage(named:"icon_row_delete")!, backColor: Color(hexString: "#6815CE"), cellHeight: 64, iconSizePercentage: 0.25)
-        
-        return [delete]
-        
-    }
-    
 }
 
 extension PlaylistViewController: PlaylistCellDelegate {
+    
     func onFavorite(_ playlist: Playlist) {
         self.viewModel.setFavorite(playlist)
         self.tableViewMain.reloadData()
+    }
+    
+    func onMenu(_ playlist: Playlist, buttonMenu: UIButton) {
+        DropdownMenuView.instance.show(in: self.view,
+                                       on: buttonMenu,
+                                       rows: [["icon":"icon_row_delete", "text":"Delete"],
+                                              ["icon":"icon_pen_white", "text": "Edit"]]) { (row) in
+                                                if row == 0 {
+                                                    self.viewModel.deletePlaylist(for: playlist)
+                                                } else  {
+                                                    self.viewModel.detailSelection = playlist
+                                                    ModacityAnalytics.LogEvent(.NewPlaylist, extraParamName: "Playlist", extraParamValue: self.viewModel.detailSelection!.name)
+                                                    self.performSegue(withIdentifier: "sid_details", sender: nil)
+                                                }
+        }
     }
 }

@@ -20,6 +20,7 @@ protocol RecordingCellDelegate {
     func onAudioSeekTo(_ time:Double)
     func onShare(_ recording:Recording)
     func onDelete(_ recording:Recording)
+    func onMenu(_ buttonMenu: UIButton, recording:Recording)
 }
 
 class RecordingCell: UITableViewCell, FDWaveformViewDelegate {
@@ -37,6 +38,7 @@ class RecordingCell: UITableViewCell, FDWaveformViewDelegate {
     @IBOutlet weak var viewAudioPlaybackRatePanel: UIView!
     @IBOutlet weak var labelAudioPlaybackRateValue: UILabel!
     @IBOutlet weak var imageViewAudioPlaybackRate: UIImageView!
+    @IBOutlet weak var buttonMenu: UIButton!
     
     var recording: Recording!
     var delegate: RecordingCellDelegate? = nil
@@ -49,7 +51,6 @@ class RecordingCell: UITableViewCell, FDWaveformViewDelegate {
         self.viewAudioPlaybackRatePanel.isHidden = true
         
         if isPlaying {
-            self.buttonRemove.isHidden = false
             self.viewPlayingPanel.isHidden = false
             
             let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
@@ -79,7 +80,6 @@ class RecordingCell: UITableViewCell, FDWaveformViewDelegate {
             }
             
         } else {
-            self.buttonRemove.isHidden = true
             self.imageViewPlayIcon.image = UIImage(named: "icon_play")
             self.viewPlayingPanel.isHidden = true
         }
@@ -152,6 +152,12 @@ class RecordingCell: UITableViewCell, FDWaveformViewDelegate {
     @IBAction func onShare(_ sender: Any) {
         if self.delegate != nil {
             self.delegate!.onShare(self.recording)
+        }
+    }
+    
+    @IBAction func onMenu(_ sender: Any) {
+        if self.delegate != nil {
+            self.delegate!.onMenu(self.buttonMenu, recording: self.recording)
         }
     }
 }
@@ -253,22 +259,22 @@ extension RecordingViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        
-        if let currentPlaying = self.viewModel.playingRecording {
-            if currentPlaying.id == self.viewModel.recordings[indexPath.row].id {
-                return []
-            }
-        }
-        
-        let delete = UITableViewRowAction(style: .destructive, title: "") { (action, indexPath) in
-            self.viewModel.deleteRecording(at: indexPath.row)
-        }
-        delete.setIcon(iconImage: UIImage(named:"icon_delete_white")!, backColor: Color(hexString: "#6815CE"), cellHeight: 64, iconSizePercentage: 0.25)
-        
-        return [delete]
-        
-    }
+//    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+//
+//        if let currentPlaying = self.viewModel.playingRecording {
+//            if currentPlaying.id == self.viewModel.recordings[indexPath.row].id {
+//                return []
+//            }
+//        }
+//
+//        let delete = UITableViewRowAction(style: .destructive, title: "") { (action, indexPath) in
+//            self.viewModel.deleteRecording(at: indexPath.row)
+//        }
+//        delete.setIcon(iconImage: UIImage(named:"icon_delete_white")!, backColor: Color(hexString: "#6815CE"), cellHeight: 64, iconSizePercentage: 0.25)
+//
+//        return [delete]
+//
+//    }
 }
 
 extension RecordingViewController: RecordingCellDelegate {
@@ -413,6 +419,26 @@ extension RecordingViewController: RecordingCellDelegate {
     
     func onExpand(_ recording: Recording) {
         self.expandRecordingCell(recording: recording)
+    }
+    
+    func onMenu(_ buttonMenu: UIButton, recording: Recording) {
+        
+        DropdownMenuView.instance.show(in: self.view,
+                                       on: buttonMenu,
+                                       rows: [["icon":"icon_row_delete", "text":"Delete"],
+                                              ["icon":"icon_share_white", "text": "Share"]]) { (row) in
+                                                if row == 0 {
+                                                    if let currentPlaying = self.viewModel.playingRecording {
+                                                        if currentPlaying.id == recording.id {
+                                                            return
+                                                        }
+                                                    }
+                                                    self.onDelete(recording)
+                                                } else  {
+                                                    self.onShare(recording)
+                                                }
+        }
+        
     }
     
 }

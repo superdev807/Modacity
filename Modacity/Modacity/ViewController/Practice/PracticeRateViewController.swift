@@ -83,7 +83,7 @@ extension PracticeRateViewController: FloatRatingViewDelegate {
     
     func floatRatingView(_ ratingView: FloatRatingView, didUpdate rating: Double) {
         
-        AmplitudeTracker.LogEvent(.RatedItem, extraParamName: "Rating", extraParamValue: rating)
+        ModacityAnalytics.LogEvent(.RatedItem, extraParamName: "Rating", extraParamValue: rating)
         
         if let practiceItem = self.playlistViewModel.currentPracticeEntry.practiceItem() {
             self.playlistViewModel.setRating(for: practiceItem, rating: ratingView.rating)

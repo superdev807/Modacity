@@ -25,10 +25,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
         PracticeItemLocalManager.manager.syncWithOlderVersions()
         PlaylistLocalManager.manager.syncWithOlderVersion()
-        Amplitude.instance().initializeApiKey("91054e0297cb647ebb3a32443f33c2db")
+        Amplitude.instance().initializeApiKey(AppConfig.appAmplitudeApiKey)
         
-        AmplitudeTracker.LogEvent(.Launch)
+        ModacityAnalytics.LogEvent(.Launch)
         ModacityAudioEngine.engine.initEngine()
+        
         return true
     }
 
@@ -40,7 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-        AmplitudeTracker.LogEvent(.Background)
+        ModacityAnalytics.LogEvent(.Background)
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -50,12 +51,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         FBSDKAppEvents.activateApp()
-        AmplitudeTracker.LogEvent(.ResumeActive)
+        ModacityAnalytics.LogEvent(.ResumeActive)
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-        AmplitudeTracker.LogEvent(.Terminate)
+        ModacityAnalytics.LogEvent(.Terminate)
     }
     
     func application(_ application: UIApplication, didReceive notification: UILocalNotification) {

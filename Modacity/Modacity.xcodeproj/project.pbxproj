@@ -10,8 +10,8 @@
 		1013425D2058E5FD00A9734B /* ModacityAudioEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1013425C2058E5FD00A9734B /* ModacityAudioEngine.swift */; };
 		101342612058EE2700A9734B /* waveforms in Resources */ = {isa = PBXBuildFile; fileRef = 101342602058EE2700A9734B /* waveforms */; };
 		101342632059020300A9734B /* TapTempo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101342622059020300A9734B /* TapTempo.swift */; };
-		10F352BF2063546C006132DB /* AmplitudeTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F352BE2063546C006132DB /* AmplitudeTracking.swift */; };
 		14A63A48B0FA29B0F7388A3B /* Pods_Modacity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C77FB2C0A58ED4E886E0F33 /* Pods_Modacity.framework */; };
+		8E0A51C5207E4663006BDDC6 /* ModacityAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0A51C4207E4663006BDDC6 /* ModacityAnalytics.swift */; };
 		8E15F2BB207259C900CC1D9B /* MetroDroneAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E15F2BA207259C800CC1D9B /* MetroDroneAudio.swift */; };
 		8E15F2BD2072759200CC1D9B /* MetrodronePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E15F2BC2072759200CC1D9B /* MetrodronePlayer.swift */; };
 		8E16B46D2052ECDE00A9BF8A /* PlaylistPracticeEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E16B46C2052ECDE00A9BF8A /* PlaylistPracticeEntry.swift */; };
@@ -41,12 +41,10 @@
 		8E64B7AA2056A09F00900775 /* Recording.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E64B7A92056A09E00900775 /* Recording.swift */; };
 		8E64B7AC2056A35200900775 /* RecordingsLocalManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E64B7AB2056A35200900775 /* RecordingsLocalManager.swift */; };
 		8E64B7AE2056AA7C00900775 /* RecordingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E64B7AD2056AA7C00900775 /* RecordingViewModel.swift */; };
-		8E6B120B200651A40071FC75 /* ViewDroneFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6B120A200651A40071FC75 /* ViewDroneFrame.swift */; };
 		8E84CA6520577E7600D2D1CB /* ImproveHypothesisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E84CA6420577E7600D2D1CB /* ImproveHypothesisViewController.swift */; };
 		8E84CA6720577F3500D2D1CB /* ImprovementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E84CA6620577F3500D2D1CB /* ImprovementViewModel.swift */; };
 		8E84CA692057858400D2D1CB /* ImprovementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E84CA682057858400D2D1CB /* ImprovementViewController.swift */; };
 		8E994FC8204EF92F0092B338 /* PracticeRateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E994FC7204EF92F0092B338 /* PracticeRateViewController.swift */; };
-		8E994FCB204EFFEC0092B338 /* FloatRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E994FCA204EFFEB0092B338 /* FloatRatingView.swift */; };
 		8E99A067204072E900A9A9B8 /* MetrodoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E99A066204072E900A9A9B8 /* MetrodoneViewController.swift */; };
 		8E99A069204072F900A9A9B8 /* metrodone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E99A068204072F900A9A9B8 /* metrodone.storyboard */; };
 		8E9DF9052057CF47003F5FE8 /* Improvement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9DF9042057CF47003F5FE8 /* Improvement.swift */; };
@@ -93,6 +91,9 @@
 		8EDEB71C203DFC0200E8D48D /* LeftMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDEB71B203DFC0200E8D48D /* LeftMenuViewController.swift */; };
 		8EE2BD22203DAEDA00D6D7A8 /* welcome.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EE2BD21203DAED900D6D7A8 /* welcome.storyboard */; };
 		8EE2BD24203DB2AF00D6D7A8 /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE2BD23203DB2AF00D6D7A8 /* TutorialViewController.swift */; };
+		8EF559C7207E89D3006728E4 /* ViewDroneFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF559C6207E89D3006728E4 /* ViewDroneFrame.swift */; };
+		8EF559C9207E89FA006728E4 /* FloatRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF559C8207E89FA006728E4 /* FloatRatingView.swift */; };
+		8EF559CB207E8A35006728E4 /* DropdownMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF559CA207E8A35006728E4 /* DropdownMenuView.swift */; };
 		8EFD2DAC207BC20900DC28C1 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFD2DAB207BC20900DC28C1 /* ChangePasswordViewController.swift */; };
 		C2C1B5C7E1FE6B22D1399AF2 /* Pods_ModacityUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF1C6005138DC488B25382E3 /* Pods_ModacityUITests.framework */; };
 		C64283AA9A6BAB8DE816BEB8 /* Pods_ModacityTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3939C85FC27D407BE45658F /* Pods_ModacityTests.framework */; };
@@ -119,11 +120,12 @@
 		1013425C2058E5FD00A9734B /* ModacityAudioEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModacityAudioEngine.swift; sourceTree = "<group>"; };
 		101342602058EE2700A9734B /* waveforms */ = {isa = PBXFileReference; lastKnownFileType = folder; path = waveforms; sourceTree = "<group>"; };
 		101342622059020300A9734B /* TapTempo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapTempo.swift; sourceTree = "<group>"; };
-		10F352BE2063546C006132DB /* AmplitudeTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmplitudeTracking.swift; sourceTree = "<group>"; };
 		1C77FB2C0A58ED4E886E0F33 /* Pods_Modacity.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Modacity.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2FF7BD2AC6BB692D2CB30434 /* Pods-ModacityUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ModacityUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ModacityUITests/Pods-ModacityUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		3798BA6D596582574229E4BD /* Pods-Modacity.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Modacity.release.xcconfig"; path = "Pods/Target Support Files/Pods-Modacity/Pods-Modacity.release.xcconfig"; sourceTree = "<group>"; };
 		64FC86E6BC6EB03A27EBFF9B /* Pods-Modacity.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Modacity.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Modacity/Pods-Modacity.debug.xcconfig"; sourceTree = "<group>"; };
+		8E0A51BB207E4449006BDDC6 /* Modacity-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Modacity-Bridging-Header.h"; sourceTree = "<group>"; };
+		8E0A51C4207E4663006BDDC6 /* ModacityAnalytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModacityAnalytics.swift; sourceTree = "<group>"; };
 		8E15F2BA207259C800CC1D9B /* MetroDroneAudio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetroDroneAudio.swift; sourceTree = "<group>"; };
 		8E15F2BC2072759200CC1D9B /* MetrodronePlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetrodronePlayer.swift; sourceTree = "<group>"; };
 		8E16B46C2052ECDE00A9BF8A /* PlaylistPracticeEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistPracticeEntry.swift; sourceTree = "<group>"; };
@@ -159,12 +161,10 @@
 		8E64B7A92056A09E00900775 /* Recording.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recording.swift; sourceTree = "<group>"; };
 		8E64B7AB2056A35200900775 /* RecordingsLocalManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingsLocalManager.swift; sourceTree = "<group>"; };
 		8E64B7AD2056AA7C00900775 /* RecordingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingViewModel.swift; sourceTree = "<group>"; };
-		8E6B120A200651A40071FC75 /* ViewDroneFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewDroneFrame.swift; sourceTree = "<group>"; };
 		8E84CA6420577E7600D2D1CB /* ImproveHypothesisViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImproveHypothesisViewController.swift; sourceTree = "<group>"; };
 		8E84CA6620577F3500D2D1CB /* ImprovementViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImprovementViewModel.swift; sourceTree = "<group>"; };
 		8E84CA682057858400D2D1CB /* ImprovementViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImprovementViewController.swift; sourceTree = "<group>"; };
 		8E994FC7204EF92F0092B338 /* PracticeRateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeRateViewController.swift; sourceTree = "<group>"; };
-		8E994FCA204EFFEB0092B338 /* FloatRatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatRatingView.swift; sourceTree = "<group>"; };
 		8E99A066204072E900A9A9B8 /* MetrodoneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetrodoneViewController.swift; sourceTree = "<group>"; };
 		8E99A068204072F900A9A9B8 /* metrodone.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = metrodone.storyboard; sourceTree = "<group>"; };
 		8E9DF9042057CF47003F5FE8 /* Improvement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Improvement.swift; sourceTree = "<group>"; };
@@ -211,6 +211,9 @@
 		8EDEB71B203DFC0200E8D48D /* LeftMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftMenuViewController.swift; sourceTree = "<group>"; };
 		8EE2BD21203DAED900D6D7A8 /* welcome.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = welcome.storyboard; sourceTree = "<group>"; };
 		8EE2BD23203DB2AF00D6D7A8 /* TutorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
+		8EF559C6207E89D3006728E4 /* ViewDroneFrame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewDroneFrame.swift; sourceTree = "<group>"; };
+		8EF559C8207E89FA006728E4 /* FloatRatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatRatingView.swift; sourceTree = "<group>"; };
+		8EF559CA207E8A35006728E4 /* DropdownMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownMenuView.swift; sourceTree = "<group>"; };
 		8EFD2DAB207BC20900DC28C1 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		C925C622EB9C22985FEC136B /* Pods-ModacityTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ModacityTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ModacityTests/Pods-ModacityTests.release.xcconfig"; sourceTree = "<group>"; };
 		CA2B3FB269EEE0DEA241813C /* Pods-ModacityUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ModacityUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ModacityUITests/Pods-ModacityUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -280,12 +283,19 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		8E0A51C1207E45DD006BDDC6 /* Analytics */ = {
+			isa = PBXGroup;
+			children = (
+				8E0A51C4207E4663006BDDC6 /* ModacityAnalytics.swift */,
+			);
+			path = Analytics;
+			sourceTree = "<group>";
+		};
 		8E37A0B72005B22600747B61 /* Practice */ = {
 			isa = PBXGroup;
 			children = (
 				8E37A0BA2005B3BB00747B61 /* practice.storyboard */,
 				8E37A0B82005B3AD00747B61 /* PracticeViewController.swift */,
-				8E6B120A200651A40071FC75 /* ViewDroneFrame.swift */,
 				8E994FC7204EF92F0092B338 /* PracticeRateViewController.swift */,
 			);
 			path = Practice;
@@ -320,6 +330,7 @@
 				8ED83FBE20031EF400052256 /* Model */,
 				8ED83FC020031EF400052256 /* ViewController */,
 				8ED83FBF20031EF400052256 /* ViewModel */,
+				8EF559C5207E89A8006728E4 /* View */,
 				8EDEB6F9203DE38F00E8D48D /* Supporting */,
 				8E4551DE20030F7F002061AE /* AppDelegate.swift */,
 				8E4551E220030F7F002061AE /* Main.storyboard */,
@@ -384,14 +395,6 @@
 			path = LocalManager;
 			sourceTree = "<group>";
 		};
-		8E994FC9204EFFEB0092B338 /* Libs */ = {
-			isa = PBXGroup;
-			children = (
-				8E994FCA204EFFEB0092B338 /* FloatRatingView.swift */,
-			);
-			path = Libs;
-			sourceTree = "<group>";
-		};
 		8E99A065204072C100A9A9B8 /* Metrodone */ = {
 			isa = PBXGroup;
 			children = (
@@ -441,7 +444,6 @@
 				8E3596212049AA9500F2E6DF /* Playlist.swift */,
 				8E64B7A92056A09E00900775 /* Recording.swift */,
 				8E9DF9042057CF47003F5FE8 /* Improvement.swift */,
-				10F352BE2063546C006132DB /* AmplitudeTracking.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -519,11 +521,12 @@
 			isa = PBXGroup;
 			children = (
 				8ECCAF962056F5B9000E2B75 /* ding.wav */,
-				8E994FC9204EFFEB0092B338 /* Libs */,
 				8E58B44020446AE40022704B /* LocalManager */,
 				8E58B43D20446AE40022704B /* RemoteManager */,
 				8EDEB6FA203DE38F00E8D48D /* Fonts */,
 				8EDEB702203DE38F00E8D48D /* Utils */,
+				8E0A51C1207E45DD006BDDC6 /* Analytics */,
+				8E0A51BB207E4449006BDDC6 /* Modacity-Bridging-Header.h */,
 			);
 			path = Supporting;
 			sourceTree = "<group>";
@@ -569,6 +572,16 @@
 				8EDEB6EF203DD3B900E8D48D /* SigninViewController.swift */,
 			);
 			path = Welcome;
+			sourceTree = "<group>";
+		};
+		8EF559C5207E89A8006728E4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8EF559C8207E89FA006728E4 /* FloatRatingView.swift */,
+				8EF559C6207E89D3006728E4 /* ViewDroneFrame.swift */,
+				8EF559CA207E8A35006728E4 /* DropdownMenuView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -648,6 +661,7 @@
 				TargetAttributes = {
 					8E4551DA20030F7F002061AE = {
 						CreatedOnToolsVersion = 9.0;
+						LastSwiftMigration = 0930;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -929,7 +943,6 @@
 				8EDEB6F0203DD3B900E8D48D /* SigninViewController.swift in Sources */,
 				8E15F2BB207259C900CC1D9B /* MetroDroneAudio.swift in Sources */,
 				8E58B43520445BC20022704B /* FeedbackSentViewController.swift in Sources */,
-				8E6B120B200651A40071FC75 /* ViewDroneFrame.swift in Sources */,
 				8E64B7AA2056A09F00900775 /* Recording.swift in Sources */,
 				8EA33BA320052A4A00539A3F /* PlaylistViewController.swift in Sources */,
 				8EDEB718203DFAC200E8D48D /* SideMenuController.swift in Sources */,
@@ -945,6 +958,7 @@
 				8EDEB70C203DE38F00E8D48D /* AppConfig.swift in Sources */,
 				8EB479BB20458B7C00BE6461 /* AboutViewController.swift in Sources */,
 				8E58B44520446AE40022704B /* AppOveralDataManager.swift in Sources */,
+				8EF559CB207E8A35006728E4 /* DropdownMenuView.swift in Sources */,
 				101342632059020300A9734B /* TapTempo.swift in Sources */,
 				8E9DF9052057CF47003F5FE8 /* Improvement.swift in Sources */,
 				8E58B439204468100022704B /* ProfileViewModel.swift in Sources */,
@@ -955,10 +969,10 @@
 				8EDA6194204827DE006D3208 /* PracticeItem.swift in Sources */,
 				8E3596202049A61C00F2E6DF /* PlaylistDetailsViewModel.swift in Sources */,
 				8E64B7A82056332300900775 /* HomeViewModel.swift in Sources */,
-				10F352BF2063546C006132DB /* AmplitudeTracking.swift in Sources */,
 				8EDEB6EE203DCD2200E8D48D /* CreateAccountViewController.swift in Sources */,
 				8ED6218B207B09A900593EF2 /* PlaylistRemoteManager.swift in Sources */,
 				8EB81FCB2063D33E00EADDA5 /* SetReminderViewController.swift in Sources */,
+				8E0A51C5207E4663006BDDC6 /* ModacityAnalytics.swift in Sources */,
 				8E455D112045A84F003FDB80 /* PlaylistDetailsViewController.swift in Sources */,
 				8E4551DF20030F7F002061AE /* AppDelegate.swift in Sources */,
 				8E58B44620446AE40022704B /* MyProfileLocalManager.swift in Sources */,
@@ -973,6 +987,7 @@
 				8E58B44320446AE40022704B /* Authorizer.swift in Sources */,
 				8E99A067204072E900A9A9B8 /* MetrodoneViewController.swift in Sources */,
 				1013425D2058E5FD00A9734B /* ModacityAudioEngine.swift in Sources */,
+				8EF559C7207E89D3006728E4 /* ViewDroneFrame.swift in Sources */,
 				8E84CA692057858400D2D1CB /* ImprovementViewController.swift in Sources */,
 				8EDA6196204828F1006D3208 /* PracticeItemLocalManager.swift in Sources */,
 				8E84CA6520577E7600D2D1CB /* ImproveHypothesisViewController.swift in Sources */,
@@ -985,7 +1000,7 @@
 				8EA9E7CD20429F140019EFA5 /* FeedbackRootViewController.swift in Sources */,
 				8ED83FC220031EF400052256 /* SplashViewController.swift in Sources */,
 				8E15F2BD2072759200CC1D9B /* MetrodronePlayer.swift in Sources */,
-				8E994FCB204EFFEC0092B338 /* FloatRatingView.swift in Sources */,
+				8EF559C9207E89FA006728E4 /* FloatRatingView.swift in Sources */,
 				8E58B43C204469E20022704B /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1153,6 +1168,7 @@
 			baseConfigurationReference = 64FC86E6BC6EB03A27EBFF9B /* Pods-Modacity.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -1164,6 +1180,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Modacity/Supporting/Modacity-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1174,6 +1192,7 @@
 			baseConfigurationReference = 3798BA6D596582574229E4BD /* Pods-Modacity.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -1185,6 +1204,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Modacity/Supporting/Modacity-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

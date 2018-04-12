@@ -1,15 +1,17 @@
 //
-//  AmplitudeTracking.swift
+//  ModacityAnalytics.swift
 //  Modacity
 //
-//  Created by Marc Gelfo on 3/21/18.
+//  Created by Perfect Engineer on 4/11/18.
 //  Copyright © 2018 crossover. All rights reserved.
 //
 
-import Foundation
+import UIKit
+import Firebase
+import FBSDKCoreKit
 import Amplitude_iOS
 
-enum ModacityEvent:String {
+public enum ModacityEvent:String {
     case Launch = "Launched App"
     case Terminate = "Terminated App"
     case ResumeActive = "Resumed Active State"
@@ -30,22 +32,21 @@ enum ModacityEvent:String {
     case RecordStop = "Stopped Recording"
 }
 
-
-
-class AmplitudeTracker {
+class ModacityAnalytics: NSObject {
     
     static func LogEvent(_ event: ModacityEvent) {
-        AmplitudeTracker.LogEvent(event, extraParamName: nil, extraParamValue: nil)
+        ModacityAnalytics.LogEvent(event, extraParamName: nil, extraParamValue: nil)
     }
     
     static func LogEvent(_ event: ModacityEvent, extraParamName: String?, extraParamValue: AnyHashable?) {
-        
-        if (extraParamName != nil) {
-            Amplitude.instance().logEvent(event.rawValue, withEventProperties: [extraParamName!: extraParamValue!])
-        }
-        else {
+        if let paramName = extraParamName {
+            Analytics.logEvent(event.rawValue, parameters: [paramName: extraParamValue!])
+            FBSDKAppEvents.logEvent(event.rawValue, parameters: [paramName: extraParamValue!])
+            Amplitude.instance().logEvent(event.rawValue, withEventProperties: [paramName: extraParamValue!])
+        } else {
+            Analytics.logEvent(event.rawValue, parameters: nil)
+            FBSDKAppEvents.logEvent(event.rawValue)
             Amplitude.instance().logEvent(event.rawValue)
         }
-        
     }
 }

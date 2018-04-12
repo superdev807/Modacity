@@ -111,7 +111,7 @@ class PracticeViewController: UIViewController {
         self.initializeTipPromptPanel()
         self.initializeTimer()
         
-        AmplitudeTracker.LogEvent(.StartPracticeItem, extraParamName: "ItemName", extraParamValue: self.labelPracticeItemName.text)
+        ModacityAnalytics.LogEvent(.StartPracticeItem, extraParamName: "ItemName", extraParamValue: self.labelPracticeItemName.text)
     }
     
     func processFavoriteIconImage() {
@@ -294,7 +294,7 @@ extension PracticeViewController {
     }
     
     func startMetrodrone() {
-        AmplitudeTracker.LogEvent(.MetrodroneDrawerOpen)
+        ModacityAnalytics.LogEvent(.MetrodroneDrawerOpen)
         if !self.viewPromptPanel.isHidden {
             self.onCloseAlertPanel(self.view)
         }
@@ -327,7 +327,7 @@ extension PracticeViewController {
     func endMetrodrone() {
         if self.metrodronePlayerShown {
             
-            AmplitudeTracker.LogEvent(.MetrodroneDrawerClose)
+            ModacityAnalytics.LogEvent(.MetrodroneDrawerClose)
             if self.subdivisionPanelShown {
                 self.onSubdivision(self.view)
             }
@@ -398,7 +398,7 @@ extension PracticeViewController {
     
     @IBAction func onEnd(_ sender: Any) {
         
-        AmplitudeTracker.LogEvent(.FinishPracticeItem)
+        ModacityAnalytics.LogEvent(.FinishPracticeItem)
         
         if self.recorder != nil && self.recorder.isRecording {
             AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Please stop recording before leaving the page.")
@@ -439,7 +439,7 @@ extension PracticeViewController {
     }
     
     @IBAction func onImprove(_ sender: Any) {
-        AmplitudeTracker.LogEvent(.PressedImprove)
+        ModacityAnalytics.LogEvent(.PressedImprove)
         if self.recorder != nil && self.recorder.isRecording {
             AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Please stop recording before leaving the page.")
             return
@@ -452,7 +452,7 @@ extension PracticeViewController {
     }
     
     @IBAction func onAskExpert(_ sender: Any) {
-        AmplitudeTracker.LogEvent(.PressedAsk)
+        ModacityAnalytics.LogEvent(.PressedAsk)
         if self.recorder != nil && self.recorder.isRecording {
             AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Please stop recording before leaving the page.")
             return
@@ -467,7 +467,7 @@ extension PracticeViewController {
     }
     
     @IBAction func onFeedback(_ sender: Any) {
-        AmplitudeTracker.LogEvent(.PressedFeedback)
+        ModacityAnalytics.LogEvent(.PressedFeedback)
         if self.recorder != nil && self.recorder.isRecording {
             AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Please stop recording before leaving the page.")
             return
@@ -674,7 +674,7 @@ extension PracticeViewController {
     }
     
     func startRecording() {
-        AmplitudeTracker.LogEvent(.RecordStart)
+        ModacityAnalytics.LogEvent(.RecordStart)
         let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
         let soundFilePath = dirPath[0] + "/recording.wav"
         let url = URL(fileURLWithPath: soundFilePath)
@@ -713,7 +713,7 @@ extension PracticeViewController {
     }
     
     func stopRecording() {
-        AmplitudeTracker.LogEvent(.RecordStop)
+        ModacityAnalytics.LogEvent(.RecordStop)
         recorder.stop()
     }
 }

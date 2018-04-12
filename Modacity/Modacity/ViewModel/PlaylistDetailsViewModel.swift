@@ -12,10 +12,10 @@ class PlaylistDetailsViewModel: ViewModel {
     
     var playlist = Playlist()
     
-    var playlistName = "My Playlist" {
+    var playlistName = "" {
         didSet {
             self.playlist.name = playlistName
-            self.storePlaylist()
+            self.createAndStorePlaylist()
             if let callback = self.callBacks["playlistName"] {
                 callback(.simpleChange, oldValue, playlistName)
             }
@@ -133,16 +133,22 @@ class PlaylistDetailsViewModel: ViewModel {
         
         self.playlist.playlistPracticeEntries = self.playlistPracticeEntries
         
-        if self.playlist.createdAt == "" {
-            self.playlist.createdAt = "\(Date().timeIntervalSince1970)"
+        self.createAndStorePlaylist()
+    }
+    
+    func createAndStorePlaylist() {
+        if self.playlist.name != "" && self.playlist.playlistPracticeEntries != nil && self.playlist.playlistPracticeEntries.count > 0 {
+            
+            if self.playlist.createdAt == "" {
+                self.playlist.createdAt = "\(Date().timeIntervalSince1970)"
+            }
+            
+            if self.playlist.id == "" {
+                self.playlist.id = UUID().uuidString
+                PlaylistRemoteManager.manager.add(item: self.playlist)
+            }
+            self.storePlaylist()
         }
-        
-        if self.playlist.id == "" {
-            self.playlist.id = UUID().uuidString
-            PlaylistRemoteManager.manager.add(item: self.playlist)
-        }
-        
-        self.storePlaylist()
     }
     
     func isFavoritePracticeItem(forItemId: String) -> Bool {

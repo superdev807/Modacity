@@ -19,8 +19,10 @@ class SplashViewController: UIViewController {
             self.openTutorial()
         } else {
             if Authorizer.authorizer.isAuthorized() {
-                MyProfileRemoteManager.manager.configureMyProfileListener()
                 self.openHome()
+                DispatchQueue.global(qos: .background).async {
+                    MyProfileRemoteManager.manager.configureMyProfileListener()
+                }
             } else {
                 self.openLogin()
             }

@@ -1,5 +1,5 @@
 //
-//  PlaylistDeliverModel.swift
+//  PlaylistAndPracticeDeliverModel.swift
 //  Modacity
 //
 //  Created by Perfect Engineer on 3/13/18.
@@ -8,8 +8,9 @@
 
 import UIKit
 
-class PlaylistDeliverModel: ViewModel {
+class PlaylistAndPracticeDeliverModel: ViewModel {
     
     var deliverPlaylist: Playlist!
     
+    var deliverPracticeItem: PracticeItem!
 }

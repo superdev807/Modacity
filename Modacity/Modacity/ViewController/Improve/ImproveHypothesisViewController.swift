@@ -44,7 +44,7 @@ class ImproveHypothesisViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "sid_next" {
             
-            AmplitudeTracker.LogEvent(.HypothesisChosen, extraParamName: "Hypothesis", extraParamValue: self.viewModel.selectedHypothesis)
+            ModacityAnalytics.LogEvent(.HypothesisChosen, extraParamName: "Hypothesis", extraParamValue: self.viewModel.selectedHypothesis)
             
             let controller = segue.destination as! ImprovementViewController
             controller.viewModel = self.viewModel

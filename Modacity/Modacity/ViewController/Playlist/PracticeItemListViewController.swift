@@ -8,17 +8,27 @@
 
 import UIKit
 
+protocol PracticeItemCellDelegate {
+    func onCellMenu(menuButton: UIButton, indexPath: IndexPath)
+}
+
 class PracticeItemCell: UITableViewCell {
     
     @IBOutlet weak var labelPracticeItemName: UILabel!
     @IBOutlet weak var imageViewIcon: UIImageView!
     @IBOutlet weak var textfieldInputPracticeItemName: UITextField!
     @IBOutlet weak var ratingView: FloatRatingView!
+    @IBOutlet weak var buttonMenu: UIButton!
+    
+    var delegate: PracticeItemCellDelegate? = nil
+    
+    var indexPath: IndexPath!
     
     func configure(with item: PracticeItem,
                    rate: Double,
                    keyword: String,
-                   isSelected:Bool) {
+                   isSelected:Bool,
+                   indexPath: IndexPath) {
         
         if keyword == "" {
             self.labelPracticeItemName.attributedText = nil
@@ -47,10 +57,18 @@ class PracticeItemCell: UITableViewCell {
         } else {
             self.ratingView.isHidden = true
         }
+        
+        self.indexPath = indexPath
     }
     
     @IBAction func onEditingChangedOnPracticeItemNameField(_ sender: Any) {
         self.labelPracticeItemName.text = self.textfieldInputPracticeItemName.text
+    }
+    
+    @IBAction func onCellMenu(_ sender: Any) {
+        if self.delegate != nil {
+            self.delegate!.onCellMenu(menuButton: self.buttonMenu, indexPath: self.indexPath)
+        }
     }
     
 }
@@ -272,7 +290,9 @@ extension PracticeItemListViewController: UITableViewDelegate, UITableViewDataSo
         cell.configure(with: item,
                        rate: self.viewModel.ratingValue(forPracticeItem: item) ?? 0,
                        keyword: self.textfieldSearch.text ?? "",
-                       isSelected: self.viewModel.isSelected(for: item))
+                       isSelected: self.viewModel.isSelected(for: item),
+                       indexPath: indexPath)
+        cell.delegate = self
         return cell
     }
     
@@ -285,22 +305,24 @@ extension PracticeItemListViewController: UITableViewDelegate, UITableViewDataSo
         self.viewModel.selectItem(for: self.viewModel.sectionResult(section: indexPath.section, row: indexPath.row))
     }
     
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        if self.practiceItemNameEditingCell == nil {
-            return true
-        } else {
-            return false
+}
+
+extension PracticeItemListViewController: PracticeItemCellDelegate {
+    
+    func onCellMenu(menuButton: UIButton, indexPath: IndexPath) {
+        
+        DropdownMenuView.instance.show(in: self.view,
+                                       on: menuButton,
+                                       rows: [["icon":"icon_pen_white", "text":"Edit"],
+                                              ["icon":"icon_row_delete", "text":"Delete"]]) { (row) in
+                                                
+                                                self.processAction(row, indexPath)
         }
+        
     }
     
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        
-        let delete = UITableViewRowAction(style: .destructive, title: "") { (action, indexPath) in
-            self.viewModel.removePracticeItem(for: self.viewModel.sectionResult(section: indexPath.section, row: indexPath.row))
-            self.parentViewModel.checkPlaylistForPracticeItemRemoved()
-        }
-        delete.setIcon(iconImage: UIImage(named:"icon_row_delete")!, backColor: Color(hexString: "#6815CE"), cellHeight: 64, iconSizePercentage: 0.25)
-        let edit = UITableViewRowAction(style: .default, title: "") { (action, indexPath) in
+    func processAction(_ row: Int, _ indexPath: IndexPath) {
+        if row == 0 {
             if let cell = self.tableViewMain.cellForRow(at: indexPath) as? PracticeItemCell {
                 self.practiceItemNameEditingCell = cell
                 self.editingSection = indexPath.section
@@ -309,9 +331,9 @@ extension PracticeItemListViewController: UITableViewDelegate, UITableViewDataSo
                 cell.labelPracticeItemName.isHidden = true
                 cell.textfieldInputPracticeItemName.becomeFirstResponder()
             }
+        } else if row == 1 {
+            self.viewModel.removePracticeItem(for: self.viewModel.sectionResult(section: indexPath.section, row: indexPath.row))
+            self.parentViewModel.checkPlaylistForPracticeItemRemoved()
         }
-        edit.setIcon(iconImage: UIImage(named:"icon_pen_white")!, backColor: Color(hexString: "#2E64E5"), cellHeight: 64, iconSizePercentage: 0.25)
-        
-        return [delete, edit]        
     }
 }
