@@ -77,6 +77,7 @@ class SettingsViewController: UIViewController {
             self.constraintForHeaderImageViewHeight.constant = 88
         }
         NotificationCenter.default.addObserver(self, selector: #selector(refresh), name: AppConfig.appNotificationProfileUpdated, object: nil)
+         ModacityAnalytics.LogStringEvent("Loaded Settings Screen")
     }
     
     deinit {

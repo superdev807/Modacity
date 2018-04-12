@@ -37,6 +37,7 @@ class PlaylistPracticeDurationKeyboardViewController: UIViewController {
     @IBAction func onDone(_ sender: Any) {
         let seconds = self.calculateSeconds()
         self.viewModel.editingRow = -1
+        ModacityAnalytics.LogStringEvent("Set Item Timer", extraParamName: "duration", extraParamValue: seconds)
         self.viewModel.changeCountDownDuration(for: self.viewModel.clockEditingPracticeItemId, duration: seconds)
         self.dismiss(animated: true, completion: nil)
     }

@@ -246,24 +246,32 @@ class TabBarViewController: UITabBarController {
     }
     
     @objc func onTabHome() {
+        ModacityAnalytics.LogStringEvent("Pressed Home Tab")
         self.selectedIndex = 0
         self.processButtonsSelection()
     }
     
     @objc func onTabPlaylist() {
+        ModacityAnalytics.LogStringEvent("Pressed Playlist Tab")
         self.selectedIndex = 1
         self.processButtonsSelection()
     }
     
     @objc func onTabRecord() {
         self.selectedIndex = 2
+        ModacityAnalytics.LogStringEvent("Pressed Recording Tab")
         self.processButtonsSelection()
     }
 
     @objc func onNewPlaylist() {
         let playlistCreateNew = UIStoryboard(name:"playlist", bundle: nil).instantiateViewController(withIdentifier: "playlist_control_scene")
 //        let practiceScene = UIStoryboard(name: "practice", bundle: nil).instantiateViewController(withIdentifier: "PracticeScene")
+//<<<<<<< HEAD
         ModacityAnalytics.LogEvent(.NewPlaylist)
+//=======
+//
+//        ModacityAnalytics.LogEvent(.NewPlaylist)
+//>>>>>>> 26ebd2c8fe63718fa635d1c64195f90ec132b1dd
         self.present(playlistCreateNew, animated: true, completion: nil)
     }
 

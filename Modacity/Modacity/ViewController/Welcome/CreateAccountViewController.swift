@@ -88,23 +88,29 @@ class CreateAccountViewController: UIViewController {
 extension CreateAccountViewController {     // actions
     
     @IBAction func onCreateAccount(_ sender: Any) {
+        
+        ModacityAnalytics.LogStringEvent("Pressed Create Account w/ Email")
         if self.processInputValidation() {
             self.view.endEditing(true)
             self.viewModel.createAccount(email: self.textfieldEmailAddress.text ?? "", password: self.textfieldPassword.text ?? "")
+            ModacityAnalytics.LogStringEvent("Created Account for \(self.textfieldEmailAddress.text ?? "error-unspecified")")
         }
     }
     
     @IBAction func onFacebook(_ sender: Any) {
         self.view.endEditing(true)
+        ModacityAnalytics.LogStringEvent("Pressed Facebook Login")
         self.viewModel.fbLogin(controller: self)
     }
     
     @IBAction func onGoogle(_ sender: Any) {
         self.view.endEditing(true)
+        ModacityAnalytics.LogStringEvent("Pressed Google Login")
         self.viewModel.googleLogin()
     }
     
     @IBAction func onSignin(_ sender: Any) {
+        ModacityAnalytics.LogStringEvent("Pressed 'Sign In for Existing Account'")
         self.performSegue(withIdentifier: "sid_signin", sender: nil)
     }
     

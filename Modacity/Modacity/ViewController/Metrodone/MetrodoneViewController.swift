@@ -41,7 +41,7 @@ class MetrodoneViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
+        ModacityAnalytics.LogStringEvent("Loaded Standalone Metrodrone")
         metrodonePlayer.initializeOutlets(lblTempo: labelTempo,
                                           droneFrame: viewDroneFrame,
                                           playButton: buttonPlay,

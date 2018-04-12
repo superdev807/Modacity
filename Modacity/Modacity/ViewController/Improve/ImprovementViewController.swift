@@ -157,7 +157,7 @@ class ImprovementViewController: UIViewController {
             AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Please stop recording before leaving the page.")
             return
         }
-        
+         ModacityAnalytics.LogStringEvent("Exited Hypothesis Test Screen")
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -597,21 +597,26 @@ extension ImprovementViewController {
     }
     
     @IBAction func onImprovedNo(_ sender: Any) {
+        ModacityAnalytics.LogStringEvent("Hypothesis Didn't Work")
         self.viewModel.alreadyTried = true
         self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func onImprovedYes(_ sender: Any) {
+       ModacityAnalytics.LogStringEvent("Hypothesis Worked")
         self.playlistViewModel.addNewImprovement(self.viewModel.generateImprovement(with: self.playlistViewModel.playlist, practice: self.playlistViewModel.currentPracticeEntry))
+        
         self.viewImprovedAlert.isHidden = true
         self.viewImprovedYesPanel.isHidden = false
     }
     
     @IBAction func onImprovedNext(_ sender: Any) {
+        ModacityAnalytics.LogStringEvent("Don't Practice Hypothesis Again")
         self.navigationController?.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func onImproveAgain(_ sender: Any) {
+        ModacityAnalytics.LogStringEvent("Practice Same Hypothesis Again")
         self.viewModel.alreadyTried = true
         self.navigationController?.popViewController(animated: true)
     }

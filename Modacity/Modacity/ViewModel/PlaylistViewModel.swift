@@ -55,7 +55,9 @@ class PlaylistViewModel: ViewModel {
         let playlist = self.playlists[row]
         PlaylistLocalManager.manager.deletePlaylist(playlist)
         PlaylistRemoteManager.manager.removePlaylist(for: playlist.id)
+        ModacityAnalytics.LogStringEvent("Deleted Playlist", extraParamName: "name", extraParamValue: playlist.name)
         self.playlists.remove(at: row)
+        
         PlaylistLocalManager.manager.storePlaylists(self.playlists)
     }
     

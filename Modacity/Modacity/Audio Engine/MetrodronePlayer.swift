@@ -104,11 +104,13 @@ class MetrodronePlayer: DroneFrameDelegate {
     
     func changeDuration(newValue: Float) {
         durationRatio = newValue
+        ModacityAnalytics.LogStringEvent("Changed Metrodrone Duration", extraParamName: "duration", extraParamValue: newValue)
         goMetronome()
     }
     
     func toggleSustain() -> Bool {
         sustain = !sustain
+        ModacityAnalytics.LogStringEvent("Toggled Sustain")
         if (!isMetrodronePlaying) {
             if (sustain) {
                 updateMetrodroneNote()
@@ -124,6 +126,8 @@ class MetrodronePlayer: DroneFrameDelegate {
     }
     
     func setSubdivision(_ divisions:Int) {
+        ModacityAnalytics.LogStringEvent("Set subdivision", extraParamName: "subdivision", extraParamValue: divisions)
+        
         if (self.subdivisions != divisions) {
             self.subdivisions = divisions
             goMetronome()

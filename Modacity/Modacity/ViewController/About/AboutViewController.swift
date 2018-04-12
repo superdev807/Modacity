@@ -18,6 +18,7 @@ class AboutViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+         ModacityAnalytics.LogStringEvent("Loaded About Screen")
         // Do any additional setup after loading the view.
         if AppUtils.iphoneIsXModel() {
             self.constraintForHeaderImageViewHeight.constant = 108

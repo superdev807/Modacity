@@ -88,7 +88,7 @@ class PlaylistDetailsViewController: UIViewController {
     }
 
     @IBAction func onBack(_ sender: Any) {
-        
+        ModacityAnalytics.LogStringEvent("Playlist Back Button", extraParamName: "duringSession", extraParamValue: self.isPlaying)
         if self.isPlaying {
             
             let alertController = UIAlertController(title: nil, message: "This will end your practice session. Are you sure to close the page?", preferredStyle: .alert)
@@ -254,10 +254,14 @@ class PlaylistDetailsViewController: UIViewController {
     @IBAction func onStart(_ sender: Any) {
         
         if !self.isPlaying {
+            ModacityAnalytics.LogStringEvent("Pressed Start Practice")
             self.startPractice(withItem: 0)
         } else {
+            
             self.playlistPracticeTotalTimeInSec = self.viewModel.totalPracticedTime()
             self.viewModel.addPracticeTotalTime(inSec: self.playlistPracticeTotalTimeInSec)
+            
+            ModacityAnalytics.LogStringEvent("Pressed Finish Practice", extraParamName: "Practice Time", extraParamValue: self.playlistPracticeTotalTimeInSec)
             
             if let sessionTimer = self.sessionTimer {
                 sessionTimer.invalidate()

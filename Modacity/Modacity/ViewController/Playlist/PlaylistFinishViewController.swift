@@ -21,6 +21,7 @@ class PlaylistFinishViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.labelPlaylistName.text = self.playlistDetailsViewModel.playlistName
+        ModacityAnalytics.LogStringEvent("Congratulations Screen", extraParamName: "total seconds", extraParamValue:self.playlistDetailsViewModel.sessionDurationInSecond)
         
         if let sessionDuration = self.playlistDetailsViewModel.sessionDurationInSecond {
             if sessionDuration < 60 {
@@ -43,14 +44,16 @@ class PlaylistFinishViewController: UIViewController {
     }
     
     @IBAction func onBack(_ sender: Any) {
+        ModacityAnalytics.LogStringEvent("Congrats Screen Back Button")
         self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func onRemindMe(_ sender: Any) {
-        
+        ModacityAnalytics.LogStringEvent("Congrats Screen Reminder Button")
     }
     
     @IBAction func onSkip(_ sender: Any) {
         self.navigationController?.dismiss(animated: true, completion: nil)
+        ModacityAnalytics.LogStringEvent("Congrats Screen Skip Button")
     }
 }
