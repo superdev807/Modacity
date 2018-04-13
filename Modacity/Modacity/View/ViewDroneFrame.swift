@@ -14,6 +14,8 @@ protocol MetrodroneUIDelegate : class {
     func setSelectedNote(_ noteName: String)
 }
 
+ enum TouchDownMode { case Select, Deselect }
+ 
 class ViewDroneFrame: UIView, MetrodroneUIDelegate {
 
     var size = CGSize.zero
@@ -25,7 +27,9 @@ class ViewDroneFrame: UIView, MetrodroneUIDelegate {
     let offsetBetweenCenter = CGFloat(4)
     
     var selectedDronFrameIdx = -1
-    var currentTouchedIdx = -1
+    var touchMode: TouchDownMode = .Select
+    var touchStartIndex: Int = -1
+    
     var delegate: DroneFrameDelegate?
     
     var niceImage: UIImage {
@@ -152,28 +156,43 @@ class ViewDroneFrame: UIView, MetrodroneUIDelegate {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-       let changed = updateDroneIndex(forEvent: event!)
-       
-        if (delegate != nil) {
-            print("Touches now at \(selectedDronFrameIdx)")
-            if (changed) { delegate?.selectedIndexChanged(newIndex: selectedDronFrameIdx) }
-            delegate?.toneWheelNoteDown()
+       let touchedIndex = detectDroneIndex(forEvent: event!)
+        print("Touch down at \(touchedIndex)")
+        touchStartIndex = touchedIndex
+        
+        if ((delegate != nil) && (touchedIndex >= 0)) {
+            touchMode = (touchedIndex == self.selectedDronFrameIdx) ? .Deselect : .Select
+            
+            delegate?.toneWheelNoteDown(noteIndex: touchedIndex, currMode: touchMode)
         }
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let changed = updateDroneIndex(forEvent: event!)
-        print("Touches now at \(selectedDronFrameIdx)")
-        if (delegate != nil) {
-            if (changed) {
-                delegate?.selectedIndexChanged(newIndex: selectedDronFrameIdx)
+        let touchedIndex = detectDroneIndex(forEvent: event!)
+        print("Touch moved at \(touchedIndex)")
+        
+        if (touchedIndex == self.selectedDronFrameIdx) { return } // not really a move
+/*        if (touchStartIndex < 0) {
+            return
+        }
+         asdasdas DELETE THIS AND THE MEMBER VAR?
+  */
+        if (touchedIndex < 0) {
+            touchesEnded(touches, with: event)
+        } else {
+            if ((delegate != nil) && (touchMode == .Select)) {
+                delegate?.toneWheelNoteDown(noteIndex: touchedIndex, currMode: touchMode)
             }
         }
+        
+        
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        print("Touches now at \(selectedDronFrameIdx)")
-        if (delegate != nil) {
+        print("Touches up at \(selectedDronFrameIdx)")
+        //let touchedIndex = detectDroneIndex(forEvent: event!)
+        
+        if ((delegate != nil) && (touchMode == .Select))  {
             delegate?.toneWheelNoteUp()
         }
     }
@@ -201,10 +220,8 @@ class ViewDroneFrame: UIView, MetrodroneUIDelegate {
         setSelectedIndex(index)
     }
     
-    //func detectDroneIndex(forEvent: UIEvent) -> Int {
-    func updateDroneIndex(forEvent: UIEvent) -> Bool {
+    func detectDroneIndex(forEvent: UIEvent) -> Int {
         var returnIndex = -1
-        var changed: Bool = false
         
         if let touch = forEvent.allTouches?.first {
             let touchPoint = touch.location(in: self)
@@ -236,15 +253,11 @@ class ViewDroneFrame: UIView, MetrodroneUIDelegate {
             else {
                 // no selected drone
                 returnIndex = -1
-                //return false
             }
         }
-        changed = (returnIndex != self.selectedDronFrameIdx)
         
-        self.selectedDronFrameIdx = returnIndex
         
-        if (changed) { setNeedsDisplay() }
-        return changed
+        return returnIndex
     }
 
 }

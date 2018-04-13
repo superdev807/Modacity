@@ -14,7 +14,7 @@ class MetroDroneAudio {
     private var audioFileMainClick:AVAudioFile
     private var audioFileSubClick:AVAudioFile
     
-    var clickOnly: Bool = true
+    //var clickOnly: Bool = true
     
     var decay: Float = 0.5
     
@@ -221,27 +221,34 @@ class MetroDroneAudio {
          let frameCount: AVAudioFrameCount = AVAudioFrameCount(audioFile.length)
          player.prepareWithFrameCount(frameCount)
          */
+        
+       // let startTime: AVAudioTime = dronePlayerNode.lastRenderTime!
+        
         let bufferClick = generateSubdividedClick(bpm: bpm, subdivisions: subdivision, droneRatio: ratio)
-        if (!clickOnly) {
-            let bufferDrone = generateSubdividedDrone(bpm: bpm, subdivisions: subdivision, droneRatio: ratio)
-            
-            if dronePlayerNode.isPlaying {
-                dronePlayerNode.scheduleBuffer(bufferDrone, at: nil, options: .interruptsAtLoop, completionHandler: nil)
-            } else {
-                self.dronePlayerNode.play()
-            }
-            
-            self.dronePlayerNode.scheduleBuffer(bufferDrone, at: nil, options: .loops, completionHandler: nil)
+
+        
+        let bufferDrone = generateSubdividedDrone(bpm: bpm, subdivisions: subdivision, droneRatio: ratio)
+        
+        if dronePlayerNode.isPlaying {
+            dronePlayerNode.scheduleBuffer(bufferDrone, at: nil, options: .interruptsAtLoop, completionHandler: nil)
+        } else {
+            self.dronePlayerNode.play()
         }
         
+    
+        
+        
         if clickPlayerNode.isPlaying {
+            //clickPlayerNode.stop()
             clickPlayerNode.scheduleBuffer(bufferClick, at: nil, options: .interruptsAtLoop, completionHandler: nil)
         } else {
             self.clickPlayerNode.play()
         }
         
         self.clickPlayerNode.scheduleBuffer(bufferClick, at: nil, options: .loops, completionHandler: nil)
-        
+
+        self.dronePlayerNode.scheduleBuffer(bufferDrone, at: nil, options: .loops, completionHandler: nil)
+
     }
     
     func stop() {

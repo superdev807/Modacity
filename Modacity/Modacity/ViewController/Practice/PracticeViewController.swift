@@ -355,7 +355,7 @@ extension PracticeViewController {
     @IBAction func onBtnPlay(_ sender: Any) {
         if let mPlayer = self.metrodonePlayer {
             if (!mPlayer.isMetrodronePlaying) {
-                mPlayer.goMetronome()
+                mPlayer.startMetronome()
             } else {
                 mPlayer.stopMetrodrone()
             }

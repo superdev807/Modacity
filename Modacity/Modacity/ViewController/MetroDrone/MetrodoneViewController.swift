@@ -106,7 +106,7 @@ class MetrodoneViewController: UIViewController {
     
     @IBAction func onBtnPlay(_ sender: Any) {
         if (!self.metrodonePlayer.isMetrodronePlaying) {
-            self.metrodonePlayer.goMetronome()
+            self.metrodonePlayer.startMetronome()
         } else {
             self.metrodonePlayer.stopMetrodrone()
         }
