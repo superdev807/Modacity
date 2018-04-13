@@ -77,6 +77,7 @@ class PlaylistDetailsViewController: UIViewController {
         self.tableViewMain.allowsSelectionDuringEditing = true
         
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressGestureRecognized))
+        longPressGesture.minimumPressDuration = 0.48
         self.tableViewMain.addGestureRecognizer(longPressGesture)
         
         self.buttonStartPlaylist.isEnabled = false

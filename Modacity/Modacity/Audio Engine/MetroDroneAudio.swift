@@ -9,11 +9,13 @@ import AVFoundation
 class MetroDroneAudio {
     
     private var audioPlayerNode:AVAudioPlayerNode
+    private var audioFileDrone:AVAudioFile?
     private var audioFileMainClick:AVAudioFile
     private var audioFileSubClick:AVAudioFile
     var decay: Float = 0.5
     
     init (mainClickFile: URL, subClickFile: URL? = nil) {
+        
         audioFileMainClick = try! AVAudioFile(forReading: mainClickFile)
         audioFileSubClick = try! AVAudioFile(forReading: subClickFile ?? mainClickFile)
         audioPlayerNode = AVAudioPlayerNode()

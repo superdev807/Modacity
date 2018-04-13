@@ -297,7 +297,8 @@ class MetrodronePlayer: DroneFrameDelegate {
     
     func updateMetrodroneNote() {
         updateCurrNote(UIDelegate!.getSelectedIndex())
-        var fileMain = "monodrone_" + currNote
+        let octave = 3
+        var fileMain = "440-" + currNote + String(octave)
         var fileSub = fileMain
         
         if (currNote == "X") {
@@ -320,7 +321,7 @@ class MetrodronePlayer: DroneFrameDelegate {
     
     
     func waveformURL(wavename: String) -> URL? {
-        return Bundle.main.url(forResource: wavename, withExtension: "wav", subdirectory: "waveforms")
+        return Bundle.main.url(forResource: wavename, withExtension: "m4a", subdirectory: "_Comp")
     }
     
     /*func audioSessionOutputSetting() {

@@ -10,6 +10,7 @@
 		1013425D2058E5FD00A9734B /* ModacityAudioEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1013425C2058E5FD00A9734B /* ModacityAudioEngine.swift */; };
 		101342612058EE2700A9734B /* waveforms in Resources */ = {isa = PBXBuildFile; fileRef = 101342602058EE2700A9734B /* waveforms */; };
 		101342632059020300A9734B /* TapTempo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101342622059020300A9734B /* TapTempo.swift */; };
+		1084BAA420811A3500D7F67D /* _Comp in Resources */ = {isa = PBXBuildFile; fileRef = 1084BAA320811A3500D7F67D /* _Comp */; };
 		14A63A48B0FA29B0F7388A3B /* Pods_Modacity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C77FB2C0A58ED4E886E0F33 /* Pods_Modacity.framework */; };
 		8E0A51C5207E4663006BDDC6 /* ModacityAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0A51C4207E4663006BDDC6 /* ModacityAnalytics.swift */; };
 		8E15F2BB207259C900CC1D9B /* MetroDroneAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E15F2BA207259C800CC1D9B /* MetroDroneAudio.swift */; };
@@ -120,6 +121,7 @@
 		1013425C2058E5FD00A9734B /* ModacityAudioEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModacityAudioEngine.swift; sourceTree = "<group>"; };
 		101342602058EE2700A9734B /* waveforms */ = {isa = PBXFileReference; lastKnownFileType = folder; path = waveforms; sourceTree = "<group>"; };
 		101342622059020300A9734B /* TapTempo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapTempo.swift; sourceTree = "<group>"; };
+		1084BAA320811A3500D7F67D /* _Comp */ = {isa = PBXFileReference; lastKnownFileType = folder; path = _Comp; sourceTree = "<group>"; };
 		1C77FB2C0A58ED4E886E0F33 /* Pods_Modacity.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Modacity.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2FF7BD2AC6BB692D2CB30434 /* Pods-ModacityUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ModacityUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ModacityUITests/Pods-ModacityUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		3798BA6D596582574229E4BD /* Pods-Modacity.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Modacity.release.xcconfig"; path = "Pods/Target Support Files/Pods-Modacity/Pods-Modacity.release.xcconfig"; sourceTree = "<group>"; };
@@ -335,6 +337,7 @@
 				8E4551DE20030F7F002061AE /* AppDelegate.swift */,
 				8E4551E220030F7F002061AE /* Main.storyboard */,
 				8E4551E520030F7F002061AE /* Assets.xcassets */,
+				1084BAA320811A3500D7F67D /* _Comp */,
 				101342602058EE2700A9734B /* waveforms */,
 				8E4551E720030F7F002061AE /* LaunchScreen.storyboard */,
 				8EDEB6F5203DE0A400E8D48D /* GoogleService-Info.plist */,
@@ -716,6 +719,7 @@
 				8E99A069204072F900A9A9B8 /* metrodone.storyboard in Resources */,
 				8ED001CD2057671200536122 /* improve.storyboard in Resources */,
 				8EA9E7CB20429EE00019EFA5 /* feedback.storyboard in Resources */,
+				1084BAA420811A3500D7F67D /* _Comp in Resources */,
 				8EDEB71A203DFB9A00E8D48D /* sidemenu.storyboard in Resources */,
 				8ECCAF972056F5B9000E2B75 /* ding.wav in Resources */,
 				8E4551E420030F7F002061AE /* Main.storyboard in Resources */,
@@ -789,7 +793,7 @@
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
