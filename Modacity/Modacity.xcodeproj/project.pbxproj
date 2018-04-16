@@ -618,8 +618,6 @@
 				8E4551EB20030F80002061AE /* Sources */,
 				8E4551EC20030F80002061AE /* Frameworks */,
 				8E4551ED20030F80002061AE /* Resources */,
-				4728BE4DC713FDABD245A170 /* [CP] Embed Pods Frameworks */,
-				75848C17291E22B650BCCE63 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -639,8 +637,6 @@
 				8E4551F620030F80002061AE /* Sources */,
 				8E4551F720030F80002061AE /* Frameworks */,
 				8E4551F820030F80002061AE /* Resources */,
-				5E243A03668784CA1BBFBC23 /* [CP] Embed Pods Frameworks */,
-				7B5AA493B1F8587AFFEBC120 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -752,36 +748,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		4728BE4DC713FDABD245A170 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ModacityTests/Pods-ModacityTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		5E243A03668784CA1BBFBC23 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ModacityUITests/Pods-ModacityUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		7355EF4588F3A844857D035D /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -798,36 +764,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Modacity/Pods-Modacity-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		75848C17291E22B650BCCE63 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ModacityTests/Pods-ModacityTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		7B5AA493B1F8587AFFEBC120 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ModacityUITests/Pods-ModacityUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		82D61CB6A35FC3D0E237C8E8 /* [CP] Check Pods Manifest.lock */ = {
