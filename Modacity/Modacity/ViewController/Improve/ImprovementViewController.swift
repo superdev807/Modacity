@@ -14,6 +14,7 @@ import FDWaveformView
 class ImprovementViewController: UIViewController {
     
     var playlistViewModel: PlaylistDetailsViewModel!
+    var practiceItem: PracticeItem!
     var viewModel: ImprovementViewModel!
     
     @IBOutlet weak var labelPracticeItemName: UILabel!
@@ -75,6 +76,7 @@ class ImprovementViewController: UIViewController {
     var subdivisionPanelShown = false
     
     var panGesture  = UIPanGestureRecognizer()
+    var tapGesture  = UITapGestureRecognizer()
     var metrodroneViewHeight = CGFloat(336)
     let metrodroneViewMinHeight = CGFloat(40)
     var metrodronePlayerShown  = false
@@ -83,7 +85,12 @@ class ImprovementViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        self.labelPracticeItemName.text = self.playlistViewModel.currentPracticeEntry.practiceItem()?.name ?? ""
+        if self.playlistViewModel != nil {
+            self.labelPracticeItemName.text = self.playlistViewModel.currentPracticeEntry.practiceItem()?.name ?? ""
+        } else {
+            self.labelPracticeItemName.text = self.practiceItem.name ?? ""
+        }
+        
         self.labelHypothesis.text = self.viewModel.selectedHypothesis
         self.labelSuggestion.text = self.viewModel.selectedSuggestion
         
@@ -133,7 +140,11 @@ class ImprovementViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "sid_rate" {
             let controller = segue.destination as! PracticeRateViewController
-            controller.playlistViewModel = self.playlistViewModel
+            if self.playlistViewModel != nil {
+                controller.playlistViewModel = self.playlistViewModel
+            } else {
+                controller.practiceItem = self.practiceItem
+            }
         }
     }
     
@@ -174,6 +185,7 @@ extension ImprovementViewController {
         self.configureSubdivisionNoteSelectionGUI()
         self.imageViewMetrodroneViewShowingArrow.image = UIImage(named:"icon_arrow_up")
         self.panGesture = UIPanGestureRecognizer(target: self, action: #selector(draggingDroneView))
+        self.tapGesture = UITapGestureRecognizer(target: self, action: #selector(processDroneViewTap))
         self.viewMaximizedDrone.addGestureRecognizer(panGesture)
     }
     
@@ -259,6 +271,18 @@ extension ImprovementViewController {
             }
         }
         
+    }
+    
+    @objc func processDroneViewTap(gesture : UITapGestureRecognizer) {
+        let touchPoint = gesture.location(in: self.viewMaximizedDrone)
+        
+        if !self.metrodronePlayerShown {
+            self.openDroneView()
+        } else {
+            if touchPoint.y < 50 {
+                self.closeDroneView()
+            }
+        }
     }
     
     func openDroneView() {
@@ -479,16 +503,24 @@ extension ImprovementViewController: AVAudioPlayerDelegate, FDWaveformViewDelega
     @IBAction func onSaveRecord(_ sender: Any) {
         let alertController = UIAlertController(title: nil, message: "Enter the file name!", preferredStyle: .alert)
         alertController.addTextField { (textField) in
-            if var practiceName = self.playlistViewModel.currentPracticeEntry.practiceItem()?.name {
-                practiceName = String(practiceName.prefix(16))
-                let autoIncrementedNumber = self.playlistViewModel.fileNameAutoIncrementedNumber()
-                textField.text = "\(practiceName)_\(Date().toString(format: "yyyyMMdd"))_\(String(format:"%02d", autoIncrementedNumber))"
+            if self.playlistViewModel != nil {
+                if var practiceName = self.playlistViewModel.currentPracticeEntry.practiceItem()?.name {
+                    practiceName = String(practiceName.prefix(16))
+                    let autoIncrementedNumber = AppOveralDataManager.manager.fileNameAutoIncrementedNumber()
+                    textField.text = "\(practiceName)_\(Date().toString(format: "yyyyMMdd"))_\(String(format:"%02d", autoIncrementedNumber))"
+                }
+            } else {
+                if var practiceName = self.practiceItem.name {
+                    practiceName = String(practiceName.prefix(16))
+                    let autoIncrementedNumber = AppOveralDataManager.manager.fileNameAutoIncrementedNumber()
+                    textField.text = "\(practiceName)_\(Date().toString(format: "yyyyMMdd"))_\(String(format:"%02d", autoIncrementedNumber))"
+                }
             }
         }
         alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
             if let name = alertController.textFields?[0].text {
                 if name != "" {
-                    self.playlistViewModel.increaseAutoIncrementedNumber()
+                    AppOveralDataManager.manager.increaseAutoIncrementedNumber()
                     self.playlistViewModel.saveCurrentRecording(toFileName: name)
                 }
             }
@@ -604,8 +636,11 @@ extension ImprovementViewController {
     
     @IBAction func onImprovedYes(_ sender: Any) {
        ModacityAnalytics.LogStringEvent("Hypothesis Worked")
-        self.playlistViewModel.addNewImprovement(self.viewModel.generateImprovement(with: self.playlistViewModel.playlist, practice: self.playlistViewModel.currentPracticeEntry))
-        
+        if self.playlistViewModel != nil {
+            self.playlistViewModel.addNewImprovement(self.viewModel.generateImprovement(with: self.playlistViewModel.playlist, practice: self.playlistViewModel.currentPracticeEntry))
+        } else {
+            AppOveralDataManager.manager.addImprovementsCount()
+        }
         self.viewImprovedAlert.isHidden = true
         self.viewImprovedYesPanel.isHidden = false
     }

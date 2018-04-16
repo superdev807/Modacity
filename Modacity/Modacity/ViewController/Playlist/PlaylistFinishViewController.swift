@@ -31,6 +31,8 @@ class PlaylistFinishViewController: UIViewController {
                 self.labelSessionDuration.text = "\(sessionDuration / 60)"
                 self.labelDurationUnits.text = "MINUTES"
             }
+        } else {
+            self.labelSessionDuration.text = "0"
         }
         
         self.labelSessionImprovements.text = "\(AppOveralDataManager.manager.calculateStreakDays())"

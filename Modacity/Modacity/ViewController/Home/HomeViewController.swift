@@ -236,39 +236,43 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//<<<<<<< HEAD
-        let deliverViewModel = PlaylistAndPracticeDeliverModel()
-//=======
-//        let deliverViewModel = PlaylistDeliverModel()
-//
-//>>>>>>> 26ebd2c8fe63718fa635d1c64195f90ec132b1dd
+        
         if collectionView == self.collectionViewRecentPlaylists {
-            //Recents
+            let deliverViewModel = PlaylistAndPracticeDeliverModel()
             deliverViewModel.deliverPlaylist = self.viewModel.recentPlaylists[indexPath.row]
+            let controller = UIStoryboard(name: "playlist", bundle: nil).instantiateViewController(withIdentifier: "PlaylistDetailsViewController") as! PlaylistDetailsViewController
+            controller.parentViewModel = deliverViewModel
+            let nav = UINavigationController(rootViewController: controller)
+            nav.isNavigationBarHidden = true
+            self.tabBarController?.present(nav, animated: true, completion: nil)
         } else {
-            //Favorites
+            
             let item = self.viewModel.favoriteItems[indexPath.row]
             if (item["type"] as? String ?? "") == "playlist" {
+                
+                let deliverViewModel = PlaylistAndPracticeDeliverModel()
                 deliverViewModel.deliverPlaylist = item["data"] as! Playlist
+                let controller = UIStoryboard(name: "playlist", bundle: nil).instantiateViewController(withIdentifier: "PlaylistDetailsViewController") as! PlaylistDetailsViewController
+                controller.parentViewModel = deliverViewModel
+                let nav = UINavigationController(rootViewController: controller)
+                nav.isNavigationBarHidden = true
+                self.tabBarController?.present(nav, animated: true, completion: nil)
                 ModacityAnalytics.LogStringEvent("Selected Favorite Playlist", extraParamName: "Name", extraParamValue: deliverViewModel.deliverPlaylist.name)
+                
             } else {
-//<<<<<<< HEAD
-                deliverViewModel.deliverPracticeItem = item["data"] as! PracticeItem
-//=======
+                
                 let practiceItem = item["data"] as! PracticeItem
+                let controller = UIStoryboard(name: "practice", bundle: nil).instantiateViewController(withIdentifier: "PracticeScene") as! UINavigationController
+                let practiceViewController = controller.viewControllers[0] as! PracticeViewController
+                practiceViewController.practiceItem = practiceItem
+                self.tabBarController?.present(controller, animated: true, completion: nil)
+                
                 ModacityAnalytics.LogStringEvent("Selected Favorite Item", extraParamName: "Name", extraParamValue: practiceItem.name)
                 
-//                AppUtils.showSimpleAlertMessage(for: self, title: "Coming soon...", message: "we plan to show your practice statistics for this item. Let us know if you expect a different behavior. feedback@modacity.co")
-//                return
-//>>>>>>> 26ebd2c8fe63718fa635d1c64195f90ec132b1dd
             }
         }
         
-        let controller = UIStoryboard(name: "playlist", bundle: nil).instantiateViewController(withIdentifier: "PlaylistDetailsViewController") as! PlaylistDetailsViewController
-        controller.parentViewModel = deliverViewModel
-        let nav = UINavigationController(rootViewController: controller)
-        nav.isNavigationBarHidden = true
-        self.tabBarController?.present(nav, animated: true, completion: nil)
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

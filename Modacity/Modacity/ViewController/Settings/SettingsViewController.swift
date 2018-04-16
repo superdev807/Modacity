@@ -104,14 +104,9 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
         if section == 0 {
             return 4
         } else if section == 1 {
-            return 1
+            return 2
         }
-//            return 3
-//        } else if section == 2 {
-//            return 3
-//        } else {
-            return 0
-//        }
+        return 0
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -120,13 +115,7 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
         } else if section == 1 {
             return "APP SETTINGS"
         }
-        
         return ""
-//        else if section == 2 {
-//            return "NOTIFICATIONS"
-//        } else {
-//            return ""
-//        }
     }
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int){
@@ -166,19 +155,17 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
                 return cell
             }
         } else if indexPath.section == 1 {
-//            if indexPath.row == 0 {
-//                let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCellWithDropdown") as! SettingsCellWithDropdown
-//                return cell
-//            } else if indexPath.row == 1 {
-//                let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCellWithSwitch") as! SettingsCellWithSwitch
-//                cell.configure(caption: "Light Mode", isOn: false)
-//                return cell
-//            } else {
+            if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCellWithSwitch") as! SettingsCellWithSwitch
                 cell.delegate = self
                 cell.configure(caption: "Prevent phone sleep during audio activity", isOn: AppOveralDataManager.manager.settingsPhoneSleepPrevent())
                 return cell
-//            }
+            } else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCellWithSwitch") as! SettingsCellWithSwitch
+                cell.delegate = self
+                cell.configure(caption: "Disable auto-playback", isOn: AppOveralDataManager.manager.settingsDisableAutoPlayback())
+                return cell
+            }
         } else if indexPath.section == 2 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCellWithSwitch") as! SettingsCellWithSwitch
             cell.configure(caption: ["Email Notifications", "Push Notifications", "Star Rating Notifications"][indexPath.row], isOn: [false, true, true][indexPath.row])
@@ -248,6 +235,9 @@ extension SettingsViewController: SettingsCellWithSwitchDelegate {
         if "Prevent phone sleep during audio activity" == forCaption {
             AppOveralDataManager.manager.changePhoneSleepPrevent()
             self.tableViewSettings.reloadRows(at: [IndexPath(row: 0, section: 1)], with: .none)
+        } else if "Disable auto-playback" == forCaption {
+            AppOveralDataManager.manager.changeDisableAutoPlayback()
+            self.tableViewSettings.reloadRows(at: [IndexPath(row: 1, section: 1)], with: .none)
         }
     }
 }

@@ -11,6 +11,7 @@ import UIKit
 class PracticeRateViewController: UIViewController {
     
     var playlistViewModel: PlaylistDetailsViewModel!
+    var practiceItem: PracticeItem!
     
     @IBOutlet weak var rateView: FloatRatingView!
     @IBOutlet weak var labelPracticeName: UILabel!
@@ -18,7 +19,11 @@ class PracticeRateViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        self.labelPracticeName.text = self.playlistViewModel.currentPracticeEntry.practiceItem()?.name ?? ""
+        if self.playlistViewModel != nil {
+            self.labelPracticeName.text = self.playlistViewModel.currentPracticeEntry.practiceItem()?.name ?? ""
+        } else {
+            self.labelPracticeName.text = self.practiceItem.name ?? ""
+        }
         self.rateView.editable = true
         self.rateView.maxRating = 5
         self.rateView.type = .halfRatings
@@ -32,46 +37,54 @@ class PracticeRateViewController: UIViewController {
     }
     
     @IBAction func onNext(_ sender: Any) {
-        if !self.playlistViewModel.next() {
-            if var controllers = self.navigationController?.viewControllers {
-                for idx in 0..<controllers.count {
-                    if controllers[idx] is PracticeViewController {
-                        controllers.remove(at: idx)
-                        break
+        if self.playlistViewModel != nil {
+            if !self.playlistViewModel.next() {
+                if var controllers = self.navigationController?.viewControllers {
+                    for idx in 0..<controllers.count {
+                        if controllers[idx] is PracticeViewController {
+                            controllers.remove(at: idx)
+                            break
+                        }
                     }
-                }
-                controllers.removeLast()
-                let controller = UIStoryboard(name: "playlist", bundle: nil).instantiateViewController(withIdentifier: "PlaylistFinishViewController") as! PlaylistFinishViewController
-                controller.playlistDetailsViewModel = self.playlistViewModel
-                self.navigationController?.pushViewController(controller, animated: true)
-            }
-            
-        } else {
-            if var controllers = self.navigationController?.viewControllers {
-                for idx in 0..<controllers.count {
-                    if controllers[idx] is PracticeViewController {
-                        controllers.remove(at: idx)
-                        break
-                    }
+                    controllers.removeLast()
+                    let controller = UIStoryboard(name: "playlist", bundle: nil).instantiateViewController(withIdentifier: "PlaylistFinishViewController") as! PlaylistFinishViewController
+                    controller.playlistDetailsViewModel = self.playlistViewModel
+                    self.navigationController?.pushViewController(controller, animated: true)
                 }
                 
-                let controller = UIStoryboard(name: "practice", bundle: nil).instantiateViewController(withIdentifier: "PracticeViewController") as! PracticeViewController
-                controller.playlistViewModel = self.playlistViewModel
-                controllers.insert(controller, at: controllers.count - 1)
-                self.navigationController?.viewControllers = controllers
-                self.navigationController?.popToViewController(controller, animated: true)
+            } else {
+                if var controllers = self.navigationController?.viewControllers {
+                    for idx in 0..<controllers.count {
+                        if controllers[idx] is PracticeViewController {
+                            controllers.remove(at: idx)
+                            break
+                        }
+                    }
+                    
+                    let controller = UIStoryboard(name: "practice", bundle: nil).instantiateViewController(withIdentifier: "PracticeViewController") as! PracticeViewController
+                    controller.playlistViewModel = self.playlistViewModel
+                    controllers.insert(controller, at: controllers.count - 1)
+                    self.navigationController?.viewControllers = controllers
+                    self.navigationController?.popToViewController(controller, animated: true)
+                }
             }
+        } else {
+            self.navigationController?.dismiss(animated: true, completion: nil)
         }
     }
     
     @IBAction func onBack(_ sender: Any) {
-        if let controllers = self.navigationController?.viewControllers {
-            for controller in controllers {
-                if controller is PlaylistDetailsViewController {
-                    self.navigationController?.popToViewController(controller, animated: true)
-                    return
+        if self.playlistViewModel != nil {
+            if let controllers = self.navigationController?.viewControllers {
+                for controller in controllers {
+                    if controller is PlaylistDetailsViewController {
+                        self.navigationController?.popToViewController(controller, animated: true)
+                        return
+                    }
                 }
             }
+        } else {
+            self.navigationController?.dismiss(animated: true, completion: nil)
         }
     }
 }
@@ -85,9 +98,13 @@ extension PracticeRateViewController: FloatRatingViewDelegate {
         
         ModacityAnalytics.LogEvent(.RatedItem, extraParamName: "Rating", extraParamValue: rating)
         
-        if let practiceItem = self.playlistViewModel.currentPracticeEntry.practiceItem() {
-            self.playlistViewModel.setRating(for: practiceItem, rating: ratingView.rating)
-//        self.playlistViewModel.setRating(forPracticeItem: self.playlistViewModel.currentPracticeItem.name, rating: ratingView.rating)
+        if self.playlistViewModel != nil {
+            if let practiceItem = self.playlistViewModel.currentPracticeEntry.practiceItem() {
+                self.playlistViewModel.setRating(for: practiceItem, rating: ratingView.rating)
+                //        self.playlistViewModel.setRating(forPracticeItem: self.playlistViewModel.currentPracticeItem.name, rating: ratingView.rating)
+            }
+        } else {
+            PracticeItemLocalManager.manager.setRatingValue(forItemId: self.practiceItem.id, rating: rating)
         }
     }
 }

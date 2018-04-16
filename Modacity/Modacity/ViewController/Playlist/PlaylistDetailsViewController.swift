@@ -96,11 +96,11 @@ class PlaylistDetailsViewController: UIViewController {
             alertController.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (_) in
                 
                 if self.viewModel.playlistName == "" {
-                    let alert = UIAlertController(title: nil, message: "Please enter a playlist name to save it", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "Save", style: .default, handler: { (_) in
-                        self.changeNameEditMode()
-                    }))
-                    alert.addAction(UIAlertAction(title: "Continue", style: .default, handler: { _ in
+//                    let alert = UIAlertController(title: nil, message: "Please enter a playlist name to save it", preferredStyle: .alert)
+//                    alert.addAction(UIAlertAction(title: "Save", style: .default, handler: { (_) in
+//                        self.changeNameEditMode()
+//                    }))
+//                    alert.addAction(UIAlertAction(title: "Continue", style: .default, handler: { _ in
                         self.playlistPracticeTotalTimeInSec = self.viewModel.totalPracticedTime()
                         self.viewModel.addPracticeTotalTime(inSec: self.playlistPracticeTotalTimeInSec)
                         if self.navigationController?.viewControllers.count == 1 {
@@ -108,8 +108,8 @@ class PlaylistDetailsViewController: UIViewController {
                         } else {
                             self.navigationController?.popViewController(animated: true)
                         }
-                    }))
-                    self.present(alert, animated: true, completion: nil)
+//                    }))
+//                    self.present(alert, animated: true, completion: nil)
                     return
                 }
                 

@@ -274,21 +274,7 @@ class PlaylistDetailsViewModel: ViewModel {
         AppOveralDataManager.manager.addPracticeTime(inSec: sec)
     }
     
-    func fileNameAutoIncrementedNumber() -> Int {
-        let key = "\(Date().toString(format: "yyyyMMdd"))-autoincrement"
-        if UserDefaults.standard.object(forKey: key) == nil {
-            return 1
-        } else {
-            return UserDefaults.standard.integer(forKey: key)
-        }
-    }
     
-    func increaseAutoIncrementedNumber() {
-        let key = "\(Date().toString(format: "yyyyMMdd"))-autoincrement"
-        let value = self.fileNameAutoIncrementedNumber()
-        UserDefaults.standard.set(value + 1, forKey: key)
-        UserDefaults.standard.synchronize()
-    }
     
     func saveCurrentRecording(toFileName: String) {
         RecordingsLocalManager.manager.saveCurrentRecording(toFileName: toFileName, playlistId: self.playlist.id, practiceName: self.currentPracticeEntry.practiceItem()?.name ?? "", practiceEntryId: self.currentPracticeEntry.entryId)

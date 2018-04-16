@@ -45,7 +45,6 @@ class DropdownMenuView {
         
         let menuView = self.createView(with: rows, in: view)
         
-        
         let imageView = menuView.viewWithTag(10) as! UIImageView
         
         let anchorRect = anchorView.convert(anchorView.frame, to: view)
@@ -106,8 +105,11 @@ class DropdownMenuView {
         imageView.tag = 10
         viewPopup.addSubview(imageView)
         
+        let button = UIButton(frame: CGRect(x:0, y:0, width: view.frame.size.width, height: view.frame.size.height))
+        button.addTarget(self, action: #selector(onClose), for: .touchDown)
+        viewContainer.addSubview(button)
+        
         viewContainer.addSubview(viewPopup)
-        viewContainer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onClose)))
         
         return viewContainer
         

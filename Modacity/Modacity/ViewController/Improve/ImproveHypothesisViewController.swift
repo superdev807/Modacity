@@ -12,6 +12,7 @@ class ImproveHypothesisViewController: UIViewController {
     
     var viewModel: ImprovementViewModel!
     var playlistModel: PlaylistDetailsViewModel!
+    var practiceItem: PracticeItem!
     
     @IBOutlet weak var tableViewHypothesis: UITableView!
     @IBOutlet weak var labelPracticeName: UILabel!
@@ -23,6 +24,7 @@ class ImproveHypothesisViewController: UIViewController {
     @IBOutlet weak var buttonCloseBox: UIButton!
     @IBOutlet weak var buttonTryAgain: UIButton!
     @IBOutlet weak var constraintForTryAgainButtonBottomSpace: NSLayoutConstraint!
+    @IBOutlet weak var constraintForTableViewBottomSpace: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,7 +33,11 @@ class ImproveHypothesisViewController: UIViewController {
         self.textfieldInputBox.attributedPlaceholder = NSAttributedString(string: "Type here or choose a suggestion", attributes: [NSAttributedStringKey.foregroundColor:Color.white.alpha(0.5)])
         self.viewInputBox.layer.cornerRadius = 5
         self.buttonCloseBox.isHidden = true
-        self.labelPracticeName.text = self.playlistModel.currentPracticeEntry.practiceItem()?.name ?? ""
+        if self.playlistModel != nil {
+            self.labelPracticeName.text = self.playlistModel.currentPracticeEntry.practiceItem()?.name ?? ""
+        } else {
+            self.labelPracticeName.text = self.practiceItem.name ?? ""
+        }
         self.labelSuggestionName.text = self.viewModel.selectedSuggestion
         self.buttonTryAgain.isHidden = true
         self.bindViewModel()
@@ -48,7 +54,11 @@ class ImproveHypothesisViewController: UIViewController {
             
             let controller = segue.destination as! ImprovementViewController
             controller.viewModel = self.viewModel
-            controller.playlistViewModel = self.playlistModel
+            if self.playlistModel != nil {
+                controller.playlistViewModel = self.playlistModel
+            } else {
+                controller.practiceItem = self.practiceItem
+            }
         }
     }
     
@@ -71,7 +81,7 @@ class ImproveHypothesisViewController: UIViewController {
     }
 
     @IBAction func onHideKeyboard(_ sender: Any) {
-//        self.textfieldInputBox.resignFirstResponder()
+        self.textfieldInputBox.resignFirstResponder()
     }
     
     @IBAction func onDidEndOnExit(_ sender: Any) {
@@ -89,12 +99,16 @@ class ImproveHypothesisViewController: UIViewController {
         }
     }
     
-    @objc func onKeyboardWillShow() {
-        self.buttonCloseBox.isHidden = false
+    @objc func onKeyboardWillShow(notification: Notification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            self.constraintForTableViewBottomSpace.constant = keyboardSize.height
+            self.buttonCloseBox.isHidden = false
+        }
     }
     
     @objc func onKeyboardWillHide() {
         self.buttonCloseBox.isHidden = true
+        self.constraintForTableViewBottomSpace.constant = 0
         self.constraintForTryAgainButtonBottomSpace.constant = 20
     }
     

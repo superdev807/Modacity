@@ -13,12 +13,14 @@ class ImproveSuggestionViewController: UIViewController {
     var viewModel = ImprovementViewModel()
 
     var playlistModel: PlaylistDetailsViewModel!
+    var practiceItem: PracticeItem!
     
     @IBOutlet weak var labelPracticeName: UILabel!
     @IBOutlet weak var textfieldInputBox: UITextField!
     @IBOutlet weak var viewInputBox: UIView!
     @IBOutlet weak var collectionViewMain: UICollectionView!
     @IBOutlet weak var buttonCloseBox: UIButton!
+    @IBOutlet weak var constraintForCollectionViewBottomSpace: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +29,12 @@ class ImproveSuggestionViewController: UIViewController {
         self.textfieldInputBox.attributedPlaceholder = NSAttributedString(string: "Type here or choose a suggestion", attributes: [NSAttributedStringKey.foregroundColor:Color.white.alpha(0.5)])
         self.viewInputBox.layer.cornerRadius = 5
         self.buttonCloseBox.isHidden = true
-        self.labelPracticeName.text = self.playlistModel.currentPracticeEntry.practiceItem()?.name ?? ""
+        
+        if self.playlistModel != nil {
+            self.labelPracticeName.text = self.playlistModel.currentPracticeEntry.practiceItem()?.name ?? ""
+        } else {
+            self.labelPracticeName.text = self.practiceItem.name ?? ""
+        }
         
         NotificationCenter.default.addObserver(self, selector: #selector(onKeyboardWillShow), name: Notification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(onKeyboardWillHide), name: Notification.Name.UIKeyboardWillHide, object: nil)
@@ -40,9 +47,14 @@ class ImproveSuggestionViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "sid_next" {
             ModacityAnalytics.LogEvent(.ImprovementChosen, extraParamName: "Improvement", extraParamValue: viewModel.selectedSuggestion)
+            
             let controller = segue.destination as! ImproveHypothesisViewController
             controller.viewModel = self.viewModel
-            controller.playlistModel = self.playlistModel
+            if self.playlistModel != nil {
+                controller.playlistModel = self.playlistModel
+            } else {
+                controller.practiceItem = self.practiceItem
+            }
         }
     }
 
@@ -52,7 +64,7 @@ class ImproveSuggestionViewController: UIViewController {
     }
     
     @IBAction func onHideKeyboard(_ sender: Any) {
-//        self.textfieldInputBox.resignFirstResponder()
+        self.textfieldInputBox.resignFirstResponder()
     }
     
     @IBAction func onDidEndOnExit(_ sender: Any) {
@@ -60,12 +72,16 @@ class ImproveSuggestionViewController: UIViewController {
         self.performSegue(withIdentifier: "sid_next", sender: nil)
     }
     
-    @objc func onKeyboardWillShow() {
-        self.buttonCloseBox.isHidden = false
+    @objc func onKeyboardWillShow(notification: Notification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            self.constraintForCollectionViewBottomSpace.constant = -1 * keyboardSize.height
+            self.buttonCloseBox.isHidden = false
+        }
     }
     
     @objc func onKeyboardWillHide() {
         self.buttonCloseBox.isHidden = true
+        self.constraintForCollectionViewBottomSpace.constant = 0
     }
 }
 

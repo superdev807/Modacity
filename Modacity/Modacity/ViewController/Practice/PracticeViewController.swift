@@ -14,6 +14,7 @@ import FDWaveformView
 class PracticeViewController: UIViewController {
     
     var playlistViewModel: PlaylistDetailsViewModel!
+    var practiceItem: PracticeItem!
     
     @IBOutlet weak var labelPracticeItemName: UILabel!
     @IBOutlet weak var buttonFavorite: UIButton!
@@ -89,6 +90,7 @@ class PracticeViewController: UIViewController {
     var metrodonePlayer : MetrodronePlayer? = nil
     
     var panGesture  = UIPanGestureRecognizer()
+    var tapGesture  = UITapGestureRecognizer()
     var metrodroneViewHeight = CGFloat(336)
     let metrodroneViewMinHeight = CGFloat(40)
     var metrodronePlayerShown  = false
@@ -97,8 +99,12 @@ class PracticeViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        self.playlistViewModel.storePlaylist()
-        self.labelPracticeItemName.text = self.playlistViewModel.currentPracticeEntry.practiceItem()?.name ?? ""
+        if self.playlistViewModel != nil {
+            self.playlistViewModel.storePlaylist()
+            self.labelPracticeItemName.text = self.playlistViewModel.currentPracticeEntry.practiceItem()?.name ?? ""
+        } else {
+            self.labelPracticeItemName.text = self.practiceItem.name ?? ""
+        }
         
         if AppUtils.sizeModelOfiPhone() == .iphone6p_55in {
             metrodroneViewHeight = CGFloat(380)
@@ -115,12 +121,22 @@ class PracticeViewController: UIViewController {
     }
     
     func processFavoriteIconImage() {
-        if !(self.playlistViewModel.isFavoritePracticeItem(forItemId: self.playlistViewModel.currentPracticeEntry.practiceItemId)) {
-            self.buttonFavorite.setImage(UIImage(named:"icon_heart"), for: .normal)
-            self.buttonFavorite.alpha = 0.5
+        if self.playlistViewModel != nil {
+            if !(self.playlistViewModel.isFavoritePracticeItem(forItemId: self.playlistViewModel.currentPracticeEntry.practiceItemId)) {
+                self.buttonFavorite.setImage(UIImage(named:"icon_heart"), for: .normal)
+                self.buttonFavorite.alpha = 0.5
+            } else {
+                self.buttonFavorite.setImage(UIImage(named:"icon_heart_red"), for: .normal)
+                self.buttonFavorite.alpha = 1.0
+            }
         } else {
-            self.buttonFavorite.setImage(UIImage(named:"icon_heart_red"), for: .normal)
-            self.buttonFavorite.alpha = 1.0
+            if !(PracticeItemLocalManager.manager.isFavoritePracticeItem(for: self.practiceItem.id)) {
+                self.buttonFavorite.setImage(UIImage(named:"icon_heart"), for: .normal)
+                self.buttonFavorite.alpha = 0.5
+            } else {
+                self.buttonFavorite.setImage(UIImage(named:"icon_heart_red"), for: .normal)
+                self.buttonFavorite.alpha = 1.0
+            }
         }
     }
     
@@ -153,7 +169,11 @@ class PracticeViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "sid_rate" {
             let controller = segue.destination as! PracticeRateViewController
-            controller.playlistViewModel = self.playlistViewModel
+            if self.playlistViewModel != nil {
+                controller.playlistViewModel = self.playlistViewModel
+            } else {
+                controller.practiceItem = self.practiceItem
+            }
         }
     }
     
@@ -188,7 +208,9 @@ extension PracticeViewController {
         self.configureSubdivisionNoteSelectionGUI()
         self.imageViewMetrodroneViewShowingArrow.image = UIImage(named:"icon_arrow_up")
         self.panGesture = UIPanGestureRecognizer(target: self, action: #selector(draggingDroneView))
-        self.viewMaximizedDrone.addGestureRecognizer(panGesture)
+        self.tapGesture = UITapGestureRecognizer(target: self, action: #selector(processDroneViewTap))
+        self.viewMaximizedDrone.addGestureRecognizer(self.panGesture)
+        self.viewMaximizedDrone.addGestureRecognizer(self.tapGesture)
     }
     
     func configureSubdivisionNoteSelectionGUI() {
@@ -276,12 +298,24 @@ extension PracticeViewController {
         
     }
     
+    @objc func processDroneViewTap(gesture : UITapGestureRecognizer) {
+        let touchPoint = gesture.location(in: self.viewMaximizedDrone)
+        
+        if !self.metrodronePlayerShown {
+            self.openDroneView()
+        } else {
+            if touchPoint.y < 50 {
+                self.closeDroneView()
+            }
+        }
+    }
+    
     func openDroneView() {
         
         let distance = abs(self.constraintForMaximizedDroneBottomSpace.constant)
         self.constraintForMaximizedDroneBottomSpace.constant = 0
         
-        UIView.animate(withDuration: TimeInterval(distance / (metrodroneViewHeight - metrodroneViewMinHeight) * CGFloat(2.0)), animations: {
+        UIView.animate(withDuration: TimeInterval(distance / (metrodroneViewHeight - metrodroneViewMinHeight) * CGFloat(1.0)), animations: {
             self.view.layoutIfNeeded()
         }) { (finished) in
             if finished {
@@ -314,7 +348,7 @@ extension PracticeViewController {
         let distance = abs(metrodroneViewHeight - metrodroneViewMinHeight - self.constraintForMaximizedDroneBottomSpace.constant)
         self.constraintForMaximizedDroneBottomSpace.constant = metrodroneViewHeight - metrodroneViewMinHeight
         
-        UIView.animate(withDuration: TimeInterval(distance / (metrodroneViewHeight - metrodroneViewMinHeight) * CGFloat(2.0)), animations: {
+        UIView.animate(withDuration: TimeInterval(distance / (metrodroneViewHeight - metrodroneViewMinHeight) * CGFloat(1.0)), animations: {
             self.view.layoutIfNeeded()
         }) { (finished) in
             if finished {
@@ -397,12 +431,8 @@ extension PracticeViewController {
 extension PracticeViewController {
     
     @IBAction func onEnd(_ sender: Any) {
-//<<<<<<< HEAD
-//
-//        ModacityAnalytics.LogEvent(.FinishPracticeItem)
-//=======
+
         ModacityAnalytics.LogStringEvent("Pressed End Practice Item")
-//>>>>>>> 26ebd2c8fe63718fa635d1c64195f90ec132b1dd
         
         if self.recorder != nil && self.recorder.isRecording {
             AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Please stop recording before leaving the page.")
@@ -417,10 +447,15 @@ extension PracticeViewController {
                 duration = self.secondsPrevPlayed
             }
             self.timer.invalidate()
-            self.playlistViewModel.setDuration(forPracticeItem: self.playlistViewModel.currentPracticeEntry.entryId,
-                                               duration: duration + (self.playlistViewModel.duration(forPracticeItem: self.playlistViewModel.currentPracticeEntry.entryId) ?? 0))
+            if self.playlistViewModel != nil {
+                self.playlistViewModel.setDuration(forPracticeItem: self.playlistViewModel.currentPracticeEntry.entryId,
+                                                   duration: duration + (self.playlistViewModel.duration(forPracticeItem: self.playlistViewModel.currentPracticeEntry.entryId) ?? 0))
+            }
+            
             self.performSegue(withIdentifier: "sid_rate", sender: nil)
+            
         } else {
+            
             var duration = 0
             if timerRunning {
                 duration = Int(Date().timeIntervalSince1970 - self.timerStarted.timeIntervalSince1970) + self.secondsPrevPlayed
@@ -428,16 +463,24 @@ extension PracticeViewController {
                 duration = self.secondsPrevPlayed
             }
             self.timer.invalidate()
-            self.playlistViewModel.setDuration(forPracticeItem: self.playlistViewModel.currentPracticeEntry.entryId,
-                                               duration: duration + (self.playlistViewModel.duration(forPracticeItem: self.playlistViewModel.currentPracticeEntry.entryId) ?? 0))
+            if self.playlistViewModel != nil {
+                self.playlistViewModel.setDuration(forPracticeItem: self.playlistViewModel.currentPracticeEntry.entryId,
+                                                   duration: duration + (self.playlistViewModel.duration(forPracticeItem: self.playlistViewModel.currentPracticeEntry.entryId) ?? 0))
+            }
             self.navigationController?.popViewController(animated: true)
+            
         }
         
     }
     
     @IBAction func onToggleFavorite(_ sender: Any) {
-        if let practiceItem = self.playlistViewModel.currentPracticeEntry.practiceItem() {
-            self.playlistViewModel.setLikePracticeItem(for: practiceItem)
+        if self.playlistViewModel != nil {
+            if let practiceItem = self.playlistViewModel.currentPracticeEntry.practiceItem() {
+                self.playlistViewModel.setLikePracticeItem(for: practiceItem)
+                self.processFavoriteIconImage()
+            }
+        } else {
+            PracticeItemLocalManager.manager.setFavoritePracticeItem(forItemId: self.practiceItem.id)
             self.processFavoriteIconImage()
         }
         ModacityAnalytics.LogStringEvent("Toggled Favorite")
@@ -452,7 +495,11 @@ extension PracticeViewController {
         
         let controller = UIStoryboard(name: "improve", bundle: nil).instantiateViewController(withIdentifier: "improve_scene") as! UINavigationController
         let root = controller.viewControllers[0] as! ImproveSuggestionViewController
-        root.playlistModel = self.playlistViewModel
+        if self.playlistViewModel != nil {
+            root.playlistModel = self.playlistViewModel
+        } else {
+            root.practiceItem = self.practiceItem
+        }
         self.present(controller, animated: true, completion: nil)
     }
     
@@ -609,17 +656,21 @@ extension PracticeViewController: AVAudioPlayerDelegate, FDWaveformViewDelegate 
     @IBAction func onSaveRecord(_ sender: Any) {
         let alertController = UIAlertController(title: nil, message: "Enter the file name!", preferredStyle: .alert)
         alertController.addTextField { (textField) in
-            if var practiceName = self.playlistViewModel.currentPracticeEntry.practiceItem()?.name {
-                practiceName = String(practiceName.prefix(16))
-                let autoIncrementedNumber = self.playlistViewModel.fileNameAutoIncrementedNumber()
-                textField.text = "\(practiceName)_\(Date().toString(format: "yyyyMMdd"))_\(String(format:"%02d", autoIncrementedNumber))"
+            if self.playlistViewModel != nil {
+                if var practiceName = self.playlistViewModel.currentPracticeEntry.practiceItem()?.name {
+                    practiceName = String(practiceName.prefix(16))
+                    let autoIncrementedNumber = AppOveralDataManager.manager.fileNameAutoIncrementedNumber()
+                    textField.text = "\(practiceName)_\(Date().toString(format: "yyyyMMdd"))_\(String(format:"%02d", autoIncrementedNumber))"
+                }
             }
         }
         alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
             if let name = alertController.textFields?[0].text {
                 if name != "" {
-                    self.playlistViewModel.increaseAutoIncrementedNumber()
-                    self.playlistViewModel.saveCurrentRecording(toFileName: name)
+                    if self.playlistViewModel != nil {
+                        AppOveralDataManager.manager.increaseAutoIncrementedNumber()
+                        self.playlistViewModel.saveCurrentRecording(toFileName: name)
+                    }
                     ModacityAnalytics.LogStringEvent("Saved Practice Recording",
                                                     extraParamName: "filename",
                                                     extraParamValue:name)
@@ -677,7 +728,10 @@ extension PracticeViewController {
             self.isRecording = false
             
             self.prepareAudioPlay()
-            self.startPlayAudio()
+            
+            if !AppOveralDataManager.manager.settingsDisableAutoPlayback() {
+                self.startPlayAudio()
+            }
         }
     }
     
@@ -731,11 +785,12 @@ extension PracticeViewController {
     
     func initializeTipPromptPanel() {
         self.viewPromptPanel.layer.cornerRadius = 5
-        if self.playlistViewModel.tooltipAlreadyShown() {
+        if UserDefaults.standard.bool(forKey: "tooltip_shown") {
             self.viewPromptPanel.isHidden = true
         } else {
             self.viewPromptPanel.isHidden = false
-            self.playlistViewModel.didTooltipShown()
+            UserDefaults.standard.set(true, forKey: "tooltip_shown")
+            UserDefaults.standard.synchronize()
         }
     }
     
@@ -761,18 +816,22 @@ extension PracticeViewController {
         self.processTimerStarting()
         self.perform(#selector(onTimerStart), with: nil, afterDelay: 0.5)
         self.buttonTimerUpDownArrow.setImage(UIImage(named:"icon_timer_arrow_count_up"), for: .normal)
-        if let countDownTimer =  self.playlistViewModel.currentPracticeEntry.countDownDuration {
-            if countDownTimer > 0 {
-                self.buttonTimerUpDownArrow.setImage(UIImage(named:"icon_timer_arrow_count_down"), for: .normal)
-                self.isCountDown = true
-                if let timePracticed = self.playlistViewModel.duration(forPracticeItem: self.playlistViewModel.currentPracticeEntry.entryId) {
-                    if timePracticed < countDownTimer {
-                        self.countDownTimerStart = countDownTimer - timePracticed
-                    } else {
-                        self.countDownTimerStart = 0
+        if self.playlistViewModel != nil {
+            if let countDownTimer =  self.playlistViewModel.currentPracticeEntry.countDownDuration {
+                if countDownTimer > 0 {
+                    self.buttonTimerUpDownArrow.setImage(UIImage(named:"icon_timer_arrow_count_down"), for: .normal)
+                    self.isCountDown = true
+                    if let timePracticed = self.playlistViewModel.duration(forPracticeItem: self.playlistViewModel.currentPracticeEntry.entryId) {
+                        if timePracticed < countDownTimer {
+                            self.countDownTimerStart = countDownTimer - timePracticed
+                        } else {
+                            self.countDownTimerStart = 0
+                        }
                     }
                 }
             }
+        } else {
+            
         }
         
     }
@@ -849,8 +908,10 @@ extension PracticeViewController {
         self.timer.invalidate()
         
         let duration = Int(Date().timeIntervalSince1970 - self.timerStarted.timeIntervalSince1970) + self.secondsPrevPlayed
-        self.playlistViewModel.setDuration(forPracticeItem: self.playlistViewModel.currentPracticeEntry.entryId,
+        if self.playlistViewModel != nil {
+            self.playlistViewModel.setDuration(forPracticeItem: self.playlistViewModel.currentPracticeEntry.entryId,
                                            duration: duration + (self.playlistViewModel.duration(forPracticeItem: self.playlistViewModel.currentPracticeEntry.entryId) ?? 0))
+        }
         ModacityAnalytics.LogStringEvent("Finished Practice Countdown Timer")
         self.performSegue(withIdentifier: "sid_rate", sender: nil)
     }
@@ -858,32 +919,33 @@ extension PracticeViewController {
   
     func processTimerStarting() {
         var timeAlreadyPracticed = 0
-        if let timePracticed = self.playlistViewModel.duration(forPracticeItem: self.playlistViewModel.currentPracticeEntry.entryId) {
-            timeAlreadyPracticed = timePracticed
-        }
-        
-        if let countDownTimer =  self.playlistViewModel.currentPracticeEntry.countDownDuration {
-            if countDownTimer > 0 {
-                if let reseted = self.playlistViewModel.countdownReseted[self.playlistViewModel.currentPracticeEntry.entryId] {
-                    if reseted {
-                        timerShouldDown = true
-                        timerShouldStartFrom = countDownTimer
-                        self.playlistViewModel.countdownReseted[self.playlistViewModel.currentPracticeEntry.entryId] = false
-                        return
+        if self.playlistViewModel != nil {
+            if let timePracticed = self.playlistViewModel.duration(forPracticeItem: self.playlistViewModel.currentPracticeEntry.entryId) {
+                timeAlreadyPracticed = timePracticed
+            }
+            
+            if let countDownTimer =  self.playlistViewModel.currentPracticeEntry.countDownDuration {
+                if countDownTimer > 0 {
+                    if let reseted = self.playlistViewModel.countdownReseted[self.playlistViewModel.currentPracticeEntry.entryId] {
+                        if reseted {
+                            timerShouldDown = true
+                            timerShouldStartFrom = countDownTimer
+                            self.playlistViewModel.countdownReseted[self.playlistViewModel.currentPracticeEntry.entryId] = false
+                            return
+                        }
                     }
+                    
+                    if timeAlreadyPracticed >= countDownTimer {
+                        timerShouldDown = false
+                        timerShouldStartFrom = timeAlreadyPracticed
+                    } else {
+                        timerShouldDown = true
+                        timerShouldStartFrom = countDownTimer - timeAlreadyPracticed
+                    }
+                    return
                 }
-                
-                if timeAlreadyPracticed >= countDownTimer {
-                    timerShouldDown = false
-                    timerShouldStartFrom = timeAlreadyPracticed
-                } else {
-                    timerShouldDown = true
-                    timerShouldStartFrom = countDownTimer - timeAlreadyPracticed
-                }
-                return
             }
         }
-        
         timerShouldDown = false
         timerShouldStartFrom = timeAlreadyPracticed
     }

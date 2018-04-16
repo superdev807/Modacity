@@ -98,4 +98,29 @@ class AppOveralDataManager {
         UserDefaults.standard.set(settingsPhoneSleepPrevent(), forKey: "not_prevent_phone_sleep")
         UserDefaults.standard.synchronize()
     }
+    
+    func settingsDisableAutoPlayback() -> Bool {
+        return UserDefaults.standard.bool(forKey: "disable_auto_playback")
+    }
+    
+    func changeDisableAutoPlayback() {
+        UserDefaults.standard.set(!settingsDisableAutoPlayback(), forKey: "disable_auto_playback")
+        UserDefaults.standard.synchronize()
+    }
+    
+    func fileNameAutoIncrementedNumber() -> Int {
+        let key = "\(Date().toString(format: "yyyyMMdd"))-autoincrement"
+        if UserDefaults.standard.object(forKey: key) == nil {
+            return 1
+        } else {
+            return UserDefaults.standard.integer(forKey: key)
+        }
+    }
+    
+    func increaseAutoIncrementedNumber() {
+        let key = "\(Date().toString(format: "yyyyMMdd"))-autoincrement"
+        let value = self.fileNameAutoIncrementedNumber()
+        UserDefaults.standard.set(value + 1, forKey: key)
+        UserDefaults.standard.synchronize()
+    }
 }
