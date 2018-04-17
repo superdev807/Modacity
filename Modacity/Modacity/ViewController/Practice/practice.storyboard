@@ -592,7 +592,7 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jyI-0B-yUT" userLabel="Octave Sustain">
                                                         <rect key="frame" x="10.5" y="10" width="120" height="120.5"/>
                                                         <subviews>
-                                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OCTAVE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LiB-os-MHt">
+                                                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OCTAVE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LiB-os-MHt">
                                                                 <rect key="frame" x="40.5" y="19" width="39" height="12"/>
                                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="10"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -610,7 +610,7 @@
                                                                     <action selector="onSustainButton:" destination="ruu-CR-fPU" eventType="touchUpInside" id="uUI-Lo-h9v"/>
                                                                 </connections>
                                                             </button>
-                                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZEL-7J-vbl" userLabel="Octave">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZEL-7J-vbl" userLabel="Octave">
                                                                 <rect key="frame" x="42.5" y="42" width="36" height="19"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="36" id="5Nu-br-Pl0"/>
@@ -619,20 +619,18 @@
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v9R-tV-PtL" userLabel="IncreaseOctave">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v9R-tV-PtL" userLabel="OctaveDown">
                                                                 <rect key="frame" x="11.5" y="34" width="36" height="36"/>
-                                                                <state key="normal" image="icon_plus"/>
-                                                                <connections>
-                                                                    <action selector="onChangeBPMStop:" destination="ruu-CR-fPU" eventType="touchUpOutside" id="FeX-Er-sQf"/>
-                                                                    <action selector="onChangeBPMStop:" destination="ruu-CR-fPU" eventType="touchUpInside" id="dJB-p6-dj0"/>
-                                                                </connections>
-                                                            </button>
-                                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kxq-bp-jmB" userLabel="DecreaseOctave">
-                                                                <rect key="frame" x="73.5" y="34" width="36" height="36"/>
                                                                 <state key="normal" image="icon_minus"/>
                                                                 <connections>
-                                                                    <action selector="onChangeBPMStop:" destination="ruu-CR-fPU" eventType="touchUpInside" id="ZFW-mI-kAP"/>
-                                                                    <action selector="onChangeBPMStop:" destination="ruu-CR-fPU" eventType="touchUpOutside" id="ioE-TG-smy"/>
+                                                                    <action selector="onOctaveDown:" destination="ruu-CR-fPU" eventType="touchUpInside" id="XUf-5y-k3z"/>
+                                                                </connections>
+                                                            </button>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kxq-bp-jmB" userLabel="OctaveUp">
+                                                                <rect key="frame" x="73.5" y="34" width="36" height="36"/>
+                                                                <state key="normal" image="icon_plus"/>
+                                                                <connections>
+                                                                    <action selector="onOctaveUp:" destination="ruu-CR-fPU" eventType="touchUpInside" id="eDW-Ux-Pug"/>
                                                                 </connections>
                                                             </button>
                                                         </subviews>
@@ -1043,6 +1041,8 @@ You can tap timer to pause your session.</string>
                         <outlet property="buttonAudioPlay" destination="c98-Ae-dDF" id="U49-Zj-t1W"/>
                         <outlet property="buttonFavorite" destination="CqK-vm-U6A" id="LxK-kB-F3y"/>
                         <outlet property="buttonMetrodronePlay" destination="y2g-Dd-GPv" id="7aX-Wc-hZw"/>
+                        <outlet property="buttonOctaveDown" destination="v9R-tV-PtL" id="C0t-TM-mVh"/>
+                        <outlet property="buttonOctaveUp" destination="kxq-bp-jmB" id="Qaf-wE-Mld"/>
                         <outlet property="buttonSubdivisionNote1" destination="O5o-J5-OTA" id="tUD-0q-7rX"/>
                         <outlet property="buttonSubdivisionNote2" destination="1QG-6r-cTq" id="hDL-wf-Pzd"/>
                         <outlet property="buttonSubdivisionNote3" destination="gNm-4t-shn" id="4d7-M9-MNy"/>
@@ -1059,6 +1059,7 @@ You can tap timer to pause your session.</string>
                         <outlet property="imageViewRateDirection" destination="iMA-wC-dQ5" id="mgW-3I-c6b"/>
                         <outlet property="labelHour" destination="dNS-M9-GZA" id="8Nd-RH-BnZ"/>
                         <outlet property="labelMinute" destination="pU1-Oc-PW6" id="EaO-Mc-cja"/>
+                        <outlet property="labelOctave" destination="ZEL-7J-vbl" id="6si-Fw-Now"/>
                         <outlet property="labelPlayerCurrentTime" destination="94I-KR-pyD" id="KO3-Qq-2IH"/>
                         <outlet property="labelPlayerRemainsTime" destination="XM8-9t-DLh" id="fRE-Nj-k7W"/>
                         <outlet property="labelPracticeItemName" destination="RLr-qK-k0M" id="kTI-DJ-erj"/>

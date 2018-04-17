@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -50,8 +50,8 @@
                                     <action selector="onMenu:" destination="U5I-Ap-dmF" eventType="touchUpInside" id="C2i-dE-c5w"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Metrodone" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yBd-Wy-lkx">
-                                <rect key="frame" x="147.5" y="32.5" width="80" height="19"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Metrodrone" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yBd-Wy-lkx">
+                                <rect key="frame" x="144.5" y="32.5" width="86" height="19"/>
                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -65,7 +65,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U5D-Dw-oqE">
                                                 <rect key="frame" x="10.5" y="10" width="191.5" height="191.5"/>
                                                 <subviews>
-                                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OCTAVE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UPv-QK-uqd">
+                                                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OCTAVE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UPv-QK-uqd">
                                                         <rect key="frame" x="77" y="52.5" width="39" height="12"/>
                                                         <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="10"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -83,7 +83,7 @@
                                                             <action selector="onSustainButton:" destination="U5I-Ap-dmF" eventType="touchUpInside" id="91x-yY-mBA"/>
                                                         </connections>
                                                     </button>
-                                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BSb-2a-plI">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BSb-2a-plI">
                                                         <rect key="frame" x="78.5" y="84.5" width="36" height="24"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="36" id="8Yd-dU-Usd"/>
@@ -92,13 +92,19 @@
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l9U-am-zUA">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l9U-am-zUA" userLabel="Octave-">
                                                         <rect key="frame" x="42.5" y="78.5" width="36" height="36"/>
-                                                        <state key="normal" image="icon_plus"/>
-                                                    </button>
-                                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HIO-nH-2F8">
-                                                        <rect key="frame" x="114.5" y="78.5" width="36" height="36"/>
                                                         <state key="normal" image="icon_minus"/>
+                                                        <connections>
+                                                            <action selector="onButtonOctaveDown:" destination="U5I-Ap-dmF" eventType="touchUpInside" id="vn7-6Q-TlY"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HIO-nH-2F8" userLabel="Octave+">
+                                                        <rect key="frame" x="114.5" y="78.5" width="36" height="36"/>
+                                                        <state key="normal" image="icon_plus"/>
+                                                        <connections>
+                                                            <action selector="onButtonOctaveUp:" destination="U5I-Ap-dmF" eventType="touchUpInside" id="xlU-dg-TKI"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -430,6 +436,8 @@
                     <navigationItem key="navigationItem" id="DGx-X4-a7X"/>
                     <connections>
                         <outlet property="btnSustain" destination="euc-vE-Txc" id="Ds6-1J-LJc"/>
+                        <outlet property="buttonOctaveDown" destination="l9U-am-zUA" id="tx1-j0-pUc"/>
+                        <outlet property="buttonOctaveUp" destination="HIO-nH-2F8" id="IZu-6X-adO"/>
                         <outlet property="buttonPlay" destination="0za-oA-9Ec" id="LRR-SQ-2FZ"/>
                         <outlet property="buttonSubdivisionNote1" destination="RX1-uJ-ONz" id="Czl-HC-p2L"/>
                         <outlet property="buttonSubdivisionNote2" destination="nKZ-VE-dlp" id="aOH-FG-rih"/>
@@ -439,6 +447,7 @@
                         <outlet property="constraintForMinTrickImageWidth" destination="ffn-Bd-DQ6" id="BHU-zs-dRZ"/>
                         <outlet property="constraintForMinTrickViewWidth" destination="ahb-zR-pmd" id="MRz-Jb-SeR"/>
                         <outlet property="imageViewMaxTrick" destination="7Ua-Yk-I99" id="34h-Vo-uEe"/>
+                        <outlet property="labelOctave" destination="BSb-2a-plI" id="ImW-2U-J9E"/>
                         <outlet property="labelTempo" destination="nA9-Kq-9EG" id="CDV-hb-vfg"/>
                         <outlet property="sliderDuration" destination="Oe8-rC-QBR" id="ai7-Y5-ktb"/>
                         <outlet property="viewDroneFrame" destination="51d-D2-uYL" id="WJg-oL-DHH"/>
