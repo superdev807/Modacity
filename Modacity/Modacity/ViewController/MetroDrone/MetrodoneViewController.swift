@@ -21,7 +21,11 @@ class MetrodoneViewController: UIViewController {
     @IBOutlet weak var labelTempo: UILabel!
     @IBOutlet weak var buttonPlay: UIButton!
     @IBOutlet weak var btnSustain: UIButton!
-
+    @IBOutlet weak var labelOctave: UILabel!
+    @IBOutlet weak var buttonOctaveDown: UIButton!
+    
+    @IBOutlet weak var buttonOctaveUp: UIButton!
+    
     var subdivisionPanelShown = false
     var selectedSubdivisionNote: Int = -1
     @IBOutlet weak var viewSubdivision: UIView!
@@ -47,6 +51,10 @@ class MetrodoneViewController: UIViewController {
                                           playButton: buttonPlay,
                                           durationSlider: sliderDuration,
                                           sustainButton: btnSustain,
+                                          
+                                          buttonOctaveUp: buttonOctaveUp,
+                                          buttonOctaveDown: buttonOctaveDown,
+                                          labelOctaveNum: labelOctave,
                                           playButtonImage: UIImage(named:"btn_drone_play_large"),
                                           pauseButtonImage: UIImage(named:"btn_drone_pause_large"))
         self.viewSubdivision.isHidden = true
@@ -122,6 +130,14 @@ class MetrodoneViewController: UIViewController {
     
     @IBAction func onIncreaseBPMTouch(_ sender: Any) {
         self.metrodonePlayer.increaseBPMTouch()
+    }
+    
+    @IBAction func onButtonOctaveDown(_ sender: Any) {
+        self.metrodonePlayer.onOctaveDown()
+    }
+    
+    @IBAction func onButtonOctaveUp(_ sender: Any) {
+        self.metrodonePlayer.onOctaveUp()
     }
     
     @IBAction func onSustainButton(_ sender: Any) {

@@ -59,6 +59,9 @@ class ImprovementViewController: UIViewController {
     @IBOutlet weak var buttonMetroPlay: UIButton!
     @IBOutlet weak var buttonTap: UIButton!
     @IBOutlet weak var labelBPM: UILabel!
+    @IBOutlet weak var buttonOctaveUp: UIButton!
+    @IBOutlet weak var buttonOctaveDown: UIButton!
+    @IBOutlet weak var labelOctave: UILabel!
     
     @IBOutlet weak var viewSubdivision: UIView!
     @IBOutlet weak var buttonSubdivisionNote1: UIButton!
@@ -310,7 +313,11 @@ extension ImprovementViewController {
                                                     droneFrame: self.viewDroneFrame,
                                                     playButton: self.buttonMetroPlay,
                                                     durationSlider: self.sliderDuration,
-                                                    sustainButton: self.buttonSustain)
+                                                    sustainButton: self.buttonSustain,
+                                                    buttonOctaveUp: self.buttonOctaveUp,
+                                                    buttonOctaveDown:self.buttonOctaveDown,
+                                                    labelOctaveNum: labelOctave)
+                                                    
         }
         self.metrodronePlayerShown = true
     }
@@ -361,6 +368,19 @@ extension ImprovementViewController {
             } else {
                 mPlayer.stopMetrodrone()
             }
+        }
+    }
+    
+    @IBAction func onOctaveUp(_ sender: Any) {
+        if let mPlayer = self.metrodonePlayer {
+            mPlayer.onOctaveUp()
+        }
+
+    }
+    
+    @IBAction func onOctaveDown(_ sender: Any) {
+        if let mPlayer = self.metrodonePlayer {
+            mPlayer.onOctaveDown()
         }
     }
     

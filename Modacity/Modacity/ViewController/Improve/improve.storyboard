@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -825,7 +825,7 @@ you wanted?</string>
                                                                     <action selector="onSustainButton:" destination="hg1-Xl-tGd" eventType="touchUpInside" id="OrD-Gy-jHS"/>
                                                                 </connections>
                                                             </button>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M4g-ck-2TM" userLabel="labelOctave">
+                                                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M4g-ck-2TM" userLabel="labelOctave">
                                                                 <rect key="frame" x="42.5" y="42" width="36" height="19"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="36" id="rIK-x0-Bo3"/>
@@ -834,13 +834,19 @@ you wanted?</string>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="soY-GL-1GH" userLabel="octave+">
+                                                            <button opaque="NO" alpha="0.75" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="soY-GL-1GH" userLabel="octave-">
                                                                 <rect key="frame" x="11.5" y="34" width="36" height="36"/>
-                                                                <state key="normal" image="icon_plus"/>
-                                                            </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2yu-WV-yNR" userLabel="octave-">
-                                                                <rect key="frame" x="73.5" y="34" width="36" height="36"/>
                                                                 <state key="normal" image="icon_minus"/>
+                                                                <connections>
+                                                                    <action selector="onOctaveDown:" destination="hg1-Xl-tGd" eventType="touchUpInside" id="Oet-nw-jxK"/>
+                                                                </connections>
+                                                            </button>
+                                                            <button opaque="NO" alpha="0.75" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2yu-WV-yNR" userLabel="octave+">
+                                                                <rect key="frame" x="73.5" y="34" width="36" height="36"/>
+                                                                <state key="normal" image="icon_plus"/>
+                                                                <connections>
+                                                                    <action selector="onOctaveUp:" destination="hg1-Xl-tGd" eventType="touchUpInside" id="tNJ-Br-O4E"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1146,6 +1152,8 @@ til the very end of the…</string>
                         <outlet property="btnRecord" destination="D1v-0o-Nrh" id="62z-G8-cq4"/>
                         <outlet property="buttonAudioPlay" destination="MOH-Sk-ebe" id="4OI-4F-5nC"/>
                         <outlet property="buttonMetroPlay" destination="HpL-Wr-MgN" id="pXP-Q6-gZN"/>
+                        <outlet property="buttonOctaveDown" destination="soY-GL-1GH" id="hHB-hy-pgS"/>
+                        <outlet property="buttonOctaveUp" destination="2yu-WV-yNR" id="xR5-vd-qW6"/>
                         <outlet property="buttonSubdivisionNote1" destination="rnc-hl-9Bm" id="yBf-FD-b9t"/>
                         <outlet property="buttonSubdivisionNote2" destination="L6l-3w-qyJ" id="vOO-Mt-wRv"/>
                         <outlet property="buttonSubdivisionNote3" destination="JWg-8t-HMO" id="DuP-TP-kCF"/>
@@ -1163,6 +1171,7 @@ til the very end of the…</string>
                         <outlet property="labelBPM" destination="WBn-dd-UwQ" id="sNi-R4-V8m"/>
                         <outlet property="labelHypothesis" destination="dOc-S4-3Wh" id="lAZ-Yw-tfV"/>
                         <outlet property="labelImprovementNote" destination="yeP-au-9km" id="7Bu-wj-bvj"/>
+                        <outlet property="labelOctave" destination="M4g-ck-2TM" id="xxJ-dN-Orh"/>
                         <outlet property="labelPlayerCurrentTime" destination="dJx-9q-VU0" id="1f9-9A-oRf"/>
                         <outlet property="labelPlayerRemainsTime" destination="CfN-Ke-sgT" id="Zkp-Gc-rCB"/>
                         <outlet property="labelPracticeItemName" destination="wki-fw-BgE" id="s2Z-w2-u0Q"/>

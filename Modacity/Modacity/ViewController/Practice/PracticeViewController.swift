@@ -72,6 +72,10 @@ class PracticeViewController: UIViewController {
     @IBOutlet weak var buttonMetrodronePlay: UIButton!
     @IBOutlet weak var buttonSustain: UIButton!
     
+    @IBOutlet weak var labelOctave: UILabel!
+    @IBOutlet weak var buttonOctaveUp: UIButton!
+    
+    @IBOutlet weak var buttonOctaveDown: UIButton!
     @IBOutlet weak var viewSubdivision: UIView!
     @IBOutlet weak var buttonSubdivisionNote1: UIButton!
     @IBOutlet weak var buttonSubdivisionNote2: UIButton!
@@ -338,7 +342,10 @@ extension PracticeViewController {
                                                     droneFrame: self.viewDroneFrame,
                                                     playButton: self.buttonMetrodronePlay,
                                                     durationSlider: self.sliderDuration,
-                                                    sustainButton: self.buttonSustain)
+                                                    sustainButton: self.buttonSustain,
+                                                    buttonOctaveUp: self.buttonOctaveUp,
+                                                    buttonOctaveDown: self.buttonOctaveDown,
+                                                    labelOctaveNum: labelOctave)
         }
         self.metrodronePlayerShown = true
     }
@@ -386,6 +393,9 @@ extension PracticeViewController {
         }
     }
     
+    
+    
+    
     @IBAction func onBtnPlay(_ sender: Any) {
         if let mPlayer = self.metrodonePlayer {
             if (!mPlayer.isMetrodronePlaying) {
@@ -405,6 +415,18 @@ extension PracticeViewController {
     @IBAction func onTapTouchup(_ sender: Any) {
         if let mPlayer = self.metrodonePlayer {
             mPlayer.tapUp()
+        }
+    }
+    
+    @IBAction func onOctaveUp(_ sender: Any) {
+        if let mPlayer = self.metrodonePlayer {
+            mPlayer.onOctaveUp()
+        }
+    }
+    
+    @IBAction func onOctaveDown(_ sender: Any) {
+        if let mPlayer = self.metrodonePlayer {
+            mPlayer.onOctaveDown()
         }
     }
     

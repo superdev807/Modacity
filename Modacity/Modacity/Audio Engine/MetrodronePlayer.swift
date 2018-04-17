@@ -24,6 +24,8 @@ class MetrodronePlayer: DroneFrameDelegate {
     static let maxDurationValue: Float = 0.99
     static let minBPM: Int = 30
     static let maxBPM: Int = 300
+    static let maxOctave: Int = 6
+    static let minOctave: Int = 2
     
     var _viewDroneFrame: ViewDroneFrame!
     var _labelTempo: UILabel!
@@ -32,6 +34,9 @@ class MetrodronePlayer: DroneFrameDelegate {
     var _buttonSustain: UIButton!
     var _playButtonImage: UIImage!
     var _pauseButtonImage: UIImage!
+    var _labelOctaveNumber: UILabel!
+    var _buttonOctaveDown: UIButton!
+    var _buttonOctaveUp: UIButton!
     
     var UIDelegate: MetrodroneUIDelegate?
     
@@ -47,7 +52,7 @@ class MetrodronePlayer: DroneFrameDelegate {
 
     var tempo: Int = 120
     var subdivisions: Int = 1
-    
+    var currOctave: Int = 4
     
     let highClick: URL = {
         return Bundle.main.url(forResource: "High", withExtension: "wav", subdirectory: "waveforms")!
@@ -75,14 +80,22 @@ class MetrodronePlayer: DroneFrameDelegate {
                            playButton: UIButton!,
                            durationSlider: UISlider!,
                            sustainButton: UIButton!,
+                           buttonOctaveUp: UIButton!,
+                           buttonOctaveDown: UIButton!,
+                           labelOctaveNum: UILabel!,
                            playButtonImage: UIImage! = UIImage(named:"btn_drone_play"),
-                           pauseButtonImage: UIImage! = UIImage(named:"btn_drone_pause")) {
+                           pauseButtonImage: UIImage! = UIImage(named:"btn_drone_pause")
+                           
+        ) {
         
         self._viewDroneFrame = droneFrame // maybe a better way to do this?
         self._labelTempo = lblTempo
         self._buttonPlayPause = playButton
         self._sliderDuration = durationSlider
         self._buttonSustain = sustainButton
+        self._buttonOctaveUp = buttonOctaveUp
+        self._buttonOctaveDown = buttonOctaveDown
+        self._labelOctaveNumber = labelOctaveNum
         
         // Make sure the duration slider has the right range, and set it in the middle.
         self._sliderDuration.maximumValue = MetrodronePlayer.maxDurationValue
@@ -102,6 +115,18 @@ class MetrodronePlayer: DroneFrameDelegate {
         _sliderDuration.value = durationRatio
         _buttonSustain.isSelected = sustain
         _viewDroneFrame.setSelectedNote(currNote)
+        
+        _labelOctaveNumber.text = String(currOctave - MetrodronePlayer.minOctave + 1)
+        
+        _buttonOctaveDown.isEnabled = true
+        _buttonOctaveUp.isEnabled = true
+        
+        if (currOctave == MetrodronePlayer.minOctave) {
+            _buttonOctaveDown.isEnabled = false
+        }
+        if (currOctave == MetrodronePlayer.maxOctave) {
+            _buttonOctaveUp.isEnabled = false
+        }
     }
     
     func changeDuration(newValue: Float) {
@@ -268,6 +293,7 @@ class MetrodronePlayer: DroneFrameDelegate {
         disableSustain()
         
         updateMetrodroneNote()
+        
         metrodrone.play(bpm: Double(tempo), ratio: durationRatio, subdivision: subdivisions)
         isMetrodronePlaying = true
         setPauseImage()
@@ -301,6 +327,28 @@ class MetrodronePlayer: DroneFrameDelegate {
         _buttonPlayPause.setImage(self._pauseButtonImage, for: .normal)
     }
     
+    
+    func changeOctave(direction: Int) {
+        self.currOctave -= direction
+        updateMetrodroneOutlets()
+        updateMetrodroneNote()
+        
+        if (isSustaining) {
+            metrodrone.playUntimed()
+        }
+        if (isMetrodronePlaying) {
+            startMetronome()
+        }
+    }
+    
+    func onOctaveDown() {
+        changeOctave(direction: 1)
+    }
+    
+    func onOctaveUp() {
+        changeOctave(direction: -1)
+    }
+    
     func tapDown() {
         
         stopMetrodrone()
@@ -323,13 +371,14 @@ class MetrodronePlayer: DroneFrameDelegate {
     
     func updateMetrodroneNote() {
         updateCurrNote(UIDelegate!.getSelectedIndex())
-        let octave = 3
-        var fileDrone = "440-" + currNote + String(octave)
+        
+        var fileDrone = "440-" + currNote + String(currOctave)
         if (currNote == "X") {
             fileDrone = "silence"
         }
         
         metrodrone.loadDrone(droneAudio: waveformURL(wavename: fileDrone)!)
+        
     }
     
     
