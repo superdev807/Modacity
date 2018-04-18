@@ -215,6 +215,7 @@ extension PracticeViewController {
         self.tapGesture = UITapGestureRecognizer(target: self, action: #selector(processDroneViewTap))
         self.viewMaximizedDrone.addGestureRecognizer(self.panGesture)
         self.viewMaximizedDrone.addGestureRecognizer(self.tapGesture)
+        prepareMetrodroneUI()
     }
     
     func configureSubdivisionNoteSelectionGUI() {
@@ -331,21 +332,25 @@ extension PracticeViewController {
         }
     }
     
+    func prepareMetrodroneUI() {
+        self.metrodonePlayer = MetrodronePlayer.instance
+        self.metrodonePlayer!.initializeOutlets(lblTempo: self.labelTempo,
+                                                droneFrame: self.viewDroneFrame,
+                                                playButton: self.buttonMetrodronePlay,
+                                                durationSlider: self.sliderDuration,
+                                                sustainButton: self.buttonSustain,
+                                                buttonOctaveUp: self.buttonOctaveUp,
+                                                buttonOctaveDown: self.buttonOctaveDown,
+                                                labelOctaveNum: labelOctave)
+    }
+    
     func startMetrodrone() {
         ModacityAnalytics.LogEvent(.MetrodroneDrawerOpen)
         if !self.viewPromptPanel.isHidden {
             self.onCloseAlertPanel(self.view)
         }
         if self.metrodonePlayer == nil {
-            self.metrodonePlayer = MetrodronePlayer.instance
-            self.metrodonePlayer!.initializeOutlets(lblTempo: self.labelTempo,
-                                                    droneFrame: self.viewDroneFrame,
-                                                    playButton: self.buttonMetrodronePlay,
-                                                    durationSlider: self.sliderDuration,
-                                                    sustainButton: self.buttonSustain,
-                                                    buttonOctaveUp: self.buttonOctaveUp,
-                                                    buttonOctaveDown: self.buttonOctaveDown,
-                                                    labelOctaveNum: labelOctave)
+            prepareMetrodroneUI()
         }
         self.metrodronePlayerShown = true
     }
@@ -454,7 +459,7 @@ extension PracticeViewController {
     
     @IBAction func onEnd(_ sender: Any) {
 
-        ModacityAnalytics.LogStringEvent("Pressed End Practice Item")
+        ModacityAnalytics.LogStringEvent("Pressed End Practice Item", extraParamName: "item", extraParamValue: self.playlistViewModel.currentPracticeEntry.name)
         
         if self.recorder != nil && self.recorder.isRecording {
             AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Please stop recording before leaving the page.")

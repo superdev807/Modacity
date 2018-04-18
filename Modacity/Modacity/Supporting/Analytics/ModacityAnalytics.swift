@@ -35,24 +35,7 @@ enum ModacityEvent:String {
     
     //Sign in
     case SigninButton = "User "
-  /*  case foobar = "foobar"
-    case foobar = "foobar"
-    case foobar = "foobar"
-    case foobar = "foobar"
-    case foobar = "foobar"
 
-    
-    
-    case foobar = "foobar"
-    case foobar = "foobar"
-    case foobar = "foobar"
-    case foobar = "foobar"
-    case foobar = "foobar"
-    case foobar = "foobar"
-    case foobar = "foobar"
-    case foobar = "foobar"
-    */
-    
     case NewPlaylist = "Created New Playlist"
     case OldPlaylist = "Loaded Existing Playlist"
     case StartPracticeItem = "Started Practicing Item"
@@ -83,9 +66,13 @@ class ModacityAnalytics: NSObject {
     static func LogStringEvent(_ eventString: String, extraParamName: String? = nil, extraParamValue: AnyHashable? = nil) {
 //        ModacityAnalytics.amplitudeLog(eventString, extraParamName: extraParamName, extraParamValue: extraParamValue)
         if let paramName = extraParamName {
-            Analytics.logEvent(eventString, parameters: [paramName: extraParamValue!])
-            FBSDKAppEvents.logEvent(eventString, parameters: [paramName: extraParamValue!])
-            Amplitude.instance().logEvent(eventString, withEventProperties: [paramName: extraParamValue!])
+            var value : AnyHashable? = extraParamValue
+            if (value == nil) {
+                value = "error: nil"
+            }
+            Analytics.logEvent(eventString, parameters: [paramName: value!])
+            FBSDKAppEvents.logEvent(eventString, parameters: [paramName: value!])
+            Amplitude.instance().logEvent(eventString, withEventProperties: [paramName: value!])
         } else {
             Analytics.logEvent(eventString, parameters: nil)
             FBSDKAppEvents.logEvent(eventString)
@@ -98,17 +85,6 @@ class ModacityAnalytics: NSObject {
     }
     
     static func LogEvent(_ event: ModacityEvent, extraParamName: String?, extraParamValue: AnyHashable?) {
-        if let paramName = extraParamName {
-            Analytics.logEvent(event.rawValue, parameters: [paramName: extraParamValue!])
-            FBSDKAppEvents.logEvent(event.rawValue, parameters: [paramName: extraParamValue!])
-            Amplitude.instance().logEvent(event.rawValue, withEventProperties: [paramName: extraParamValue!])
-        } else {
-            Analytics.logEvent(event.rawValue, parameters: nil)
-            FBSDKAppEvents.logEvent(event.rawValue)
-            Amplitude.instance().logEvent(event.rawValue)
-        }
-//=======
-//        ModacityAnalytics.amplitudeLog(event.rawValue, extraParamName: extraParamName, extraParamValue: extraParamValue)
-//>>>>>>> 26ebd2c8fe63718fa635d1c64195f90ec132b1dd:Modacity/Modacity/Model/AmplitudeTracking.swift
+        LogStringEvent(event.rawValue, extraParamName: extraParamName, extraParamValue: extraParamValue)
     }
 }

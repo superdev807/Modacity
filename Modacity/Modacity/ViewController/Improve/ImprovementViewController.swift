@@ -190,6 +190,8 @@ extension ImprovementViewController {
         self.panGesture = UIPanGestureRecognizer(target: self, action: #selector(draggingDroneView))
         self.tapGesture = UITapGestureRecognizer(target: self, action: #selector(processDroneViewTap))
         self.viewMaximizedDrone.addGestureRecognizer(panGesture)
+        
+        prepareMetrodroneUI()
     }
     
     func configureSubdivisionNoteSelectionGUI() {
@@ -304,20 +306,22 @@ extension ImprovementViewController {
             }
         }
     }
+    func prepareMetrodroneUI() {
+        self.metrodonePlayer = MetrodronePlayer.instance
+        self.metrodonePlayer!.initializeOutlets(lblTempo: self.labelBPM,
+                                                droneFrame: self.viewDroneFrame,
+                                                playButton: self.buttonMetroPlay,
+                                                durationSlider: self.sliderDuration,
+                                                sustainButton: self.buttonSustain,
+                                                buttonOctaveUp: self.buttonOctaveUp,
+                                                buttonOctaveDown:self.buttonOctaveDown,
+                                                labelOctaveNum: labelOctave)
+    }
     
     func startMetrodrone() {
         ModacityAnalytics.LogEvent(.MetrodroneDrawerOpen)
         if self.metrodonePlayer == nil {
-            self.metrodonePlayer = MetrodronePlayer.instance
-            self.metrodonePlayer!.initializeOutlets(lblTempo: self.labelBPM,
-                                                    droneFrame: self.viewDroneFrame,
-                                                    playButton: self.buttonMetroPlay,
-                                                    durationSlider: self.sliderDuration,
-                                                    sustainButton: self.buttonSustain,
-                                                    buttonOctaveUp: self.buttonOctaveUp,
-                                                    buttonOctaveDown:self.buttonOctaveDown,
-                                                    labelOctaveNum: labelOctave)
-                                                    
+            prepareMetrodroneUI()
         }
         self.metrodronePlayerShown = true
     }
