@@ -51,7 +51,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="707"/>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0et-Ze-T4d">
-                                <rect key="frame" x="0.0" y="68" width="375" height="599"/>
+                                <rect key="frame" x="0.0" y="68" width="375" height="535"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" red="1" green="1" blue="1" alpha="0.20000000000000001" colorSpace="calibratedRGB"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -123,10 +123,10 @@
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G6R-bo-DEt">
-                                <rect key="frame" x="0.0" y="68" width="375" height="599"/>
+                                <rect key="frame" x="0.0" y="68" width="375" height="535"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have not created any playlists, yet. Please create new one." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vUJ-dU-kem">
-                                        <rect key="frame" x="20" y="282.5" width="335" height="34"/>
+                                        <rect key="frame" x="20" y="250.5" width="335" height="34"/>
                                         <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -176,7 +176,7 @@
                             <constraint firstItem="G6R-bo-DEt" firstAttribute="top" secondItem="0et-Ze-T4d" secondAttribute="top" id="Qdn-Ji-cxe"/>
                             <constraint firstItem="e9A-h1-6VK" firstAttribute="leading" secondItem="Ax1-Lf-bhG" secondAttribute="leading" constant="16" id="coX-YT-jOr"/>
                             <constraint firstItem="0et-Ze-T4d" firstAttribute="top" secondItem="iy7-4d-M9a" secondAttribute="bottom" constant="-20" id="cyM-Ah-Bhv"/>
-                            <constraint firstItem="0et-Ze-T4d" firstAttribute="bottom" secondItem="Ax1-Lf-bhG" secondAttribute="bottom" id="dQu-ah-GnY"/>
+                            <constraint firstItem="0et-Ze-T4d" firstAttribute="bottom" secondItem="Ax1-Lf-bhG" secondAttribute="bottom" constant="-64" id="dQu-ah-GnY"/>
                             <constraint firstItem="iy7-4d-M9a" firstAttribute="top" secondItem="ZIi-Ka-Dbm" secondAttribute="top" id="g4C-o0-BdW"/>
                             <constraint firstItem="cgc-Bd-s1t" firstAttribute="leading" secondItem="Ax1-Lf-bhG" secondAttribute="leading" id="gry-cm-QgG"/>
                             <constraint firstItem="Jhq-OO-wlp" firstAttribute="centerY" secondItem="e9A-h1-6VK" secondAttribute="centerY" id="ia8-Vw-zVQ"/>

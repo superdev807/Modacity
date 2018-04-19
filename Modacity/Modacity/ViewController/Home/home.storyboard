@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -240,10 +240,10 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Cb-cv-3Zm">
-                                                <rect key="frame" x="0.0" y="220" width="375" height="427"/>
+                                                <rect key="frame" x="0.0" y="220" width="375" height="363"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3vr-Vx-czF">
-                                                        <rect key="frame" x="30" y="134.5" width="315" height="98.5"/>
+                                                        <rect key="frame" x="30" y="102.5" width="315" height="98.5"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nA7-25-rjE">
                                                                 <rect key="frame" x="0.0" y="0.0" width="315" height="50.5"/>
@@ -274,7 +274,7 @@ first playlist and start practicing.</string>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zsm-h9-2QW">
-                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="427"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="363"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RECENT PLAYLISTS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9qr-R3-BeI">
                                                                 <rect key="frame" x="20" y="5" width="89.5" height="12"/>
@@ -445,7 +445,7 @@ first playlist and start practicing.</string>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="SXo-VL-y88" firstAttribute="top" secondItem="wll-Ob-HBo" secondAttribute="bottom" constant="8" id="1At-pA-mCj"/>
-                                            <constraint firstAttribute="bottom" secondItem="4Cb-cv-3Zm" secondAttribute="bottom" id="F4d-1s-uSz"/>
+                                            <constraint firstAttribute="bottom" secondItem="4Cb-cv-3Zm" secondAttribute="bottom" constant="64" id="F4d-1s-uSz"/>
                                             <constraint firstAttribute="trailing" secondItem="4Cb-cv-3Zm" secondAttribute="trailing" id="Lbo-iZ-1lP"/>
                                             <constraint firstItem="Xzs-A9-Hln" firstAttribute="bottom" secondItem="SXo-VL-y88" secondAttribute="bottom" id="T8j-nt-gg5"/>
                                             <constraint firstItem="Xzs-A9-Hln" firstAttribute="top" secondItem="SXo-VL-y88" secondAttribute="top" id="TvZ-AY-ceg"/>

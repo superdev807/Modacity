@@ -846,11 +846,11 @@ extension PracticeViewController {
         if self.playlistViewModel != nil {
             if let countDownTimer =  self.playlistViewModel.currentPracticeEntry.countDownDuration {
                 if countDownTimer > 0 {
-                    self.buttonTimerUpDownArrow.setImage(UIImage(named:"icon_timer_arrow_count_down"), for: .normal)
                     self.isCountDown = true
                     if let timePracticed = self.playlistViewModel.duration(forPracticeItem: self.playlistViewModel.currentPracticeEntry.entryId) {
                         if timePracticed < countDownTimer {
                             self.countDownTimerStart = countDownTimer - timePracticed
+                            self.buttonTimerUpDownArrow.setImage(UIImage(named:"icon_timer_arrow_count_down"), for: .normal)
                         } else {
                             self.countDownTimerStart = 0
                         }
