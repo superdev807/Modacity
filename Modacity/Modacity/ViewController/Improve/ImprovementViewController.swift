@@ -190,7 +190,7 @@ extension ImprovementViewController {
         self.panGesture = UIPanGestureRecognizer(target: self, action: #selector(draggingDroneView))
         self.tapGesture = UITapGestureRecognizer(target: self, action: #selector(processDroneViewTap))
         self.viewMaximizedDrone.addGestureRecognizer(panGesture)
-        
+        self.viewMaximizedDrone.addGestureRecognizer(tapGesture)
         prepareMetrodroneUI()
     }
     
@@ -545,7 +545,11 @@ extension ImprovementViewController: AVAudioPlayerDelegate, FDWaveformViewDelega
             if let name = alertController.textFields?[0].text {
                 if name != "" {
                     AppOveralDataManager.manager.increaseAutoIncrementedNumber()
-                    self.playlistViewModel.saveCurrentRecording(toFileName: name)
+                    if self.playlistViewModel != nil {
+                        self.playlistViewModel.saveCurrentRecording(toFileName: name)
+                    } else {
+                        RecordingsLocalManager.manager.saveCurrentRecording(toFileName: name, playlistId: "practice-\(self.practiceItem.id)", practiceName: self.practiceItem.name ?? "", practiceEntryId: self.practiceItem.id)
+                    }
                 }
             }
         }))

@@ -10,7 +10,7 @@ import UIKit
 
 class LeftMenuViewController: UIViewController {
     
-    let menuTitles = ["Home", "Metrodrone", "Playlists", "Recordings", "Ask an Expert", "Settings", "Feedback", "About Us", "Sign Out"]
+    let menuTitles = ["Home", "Metrodrone", "Playlists", "Recordings", "Pro Boost", "Settings", "Feedback", "About Us", "Sign Out"]
     let menuIcons = ["icon_menu_home", "icon_menu_metrodrone", "icon_menu_playlist", "icon_menu_recordings", "icon_menu_ask", "icon_menu_settings", "icon_menu_feedback", "icon_menu_about", "icon_menu_signout"]
 
     override func viewDidLoad() {

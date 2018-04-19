@@ -76,8 +76,8 @@ class FeedbackRootViewController: UIViewController {
     
     func configurePageForMode() {
         if self.pageUIMode == 0 {
-            self.labelTitle.text = "Need Help?"
-            self.labelSubTitle.text = "Got a question about practice? Want ideas on how to improve? Connect with one of our experts."
+            self.labelTitle.text = "Want a Boost?"
+            self.labelSubTitle.text = "Got a question or obstacle, or just want suggestions? We’ll connect you with pros from Philadelphia Orchestra, Juilliard, Berklee School of Music, and more!"
             self.viewAttachMostRecentAudio.isHidden = false
             self.segmentedControlMode.selectedSegmentIndex = 0
         } else {
@@ -212,7 +212,7 @@ extension FeedbackRootViewController : MFMailComposeViewControllerDelegate {
         case .Feedback:
             return "Beta feedback \(uuid)" // plus unique info
         case .AskExpert:
-            return "Expert Ask \(uuid)" // plus unique info
+            return "Pro Boost \(uuid)" // plus unique info
         }
     }
     
