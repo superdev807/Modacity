@@ -98,6 +98,7 @@
 		8EFD2DAC207BC20900DC28C1 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFD2DAB207BC20900DC28C1 /* ChangePasswordViewController.swift */; };
 		C2C1B5C7E1FE6B22D1399AF2 /* Pods_ModacityUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF1C6005138DC488B25382E3 /* Pods_ModacityUITests.framework */; };
 		C64283AA9A6BAB8DE816BEB8 /* Pods_ModacityTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3939C85FC27D407BE45658F /* Pods_ModacityTests.framework */; };
+		E2D01BD6208A146B00F54B5D /* MessagesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D01BD5208A146B00F54B5D /* MessagesManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -221,6 +222,7 @@
 		CA2B3FB269EEE0DEA241813C /* Pods-ModacityUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ModacityUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ModacityUITests/Pods-ModacityUITests.release.xcconfig"; sourceTree = "<group>"; };
 		CAF0BFC4CE94D935A9880025 /* Pods-ModacityTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ModacityTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ModacityTests/Pods-ModacityTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D3939C85FC27D407BE45658F /* Pods_ModacityTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ModacityTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E2D01BD5208A146B00F54B5D /* MessagesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesManager.swift; sourceTree = "<group>"; };
 		FF1C6005138DC488B25382E3 /* Pods_ModacityUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ModacityUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -382,6 +384,7 @@
 				8E58B43F20446AE40022704B /* MyProfileRemoteManager.swift */,
 				8ED6218A207B09A900593EF2 /* PlaylistRemoteManager.swift */,
 				8ED6218C207B09D600593EF2 /* PracticeItemRemoteManager.swift */,
+				E2D01BD5208A146B00F54B5D /* MessagesManager.swift */,
 			);
 			path = RemoteManager;
 			sourceTree = "<group>";
@@ -820,6 +823,7 @@
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/LGSideMenuController/LGSideMenuController.framework",
+				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/SCSiriWaveformView/SCSiriWaveformView.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftMessages/SwiftMessages.framework",
@@ -841,6 +845,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LGSideMenuController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SCSiriWaveformView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftMessages.framework",
@@ -914,6 +919,7 @@
 				8EB81FCB2063D33E00EADDA5 /* SetReminderViewController.swift in Sources */,
 				8E0A51C5207E4663006BDDC6 /* ModacityAnalytics.swift in Sources */,
 				8E455D112045A84F003FDB80 /* PlaylistDetailsViewController.swift in Sources */,
+				E2D01BD6208A146B00F54B5D /* MessagesManager.swift in Sources */,
 				8E4551DF20030F7F002061AE /* AppDelegate.swift in Sources */,
 				8E58B44620446AE40022704B /* MyProfileLocalManager.swift in Sources */,
 				8EDEB70D203DE38F00E8D48D /* AppUtils.swift in Sources */,

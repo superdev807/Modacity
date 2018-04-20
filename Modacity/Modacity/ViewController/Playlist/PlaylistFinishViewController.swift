@@ -22,17 +22,13 @@ class PlaylistFinishViewController: UIViewController {
         // Do any additional setup after loading the view.
         self.labelPlaylistName.text = self.playlistDetailsViewModel.playlistName
         ModacityAnalytics.LogStringEvent("Congratulations Screen", extraParamName: "total seconds", extraParamValue:self.playlistDetailsViewModel.sessionDurationInSecond)
-        
-        if let sessionDuration = self.playlistDetailsViewModel.sessionDurationInSecond {
-            if sessionDuration < 60 {
-                self.labelSessionDuration.text = "\(sessionDuration)"
-                self.labelDurationUnits.text = "SECONDS"
-            } else {
-                self.labelSessionDuration.text = "\(sessionDuration / 60)"
-                self.labelDurationUnits.text = "MINUTES"
-            }
+        let sessionDuration = self.playlistDetailsViewModel.totalPracticedTime()
+        if sessionDuration < 60 {
+            self.labelSessionDuration.text = "\(sessionDuration)"
+            self.labelDurationUnits.text = "SECONDS"
         } else {
-            self.labelSessionDuration.text = "0"
+            self.labelSessionDuration.text = "\(sessionDuration / 60)"
+            self.labelDurationUnits.text = "MINUTES"
         }
         
         self.labelSessionImprovements.text = "\(AppOveralDataManager.manager.calculateStreakDays())"

@@ -77,6 +77,10 @@ class PracticeViewController: UIViewController {
     
     @IBOutlet weak var buttonOctaveDown: UIButton!
     @IBOutlet weak var viewSubdivision: UIView!
+    
+    @IBOutlet weak var buttonSubdivisionStatusOnButton: UIImageView!
+    @IBOutlet weak var buttonSubDivisionNoteOnButton: UIImageView!
+    @IBOutlet weak var buttonSubDivision: UIButton!
     @IBOutlet weak var buttonSubdivisionNote1: UIButton!
     @IBOutlet weak var buttonSubdivisionNote2: UIButton!
     @IBOutlet weak var buttonSubdivisionNote3: UIButton!
@@ -341,7 +345,9 @@ extension PracticeViewController {
                                                 sustainButton: self.buttonSustain,
                                                 buttonOctaveUp: self.buttonOctaveUp,
                                                 buttonOctaveDown: self.buttonOctaveDown,
-                                                labelOctaveNum: labelOctave)
+                                                labelOctaveNum: labelOctave,
+                                                imageViewSubdivisionCircleStatus: self.buttonSubdivisionStatusOnButton,
+                                                imageViewSubdivisionNote: self.buttonSubDivisionNoteOnButton)
     }
     
     func startMetrodrone() {

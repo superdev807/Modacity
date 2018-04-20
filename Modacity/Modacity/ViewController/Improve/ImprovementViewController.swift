@@ -64,6 +64,8 @@ class ImprovementViewController: UIViewController {
     @IBOutlet weak var labelOctave: UILabel!
     
     @IBOutlet weak var viewSubdivision: UIView!
+    @IBOutlet weak var buttonSubdivisionStatusOnButton: UIImageView!
+    @IBOutlet weak var buttonSubDivisionNoteOnButton: UIImageView!
     @IBOutlet weak var buttonSubdivisionNote1: UIButton!
     @IBOutlet weak var buttonSubdivisionNote2: UIButton!
     @IBOutlet weak var buttonSubdivisionNote3: UIButton!
@@ -295,7 +297,7 @@ extension ImprovementViewController {
         let distance = abs(self.constraintForMaximizedDroneBottomSpace.constant)
         self.constraintForMaximizedDroneBottomSpace.constant = 0
         
-        UIView.animate(withDuration: TimeInterval(distance / (metrodroneViewHeight - metrodroneViewMinHeight) * CGFloat(2.0)), animations: {
+        UIView.animate(withDuration: TimeInterval(distance / (metrodroneViewHeight - metrodroneViewMinHeight) * CGFloat(1.0)), animations: {
             self.view.layoutIfNeeded()
         }) { (finished) in
             if finished {
@@ -315,7 +317,9 @@ extension ImprovementViewController {
                                                 sustainButton: self.buttonSustain,
                                                 buttonOctaveUp: self.buttonOctaveUp,
                                                 buttonOctaveDown:self.buttonOctaveDown,
-                                                labelOctaveNum: labelOctave)
+                                                labelOctaveNum: labelOctave,
+                                                imageViewSubdivisionCircleStatus: self.buttonSubdivisionStatusOnButton,
+                                                imageViewSubdivisionNote: self.buttonSubDivisionNoteOnButton)
     }
     
     func startMetrodrone() {
@@ -331,7 +335,7 @@ extension ImprovementViewController {
         let distance = abs(metrodroneViewHeight - metrodroneViewMinHeight - self.constraintForMaximizedDroneBottomSpace.constant)
         self.constraintForMaximizedDroneBottomSpace.constant = metrodroneViewHeight - metrodroneViewMinHeight
         
-        UIView.animate(withDuration: TimeInterval(distance / (metrodroneViewHeight - metrodroneViewMinHeight) * CGFloat(2.0)), animations: {
+        UIView.animate(withDuration: TimeInterval(distance / (metrodroneViewHeight - metrodroneViewMinHeight) * CGFloat(1.0)), animations: {
             self.view.layoutIfNeeded()
         }) { (finished) in
             if finished {

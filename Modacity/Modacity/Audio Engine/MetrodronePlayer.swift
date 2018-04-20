@@ -18,6 +18,7 @@ protocol DroneFrameDelegate : class {
 }
 
 class MetrodronePlayer: DroneFrameDelegate {
+    
     static var instance : MetrodronePlayer = MetrodronePlayer()
     
     static let minDurationValue: Float = 0.01
@@ -37,6 +38,8 @@ class MetrodronePlayer: DroneFrameDelegate {
     var _labelOctaveNumber: UILabel!
     var _buttonOctaveDown: UIButton!
     var _buttonOctaveUp: UIButton!
+    var _imageViewSubdivisionCircleStatus: UIImageView!
+    var _imageViewSubdivisionNote: UIImageView!
     
     var UIDelegate: MetrodroneUIDelegate?
     
@@ -83,6 +86,8 @@ class MetrodronePlayer: DroneFrameDelegate {
                            buttonOctaveUp: UIButton!,
                            buttonOctaveDown: UIButton!,
                            labelOctaveNum: UILabel!,
+                           imageViewSubdivisionCircleStatus: UIImageView!,
+                           imageViewSubdivisionNote: UIImageView! = nil,
                            playButtonImage: UIImage! = UIImage(named:"btn_drone_play"),
                            pauseButtonImage: UIImage! = UIImage(named:"btn_drone_pause")
                            
@@ -96,6 +101,8 @@ class MetrodronePlayer: DroneFrameDelegate {
         self._buttonOctaveUp = buttonOctaveUp
         self._buttonOctaveDown = buttonOctaveDown
         self._labelOctaveNumber = labelOctaveNum
+        self._imageViewSubdivisionCircleStatus = imageViewSubdivisionCircleStatus
+        self._imageViewSubdivisionNote = imageViewSubdivisionNote
         
         // Make sure the duration slider has the right range, and set it in the middle.
         self._sliderDuration.maximumValue = MetrodronePlayer.maxDurationValue
@@ -160,6 +167,24 @@ class MetrodronePlayer: DroneFrameDelegate {
         
         if (self.subdivisions != divisions) {
             self.subdivisions = divisions
+            
+            if _imageViewSubdivisionNote != nil {
+                switch self.subdivisions {
+                case 0:
+                    fallthrough
+                case 1:
+                    _imageViewSubdivisionNote.image = UIImage(named:"icon_note_1")
+                case 2:
+                    _imageViewSubdivisionNote.image = UIImage(named:"icon_note_2")
+                case 3:
+                    _imageViewSubdivisionNote.image = UIImage(named:"icon_note_3")
+                case 4:
+                    _imageViewSubdivisionNote.image = UIImage(named:"icon_note_4")
+                default:
+                    return
+                }
+            }
+            
             startMetronome()
         }
         
@@ -321,10 +346,16 @@ class MetrodronePlayer: DroneFrameDelegate {
     
     func setPlayImage() {
         _buttonPlayPause.setImage(self._playButtonImage, for: .normal)
+        if _imageViewSubdivisionCircleStatus != nil {
+            _imageViewSubdivisionCircleStatus.image = UIImage(named:"subdiv_circle_gray")
+        }
     }
     
     func setPauseImage() {
         _buttonPlayPause.setImage(self._pauseButtonImage, for: .normal)
+        if _imageViewSubdivisionCircleStatus != nil {
+            _imageViewSubdivisionCircleStatus.image = UIImage(named:"subdiv_circle_active")
+        }
     }
     
     

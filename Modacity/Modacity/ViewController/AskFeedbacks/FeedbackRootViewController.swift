@@ -9,6 +9,7 @@
 import UIKit
 import UITextView_Placeholder
 import MessageUI
+import MBProgressHUD
 
 class FeedbackRootViewController: UIViewController {
     
@@ -146,7 +147,18 @@ class FeedbackRootViewController: UIViewController {
             ModacityAnalytics.LogStringEvent("Pressed Send Feedback")
         }
         
-        sendMail(type: type, body: self.textViewMessage.text, includeAudio: (type == .AskExpert && self.checkIconSelected))
+        self.textViewMessage.resignFirstResponder()
+        let alertController = UIAlertController(title: nil, message: "Send message", preferredStyle: .actionSheet)
+        alertController.addAction(UIAlertAction(title: "Send via Email", style: .default, handler: { (_) in
+            self.sendMail(type: type, body: self.textViewMessage.text, includeAudio: (type == .AskExpert && self.checkIconSelected))
+        }))
+        alertController.addAction(UIAlertAction(title: "Send message to Modacity", style: .default, handler: { (_) in
+            self.sendMessageToModacity(type: type, body: self.textViewMessage.text, includeAudio: (type == .AskExpert && self.checkIconSelected))
+        }))
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(alertController, animated: true, completion: nil)
+        
+        
     }
     
     @objc func confirmSent() {
@@ -159,8 +171,20 @@ enum ModacityEmailType { case Feedback, AskExpert }
 //--------- MAIL
 extension FeedbackRootViewController : MFMailComposeViewControllerDelegate {
     
+    func sendMessageToModacity(type: ModacityEmailType, body:String, includeAudio: Bool=false) {
+        MBProgressHUD.showAdded(to: self.view, animated: true)
+        MessagesManager.manager.sendMessageToModacity(type: type, body: body, includeAudio: includeAudio) { (error) in
+            MBProgressHUD.hide(for: self.view, animated: true)
+            if let error = error {
+                AppUtils.showSimpleAlertMessage(for: self, title: nil, message: error)
+            } else {
+                self.confirmSent()
+            }
+        }
+    }
     
     func sendMail(type: ModacityEmailType, body:String, includeAudio: Bool=false) {
+        
         if( MFMailComposeViewController.canSendMail() ) {
             print("Can send email.")
             
@@ -219,14 +243,22 @@ extension FeedbackRootViewController : MFMailComposeViewControllerDelegate {
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true) {
             if let error = error {
-                AppUtils.showSimpleAlertMessage(for: self, title: nil, message: error.localizedDescription)
+                AppUtils.showSimpleAlertMessage(for: self, title: nil, message: error.localizedDescription, handler: { _ in
+                    if !self.pageIsRootFromMenu {
+                        self.navigationController?.dismiss(animated: true, completion: nil)
+                    }
+                })
             } else {
                 if result == .sent {
                     self.confirmSent()
                 } else {
                     AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Message has not been sent.")
+                    if !self.pageIsRootFromMenu {
+                        self.navigationController?.dismiss(animated: true, completion: nil)
+                    }
                 }
             }
         }
     }
+    
 }

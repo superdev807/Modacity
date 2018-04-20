@@ -39,6 +39,8 @@ class MetrodoneViewController: UIViewController {
     @IBOutlet weak var constraintForMinTrickViewWidth: NSLayoutConstraint!
     @IBOutlet weak var constraintForMinTrickImageWidth: NSLayoutConstraint!
     
+    @IBOutlet weak var imageViewNoteStatusOnButton: UIImageView!
+    @IBOutlet weak var imageViewNoteOnButton: UIImageView!
     
     var metrodonePlayer = MetrodronePlayer.instance
     
@@ -51,10 +53,11 @@ class MetrodoneViewController: UIViewController {
                                           playButton: buttonPlay,
                                           durationSlider: sliderDuration,
                                           sustainButton: btnSustain,
-                                          
                                           buttonOctaveUp: buttonOctaveUp,
                                           buttonOctaveDown: buttonOctaveDown,
                                           labelOctaveNum: labelOctave,
+                                          imageViewSubdivisionCircleStatus: imageViewNoteStatusOnButton,
+                                          imageViewSubdivisionNote: imageViewNoteOnButton,
                                           playButtonImage: UIImage(named:"btn_drone_play_large"),
                                           pauseButtonImage: UIImage(named:"btn_drone_pause_large"))
         self.viewSubdivision.isHidden = true
@@ -92,19 +95,6 @@ class MetrodoneViewController: UIViewController {
             self.constraintForHeaderImageViewHeight.constant = 88
         }
         
-//        if AppUtils.sizeModelOfiPhone() == .iphone5_4in {
-//            self.constraintForSubdivisionButtonWidth.constant = 90
-//        } else {
-//            self.constraintForSubdivisionButtonWidth.constant = 112
-//        }
-        
-//        if AppUtils.sizeModelOfiPhone() == .iphone4_35in {
-//            self.constraintForDroneViewLeading.constant = 60
-//            self.constraintForDroneViewTrailing.constant = 60
-//        } else {
-//            self.constraintForDroneViewLeading.constant = 20
-//            self.constraintForDroneViewTrailing.constant = 20
-//        }
     }
 
     @IBAction func onDurationChanged(_ sender: Any) {
@@ -192,12 +182,16 @@ class MetrodoneViewController: UIViewController {
         switch self.selectedSubdivisionNote {
         case 0:
             self.buttonSubdivisionNote1.alpha = 1.0
+//            self.imageViewNoteOnButton.image = UIImage(named:"icon_note_1")
         case 1:
             self.buttonSubdivisionNote2.alpha = 1.0
+//            self.imageViewNoteOnButton.image = UIImage(named:"icon_note_2")
         case 2:
             self.buttonSubdivisionNote3.alpha = 1.0
+//            self.imageViewNoteOnButton.image = UIImage(named:"icon_note_3")
         case 3:
             self.buttonSubdivisionNote4.alpha = 1.0
+//            self.imageViewNoteOnButton.image = UIImage(named:"icon_note_4")
         default:
             return
         }
