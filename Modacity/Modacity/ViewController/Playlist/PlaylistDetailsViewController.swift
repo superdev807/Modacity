@@ -440,12 +440,13 @@ extension PlaylistDetailsViewController: PlaylistPracticeItemCellDelegate {
         DropdownMenuView.instance.show(in: self.view,
                                        on: buttonMenu,
                                        rows: [["icon":"icon_row_clock", "text":"Set Timer"],
+                                              ["icon":"icon_notes", "text":"Notes"],
                                               ["icon":"icon_row_delete", "text":"Remove"]]) { (row) in
                                                 
-                                                if row == 1 {
+                                                if row == 2 {
                                                     self.viewModel.editingRow = -1
                                                     self.viewModel.deletePracticeItem(for: item)
-                                                } else {
+                                                } else if row == 0 {
                                                     self.openClockEdit(for: item)
                                                 }
                                                 

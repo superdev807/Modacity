@@ -138,7 +138,7 @@ class HomeViewController: UIViewController {
             self.constraintForRecentCollectionViewHeight.constant = 120
             self.constraintForFavoritesCollectionViewHeight.constant  = 120
         } else {
-            self.constraintForHeaderImageViewHeight.constant = 286
+            self.constraintForHeaderImageViewHeight.constant = 270
             self.constraintForContentViewTopSpace.constant = 266
             self.constraintForRecentCollectionViewHeight.constant = 120
             self.constraintForFavoritesCollectionViewHeight.constant  = 120

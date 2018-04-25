@@ -10,9 +10,12 @@ import UIKit
 
 class LeftMenuViewController: UIViewController {
     
-    let menuTitles = ["Home", "Metrodrone", "Playlists", "Recordings", "Pro Boost", "Settings", "Feedback", "About Us", "Sign Out"]
-    let menuIcons = ["icon_menu_home", "icon_menu_metrodrone", "icon_menu_playlist", "icon_menu_recordings", "icon_menu_ask", "icon_menu_settings", "icon_menu_feedback", "icon_menu_about", "icon_menu_signout"]
+//    let menuTitles = ["Home", "Metrodrone", "Playlists", "Recordings", "Pro Boost", "Settings", "Feedback", "About Us", "Sign Out"]
+//    let menuIcons = ["icon_menu_home", "icon_menu_metrodrone", "icon_menu_playlist", "icon_menu_recordings", "icon_menu_ask", "icon_menu_settings", "icon_menu_feedback", "icon_menu_about", "icon_menu_signout"]
 
+    let menuTitles = ["Home", "Metrodrone", "Recordings", "Settings", "Feedback", "About Us", "Sign Out"]
+    let menuIcons = ["icon_menu_home", "icon_menu_metrodrone", "icon_menu_recordings", "icon_menu_settings", "icon_menu_feedback", "icon_menu_about", "icon_menu_signout"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -77,7 +80,9 @@ extension LeftMenuViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        if indexPath.row == 8 {
+//        let menuTitles = ["Home", "Metrodrone", "Recordings", "Settings", "Feedback", "About Us", "Sign Out"]
+//        let menuIcons = ["icon_menu_home", "icon_menu_metrodrone", "icon_menu_recordings", "icon_menu_settings", "icon_menu_feedback", "icon_menu_about", "icon_menu_signout"]
+        if indexPath.row == 6 {
             self.signout()
         } else if indexPath.row == 0 {
             if self.sideMenuController?.rootViewController is TabBarViewController {
@@ -98,20 +103,20 @@ extension LeftMenuViewController: UITableViewDataSource, UITableViewDelegate {
                 self.sideMenuController?.rootViewController = controller
             }
             self.sideMenuController?.hideLeftViewAnimated()
+//        } else if indexPath.row == 2 {
+//            if self.sideMenuController?.rootViewController is TabBarViewController {
+//                let tabbarController = self.sideMenuController?.rootViewController as! TabBarViewController
+//                if tabbarController.selectedIndex != 1 {
+//                    tabbarController.onTabPlaylist()
+//                }
+//            } else {
+//                let tabBarViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TabBarViewController") as! TabBarViewController
+//                tabBarViewController.startingTabIndex = 1
+//                self.sideMenuController?.rootViewController = tabBarViewController
+//            }
+//
+//            self.sideMenuController?.hideLeftViewAnimated()
         } else if indexPath.row == 2 {
-            if self.sideMenuController?.rootViewController is TabBarViewController {
-                let tabbarController = self.sideMenuController?.rootViewController as! TabBarViewController
-                if tabbarController.selectedIndex != 1 {
-                    tabbarController.onTabPlaylist()
-                }
-            } else {
-                let tabBarViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TabBarViewController") as! TabBarViewController
-                tabBarViewController.startingTabIndex = 1
-                self.sideMenuController?.rootViewController = tabBarViewController
-            }
-            
-            self.sideMenuController?.hideLeftViewAnimated()
-        } else if indexPath.row == 3 {
             if self.sideMenuController?.rootViewController is TabBarViewController {
                 let tabbarController = self.sideMenuController?.rootViewController as! TabBarViewController
                 if tabbarController.selectedIndex != 2 {
@@ -124,19 +129,19 @@ extension LeftMenuViewController: UITableViewDataSource, UITableViewDelegate {
             }
             
             self.sideMenuController?.hideLeftViewAnimated()
-        } else if indexPath.row == 4 {
-            if (self.sideMenuController?.rootViewController is UINavigationController)
-                && (self.sideMenuController?.rootViewController as! UINavigationController).viewControllers[0] is FeedbackRootViewController {
-                let feedbackRootViewController = (self.sideMenuController?.rootViewController as! UINavigationController).viewControllers[0] as! FeedbackRootViewController
-                if feedbackRootViewController.pageUIMode == 1 {
-                    feedbackRootViewController.changePageUIMode(to: 0)
-                }
-            } else {
-                let controller = UIStoryboard(name:"feedback", bundle:nil).instantiateViewController(withIdentifier: "feedbackscene")
-                self.sideMenuController?.rootViewController = controller
-            }
-            self.sideMenuController?.hideLeftViewAnimated()
-        } else if indexPath.row == 5 {
+//        } else if indexPath.row == 4 {
+//            if (self.sideMenuController?.rootViewController is UINavigationController)
+//                && (self.sideMenuController?.rootViewController as! UINavigationController).viewControllers[0] is FeedbackRootViewController {
+//                let feedbackRootViewController = (self.sideMenuController?.rootViewController as! UINavigationController).viewControllers[0] as! FeedbackRootViewController
+//                if feedbackRootViewController.pageUIMode == 1 {
+//                    feedbackRootViewController.changePageUIMode(to: 0)
+//                }
+//            } else {
+//                let controller = UIStoryboard(name:"feedback", bundle:nil).instantiateViewController(withIdentifier: "feedbackscene")
+//                self.sideMenuController?.rootViewController = controller
+//            }
+//            self.sideMenuController?.hideLeftViewAnimated()
+        } else if indexPath.row == 3 {
             if (self.sideMenuController?.rootViewController is UINavigationController)
                 && (self.sideMenuController?.rootViewController as! UINavigationController).viewControllers[0] is SettingsViewController {
                 
@@ -145,7 +150,7 @@ extension LeftMenuViewController: UITableViewDataSource, UITableViewDelegate {
                 self.sideMenuController?.rootViewController = controller
             }
             self.sideMenuController?.hideLeftViewAnimated()
-        } else if indexPath.row == 6 {
+        } else if indexPath.row == 4 {
             if (self.sideMenuController?.rootViewController is UINavigationController)
                 && (self.sideMenuController?.rootViewController as! UINavigationController).viewControllers[0] is FeedbackRootViewController {
                 let feedbackRootViewController = (self.sideMenuController?.rootViewController as! UINavigationController).viewControllers[0] as! FeedbackRootViewController
@@ -159,7 +164,7 @@ extension LeftMenuViewController: UITableViewDataSource, UITableViewDelegate {
                 self.sideMenuController?.rootViewController = controller
             }
             self.sideMenuController?.hideLeftViewAnimated()
-        } else if indexPath.row == 7 {
+        } else if indexPath.row == 5 {
             if (self.sideMenuController?.rootViewController is UINavigationController)
                 && (self.sideMenuController?.rootViewController as! UINavigationController).viewControllers[0] is AboutViewController {
             } else {

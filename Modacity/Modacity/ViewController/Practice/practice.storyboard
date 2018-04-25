@@ -81,7 +81,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Warm Up" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RLr-qK-k0M">
-                                <rect key="frame" x="60" y="36" width="255" height="19"/>
+                                <rect key="frame" x="60" y="36" width="255" height="19.5"/>
                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -90,22 +90,22 @@
                                 <rect key="frame" x="0.0" y="539" width="375" height="88"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IQ1-62-FQs">
-                                        <rect key="frame" x="52" y="15" width="272" height="59"/>
+                                        <rect key="frame" x="55" y="15" width="266" height="59"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RCv-2m-rB4">
-                                                <rect key="frame" x="0.0" y="0.0" width="84" height="59"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="83" height="59"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zuf-xb-Q9P">
-                                                        <rect key="frame" x="0.0" y="0.0" width="84" height="59"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="83" height="59"/>
                                                         <connections>
                                                             <action selector="onImprove:" destination="ruu-CR-fPU" eventType="touchUpInside" id="kAb-uv-U21"/>
                                                         </connections>
                                                     </button>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_btn_logo" translatesAutoresizingMaskIntoConstraints="NO" id="zOu-ff-Zen">
-                                                        <rect key="frame" x="25.5" y="8" width="33" height="32"/>
+                                                        <rect key="frame" x="25" y="8" width="33" height="32"/>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Improve" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PJg-c4-UVc">
-                                                        <rect key="frame" x="20" y="45" width="44" height="14"/>
+                                                        <rect key="frame" x="20" y="45" width="43" height="14"/>
                                                         <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
                                                         <color key="textColor" red="1" green="1" blue="1" alpha="0.75" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -126,22 +126,22 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G3g-U6-5s1">
-                                                <rect key="frame" x="85" y="0.0" width="94" height="59"/>
+                                                <rect key="frame" x="84" y="0.0" width="92" height="59"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GOz-yh-8Ft">
-                                                        <rect key="frame" x="0.0" y="-0.5" width="94" height="59"/>
+                                                        <rect key="frame" x="0.0" y="-0.5" width="92" height="59"/>
                                                         <connections>
                                                             <action selector="onAskExpert:" destination="ruu-CR-fPU" eventType="touchUpInside" id="JXt-f6-Fwx"/>
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pro Boost" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G7T-Lc-8cw">
-                                                        <rect key="frame" x="20" y="44.5" width="54" height="14"/>
+                                                        <rect key="frame" x="20" y="44.5" width="52" height="14"/>
                                                         <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
                                                         <color key="textColor" red="1" green="1" blue="1" alpha="0.75" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_chat" translatesAutoresizingMaskIntoConstraints="NO" id="J2j-Vj-gBN">
-                                                        <rect key="frame" x="31" y="9.5" width="31" height="29"/>
+                                                        <rect key="frame" x="30" y="9.5" width="31" height="29"/>
                                                     </imageView>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -158,19 +158,19 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wqN-DD-Abp">
-                                                <rect key="frame" x="178.5" y="-0.5" width="93.5" height="59"/>
+                                                <rect key="frame" x="175.5" y="-0.5" width="90.5" height="59"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mNZ-pS-4Il">
-                                                        <rect key="frame" x="0.0" y="0.0" width="93.5" height="59"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="90.5" height="59"/>
                                                         <connections>
                                                             <action selector="onFeedback:" destination="ruu-CR-fPU" eventType="touchUpInside" id="ohP-B3-PEN"/>
                                                         </connections>
                                                     </button>
                                                     <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_airplane" translatesAutoresizingMaskIntoConstraints="NO" id="a3a-zN-gl4">
-                                                        <rect key="frame" x="29.5" y="9.5" width="34" height="32"/>
+                                                        <rect key="frame" x="28" y="9.5" width="34" height="32"/>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Feedback" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gkH-Nc-j21">
-                                                        <rect key="frame" x="20" y="45" width="53.5" height="14"/>
+                                                        <rect key="frame" x="20" y="45" width="50.5" height="14"/>
                                                         <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
                                                         <color key="textColor" red="1" green="1" blue="1" alpha="0.75" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -212,7 +212,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nOB-0N-33h">
-                                <rect key="frame" x="86.5" y="120" width="202" height="47"/>
+                                <rect key="frame" x="87.5" y="120" width="200" height="47"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nl6-0j-Nvn">
                                         <rect key="frame" x="0.0" y="0.0" width="64" height="47"/>
@@ -245,13 +245,13 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=":" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ile-As-UGf">
-                                        <rect key="frame" x="64" y="-6" width="9" height="37.5"/>
+                                        <rect key="frame" x="64" y="-6" width="8" height="38.5"/>
                                         <fontDescription key="fontDescription" name="Lato-Light" family="Lato" pointSize="32"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Nl-QB-s8Q">
-                                        <rect key="frame" x="73" y="0.0" width="64" height="47"/>
+                                        <rect key="frame" x="72" y="0.0" width="64" height="47"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pU1-Oc-PW6">
                                                 <rect key="frame" x="0.0" y="0.0" width="64" height="32"/>
@@ -281,13 +281,13 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=":" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ll-Vj-WDT">
-                                        <rect key="frame" x="129" y="-6" width="9" height="37.5"/>
+                                        <rect key="frame" x="128" y="-6" width="8" height="38.5"/>
                                         <fontDescription key="fontDescription" name="Lato-Light" family="Lato" pointSize="32"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fNf-UT-tSk">
-                                        <rect key="frame" x="138" y="0.0" width="64" height="47"/>
+                                        <rect key="frame" x="136" y="0.0" width="64" height="47"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q8r-rh-dfF">
                                                 <rect key="frame" x="0.0" y="0.0" width="64" height="32"/>
@@ -300,7 +300,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SECONDS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZQ7-i1-F2P">
-                                                <rect key="frame" x="13.5" y="37" width="39" height="10"/>
+                                                <rect key="frame" x="13.5" y="37" width="37.5" height="10"/>
                                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="8"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -317,13 +317,13 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8ap-88-Eh9">
-                                        <rect key="frame" x="0.0" y="0.0" width="202" height="47"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="200" height="47"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_pause_white" translatesAutoresizingMaskIntoConstraints="NO" id="Rxw-kD-Tbd">
                                                 <rect key="frame" x="25" y="13.5" width="17" height="20"/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time paused" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nHU-TC-Tde">
-                                                <rect key="frame" x="57" y="11.5" width="116" height="24"/>
+                                                <rect key="frame" x="57" y="11.5" width="113" height="24"/>
                                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="20"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
@@ -338,7 +338,7 @@
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uRc-JT-hI7">
-                                        <rect key="frame" x="0.0" y="0.0" width="202" height="47"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="200" height="47"/>
                                         <connections>
                                             <action selector="onTapTimer:" destination="ruu-CR-fPU" eventType="touchUpInside" id="GWa-Uw-JQJ"/>
                                         </connections>
@@ -372,7 +372,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iGP-Iw-poe">
-                                <rect key="frame" x="283.5" y="120" width="32" height="32"/>
+                                <rect key="frame" x="282.5" y="120" width="32" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="32" id="r7T-FM-olY"/>
                                     <constraint firstAttribute="height" constant="32" id="y1M-NQ-dCg"/>
@@ -593,7 +593,7 @@
                                                         <rect key="frame" x="10.5" y="10" width="120" height="120.5"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OCTAVE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LiB-os-MHt">
-                                                                <rect key="frame" x="41" y="19" width="38" height="12"/>
+                                                                <rect key="frame" x="40.5" y="19" width="39" height="12"/>
                                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="10"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <nil key="highlightedColor"/>
@@ -759,16 +759,16 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="110" height="69"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LKu-uA-5lA" userLabel="tempo Area">
-                                                        <rect key="frame" x="9" y="3" width="92" height="62"/>
+                                                        <rect key="frame" x="9" y="2.5" width="92" height="63"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="18" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q3o-hL-bNX">
-                                                                <rect key="frame" x="35.5" y="0.0" width="21" height="21"/>
+                                                                <rect key="frame" x="35.5" y="0.0" width="21" height="22"/>
                                                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="18"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <button opaque="NO" alpha="0.75" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IkB-Hw-TEu" userLabel="DecreaseBPM">
-                                                                <rect key="frame" x="0.0" y="26" width="36" height="36"/>
+                                                                <rect key="frame" x="0.0" y="27" width="36" height="36"/>
                                                                 <state key="normal" image="icon_minus"/>
                                                                 <connections>
                                                                     <action selector="onChangeBPMStop:" destination="ruu-CR-fPU" eventType="touchUpInside" id="KFA-ZM-aUv"/>
@@ -777,7 +777,7 @@
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" alpha="0.75" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pbk-YQ-cVe" userLabel="IncreaseBPM">
-                                                                <rect key="frame" x="56" y="26" width="36" height="36"/>
+                                                                <rect key="frame" x="56" y="27" width="36" height="36"/>
                                                                 <state key="normal" image="icon_plus"/>
                                                                 <connections>
                                                                     <action selector="onChangeBPMStop:" destination="ruu-CR-fPU" eventType="touchUpOutside" id="J5l-pP-nUf"/>
@@ -968,10 +968,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B5x-Ol-sgc">
-                                <rect key="frame" x="60" y="301" width="255" height="86"/>
+                                <rect key="frame" x="60" y="301" width="255" height="88"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bMG-Hk-5gn">
-                                        <rect key="frame" x="30" y="15" width="195" height="56"/>
+                                        <rect key="frame" x="30" y="15" width="195" height="58"/>
                                         <string key="text">Did you know? 
 You can tap timer to pause your session.</string>
                                         <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="16"/>
@@ -1118,35 +1118,35 @@ You can tap timer to pause your session.</string>
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="707"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Warm Up" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sxi-nk-BRo">
-                                <rect key="frame" x="60" y="36" width="255" height="19"/>
+                                <rect key="frame" x="60" y="36" width="255" height="19.5"/>
                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Slm-tj-hhU">
-                                <rect key="frame" x="67" y="238" width="240" height="211"/>
+                                <rect key="frame" x="67" y="237.5" width="240" height="212"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rate Your Mastery" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hjk-5K-vbm">
-                                        <rect key="frame" x="70.5" y="0.0" width="99" height="14"/>
+                                        <rect key="frame" x="71.5" y="0.0" width="97" height="14"/>
                                         <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How did it go?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f0n-45-xgb">
-                                        <rect key="frame" x="29" y="19" width="183.5" height="33"/>
+                                        <rect key="frame" x="36.5" y="19" width="167" height="34"/>
                                         <fontDescription key="fontDescription" name="Lato-Light" family="Lato" pointSize="28"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nMg-GA-nKF">
-                                        <rect key="frame" x="67" y="147" width="106" height="66"/>
+                                        <rect key="frame" x="67" y="148" width="106" height="66"/>
                                         <state key="normal" image="btn_thumbup"/>
                                         <connections>
                                             <action selector="onNext:" destination="Q2z-jX-Ays" eventType="touchUpInside" id="yde-Kf-uCb"/>
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PoT-2i-X5M" customClass="FloatRatingView" customModule="Modacity" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="72" width="240" height="45"/>
+                                        <rect key="frame" x="0.0" y="73" width="240" height="45"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="45" id="hR3-v6-Rst"/>
@@ -1182,7 +1182,7 @@ You can tap timer to pause your session.</string>
                                 </constraints>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_arrow_left" translatesAutoresizingMaskIntoConstraints="NO" id="221-vr-5HC">
-                                <rect key="frame" x="25" y="38.5" width="10" height="15"/>
+                                <rect key="frame" x="25" y="39" width="10" height="15"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nl6-eX-Joh">
                                 <rect key="frame" x="0.0" y="0.0" width="60" height="90"/>
@@ -1229,7 +1229,7 @@ You can tap timer to pause your session.</string>
         <image name="bg_bottom_strip_extra" width="373" height="39"/>
         <image name="bg_common" width="375" height="667"/>
         <image name="bg_drone_large" width="375" height="348"/>
-        <image name="bg_practice_header" width="375" height="519"/>
+        <image name="bg_practice_header" width="375" height="486"/>
         <image name="bg_simple_gradient" width="375" height="667"/>
         <image name="bg_subdivision" width="96" height="272"/>
         <image name="btn_drone_play" width="112" height="65"/>
