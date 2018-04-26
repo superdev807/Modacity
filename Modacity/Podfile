@@ -1,49 +1,49 @@
 # Uncomment the next line to define a global platform for your project
 # platform :ios, '9.0'
 
+def shared_pods
+    use_frameworks!
+    
+    pod 'TPKeyboardAvoiding'
+    pod 'ObjectMapper'
+    
+    pod 'Firebase/Core'
+    pod 'Firebase/Auth'
+    pod 'Firebase/Storage'
+    pod 'Firebase/Database'
+    
+    pod 'FBSDKCoreKit'
+    pod 'FBSDKLoginKit'
+    pod 'FBSDKShareKit'
+    
+    pod 'LGSideMenuController'
+    
+    pod 'GoogleSignIn'
+    
+    pod 'UITextView+Placeholder'
+    
+    pod 'SCSiriWaveformView'
+    pod 'FDWaveformView'
+    
+    pod 'BWHorizontalTableView'
+    
+    pod 'Amplitude-iOS', '~> 4.0.4'
+    
+    pod 'SwiftMessages'
+    
+    pod 'MBProgressHUD'
+end
+
 target 'Modacity' do
-  # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
-  use_frameworks!
+    shared_pods
+end
 
-  # Pods for Modacity
-  
-  pod 'TPKeyboardAvoiding'
-  pod 'ObjectMapper'
-  
-  pod 'Firebase/Core'
-  pod 'Firebase/Auth'
-  pod 'Firebase/Storage'
-  pod 'Firebase/Database'
-  
-  pod 'FBSDKCoreKit'
-  pod 'FBSDKLoginKit'
-  pod 'FBSDKShareKit'
-  
-  pod 'LGSideMenuController'
-  
-  pod 'GoogleSignIn'
-  
-  pod 'UITextView+Placeholder'
-  
-  pod 'SCSiriWaveformView'
-  pod 'FDWaveformView'
-  
-  pod 'BWHorizontalTableView'
-  
-  pod 'Amplitude-iOS', '~> 4.0.4'
-  
-  pod 'SwiftMessages'
-  
-  pod 'MBProgressHUD'
-  
-  target 'ModacityTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
+target 'Modacity-Dev' do
+    shared_pods
+end
 
-  target 'ModacityUITests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
+target 'ModacityTests' do
+end
 
+target 'ModacityUITests' do
 end

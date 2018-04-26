@@ -10,7 +10,16 @@ import UIKit
 
 class AppConfig: NSObject {
     
-    static let appAmplitudeApiKey = "91054e0297cb647ebb3a32443f33c2db"
+    static var appAmplitudeApiKey: String! {
+        get {
+            let appBundleId = Bundle.main.infoDictionary![kCFBundleIdentifierKey as String] as! String
+            if appBundleId.contains("dev") {
+                return "03977994819768a709d41a9d0a729de2"
+            } else {
+                return "91054e0297cb647ebb3a32443f33c2db"
+            }
+        }
+    }
     static let appGoogleAnalyticsTrackingId = "111435557"
     
     static let appFontLatoRegular = "Lato-Regular"

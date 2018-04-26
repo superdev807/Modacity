@@ -12,6 +12,8 @@
 		101342632059020300A9734B /* TapTempo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101342622059020300A9734B /* TapTempo.swift */; };
 		1084BAA420811A3500D7F67D /* _Comp in Resources */ = {isa = PBXBuildFile; fileRef = 1084BAA320811A3500D7F67D /* _Comp */; };
 		14A63A48B0FA29B0F7388A3B /* Pods_Modacity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C77FB2C0A58ED4E886E0F33 /* Pods_Modacity.framework */; };
+		16A5C4371F956B8B09E96F6D /* libPods-ModacityUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C7502E348716E20F4E0B7E5C /* libPods-ModacityUITests.a */; };
+		6318133EC6F4FF105A8ACB5A /* libPods-ModacityTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E91BAC853A8BF6F8434DAB14 /* libPods-ModacityTests.a */; };
 		8E0A51C5207E4663006BDDC6 /* ModacityAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0A51C4207E4663006BDDC6 /* ModacityAnalytics.swift */; };
 		8E15F2BB207259C900CC1D9B /* MetroDroneAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E15F2BA207259C800CC1D9B /* MetroDroneAudio.swift */; };
 		8E15F2BD2072759200CC1D9B /* MetrodronePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E15F2BC2072759200CC1D9B /* MetrodronePlayer.swift */; };
@@ -78,7 +80,6 @@
 		8EDEB6EE203DCD2200E8D48D /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDEB6ED203DCD2200E8D48D /* CreateAccountViewController.swift */; };
 		8EDEB6F0203DD3B900E8D48D /* SigninViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDEB6EF203DD3B900E8D48D /* SigninViewController.swift */; };
 		8EDEB6F2203DD7A800E8D48D /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDEB6F1203DD7A800E8D48D /* AuthViewModel.swift */; };
-		8EDEB6F6203DE0A400E8D48D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8EDEB6F5203DE0A400E8D48D /* GoogleService-Info.plist */; };
 		8EDEB706203DE38F00E8D48D /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8EDEB6FB203DE38F00E8D48D /* Lato-Bold.ttf */; };
 		8EDEB707203DE38F00E8D48D /* lato-italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8EDEB6FC203DE38F00E8D48D /* lato-italic.ttf */; };
 		8EDEB708203DE38F00E8D48D /* lato-light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8EDEB6FD203DE38F00E8D48D /* lato-light.ttf */; };
@@ -96,9 +97,98 @@
 		8EF559C9207E89FA006728E4 /* FloatRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF559C8207E89FA006728E4 /* FloatRatingView.swift */; };
 		8EF559CB207E8A35006728E4 /* DropdownMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF559CA207E8A35006728E4 /* DropdownMenuView.swift */; };
 		8EFD2DAC207BC20900DC28C1 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFD2DAB207BC20900DC28C1 /* ChangePasswordViewController.swift */; };
-		C2C1B5C7E1FE6B22D1399AF2 /* Pods_ModacityUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF1C6005138DC488B25382E3 /* Pods_ModacityUITests.framework */; };
-		C64283AA9A6BAB8DE816BEB8 /* Pods_ModacityTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3939C85FC27D407BE45658F /* Pods_ModacityTests.framework */; };
+		E21BE9B12091796A000D1877 /* PracticeItemListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E455D122045B870003FDB80 /* PracticeItemListViewController.swift */; };
+		E21BE9B22091796A000D1877 /* SigninViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDEB6EF203DD3B900E8D48D /* SigninViewController.swift */; };
+		E21BE9B32091796A000D1877 /* MetroDroneAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E15F2BA207259C800CC1D9B /* MetroDroneAudio.swift */; };
+		E21BE9B42091796A000D1877 /* FeedbackSentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E58B43420445BC10022704B /* FeedbackSentViewController.swift */; };
+		E21BE9B52091796A000D1877 /* Recording.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E64B7A92056A09E00900775 /* Recording.swift */; };
+		E21BE9B62091796A000D1877 /* PlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA33BA220052A4A00539A3F /* PlaylistViewController.swift */; };
+		E21BE9B72091796A000D1877 /* SideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDEB717203DFAC200E8D48D /* SideMenuController.swift */; };
+		E21BE9B82091796A000D1877 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED335E32048EBC700FB61C1 /* ViewModel.swift */; };
+		E21BE9B92091796A000D1877 /* PlaylistFinishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAE1650204FE1050012450E /* PlaylistFinishViewController.swift */; };
+		E21BE9BA2091796A000D1877 /* PlaylistLocalManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB9DB98204DA67200689C1D /* PlaylistLocalManager.swift */; };
+		E21BE9BB2091796A000D1877 /* MyProfileRemoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E58B43F20446AE40022704B /* MyProfileRemoteManager.swift */; };
+		E21BE9BC2091796A000D1877 /* PlaylistPracticeDurationKeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1EFEFB20500E7A000DE107 /* PlaylistPracticeDurationKeyboardViewController.swift */; };
+		E21BE9BD2091796A000D1877 /* DateUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDEB705203DE38F00E8D48D /* DateUtility.swift */; };
+		E21BE9BE2091796A000D1877 /* RecordingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA33BA620052D2700539A3F /* RecordingViewController.swift */; };
+		E21BE9BF2091796A000D1877 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDEB6F1203DD7A800E8D48D /* AuthViewModel.swift */; };
+		E21BE9C02091796A000D1877 /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3596212049AA9500F2E6DF /* Playlist.swift */; };
+		E21BE9C12091796A000D1877 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDEB703203DE38F00E8D48D /* AppConfig.swift */; };
+		E21BE9C22091796A000D1877 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB479BA20458B7C00BE6461 /* AboutViewController.swift */; };
+		E21BE9C32091796A000D1877 /* AppOveralDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E58B44120446AE40022704B /* AppOveralDataManager.swift */; };
+		E21BE9C42091796A000D1877 /* DropdownMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF559CA207E8A35006728E4 /* DropdownMenuView.swift */; };
+		E21BE9C52091796A000D1877 /* TapTempo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101342622059020300A9734B /* TapTempo.swift */; };
+		E21BE9C62091796A000D1877 /* Improvement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9DF9042057CF47003F5FE8 /* Improvement.swift */; };
+		E21BE9C72091796A000D1877 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E58B438204468100022704B /* ProfileViewModel.swift */; };
+		E21BE9C82091796A000D1877 /* PracticeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E37A0B82005B3AD00747B61 /* PracticeViewController.swift */; };
+		E21BE9C92091796A000D1877 /* PracticeItemRemoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED6218C207B09D600593EF2 /* PracticeItemRemoteManager.swift */; };
+		E21BE9CA2091796A000D1877 /* RecordingsLocalManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E64B7AB2056A35200900775 /* RecordingsLocalManager.swift */; };
+		E21BE9CB2091796A000D1877 /* PracticeRateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E994FC7204EF92F0092B338 /* PracticeRateViewController.swift */; };
+		E21BE9CC2091796A000D1877 /* PracticeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDA6193204827DE006D3208 /* PracticeItem.swift */; };
+		E21BE9CD2091796A000D1877 /* PlaylistDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E35961F2049A61C00F2E6DF /* PlaylistDetailsViewModel.swift */; };
+		E21BE9CE2091796A000D1877 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E64B7A72056332300900775 /* HomeViewModel.swift */; };
+		E21BE9CF2091796A000D1877 /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDEB6ED203DCD2200E8D48D /* CreateAccountViewController.swift */; };
+		E21BE9D02091796A000D1877 /* PlaylistRemoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED6218A207B09A900593EF2 /* PlaylistRemoteManager.swift */; };
+		E21BE9D12091796A000D1877 /* SetReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB81FCA2063D33E00EADDA5 /* SetReminderViewController.swift */; };
+		E21BE9D22091796A000D1877 /* ModacityAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0A51C4207E4663006BDDC6 /* ModacityAnalytics.swift */; };
+		E21BE9D32091796A000D1877 /* PlaylistDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E455D102045A84F003FDB80 /* PlaylistDetailsViewController.swift */; };
+		E21BE9D42091796A000D1877 /* MessagesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D01BD5208A146B00F54B5D /* MessagesManager.swift */; };
+		E21BE9D52091796A000D1877 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4551DE20030F7F002061AE /* AppDelegate.swift */; };
+		E21BE9D62091796A000D1877 /* MyProfileLocalManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E58B44220446AE40022704B /* MyProfileLocalManager.swift */; };
+		E21BE9D72091796A000D1877 /* AppUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDEB704203DE38F00E8D48D /* AppUtils.swift */; };
+		E21BE9D82091796A000D1877 /* PracticeItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDA619720484580006D3208 /* PracticeItemViewModel.swift */; };
+		E21BE9D92091796A000D1877 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED83FC62003262D00052256 /* TabBarViewController.swift */; };
+		E21BE9DA2091796A000D1877 /* RecordingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E64B7AD2056AA7C00900775 /* RecordingViewModel.swift */; };
+		E21BE9DB2091796A000D1877 /* ImprovementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E84CA6620577F3500D2D1CB /* ImprovementViewModel.swift */; };
+		E21BE9DC2091796A000D1877 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAC1214200526BB004232A2 /* HomeViewController.swift */; };
+		E21BE9DD2091796A000D1877 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFD2DAB207BC20900DC28C1 /* ChangePasswordViewController.swift */; };
+		E21BE9DE2091796A000D1877 /* PlaylistDeliverModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECCAF942056EABE000E2B75 /* PlaylistDeliverModel.swift */; };
+		E21BE9DF2091796A000D1877 /* Authorizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E58B43E20446AE40022704B /* Authorizer.swift */; };
+		E21BE9E02091796A000D1877 /* MetrodoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E99A066204072E900A9A9B8 /* MetrodoneViewController.swift */; };
+		E21BE9E12091796A000D1877 /* ModacityAudioEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1013425C2058E5FD00A9734B /* ModacityAudioEngine.swift */; };
+		E21BE9E22091796A000D1877 /* ViewDroneFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF559C6207E89D3006728E4 /* ViewDroneFrame.swift */; };
+		E21BE9E32091796A000D1877 /* ImprovementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E84CA682057858400D2D1CB /* ImprovementViewController.swift */; };
+		E21BE9E42091796A000D1877 /* PracticeItemLocalManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDA6195204828F1006D3208 /* PracticeItemLocalManager.swift */; };
+		E21BE9E52091796A000D1877 /* ImproveHypothesisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E84CA6420577E7600D2D1CB /* ImproveHypothesisViewController.swift */; };
+		E21BE9E62091796A000D1877 /* LeftMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDEB71B203DFC0200E8D48D /* LeftMenuViewController.swift */; };
+		E21BE9E72091796A000D1877 /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE2BD23203DB2AF00D6D7A8 /* TutorialViewController.swift */; };
+		E21BE9E82091796A000D1877 /* Me.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDEB712203DE4B300E8D48D /* Me.swift */; };
+		E21BE9E92091796A000D1877 /* PlaylistPracticeEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E16B46C2052ECDE00A9BF8A /* PlaylistPracticeEntry.swift */; };
+		E21BE9EA2091796A000D1877 /* ImproveSuggestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED001CE205768C100536122 /* ImproveSuggestionViewController.swift */; };
+		E21BE9EB2091796A000D1877 /* PlaylistViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB9DB9A204DABFD00689C1D /* PlaylistViewModel.swift */; };
+		E21BE9EC2091796A000D1877 /* FeedbackRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA9E7CC20429F140019EFA5 /* FeedbackRootViewController.swift */; };
+		E21BE9ED2091796A000D1877 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED83FC120031EF400052256 /* SplashViewController.swift */; };
+		E21BE9EE2091796A000D1877 /* MetrodronePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E15F2BC2072759200CC1D9B /* MetrodronePlayer.swift */; };
+		E21BE9EF2091796A000D1877 /* FloatRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF559C8207E89FA006728E4 /* FloatRatingView.swift */; };
+		E21BE9F02091796A000D1877 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E58B43B204469E20022704B /* SettingsViewController.swift */; };
+		E21BE9F22091796A000D1877 /* Pods_Modacity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C77FB2C0A58ED4E886E0F33 /* Pods_Modacity.framework */; };
+		E21BE9F42091796A000D1877 /* about.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EB479B820458B7000BE6461 /* about.storyboard */; };
+		E21BE9F62091796A000D1877 /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8EDEB6FB203DE38F00E8D48D /* Lato-Bold.ttf */; };
+		E21BE9F72091796A000D1877 /* practice.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E37A0BA2005B3BB00747B61 /* practice.storyboard */; };
+		E21BE9F82091796A000D1877 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E4551E720030F7F002061AE /* LaunchScreen.storyboard */; };
+		E21BE9F92091796A000D1877 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E4551E520030F7F002061AE /* Assets.xcassets */; };
+		E21BE9FA2091796A000D1877 /* recording.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EA33BA420052D0600539A3F /* recording.storyboard */; };
+		E21BE9FB2091796A000D1877 /* metrodone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E99A068204072F900A9A9B8 /* metrodone.storyboard */; };
+		E21BE9FC2091796A000D1877 /* improve.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8ED001CC2057671200536122 /* improve.storyboard */; };
+		E21BE9FD2091796A000D1877 /* feedback.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EA9E7CA20429EE00019EFA5 /* feedback.storyboard */; };
+		E21BE9FE2091796A000D1877 /* _Comp in Resources */ = {isa = PBXBuildFile; fileRef = 1084BAA320811A3500D7F67D /* _Comp */; };
+		E21BE9FF2091796A000D1877 /* sidemenu.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EDEB719203DFB9A00E8D48D /* sidemenu.storyboard */; };
+		E21BEA002091796A000D1877 /* ding.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8ECCAF962056F5B9000E2B75 /* ding.wav */; };
+		E21BEA012091796A000D1877 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E4551E220030F7F002061AE /* Main.storyboard */; };
+		E21BEA022091796A000D1877 /* waveforms in Resources */ = {isa = PBXBuildFile; fileRef = 101342602058EE2700A9734B /* waveforms */; };
+		E21BEA032091796A000D1877 /* lato-italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8EDEB6FC203DE38F00E8D48D /* lato-italic.ttf */; };
+		E21BEA042091796A000D1877 /* welcome.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EE2BD21203DAED900D6D7A8 /* welcome.storyboard */; };
+		E21BEA052091796A000D1877 /* home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EAC121220052668004232A2 /* home.storyboard */; };
+		E21BEA062091796A000D1877 /* settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E58B44720446B180022704B /* settings.storyboard */; };
+		E21BEA072091796A000D1877 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8EDEB6FE203DE38F00E8D48D /* Lato-Regular.ttf */; };
+		E21BEA082091796A000D1877 /* playlist.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EA33BA020052A3300539A3F /* playlist.storyboard */; };
+		E21BEA092091796A000D1877 /* lato-light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8EDEB6FD203DE38F00E8D48D /* lato-light.ttf */; };
+		E21BEA0A2091796A000D1877 /* lato-bolditalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8E58B43620445FEA0022704B /* lato-bolditalic.ttf */; };
+		E21BEA1B20917C46000D1877 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E21BEA1720917C45000D1877 /* GoogleService-Info.plist */; };
+		E21BEA1C20917C46000D1877 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E21BEA1920917C46000D1877 /* GoogleService-Info.plist */; };
+		E21BEA1F2091807D000D1877 /* Info-dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = E21BEA1E2091807D000D1877 /* Info-dev.plist */; };
 		E2D01BD6208A146B00F54B5D /* MessagesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D01BD5208A146B00F54B5D /* MessagesManager.swift */; };
+		EE45C33C78DB04B51D48C842 /* Pods_Modacity_Dev.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E91DFE323AAAD77A2F8A14A /* Pods_Modacity_Dev.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,6 +209,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0ED0F8A74BFAB54DDD3FAD0E /* Pods-Modacity-Dev.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Modacity-Dev.release.xcconfig"; path = "Pods/Target Support Files/Pods-Modacity-Dev/Pods-Modacity-Dev.release.xcconfig"; sourceTree = "<group>"; };
 		1013425C2058E5FD00A9734B /* ModacityAudioEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModacityAudioEngine.swift; sourceTree = "<group>"; };
 		101342602058EE2700A9734B /* waveforms */ = {isa = PBXFileReference; lastKnownFileType = folder; path = waveforms; sourceTree = "<group>"; };
 		101342622059020300A9734B /* TapTempo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapTempo.swift; sourceTree = "<group>"; };
@@ -127,6 +218,7 @@
 		2FF7BD2AC6BB692D2CB30434 /* Pods-ModacityUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ModacityUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ModacityUITests/Pods-ModacityUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		3798BA6D596582574229E4BD /* Pods-Modacity.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Modacity.release.xcconfig"; path = "Pods/Target Support Files/Pods-Modacity/Pods-Modacity.release.xcconfig"; sourceTree = "<group>"; };
 		64FC86E6BC6EB03A27EBFF9B /* Pods-Modacity.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Modacity.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Modacity/Pods-Modacity.debug.xcconfig"; sourceTree = "<group>"; };
+		7BCF9E5DBCDFF47634A0AEEC /* Pods-Modacity-Dev.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Modacity-Dev.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Modacity-Dev/Pods-Modacity-Dev.debug.xcconfig"; sourceTree = "<group>"; };
 		8E0A51BB207E4449006BDDC6 /* Modacity-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Modacity-Bridging-Header.h"; sourceTree = "<group>"; };
 		8E0A51C4207E4663006BDDC6 /* ModacityAnalytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModacityAnalytics.swift; sourceTree = "<group>"; };
 		8E15F2BA207259C800CC1D9B /* MetroDroneAudio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetroDroneAudio.swift; sourceTree = "<group>"; };
@@ -200,7 +292,6 @@
 		8EDEB6ED203DCD2200E8D48D /* CreateAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
 		8EDEB6EF203DD3B900E8D48D /* SigninViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SigninViewController.swift; sourceTree = "<group>"; };
 		8EDEB6F1203DD7A800E8D48D /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
-		8EDEB6F5203DE0A400E8D48D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8EDEB6FB203DE38F00E8D48D /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Bold.ttf"; sourceTree = "<group>"; };
 		8EDEB6FC203DE38F00E8D48D /* lato-italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "lato-italic.ttf"; sourceTree = "<group>"; };
 		8EDEB6FD203DE38F00E8D48D /* lato-light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "lato-light.ttf"; sourceTree = "<group>"; };
@@ -218,12 +309,17 @@
 		8EF559C8207E89FA006728E4 /* FloatRatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatRatingView.swift; sourceTree = "<group>"; };
 		8EF559CA207E8A35006728E4 /* DropdownMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownMenuView.swift; sourceTree = "<group>"; };
 		8EFD2DAB207BC20900DC28C1 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
+		9E91DFE323AAAD77A2F8A14A /* Pods_Modacity_Dev.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Modacity_Dev.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C7502E348716E20F4E0B7E5C /* libPods-ModacityUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ModacityUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C925C622EB9C22985FEC136B /* Pods-ModacityTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ModacityTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ModacityTests/Pods-ModacityTests.release.xcconfig"; sourceTree = "<group>"; };
 		CA2B3FB269EEE0DEA241813C /* Pods-ModacityUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ModacityUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ModacityUITests/Pods-ModacityUITests.release.xcconfig"; sourceTree = "<group>"; };
 		CAF0BFC4CE94D935A9880025 /* Pods-ModacityTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ModacityTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ModacityTests/Pods-ModacityTests.debug.xcconfig"; sourceTree = "<group>"; };
-		D3939C85FC27D407BE45658F /* Pods_ModacityTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ModacityTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E21BEA102091796A000D1877 /* Modacity-Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Modacity-Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E21BEA1720917C45000D1877 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E21BEA1920917C46000D1877 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E21BEA1E2091807D000D1877 /* Info-dev.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-dev.plist"; sourceTree = "<group>"; };
 		E2D01BD5208A146B00F54B5D /* MessagesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesManager.swift; sourceTree = "<group>"; };
-		FF1C6005138DC488B25382E3 /* Pods_ModacityUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ModacityUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E91BAC853A8BF6F8434DAB14 /* libPods-ModacityTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ModacityTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -239,7 +335,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C64283AA9A6BAB8DE816BEB8 /* Pods_ModacityTests.framework in Frameworks */,
+				6318133EC6F4FF105A8ACB5A /* libPods-ModacityTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -247,7 +343,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C2C1B5C7E1FE6B22D1399AF2 /* Pods_ModacityUITests.framework in Frameworks */,
+				16A5C4371F956B8B09E96F6D /* libPods-ModacityUITests.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E21BE9F12091796A000D1877 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E21BE9F22091796A000D1877 /* Pods_Modacity.framework in Frameworks */,
+				EE45C33C78DB04B51D48C842 /* Pods_Modacity_Dev.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -273,6 +378,8 @@
 				C925C622EB9C22985FEC136B /* Pods-ModacityTests.release.xcconfig */,
 				2FF7BD2AC6BB692D2CB30434 /* Pods-ModacityUITests.debug.xcconfig */,
 				CA2B3FB269EEE0DEA241813C /* Pods-ModacityUITests.release.xcconfig */,
+				7BCF9E5DBCDFF47634A0AEEC /* Pods-Modacity-Dev.debug.xcconfig */,
+				0ED0F8A74BFAB54DDD3FAD0E /* Pods-Modacity-Dev.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -281,8 +388,9 @@
 			isa = PBXGroup;
 			children = (
 				1C77FB2C0A58ED4E886E0F33 /* Pods_Modacity.framework */,
-				D3939C85FC27D407BE45658F /* Pods_ModacityTests.framework */,
-				FF1C6005138DC488B25382E3 /* Pods_ModacityUITests.framework */,
+				9E91DFE323AAAD77A2F8A14A /* Pods_Modacity_Dev.framework */,
+				E91BAC853A8BF6F8434DAB14 /* libPods-ModacityTests.a */,
+				C7502E348716E20F4E0B7E5C /* libPods-ModacityUITests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -322,6 +430,7 @@
 				8E4551DB20030F7F002061AE /* Modacity.app */,
 				8E4551EF20030F80002061AE /* ModacityTests.xctest */,
 				8E4551FA20030F80002061AE /* ModacityUITests.xctest */,
+				E21BEA102091796A000D1877 /* Modacity-Dev.app */,
 			);
 			name = Products;
 			path = ..;
@@ -336,14 +445,15 @@
 				8ED83FBF20031EF400052256 /* ViewModel */,
 				8EF559C5207E89A8006728E4 /* View */,
 				8EDEB6F9203DE38F00E8D48D /* Supporting */,
+				E21BEA1520917C45000D1877 /* GoogleService-Info */,
 				8E4551DE20030F7F002061AE /* AppDelegate.swift */,
 				8E4551E220030F7F002061AE /* Main.storyboard */,
 				8E4551E520030F7F002061AE /* Assets.xcassets */,
 				1084BAA320811A3500D7F67D /* _Comp */,
 				101342602058EE2700A9734B /* waveforms */,
 				8E4551E720030F7F002061AE /* LaunchScreen.storyboard */,
-				8EDEB6F5203DE0A400E8D48D /* GoogleService-Info.plist */,
 				8E4551EA20030F7F002061AE /* Info.plist */,
+				E21BEA1E2091807D000D1877 /* Info-dev.plist */,
 			);
 			path = Modacity;
 			sourceTree = "<group>";
@@ -590,6 +700,31 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		E21BEA1520917C45000D1877 /* GoogleService-Info */ = {
+			isa = PBXGroup;
+			children = (
+				E21BEA1620917C45000D1877 /* Dev */,
+				E21BEA1820917C45000D1877 /* Production */,
+			);
+			path = "GoogleService-Info";
+			sourceTree = "<group>";
+		};
+		E21BEA1620917C45000D1877 /* Dev */ = {
+			isa = PBXGroup;
+			children = (
+				E21BEA1720917C45000D1877 /* GoogleService-Info.plist */,
+			);
+			path = Dev;
+			sourceTree = "<group>";
+		};
+		E21BEA1820917C45000D1877 /* Production */ = {
+			isa = PBXGroup;
+			children = (
+				E21BEA1920917C46000D1877 /* GoogleService-Info.plist */,
+			);
+			path = Production;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -651,6 +786,26 @@
 			productReference = 8E4551FA20030F80002061AE /* ModacityUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		E21BE9AE2091796A000D1877 /* Modacity-Dev */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E21BEA0D2091796A000D1877 /* Build configuration list for PBXNativeTarget "Modacity-Dev" */;
+			buildPhases = (
+				E21BE9AF2091796A000D1877 /* [CP] Check Pods Manifest.lock */,
+				E21BE9B02091796A000D1877 /* Sources */,
+				E21BE9F12091796A000D1877 /* Frameworks */,
+				E21BE9F32091796A000D1877 /* Resources */,
+				E21BEA0B2091796A000D1877 /* [CP] Embed Pods Frameworks */,
+				E21BEA0C2091796A000D1877 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Modacity-Dev";
+			productName = Modacity;
+			productReference = E21BEA102091796A000D1877 /* Modacity-Dev.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -681,6 +836,9 @@
 						ProvisioningStyle = Automatic;
 						TestTargetID = 8E4551DA20030F7F002061AE;
 					};
+					E21BE9AE2091796A000D1877 = {
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = 8E4551D620030F7F002061AE /* Build configuration list for PBXProject "Modacity" */;
@@ -697,6 +855,7 @@
 			projectRoot = "";
 			targets = (
 				8E4551DA20030F7F002061AE /* Modacity */,
+				E21BE9AE2091796A000D1877 /* Modacity-Dev */,
 				8E4551EE20030F80002061AE /* ModacityTests */,
 				8E4551F920030F80002061AE /* ModacityUITests */,
 			);
@@ -709,7 +868,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8EB479B920458B7100BE6461 /* about.storyboard in Resources */,
-				8EDEB6F6203DE0A400E8D48D /* GoogleService-Info.plist in Resources */,
 				8EDEB706203DE38F00E8D48D /* Lato-Bold.ttf in Resources */,
 				8E37A0BB2005B3BB00747B61 /* practice.storyboard in Resources */,
 				8E4551E920030F7F002061AE /* LaunchScreen.storyboard in Resources */,
@@ -726,6 +884,7 @@
 				8EDEB707203DE38F00E8D48D /* lato-italic.ttf in Resources */,
 				8EE2BD22203DAEDA00D6D7A8 /* welcome.storyboard in Resources */,
 				8EAC121320052668004232A2 /* home.storyboard in Resources */,
+				E21BEA1C20917C46000D1877 /* GoogleService-Info.plist in Resources */,
 				8E58B44820446B180022704B /* settings.storyboard in Resources */,
 				8EDEB709203DE38F00E8D48D /* Lato-Regular.ttf in Resources */,
 				8EA33BA120052A3300539A3F /* playlist.storyboard in Resources */,
@@ -745,6 +904,37 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E21BE9F32091796A000D1877 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E21BE9F42091796A000D1877 /* about.storyboard in Resources */,
+				E21BE9F62091796A000D1877 /* Lato-Bold.ttf in Resources */,
+				E21BE9F72091796A000D1877 /* practice.storyboard in Resources */,
+				E21BE9F82091796A000D1877 /* LaunchScreen.storyboard in Resources */,
+				E21BE9F92091796A000D1877 /* Assets.xcassets in Resources */,
+				E21BE9FA2091796A000D1877 /* recording.storyboard in Resources */,
+				E21BE9FB2091796A000D1877 /* metrodone.storyboard in Resources */,
+				E21BE9FC2091796A000D1877 /* improve.storyboard in Resources */,
+				E21BE9FD2091796A000D1877 /* feedback.storyboard in Resources */,
+				E21BE9FE2091796A000D1877 /* _Comp in Resources */,
+				E21BE9FF2091796A000D1877 /* sidemenu.storyboard in Resources */,
+				E21BEA002091796A000D1877 /* ding.wav in Resources */,
+				E21BEA012091796A000D1877 /* Main.storyboard in Resources */,
+				E21BEA022091796A000D1877 /* waveforms in Resources */,
+				E21BEA032091796A000D1877 /* lato-italic.ttf in Resources */,
+				E21BEA042091796A000D1877 /* welcome.storyboard in Resources */,
+				E21BEA1F2091807D000D1877 /* Info-dev.plist in Resources */,
+				E21BEA052091796A000D1877 /* home.storyboard in Resources */,
+				E21BEA062091796A000D1877 /* settings.storyboard in Resources */,
+				E21BEA072091796A000D1877 /* Lato-Regular.ttf in Resources */,
+				E21BEA1B20917C46000D1877 /* GoogleService-Info.plist in Resources */,
+				E21BEA082091796A000D1877 /* playlist.storyboard in Resources */,
+				E21BEA092091796A000D1877 /* lato-light.ttf in Resources */,
+				E21BEA0A2091796A000D1877 /* lato-bolditalic.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -859,6 +1049,96 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Modacity/Pods-Modacity-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		E21BE9AF2091796A000D1877 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Modacity-Dev-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E21BEA0B2091796A000D1877 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Modacity-Dev/Pods-Modacity-Dev-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Amplitude-iOS/Amplitude_iOS.framework",
+				"${BUILT_PRODUCTS_DIR}/BWHorizontalTableView/BWHorizontalTableView.framework",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FDWaveformView/FDWaveformView.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/LGSideMenuController/LGSideMenuController.framework",
+				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
+				"${BUILT_PRODUCTS_DIR}/SCSiriWaveformView/SCSiriWaveformView.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftMessages/SwiftMessages.framework",
+				"${BUILT_PRODUCTS_DIR}/TPKeyboardAvoiding/TPKeyboardAvoiding.framework",
+				"${BUILT_PRODUCTS_DIR}/UITextView+Placeholder/UITextView_Placeholder.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Amplitude_iOS.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BWHorizontalTableView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FDWaveformView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LGSideMenuController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SCSiriWaveformView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftMessages.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TPKeyboardAvoiding.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UITextView_Placeholder.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Modacity-Dev/Pods-Modacity-Dev-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E21BEA0C2091796A000D1877 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Modacity-Dev/Pods-Modacity-Dev-resources.sh",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Modacity-Dev/Pods-Modacity-Dev-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		FC31956B8137EF850CC7BE8D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -964,6 +1244,77 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E4551FF20030F80002061AE /* ModacityUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E21BE9B02091796A000D1877 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E21BE9B12091796A000D1877 /* PracticeItemListViewController.swift in Sources */,
+				E21BE9B22091796A000D1877 /* SigninViewController.swift in Sources */,
+				E21BE9B32091796A000D1877 /* MetroDroneAudio.swift in Sources */,
+				E21BE9B42091796A000D1877 /* FeedbackSentViewController.swift in Sources */,
+				E21BE9B52091796A000D1877 /* Recording.swift in Sources */,
+				E21BE9B62091796A000D1877 /* PlaylistViewController.swift in Sources */,
+				E21BE9B72091796A000D1877 /* SideMenuController.swift in Sources */,
+				E21BE9B82091796A000D1877 /* ViewModel.swift in Sources */,
+				E21BE9B92091796A000D1877 /* PlaylistFinishViewController.swift in Sources */,
+				E21BE9BA2091796A000D1877 /* PlaylistLocalManager.swift in Sources */,
+				E21BE9BB2091796A000D1877 /* MyProfileRemoteManager.swift in Sources */,
+				E21BE9BC2091796A000D1877 /* PlaylistPracticeDurationKeyboardViewController.swift in Sources */,
+				E21BE9BD2091796A000D1877 /* DateUtility.swift in Sources */,
+				E21BE9BE2091796A000D1877 /* RecordingViewController.swift in Sources */,
+				E21BE9BF2091796A000D1877 /* AuthViewModel.swift in Sources */,
+				E21BE9C02091796A000D1877 /* Playlist.swift in Sources */,
+				E21BE9C12091796A000D1877 /* AppConfig.swift in Sources */,
+				E21BE9C22091796A000D1877 /* AboutViewController.swift in Sources */,
+				E21BE9C32091796A000D1877 /* AppOveralDataManager.swift in Sources */,
+				E21BE9C42091796A000D1877 /* DropdownMenuView.swift in Sources */,
+				E21BE9C52091796A000D1877 /* TapTempo.swift in Sources */,
+				E21BE9C62091796A000D1877 /* Improvement.swift in Sources */,
+				E21BE9C72091796A000D1877 /* ProfileViewModel.swift in Sources */,
+				E21BE9C82091796A000D1877 /* PracticeViewController.swift in Sources */,
+				E21BE9C92091796A000D1877 /* PracticeItemRemoteManager.swift in Sources */,
+				E21BE9CA2091796A000D1877 /* RecordingsLocalManager.swift in Sources */,
+				E21BE9CB2091796A000D1877 /* PracticeRateViewController.swift in Sources */,
+				E21BE9CC2091796A000D1877 /* PracticeItem.swift in Sources */,
+				E21BE9CD2091796A000D1877 /* PlaylistDetailsViewModel.swift in Sources */,
+				E21BE9CE2091796A000D1877 /* HomeViewModel.swift in Sources */,
+				E21BE9CF2091796A000D1877 /* CreateAccountViewController.swift in Sources */,
+				E21BE9D02091796A000D1877 /* PlaylistRemoteManager.swift in Sources */,
+				E21BE9D12091796A000D1877 /* SetReminderViewController.swift in Sources */,
+				E21BE9D22091796A000D1877 /* ModacityAnalytics.swift in Sources */,
+				E21BE9D32091796A000D1877 /* PlaylistDetailsViewController.swift in Sources */,
+				E21BE9D42091796A000D1877 /* MessagesManager.swift in Sources */,
+				E21BE9D52091796A000D1877 /* AppDelegate.swift in Sources */,
+				E21BE9D62091796A000D1877 /* MyProfileLocalManager.swift in Sources */,
+				E21BE9D72091796A000D1877 /* AppUtils.swift in Sources */,
+				E21BE9D82091796A000D1877 /* PracticeItemViewModel.swift in Sources */,
+				E21BE9D92091796A000D1877 /* TabBarViewController.swift in Sources */,
+				E21BE9DA2091796A000D1877 /* RecordingViewModel.swift in Sources */,
+				E21BE9DB2091796A000D1877 /* ImprovementViewModel.swift in Sources */,
+				E21BE9DC2091796A000D1877 /* HomeViewController.swift in Sources */,
+				E21BE9DD2091796A000D1877 /* ChangePasswordViewController.swift in Sources */,
+				E21BE9DE2091796A000D1877 /* PlaylistDeliverModel.swift in Sources */,
+				E21BE9DF2091796A000D1877 /* Authorizer.swift in Sources */,
+				E21BE9E02091796A000D1877 /* MetrodoneViewController.swift in Sources */,
+				E21BE9E12091796A000D1877 /* ModacityAudioEngine.swift in Sources */,
+				E21BE9E22091796A000D1877 /* ViewDroneFrame.swift in Sources */,
+				E21BE9E32091796A000D1877 /* ImprovementViewController.swift in Sources */,
+				E21BE9E42091796A000D1877 /* PracticeItemLocalManager.swift in Sources */,
+				E21BE9E52091796A000D1877 /* ImproveHypothesisViewController.swift in Sources */,
+				E21BE9E62091796A000D1877 /* LeftMenuViewController.swift in Sources */,
+				E21BE9E72091796A000D1877 /* TutorialViewController.swift in Sources */,
+				E21BE9E82091796A000D1877 /* Me.swift in Sources */,
+				E21BE9E92091796A000D1877 /* PlaylistPracticeEntry.swift in Sources */,
+				E21BE9EA2091796A000D1877 /* ImproveSuggestionViewController.swift in Sources */,
+				E21BE9EB2091796A000D1877 /* PlaylistViewModel.swift in Sources */,
+				E21BE9EC2091796A000D1877 /* FeedbackRootViewController.swift in Sources */,
+				E21BE9ED2091796A000D1877 /* SplashViewController.swift in Sources */,
+				E21BE9EE2091796A000D1877 /* MetrodronePlayer.swift in Sources */,
+				E21BE9EF2091796A000D1877 /* FloatRatingView.swift in Sources */,
+				E21BE9F02091796A000D1877 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1222,6 +1573,53 @@
 			};
 			name = Release;
 		};
+		E21BEA0E2091796A000D1877 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7BCF9E5DBCDFF47634A0AEEC /* Pods-Modacity-Dev.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = D226H33SCU;
+				INFOPLIST_FILE = "Modacity/Info-dev.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.app.dev.modacity;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Modacity/Supporting/Modacity-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		E21BEA0F2091796A000D1877 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0ED0F8A74BFAB54DDD3FAD0E /* Pods-Modacity-Dev.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = D226H33SCU;
+				INFOPLIST_FILE = "Modacity/Info-dev.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.app.dev.modacity;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Modacity/Supporting/Modacity-Bridging-Header.h";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1257,6 +1655,15 @@
 			buildConfigurations = (
 				8E45520A20030F80002061AE /* Debug */,
 				8E45520B20030F80002061AE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E21BEA0D2091796A000D1877 /* Build configuration list for PBXNativeTarget "Modacity-Dev" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E21BEA0E2091796A000D1877 /* Debug */,
+				E21BEA0F2091796A000D1877 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
