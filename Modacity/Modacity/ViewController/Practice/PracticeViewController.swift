@@ -126,6 +126,26 @@ class PracticeViewController: UIViewController {
         self.initializeTimer()
         
         ModacityAnalytics.LogEvent(.StartPracticeItem, extraParamName: "ItemName", extraParamValue: self.labelPracticeItemName.text)
+        NotificationCenter.default.addObserver(self, selector: #selector(processRouteChange), name: Notification.Name.AVAudioSessionRouteChange, object: nil)
+    }
+    
+    deinit {
+        
+        NotificationCenter.default.removeObserver(self)
+        
+        self.timer.invalidate()
+        if self.audioPlayerTimer != nil {
+            self.audioPlayerTimer!.invalidate()
+            self.audioPlayerTimer = nil
+        }
+        
+        if self.recorder != nil && self.recorder.isRecording {
+            self.recorder.stop()
+        }
+        
+        if self.player != nil && self.player!.isPlaying {
+            self.player!.stop()
+        }
     }
     
     func processFavoriteIconImage() {
@@ -148,22 +168,6 @@ class PracticeViewController: UIViewController {
         }
     }
     
-    deinit {
-        self.timer.invalidate()
-        if self.audioPlayerTimer != nil {
-            self.audioPlayerTimer!.invalidate()
-            self.audioPlayerTimer = nil
-        }
-        
-        if self.recorder != nil && self.recorder.isRecording {
-            self.recorder.stop()
-        }
-        
-        if self.player != nil && self.player!.isPlaying {
-            self.player!.stop()
-        }
-    }
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -209,6 +213,15 @@ class PracticeViewController: UIViewController {
 // MARK: - Metrodone processing
 extension PracticeViewController {
     
+    @objc func processRouteChange() {
+        if let player = self.metrodonePlayer {
+            player.stopPlayer()
+            self.metrodonePlayer = nil
+            
+            self.prepareMetrodrone()
+        }
+    }
+    
     func initializeDroneUIs() {
         self.viewBottomXBar.backgroundColor = Color(hexString:"#292a4a")
         self.constraintForMaximizedDroneBottomSpace.constant =  metrodroneViewHeight - metrodroneViewMinHeight
@@ -219,7 +232,7 @@ extension PracticeViewController {
         self.tapGesture = UITapGestureRecognizer(target: self, action: #selector(processDroneViewTap))
         self.viewMaximizedDrone.addGestureRecognizer(self.panGesture)
         self.viewMaximizedDrone.addGestureRecognizer(self.tapGesture)
-        prepareMetrodroneUI()
+        prepareMetrodrone()
     }
     
     func configureSubdivisionNoteSelectionGUI() {
@@ -336,18 +349,20 @@ extension PracticeViewController {
         }
     }
     
-    func prepareMetrodroneUI() {
-        self.metrodonePlayer = MetrodronePlayer.instance
-        self.metrodonePlayer!.initializeOutlets(lblTempo: self.labelTempo,
-                                                droneFrame: self.viewDroneFrame,
-                                                playButton: self.buttonMetrodronePlay,
-                                                durationSlider: self.sliderDuration,
-                                                sustainButton: self.buttonSustain,
-                                                buttonOctaveUp: self.buttonOctaveUp,
-                                                buttonOctaveDown: self.buttonOctaveDown,
-                                                labelOctaveNum: labelOctave,
-                                                imageViewSubdivisionCircleStatus: self.buttonSubdivisionStatusOnButton,
-                                                imageViewSubdivisionNote: self.buttonSubDivisionNoteOnButton)
+    func prepareMetrodrone() {
+        self.metrodonePlayer = MetrodronePlayer()//MetrodronePlayer.instance
+        DispatchQueue.main.async {
+            self.metrodonePlayer!.initializeOutlets(lblTempo: self.labelTempo,
+                                                    droneFrame: self.viewDroneFrame,
+                                                    playButton: self.buttonMetrodronePlay,
+                                                    durationSlider: self.sliderDuration,
+                                                    sustainButton: self.buttonSustain,
+                                                    buttonOctaveUp: self.buttonOctaveUp,
+                                                    buttonOctaveDown: self.buttonOctaveDown,
+                                                    labelOctaveNum: self.labelOctave,
+                                                    imageViewSubdivisionCircleStatus: self.buttonSubdivisionStatusOnButton,
+                                                    imageViewSubdivisionNote: self.buttonSubDivisionNoteOnButton)
+        }
     }
     
     func startMetrodrone() {
@@ -356,7 +371,7 @@ extension PracticeViewController {
             self.onCloseAlertPanel(self.view)
         }
         if self.metrodonePlayer == nil {
-            prepareMetrodroneUI()
+            prepareMetrodrone()
         }
         self.metrodronePlayerShown = true
     }
@@ -864,6 +879,8 @@ extension PracticeViewController {
                         } else {
                             self.countDownTimerStart = 0
                         }
+                    } else {
+                        self.buttonTimerUpDownArrow.setImage(UIImage(named:"icon_timer_arrow_count_down"), for: .normal)
                     }
                 }
             }

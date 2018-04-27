@@ -51,6 +51,7 @@ class PlaylistFinishViewController: UIViewController {
     }
     
     @IBAction func onSkip(_ sender: Any) {
+        self.playlistDetailsViewModel.addPracticeTotalTime(inSec: self.playlistDetailsViewModel.totalPracticedTime())
         self.navigationController?.dismiss(animated: true, completion: nil)
         ModacityAnalytics.LogStringEvent("Congrats Screen Skip Button")
     }

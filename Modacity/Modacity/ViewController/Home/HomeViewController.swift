@@ -128,13 +128,13 @@ class HomeViewController: UIViewController {
         self.labelFavoritesHeader.isHidden = true
         
         if AppUtils.sizeModelOfiPhone() == .iphone4_35in {
-            self.constraintForHeaderImageViewHeight.constant = 250
+            self.constraintForHeaderImageViewHeight.constant = 230
             self.constraintForContentViewTopSpace.constant = 220
             self.constraintForRecentCollectionViewHeight.constant = 80
             self.constraintForFavoritesCollectionViewHeight.constant  = 80
         } else if AppUtils.sizeModelOfiPhone() == .iphone5_4in {
-            self.constraintForHeaderImageViewHeight.constant = 250
-            self.constraintForContentViewTopSpace.constant = 220
+            self.constraintForHeaderImageViewHeight.constant = 230
+            self.constraintForContentViewTopSpace.constant = 210
             self.constraintForRecentCollectionViewHeight.constant = 120
             self.constraintForFavoritesCollectionViewHeight.constant  = 120
         } else {
@@ -262,7 +262,13 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             } else {
                 
                 let practiceItem = item["data"] as! PracticeItem
-                let controller = UIStoryboard(name: "practice", bundle: nil).instantiateViewController(withIdentifier: "PracticeScene") as! UINavigationController
+                var sceneName = ""
+                if AppUtils.sizeModelOfiPhone() == .iphone5_4in || AppUtils.sizeModelOfiPhone() == .iphone4_35in {
+                    sceneName = "PracticeSceneForSmallSizes"
+                } else {
+                    sceneName = "PracticeScene"
+                }
+                let controller = UIStoryboard(name: "practice", bundle: nil).instantiateViewController(withIdentifier: sceneName) as! UINavigationController
                 let practiceViewController = controller.viewControllers[0] as! PracticeViewController
                 practiceViewController.practiceItem = practiceItem
                 self.tabBarController?.present(controller, animated: true, completion: nil)

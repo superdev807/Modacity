@@ -109,7 +109,7 @@ class ImprovementViewController: UIViewController {
         self.viewAudioPlayer.isHidden = true
         
         self.initializeImproveActionViews()
-//        self.initializeOutlets(lblTempo: labelBPM, droneFrame: viewDroneFrame, playButton: buttonMetroPlay, durationSlider: sliderDuration, sustainButton: buttonSustain)
+        NotificationCenter.default.addObserver(self, selector: #selector(processRouteChange), name: Notification.Name.AVAudioSessionRouteChange, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -118,6 +118,7 @@ class ImprovementViewController: UIViewController {
     }
     
     deinit {
+        NotificationCenter.default.removeObserver(self)
         if self.audioPlayerTimer != nil {
             self.audioPlayerTimer!.invalidate()
             self.audioPlayerTimer = nil
@@ -183,6 +184,15 @@ class ImprovementViewController: UIViewController {
 // MARK: - Drone processing
 extension ImprovementViewController {
     
+    @objc func processRouteChange() {
+        if let player = self.metrodonePlayer {
+            player.stopPlayer()
+            self.metrodonePlayer = nil
+            
+            self.prepareMetrodrone()
+        }
+    }
+    
     func initializeDronesUI() {
         self.viewBottomXBar.backgroundColor = Color(hexString:"#292a4a")
         self.constraintForMaximizedDroneBottomSpace.constant =  metrodroneViewHeight - metrodroneViewMinHeight
@@ -193,7 +203,7 @@ extension ImprovementViewController {
         self.tapGesture = UITapGestureRecognizer(target: self, action: #selector(processDroneViewTap))
         self.viewMaximizedDrone.addGestureRecognizer(panGesture)
         self.viewMaximizedDrone.addGestureRecognizer(tapGesture)
-        prepareMetrodroneUI()
+        prepareMetrodrone()
     }
     
     func configureSubdivisionNoteSelectionGUI() {
@@ -308,24 +318,27 @@ extension ImprovementViewController {
             }
         }
     }
-    func prepareMetrodroneUI() {
-        self.metrodonePlayer = MetrodronePlayer.instance
-        self.metrodonePlayer!.initializeOutlets(lblTempo: self.labelBPM,
-                                                droneFrame: self.viewDroneFrame,
-                                                playButton: self.buttonMetroPlay,
-                                                durationSlider: self.sliderDuration,
-                                                sustainButton: self.buttonSustain,
-                                                buttonOctaveUp: self.buttonOctaveUp,
-                                                buttonOctaveDown:self.buttonOctaveDown,
-                                                labelOctaveNum: labelOctave,
-                                                imageViewSubdivisionCircleStatus: self.buttonSubdivisionStatusOnButton,
-                                                imageViewSubdivisionNote: self.buttonSubDivisionNoteOnButton)
+    func prepareMetrodrone() {
+        self.metrodonePlayer = MetrodronePlayer()//MetrodronePlayer.instance
+        DispatchQueue.main.async {
+            self.metrodonePlayer!.initializeOutlets(lblTempo: self.labelBPM,
+                                                    droneFrame: self.viewDroneFrame,
+                                                    playButton: self.buttonMetroPlay,
+                                                    durationSlider: self.sliderDuration,
+                                                    sustainButton: self.buttonSustain,
+                                                    buttonOctaveUp: self.buttonOctaveUp,
+                                                    buttonOctaveDown:self.buttonOctaveDown,
+                                                    labelOctaveNum: self.labelOctave,
+                                                    imageViewSubdivisionCircleStatus: self.buttonSubdivisionStatusOnButton,
+                                                    imageViewSubdivisionNote: self.buttonSubDivisionNoteOnButton)
+        }
+        
     }
     
     func startMetrodrone() {
         ModacityAnalytics.LogEvent(.MetrodroneDrawerOpen)
         if self.metrodonePlayer == nil {
-            prepareMetrodroneUI()
+            prepareMetrodrone()
         }
         self.metrodronePlayerShown = true
     }

@@ -329,6 +329,9 @@ Was Received!</string>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TnP-Sn-zeh">
                                 <rect key="frame" x="123" y="716" width="129" height="42"/>
                                 <state key="normal" image="btn_rate"/>
+                                <connections>
+                                    <action selector="onRateApp:" destination="qz1-pT-38s" eventType="touchUpInside" id="Dyg-Je-TaG"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -366,7 +369,7 @@ Was Received!</string>
     </scenes>
     <resources>
         <image name="bg_common" width="375" height="667"/>
-        <image name="bg_header_small" width="375" height="126"/>
+        <image name="bg_header_small" width="375" height="87"/>
         <image name="bg_simple_gradient" width="375" height="667"/>
         <image name="btn_ok" width="106" height="66"/>
         <image name="btn_rate" width="129" height="42"/>

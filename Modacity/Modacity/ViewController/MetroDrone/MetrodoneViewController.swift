@@ -42,13 +42,49 @@ class MetrodoneViewController: UIViewController {
     @IBOutlet weak var imageViewNoteStatusOnButton: UIImageView!
     @IBOutlet weak var imageViewNoteOnButton: UIImageView!
     
-    var metrodonePlayer = MetrodronePlayer.instance
+    var metrodronePlayer: MetrodronePlayer? = nil// MetrodronePlayer()//MetrodronePlayer.instance
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         ModacityAnalytics.LogStringEvent("Loaded Standalone Metrodrone")
-        metrodonePlayer.initializeOutlets(lblTempo: labelTempo,
+        self.prepareMetrodronePlayer()
+        self.viewSubdivision.isHidden = true
+        self.configureSubdivisionNoteSelectionGUI()
+        self.configureLayout()
+        NotificationCenter.default.addObserver(self, selector: #selector(processRouteChange), name: Notification.Name.AVAudioSessionRouteChange, object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+        if self.metrodronePlayer != nil {
+            self.metrodronePlayer!.stopPlayer()
+            self.metrodronePlayer = nil
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        UIApplication.shared.isIdleTimerDisabled = AppOveralDataManager.manager.settingsPhoneSleepPrevent()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        UIApplication.shared.isIdleTimerDisabled = false
+        
+    }
+    
+    @objc func processRouteChange() {
+        if self.metrodronePlayer != nil {
+            self.metrodronePlayer!.stopPlayer()
+            self.metrodronePlayer = nil
+        }
+        self.prepareMetrodronePlayer()
+    }
+    
+    func prepareMetrodronePlayer() {
+        self.metrodronePlayer = MetrodronePlayer()
+        self.metrodronePlayer!.initializeOutlets(lblTempo: labelTempo,
                                           droneFrame: viewDroneFrame,
                                           playButton: buttonPlay,
                                           durationSlider: sliderDuration,
@@ -60,20 +96,6 @@ class MetrodoneViewController: UIViewController {
                                           imageViewSubdivisionNote: imageViewNoteOnButton,
                                           playButtonImage: UIImage(named:"btn_drone_play_large"),
                                           pauseButtonImage: UIImage(named:"btn_drone_pause_large"))
-        self.viewSubdivision.isHidden = true
-        self.configureSubdivisionNoteSelectionGUI()
-        self.configureLayout()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        UIApplication.shared.isIdleTimerDisabled = AppOveralDataManager.manager.settingsPhoneSleepPrevent()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        UIApplication.shared.isIdleTimerDisabled = false
-        self.metrodonePlayer.stopPlayer()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -98,48 +120,68 @@ class MetrodoneViewController: UIViewController {
     }
 
     @IBAction func onDurationChanged(_ sender: Any) {
-        self.constraintForMinTrickViewWidth.constant = self.imageViewMaxTrick.frame.size.width * CGFloat((self.sliderDuration.value - self.sliderDuration.minimumValue) / (self.sliderDuration.maximumValue - self.sliderDuration.minimumValue))
-        self.metrodonePlayer.changeDuration(newValue: sliderDuration.value)
+        if let player = self.metrodronePlayer {
+            self.constraintForMinTrickViewWidth.constant = self.imageViewMaxTrick.frame.size.width * CGFloat((self.sliderDuration.value - self.sliderDuration.minimumValue) / (self.sliderDuration.maximumValue - self.sliderDuration.minimumValue))
+            player.changeDuration(newValue: sliderDuration.value)
+        }
     }
     
     @IBAction func onBtnPlay(_ sender: Any) {
-        if (!self.metrodonePlayer.isMetrodronePlaying) {
-            self.metrodonePlayer.startMetronome()
-        } else {
-            self.metrodonePlayer.stopMetrodrone()
+        if let player = self.metrodronePlayer {
+            if (!player.isMetrodronePlaying) {
+                player.startMetronome()
+            } else {
+                player.stopMetrodrone()
+            }
         }
     }
     
     @IBAction func onTapDown(_ sender: Any) {
-        self.metrodonePlayer.tapDown()
+        if let player = self.metrodronePlayer {
+            player.tapDown()
+        }
     }
     
     @IBAction func onTapTouchup(_ sender: Any) {
-        self.metrodonePlayer.stopMetrodrone()
+        if let player = self.metrodronePlayer {
+            player.stopMetrodrone()
+        }
     }
     
     @IBAction func onIncreaseBPMTouch(_ sender: Any) {
-        self.metrodonePlayer.increaseBPMTouch()
+        if let player = self.metrodronePlayer {
+            player.increaseBPMTouch()
+        }
     }
     
     @IBAction func onButtonOctaveDown(_ sender: Any) {
-        self.metrodonePlayer.onOctaveDown()
+        if let player = self.metrodronePlayer {
+            player.onOctaveDown()
+        }
     }
     
     @IBAction func onButtonOctaveUp(_ sender: Any) {
-        self.metrodonePlayer.onOctaveUp()
+        if let player = self.metrodronePlayer {
+            player.onOctaveUp()
+        }
     }
     
     @IBAction func onSustainButton(_ sender: Any) {
-        btnSustain.isSelected = self.metrodonePlayer.toggleSustain()
+        if let player = self.metrodronePlayer {
+            btnSustain.isSelected = player.toggleSustain()
+        }
     }
     
     @IBAction func onDecreaseBPMTouch(_ sender: Any) {
-        self.metrodonePlayer.decreaseBPMTouch()
+        if let player = self.metrodronePlayer {
+            player.decreaseBPMTouch()
+        }
     }
     
     @IBAction func onChangeBPMStop(_ sender: Any) {
-        self.metrodonePlayer.stopBPMChangeTimer()
+        if let player = self.metrodronePlayer {
+            player.stopBPMChangeTimer()
+        }
     }
     
     @IBAction func onSubdivision(_ sender: Any) {
@@ -156,7 +198,9 @@ class MetrodoneViewController: UIViewController {
         if ((self.selectedSubdivisionNote < 0) || (self.selectedSubdivisionNote > 3)) {
             self.selectedSubdivisionNote = 0
         }
-        self.metrodonePlayer.setSubdivision(self.selectedSubdivisionNote + 1)
+        if let player = self.metrodronePlayer {
+            player.setSubdivision(self.selectedSubdivisionNote + 1)
+        }
     }
     
     @IBAction func onSubdivisionNotes(_ sender: UIButton) {

@@ -18,6 +18,7 @@ class ModacityAudio {
     var audioEngine:AVAudioEngine!
     
     func initEngine() {
+        NotificationCenter.default.addObserver(self, selector: #selector(processRouteChange), name: Notification.Name.AVAudioSessionRouteChange, object: nil)
         audioEngine = AVAudioEngine()
         let audioSession = AVAudioSession.sharedInstance()
         do {
@@ -45,6 +46,28 @@ class ModacityAudio {
     
     func startEngine() {
         print("Audio engine started.")
-        try! audioEngine.start()
+        do {
+            try audioEngine.start()
+        } catch let err {
+            print("start audio engine error - \(err)")
+        }
+    }
+    
+    func restartEngine() {
+        audioEngine.stop()
+    }
+    
+    @objc func processRouteChange() {
+        print("audio session route changed.")
+        let audioSession = AVAudioSession.sharedInstance()
+        if let inputs = audioSession.availableInputs {
+            if inputs.count == 1 {
+                do {
+                    try audioSession.overrideOutputAudioPort(.speaker)
+                } catch let err {
+                    print("error in route change process with override speaker \(err)")
+                }
+            }
+        }
     }
 }

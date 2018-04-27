@@ -61,7 +61,11 @@ class PracticeRateViewController: UIViewController {
                         }
                     }
                     
-                    let controller = UIStoryboard(name: "practice", bundle: nil).instantiateViewController(withIdentifier: "PracticeViewController") as! PracticeViewController
+                    var controllerId = "PracticeViewController"
+                    if AppUtils.sizeModelOfiPhone() == .iphone4_35in || AppUtils.sizeModelOfiPhone() == .iphone5_4in {
+                        controllerId = "PracticeViewControllerSmallSizes"
+                    }
+                    let controller = UIStoryboard(name: "practice", bundle: nil).instantiateViewController(withIdentifier: controllerId) as! PracticeViewController
                     controller.playlistViewModel = self.playlistViewModel
                     controllers.insert(controller, at: controllers.count - 1)
                     self.navigationController?.viewControllers = controllers

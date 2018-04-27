@@ -48,7 +48,7 @@ class ImproveHypothesisViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "sid_next" {
+        if segue.identifier == "sid_next" || segue.identifier == "sid_next_small_sizes" {
             
             ModacityAnalytics.LogEvent(.HypothesisChosen, extraParamName: "Hypothesis", extraParamValue: self.viewModel.selectedHypothesis)
             
@@ -86,7 +86,11 @@ class ImproveHypothesisViewController: UIViewController {
     
     @IBAction func onDidEndOnExit(_ sender: Any) {
         self.viewModel.selectedHypothesis = self.textfieldInputBox.text ?? ""
-        self.performSegue(withIdentifier: "sid_next", sender: nil)
+        if AppUtils.sizeModelOfiPhone() == .iphone5_4in || AppUtils.sizeModelOfiPhone() == .iphone4_35in {
+            self.performSegue(withIdentifier: "sid_next_small_sizes", sender: nil)
+        } else {
+            self.performSegue(withIdentifier: "sid_next", sender: nil)
+        }
     }
     
     @objc func onKeyboardWillChangeFrame(notification: Notification) {
@@ -113,7 +117,11 @@ class ImproveHypothesisViewController: UIViewController {
     }
     
     @IBAction func onTryAgain(_ sender: Any) {
-        self.performSegue(withIdentifier: "sid_next", sender: nil)
+        if AppUtils.sizeModelOfiPhone() == .iphone4_35in || AppUtils.sizeModelOfiPhone() == .iphone5_4in {
+            self.performSegue(withIdentifier: "sid_next_small_sizes", sender: nil)
+        } else {
+            self.performSegue(withIdentifier: "sid_next", sender: nil)
+        }
     }
     
     func bindViewModel() {
@@ -142,6 +150,10 @@ extension ImproveHypothesisViewController: UITableViewDelegate, UITableViewDataS
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.viewModel.selectedHypothesis = self.viewModel.hypothesisList()[indexPath.row]
-        self.performSegue(withIdentifier: "sid_next", sender: nil)
+        if AppUtils.sizeModelOfiPhone() == .iphone5_4in || AppUtils.sizeModelOfiPhone() == .iphone4_35in {
+            self.performSegue(withIdentifier: "sid_next_small_sizes", sender: nil)
+        } else {
+            self.performSegue(withIdentifier: "sid_next", sender: nil)
+        }
     }
 }

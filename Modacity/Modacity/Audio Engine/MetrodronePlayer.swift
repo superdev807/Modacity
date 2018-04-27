@@ -19,7 +19,7 @@ protocol DroneFrameDelegate : class {
 
 class MetrodronePlayer: DroneFrameDelegate {
     
-    static var instance : MetrodronePlayer = MetrodronePlayer()
+//    static var instance : MetrodronePlayer = MetrodronePlayer()
     
     static let minDurationValue: Float = 0.01
     static let maxDurationValue: Float = 0.99
@@ -118,21 +118,23 @@ class MetrodronePlayer: DroneFrameDelegate {
     
     func updateMetrodroneOutlets() {
         // updates labels, sliders, etc.
-        _labelTempo.text = String(tempo)
-        _sliderDuration.value = durationRatio
-        _buttonSustain.isSelected = sustain
-        _viewDroneFrame.setSelectedNote(currNote)
-        
-        _labelOctaveNumber.text = String(currOctave - MetrodronePlayer.minOctave + 1)
-        
-        _buttonOctaveDown.isEnabled = true
-        _buttonOctaveUp.isEnabled = true
-        
-        if (currOctave == MetrodronePlayer.minOctave) {
-            _buttonOctaveDown.isEnabled = false
-        }
-        if (currOctave == MetrodronePlayer.maxOctave) {
-            _buttonOctaveUp.isEnabled = false
+        DispatchQueue.main.async {
+            self._labelTempo.text = String(self.tempo)
+            self._sliderDuration.value = self.durationRatio
+            self._buttonSustain.isSelected = self.sustain
+            self._viewDroneFrame.setSelectedNote(self.currNote)
+            
+            self._labelOctaveNumber.text = String(self.currOctave - MetrodronePlayer.minOctave + 1)
+            
+            self._buttonOctaveDown.isEnabled = true
+            self._buttonOctaveUp.isEnabled = true
+            
+            if (self.currOctave == MetrodronePlayer.minOctave) {
+                self._buttonOctaveDown.isEnabled = false
+            }
+            if (self.currOctave == MetrodronePlayer.maxOctave) {
+                self._buttonOctaveUp.isEnabled = false
+            }
         }
     }
     
@@ -345,16 +347,20 @@ class MetrodronePlayer: DroneFrameDelegate {
     }
     
     func setPlayImage() {
-        _buttonPlayPause.setImage(self._playButtonImage, for: .normal)
-        if _imageViewSubdivisionCircleStatus != nil {
-            _imageViewSubdivisionCircleStatus.image = UIImage(named:"subdiv_circle_gray")
+        DispatchQueue.main.async {
+            self._buttonPlayPause.setImage(self._playButtonImage, for: .normal)
+            if self._imageViewSubdivisionCircleStatus != nil {
+                self._imageViewSubdivisionCircleStatus.image = UIImage(named:"subdiv_circle_gray")
+            }
         }
     }
     
     func setPauseImage() {
-        _buttonPlayPause.setImage(self._pauseButtonImage, for: .normal)
-        if _imageViewSubdivisionCircleStatus != nil {
-            _imageViewSubdivisionCircleStatus.image = UIImage(named:"subdiv_circle_active")
+        DispatchQueue.main.async {
+            self._buttonPlayPause.setImage(self._pauseButtonImage, for: .normal)
+            if self._imageViewSubdivisionCircleStatus != nil {
+                self._imageViewSubdivisionCircleStatus.image = UIImage(named:"subdiv_circle_active")
+            }
         }
     }
     

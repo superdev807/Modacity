@@ -274,8 +274,6 @@ class PlaylistDetailsViewModel: ViewModel {
         AppOveralDataManager.manager.addPracticeTime(inSec: sec)
     }
     
-    
-    
     func saveCurrentRecording(toFileName: String) {
         RecordingsLocalManager.manager.saveCurrentRecording(toFileName: toFileName, playlistId: self.playlist.id, practiceName: self.currentPracticeEntry.practiceItem()?.name ?? "", practiceEntryId: self.currentPracticeEntry.entryId)
     }
