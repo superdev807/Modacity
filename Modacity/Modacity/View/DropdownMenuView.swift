@@ -13,6 +13,7 @@ class DropdownMenuView {
     static let instance = DropdownMenuView()
     
     let widthOfDropdownView = CGFloat(143)
+    let heightOf1RowDropdownView = CGFloat(81)
     let heightOf2RowsDropdownView = CGFloat(123)
     let heightOf3RowsDropdownView = CGFloat(161)
     
@@ -54,8 +55,19 @@ class DropdownMenuView {
         var to = 0
         
         let menuPopupView = menuView.viewWithTag(11)!
-        
-        if rows.count == 2 {
+        if rows.count == 1 {
+            if anchorRect.origin.y + anchorRect.size.height / 2 + heightOf1RowDropdownView < view.frame.size.height {
+                to = 0
+                imageView.image = UIImage(named: "bg_popmenu_1_row_to_down")
+                anchorPoint = anchorView.convert(CGPoint(x: anchorView.frame.size.width / 2, y: anchorView.frame.size.height / 2 + 5), to: view)
+                menuPopupView.frame = CGRect(x: anchorPoint.x - 118, y: anchorPoint.y, width: widthOfDropdownView, height: heightOf1RowDropdownView)
+            } else {
+                to = 1
+                imageView.image = UIImage(named: "bg_popmenu_1_row_to_up")
+                anchorPoint = anchorView.convert(CGPoint(x: anchorView.frame.size.width / 2, y: anchorView.frame.size.height / 2 - 5), to: view)
+                menuPopupView.frame = CGRect(x: anchorPoint.x - 118, y: anchorPoint.y - heightOf1RowDropdownView, width: widthOfDropdownView, height: heightOf1RowDropdownView)
+            }
+        } else if rows.count == 2 {
             if anchorRect.origin.y + anchorRect.size.height / 2 + heightOf2RowsDropdownView < view.frame.size.height {
                 to = 0
                 imageView.image = UIImage(named: "bg_popmenu_2_rows_to_down")
@@ -101,7 +113,15 @@ class DropdownMenuView {
         viewPopup.isUserInteractionEnabled = true
         viewPopup.tag = 11
         
-        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: widthOfDropdownView, height: (rows.count == 2) ? heightOf2RowsDropdownView : heightOf3RowsDropdownView))
+        var height = CGFloat(0)
+        if rows.count == 1 {
+            height = heightOf1RowDropdownView
+        } else if rows.count == 2 {
+            height = heightOf2RowsDropdownView
+        } else {
+            height = heightOf3RowsDropdownView
+        }
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: widthOfDropdownView, height: height))
         imageView.tag = 10
         viewPopup.addSubview(imageView)
         

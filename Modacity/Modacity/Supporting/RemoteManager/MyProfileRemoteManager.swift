@@ -36,6 +36,7 @@ class MyProfileRemoteManager {
             
             PracticeItemRemoteManager.manager.syncFirst()
             PlaylistRemoteManager.manager.syncFirst()
+            MusicQuotesManager.manager.loadQuotesFromServer()
         }
     }
     

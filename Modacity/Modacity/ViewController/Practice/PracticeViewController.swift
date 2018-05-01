@@ -38,6 +38,7 @@ class PracticeViewController: UIViewController {
     var timerShouldFinish = 0
     var dingSoundPlayer: AVAudioPlayer? = nil
     
+    
     // MARK: - Properties for prompt panel processing
     @IBOutlet weak var viewPromptPanel: UIView!
     
@@ -100,8 +101,13 @@ class PracticeViewController: UIViewController {
     var panGesture  = UIPanGestureRecognizer()
     var tapGesture  = UITapGestureRecognizer()
     var metrodroneViewHeight = CGFloat(336)
-    let metrodroneViewMinHeight = CGFloat(40)
+    let metrodroneViewMinHeight = CGFloat(0)
     var metrodronePlayerShown  = false
+    
+    // MARK: - Properties for notes
+    @IBOutlet weak var collectionViewNotes: UICollectionView!
+    var quoteSelected: [String:String]!
+    var notesToShow = [Note]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -124,6 +130,7 @@ class PracticeViewController: UIViewController {
         self.initializeAudioPlayerUI()
         self.initializeTipPromptPanel()
         self.initializeTimer()
+        self.initializeForNotes()
         
         ModacityAnalytics.LogEvent(.StartPracticeItem, extraParamName: "ItemName", extraParamValue: self.labelPracticeItemName.text)
         NotificationCenter.default.addObserver(self, selector: #selector(processRouteChange), name: Notification.Name.AVAudioSessionRouteChange, object: nil)
@@ -192,6 +199,7 @@ class PracticeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         UIApplication.shared.isIdleTimerDisabled = AppOveralDataManager.manager.settingsPhoneSleepPrevent()
+        self.configureNotes()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -316,6 +324,7 @@ extension PracticeViewController {
                     self.constraintForMaximizedDroneBottomSpace.constant = newPosition
                 }
             }
+            
         }
         
     }
@@ -330,6 +339,10 @@ extension PracticeViewController {
                 self.closeDroneView()
             }
         }
+    }
+    
+    @IBAction func onTabDrone(_ sender: Any) {
+        self.openDroneView()
     }
     
     func openDroneView() {
@@ -1002,5 +1015,82 @@ extension PracticeViewController {
         }
         timerShouldDown = false
         timerShouldStartFrom = timeAlreadyPracticed
+    }
+}
+
+// MARK: - Notes
+
+extension PracticeViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    @IBAction func onTabNotes(_ sender: Any) {
+        if self.playlistViewModel != nil {
+            let controller = UIStoryboard(name: "practice_note", bundle: nil).instantiateViewController(withIdentifier: "PracticeNotesViewController") as! PracticeNotesViewController
+            controller.playlistViewModel = self.playlistViewModel
+            controller.practiceItem = self.practiceItem
+            self.navigationController?.pushViewController(controller, animated: true)
+        }
+    }
+    
+    func initializeForNotes() {
+        self.quoteSelected = MusicQuotesManager.manager.randomeQuote()
+        if let layout = self.collectionViewNotes.collectionViewLayout as? UICollectionViewFlowLayout {
+            layout.scrollDirection = .horizontal
+        }
+        self.collectionViewNotes.register(UINib(nibName: "PracticeMusicQuoteCell", bundle: nil), forCellWithReuseIdentifier: "PracticeMusicQuoteCell")
+        self.collectionViewNotes.register(UINib(nibName: "PracticeNoteCell", bundle: nil), forCellWithReuseIdentifier: "PracticeNoteCell")
+        self.collectionViewNotes.isPagingEnabled = true
+        self.collectionViewNotes.showsVerticalScrollIndicator = false
+        self.collectionViewNotes.delegate = self
+        self.collectionViewNotes.dataSource = self
+    }
+    
+    func configureNotes() {
+        if self.playlistViewModel != nil {
+            if let notes = self.playlistViewModel.currentPracticeEntry.notes {
+                self.notesToShow = [Note]()
+                for note in notes {
+                    if !note.archived {
+                        self.notesToShow.append(note)
+                    }
+                }
+            }
+        }
+        self.collectionViewNotes.reloadData()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if self.notesToShow.count == 0 || self.notesToShow.count == 1 {
+            return 1
+        } else {
+            return self.notesToShow.count
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if self.notesToShow.count == 0 {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PracticeMusicQuoteCell", for: indexPath) as! PracticeMusicQuoteCell
+            cell.configure(note: self.quoteSelected["quote"] ?? "", name: self.quoteSelected["person"] ?? "")
+            return cell
+        } else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PracticeNoteCell", for: indexPath) as! PracticeNoteCell
+            cell.configure(note: self.notesToShow[indexPath.row])
+            return cell
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if self.notesToShow.count == 0 {
+            return CGSize(width: self.collectionViewNotes.frame.size.width, height: self.collectionViewNotes.frame.size.height)
+        } else {
+            if self.notesToShow.count == 1 {
+                return CGSize(width: self.collectionViewNotes.frame.size.width, height: self.collectionViewNotes.frame.size.height)
+            } else if self.notesToShow.count == 2 {
+                return CGSize(width: self.collectionViewNotes.frame.size.width - 30, height: self.collectionViewNotes.frame.size.height)
+            } else {
+                return CGSize(width: self.collectionViewNotes.frame.size.width / 2 - 30, height: self.collectionViewNotes.frame.size.height)
+            }
+        }
     }
 }

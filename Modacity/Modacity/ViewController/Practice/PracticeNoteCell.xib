@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="PracticeNoteCell" customModule="Modacity" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="374" height="92"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="374" height="92"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="D4N-9t-pTa">
+                        <rect key="frame" x="5" y="5" width="364" height="82"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mistakes are immensely useful. They show us where we are right now and what we need to do next." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="CVU-f6-iKa">
+                        <rect key="frame" x="15" y="15" width="339" height="41"/>
+                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9 / 24 / 18" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c7a-jA-ast">
+                        <rect key="frame" x="15" y="61" width="44.5" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="16" id="6sS-TT-ZJX"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="10"/>
+                        <color key="textColor" red="0.1058823529" green="0.73725490199999999" blue="0.71372549019999998" alpha="0.69999999999999996" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="c7a-jA-ast" firstAttribute="bottom" secondItem="D4N-9t-pTa" secondAttribute="bottom" constant="-10" id="Dig-6c-1w1"/>
+                <constraint firstItem="c7a-jA-ast" firstAttribute="leading" secondItem="CVU-f6-iKa" secondAttribute="leading" id="Hxp-af-dXd"/>
+                <constraint firstAttribute="trailing" secondItem="D4N-9t-pTa" secondAttribute="trailing" constant="5" id="INM-JN-fsJ"/>
+                <constraint firstItem="CVU-f6-iKa" firstAttribute="top" secondItem="D4N-9t-pTa" secondAttribute="top" constant="10" id="YVr-GW-oLG"/>
+                <constraint firstItem="c7a-jA-ast" firstAttribute="top" secondItem="CVU-f6-iKa" secondAttribute="bottom" constant="5" id="aIF-co-Osl"/>
+                <constraint firstItem="D4N-9t-pTa" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="5" id="mRV-fo-DNj"/>
+                <constraint firstAttribute="bottom" secondItem="D4N-9t-pTa" secondAttribute="bottom" constant="5" id="mSU-vn-cy3"/>
+                <constraint firstItem="CVU-f6-iKa" firstAttribute="trailing" secondItem="D4N-9t-pTa" secondAttribute="trailing" constant="-15" id="ok3-ey-e4Q"/>
+                <constraint firstItem="CVU-f6-iKa" firstAttribute="leading" secondItem="D4N-9t-pTa" secondAttribute="leading" constant="10" id="qq7-HB-8XM"/>
+                <constraint firstItem="D4N-9t-pTa" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="5" id="vkR-es-brO"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <size key="customSize" width="374" height="92"/>
+            <connections>
+                <outlet property="imageViewBackground" destination="D4N-9t-pTa" id="3P9-DM-tpl"/>
+                <outlet property="labelNote" destination="CVU-f6-iKa" id="NXj-aK-yyU"/>
+                <outlet property="labelTime" destination="c7a-jA-ast" id="FRY-Pn-ixt"/>
+            </connections>
+            <point key="canvasLocation" x="187" y="73"/>
+        </collectionViewCell>
+    </objects>
+</document>

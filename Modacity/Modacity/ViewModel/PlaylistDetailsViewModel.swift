@@ -62,7 +62,11 @@ class PlaylistDetailsViewModel: ViewModel {
         }
     }
     
-    var currentPracticeEntry : PlaylistPracticeEntry!
+    var currentPracticeEntry : PlaylistPracticeEntry! {
+        didSet {
+            print("current practice entry changed")
+        }
+    }
     var disableCallbackForRowEditing = false
     var sessionDurationInSecond: Int!
     var sessionCompleted = false
@@ -281,5 +285,34 @@ class PlaylistDetailsViewModel: ViewModel {
     func addNewImprovement(_ improvement: Improvement) {
         self.totalImprovements = self.totalImprovements + 1
         AppOveralDataManager.manager.addImprovementsCount()
+    }
+    
+    func addNoteToCurrent(_ note:String) {
+        self.currentPracticeEntry.addNote(text: note)
+        self.storePlaylist()
+    }
+    
+    func changeArchiveStatusForNote(_ noteId:String) {
+        if let notes = self.currentPracticeEntry.notes {
+            for note in notes {
+                if note.id == noteId {
+                    note.archived = !note.archived
+                }
+            }
+        }
+        self.storePlaylist()
+    }
+    
+    func deleteNote(_ note:Note) {
+        if let notes = self.currentPracticeEntry.notes {
+            var newNotes = [Note]()
+            for noteInPractice in notes {
+                if note.id != noteInPractice.id {
+                    newNotes.append(noteInPractice)
+                }
+            }
+            self.currentPracticeEntry.notes = newNotes
+        }
+        self.storePlaylist()
     }
 }
