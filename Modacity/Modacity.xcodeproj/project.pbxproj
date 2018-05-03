@@ -199,6 +199,8 @@
 		E24DF5112098D09100BAF0C7 /* PracticeNoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24DF50E2098D09100BAF0C7 /* PracticeNoteCell.swift */; };
 		E24DF5122098D09100BAF0C7 /* PracticeNoteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E24DF50F2098D09100BAF0C7 /* PracticeNoteCell.xib */; };
 		E24DF5132098D09100BAF0C7 /* PracticeNoteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E24DF50F2098D09100BAF0C7 /* PracticeNoteCell.xib */; };
+		E2760B76209B5AD000DF577A /* PracticeNoteDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2760B75209B5AD000DF577A /* PracticeNoteDetailsViewController.swift */; };
+		E2760B77209B5AD000DF577A /* PracticeNoteDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2760B75209B5AD000DF577A /* PracticeNoteDetailsViewController.swift */; };
 		E28F0244209816BA00169166 /* PracticeNotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28F0243209816BA00169166 /* PracticeNotesViewController.swift */; };
 		E28F0245209816BA00169166 /* PracticeNotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28F0243209816BA00169166 /* PracticeNotesViewController.swift */; };
 		E28F0247209816CA00169166 /* practice_note.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E28F0246209816CA00169166 /* practice_note.storyboard */; };
@@ -340,6 +342,7 @@
 		E24DF50B2098C1D400BAF0C7 /* MusicQuotesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicQuotesManager.swift; sourceTree = "<group>"; };
 		E24DF50E2098D09100BAF0C7 /* PracticeNoteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeNoteCell.swift; sourceTree = "<group>"; };
 		E24DF50F2098D09100BAF0C7 /* PracticeNoteCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PracticeNoteCell.xib; sourceTree = "<group>"; };
+		E2760B75209B5AD000DF577A /* PracticeNoteDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeNoteDetailsViewController.swift; sourceTree = "<group>"; };
 		E28F0243209816BA00169166 /* PracticeNotesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeNotesViewController.swift; sourceTree = "<group>"; };
 		E28F0246209816CA00169166 /* practice_note.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = practice_note.storyboard; sourceTree = "<group>"; };
 		E2D01BD5208A146B00F54B5D /* MessagesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesManager.swift; sourceTree = "<group>"; };
@@ -435,6 +438,7 @@
 				8E37A0B82005B3AD00747B61 /* PracticeViewController.swift */,
 				8E994FC7204EF92F0092B338 /* PracticeRateViewController.swift */,
 				E28F0243209816BA00169166 /* PracticeNotesViewController.swift */,
+				E2760B75209B5AD000DF577A /* PracticeNoteDetailsViewController.swift */,
 				E24DF5052098B3C800BAF0C7 /* PracticeMusicQuoteCell.swift */,
 				E24DF5062098B3C800BAF0C7 /* PracticeMusicQuoteCell.xib */,
 				E24DF50E2098D09100BAF0C7 /* PracticeNoteCell.swift */,
@@ -620,10 +624,10 @@
 				8EE2BD20203DAE5000D6D7A8 /* Welcome */,
 				8E99A065204072C100A9A9B8 /* MetroDrone */,
 				8EDEB716203DF98A00E8D48D /* SideMenuController */,
+				8EB479B720458AFA00BE6461 /* About */,
 				8ED83FC3200325FC00052256 /* Home */,
 				8ED83FC4200325FC00052256 /* Playlist */,
 				8E58B43A204469D00022704B /* Settings */,
-				8EB479B720458AFA00BE6461 /* About */,
 				8EA9E7C920429EC10019EFA5 /* AskFeedbacks */,
 				8ED83FC5200325FC00052256 /* Recording */,
 				8E37A0B72005B22600747B61 /* Practice */,
@@ -1248,6 +1252,7 @@
 				8EDEB70D203DE38F00E8D48D /* AppUtils.swift in Sources */,
 				8EDA619820484580006D3208 /* PracticeItemViewModel.swift in Sources */,
 				8ED83FC72003262D00052256 /* TabBarViewController.swift in Sources */,
+				E2760B76209B5AD000DF577A /* PracticeNoteDetailsViewController.swift in Sources */,
 				8E64B7AE2056AA7C00900775 /* RecordingViewModel.swift in Sources */,
 				8E84CA6720577F3500D2D1CB /* ImprovementViewModel.swift in Sources */,
 				8EAC1215200526BB004232A2 /* HomeViewController.swift in Sources */,
@@ -1340,6 +1345,7 @@
 				E21BE9D72091796A000D1877 /* AppUtils.swift in Sources */,
 				E21BE9D82091796A000D1877 /* PracticeItemViewModel.swift in Sources */,
 				E21BE9D92091796A000D1877 /* TabBarViewController.swift in Sources */,
+				E2760B77209B5AD000DF577A /* PracticeNoteDetailsViewController.swift in Sources */,
 				E21BE9DA2091796A000D1877 /* RecordingViewModel.swift in Sources */,
 				E21BE9DB2091796A000D1877 /* ImprovementViewModel.swift in Sources */,
 				E21BE9DC2091796A000D1877 /* HomeViewController.swift in Sources */,

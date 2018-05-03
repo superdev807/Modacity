@@ -33,6 +33,7 @@ class NoteCell: UITableViewCell {
     @IBOutlet weak var labelNote: UILabel!
     @IBOutlet weak var imageViewChecked: UIImageView!
     @IBOutlet weak var labelNoteCreated: UILabel!
+    @IBOutlet weak var labelNoteSubTitle: UILabel!
     
     var delegate: NoteCellDelegate!
     var note: Note!
@@ -40,6 +41,7 @@ class NoteCell: UITableViewCell {
     func configure(note: Note) {
         self.note = note
         self.labelNoteCreated.text = Date(timeIntervalSince1970: Double(note.createdAt) ?? 0).toString(format: "MM/dd/yy")
+        self.labelNoteSubTitle.text = note.subTitle
         if note.archived {
             let attributedString = NSMutableAttributedString(string:note.note)
             attributedString.addAttribute(NSAttributedStringKey.baselineOffset, value: 0, range: NSMakeRange(0, attributedString.length))
@@ -76,6 +78,8 @@ class PracticeNotesViewController: UIViewController {
     var archivedNotes = [Note]()
     var showArchived = false
     
+    var noteToDeliver: Note!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -94,6 +98,21 @@ class PracticeNotesViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "sid_note_details" {
+            let controller = segue.destination as! PracticeNoteDetailsViewController
+            controller.playlistViewModel = self.playlistViewModel
+            controller.note = self.noteToDeliver
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.playlistViewModel.storePlaylist()
+        self.processNotes()
+        self.tableViewMain.reloadData()
     }
 
     @IBAction func onBack(_ sender: Any) {
@@ -159,6 +178,12 @@ extension PracticeNotesViewController : UITableViewDelegate, UITableViewDataSour
             return cell
         }
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        self.noteToDeliver = self.notes[indexPath.row]
+        self.performSegue(withIdentifier: "sid_note_details", sender: nil)
+    }
 }
 
 extension PracticeNotesViewController: NoteCellDelegate, ButtonCellDelegate {
@@ -178,9 +203,16 @@ extension PracticeNotesViewController: NoteCellDelegate, ButtonCellDelegate {
         DropdownMenuView.instance.show(in: self.view,
                                        on: buttonMenu,
                                        rows: [["icon":"icon_row_delete", "text":"Delete"]]) { (row) in
-                                            self.playlistViewModel.deleteNote(note)
-                                            self.processNotes()
-                                            self.tableViewMain.reloadData()
+                                        
+                                            let alert = UIAlertController(title: nil, message: "Are you sure to delete this note?", preferredStyle: .alert)
+                                            alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (_) in
+                                                self.playlistViewModel.deleteNote(note)
+                                                self.processNotes()
+                                                self.tableViewMain.reloadData()
+                                            }))
+                                            alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+                                            self.present(alert, animated: true, completion: nil)
+
                                         }
     }
 }

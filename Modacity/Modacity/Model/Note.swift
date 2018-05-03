@@ -13,6 +13,7 @@ class Note: Mappable {
     var id: String!
     var createdAt: String!
     var note: String! = ""
+    var subTitle: String! = ""
     var archived: Bool! = false
     
     init() {
@@ -27,5 +28,6 @@ class Note: Mappable {
         createdAt       <- map["created_at"]
         note            <- map["note"]
         archived        <- map["archived"]
+        subTitle        <- map["subtitle"]
     }
 }
