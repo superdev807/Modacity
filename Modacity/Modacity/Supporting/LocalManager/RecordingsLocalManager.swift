@@ -91,4 +91,9 @@ class RecordingsLocalManager: NSObject {
         UserDefaults.standard.synchronize()
     }
     
+    func signout() {
+        UserDefaults.standard.removeObject(forKey: "recording_ids")
+        UserDefaults.standard.synchronize()
+    }
+    
 }

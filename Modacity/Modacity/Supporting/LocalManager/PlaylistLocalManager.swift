@@ -192,4 +192,10 @@ class PlaylistLocalManager: NSObject {
             self.storePlaylists(playlists)
         }
     }
+    
+    func signout() {
+        UserDefaults.standard.removeObject(forKey: "playlist_ids")
+        UserDefaults.standard.removeObject(forKey: "recent_playlist_ids")
+        UserDefaults.standard.synchronize()
+    }
 }

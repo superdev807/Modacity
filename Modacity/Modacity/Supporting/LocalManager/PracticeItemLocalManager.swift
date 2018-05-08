@@ -209,4 +209,10 @@ class PracticeItemLocalManager {
         }
         return nil
     }
+    
+    func signout() {
+        UserDefaults.standard.removeObject(forKey: "favorite_practice_item_ids")
+        UserDefaults.standard.removeObject(forKey: "practice_item_ids")
+        UserDefaults.standard.synchronize()
+    }
 }

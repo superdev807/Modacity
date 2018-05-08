@@ -47,9 +47,11 @@ class AppOveralDataManager {
                         UserDefaults.standard.set(today, forKey: "streak_from")
                         UserDefaults.standard.set(today, forKey: "streak_to")
                         UserDefaults.standard.synchronize()
+                        OverallDataRemoteManager.manager.updateStreakValues(from: today, to: today)
                     } else {
                         UserDefaults.standard.set(today, forKey: "streak_to")
                         UserDefaults.standard.synchronize()
+                        OverallDataRemoteManager.manager.updateStreakValues(to: today)
                     }
                 }
             }
@@ -57,16 +59,43 @@ class AppOveralDataManager {
             UserDefaults.standard.set(today, forKey: "streak_from")
             UserDefaults.standard.set(today, forKey: "streak_to")
             UserDefaults.standard.synchronize()
+            OverallDataRemoteManager.manager.updateStreakValues(from: today, to: today)
         }
         
     }
     
     func signout() {
+        
+        self.removeValues()
+        PracticeItemLocalManager.manager.signout()
+        RecordingsLocalManager.manager.signout()
+        PlaylistLocalManager.manager.signout()
+        
         GIDSignIn.sharedInstance().signOut()
         FBSDKLoginManager().logOut()
         MyProfileRemoteManager.manager.signout()
         MyProfileLocalManager.manager.signout()
         Authorizer.authorizer.signout()
+    }
+    
+    func removeValues() {
+        UserDefaults.standard.removeObject(forKey: "total_practice_seconds")
+        UserDefaults.standard.removeObject(forKey: "total_improvements")
+        UserDefaults.standard.removeObject(forKey: "not_prevent_phone_sleep")
+        UserDefaults.standard.removeObject(forKey: "disable_auto_playback")
+        UserDefaults.standard.removeObject(forKey: "streak_from")
+        UserDefaults.standard.removeObject(forKey: "streak_to")
+        UserDefaults.standard.synchronize()
+    }
+    
+    func forcelySetValues(totalPracticeSeconds: Int, totalImprovements: Int, notPreventPhoneSleep: Bool, disableAutoPlayback: Bool, streakFrom: String, streakTo: String) {
+        UserDefaults.standard.set(totalPracticeSeconds, forKey: "total_practice_seconds")
+        UserDefaults.standard.set(totalImprovements, forKey: "total_improvements")
+        UserDefaults.standard.set(notPreventPhoneSleep, forKey: "not_prevent_phone_sleep")
+        UserDefaults.standard.set(disableAutoPlayback, forKey: "disable_auto_playback")
+        UserDefaults.standard.set(streakFrom, forKey: "streak_from")
+        UserDefaults.standard.set(streakTo, forKey: "streak_to")
+        UserDefaults.standard.synchronize()
     }
     
     func totalPracticeSeconds() -> Int {
@@ -78,6 +107,8 @@ class AppOveralDataManager {
         secondsSofar = secondsSofar + seconds
         UserDefaults.standard.set(secondsSofar, forKey: "total_practice_seconds")
         UserDefaults.standard.synchronize()
+        
+        OverallDataRemoteManager.manager.updateTotalPracticeSeconds(secondsSofar)
     }
     
     func totalImprovements() -> Int {
@@ -88,6 +119,7 @@ class AppOveralDataManager {
         let improvements = self.totalImprovements()
         UserDefaults.standard.set(improvements + 1, forKey: "total_improvements")
         UserDefaults.standard.synchronize()
+        OverallDataRemoteManager.manager.updateTotalImprovements(improvements + 1)
     }
     
     func settingsPhoneSleepPrevent() -> Bool {

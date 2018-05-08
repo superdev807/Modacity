@@ -187,7 +187,7 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
                 self.changeDisplayName()
             } else if indexPath.row == 2 {
                 self.changePassword()
-            } else {
+            } else if indexPath.row == 3 {
                 self.rateApp()
             }
         }

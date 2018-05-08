@@ -135,6 +135,8 @@ class Authorizer: NSObject {
                             }
                         }
                     }
+                } else {
+                    completion("Facebook login failed because of Email permission.")
                 }
             }
         }

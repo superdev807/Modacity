@@ -187,6 +187,8 @@
 		E21BEA1B20917C46000D1877 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E21BEA1720917C45000D1877 /* GoogleService-Info.plist */; };
 		E21BEA1C20917C46000D1877 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E21BEA1920917C46000D1877 /* GoogleService-Info.plist */; };
 		E21BEA1F2091807D000D1877 /* Info-dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = E21BEA1E2091807D000D1877 /* Info-dev.plist */; };
+		E23D7A7020A1EEB40052EE78 /* OverallDataRemoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23D7A6F20A1EEB40052EE78 /* OverallDataRemoteManager.swift */; };
+		E23D7A7120A1EEB40052EE78 /* OverallDataRemoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23D7A6F20A1EEB40052EE78 /* OverallDataRemoteManager.swift */; };
 		E24DF50320987E9E00BAF0C7 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24DF50220987E9E00BAF0C7 /* Note.swift */; };
 		E24DF50420987E9E00BAF0C7 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24DF50220987E9E00BAF0C7 /* Note.swift */; };
 		E24DF5072098B3C800BAF0C7 /* PracticeMusicQuoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24DF5052098B3C800BAF0C7 /* PracticeMusicQuoteCell.swift */; };
@@ -336,6 +338,7 @@
 		E21BEA1720917C45000D1877 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E21BEA1920917C46000D1877 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E21BEA1E2091807D000D1877 /* Info-dev.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-dev.plist"; sourceTree = "<group>"; };
+		E23D7A6F20A1EEB40052EE78 /* OverallDataRemoteManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverallDataRemoteManager.swift; sourceTree = "<group>"; };
 		E24DF50220987E9E00BAF0C7 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 		E24DF5052098B3C800BAF0C7 /* PracticeMusicQuoteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeMusicQuoteCell.swift; sourceTree = "<group>"; };
 		E24DF5062098B3C800BAF0C7 /* PracticeMusicQuoteCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PracticeMusicQuoteCell.xib; sourceTree = "<group>"; };
@@ -529,6 +532,7 @@
 				8ED6218A207B09A900593EF2 /* PlaylistRemoteManager.swift */,
 				8ED6218C207B09D600593EF2 /* PracticeItemRemoteManager.swift */,
 				E2D01BD5208A146B00F54B5D /* MessagesManager.swift */,
+				E23D7A6F20A1EEB40052EE78 /* OverallDataRemoteManager.swift */,
 			);
 			path = RemoteManager;
 			sourceTree = "<group>";
@@ -1256,6 +1260,7 @@
 				8E64B7AE2056AA7C00900775 /* RecordingViewModel.swift in Sources */,
 				8E84CA6720577F3500D2D1CB /* ImprovementViewModel.swift in Sources */,
 				8EAC1215200526BB004232A2 /* HomeViewController.swift in Sources */,
+				E23D7A7020A1EEB40052EE78 /* OverallDataRemoteManager.swift in Sources */,
 				8EFD2DAC207BC20900DC28C1 /* ChangePasswordViewController.swift in Sources */,
 				8ECCAF952056EABE000E2B75 /* PlaylistDeliverModel.swift in Sources */,
 				8E58B44320446AE40022704B /* Authorizer.swift in Sources */,
@@ -1349,6 +1354,7 @@
 				E21BE9DA2091796A000D1877 /* RecordingViewModel.swift in Sources */,
 				E21BE9DB2091796A000D1877 /* ImprovementViewModel.swift in Sources */,
 				E21BE9DC2091796A000D1877 /* HomeViewController.swift in Sources */,
+				E23D7A7120A1EEB40052EE78 /* OverallDataRemoteManager.swift in Sources */,
 				E21BE9DD2091796A000D1877 /* ChangePasswordViewController.swift in Sources */,
 				E21BE9DE2091796A000D1877 /* PlaylistDeliverModel.swift in Sources */,
 				E21BE9DF2091796A000D1877 /* Authorizer.swift in Sources */,

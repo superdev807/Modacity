@@ -8,6 +8,7 @@
 
 import UIKit
 import Amplitude_iOS
+
 class HomeViewController: UIViewController {
 
     @IBOutlet weak var textfieldTotalHours: UITextField!
@@ -38,7 +39,6 @@ class HomeViewController: UIViewController {
         self.configureUI()
         self.bindViewModel()
         ModacityAnalytics.LogStringEvent("Home Screen")
-        
     }
     
     deinit {
