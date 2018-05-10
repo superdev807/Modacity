@@ -554,7 +554,7 @@
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="WB3-aN-ciO">
-                                <rect key="frame" x="40" y="220" width="240" height="128"/>
+                                <rect key="frame" x="0.0" y="480" width="320" height="24"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="1" minimumInteritemSpacing="5" id="uN0-ms-LgL">
                                     <size key="itemSize" width="50" height="50"/>
@@ -1219,6 +1219,17 @@ You can tap timer to pause your session.</string>
                                     <action selector="onBack:" destination="Q2z-jX-Ays" eventType="touchUpInside" id="fNn-v7-4Uy"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nwP-oY-HDf">
+                                <rect key="frame" x="276" y="68" width="44" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="44" id="n9a-2c-Y3t"/>
+                                    <constraint firstAttribute="height" constant="44" id="tWI-qG-AlT"/>
+                                </constraints>
+                                <state key="normal" image="icon_notes"/>
+                                <connections>
+                                    <action selector="onNotes:" destination="Q2z-jX-Ays" eventType="touchUpInside" id="imc-85-0Dp"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -1231,11 +1242,13 @@ You can tap timer to pause your session.</string>
                             <constraint firstItem="dDx-wf-hcL" firstAttribute="trailing" secondItem="Slm-tj-hhU" secondAttribute="trailing" constant="68" id="ckS-eH-iY5"/>
                             <constraint firstItem="012-Ue-0i4" firstAttribute="top" secondItem="7IG-eK-HOf" secondAttribute="top" id="cpZ-1w-lpj"/>
                             <constraint firstItem="Slm-tj-hhU" firstAttribute="centerY" secondItem="dDx-wf-hcL" secondAttribute="centerY" id="eo2-al-vNm"/>
+                            <constraint firstItem="dDx-wf-hcL" firstAttribute="trailing" secondItem="nwP-oY-HDf" secondAttribute="trailing" id="krL-bl-RdU"/>
                             <constraint firstItem="012-Ue-0i4" firstAttribute="bottom" secondItem="dDx-wf-hcL" secondAttribute="bottom" constant="40" id="qSo-6g-U1d"/>
                             <constraint firstItem="dDx-wf-hcL" firstAttribute="trailing" secondItem="Sxi-nk-BRo" secondAttribute="trailing" constant="60" id="xL5-pi-OGd"/>
                             <constraint firstItem="Slm-tj-hhU" firstAttribute="leading" secondItem="dDx-wf-hcL" secondAttribute="leading" constant="67" id="zSH-uQ-DrY"/>
                             <constraint firstItem="Sxi-nk-BRo" firstAttribute="top" secondItem="dDx-wf-hcL" secondAttribute="top" constant="16" id="zmp-RA-ahs"/>
                             <constraint firstItem="221-vr-5HC" firstAttribute="centerY" secondItem="Sxi-nk-BRo" secondAttribute="centerY" id="znz-3n-52F"/>
+                            <constraint firstItem="nwP-oY-HDf" firstAttribute="centerY" secondItem="Sxi-nk-BRo" secondAttribute="centerY" id="zzM-O4-Cgy"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="dDx-wf-hcL"/>
                     </view>
@@ -1902,7 +1915,7 @@ You can tap timer to pause your session.</string>
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="iX4-0r-obp">
-                                <rect key="frame" x="40" y="220" width="240" height="128"/>
+                                <rect key="frame" x="0.0" y="468" width="320" height="36"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="1" minimumInteritemSpacing="5" id="FLV-fz-gGA">
                                     <size key="itemSize" width="50" height="50"/>
@@ -2512,6 +2525,7 @@ You can tap timer to pause your session.</string>
         <image name="icon_note_2" width="21" height="26"/>
         <image name="icon_note_3" width="30" height="35"/>
         <image name="icon_note_4" width="44" height="32"/>
+        <image name="icon_notes" width="16" height="16"/>
         <image name="icon_pause_white" width="17" height="20"/>
         <image name="icon_play" width="28" height="30"/>
         <image name="icon_plus" width="36" height="36"/>

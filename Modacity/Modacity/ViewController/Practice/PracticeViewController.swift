@@ -1020,7 +1020,7 @@ extension PracticeViewController {
 
 // MARK: - Notes
 
-extension PracticeViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension PracticeViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, PracticeNoteCellDelegate {
     
     @IBAction func onTabNotes(_ sender: Any) {
         if self.playlistViewModel != nil {
@@ -1046,7 +1046,7 @@ extension PracticeViewController: UICollectionViewDelegate, UICollectionViewData
     
     func configureNotes() {
         if self.playlistViewModel != nil {
-            if let notes = self.playlistViewModel.currentPracticeEntry.notes {
+            if let notes = self.playlistViewModel.currentPracticeEntry.practiceItem()?.notes {
                 self.notesToShow = [Note]()
                 for note in notes {
                     if !note.archived {
@@ -1074,6 +1074,7 @@ extension PracticeViewController: UICollectionViewDelegate, UICollectionViewData
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PracticeNoteCell", for: indexPath) as! PracticeNoteCell
             cell.configure(note: self.notesToShow[indexPath.row])
+            cell.delegate = self
             return cell
         }
     }
@@ -1092,5 +1093,10 @@ extension PracticeViewController: UICollectionViewDelegate, UICollectionViewData
                 return CGSize(width: self.collectionViewNotes.frame.size.width / 2 - 30, height: self.collectionViewNotes.frame.size.height)
             }
         }
+    }
+    
+    func onNoteSwipeUp(_ note: Note) {
+        self.playlistViewModel.changeArchiveStatusForNote(note.id)
+        self.configureNotes()
     }
 }

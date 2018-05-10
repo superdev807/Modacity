@@ -16,6 +16,7 @@ class PracticeNoteDetailsViewController: UIViewController {
     @IBOutlet weak var constraintForInputboxBottomSpace: NSLayoutConstraint!
     
     var playlistViewModel: PlaylistDetailsViewModel!
+    var noteIsForPlaylist = false
     var note: Note!
     
     override func viewDidLoad() {
@@ -65,7 +66,11 @@ class PracticeNoteDetailsViewController: UIViewController {
     @IBAction func onDeleteNote(_ sender: Any) {
         let alert = UIAlertController(title: nil, message: "Are you sure to delete this note?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (_) in
-            self.playlistViewModel.deleteNote(self.note)
+            if self.noteIsForPlaylist {
+                self.playlistViewModel.deletePlaylistNote(self.note)
+            } else {
+                self.playlistViewModel.deleteNote(self.note)
+            }
             self.navigationController?.popViewController(animated: true)
         }))
         alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))

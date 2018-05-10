@@ -133,7 +133,11 @@ class PlaylistDetailsViewController: UIViewController {
     }
     
     @IBAction func onEditName(_ sender: Any) {
-        self.changeNameEditMode()
+        let controller = UIStoryboard(name: "practice_note", bundle: nil).instantiateViewController(withIdentifier: "PracticeNotesViewController") as! PracticeNotesViewController
+        controller.playlistViewModel = self.viewModel
+        controller.noteIsForPlaylist = true
+        self.navigationController?.pushViewController(controller, animated: true)
+        
     }
     
     @IBAction func onDidEndOnExitOnNameInputField(_ sender: Any) {
@@ -157,14 +161,14 @@ class PlaylistDetailsViewController: UIViewController {
             self.textfieldPlaylistName.isHidden = false
             self.textfieldPlaylistName.becomeFirstResponder()
             self.viewKeyboardDismiss.isHidden = false
-            self.buttonEditName.setImage(UIImage(named:"icon_done"), for: .normal)
+//            self.buttonEditName.setImage(UIImage(named:"icon_done"), for: .normal)
         } else {
             self.buttonEditPlaylistNameLarge.isHidden = false
             self.labelPlaylistName.isHidden = false
             self.textfieldPlaylistName.isHidden = true
             self.textfieldPlaylistName.resignFirstResponder()
             self.viewKeyboardDismiss.isHidden = true
-            self.buttonEditName.setImage(UIImage(named:"icon_pen_white"), for: .normal)
+//            self.buttonEditName.setImage(UIImage(named:"icon_pen_white"), for: .normal)
         }
     }
     

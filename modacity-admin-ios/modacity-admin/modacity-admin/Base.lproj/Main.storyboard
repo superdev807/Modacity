@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="modacity_admin" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Spu-KR-78k">
+                                <rect key="frame" x="164.5" y="607" width="46" height="30"/>
+                                <state key="normal" title="Export"/>
+                                <connections>
+                                    <action selector="onExport:" destination="BYZ-38-t0r" eventType="touchUpInside" id="b71-kI-AVZ"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="admin@modacity.co" borderStyle="roundedRect" placeholder="email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9fb-Ht-wL9">
+                                <rect key="frame" x="60.5" y="59" width="254" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="254" id="Q01-lP-oO6"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Modacity" borderStyle="roundedRect" placeholder="password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dpP-3C-W7W">
+                                <rect key="frame" x="60.5" y="111" width="254" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="254" id="LnG-EX-08T"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7sQ-dS-Cli">
+                                <rect key="frame" x="166" y="172" width="42" height="30"/>
+                                <state key="normal" title="Log In"/>
+                                <connections>
+                                    <action selector="onLogin:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Z2d-kW-os2"/>
+                                </connections>
+                            </button>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="j2o-GC-5nd">
+                                <rect key="frame" x="177" y="333.5" width="20" height="20"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="dpP-3C-W7W" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="6dE-vr-Wn5"/>
+                            <constraint firstItem="j2o-GC-5nd" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="7Au-Xy-BzB"/>
+                            <constraint firstItem="Spu-KR-78k" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="CdK-jL-RLs"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Spu-KR-78k" secondAttribute="bottom" constant="30" id="E6l-NB-YhJ"/>
+                            <constraint firstItem="9fb-Ht-wL9" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="K9V-87-LY7"/>
+                            <constraint firstItem="9fb-Ht-wL9" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="39" id="W6l-71-7Px"/>
+                            <constraint firstItem="dpP-3C-W7W" firstAttribute="top" secondItem="9fb-Ht-wL9" secondAttribute="bottom" constant="22" id="YXB-gx-ZEG"/>
+                            <constraint firstItem="7sQ-dS-Cli" firstAttribute="top" secondItem="dpP-3C-W7W" secondAttribute="bottom" constant="31" id="hvU-Ry-8UC"/>
+                            <constraint firstItem="j2o-GC-5nd" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="jRh-Qh-bVb"/>
+                            <constraint firstItem="7sQ-dS-Cli" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="sUQ-ha-N0h"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <connections>
+                        <outlet property="activityIndicatorLoading" destination="j2o-GC-5nd" id="xkt-UQ-6M2"/>
+                        <outlet property="buttonExport" destination="Spu-KR-78k" id="37r-aI-5Bu"/>
+                        <outlet property="buttonLogin" destination="7sQ-dS-Cli" id="Vos-P4-VRz"/>
+                        <outlet property="textfieldEmail" destination="9fb-Ht-wL9" id="tXN-nY-kcN"/>
+                        <outlet property="textfieldPassword" destination="dpP-3C-W7W" id="wZs-el-2gy"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="24.800000000000001" y="30.134932533733135"/>
+        </scene>
+    </scenes>
+</document>

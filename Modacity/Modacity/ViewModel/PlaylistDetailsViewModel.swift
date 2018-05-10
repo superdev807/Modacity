@@ -287,32 +287,28 @@ class PlaylistDetailsViewModel: ViewModel {
         AppOveralDataManager.manager.addImprovementsCount()
     }
     
+    func addNoteToPlaylist(_ note:String) {
+        self.playlist.addNote(text: note)
+    }
+    
     func addNoteToCurrent(_ note:String) {
-        self.currentPracticeEntry.addNote(text: note)
+        self.currentPracticeEntry.practiceItem()!.addNote(text: note)
         self.storePlaylist()
+    }
+    
+    func changeArchiveStatusForPlaylistNote(_ noteId:String) {
+        self.playlist.archiveNote(for: noteId)
     }
     
     func changeArchiveStatusForNote(_ noteId:String) {
-        if let notes = self.currentPracticeEntry.notes {
-            for note in notes {
-                if note.id == noteId {
-                    note.archived = !note.archived
-                }
-            }
-        }
-        self.storePlaylist()
+        self.currentPracticeEntry.practiceItem()?.archiveNote(for: noteId)
     }
     
     func deleteNote(_ note:Note) {
-        if let notes = self.currentPracticeEntry.notes {
-            var newNotes = [Note]()
-            for noteInPractice in notes {
-                if note.id != noteInPractice.id {
-                    newNotes.append(noteInPractice)
-                }
-            }
-            self.currentPracticeEntry.notes = newNotes
-        }
-        self.storePlaylist()
+        self.currentPracticeEntry.practiceItem()?.deleteNote(for: note.id)
+    }
+    
+    func deletePlaylistNote(_ note: Note) {
+        self.playlist.deleteNote(for: note.id)
     }
 }

@@ -1,0 +1,677 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		16E82CD2614B516F461C71B8 /* Pods_modacity_admin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0C659FEBED83DFDB6B5F68C /* Pods_modacity_admin.framework */; };
+		7A87AA5C964831F86E330C7B /* Pods_modacity_adminUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DCC434B2680D6EF54FD49FC /* Pods_modacity_adminUITests.framework */; };
+		D0A6E45442C01992A4C90626 /* Pods_modacity_adminTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28E9355D517759ADFB2235E8 /* Pods_modacity_adminTests.framework */; };
+		E26EBF2F20A3796100F9A6F3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26EBF2E20A3796100F9A6F3 /* AppDelegate.swift */; };
+		E26EBF3120A3796100F9A6F3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26EBF3020A3796100F9A6F3 /* ViewController.swift */; };
+		E26EBF3320A3796300F9A6F3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E26EBF3220A3796300F9A6F3 /* Assets.xcassets */; };
+		E26EBF3620A3796300F9A6F3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E26EBF3420A3796300F9A6F3 /* Main.storyboard */; };
+		E26EBF4220A3796300F9A6F3 /* modacity_adminTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26EBF4120A3796300F9A6F3 /* modacity_adminTests.swift */; };
+		E26EBF4D20A3796300F9A6F3 /* modacity_adminUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26EBF4C20A3796300F9A6F3 /* modacity_adminUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E26EBF3E20A3796300F9A6F3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E26EBF2320A3796100F9A6F3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E26EBF2A20A3796100F9A6F3;
+			remoteInfo = "modacity-admin";
+		};
+		E26EBF4920A3796300F9A6F3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E26EBF2320A3796100F9A6F3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E26EBF2A20A3796100F9A6F3;
+			remoteInfo = "modacity-admin";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		12F7569FF5A264E8F0AD26F0 /* Pods-modacity-admin.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-modacity-admin.debug.xcconfig"; path = "Pods/Target Support Files/Pods-modacity-admin/Pods-modacity-admin.debug.xcconfig"; sourceTree = "<group>"; };
+		206DC47C5F0BB459106ECF3F /* Pods-modacity-admin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-modacity-admin.release.xcconfig"; path = "Pods/Target Support Files/Pods-modacity-admin/Pods-modacity-admin.release.xcconfig"; sourceTree = "<group>"; };
+		28E9355D517759ADFB2235E8 /* Pods_modacity_adminTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_modacity_adminTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2DCC434B2680D6EF54FD49FC /* Pods_modacity_adminUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_modacity_adminUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4574303EBE893644F25242C0 /* Pods-modacity-adminTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-modacity-adminTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-modacity-adminTests/Pods-modacity-adminTests.release.xcconfig"; sourceTree = "<group>"; };
+		4CCFFE29399517A8D42EAD40 /* Pods-modacity-adminTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-modacity-adminTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-modacity-adminTests/Pods-modacity-adminTests.debug.xcconfig"; sourceTree = "<group>"; };
+		76CD23874BC01B469FC361B6 /* Pods-modacity-adminUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-modacity-adminUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-modacity-adminUITests/Pods-modacity-adminUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		C0C659FEBED83DFDB6B5F68C /* Pods_modacity_admin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_modacity_admin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CF6B32A182A118730F08D34E /* Pods-modacity-adminUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-modacity-adminUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-modacity-adminUITests/Pods-modacity-adminUITests.release.xcconfig"; sourceTree = "<group>"; };
+		E26EBF2B20A3796100F9A6F3 /* modacity-admin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "modacity-admin.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E26EBF2E20A3796100F9A6F3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		E26EBF3020A3796100F9A6F3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		E26EBF3220A3796300F9A6F3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E26EBF3520A3796300F9A6F3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		E26EBF3720A3796300F9A6F3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E26EBF3820A3796300F9A6F3 /* modacity_admin.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = modacity_admin.entitlements; sourceTree = "<group>"; };
+		E26EBF3D20A3796300F9A6F3 /* modacity-adminTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "modacity-adminTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E26EBF4120A3796300F9A6F3 /* modacity_adminTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = modacity_adminTests.swift; sourceTree = "<group>"; };
+		E26EBF4320A3796300F9A6F3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E26EBF4820A3796300F9A6F3 /* modacity-adminUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "modacity-adminUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E26EBF4C20A3796300F9A6F3 /* modacity_adminUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = modacity_adminUITests.swift; sourceTree = "<group>"; };
+		E26EBF4E20A3796300F9A6F3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E26EBF2820A3796100F9A6F3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				16E82CD2614B516F461C71B8 /* Pods_modacity_admin.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E26EBF3A20A3796300F9A6F3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D0A6E45442C01992A4C90626 /* Pods_modacity_adminTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E26EBF4520A3796300F9A6F3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A87AA5C964831F86E330C7B /* Pods_modacity_adminUITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1E01CA1E37DB67D74B4DEF2D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C0C659FEBED83DFDB6B5F68C /* Pods_modacity_admin.framework */,
+				28E9355D517759ADFB2235E8 /* Pods_modacity_adminTests.framework */,
+				2DCC434B2680D6EF54FD49FC /* Pods_modacity_adminUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DB3FF964FBA0389BC8D1F388 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				12F7569FF5A264E8F0AD26F0 /* Pods-modacity-admin.debug.xcconfig */,
+				206DC47C5F0BB459106ECF3F /* Pods-modacity-admin.release.xcconfig */,
+				4CCFFE29399517A8D42EAD40 /* Pods-modacity-adminTests.debug.xcconfig */,
+				4574303EBE893644F25242C0 /* Pods-modacity-adminTests.release.xcconfig */,
+				76CD23874BC01B469FC361B6 /* Pods-modacity-adminUITests.debug.xcconfig */,
+				CF6B32A182A118730F08D34E /* Pods-modacity-adminUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		E26EBF2220A3796100F9A6F3 = {
+			isa = PBXGroup;
+			children = (
+				E26EBF2D20A3796100F9A6F3 /* modacity-admin */,
+				E26EBF4020A3796300F9A6F3 /* modacity-adminTests */,
+				E26EBF4B20A3796300F9A6F3 /* modacity-adminUITests */,
+				E26EBF2C20A3796100F9A6F3 /* Products */,
+				DB3FF964FBA0389BC8D1F388 /* Pods */,
+				1E01CA1E37DB67D74B4DEF2D /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		E26EBF2C20A3796100F9A6F3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E26EBF2B20A3796100F9A6F3 /* modacity-admin.app */,
+				E26EBF3D20A3796300F9A6F3 /* modacity-adminTests.xctest */,
+				E26EBF4820A3796300F9A6F3 /* modacity-adminUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E26EBF2D20A3796100F9A6F3 /* modacity-admin */ = {
+			isa = PBXGroup;
+			children = (
+				E26EBF2E20A3796100F9A6F3 /* AppDelegate.swift */,
+				E26EBF3020A3796100F9A6F3 /* ViewController.swift */,
+				E26EBF3220A3796300F9A6F3 /* Assets.xcassets */,
+				E26EBF3420A3796300F9A6F3 /* Main.storyboard */,
+				E26EBF3720A3796300F9A6F3 /* Info.plist */,
+				E26EBF3820A3796300F9A6F3 /* modacity_admin.entitlements */,
+			);
+			path = "modacity-admin";
+			sourceTree = "<group>";
+		};
+		E26EBF4020A3796300F9A6F3 /* modacity-adminTests */ = {
+			isa = PBXGroup;
+			children = (
+				E26EBF4120A3796300F9A6F3 /* modacity_adminTests.swift */,
+				E26EBF4320A3796300F9A6F3 /* Info.plist */,
+			);
+			path = "modacity-adminTests";
+			sourceTree = "<group>";
+		};
+		E26EBF4B20A3796300F9A6F3 /* modacity-adminUITests */ = {
+			isa = PBXGroup;
+			children = (
+				E26EBF4C20A3796300F9A6F3 /* modacity_adminUITests.swift */,
+				E26EBF4E20A3796300F9A6F3 /* Info.plist */,
+			);
+			path = "modacity-adminUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E26EBF2A20A3796100F9A6F3 /* modacity-admin */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E26EBF5120A3796300F9A6F3 /* Build configuration list for PBXNativeTarget "modacity-admin" */;
+			buildPhases = (
+				73E32001498FC0F55FBE0E5D /* [CP] Check Pods Manifest.lock */,
+				E26EBF2720A3796100F9A6F3 /* Sources */,
+				E26EBF2820A3796100F9A6F3 /* Frameworks */,
+				E26EBF2920A3796100F9A6F3 /* Resources */,
+				100CC68A2AAF9A4693247018 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "modacity-admin";
+			productName = "modacity-admin";
+			productReference = E26EBF2B20A3796100F9A6F3 /* modacity-admin.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E26EBF3C20A3796300F9A6F3 /* modacity-adminTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E26EBF5420A3796300F9A6F3 /* Build configuration list for PBXNativeTarget "modacity-adminTests" */;
+			buildPhases = (
+				BCF105FA50D6E8010ED01760 /* [CP] Check Pods Manifest.lock */,
+				E26EBF3920A3796300F9A6F3 /* Sources */,
+				E26EBF3A20A3796300F9A6F3 /* Frameworks */,
+				E26EBF3B20A3796300F9A6F3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E26EBF3F20A3796300F9A6F3 /* PBXTargetDependency */,
+			);
+			name = "modacity-adminTests";
+			productName = "modacity-adminTests";
+			productReference = E26EBF3D20A3796300F9A6F3 /* modacity-adminTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		E26EBF4720A3796300F9A6F3 /* modacity-adminUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E26EBF5720A3796300F9A6F3 /* Build configuration list for PBXNativeTarget "modacity-adminUITests" */;
+			buildPhases = (
+				D7263D76628A4FD45248A41E /* [CP] Check Pods Manifest.lock */,
+				E26EBF4420A3796300F9A6F3 /* Sources */,
+				E26EBF4520A3796300F9A6F3 /* Frameworks */,
+				E26EBF4620A3796300F9A6F3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E26EBF4A20A3796300F9A6F3 /* PBXTargetDependency */,
+			);
+			name = "modacity-adminUITests";
+			productName = "modacity-adminUITests";
+			productReference = E26EBF4820A3796300F9A6F3 /* modacity-adminUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E26EBF2320A3796100F9A6F3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0930;
+				LastUpgradeCheck = 0930;
+				ORGANIZATIONNAME = modacity;
+				TargetAttributes = {
+					E26EBF2A20A3796100F9A6F3 = {
+						CreatedOnToolsVersion = 9.3;
+					};
+					E26EBF3C20A3796300F9A6F3 = {
+						CreatedOnToolsVersion = 9.3;
+						TestTargetID = E26EBF2A20A3796100F9A6F3;
+					};
+					E26EBF4720A3796300F9A6F3 = {
+						CreatedOnToolsVersion = 9.3;
+						TestTargetID = E26EBF2A20A3796100F9A6F3;
+					};
+				};
+			};
+			buildConfigurationList = E26EBF2620A3796100F9A6F3 /* Build configuration list for PBXProject "modacity-admin" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = E26EBF2220A3796100F9A6F3;
+			productRefGroup = E26EBF2C20A3796100F9A6F3 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E26EBF2A20A3796100F9A6F3 /* modacity-admin */,
+				E26EBF3C20A3796300F9A6F3 /* modacity-adminTests */,
+				E26EBF4720A3796300F9A6F3 /* modacity-adminUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E26EBF2920A3796100F9A6F3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E26EBF3320A3796300F9A6F3 /* Assets.xcassets in Resources */,
+				E26EBF3620A3796300F9A6F3 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E26EBF3B20A3796300F9A6F3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E26EBF4620A3796300F9A6F3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		100CC68A2AAF9A4693247018 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-modacity-admin/Pods-modacity-admin-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/FirebaseOSX/Firebase.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Firebase.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-modacity-admin/Pods-modacity-admin-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		73E32001498FC0F55FBE0E5D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-modacity-admin-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BCF105FA50D6E8010ED01760 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-modacity-adminTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D7263D76628A4FD45248A41E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-modacity-adminUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E26EBF2720A3796100F9A6F3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E26EBF3120A3796100F9A6F3 /* ViewController.swift in Sources */,
+				E26EBF2F20A3796100F9A6F3 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E26EBF3920A3796300F9A6F3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E26EBF4220A3796300F9A6F3 /* modacity_adminTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E26EBF4420A3796300F9A6F3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E26EBF4D20A3796300F9A6F3 /* modacity_adminUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E26EBF3F20A3796300F9A6F3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E26EBF2A20A3796100F9A6F3 /* modacity-admin */;
+			targetProxy = E26EBF3E20A3796300F9A6F3 /* PBXContainerItemProxy */;
+		};
+		E26EBF4A20A3796300F9A6F3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E26EBF2A20A3796100F9A6F3 /* modacity-admin */;
+			targetProxy = E26EBF4920A3796300F9A6F3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		E26EBF3420A3796300F9A6F3 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E26EBF3520A3796300F9A6F3 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		E26EBF4F20A3796300F9A6F3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		E26EBF5020A3796300F9A6F3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		E26EBF5220A3796300F9A6F3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 12F7569FF5A264E8F0AD26F0 /* Pods-modacity-admin.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "modacity-admin/modacity_admin.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "modacity-admin/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.app.modacity-admin";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Debug;
+		};
+		E26EBF5320A3796300F9A6F3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 206DC47C5F0BB459106ECF3F /* Pods-modacity-admin.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "modacity-admin/modacity_admin.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "modacity-admin/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.app.modacity-admin";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Release;
+		};
+		E26EBF5520A3796300F9A6F3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4CCFFE29399517A8D42EAD40 /* Pods-modacity-adminTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "modacity-adminTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.app.modacity-adminTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/modacity-admin.app/Contents/MacOS/modacity-admin";
+			};
+			name = Debug;
+		};
+		E26EBF5620A3796300F9A6F3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4574303EBE893644F25242C0 /* Pods-modacity-adminTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "modacity-adminTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.app.modacity-adminTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/modacity-admin.app/Contents/MacOS/modacity-admin";
+			};
+			name = Release;
+		};
+		E26EBF5820A3796300F9A6F3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 76CD23874BC01B469FC361B6 /* Pods-modacity-adminUITests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "modacity-adminUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.app.modacity-adminUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TEST_TARGET_NAME = "modacity-admin";
+			};
+			name = Debug;
+		};
+		E26EBF5920A3796300F9A6F3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CF6B32A182A118730F08D34E /* Pods-modacity-adminUITests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "modacity-adminUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.app.modacity-adminUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TEST_TARGET_NAME = "modacity-admin";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E26EBF2620A3796100F9A6F3 /* Build configuration list for PBXProject "modacity-admin" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E26EBF4F20A3796300F9A6F3 /* Debug */,
+				E26EBF5020A3796300F9A6F3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E26EBF5120A3796300F9A6F3 /* Build configuration list for PBXNativeTarget "modacity-admin" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E26EBF5220A3796300F9A6F3 /* Debug */,
+				E26EBF5320A3796300F9A6F3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E26EBF5420A3796300F9A6F3 /* Build configuration list for PBXNativeTarget "modacity-adminTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E26EBF5520A3796300F9A6F3 /* Debug */,
+				E26EBF5620A3796300F9A6F3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E26EBF5720A3796300F9A6F3 /* Build configuration list for PBXNativeTarget "modacity-adminUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E26EBF5820A3796300F9A6F3 /* Debug */,
+				E26EBF5920A3796300F9A6F3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E26EBF2320A3796100F9A6F3 /* Project object */;
+}

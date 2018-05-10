@@ -91,6 +91,14 @@ class PracticeRateViewController: UIViewController {
             self.navigationController?.dismiss(animated: true, completion: nil)
         }
     }
+    
+    @IBAction func onNotes(_ sender: Any) {
+        let controller = UIStoryboard(name: "practice_note", bundle: nil).instantiateViewController(withIdentifier: "PracticeNotesViewController") as! PracticeNotesViewController
+        controller.playlistViewModel = self.playlistViewModel
+        controller.noteIsForPlaylist = false
+        controller.practiceItem = self.practiceItem
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
 }
 
 extension PracticeRateViewController: FloatRatingViewDelegate {

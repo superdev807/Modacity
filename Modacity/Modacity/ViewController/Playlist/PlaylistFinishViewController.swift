@@ -55,4 +55,11 @@ class PlaylistFinishViewController: UIViewController {
         self.navigationController?.dismiss(animated: true, completion: nil)
         ModacityAnalytics.LogStringEvent("Congrats Screen Skip Button")
     }
+    
+    @IBAction func onNotes(_ sender: Any) {
+        let controller = UIStoryboard(name: "practice_note", bundle: nil).instantiateViewController(withIdentifier: "PracticeNotesViewController") as! PracticeNotesViewController
+        controller.playlistViewModel = self.playlistDetailsViewModel
+        controller.noteIsForPlaylist = true
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
 }

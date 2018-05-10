@@ -70,6 +70,8 @@ class PracticeNotesViewController: UIViewController {
     var playlistViewModel: PlaylistDetailsViewModel!
     var practiceItem: PracticeItem!
     
+    var noteIsForPlaylist = false
+    
     @IBOutlet weak var viewAddNoteContainer: UIView!
     @IBOutlet weak var textfieldAddNote: UITextField!
     @IBOutlet weak var tableViewMain: UITableView!
@@ -85,7 +87,11 @@ class PracticeNotesViewController: UIViewController {
         // Do any additional setup after loading the view.
         if self.playlistViewModel != nil {
             self.playlistViewModel.storePlaylist()
-            self.labelTitle.text = self.playlistViewModel.currentPracticeEntry.practiceItem()?.name ?? ""
+            if self.noteIsForPlaylist {
+                self.labelTitle.text = self.playlistViewModel.playlistName
+            } else {
+                self.labelTitle.text = self.playlistViewModel.currentPracticeEntry.practiceItem()?.name ?? ""
+            }
         } else {
             self.labelTitle.text = self.practiceItem.name ?? ""
         }
@@ -104,6 +110,7 @@ class PracticeNotesViewController: UIViewController {
         if segue.identifier == "sid_note_details" {
             let controller = segue.destination as! PracticeNoteDetailsViewController
             controller.playlistViewModel = self.playlistViewModel
+            controller.noteIsForPlaylist = self.noteIsForPlaylist
             controller.note = self.noteToDeliver
         }
     }
@@ -123,14 +130,27 @@ class PracticeNotesViewController: UIViewController {
         
         self.textfieldAddNote.resignFirstResponder()
         if self.textfieldAddNote.text != "" {
-            self.playlistViewModel.addNoteToCurrent(self.textfieldAddNote.text!)
+            if self.noteIsForPlaylist {
+                self.playlistViewModel.addNoteToPlaylist(self.textfieldAddNote.text!)
+            } else {
+                self.playlistViewModel.addNoteToCurrent(self.textfieldAddNote.text!)
+            }
             self.textfieldAddNote.text = ""
             self.processNotes()
         }
     }
     
     func processNotes() {
-        if let notes = self.playlistViewModel.currentPracticeEntry.notes {
+        
+        var notes:[Note]?
+        
+        if self.noteIsForPlaylist {
+            notes = self.playlistViewModel.playlist.notes
+        } else {
+            notes = self.playlistViewModel.currentPracticeEntry.practiceItem()?.notes
+        }
+        
+        if let notes = notes {
             self.notes = [Note]()
             self.archivedNotes = [Note]()
             
@@ -188,7 +208,11 @@ extension PracticeNotesViewController : UITableViewDelegate, UITableViewDataSour
 
 extension PracticeNotesViewController: NoteCellDelegate, ButtonCellDelegate {
     func onArchive(_ noteId: String) {
-        self.playlistViewModel.changeArchiveStatusForNote(noteId)
+        if self.noteIsForPlaylist {
+            self.playlistViewModel.changeArchiveStatusForPlaylistNote(noteId)
+        } else {
+            self.playlistViewModel.changeArchiveStatusForNote(noteId)
+        }
         self.processNotes()
         self.tableViewMain.reloadData()
     }
@@ -206,7 +230,11 @@ extension PracticeNotesViewController: NoteCellDelegate, ButtonCellDelegate {
                                         
                                             let alert = UIAlertController(title: nil, message: "Are you sure to delete this note?", preferredStyle: .alert)
                                             alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (_) in
-                                                self.playlistViewModel.deleteNote(note)
+                                                if self.noteIsForPlaylist {
+                                                    self.playlistViewModel.deletePlaylistNote(note)
+                                                } else {
+                                                    self.playlistViewModel.deleteNote(note)
+                                                }
                                                 self.processNotes()
                                                 self.tableViewMain.reloadData()
                                             }))
