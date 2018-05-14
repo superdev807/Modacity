@@ -97,6 +97,7 @@ class PracticeRateViewController: UIViewController {
         controller.playlistViewModel = self.playlistViewModel
         controller.noteIsForPlaylist = false
         controller.practiceItem = self.practiceItem
+        controller.practiceEntry = self.playlistViewModel.currentPracticeEntry
         self.navigationController?.pushViewController(controller, animated: true)
     }
 }

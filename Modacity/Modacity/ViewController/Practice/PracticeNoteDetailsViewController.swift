@@ -16,6 +16,11 @@ class PracticeNoteDetailsViewController: UIViewController {
     @IBOutlet weak var constraintForInputboxBottomSpace: NSLayoutConstraint!
     
     var playlistViewModel: PlaylistDetailsViewModel!
+    var playlistPracticeEntry: PlaylistPracticeEntry!
+    
+    var practiceItem : PracticeItem!
+    
+    
     var noteIsForPlaylist = false
     var note: Note!
     
@@ -43,7 +48,15 @@ class PracticeNoteDetailsViewController: UIViewController {
     }
 
     @IBAction func onBack(_ sender:Any) {
-        self.note.subTitle = self.textViewInputBox.text
+        if self.playlistViewModel != nil {
+            if self.noteIsForPlaylist {
+                self.playlistViewModel.changeNoteSubTitle(noteId: self.note.id, subTitle: self.textViewInputBox.text)
+            } else {
+                self.playlistPracticeEntry.practiceItem()?.changeNoteSubTitle(for: self.note.id, subTitle: self.textViewInputBox.text)
+            }
+        } else {
+            self.practiceItem.changeNoteSubTitle(for: self.note.id, subTitle: self.textViewInputBox.text)
+        }
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -66,10 +79,14 @@ class PracticeNoteDetailsViewController: UIViewController {
     @IBAction func onDeleteNote(_ sender: Any) {
         let alert = UIAlertController(title: nil, message: "Are you sure to delete this note?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (_) in
-            if self.noteIsForPlaylist {
-                self.playlistViewModel.deletePlaylistNote(self.note)
+            if self.playlistViewModel != nil {
+                if self.noteIsForPlaylist {
+                    self.playlistViewModel.deletePlaylistNote(self.note)
+                } else {
+                    self.playlistViewModel.deleteNote(self.note, for: self.playlistPracticeEntry)
+                }
             } else {
-                self.playlistViewModel.deleteNote(self.note)
+                self.practiceItem.deleteNote(for: self.note.id)
             }
             self.navigationController?.popViewController(animated: true)
         }))

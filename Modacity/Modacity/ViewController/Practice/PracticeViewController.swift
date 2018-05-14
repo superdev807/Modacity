@@ -1026,6 +1026,11 @@ extension PracticeViewController: UICollectionViewDelegate, UICollectionViewData
         if self.playlistViewModel != nil {
             let controller = UIStoryboard(name: "practice_note", bundle: nil).instantiateViewController(withIdentifier: "PracticeNotesViewController") as! PracticeNotesViewController
             controller.playlistViewModel = self.playlistViewModel
+            controller.practiceEntry = self.playlistViewModel.currentPracticeEntry
+            controller.practiceItem = self.practiceItem
+            self.navigationController?.pushViewController(controller, animated: true)
+        } else {
+            let controller = UIStoryboard(name: "practice_note", bundle: nil).instantiateViewController(withIdentifier: "PracticeNotesViewController") as! PracticeNotesViewController
             controller.practiceItem = self.practiceItem
             self.navigationController?.pushViewController(controller, animated: true)
         }
@@ -1054,6 +1059,15 @@ extension PracticeViewController: UICollectionViewDelegate, UICollectionViewData
                     }
                 }
             }
+        } else {
+            if let notes = self.practiceItem.notes {
+                self.notesToShow = [Note]()
+                for note in notes {
+                    if !note.archived {
+                        self.notesToShow.append(note)
+                    }
+                }
+            }
         }
         self.collectionViewNotes.reloadData()
     }
@@ -1073,7 +1087,7 @@ extension PracticeViewController: UICollectionViewDelegate, UICollectionViewData
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PracticeNoteCell", for: indexPath) as! PracticeNoteCell
-            cell.configure(note: self.notesToShow[indexPath.row])
+            cell.configure(note: self.notesToShow[indexPath.row], indexPath: indexPath)
             cell.delegate = self
             return cell
         }
@@ -1095,8 +1109,47 @@ extension PracticeViewController: UICollectionViewDelegate, UICollectionViewData
         }
     }
     
-    func onNoteSwipeUp(_ note: Note) {
-        self.playlistViewModel.changeArchiveStatusForNote(note.id)
-        self.configureNotes()
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if self.notesToShow.count > 0 {
+            let controller = UIStoryboard(name: "practice_note", bundle: nil).instantiateViewController(withIdentifier: "PracticeNoteDetailsViewController") as! PracticeNoteDetailsViewController
+            controller.note = self.notesToShow[indexPath.row]
+            controller.playlistViewModel = self.playlistViewModel
+            if self.playlistViewModel != nil {
+                controller.playlistPracticeEntry = self.playlistViewModel.currentPracticeEntry
+            }
+            
+            controller.practiceItem = self.practiceItem
+            self.navigationController?.pushViewController(controller, animated: true)
+        }
+    }
+    
+    func onNoteSwipeUp(note: Note, cell: PracticeNoteCell, indexPath: IndexPath) {
+        if self.playlistViewModel != nil {
+            cell.startStraitUpAnimate {
+                if self.notesToShow.count > 2 {
+                    self.collectionViewNotes.performBatchUpdates({
+                        self.playlistViewModel.changeArchiveStatusForNote(noteId: note.id, for: self.playlistViewModel.currentPracticeEntry)
+                        self.collectionViewNotes.deleteItems(at: [indexPath])
+                        self.configureNotes()
+                    }, completion: nil)
+                } else {
+                    self.playlistViewModel.changeArchiveStatusForNote(noteId: note.id, for: self.playlistViewModel.currentPracticeEntry)
+                    self.configureNotes()
+                }
+            }
+        } else {
+            cell.startStraitUpAnimate {
+                if self.notesToShow.count > 2 {
+                    self.collectionViewNotes.performBatchUpdates({
+                        self.practiceItem.archiveNote(for: note.id)
+                        self.collectionViewNotes.deleteItems(at: [indexPath])
+                        self.configureNotes()
+                    }, completion: nil)
+                } else {
+                    self.practiceItem.archiveNote(for: note.id)
+                    self.configureNotes()
+                }
+            }
+        }
     }
 }

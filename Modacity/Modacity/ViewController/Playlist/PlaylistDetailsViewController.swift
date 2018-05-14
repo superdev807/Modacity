@@ -132,12 +132,16 @@ class PlaylistDetailsViewController: UIViewController {
         
     }
     
-    @IBAction func onEditName(_ sender: Any) {
+    @IBAction func onNotes(_ sender: Any) {
         let controller = UIStoryboard(name: "practice_note", bundle: nil).instantiateViewController(withIdentifier: "PracticeNotesViewController") as! PracticeNotesViewController
         controller.playlistViewModel = self.viewModel
         controller.noteIsForPlaylist = true
         self.navigationController?.pushViewController(controller, animated: true)
-        
+    }
+    
+    
+    @IBAction func onEditName(_ sender: Any) {
+        self.changeNameEditMode()
     }
     
     @IBAction func onDidEndOnExitOnNameInputField(_ sender: Any) {
@@ -455,9 +459,18 @@ extension PlaylistDetailsViewController: PlaylistPracticeItemCellDelegate {
                                                     self.viewModel.deletePracticeItem(for: item)
                                                 } else if row == 0 {
                                                     self.openClockEdit(for: item)
+                                                } else if row == 1 {
+                                                    self.openNotes(for: item)
                                                 }
                                                 
                                         }
+    }
+    
+    func openNotes(for item:PlaylistPracticeEntry) {
+        let controller = UIStoryboard(name: "practice_note", bundle: nil).instantiateViewController(withIdentifier: "PracticeNotesViewController") as! PracticeNotesViewController
+        controller.playlistViewModel = self.viewModel
+        controller.practiceEntry = item
+        self.navigationController?.pushViewController(controller, animated: true)
     }
 }
 

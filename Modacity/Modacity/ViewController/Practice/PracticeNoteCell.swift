@@ -9,7 +9,7 @@
 import UIKit
 
 protocol PracticeNoteCellDelegate {
-    func onNoteSwipeUp(_ note:Note)
+    func onNoteSwipeUp(note:Note, cell: PracticeNoteCell, indexPath: IndexPath)
 }
 
 class PracticeNoteCell: UICollectionViewCell {
@@ -20,17 +20,19 @@ class PracticeNoteCell: UICollectionViewCell {
     
     var note: Note!
     var delegate: PracticeNoteCellDelegate!
+    var indexPath: IndexPath!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
     
-    func configure(note: Note) {
+    func configure(note: Note, indexPath: IndexPath) {
         self.note = note
         self.labelNote.text = note.note
         self.labelTime.text = Date(timeIntervalSince1970: Double(note.createdAt) ?? 0).toString(format: "MM/dd/yy")
         self.imageViewBackground.image = UIImage(named:"bg_note_box")?.stretchableImage(withLeftCapWidth: 24, topCapHeight: 24)
+        self.indexPath = indexPath
         
         let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(handleGesture))
         swipeUp.direction = .up
@@ -38,8 +40,19 @@ class PracticeNoteCell: UICollectionViewCell {
     }
     
     @objc func handleGesture() {
-        self.delegate.onNoteSwipeUp(self.note)
+        self.delegate.onNoteSwipeUp(note:self.note, cell:self, indexPath: self.indexPath)
     }
     
-
+    func startStraitUpAnimate(completed: @escaping ()->()) {
+        UIView.animate(withDuration: 0.5, animations: {
+            self.frame.origin.y = self.frame.origin.y - self.frame.size.height
+            self.alpha = 0
+        }) { (finished) in
+            if finished {
+                completed()
+            }
+        }
+    }
+    
+    
 }

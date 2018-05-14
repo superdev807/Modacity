@@ -25,7 +25,8 @@ class ButtonCell: UITableViewCell {
 
 protocol NoteCellDelegate {
     func onArchive(_ noteId:String)
-    func onMenu(note: Note, buttonMenu: UIButton)
+    func onMenu(note: Note, buttonMenu: UIButton, cell: NoteCell)
+    func onEditingEnd(cell: NoteCell, text: String)
 }
 
 class NoteCell: UITableViewCell {
@@ -34,6 +35,7 @@ class NoteCell: UITableViewCell {
     @IBOutlet weak var imageViewChecked: UIImageView!
     @IBOutlet weak var labelNoteCreated: UILabel!
     @IBOutlet weak var labelNoteSubTitle: UILabel!
+    @IBOutlet weak var textfieldNoteTitle: UITextField!
     
     var delegate: NoteCellDelegate!
     var note: Note!
@@ -42,6 +44,8 @@ class NoteCell: UITableViewCell {
         self.note = note
         self.labelNoteCreated.text = Date(timeIntervalSince1970: Double(note.createdAt) ?? 0).toString(format: "MM/dd/yy")
         self.labelNoteSubTitle.text = note.subTitle
+        self.textfieldNoteTitle.isHidden = true
+        self.labelNote.isHidden = false
         if note.archived {
             let attributedString = NSMutableAttributedString(string:note.note)
             attributedString.addAttribute(NSAttributedStringKey.baselineOffset, value: 0, range: NSMakeRange(0, attributedString.length))
@@ -60,27 +64,38 @@ class NoteCell: UITableViewCell {
     }
     
     @IBAction func onMenu(_ sender: UIButton) {
-        self.delegate.onMenu(note: self.note, buttonMenu: sender)
+        self.delegate.onMenu(note: self.note, buttonMenu: sender, cell: self)
+    }
+    
+    func enableTitleEditing() {
+        self.labelNote.isHidden = true
+        self.textfieldNoteTitle.isHidden = false
+        self.textfieldNoteTitle.text = self.note.note
+        self.textfieldNoteTitle.becomeFirstResponder()
+    }
+    
+    @IBAction func onDidEndOnExitOnField(_ sender: Any) {
+        self.delegate.onEditingEnd(cell: self, text: self.textfieldNoteTitle.text ?? "")
     }
 }
 
 class PracticeNotesViewController: UIViewController {
-
+    
     @IBOutlet weak var labelTitle: UILabel!
-    var playlistViewModel: PlaylistDetailsViewModel!
-    var practiceItem: PracticeItem!
-    
-    var noteIsForPlaylist = false
-    
     @IBOutlet weak var viewAddNoteContainer: UIView!
     @IBOutlet weak var textfieldAddNote: UITextField!
     @IBOutlet weak var tableViewMain: UITableView!
-    
+
+    var playlistViewModel: PlaylistDetailsViewModel!
+    var practiceEntry: PlaylistPracticeEntry!
+    var practiceItem: PracticeItem!
+    var noteIsForPlaylist = false
     var notes = [Note]()
     var archivedNotes = [Note]()
     var showArchived = false
-    
     var noteToDeliver: Note!
+    
+    var noteEditingCell: NoteCell!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,7 +105,7 @@ class PracticeNotesViewController: UIViewController {
             if self.noteIsForPlaylist {
                 self.labelTitle.text = self.playlistViewModel.playlistName
             } else {
-                self.labelTitle.text = self.playlistViewModel.currentPracticeEntry.practiceItem()?.name ?? ""
+                self.labelTitle.text = self.practiceEntry.practiceItem()?.name ?? ""//self.playlistViewModel.currentPracticeEntry.practiceItem()?.name ?? ""
             }
         } else {
             self.labelTitle.text = self.practiceItem.name ?? ""
@@ -110,14 +125,18 @@ class PracticeNotesViewController: UIViewController {
         if segue.identifier == "sid_note_details" {
             let controller = segue.destination as! PracticeNoteDetailsViewController
             controller.playlistViewModel = self.playlistViewModel
+            controller.playlistPracticeEntry = self.practiceEntry
             controller.noteIsForPlaylist = self.noteIsForPlaylist
             controller.note = self.noteToDeliver
+            controller.practiceItem = self.practiceItem
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.playlistViewModel.storePlaylist()
+        if self.playlistViewModel != nil {
+            self.playlistViewModel.storePlaylist()
+        }
         self.processNotes()
         self.tableViewMain.reloadData()
     }
@@ -130,24 +149,41 @@ class PracticeNotesViewController: UIViewController {
         
         self.textfieldAddNote.resignFirstResponder()
         if self.textfieldAddNote.text != "" {
-            if self.noteIsForPlaylist {
-                self.playlistViewModel.addNoteToPlaylist(self.textfieldAddNote.text!)
+            if self.playlistViewModel != nil {
+                if self.noteIsForPlaylist {
+                    self.playlistViewModel.addNoteToPlaylist(self.textfieldAddNote.text!)
+                } else {
+                    self.playlistViewModel.addNote(to:self.practiceEntry, note:self.textfieldAddNote.text!)
+                }
             } else {
-                self.playlistViewModel.addNoteToCurrent(self.textfieldAddNote.text!)
+                self.practiceItem.addNote(text: self.textfieldAddNote.text!)
             }
             self.textfieldAddNote.text = ""
             self.processNotes()
         }
     }
     
+    @IBAction func onEditingDidBeginForAddNote(_ sender: Any) {
+        if self.noteEditingCell != nil {
+            self.tableViewMain.reloadData()
+        }
+    }
+    
+    
     func processNotes() {
         
         var notes:[Note]?
         
-        if self.noteIsForPlaylist {
-            notes = self.playlistViewModel.playlist.notes
+        if self.playlistViewModel != nil {
+            if self.noteIsForPlaylist {
+                notes = self.playlistViewModel.playlist.notes
+            } else {
+                if self.playlistViewModel != nil {
+                    notes = self.practiceEntry.practiceItem()?.notes
+                }
+            }
         } else {
-            notes = self.playlistViewModel.currentPracticeEntry.practiceItem()?.notes
+            notes = self.practiceItem.notes
         }
         
         if let notes = notes {
@@ -201,17 +237,25 @@ extension PracticeNotesViewController : UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        self.noteToDeliver = self.notes[indexPath.row]
+        if indexPath.row < self.notes.count {
+            self.noteToDeliver = self.notes[indexPath.row]
+        } else if indexPath.row > self.notes.count {
+            self.noteToDeliver = self.archivedNotes[indexPath.row - self.notes.count - 1]
+        }
         self.performSegue(withIdentifier: "sid_note_details", sender: nil)
     }
 }
 
 extension PracticeNotesViewController: NoteCellDelegate, ButtonCellDelegate {
     func onArchive(_ noteId: String) {
-        if self.noteIsForPlaylist {
-            self.playlistViewModel.changeArchiveStatusForPlaylistNote(noteId)
+        if self.playlistViewModel != nil {
+            if self.noteIsForPlaylist {
+                self.playlistViewModel.changeArchiveStatusForPlaylistNote(noteId)
+            } else {
+                self.playlistViewModel.changeArchiveStatusForNote(noteId: noteId, for: self.practiceEntry)//changeArchiveStatusForNote(noteId)
+            }
         } else {
-            self.playlistViewModel.changeArchiveStatusForNote(noteId)
+            self.practiceItem.archiveNote(for: noteId)
         }
         self.processNotes()
         self.tableViewMain.reloadData()
@@ -223,24 +267,62 @@ extension PracticeNotesViewController: NoteCellDelegate, ButtonCellDelegate {
         self.tableViewMain.reloadData()
     }
     
-    func onMenu(note: Note, buttonMenu: UIButton) {
+    func onMenu(note: Note, buttonMenu: UIButton, cell:NoteCell) {
         DropdownMenuView.instance.show(in: self.view,
                                        on: buttonMenu,
-                                       rows: [["icon":"icon_row_delete", "text":"Delete"]]) { (row) in
+                                       rows: [["icon":"icon_row_delete", "text":"Delete"],
+                                              ["icon":"icon_pen_white", "text": "Edit"]]) { (row) in
                                         
-                                            let alert = UIAlertController(title: nil, message: "Are you sure to delete this note?", preferredStyle: .alert)
-                                            alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (_) in
-                                                if self.noteIsForPlaylist {
-                                                    self.playlistViewModel.deletePlaylistNote(note)
-                                                } else {
-                                                    self.playlistViewModel.deleteNote(note)
+                                                if row == 0 {
+                                                    
+                                                    let alert = UIAlertController(title: nil, message: "Are you sure to delete this note?", preferredStyle: .alert)
+                                                    alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (_) in
+                                                        if self.playlistViewModel != nil {
+                                                            if self.noteIsForPlaylist {
+                                                                self.playlistViewModel.deletePlaylistNote(note)
+                                                            } else {
+                                                                self.playlistViewModel.deleteNote(note, for: self.practiceEntry)//deleteNote(note)
+                                                            }
+                                                        } else {
+                                                            self.practiceItem.deleteNote(for: note.id)
+                                                        }
+                                                        self.processNotes()
+                                                        self.tableViewMain.reloadData()
+                                                    }))
+                                                    alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+                                                    self.present(alert, animated: true, completion: nil)
+                                                    
+                                                } else if row == 1 {
+                                                    
+                                                    if self.noteEditingCell != nil {
+                                                        
+                                                    }
+                                                    
+                                                    self.noteEditingCell = cell
+                                                    cell.enableTitleEditing()
+                                                    
                                                 }
-                                                self.processNotes()
-                                                self.tableViewMain.reloadData()
-                                            }))
-                                            alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
-                                            self.present(alert, animated: true, completion: nil)
-
+                                                
                                         }
+    }
+    
+    func onEditingEnd(cell: NoteCell, text: String) {
+        if text != "" {
+            if self.playlistViewModel != nil {
+                if self.noteIsForPlaylist {
+                    self.playlistViewModel.changePlaylistNoteTitle(note: cell.note, to: text)
+                } else {
+                    self.playlistViewModel.changeNoteTitle(entry: self.practiceEntry, note: cell.note, to: text)
+                }
+            } else {
+                self.practiceItem.changeNoteTitle(for: cell.note.id, to: text)
+            }
+        }
+        
+        cell.textfieldNoteTitle.isHidden = true
+        cell.labelNote.isHidden = false
+        self.processNotes()
+        self.tableViewMain.reloadData()
+        self.noteEditingCell = nil
     }
 }

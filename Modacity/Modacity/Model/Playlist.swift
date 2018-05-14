@@ -49,6 +49,12 @@ class Playlist: Mappable {
         self.updateMe()
     }
     
+    func changeNoteTitle(for noteId: String, to: String) {
+        let note = self.notes?.first { $0.id == noteId }
+        note?.note = to
+        self.updateMe()
+    }
+    
     func deleteNote(for noteId:String) {
         
         self.notes = self.notes?.filter { $0.id != noteId }
@@ -59,6 +65,12 @@ class Playlist: Mappable {
     func archiveNote(for noteId:String) {
         let note = self.notes?.first { $0.id == noteId }
         note?.archived = !(note?.archived ?? false)
+        self.updateMe()
+    }
+    
+    func changeNoteSubTitle(for noteId:String, subTitle: String) {
+        let note = self.notes?.first { $0.id == noteId }
+        note?.subTitle = subTitle
         self.updateMe()
     }
     

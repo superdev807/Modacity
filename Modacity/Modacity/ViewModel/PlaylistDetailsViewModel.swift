@@ -291,24 +291,36 @@ class PlaylistDetailsViewModel: ViewModel {
         self.playlist.addNote(text: note)
     }
     
-    func addNoteToCurrent(_ note:String) {
-        self.currentPracticeEntry.practiceItem()!.addNote(text: note)
+    func addNote(to: PlaylistPracticeEntry, note:String) {
+        to.practiceItem()!.addNote(text: note)
         self.storePlaylist()
+    }
+    
+    func changeNoteTitle(entry: PlaylistPracticeEntry, note:Note, to:String) {
+        entry.practiceItem()?.changeNoteTitle(for: note.id, to: to)
     }
     
     func changeArchiveStatusForPlaylistNote(_ noteId:String) {
         self.playlist.archiveNote(for: noteId)
     }
     
-    func changeArchiveStatusForNote(_ noteId:String) {
-        self.currentPracticeEntry.practiceItem()?.archiveNote(for: noteId)
+    func changeArchiveStatusForNote(noteId:String, for entry:PlaylistPracticeEntry) {
+        entry.practiceItem()?.archiveNote(for: noteId)
     }
     
-    func deleteNote(_ note:Note) {
-        self.currentPracticeEntry.practiceItem()?.deleteNote(for: note.id)
+    func deleteNote(_ note:Note, for entry: PlaylistPracticeEntry) {
+        entry.practiceItem()?.deleteNote(for: note.id)
+    }
+    
+    func changeNoteSubTitle(noteId: String, subTitle: String) {
+        self.playlist.changeNoteSubTitle(for: noteId, subTitle: subTitle)
     }
     
     func deletePlaylistNote(_ note: Note) {
         self.playlist.deleteNote(for: note.id)
+    }
+    
+    func changePlaylistNoteTitle(note: Note, to: String) {
+        self.playlist.changeNoteTitle(for: note.id, to: to)
     }
 }
