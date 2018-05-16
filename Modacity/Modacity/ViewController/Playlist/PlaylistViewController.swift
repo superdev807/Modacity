@@ -10,7 +10,7 @@ import UIKit
 
 protocol PlaylistCellDelegate {
     func onFavorite(_ playlist: Playlist)
-    func onMenu(_ playlist: Playlist, buttonMenu: UIButton)
+    func onMenu(_ playlist: Playlist, buttonMenu: UIButton, cell:PlaylistCell)
 }
 
 class PlaylistCell: UITableViewCell {
@@ -18,13 +18,15 @@ class PlaylistCell: UITableViewCell {
     @IBOutlet weak var buttonMenu: UIButton!
     @IBOutlet weak var labelPlaylistName: UILabel!
     @IBOutlet weak var buttonFavorite: UIButton!
+    @IBOutlet weak var textfieldPlaylistName: UITextField!
     var playlist: Playlist!
     var delegate: PlaylistCellDelegate?
     
     func configure(with playlist: Playlist, isFavorite: Bool) {
         self.playlist = playlist
         self.labelPlaylistName.text = playlist.name
-        
+        self.textfieldPlaylistName.isHidden = true
+        self.labelPlaylistName.isHidden = false
         if isFavorite {
             self.buttonFavorite.setImage(UIImage(named:"icon_heart_red"), for: .normal)
             self.buttonFavorite.alpha = 1.0
@@ -42,11 +44,19 @@ class PlaylistCell: UITableViewCell {
     
     @IBAction func onMenu(_ sender: Any) {
         if self.delegate != nil {
-            self.delegate!.onMenu(self.playlist, buttonMenu: self.buttonMenu)
+            self.delegate!.onMenu(self.playlist, buttonMenu: self.buttonMenu, cell: self)
         }
     }
     
-    
+    @IBAction func onEditingDidEnd(_ sender: Any) {
+        if self.textfieldPlaylistName.text != "" {
+            self.labelPlaylistName.text = self.textfieldPlaylistName.text
+            self.playlist.name = self.textfieldPlaylistName.text
+            self.playlist.updateMe()
+        }
+        self.textfieldPlaylistName.isHidden = true
+        self.labelPlaylistName.isHidden = false
+    }
 }
 
 class PlaylistViewController: UIViewController {
@@ -56,12 +66,13 @@ class PlaylistViewController: UIViewController {
     @IBOutlet weak var viewNoPlaylist: UIView!
     
     var viewModel = PlaylistViewModel()
+    var editingCell: PlaylistCell? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        if AppUtils.iphoneIsXModel() {
-            self.constraintForHeaderImageViewHeight.constant = 108
+        if AppUtils.sizeModelOfiPhone() == .iphone4_35in || AppUtils.sizeModelOfiPhone() == .iphone5_4in {
+            self.constraintForHeaderImageViewHeight.constant = 70
         } else {
             self.constraintForHeaderImageViewHeight.constant = 88
         }
@@ -90,6 +101,10 @@ class PlaylistViewController: UIViewController {
     }
     
     @IBAction func onMenu(_ sender: Any) {
+        if self.editingCell != nil {
+            self.editingCell!.textfieldPlaylistName.resignFirstResponder()
+            self.editingCell = nil
+        }
         self.sideMenuController?.showLeftViewAnimated()
     }
     
@@ -143,17 +158,28 @@ extension PlaylistViewController: PlaylistCellDelegate {
         self.tableViewMain.reloadData()
     }
     
-    func onMenu(_ playlist: Playlist, buttonMenu: UIButton) {
+    func onMenu(_ playlist: Playlist, buttonMenu: UIButton, cell: PlaylistCell) {
         DropdownMenuView.instance.show(in: self.view,
                                        on: buttonMenu,
                                        rows: [["icon":"icon_row_delete", "text":"Delete"],
-                                              ["icon":"icon_pen_white", "text": "Edit"]]) { (row) in
+                                              ["icon":"icon_pen_white", "text": "Rename"]]) { (row) in
                                                 if row == 0 {
                                                     self.viewModel.deletePlaylist(for: playlist)
                                                 } else  {
-                                                    self.viewModel.detailSelection = playlist
-                                                    ModacityAnalytics.LogEvent(.NewPlaylist, extraParamName: "Playlist", extraParamValue: self.viewModel.detailSelection!.name)
-                                                    self.performSegue(withIdentifier: "sid_details", sender: nil)
+
+                                                    if self.editingCell != nil {
+                                                        self.editingCell!.textfieldPlaylistName.resignFirstResponder()
+                                                        self.editingCell = nil
+                                                    }
+                                                    cell.textfieldPlaylistName.isHidden = false
+                                                    cell.labelPlaylistName.isHidden = true
+                                                    cell.textfieldPlaylistName.becomeFirstResponder()
+                                                    cell.textfieldPlaylistName.text = cell.playlist.name
+                                                    self.editingCell = cell
+                                                    cell.textfieldPlaylistName.becomeFirstResponder()
+//                                                    self.viewModel.detailSelection = playlist
+//                                                    ModacityAnalytics.LogEvent(.NewPlaylist, extraParamName: "Playlist", extraParamValue: self.viewModel.detailSelection!.name)
+//                                                    self.performSegue(withIdentifier: "sid_details", sender: nil)
                                                 }
         }
     }

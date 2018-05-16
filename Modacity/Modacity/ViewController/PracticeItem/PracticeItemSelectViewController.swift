@@ -1,5 +1,5 @@
 //
-//  PracticeItemListViewController.swift
+//  PracticeItemSelectViewController.swift
 //  Modacity
 //
 //  Created by Perfect Engineer on 2/28/18.
@@ -8,11 +8,11 @@
 
 import UIKit
 
-protocol PracticeItemCellDelegate {
+protocol PracticeItemSelectCellDelegate {
     func onCellMenu(menuButton: UIButton, indexPath: IndexPath)
 }
 
-class PracticeItemCell: UITableViewCell {
+class PracticeItemSelectCell: UITableViewCell {
     
     @IBOutlet weak var labelPracticeItemName: UILabel!
     @IBOutlet weak var imageViewIcon: UIImageView!
@@ -20,7 +20,7 @@ class PracticeItemCell: UITableViewCell {
     @IBOutlet weak var ratingView: FloatRatingView!
     @IBOutlet weak var buttonMenu: UIButton!
     
-    var delegate: PracticeItemCellDelegate? = nil
+    var delegate: PracticeItemSelectCellDelegate? = nil
     
     var indexPath: IndexPath!
     
@@ -73,7 +73,7 @@ class PracticeItemCell: UITableViewCell {
     
 }
 
-class PracticeItemListViewController: UIViewController {
+class PracticeItemSelectViewController: UIViewController {
 
     @IBOutlet weak var viewEditboxContainer: UIView!
     @IBOutlet weak var viewStoreNewItemPanel: UIView!
@@ -89,7 +89,7 @@ class PracticeItemListViewController: UIViewController {
     @IBOutlet weak var labelAddPracticeItemButton: UILabel!
     @IBOutlet weak var constraintForAddPracticeButtonHeight: NSLayoutConstraint!
     
-    var practiceItemNameEditingCell: PracticeItemCell? = nil
+    var practiceItemNameEditingCell: PracticeItemSelectCell? = nil
     var editingSection: Int = 0
     var editingRow: Int = 0
     
@@ -165,7 +165,7 @@ class PracticeItemListViewController: UIViewController {
     }
 }
 
-extension PracticeItemListViewController {
+extension PracticeItemSelectViewController {
     
     @IBAction func onBack(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
@@ -228,7 +228,7 @@ extension PracticeItemListViewController {
     
 }
 
-extension PracticeItemListViewController: UITextFieldDelegate {
+extension PracticeItemSelectViewController: UITextFieldDelegate {
     
     @IBAction func onEditingChangedOnField(_ sender: Any) {
         let newKeyword = self.textfieldSearch.text ?? ""
@@ -259,7 +259,7 @@ extension PracticeItemListViewController: UITextFieldDelegate {
     }
 }
 
-extension PracticeItemListViewController: UITableViewDelegate, UITableViewDataSource {
+extension PracticeItemSelectViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return self.viewModel.sectionedSearchSectionCount()
@@ -287,7 +287,7 @@ extension PracticeItemListViewController: UITableViewDelegate, UITableViewDataSo
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "PracticeItemCell") as! PracticeItemCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "PracticeItemCell") as! PracticeItemSelectCell
         let item = self.viewModel.sectionResult(section: indexPath.section, row: indexPath.row)
         cell.configure(with: item,
                        rate: self.viewModel.ratingValue(forPracticeItem: item) ?? 0,
@@ -309,7 +309,7 @@ extension PracticeItemListViewController: UITableViewDelegate, UITableViewDataSo
     
 }
 
-extension PracticeItemListViewController: PracticeItemCellDelegate {
+extension PracticeItemSelectViewController: PracticeItemSelectCellDelegate {
     
     func onCellMenu(menuButton: UIButton, indexPath: IndexPath) {
         
@@ -325,7 +325,7 @@ extension PracticeItemListViewController: PracticeItemCellDelegate {
     
     func processAction(_ row: Int, _ indexPath: IndexPath) {
         if row == 0 {
-            if let cell = self.tableViewMain.cellForRow(at: indexPath) as? PracticeItemCell {
+            if let cell = self.tableViewMain.cellForRow(at: indexPath) as? PracticeItemSelectCell {
                 self.practiceItemNameEditingCell = cell
                 self.editingSection = indexPath.section
                 self.editingRow = indexPath.row

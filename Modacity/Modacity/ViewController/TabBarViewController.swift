@@ -241,7 +241,7 @@ class TabBarViewController: UITabBarController {
     func configureChildViews() {
         let homeScene = UIStoryboard(name: "home", bundle: nil).instantiateViewController(withIdentifier: "HomeScene")
         let playlistScene = UIStoryboard(name: "playlist", bundle: nil).instantiateViewController(withIdentifier: "PlaylistScene")
-        let recordingScene = UIStoryboard(name: "recording", bundle: nil).instantiateViewController(withIdentifier: "RecordingScene")
+        let recordingScene = UIStoryboard(name: "practice_item", bundle: nil).instantiateViewController(withIdentifier: "PracticeItemsScene")
         self.viewControllers = [homeScene, playlistScene, recordingScene]
     }
     

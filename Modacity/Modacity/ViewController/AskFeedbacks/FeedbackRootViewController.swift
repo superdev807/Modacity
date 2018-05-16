@@ -152,7 +152,7 @@ class FeedbackRootViewController: UIViewController {
         alertController.addAction(UIAlertAction(title: "Send via Email", style: .default, handler: { (_) in
             self.sendMail(type: type, body: self.textViewMessage.text, includeAudio: (type == .AskExpert && self.checkIconSelected))
         }))
-        alertController.addAction(UIAlertAction(title: "Send message to Modacity", style: .default, handler: { (_) in
+        alertController.addAction(UIAlertAction(title: "Send via Modacity Cloud", style: .default, handler: { (_) in
             self.sendMessageToModacity(type: type, body: self.textViewMessage.text, includeAudio: (type == .AskExpert && self.checkIconSelected))
         }))
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))

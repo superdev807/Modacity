@@ -109,6 +109,8 @@ class PracticeViewController: UIViewController {
     var quoteSelected: [String:String]!
     var notesToShow = [Note]()
     
+    var practiceStartedTime: Date!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -124,6 +126,8 @@ class PracticeViewController: UIViewController {
             metrodroneViewHeight = CGFloat(380)
             constraintForDroneBackgroundImageViewHeight.constant = CGFloat(380)
         }
+        
+        self.practiceStartedTime = Date()
         
         self.initializeDroneUIs()
         self.processFavoriteIconImage()
@@ -515,6 +519,11 @@ extension PracticeViewController {
             if self.playlistViewModel != nil {
                 self.playlistViewModel.setDuration(forPracticeItem: self.playlistViewModel.currentPracticeEntry.entryId,
                                                    duration: duration + (self.playlistViewModel.duration(forPracticeItem: self.playlistViewModel.currentPracticeEntry.entryId) ?? 0))
+                self.playlistViewModel.currentPracticeEntry.practiceItem()?.updateLastPracticedTime(to: self.practiceStartedTime)
+                self.playlistViewModel.currentPracticeEntry.practiceItem()?.updateLastPracticedDuration(duration: duration)
+            } else {
+                self.practiceItem.updateLastPracticedTime(to: self.practiceStartedTime)
+                self.practiceItem.updateLastPracticedDuration(duration: duration)
             }
             
             self.performSegue(withIdentifier: "sid_rate", sender: nil)
@@ -531,6 +540,11 @@ extension PracticeViewController {
             if self.playlistViewModel != nil {
                 self.playlistViewModel.setDuration(forPracticeItem: self.playlistViewModel.currentPracticeEntry.entryId,
                                                    duration: duration + (self.playlistViewModel.duration(forPracticeItem: self.playlistViewModel.currentPracticeEntry.entryId) ?? 0))
+                self.playlistViewModel.currentPracticeEntry.practiceItem()?.updateLastPracticedTime(to: self.practiceStartedTime)
+                self.playlistViewModel.currentPracticeEntry.practiceItem()?.updateLastPracticedDuration(duration: duration)
+            } else {
+                self.practiceItem.updateLastPracticedTime(to: self.practiceStartedTime)
+                self.practiceItem.updateLastPracticedDuration(duration: duration)
             }
             self.navigationController?.popViewController(animated: true)
             
@@ -978,6 +992,11 @@ extension PracticeViewController {
         if self.playlistViewModel != nil {
             self.playlistViewModel.setDuration(forPracticeItem: self.playlistViewModel.currentPracticeEntry.entryId,
                                            duration: duration + (self.playlistViewModel.duration(forPracticeItem: self.playlistViewModel.currentPracticeEntry.entryId) ?? 0))
+            self.playlistViewModel.currentPracticeEntry.practiceItem()?.updateLastPracticedTime(to: self.practiceStartedTime)
+            self.playlistViewModel.currentPracticeEntry.practiceItem()?.updateLastPracticedDuration(duration: duration)
+        } else {
+            self.practiceItem.updateLastPracticedTime(to: self.practiceStartedTime)
+            self.practiceItem.updateLastPracticedDuration(duration: duration)
         }
         ModacityAnalytics.LogStringEvent("Finished Practice Countdown Timer")
         self.performSegue(withIdentifier: "sid_rate", sender: nil)
@@ -1038,8 +1057,10 @@ extension PracticeViewController: UICollectionViewDelegate, UICollectionViewData
     
     func initializeForNotes() {
         self.quoteSelected = MusicQuotesManager.manager.randomeQuote()
-        if let layout = self.collectionViewNotes.collectionViewLayout as? UICollectionViewFlowLayout {
-            layout.scrollDirection = .horizontal
+        if self.collectionViewNotes != nil {
+            if let layout = self.collectionViewNotes.collectionViewLayout as? UICollectionViewFlowLayout {
+                layout.scrollDirection = .horizontal
+            }
         }
         self.collectionViewNotes.register(UINib(nibName: "PracticeMusicQuoteCell", bundle: nil), forCellWithReuseIdentifier: "PracticeMusicQuoteCell")
         self.collectionViewNotes.register(UINib(nibName: "PracticeNoteCell", bundle: nil), forCellWithReuseIdentifier: "PracticeNoteCell")

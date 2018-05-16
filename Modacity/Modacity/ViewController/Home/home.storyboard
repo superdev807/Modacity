@@ -114,9 +114,8 @@
                                                                                     <action selector="onEditingChangedOnTotalHours:" destination="uL2-n6-Rai" eventType="editingChanged" id="yRp-Fv-hBK"/>
                                                                                 </connections>
                                                                             </textField>
-                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="TOTAL HOURS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b5X-Yy-dRV">
-                                                                                <rect key="frame" x="14" y="37" width="68.5" height="12"/>
-                                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TOTAL HOURS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b5X-Yy-dRV">
+                                                                                <rect key="frame" x="0.0" y="37" width="96" height="12"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="10"/>
                                                                                 <color key="textColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
                                                                                 <nil key="highlightedColor"/>
@@ -124,8 +123,12 @@
                                                                         </subviews>
                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                         <constraints>
+                                                                            <constraint firstItem="b5X-Yy-dRV" firstAttribute="top" secondItem="76E-Vd-ZCr" secondAttribute="bottom" constant="7" id="0ig-sg-vqH"/>
                                                                             <constraint firstItem="dno-aV-C7m" firstAttribute="top" secondItem="0nn-tI-pqa" secondAttribute="top" id="AZH-6q-dH3"/>
+                                                                            <constraint firstItem="b5X-Yy-dRV" firstAttribute="leading" secondItem="0nn-tI-pqa" secondAttribute="leading" id="DHq-RR-NSh"/>
                                                                             <constraint firstAttribute="trailing" secondItem="dno-aV-C7m" secondAttribute="trailing" id="a6w-5Q-weg"/>
+                                                                            <constraint firstAttribute="trailing" secondItem="b5X-Yy-dRV" secondAttribute="trailing" id="gfC-bY-pWy"/>
+                                                                            <constraint firstItem="b5X-Yy-dRV" firstAttribute="centerX" secondItem="0nn-tI-pqa" secondAttribute="centerX" id="hHH-9T-rzg"/>
                                                                             <constraint firstItem="76E-Vd-ZCr" firstAttribute="leading" secondItem="0nn-tI-pqa" secondAttribute="leading" id="oOa-Qg-Lnq"/>
                                                                             <constraint firstItem="76E-Vd-ZCr" firstAttribute="top" secondItem="0nn-tI-pqa" secondAttribute="top" id="pS1-Hw-lV7"/>
                                                                             <constraint firstAttribute="bottom" secondItem="dno-aV-C7m" secondAttribute="bottom" id="rkl-it-uOy"/>
@@ -149,9 +152,8 @@
                                                                                     <action selector="onEditingChangedOnTotalHours:" destination="uL2-n6-Rai" eventType="editingChanged" id="ZgN-2q-B6F"/>
                                                                                 </connections>
                                                                             </textField>
-                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="DAY STREAK" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yNo-yN-JI4">
+                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DAY STREAK" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yNo-yN-JI4">
                                                                                 <rect key="frame" x="18.5" y="37" width="60" height="12"/>
-                                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="10"/>
                                                                                 <color key="textColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
                                                                                 <nil key="highlightedColor"/>
@@ -159,7 +161,9 @@
                                                                         </subviews>
                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                         <constraints>
+                                                                            <constraint firstItem="yNo-yN-JI4" firstAttribute="top" secondItem="Vnz-GV-vcM" secondAttribute="bottom" constant="7" id="5q1-JN-qzL"/>
                                                                             <constraint firstItem="Vnz-GV-vcM" firstAttribute="centerX" secondItem="1r2-TD-EGg" secondAttribute="centerX" id="68S-WQ-omb"/>
+                                                                            <constraint firstItem="yNo-yN-JI4" firstAttribute="centerX" secondItem="1r2-TD-EGg" secondAttribute="centerX" id="Ey9-EY-rE3"/>
                                                                             <constraint firstItem="Vnz-GV-vcM" firstAttribute="top" secondItem="1r2-TD-EGg" secondAttribute="top" id="OOE-Xc-jhu"/>
                                                                         </constraints>
                                                                     </view>
@@ -209,9 +213,8 @@
                                                                     <action selector="onEditingChangedOnTotalHours:" destination="uL2-n6-Rai" eventType="editingChanged" id="rMY-Fg-VvA"/>
                                                                 </connections>
                                                             </textField>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="IMPROVEMENTS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fjo-Y6-VnS">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="IMPROVEMENTS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fjo-Y6-VnS">
                                                                 <rect key="frame" x="20.5" y="37" width="80" height="12"/>
-                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="10"/>
                                                                 <color key="textColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -219,6 +222,8 @@
                                                         </subviews>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <constraints>
+                                                            <constraint firstItem="Fjo-Y6-VnS" firstAttribute="top" secondItem="49d-EG-qn5" secondAttribute="bottom" constant="7" id="5mT-UP-qgw"/>
+                                                            <constraint firstItem="Fjo-Y6-VnS" firstAttribute="centerX" secondItem="6Ja-vi-yPL" secondAttribute="centerX" id="Wlm-U7-L5K"/>
                                                             <constraint firstItem="49d-EG-qn5" firstAttribute="centerX" secondItem="6Ja-vi-yPL" secondAttribute="centerX" id="bvf-Pe-X01"/>
                                                             <constraint firstItem="49d-EG-qn5" firstAttribute="top" secondItem="6Ja-vi-yPL" secondAttribute="top" id="dpB-Yd-zRS"/>
                                                         </constraints>

@@ -36,7 +36,7 @@
         <!--Recording View Controller-->
         <scene sceneID="3zu-bF-map">
             <objects>
-                <viewController id="xFk-6Q-oKg" customClass="RecordingViewController" customModule="Modacity" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RecordingViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="xFk-6Q-oKg" customClass="RecordingViewController" customModule="Modacity" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vOq-iZ-hGH">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -47,7 +47,7 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="CNn-EP-Nwe">
                                 <rect key="frame" x="0.0" y="68" width="375" height="646"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <color key="separatorColor" red="1" green="1" blue="1" alpha="0.20000000000000001" colorSpace="calibratedRGB"/>
+                                <color key="separatorColor" red="1" green="1" blue="1" alpha="0.14999999999999999" colorSpace="calibratedRGB"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="vNl-PF-N4i">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="17"/>
@@ -383,7 +383,7 @@
     </scenes>
     <resources>
         <image name="bg_common" width="375" height="667"/>
-        <image name="bg_header_small" width="375" height="126"/>
+        <image name="bg_header_small" width="375" height="87"/>
         <image name="icon_backward" width="24" height="16"/>
         <image name="icon_cell_menu" width="16" height="4"/>
         <image name="icon_forward_white" width="24" height="16"/>

@@ -14,6 +14,8 @@ class PracticeItem: Mappable {
     var id: String!
     var name: String!
     var notes: [Note]?
+    var lastPracticed: String?
+    var lastPracticedDurationInSecond: Int?
     
     init() {
         name = ""
@@ -26,6 +28,8 @@ class PracticeItem: Mappable {
         id          <- map["id"]
         name        <- map["name"]
         notes       <- map["notes"]
+        lastPracticed <- map["last_practiced"]
+        lastPracticedDurationInSecond <- map["last_practiced_duration"]
     }
     
     func addNote(text: String) {
@@ -72,4 +76,27 @@ class PracticeItem: Mappable {
         PracticeItemRemoteManager.manager.update(item: self)
     }
     
+    func lastPracticedTimeString() -> String {
+        if let lastPracticed = self.lastPracticed {
+            let timeInterval = Double(lastPracticed) ?? 0
+            if timeInterval == 0 {
+                return ""
+            } else {
+                let last = Date(timeIntervalSince1970: timeInterval).toString(format: "M/d/yy")
+                return "Last practiced \(last) for \(self.lastPracticedDurationInSecond ?? 0) seconds"
+            }
+        } else {
+            return ""
+        }
+    }
+    
+    func updateLastPracticedTime(to: Date) {
+        self.lastPracticed = "\(to.timeIntervalSince1970)"
+        self.updateMe()
+    }
+    
+    func updateLastPracticedDuration(duration : Int) {
+        self.lastPracticedDurationInSecond = duration
+        self.updateMe()
+    }
 }

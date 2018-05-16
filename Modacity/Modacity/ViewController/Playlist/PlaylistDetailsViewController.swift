@@ -21,6 +21,8 @@ class PlaylistDetailsViewController: UIViewController {
     @IBOutlet weak var labelImprovementsCount: UILabel!
     @IBOutlet weak var buttonEditPlaylistNameLarge: UIButton!
     @IBOutlet weak var viewKeyboardDismiss: UIView!
+    @IBOutlet weak var buttonBack: UIButton!
+    @IBOutlet weak var imgBack: UIImageView!
     
     var isNameEditing = false
     var parentViewModel: PlaylistAndPracticeDeliverModel? = nil
@@ -61,7 +63,7 @@ class PlaylistDetailsViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "sid_select_practice_item" {
-            let controller = segue.destination as! PracticeItemListViewController
+            let controller = segue.destination as! PracticeItemSelectViewController
             controller.parentViewModel = self.viewModel
         } else if segue.identifier == "sid_finish" {
             let controller = segue.destination as! PlaylistFinishViewController
@@ -87,7 +89,7 @@ class PlaylistDetailsViewController: UIViewController {
         
         self.viewKeyboardDismiss.isHidden = true
     }
-
+    
     @IBAction func onBack(_ sender: Any) {
         ModacityAnalytics.LogStringEvent("Playlist Back Button", extraParamName: "duringSession", extraParamValue: self.isPlaying)
         if self.isPlaying {
@@ -248,6 +250,8 @@ class PlaylistDetailsViewController: UIViewController {
         self.tableViewMain.reloadData()
         self.playingStartedTime = Date()
         self.buttonStartPlaylist.setImage(UIImage(named:"btn_playlist_finish"), for: .normal)
+        self.buttonBack.isHidden = true
+        self.imgBack.isHidden = true
         
         self.viewModel.currentPracticeEntry = self.viewModel.playlistPracticeEntries[withItem]
         var controllerId = "PracticeViewController"
@@ -266,9 +270,6 @@ class PlaylistDetailsViewController: UIViewController {
             self.startPractice(withItem: 0)
         } else {
             
-//            self.playlistPracticeTotalTimeInSec = self.viewModel.totalPracticedTime()
-//            self.viewModel.addPracticeTotalTime(inSec: self.playlistPracticeTotalTimeInSec)
-            
             ModacityAnalytics.LogStringEvent("Pressed Finish Practice", extraParamName: "Practice Time", extraParamValue: self.playlistPracticeTotalTimeInSec)
             
             if let sessionTimer = self.sessionTimer {
@@ -278,6 +279,8 @@ class PlaylistDetailsViewController: UIViewController {
             self.isPlaying = false
             self.viewModel.sessionCompleted = true
             self.buttonStartPlaylist.setImage(UIImage(named:"btn_playlist_start"), for: .normal)
+            self.buttonBack.isHidden =  false
+            self.imgBack.isHidden = false
             self.viewModel.sessionDurationInSecond = Int(Date().timeIntervalSince1970 - self.playingStartedTime!.timeIntervalSince1970)
             self.performSegue(withIdentifier: "sid_finish", sender: nil)
             
@@ -286,6 +289,12 @@ class PlaylistDetailsViewController: UIViewController {
     
     @IBAction func onDismissKeyboard(_ sender: Any) {
         self.changeNameEditMode()
+    }
+    
+    @IBAction func onAddPracticeItem(_ sender: Any) {
+        let controller = UIStoryboard(name: "practice_item", bundle: nil).instantiateViewController(withIdentifier: "PracticeItemSelectViewController") as! PracticeItemSelectViewController
+        controller.parentViewModel = self.viewModel
+        self.navigationController?.pushViewController(controller, animated: true)
     }
 }
 
