@@ -178,7 +178,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SECONDS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZQ7-i1-F2P">
-                                                <rect key="frame" x="13.5" y="37" width="39" height="10"/>
+                                                <rect key="frame" x="13" y="37" width="39" height="10"/>
                                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="8"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -249,7 +249,7 @@
                                     <constraint firstItem="8ll-Vj-WDT" firstAttribute="top" secondItem="Ile-As-UGf" secondAttribute="top" id="utZ-ad-afF"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iGP-Iw-poe">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iGP-Iw-poe">
                                 <rect key="frame" x="256" y="120" width="32" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="32" id="r7T-FM-olY"/>
@@ -1292,7 +1292,7 @@ You can tap timer to pause your session.</string>
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="468"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="umQ-0h-3Ts">
-                                <rect key="frame" x="0.0" y="44" width="66" height="93"/>
+                                <rect key="frame" x="0.0" y="0.0" width="66" height="93"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="66" id="OxF-WR-0gO"/>
                                     <constraint firstAttribute="height" constant="93" id="gIu-HW-dqC"/>
@@ -1306,7 +1306,7 @@ You can tap timer to pause your session.</string>
                                 </connections>
                             </button>
                             <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3ih-li-oGR">
-                                <rect key="frame" x="254" y="44" width="66" height="93"/>
+                                <rect key="frame" x="254" y="0.0" width="66" height="93"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="93" id="LFh-3p-WZH"/>
                                     <constraint firstAttribute="width" constant="66" id="wd8-tf-usD"/>
@@ -1319,7 +1319,7 @@ You can tap timer to pause your session.</string>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Warm Up" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zHc-GU-C4G">
-                                <rect key="frame" x="60" y="80" width="200" height="19"/>
+                                <rect key="frame" x="60" y="36" width="200" height="19"/>
                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -1450,7 +1450,7 @@ You can tap timer to pause your session.</string>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CSU-eF-w3v">
-                                <rect key="frame" x="59" y="164" width="202" height="47"/>
+                                <rect key="frame" x="59" y="120" width="202" height="47"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qcZ-L2-QTe">
                                         <rect key="frame" x="0.0" y="0.0" width="64" height="47"/>
@@ -1538,7 +1538,7 @@ You can tap timer to pause your session.</string>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SECONDS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hJ6-x1-JJ4">
-                                                <rect key="frame" x="13.5" y="37" width="39" height="10"/>
+                                                <rect key="frame" x="13" y="37" width="39" height="10"/>
                                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="8"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -1609,8 +1609,8 @@ You can tap timer to pause your session.</string>
                                     <constraint firstItem="sIf-tg-OHX" firstAttribute="leading" secondItem="s35-Nu-1Ol" secondAttribute="trailing" constant="-8" id="vuR-MG-Pf2"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Aa7-K8-Bf5">
-                                <rect key="frame" x="256" y="164" width="32" height="32"/>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Aa7-K8-Bf5">
+                                <rect key="frame" x="256" y="120" width="32" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="32" id="5KS-zv-7bK"/>
                                     <constraint firstAttribute="height" constant="32" id="eyd-aN-IiA"/>
@@ -1621,7 +1621,7 @@ You can tap timer to pause your session.</string>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nyk-Oz-WMh">
-                                <rect key="frame" x="123" y="251" width="74" height="74"/>
+                                <rect key="frame" x="123" y="207" width="74" height="74"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="74" id="BXz-AB-J8v"/>
                                     <constraint firstAttribute="height" constant="74" id="hJC-Xs-K6T"/>
@@ -1632,21 +1632,21 @@ You can tap timer to pause your session.</string>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VCZ-OU-sC1" customClass="SCSiriWaveformView">
-                                <rect key="frame" x="0.0" y="333" width="320" height="105"/>
+                                <rect key="frame" x="0.0" y="289" width="320" height="149"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3lV-ez-nyo">
-                                <rect key="frame" x="0.0" y="333" width="320" height="105"/>
+                                <rect key="frame" x="0.0" y="289" width="320" height="149"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eeZ-W3-fZc" customClass="FDWaveformView" customModule="FDWaveformView">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="52.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="74.5"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mcm-gd-Fxx">
-                                        <rect key="frame" x="0.0" y="52.5" width="320" height="52.5"/>
+                                        <rect key="frame" x="0.0" y="74.5" width="320" height="74.5"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fSw-Eu-iSo">
-                                                <rect key="frame" x="30" y="8.5" width="44" height="44"/>
+                                                <rect key="frame" x="30" y="30.5" width="44" height="44"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="44" id="mkU-qn-2D7"/>
                                                     <constraint firstAttribute="height" constant="44" id="p8S-0A-2HI"/>
@@ -1657,13 +1657,13 @@ You can tap timer to pause your session.</string>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xlh-Ej-68g">
-                                                <rect key="frame" x="37" y="-19.5" width="30" height="18"/>
+                                                <rect key="frame" x="37" y="2.5" width="30" height="18"/>
                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="15"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eAk-pn-ntL">
-                                                <rect key="frame" x="135" y="-18.5" width="49.5" height="16"/>
+                                                <rect key="frame" x="135" y="3.5" width="49.5" height="16"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_forward_white" translatesAutoresizingMaskIntoConstraints="NO" id="i7E-sW-DRp">
                                                         <rect key="frame" x="0.0" y="0.0" width="24" height="16"/>
@@ -1686,13 +1686,13 @@ You can tap timer to pause your session.</string>
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Ly-ac-t8o">
-                                                <rect key="frame" x="253" y="-19.5" width="30" height="18"/>
+                                                <rect key="frame" x="253" y="2.5" width="30" height="18"/>
                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="15"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tvH-c9-pIH">
-                                                <rect key="frame" x="83.5" y="8.5" width="44" height="44"/>
+                                                <rect key="frame" x="83.5" y="30.5" width="44" height="44"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="44" id="cVz-1z-hqg"/>
                                                     <constraint firstAttribute="width" constant="44" id="y8W-8g-fD7"/>
@@ -1705,7 +1705,7 @@ You can tap timer to pause your session.</string>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="61t-fl-RgG">
-                                                <rect key="frame" x="137.5" y="8.5" width="44" height="44"/>
+                                                <rect key="frame" x="137.5" y="30.5" width="44" height="44"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="44" id="G3t-IS-XJu"/>
                                                     <constraint firstAttribute="width" constant="44" id="afi-HN-h9f"/>
@@ -1716,7 +1716,7 @@ You can tap timer to pause your session.</string>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Ij-Bu-0sv">
-                                                <rect key="frame" x="191.5" y="8.5" width="44" height="44"/>
+                                                <rect key="frame" x="191.5" y="30.5" width="44" height="44"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="44" id="aya-py-XpB"/>
                                                     <constraint firstAttribute="height" constant="44" id="cla-Li-3ES"/>
@@ -1729,7 +1729,7 @@ You can tap timer to pause your session.</string>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Shp-Kw-h4Y">
-                                                <rect key="frame" x="246" y="8.5" width="44" height="44"/>
+                                                <rect key="frame" x="246" y="30.5" width="44" height="44"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="44" id="clo-7J-4BY"/>
                                                     <constraint firstAttribute="height" constant="44" id="riY-rF-XpC"/>
@@ -2354,7 +2354,7 @@ You can tap timer to pause your session.</string>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="grM-ma-DGO">
-                                <rect key="frame" x="60" y="345" width="200" height="105"/>
+                                <rect key="frame" x="60" y="301" width="200" height="105"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HWa-PP-RJs">
                                         <rect key="frame" x="30" y="15" width="140" height="75"/>

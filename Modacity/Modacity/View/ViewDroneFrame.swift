@@ -172,11 +172,7 @@ class ViewDroneFrame: UIView, MetrodroneUIDelegate {
         print("Touch moved at \(touchedIndex)")
         
         if (touchedIndex == self.selectedDronFrameIdx) { return } // not really a move
-/*        if (touchStartIndex < 0) {
-            return
-        }
-         asdasdas DELETE THIS AND THE MEMBER VAR?
-  */
+
         if (touchedIndex < 0) {
             touchesEnded(touches, with: event)
         } else {
