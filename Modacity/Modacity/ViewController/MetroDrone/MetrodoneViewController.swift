@@ -70,6 +70,11 @@ class MetrodoneViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        
+        if (self.metrodronePlayer != nil) {
+            self.metrodronePlayer!.stopMetrodrone()
+        }
+        
         UIApplication.shared.isIdleTimerDisabled = false
         
     }

@@ -28,6 +28,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         PlaylistLocalManager.manager.syncWithOlderVersion()
         Amplitude.instance().initializeApiKey(AppConfig.appAmplitudeApiKey)
         
+        if (!UserDefaults.standard.bool(forKey: "launchedbefore")) {
+            UserDefaults.standard.set(true, forKey: "launchedbefore")
+            ModacityAnalytics.LogStringEvent("FIRST LAUNCH")
+        }
+        
         ModacityAnalytics.LogEvent(.Launch)
         ModacityAudioEngine.engine.initEngine()
         
