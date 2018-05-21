@@ -22,6 +22,8 @@ class TabBarViewController: UITabBarController {
     
     var startingTabIndex = 0
     
+    var viewWalkThrough: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -128,6 +130,7 @@ class TabBarViewController: UITabBarController {
     func addButtons() {
         self.addTabbarButtonsContainer()
         self.addTabbarButtons()
+        self.processWalkThrough()
         self.addNewPlaylistButton()
     }
     
@@ -245,6 +248,75 @@ class TabBarViewController: UITabBarController {
         self.viewControllers = [homeScene, playlistScene, recordingScene]
     }
     
+    func processWalkThrough() {
+        if !AppOveralDataManager.manager.walkThroughDoneForFirstPage() {
+            self.viewWalkThrough = UIView()
+            self.viewWalkThrough.backgroundColor = Color.black.alpha(0.5)
+            self.viewWalkThrough.translatesAutoresizingMaskIntoConstraints = false
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(onCloseWalkThrough))
+            self.viewWalkThrough.addGestureRecognizer(tapGesture)
+            self.view.addSubview(self.viewWalkThrough)
+            self.view.bringSubview(toFront: self.viewWalkThrough)
+            
+            self.viewWalkThrough.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+            self.viewWalkThrough.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+            self.viewWalkThrough.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+            self.viewWalkThrough.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+            
+            let buttonClose = UIButton()
+            buttonClose.setImage(UIImage(named:"icon_close"), for: .normal)
+            buttonClose.addTarget(self, action: #selector(onCloseWalkThrough), for: .touchUpInside)
+            buttonClose.translatesAutoresizingMaskIntoConstraints = false
+            self.viewWalkThrough.addSubview(buttonClose)
+            
+            buttonClose.leadingAnchor.constraint(equalTo: self.viewWalkThrough.leadingAnchor, constant: 0).isActive = true
+            buttonClose.topAnchor.constraint(equalTo: self.viewWalkThrough.topAnchor, constant: 0).isActive = true
+            buttonClose.widthAnchor.constraint(equalToConstant: 44).isActive = true
+            buttonClose.heightAnchor.constraint(equalToConstant: 44).isActive = true
+            
+            let imageViewArrow = UIImageView(image: UIImage(named: "walthrough_arrow_1"))
+            imageViewArrow.translatesAutoresizingMaskIntoConstraints = false
+            self.viewWalkThrough.addSubview(imageViewArrow)
+            var bottomConstraing = CGFloat(-64)
+            if AppUtils.iphoneIsXModel() {
+                bottomConstraing = -84
+            }
+            imageViewArrow.bottomAnchor.constraint(equalTo: self.viewWalkThrough.bottomAnchor, constant: bottomConstraing).isActive = true
+            imageViewArrow.trailingAnchor.constraint(equalTo: self.viewWalkThrough.trailingAnchor, constant: -74).isActive = true
+            
+            let label = UILabel()
+            label.translatesAutoresizingMaskIntoConstraints = false
+            label.numberOfLines = 0
+            label.text = "To get started build your\nfirst playlist and start practicing."
+            label.textAlignment = .center
+            label.textColor = Color.white
+            label.font = UIFont(name: AppConfig.appFontLatoRegular, size: 16)
+            self.viewWalkThrough.addSubview(label)
+            label.bottomAnchor.constraint(equalTo: imageViewArrow.topAnchor).isActive = true
+            label.centerXAnchor.constraint(equalTo: imageViewArrow.leadingAnchor).isActive = true
+            
+            self.viewWalkThrough.alpha = 0
+            self.showWalkThrough()
+        }
+    }
+    
+    func showWalkThrough() {
+        UIView.animate(withDuration: 0.5) {
+            self.viewWalkThrough.alpha = 1
+        }
+    }
+    
+    @objc func onCloseWalkThrough() {
+        if self.viewWalkThrough != nil {
+            UIView.animate(withDuration: 0.5, animations: {
+                self.viewWalkThrough.alpha = 0
+            }) { (finished) in
+                self.viewWalkThrough.removeFromSuperview()
+                AppOveralDataManager.manager.walkThroughFirstPage()
+            }
+        }
+    }
+    
     @objc func onTabHome() {
         ModacityAnalytics.LogStringEvent("Pressed Home Tab")
         self.selectedIndex = 0
@@ -264,15 +336,33 @@ class TabBarViewController: UITabBarController {
     }
 
     @objc func onNewPlaylist() {
-        let playlistCreateNew = UIStoryboard(name:"playlist", bundle: nil).instantiateViewController(withIdentifier: "playlist_control_scene")
-//        let practiceScene = UIStoryboard(name: "practice", bundle: nil).instantiateViewController(withIdentifier: "PracticeScene")
-//<<<<<<< HEAD
+        
+        if !AppOveralDataManager.manager.walkThroughDoneForFirstPage() {
+            if self.viewWalkThrough != nil {
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.viewWalkThrough.alpha = 0
+                }) { (finished) in
+                    self.viewWalkThrough.removeFromSuperview()
+                    AppOveralDataManager.manager.walkThroughFirstPage()
+                    
+                    let playlistCreateNew = UIStoryboard(name:"playlist", bundle: nil).instantiateViewController(withIdentifier: "playlist_control_scene") as! UINavigationController
+                    let controller = playlistCreateNew.viewControllers[0] as! PlaylistDetailsViewController
+                    controller.shouldStartFromPracticeSelection = true
+                    ModacityAnalytics.LogEvent(.NewPlaylist)
+                    self.present(playlistCreateNew, animated: true, completion: nil)
+                }
+                return
+            }
+        }
+        
+        let playlistCreateNew = UIStoryboard(name:"playlist", bundle: nil).instantiateViewController(withIdentifier: "playlist_control_scene") as! UINavigationController
+        let controller = playlistCreateNew.viewControllers[0] as! PlaylistDetailsViewController
+        controller.shouldStartFromPracticeSelection = true
         ModacityAnalytics.LogEvent(.NewPlaylist)
-//=======
-//
-//        ModacityAnalytics.LogEvent(.NewPlaylist)
-//>>>>>>> 26ebd2c8fe63718fa635d1c64195f90ec132b1dd
         self.present(playlistCreateNew, animated: true, completion: nil)
+        
     }
+    
+    
 
 }

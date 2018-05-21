@@ -24,6 +24,11 @@ class PlaylistDetailsViewController: UIViewController {
     @IBOutlet weak var buttonBack: UIButton!
     @IBOutlet weak var imgBack: UIImageView!
     
+    @IBOutlet weak var viewWalkThrough1: UIView!
+    @IBOutlet weak var viewWalkThroughNaming: UIView!
+    @IBOutlet weak var viewWalkThrough2: UIView!
+    
+    
     var isNameEditing = false
     var parentViewModel: PlaylistAndPracticeDeliverModel? = nil
     var viewModel = PlaylistDetailsViewModel()
@@ -36,6 +41,13 @@ class PlaylistDetailsViewController: UIViewController {
     var snapshot: UIView? = nil
     var sourceIndexPath: IndexPath? = nil
     
+    var shouldStartFromPracticeSelection = false
+    var waitingPracticeSelection = false
+    
+    var showingWalkThrough1 = false
+    var showingWalkThroughNaming = false
+    var justLastPracticeItemFinished = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -46,6 +58,23 @@ class PlaylistDetailsViewController: UIViewController {
         }
         self.configureGUI()
         self.bindViewModel()
+        
+        self.viewWalkThrough1.alpha = 0
+        self.viewWalkThroughNaming.alpha = 0
+        self.viewWalkThrough2.isHidden = true
+        
+        if self.shouldStartFromPracticeSelection {
+            if let playlists = PlaylistLocalManager.manager.loadPlaylists() {
+                if playlists.count > 0 {
+                    self.openPracticeItemsSelection()
+                    return
+                }
+            }
+            self.viewModel.playlistName = "My First Playlist"
+            self.openPracticeItemsSelection()
+        } else {
+            self.processWalkThrough()
+        }
     }
     
     deinit {
@@ -55,10 +84,114 @@ class PlaylistDetailsViewController: UIViewController {
         }
     }
     
+    func openPracticeItemsSelection() {
+        let controller = UIStoryboard(name: "practice_item", bundle: nil).instantiateViewController(withIdentifier: "PracticeItemSelectViewController") as! PracticeItemSelectViewController
+        controller.shouldSelectPracticeItems = true
+        controller.parentViewModel = self.viewModel
+        controller.parentController = self
+        self.navigationController?.pushViewController(controller, animated: false)
+    }
+    
+    func practiceItemsSelected() {
+        self.waitingPracticeSelection = true
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tableViewMain.reloadData()
         self.showSessionTime()
+        
+        if self.waitingPracticeSelection {
+            self.waitingPracticeSelection = false
+            self.processWalkThrough()
+        }
+        
+        if self.justLastPracticeItemFinished {
+            self.justLastPracticeItemFinished = false
+            if !AppOveralDataManager.manager.walkThroughDoneForPlaylistFinish() {
+                self.showWalkThrough2()
+            }
+        }
+    }
+    
+    func processWalkThrough() {
+        if self.viewModel.playlistName == "" {
+            if !AppOveralDataManager.manager.walkThroughDoneForPlaylistNaming() {
+                self.showWalkThroughNaming()
+            } else {
+                self.viewWalkThroughNaming.removeFromSuperview()
+                if !AppOveralDataManager.manager.walkThroughDoneForFirstPlaylist() {
+                    self.showWalkThrough1()
+                } else {
+                    self.viewWalkThrough1.removeFromSuperview()
+                }
+            }
+        } else {
+            if !AppOveralDataManager.manager.walkThroughDoneForFirstPlaylist() {
+                self.showWalkThrough1()
+            } else {
+                self.viewWalkThrough1.removeFromSuperview()
+            }
+        }
+    }
+    
+    func showWalkThrough1() {
+        self.showingWalkThrough1 = true
+        UIView.animate(withDuration: 0.5) {
+            self.viewWalkThrough1.alpha = 1
+        }
+    }
+    
+    func showWalkThrough2() {
+        self.viewWalkThrough2.isHidden = false
+        self.viewWalkThrough2.alpha = 0
+        UIView.animate(withDuration: 0.5) {
+            self.viewWalkThrough2.alpha = 1
+        }
+    }
+    
+    func dismissWalkThrough1() {
+        self.viewWalkThrough1.removeFromSuperview()
+        AppOveralDataManager.manager.walkThroughFirstPlaylist()
+        self.showingWalkThrough1 = false
+    }
+    
+    func dismissWalkThrough2() {
+        UIView.animate(withDuration: 0.5, animations: {
+            self.viewWalkThrough2.alpha = 0
+        }) { (finished) in
+            if finished {
+                self.viewWalkThrough2.isHidden = true
+                AppOveralDataManager.manager.walkThroughPlaylistFinish()
+            }
+        }
+    }
+    
+    @IBAction func onDismissWalkThrough1(_ sender: Any) {
+        self.dismissWalkThrough1()
+    }
+    
+    func showWalkThroughNaming() {
+        self.showingWalkThroughNaming = true
+        UIView.animate(withDuration: 0.5) {
+            self.viewWalkThroughNaming.alpha = 1
+        }
+    }
+    
+    func dismissWalkThroughNaming() {
+        UIView.animate(withDuration: 0.5, animations: {
+            self.viewWalkThroughNaming.alpha = 0
+        }) { (finished) in
+            if finished {
+                self.viewWalkThroughNaming.removeFromSuperview()
+                self.showingWalkThroughNaming = false
+                AppOveralDataManager.manager.walkThroughPlaylistNaming()
+            }
+        }
+    }
+    
+    @IBAction func onDismissWalkThrough2(_ sender: Any) {
+        self.dismissWalkThrough2()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -143,6 +276,9 @@ class PlaylistDetailsViewController: UIViewController {
     
     
     @IBAction func onEditName(_ sender: Any) {
+        if self.showingWalkThroughNaming {
+            self.dismissWalkThroughNaming()
+        }
         self.changeNameEditMode()
     }
     
@@ -264,6 +400,17 @@ class PlaylistDetailsViewController: UIViewController {
     }
     
     @IBAction func onStart(_ sender: Any) {
+        
+        if self.showingWalkThrough1 {
+            if self.showingWalkThrough1 {
+                self.dismissWalkThrough1()
+            }
+        }
+        
+        if !self.viewWalkThrough2.isHidden {
+            self.viewWalkThrough2.isHidden = true
+            AppOveralDataManager.manager.walkThroughPlaylistFinish()
+        }
         
         if !self.isPlaying {
             ModacityAnalytics.LogStringEvent("Pressed Start Practice")

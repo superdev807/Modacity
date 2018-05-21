@@ -41,6 +41,7 @@ class PracticeViewController: UIViewController {
     
     // MARK: - Properties for prompt panel processing
     @IBOutlet weak var viewPromptPanel: UIView!
+    @IBOutlet weak var viewWalkThrough: UIView!
     
     // MARK: - Properties for recording
     @IBOutlet weak var btnRecord: UIButton!
@@ -127,17 +128,32 @@ class PracticeViewController: UIViewController {
             constraintForDroneBackgroundImageViewHeight.constant = CGFloat(380)
         }
         
-        self.practiceStartedTime = Date()
-        
         self.initializeDroneUIs()
         self.processFavoriteIconImage()
         self.initializeAudioPlayerUI()
-        self.initializeTipPromptPanel()
-        self.initializeTimer()
+//        self.initializeTipPromptPanel()
+        self.startPractice()
         self.initializeForNotes()
         
         ModacityAnalytics.LogEvent(.StartPracticeItem, extraParamName: "ItemName", extraParamValue: self.labelPracticeItemName.text)
         NotificationCenter.default.addObserver(self, selector: #selector(processRouteChange), name: Notification.Name.AVAudioSessionRouteChange, object: nil)
+    }
+    
+    func startPractice() {
+        if !AppOveralDataManager.manager.walkThroughDoneForPracticePage() {
+            self.viewWalkThrough.alpha = 0
+            UIView.animate(withDuration: 0.5) {
+                self.viewWalkThrough.alpha = 1
+            }
+        } else {
+            self.viewWalkThrough.isHidden = true
+            self.startPracticeTimer()
+        }
+    }
+    
+    func startPracticeTimer() {
+        self.practiceStartedTime = Date()
+        self.initializeTimer()
     }
     
     deinit {
@@ -220,6 +236,27 @@ class PracticeViewController: UIViewController {
             self.metrodonePlayer = nil
         }
     }
+    
+    func dismissWalkThrough() {
+        UIView.animate(withDuration: 0.5, animations: {
+            self.viewWalkThrough.alpha = 0
+        }) { (finished) in
+            if finished {
+                self.viewWalkThrough.isHidden = true
+                AppOveralDataManager.manager.walkThroughPracticePage()
+                self.startPracticeTimer()
+            }
+        }
+    }
+    
+    @IBAction func onGotItOnWalkThrough(_ sender: Any) {
+        self.dismissWalkThrough()
+    }
+    
+    @IBAction func onCloseWalkThrough(_ sender: Any) {
+        self.dismissWalkThrough()
+    }
+    
 }
 
 // MARK: - Metrodone processing

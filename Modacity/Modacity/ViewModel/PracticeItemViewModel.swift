@@ -19,7 +19,7 @@ class PracticeItemViewModel: ViewModel {
     
     private var removing = 0
     
-    private var practiceItems: [PracticeItem] = [PracticeItem]() {
+    var practiceItems: [PracticeItem] = [PracticeItem]() {
         didSet {
             if let callback = self.callBacks["practiceItems"] {
                 if oldValue.count > practiceItems.count {

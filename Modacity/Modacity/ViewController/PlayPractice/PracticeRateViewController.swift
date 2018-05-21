@@ -13,8 +13,11 @@ class PracticeRateViewController: UIViewController {
     var playlistViewModel: PlaylistDetailsViewModel!
     var practiceItem: PracticeItem!
     
+    @IBOutlet weak var viewWalkThrough: UIView!
     @IBOutlet weak var rateView: FloatRatingView!
     @IBOutlet weak var labelPracticeName: UILabel!
+    
+    var walkthroughIsDismissed = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +32,16 @@ class PracticeRateViewController: UIViewController {
         self.rateView.type = .halfRatings
         self.rateView.contentMode = .scaleAspectFit
         self.rateView.delegate = self
+        
+        if !AppOveralDataManager.manager.walkThroughDoneForPracticeRatePage() {
+            self.viewWalkThrough.alpha = 0
+            UIView.animate(withDuration: 0.5) {
+                self.viewWalkThrough.alpha = 1
+            }
+        } else {
+            self.walkthroughIsDismissed = true
+            self.viewWalkThrough.removeFromSuperview()
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -39,19 +52,28 @@ class PracticeRateViewController: UIViewController {
     @IBAction func onNext(_ sender: Any) {
         if self.playlistViewModel != nil {
             if !self.playlistViewModel.next() {
-                if var controllers = self.navigationController?.viewControllers {
-                    for idx in 0..<controllers.count {
-                        if controllers[idx] is PracticeViewController {
-                            controllers.remove(at: idx)
-                            break
+                if let controllers = self.navigationController?.viewControllers {
+                    for controller in controllers {
+                        if controller is PlaylistDetailsViewController {
+                            (controller as! PlaylistDetailsViewController).justLastPracticeItemFinished = true
+                            self.navigationController?.popToViewController(controller, animated: true)
+                            return
                         }
                     }
-                    controllers.removeLast()
-                    let controller = UIStoryboard(name: "playlist", bundle: nil).instantiateViewController(withIdentifier: "PlaylistFinishViewController") as! PlaylistFinishViewController
-                    controller.playlistDetailsViewModel = self.playlistViewModel
-                    self.navigationController?.pushViewController(controller, animated: true)
                 }
-                
+//                if var controllers = self.navigationController?.viewControllers {
+//                    for idx in 0..<controllers.count {
+//                        if controllers[idx] is PracticeViewController {
+//                            controllers.remove(at: idx)
+//                            break
+//                        }
+//                    }
+//                    controllers.removeLast()
+//                    let controller = UIStoryboard(name: "playlist", bundle: nil).instantiateViewController(withIdentifier: "PlaylistFinishViewController") as! PlaylistFinishViewController
+//                    controller.playlistDetailsViewModel = self.playlistViewModel
+//                    self.navigationController?.pushViewController(controller, animated: true)
+//                }
+
             } else {
                 if var controllers = self.navigationController?.viewControllers {
                     for idx in 0..<controllers.count {
@@ -100,11 +122,30 @@ class PracticeRateViewController: UIViewController {
         controller.practiceEntry = self.playlistViewModel.currentPracticeEntry
         self.navigationController?.pushViewController(controller, animated: true)
     }
+    
+    @IBAction func onCloseWalkThrough(_ sender: Any) {
+        self.dismissWalkThrough()
+    }
+    
+    func dismissWalkThrough() {
+        UIView.animate(withDuration: 0.5, animations: {
+            self.viewWalkThrough.alpha = 0
+        }) { (finished) in
+            if finished {
+                self.viewWalkThrough.isHidden = true
+                self.viewWalkThrough.removeFromSuperview()
+                AppOveralDataManager.manager.walkThroughPracticeRatePage()
+            }
+        }
+    }
 }
 
 extension PracticeRateViewController: FloatRatingViewDelegate {
     func floatRatingView(_ ratingView: FloatRatingView, isUpdating rating: Double) {
-        
+        if !self.walkthroughIsDismissed {
+            self.dismissWalkThrough()
+            self.walkthroughIsDismissed = true
+        }
     }
     
     func floatRatingView(_ ratingView: FloatRatingView, didUpdate rating: Double) {

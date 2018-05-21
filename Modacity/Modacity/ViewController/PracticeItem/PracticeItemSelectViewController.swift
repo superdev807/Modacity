@@ -89,12 +89,18 @@ class PracticeItemSelectViewController: UIViewController {
     @IBOutlet weak var labelAddPracticeItemButton: UILabel!
     @IBOutlet weak var constraintForAddPracticeButtonHeight: NSLayoutConstraint!
     
+    @IBOutlet weak var viewWalkthrough: UIView!
+    @IBOutlet weak var imageViewWalkThrough2: UIImageView!
+    @IBOutlet weak var labelWalkThrough2: UILabel!
+    
+    var parentController : PlaylistDetailsViewController?
+    
     var practiceItemNameEditingCell: PracticeItemSelectCell? = nil
     var editingSection: Int = 0
     var editingRow: Int = 0
     
     var parentViewModel = PlaylistDetailsViewModel()
-    
+    var shouldSelectPracticeItems = false
     private let viewModel = PracticeItemViewModel()
     
     override func viewDidLoad() {
@@ -107,6 +113,7 @@ class PracticeItemSelectViewController: UIViewController {
         }
         self.configureGUI()
         self.bindViewModel()
+        self.processWalkthrough()
         NotificationCenter.default.addObserver(self, selector: #selector(onKeyboardWillChangeFrame), name: Notification.Name.UIKeyboardWillChangeFrame, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(onKeyboardWillHide), name: Notification.Name.UIKeyboardWillHide, object: nil)
     }
@@ -163,11 +170,55 @@ class PracticeItemSelectViewController: UIViewController {
         
         self.viewModel.loadItemNames()
     }
+    
+    func processWalkthrough() {
+        if !AppOveralDataManager.manager.walkThroughDoneForSecondPage() {
+            self.viewWalkthrough.alpha = 0
+            self.imageViewWalkThrough2.alpha = 0
+            self.labelWalkThrough2.alpha = 0
+            UIView.animate(withDuration: 0.5, animations: {
+                self.viewWalkthrough.alpha = 1
+            }) { (finished) in
+                if finished {
+                    if self.viewModel.sectionedSearchSectionCount() > 0 {
+                        self.imageViewWalkThrough2.alpha = 1
+                        self.labelWalkThrough2.alpha = 1
+                    }
+                }
+            }
+        } else {
+            self.viewWalkthrough.isHidden = true
+        }
+    }
+    
+    @IBAction func onDismissWalkThrough(_ sender: Any) {
+        self.dismissWalkThrough()
+    }
+    
+    func dismissWalkThrough() {
+        UIView.animate(withDuration: 0.5, animations: {
+            self.viewWalkthrough.alpha = 0
+        }) { (finished) in
+            self.viewWalkthrough.isHidden = true
+            if self.viewModel.practiceItems.count > 0 {
+                AppOveralDataManager.manager.walkThroughSecondPage()
+            }
+        }
+    }
 }
 
 extension PracticeItemSelectViewController {
     
     @IBAction func onBack(_ sender: Any) {
+        if self.shouldSelectPracticeItems {
+            let alert = UIAlertController(title: nil, message: "Please select practice items to add to playlist!", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            alert.addAction(UIAlertAction(title: "Continue", style: .cancel, handler: { (_) in
+                self.navigationController?.dismiss(animated: true, completion: nil)
+            }))
+            self.present(alert, animated: true, completion: nil)
+            return
+        }
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -200,6 +251,9 @@ extension PracticeItemSelectViewController {
     }
     
     @IBAction func cancelCellEditingMode() {
+        
+        self.dismissWalkThrough()
+        
         if self.practiceItemNameEditingCell != nil {
             self.practiceItemNameEditingCell!.textfieldInputPracticeItemName.isHidden = true
             let originalPracticeItemName = self.viewModel.sectionResult(section: self.editingSection, row: self.editingRow).name
@@ -223,9 +277,11 @@ extension PracticeItemSelectViewController {
     @IBAction func onSelectItems(_ sender: Any) {
         ModacityAnalytics.LogStringEvent("Added Practice Item to Playlist", extraParamName: "Item Count", extraParamValue: self.viewModel.selectedPracticeItems.count)
         self.parentViewModel.addPracticeItems(self.viewModel.selectedPracticeItems)
+        if let parentController = self.parentController {
+            parentController.practiceItemsSelected()
+        }
         self.navigationController?.popViewController(animated: true)
     }
-    
 }
 
 extension PracticeItemSelectViewController: UITextFieldDelegate {

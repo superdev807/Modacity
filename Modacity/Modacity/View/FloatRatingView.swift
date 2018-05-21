@@ -30,6 +30,7 @@ open class FloatRatingView: UIView {
 
     /// Array of full image views
     private var fullImageViews: [UIImageView] = []
+    
 
     /// Sets the empty image (e.g. a star outline)
     @IBInspectable open var emptyImage: UIImage? {

@@ -155,4 +155,67 @@ class AppOveralDataManager {
         UserDefaults.standard.set(value + 1, forKey: key)
         UserDefaults.standard.synchronize()
     }
+    
+    func walkThroughDoneForFirstPage() -> Bool {
+        return UserDefaults.standard.bool(forKey: "walkthrough_first_page")
+    }
+    
+    func walkThroughFirstPage() {
+        UserDefaults.standard.set(true, forKey: "walkthrough_first_page")
+        UserDefaults.standard.synchronize()
+    }
+    
+    func walkThroughDoneForSecondPage() -> Bool {
+        return UserDefaults.standard.bool(forKey: "walkthrough_second_page")
+    }
+    
+    func walkThroughSecondPage() {
+        UserDefaults.standard.set(true, forKey: "walkthrough_second_page")
+        UserDefaults.standard.synchronize()
+    }
+    
+    func walkThroughDoneForPracticePage() -> Bool {
+        return UserDefaults.standard.bool(forKey: "walkthrough_practice_page")
+    }
+    
+    func walkThroughPracticePage() {
+        UserDefaults.standard.set(true, forKey: "walkthrough_practice_page")
+        UserDefaults.standard.synchronize()
+    }
+    
+    func walkThroughDoneForPracticeRatePage() -> Bool {
+        return UserDefaults.standard.bool(forKey: "walkthrough_practice_rate_page")
+    }
+    
+    func walkThroughPracticeRatePage() {
+        UserDefaults.standard.set(true, forKey: "walkthrough_practice_rate_page")
+        UserDefaults.standard.synchronize()
+    }
+    
+    func walkThroughDoneForFirstPlaylist() -> Bool {
+        return UserDefaults.standard.bool(forKey: "walkthrough_first_playlist")
+    }
+    
+    func walkThroughFirstPlaylist() {
+        UserDefaults.standard.set(true, forKey: "walkthrough_first_playlist")
+        UserDefaults.standard.synchronize()
+    }
+    
+    func walkThroughDoneForPlaylistNaming() -> Bool {
+        return UserDefaults.standard.bool(forKey: "walkthrough_playlist_naming")
+    }
+    
+    func walkThroughPlaylistNaming() {
+        UserDefaults.standard.set(true, forKey: "walkthrough_playlist_naming")
+        UserDefaults.standard.synchronize()
+    }
+    
+    func walkThroughDoneForPlaylistFinish() -> Bool {
+        return UserDefaults.standard.bool(forKey: "walkthrough_playlist_finish")
+    }
+    
+    func walkThroughPlaylistFinish() {
+        UserDefaults.standard.set(true, forKey: "walkthrough_playlist_finish")
+        UserDefaults.standard.synchronize()
+    }
 }
