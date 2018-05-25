@@ -251,7 +251,7 @@ class TabBarViewController: UITabBarController {
     func processWalkThrough() {
         if !AppOveralDataManager.manager.walkThroughDoneForFirstPage() {
             self.viewWalkThrough = UIView()
-            self.viewWalkThrough.backgroundColor = Color.black.alpha(0.5)
+            self.viewWalkThrough.backgroundColor = AppConfig.appConfigWalkthroughOverlayColor
             self.viewWalkThrough.translatesAutoresizingMaskIntoConstraints = false
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(onCloseWalkThrough))
             self.viewWalkThrough.addGestureRecognizer(tapGesture)
@@ -290,7 +290,7 @@ class TabBarViewController: UITabBarController {
             label.text = "To get started build your\nfirst playlist and start practicing."
             label.textAlignment = .center
             label.textColor = Color.white
-            label.font = UIFont(name: AppConfig.appFontLatoRegular, size: 16)
+            label.font = UIFont(name: AppConfig.appFontLatoItalic, size: 16)
             self.viewWalkThrough.addSubview(label)
             label.bottomAnchor.constraint(equalTo: imageViewArrow.topAnchor).isActive = true
             label.centerXAnchor.constraint(equalTo: imageViewArrow.leadingAnchor).isActive = true

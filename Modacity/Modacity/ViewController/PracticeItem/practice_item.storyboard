@@ -18,6 +18,9 @@
         <array key="Lato-Regular.ttf">
             <string>Lato-Regular</string>
         </array>
+        <array key="lato-bolditalic.ttf">
+            <string>Lato-BoldItalic</string>
+        </array>
         <array key="lato-italic.ttf">
             <string>Lato-Italic</string>
         </array>
@@ -295,34 +298,34 @@
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" verticalHuggingPriority="251" image="walkthrough_arrow_2" translatesAutoresizingMaskIntoConstraints="NO" id="ZIM-bu-mPO">
                                                 <rect key="frame" x="64" y="-11" width="55" height="97"/>
                                             </imageView>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" verticalHuggingPriority="251" image="walkthrough_arrow_3" translatesAutoresizingMaskIntoConstraints="NO" id="DCg-Fd-Z2M">
+                                            <imageView userInteractionEnabled="NO" alpha="0.75" contentMode="scaleToFill" horizontalHuggingPriority="252" verticalHuggingPriority="251" image="walkthrough_arrow_3" translatesAutoresizingMaskIntoConstraints="NO" id="DCg-Fd-Z2M">
                                                 <rect key="frame" x="15" y="173" width="12" height="24"/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tc9-6H-PMZ">
-                                                <rect key="frame" x="124" y="65.5" width="231" height="41"/>
+                                                <rect key="frame" x="124" y="67" width="231" height="38.5"/>
                                                 <string key="text">What Are You Currently
 Working On?</string>
-                                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="17"/>
+                                                <fontDescription key="fontDescription" name="Lato-BoldItalic" family="Lato" pointSize="16"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add your practice items.(e.g. scales, song names, excerpts, techniques, etc.)" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rVn-pa-yA6">
-                                                <rect key="frame" x="124" y="114" width="251" height="34"/>
-                                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add your practice items. (e.g. scales, song names, excerpts, techniques, etc.)" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rVn-pa-yA6">
+                                                <rect key="frame" x="124" y="113" width="236" height="34"/>
+                                                <fontDescription key="fontDescription" name="Lato-Italic" family="Lato" pointSize="14"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select items to add to your practice playlist" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jwf-u7-d2e">
+                                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select items to add to your practice playlist" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jwf-u7-d2e">
                                                 <rect key="frame" x="15" y="205" width="170" height="34"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="170" id="XXI-bT-Kt6"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                                                <fontDescription key="fontDescription" name="Lato-Italic" family="Lato" pointSize="14"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.75" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.14509803921568626" green="0.15294117647058825" blue="0.2196078431372549" alpha="0.75" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstItem="DCg-Fd-Z2M" firstAttribute="leading" secondItem="GDh-Qj-fBS" secondAttribute="leading" constant="15" id="0WR-V0-jVr"/>
                                             <constraint firstItem="rVn-pa-yA6" firstAttribute="top" secondItem="tc9-6H-PMZ" secondAttribute="bottom" constant="7.5" id="4PQ-ga-2jy"/>
@@ -330,7 +333,7 @@ Working On?</string>
                                             <constraint firstItem="tc9-6H-PMZ" firstAttribute="leading" secondItem="ZIM-bu-mPO" secondAttribute="trailing" constant="5" id="6u5-io-goc"/>
                                             <constraint firstItem="rVn-pa-yA6" firstAttribute="leading" secondItem="tc9-6H-PMZ" secondAttribute="leading" id="F5p-5q-lWm"/>
                                             <constraint firstItem="jwf-u7-d2e" firstAttribute="top" secondItem="DCg-Fd-Z2M" secondAttribute="bottom" constant="8" id="I2I-JZ-DVO"/>
-                                            <constraint firstItem="rVn-pa-yA6" firstAttribute="trailing" secondItem="tc9-6H-PMZ" secondAttribute="trailing" constant="20" id="Oox-fu-bdp"/>
+                                            <constraint firstItem="rVn-pa-yA6" firstAttribute="trailing" secondItem="tc9-6H-PMZ" secondAttribute="trailing" constant="5" id="Oox-fu-bdp"/>
                                             <constraint firstItem="ZIM-bu-mPO" firstAttribute="leading" secondItem="GDh-Qj-fBS" secondAttribute="leading" constant="64" id="XUo-U4-w2h"/>
                                             <constraint firstItem="tc9-6H-PMZ" firstAttribute="centerY" secondItem="ZIM-bu-mPO" secondAttribute="bottom" id="ddL-zU-bRi"/>
                                             <constraint firstItem="jwf-u7-d2e" firstAttribute="leading" secondItem="DCg-Fd-Z2M" secondAttribute="leading" id="lOC-or-Ah1"/>

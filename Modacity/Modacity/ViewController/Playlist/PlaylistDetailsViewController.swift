@@ -52,9 +52,9 @@ class PlaylistDetailsViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         if AppUtils.iphoneIsXModel() {
-            self.constraintHeaderImageViewHeight.constant = 200
+            self.constraintHeaderImageViewHeight.constant = 170
         } else {
-            self.constraintHeaderImageViewHeight.constant = 180
+            self.constraintHeaderImageViewHeight.constant = 150
         }
         self.configureGUI()
         self.bindViewModel()
@@ -71,6 +71,7 @@ class PlaylistDetailsViewController: UIViewController {
                 }
             }
             self.viewModel.playlistName = "My First Playlist"
+            self.buttonEditName.isHidden = false
             self.openPracticeItemsSelection()
         } else {
             self.processWalkThrough()
@@ -208,6 +209,7 @@ class PlaylistDetailsViewController: UIViewController {
     }
     
     func configureGUI() {
+        self.buttonEditName.isHidden = true
         self.tableViewMain.tableFooterView = UIView()
         self.tableViewMain.allowsSelectionDuringEditing = true
         
@@ -303,14 +305,12 @@ class PlaylistDetailsViewController: UIViewController {
             self.textfieldPlaylistName.isHidden = false
             self.textfieldPlaylistName.becomeFirstResponder()
             self.viewKeyboardDismiss.isHidden = false
-//            self.buttonEditName.setImage(UIImage(named:"icon_done"), for: .normal)
         } else {
             self.buttonEditPlaylistNameLarge.isHidden = false
             self.labelPlaylistName.isHidden = false
             self.textfieldPlaylistName.isHidden = true
             self.textfieldPlaylistName.resignFirstResponder()
             self.viewKeyboardDismiss.isHidden = true
-//            self.buttonEditName.setImage(UIImage(named:"icon_pen_white"), for: .normal)
         }
     }
     
@@ -320,9 +320,11 @@ class PlaylistDetailsViewController: UIViewController {
             self.labelPlaylistName.text = newValue as? String ?? ""
             if self.labelPlaylistName.text != "" {
                 self.labelPlaylistName.alpha = 1.0
+                self.buttonEditName.isHidden = false
             } else {
                 self.labelPlaylistName.text = "Tap to Save Playlist"
                 self.labelPlaylistName.alpha = 0.25
+                self.buttonEditName.isHidden = true
             }
         }
         

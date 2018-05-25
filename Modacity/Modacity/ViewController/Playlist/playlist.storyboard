@@ -19,6 +19,12 @@
         <array key="Lato-Regular.ttf">
             <string>Lato-Regular</string>
         </array>
+        <array key="lato-bolditalic.ttf">
+            <string>Lato-BoldItalic</string>
+        </array>
+        <array key="lato-italic.ttf">
+            <string>Lato-Italic</string>
+        </array>
         <array key="lato-light.ttf">
             <string>Lato-Light</string>
         </array>
@@ -233,7 +239,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="707"/>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="lGu-k3-Wd3">
-                                <rect key="frame" x="0.0" y="154" width="375" height="458"/>
+                                <rect key="frame" x="0.0" y="130" width="375" height="482"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" red="1" green="1" blue="1" alpha="0.14999999999999999" colorSpace="calibratedRGB"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -366,9 +372,9 @@
                                 </connections>
                             </tableView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_header_medium" translatesAutoresizingMaskIntoConstraints="NO" id="KL5-uc-g9w">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="180"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="180" id="83d-vn-LIX"/>
+                                    <constraint firstAttribute="height" constant="150" id="83d-vn-LIX"/>
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_arrow_left" translatesAutoresizingMaskIntoConstraints="NO" id="AJP-yH-Wef">
@@ -411,12 +417,6 @@
                                     <action selector="onEditName:" destination="2UX-vR-wCX" eventType="touchUpInside" id="Mat-mF-YpZ"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What are you working on?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EzC-os-pk6">
-                                <rect key="frame" x="83" y="72" width="210" height="22"/>
-                                <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="18"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Be4-54-9ng">
                                 <rect key="frame" x="321" y="21" width="44" height="44"/>
                                 <constraints>
@@ -429,7 +429,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="93d-fu-5Ec">
-                                <rect key="frame" x="95" y="109" width="184" height="51"/>
+                                <rect key="frame" x="95" y="82" width="184" height="51"/>
                                 <state key="normal" image="btn_add_practice"/>
                                 <connections>
                                     <action selector="onAddPracticeItem:" destination="2UX-vR-wCX" eventType="touchUpInside" id="u4b-b1-q1c"/>
@@ -505,35 +505,35 @@
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="walkthrough_playlist_details_1_1" translatesAutoresizingMaskIntoConstraints="NO" id="u39-3p-xLC">
                                         <rect key="frame" x="236" y="514" width="69" height="83"/>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="walkthrough_arrow_3" translatesAutoresizingMaskIntoConstraints="NO" id="n2i-lb-xnf">
-                                        <rect key="frame" x="33" y="230" width="12" height="24"/>
+                                    <imageView userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="walkthrough_arrow_3" translatesAutoresizingMaskIntoConstraints="NO" id="n2i-lb-xnf">
+                                        <rect key="frame" x="33" y="200" width="12" height="24"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EtW-4w-uhG">
-                                        <rect key="frame" x="203.5" y="470" width="65" height="36"/>
+                                        <rect key="frame" x="202.5" y="467.5" width="67.5" height="38.5"/>
                                         <string key="text">Start 
 Practicing</string>
-                                        <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="15"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" name="Lato-BoldItalic" family="Lato" pointSize="16"/>
+                                        <color key="textColor" red="0.78431372549019607" green="0.78431372549019607" blue="0.80784313725490198" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GHg-uy-fD1">
-                                        <rect key="frame" x="19" y="259" width="86" height="29"/>
+                                        <rect key="frame" x="19" y="229" width="92.5" height="34"/>
                                         <string key="text">Favorite an item
 for quick access.</string>
-                                        <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" name="Lato-Italic" family="Lato" pointSize="14"/>
+                                        <color key="textColor" red="0.78431372549019607" green="0.78431372549019607" blue="0.80784313725490198" alpha="0.75" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q4g-fd-eof">
-                                        <rect key="frame" x="272.5" y="260" width="90.5" height="29"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q4g-fd-eof">
+                                        <rect key="frame" x="266" y="230" width="97" height="34"/>
                                         <string key="text">Set an item timer
 or write a note.</string>
-                                        <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" name="Lato-Italic" family="Lato" pointSize="14"/>
+                                        <color key="textColor" red="0.78431372549019607" green="0.78431372549019607" blue="0.80784313725490198" alpha="0.75" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="walkthrough_practice_arrow_2" translatesAutoresizingMaskIntoConstraints="NO" id="qTc-Tp-Sw2">
-                                        <rect key="frame" x="342" y="230" width="12" height="25"/>
+                                    <imageView userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="walkthrough_practice_arrow_2" translatesAutoresizingMaskIntoConstraints="NO" id="qTc-Tp-Sw2">
+                                        <rect key="frame" x="342" y="200" width="12" height="25"/>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eq1-qc-bWw">
                                         <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
@@ -547,18 +547,18 @@ or write a note.</string>
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.75" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="0.14509803921568626" green="0.15294117647058825" blue="0.2196078431372549" alpha="0.75" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="q4g-fd-eof" firstAttribute="top" secondItem="qTc-Tp-Sw2" secondAttribute="bottom" constant="5" id="8Pn-u0-2af"/>
                                     <constraint firstItem="u39-3p-xLC" firstAttribute="top" secondItem="EtW-4w-uhG" secondAttribute="bottom" constant="8" id="Bcx-fg-eZP"/>
                                     <constraint firstAttribute="trailing" secondItem="qTc-Tp-Sw2" secondAttribute="trailing" constant="21" id="CJ2-yg-gyh"/>
                                     <constraint firstItem="n2i-lb-xnf" firstAttribute="leading" secondItem="qBo-xF-4pQ" secondAttribute="leading" constant="33" id="CM8-NA-k5D"/>
                                     <constraint firstItem="GHg-uy-fD1" firstAttribute="leading" secondItem="qBo-xF-4pQ" secondAttribute="leading" constant="19" id="FFb-fF-fbI"/>
-                                    <constraint firstItem="n2i-lb-xnf" firstAttribute="top" secondItem="qBo-xF-4pQ" secondAttribute="top" constant="230" id="IhK-e2-ewc"/>
+                                    <constraint firstItem="n2i-lb-xnf" firstAttribute="top" secondItem="qBo-xF-4pQ" secondAttribute="top" constant="200" id="IhK-e2-ewc"/>
                                     <constraint firstItem="GHg-uy-fD1" firstAttribute="top" secondItem="n2i-lb-xnf" secondAttribute="bottom" constant="5" id="JBO-qZ-nwC"/>
                                     <constraint firstAttribute="trailing" secondItem="q4g-fd-eof" secondAttribute="trailing" constant="12" id="OcX-Op-S9W"/>
                                     <constraint firstAttribute="bottom" secondItem="u39-3p-xLC" secondAttribute="bottom" constant="70" id="YMf-Hf-beX"/>
-                                    <constraint firstItem="qTc-Tp-Sw2" firstAttribute="top" secondItem="qBo-xF-4pQ" secondAttribute="top" constant="230" id="Zjf-1L-a0c"/>
+                                    <constraint firstItem="qTc-Tp-Sw2" firstAttribute="top" secondItem="qBo-xF-4pQ" secondAttribute="top" constant="200" id="Zjf-1L-a0c"/>
                                     <constraint firstAttribute="trailing" secondItem="u39-3p-xLC" secondAttribute="trailing" constant="70" id="Zz8-Sb-9zr"/>
                                     <constraint firstItem="eq1-qc-bWw" firstAttribute="top" secondItem="qBo-xF-4pQ" secondAttribute="top" id="gU4-vg-wnR"/>
                                     <constraint firstItem="eq1-qc-bWw" firstAttribute="leading" secondItem="qBo-xF-4pQ" secondAttribute="leading" id="uk2-bF-Mmo"/>
@@ -571,45 +571,45 @@ or write a note.</string>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="walkthrough_playlist_details_1_1" translatesAutoresizingMaskIntoConstraints="NO" id="xdB-M4-Vgz">
                                         <rect key="frame" x="236" y="514" width="69" height="83"/>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="walkthrough_practice_arrow_2" translatesAutoresizingMaskIntoConstraints="NO" id="eKv-7F-2s6">
-                                        <rect key="frame" x="60" y="230" width="12" height="25"/>
+                                    <imageView userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="walkthrough_practice_arrow_2" translatesAutoresizingMaskIntoConstraints="NO" id="eKv-7F-2s6">
+                                        <rect key="frame" x="60" y="200" width="12" height="25"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="REo-yP-hmX">
                                         <rect key="frame" x="183" y="470" width="106.5" height="36"/>
                                         <string key="text">Tap finish when 
 done practicing!</string>
                                         <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="15"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="textColor" red="0.78431372549019607" green="0.78431372549019607" blue="0.80784313725490198" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2hq-OF-W6Y">
-                                        <rect key="frame" x="19" y="260" width="124" height="29"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2hq-OF-W6Y">
+                                        <rect key="frame" x="19" y="230" width="133.5" height="34"/>
                                         <string key="text">Tap an item to continue
  your practice</string>
-                                        <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" name="Lato-Italic" family="Lato" pointSize="14"/>
+                                        <color key="textColor" red="0.78431372549019607" green="0.78431372549019607" blue="0.80784313725490198" alpha="0.75" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uuE-8M-lOL">
-                                        <rect key="frame" x="267.5" y="259" width="95.5" height="29"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uuE-8M-lOL">
+                                        <rect key="frame" x="262" y="229" width="101" height="34"/>
                                         <string key="text">Press &amp; drag item 
 to re-order.</string>
-                                        <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" name="Lato-Italic" family="Lato" pointSize="14"/>
+                                        <color key="textColor" red="0.78431372549019607" green="0.78431372549019607" blue="0.80784313725490198" alpha="0.75" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="walkthrough_arrow_3" translatesAutoresizingMaskIntoConstraints="NO" id="URC-9T-EM3">
-                                        <rect key="frame" x="323" y="230" width="12" height="24"/>
+                                    <imageView userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="walkthrough_arrow_3" translatesAutoresizingMaskIntoConstraints="NO" id="URC-9T-EM3">
+                                        <rect key="frame" x="323" y="200" width="12" height="24"/>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="walkthrough_arrow_3" translatesAutoresizingMaskIntoConstraints="NO" id="BhB-mV-7i2">
+                                    <imageView userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="walkthrough_arrow_3" translatesAutoresizingMaskIntoConstraints="NO" id="BhB-mV-7i2">
                                         <rect key="frame" x="213" y="120" width="12" height="24"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SWA-o4-WAB">
-                                        <rect key="frame" x="201" y="149" width="94" height="29"/>
+                                        <rect key="frame" x="194" y="149" width="101" height="34"/>
                                         <string key="text">You can add more
 items any time.</string>
-                                        <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" name="Lato-Italic" family="Lato" pointSize="14"/>
+                                        <color key="textColor" red="0.78431372549019607" green="0.78431372549019607" blue="0.80784313725490198" alpha="0.75" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z5H-xT-V46">
@@ -624,10 +624,10 @@ items any time.</string>
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.75" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="0.14509803921568626" green="0.15294117647058825" blue="0.2196078431372549" alpha="0.75" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="SWA-o4-WAB" secondAttribute="trailing" constant="80" id="5uJ-Gs-oBW"/>
-                                    <constraint firstItem="eKv-7F-2s6" firstAttribute="top" secondItem="mXI-KA-4Ff" secondAttribute="top" constant="230" id="62Z-bK-4H7"/>
+                                    <constraint firstItem="eKv-7F-2s6" firstAttribute="top" secondItem="mXI-KA-4Ff" secondAttribute="top" constant="200" id="62Z-bK-4H7"/>
                                     <constraint firstItem="2hq-OF-W6Y" firstAttribute="leading" secondItem="mXI-KA-4Ff" secondAttribute="leading" constant="19" id="67i-I5-0eO"/>
                                     <constraint firstItem="BhB-mV-7i2" firstAttribute="top" secondItem="mXI-KA-4Ff" secondAttribute="top" constant="120" id="72e-75-WHt"/>
                                     <constraint firstAttribute="trailing" secondItem="URC-9T-EM3" secondAttribute="trailing" constant="40" id="IXO-7P-hNj"/>
@@ -643,7 +643,7 @@ items any time.</string>
                                     <constraint firstAttribute="bottom" secondItem="xdB-M4-Vgz" secondAttribute="bottom" constant="70" id="jpF-n5-hLt"/>
                                     <constraint firstItem="z5H-xT-V46" firstAttribute="leading" secondItem="mXI-KA-4Ff" secondAttribute="leading" id="ujc-CY-0SE"/>
                                     <constraint firstItem="SWA-o4-WAB" firstAttribute="top" secondItem="BhB-mV-7i2" secondAttribute="bottom" constant="5" id="y9t-oX-jjK"/>
-                                    <constraint firstItem="URC-9T-EM3" firstAttribute="top" secondItem="mXI-KA-4Ff" secondAttribute="top" constant="230" id="zIr-Ml-yih"/>
+                                    <constraint firstItem="URC-9T-EM3" firstAttribute="top" secondItem="mXI-KA-4Ff" secondAttribute="top" constant="200" id="zIr-Ml-yih"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rco-fu-gUR">
@@ -660,21 +660,21 @@ items any time.</string>
                                         <rect key="frame" x="101" y="8" width="55" height="97"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5OG-1X-BMM">
-                                        <rect key="frame" x="144" y="113" width="127.5" height="36"/>
+                                        <rect key="frame" x="144" y="113" width="128.5" height="38.5"/>
                                         <string key="text">Playlists must to be
 named to be saved.</string>
-                                        <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="15"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" name="Lato-BoldItalic" family="Lato" pointSize="16"/>
+                                        <color key="textColor" red="0.78431372549019607" green="0.78431372549019607" blue="0.80784313725490198" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Try naming this playlist now." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Re-2U-d6R">
-                                        <rect key="frame" x="144" y="157" width="148" height="14.5"/>
-                                        <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <rect key="frame" x="144" y="159.5" width="161" height="17"/>
+                                        <fontDescription key="fontDescription" name="Lato-Italic" family="Lato" pointSize="14"/>
+                                        <color key="textColor" red="0.78431372549019607" green="0.78431372549019607" blue="0.80784313725490198" alpha="0.75" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.75" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="0.14509803921568626" green="0.15294117647058825" blue="0.2196078431372549" alpha="0.75" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="4Re-2U-d6R" firstAttribute="leading" secondItem="5OG-1X-BMM" secondAttribute="leading" id="1V3-Gf-M8q"/>
                                     <constraint firstItem="5OG-1X-BMM" firstAttribute="top" secondItem="eOk-Px-Gba" secondAttribute="bottom" constant="8" id="Xp0-7a-0Ri"/>
@@ -689,11 +689,8 @@ named to be saved.</string>
                         <constraints>
                             <constraint firstItem="e86-gn-Ddo" firstAttribute="centerY" secondItem="Be4-54-9ng" secondAttribute="centerY" id="1hN-P5-CCI"/>
                             <constraint firstItem="gUK-5a-f3B" firstAttribute="top" secondItem="e86-gn-Ddo" secondAttribute="bottom" constant="3" id="6TE-uj-J6y"/>
-                            <constraint firstItem="EzC-os-pk6" firstAttribute="centerX" secondItem="haL-Cz-zas" secondAttribute="centerX" id="831-N3-fKQ"/>
                             <constraint firstItem="KL5-uc-g9w" firstAttribute="top" secondItem="qrw-ma-BZY" secondAttribute="top" id="8XX-aS-fhH"/>
                             <constraint firstItem="Be4-54-9ng" firstAttribute="centerY" secondItem="AJP-yH-Wef" secondAttribute="centerY" id="CH3-JJ-ruT"/>
-                            <constraint firstItem="EzC-os-pk6" firstAttribute="top" secondItem="haL-Cz-zas" secondAttribute="bottom" constant="20" id="FGB-L0-JTH"/>
-                            <constraint firstItem="93d-fu-5Ec" firstAttribute="top" secondItem="EzC-os-pk6" secondAttribute="bottom" constant="15" id="Gzt-0Y-iYh"/>
                             <constraint firstItem="URf-yU-XAy" firstAttribute="leading" secondItem="9Oe-7j-x9G" secondAttribute="leading" id="HXs-dC-xwF"/>
                             <constraint firstItem="haL-Cz-zas" firstAttribute="leading" secondItem="9Oe-7j-x9G" secondAttribute="leading" constant="50" id="Hep-Ul-03b"/>
                             <constraint firstItem="gUK-5a-f3B" firstAttribute="leading" secondItem="9Oe-7j-x9G" secondAttribute="leading" id="ITd-TR-Eok"/>
@@ -722,7 +719,7 @@ named to be saved.</string>
                             <constraint firstItem="dnc-dX-9ia" firstAttribute="top" secondItem="mXI-KA-4Ff" secondAttribute="bottom" id="gId-JV-Wsu"/>
                             <constraint firstItem="URf-yU-XAy" firstAttribute="bottom" secondItem="9Oe-7j-x9G" secondAttribute="bottom" constant="40" id="hKz-tD-uLu"/>
                             <constraint firstItem="YZj-6x-Drz" firstAttribute="leading" secondItem="9Oe-7j-x9G" secondAttribute="leading" constant="50" id="hSw-6G-3Jf"/>
-                            <constraint firstItem="lGu-k3-Wd3" firstAttribute="top" secondItem="EzC-os-pk6" secondAttribute="bottom" constant="60" id="hnK-A0-BdY"/>
+                            <constraint firstItem="lGu-k3-Wd3" firstAttribute="top" secondItem="KL5-uc-g9w" secondAttribute="bottom" constant="-20" id="her-BU-cpO"/>
                             <constraint firstItem="dnc-dX-9ia" firstAttribute="top" secondItem="gUK-5a-f3B" secondAttribute="bottom" id="hrM-px-z2O"/>
                             <constraint firstItem="qBo-xF-4pQ" firstAttribute="leading" secondItem="9Oe-7j-x9G" secondAttribute="leading" id="i7K-om-lfK"/>
                             <constraint firstItem="93d-fu-5Ec" firstAttribute="centerX" secondItem="KL5-uc-g9w" secondAttribute="centerX" id="iHQ-sa-Cij"/>
@@ -730,6 +727,7 @@ named to be saved.</string>
                             <constraint firstItem="URf-yU-XAy" firstAttribute="trailing" secondItem="9Oe-7j-x9G" secondAttribute="trailing" id="isG-5W-cTF"/>
                             <constraint firstAttribute="trailing" secondItem="dnc-dX-9ia" secondAttribute="trailing" id="l4U-BC-PM3"/>
                             <constraint firstItem="rrG-Lr-8tt" firstAttribute="leading" secondItem="9Oe-7j-x9G" secondAttribute="leading" id="mEd-df-3xD"/>
+                            <constraint firstItem="93d-fu-5Ec" firstAttribute="top" secondItem="haL-Cz-zas" secondAttribute="bottom" constant="30" id="mGX-K0-ynA"/>
                             <constraint firstItem="KL5-uc-g9w" firstAttribute="trailing" secondItem="9Oe-7j-x9G" secondAttribute="trailing" id="ndN-90-sgy"/>
                             <constraint firstItem="YKX-Yn-BEM" firstAttribute="leading" secondItem="9Oe-7j-x9G" secondAttribute="leading" id="p3R-tb-oOI"/>
                             <constraint firstItem="dnc-dX-9ia" firstAttribute="top" secondItem="yF0-AV-yc8" secondAttribute="bottom" id="pWm-dM-Lgo"/>
