@@ -232,6 +232,7 @@ class PracticeViewController: UIViewController {
         }
         
         if let mPlayer = self.metrodonePlayer {
+            mPlayer.stopMetrodrone()
             mPlayer.stopPlayer()
             self.metrodonePlayer = nil
         }
@@ -846,6 +847,7 @@ extension PracticeViewController {
             self.prepareAudioPlay()
             
             if !AppOveralDataManager.manager.settingsDisableAutoPlayback() {
+                self.metrodonePlayer?.stopMetrodrone()
                 self.startPlayAudio()
             }
         }

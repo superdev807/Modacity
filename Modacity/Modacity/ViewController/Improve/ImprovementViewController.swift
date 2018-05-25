@@ -164,6 +164,7 @@ class ImprovementViewController: UIViewController {
         }
         if let mPlayer = self.metrodonePlayer {
             mPlayer.stopPlayer()
+            mPlayer.stopMetrodrone()
             self.metrodonePlayer = nil
         }
     }

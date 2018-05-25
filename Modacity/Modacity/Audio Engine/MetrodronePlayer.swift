@@ -135,6 +135,18 @@ class MetrodronePlayer: DroneFrameDelegate {
             if (self.currOctave == MetrodronePlayer.maxOctave) {
                 self._buttonOctaveUp.isEnabled = false
             }
+            
+            /*
+             The Duration slider should only be enabled when a note is selected, and metronome
+             portion is on. Otherwise it should be disabled.
+             Right now this code is commented out because of the complication of the slider graphics.
+            
+             if (self.currNote != "X") {
+                self._sliderDuration.isEnabled = false
+            } else {
+                self._sliderDuration.isEnabled = true
+            }
+            */
         }
     }
     
@@ -198,12 +210,18 @@ class MetrodronePlayer: DroneFrameDelegate {
     
     func increaseBPMTouch() {
         singleFire(+1)
+        if (timerBPMAdjust != nil) {
+            timerBPMAdjust.invalidate()
+        }
         timerBPMAdjust = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector:#selector(rapidFireUp), userInfo: nil, repeats: true)
     }
     
     
     func decreaseBPMTouch() {
         singleFire(-1)
+        if (timerBPMAdjust != nil) {
+            timerBPMAdjust.invalidate()
+        }
         timerBPMAdjust = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector:#selector(rapidFireDown), userInfo: nil, repeats: true)
     }
     
@@ -245,6 +263,7 @@ class MetrodronePlayer: DroneFrameDelegate {
         } else {
             currNote = _viewDroneFrame.droneLetters[newIndex]
         }
+        updateMetrodroneOutlets()
     }
     
     func toneWheelDeselectNote(noteIndex: Int) {
@@ -254,7 +273,7 @@ class MetrodronePlayer: DroneFrameDelegate {
         UIDelegate?.setSelectedIndex(-1)
         currNote = "X"
         
-        if (sustain) {
+        if (!sustain) {
             metrodrone.stop()
             isSustaining = false
         }
@@ -310,9 +329,6 @@ class MetrodronePlayer: DroneFrameDelegate {
     }
     
     func startMetronome() { // will restart it if already going.
-        
-        
-       
         if (isSustaining) {
             print("Stopping met because of sustain")
             metrodrone.stop()
