@@ -112,7 +112,7 @@ class PracticeNotesViewController: UIViewController {
         }
         
         self.viewAddNoteContainer.layer.cornerRadius = 10
-        self.textfieldAddNote.attributedPlaceholder = NSAttributedString(string: "Add a note...", attributes: [.foregroundColor: Color.white.alpha(0.5)])
+        self.textfieldAddNote.attributedPlaceholder = NSAttributedString(string: "Type to add a note...", attributes: [.foregroundColor: Color.white.alpha(0.5)])
         self.processNotes()
     }
 
@@ -149,6 +149,8 @@ class PracticeNotesViewController: UIViewController {
         
         self.textfieldAddNote.resignFirstResponder()
         if self.textfieldAddNote.text != "" {
+            ModacityAnalytics.LogStringEvent("Notes - Added Note", extraParamName: "Note", extraParamValue: self.textfieldAddNote.text!)
+            
             if self.playlistViewModel != nil {
                 if self.noteIsForPlaylist {
                     self.playlistViewModel.addNoteToPlaylist(self.textfieldAddNote.text!)
@@ -160,6 +162,11 @@ class PracticeNotesViewController: UIViewController {
             }
             self.textfieldAddNote.text = ""
             self.processNotes()
+        }
+        else {
+            // user tapped on plus button before they typed anything. direct to type.
+            ModacityAnalytics.LogStringEvent("Notes - Tapped Plus Button No Text")
+            self.textfieldAddNote.becomeFirstResponder()
         }
     }
     
@@ -248,6 +255,7 @@ extension PracticeNotesViewController : UITableViewDelegate, UITableViewDataSour
 
 extension PracticeNotesViewController: NoteCellDelegate, ButtonCellDelegate {
     func onArchive(_ noteId: String) {
+        ModacityAnalytics.LogStringEvent("Notes - Toggled Archived Status")
         if self.playlistViewModel != nil {
             if self.noteIsForPlaylist {
                 self.playlistViewModel.changeArchiveStatusForPlaylistNote(noteId)
@@ -262,6 +270,7 @@ extension PracticeNotesViewController: NoteCellDelegate, ButtonCellDelegate {
     }
     
     func onToggleArchivedStatus() {
+        ModacityAnalytics.LogStringEvent("Notes - Toggled Archived View")
         self.showArchived = !self.showArchived
         self.processNotes()
         self.tableViewMain.reloadData()

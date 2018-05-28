@@ -111,6 +111,7 @@ class MetrodoneViewController: UIViewController {
     }
 
     @IBAction func onMenu(_ sender: Any) {
+        ModacityAnalytics.LogEvent(.SideMenu)
         self.sideMenuController?.showLeftViewAnimated()
     }
     

@@ -19,6 +19,8 @@ enum ModacityEvent:String {
     case Terminate = "Terminated App"
     case ResumeActive = "Resumed Active State"
     case Background = "Backgrounded App"
+    case SideMenu = "Side Menu"
+
     // First Launch
     case WelcomeTutorial1 = "WelcomeTutorial Screen 1"
     case WelcomeTutorial2 = "WelcomeTutorial Screen 2"
@@ -50,6 +52,9 @@ enum ModacityEvent:String {
     case HypothesisChosen = "Chose Hypothesis"
     case RecordStart = "Started Recording"
     case RecordStop = "Stopped Recording"
+    
+    // Notes
+    case OpenNotes = "Opened Item Notes"
 }
 
 class ModacityAnalytics: NSObject {

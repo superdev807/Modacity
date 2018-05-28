@@ -61,5 +61,6 @@ class PlaylistFinishViewController: UIViewController {
         controller.playlistViewModel = self.playlistDetailsViewModel
         controller.noteIsForPlaylist = true
         self.navigationController?.pushViewController(controller, animated: true)
+        ModacityAnalytics.LogStringEvent("Congrats Screen Notes Button")
     }
 }
