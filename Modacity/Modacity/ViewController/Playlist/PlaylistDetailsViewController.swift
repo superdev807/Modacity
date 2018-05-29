@@ -430,6 +430,8 @@ class PlaylistDetailsViewController: UIViewController {
             self.buttonStartPlaylist.setImage(UIImage(named:"btn_playlist_start"), for: .normal)
             self.buttonBack.isHidden =  false
             self.imgBack.isHidden = false
+            self.playlistPracticeTotalTimeInSec = self.viewModel.totalPracticedTime()
+            self.viewModel.addPracticeTotalTime(inSec: self.playlistPracticeTotalTimeInSec)
             self.viewModel.sessionDurationInSecond = Int(Date().timeIntervalSince1970 - self.playingStartedTime!.timeIntervalSince1970)
             self.performSegue(withIdentifier: "sid_finish", sender: nil)
             
@@ -562,18 +564,24 @@ extension PlaylistDetailsViewController: UITableViewDelegate, UITableViewDataSou
             
             break
         default:
-            let cell = self.tableViewMain.cellForRow(at: sourceIndexPath!)
-            cell?.isHidden = false
-            cell?.alpha = 1.0
-            UIView.animate(withDuration: 0.25, animations: {
-                self.snapshot?.center = cell!.center
-                self.snapshot?.transform = CGAffineTransform.identity
-                self.snapshot?.alpha = 0
-            }, completion: { (finished) in
+            if let cell = self.tableViewMain.cellForRow(at: sourceIndexPath!) {
+                cell.isHidden = false
+                cell.alpha = 1.0
+                UIView.animate(withDuration: 0.25, animations: {
+                    self.snapshot?.center = cell.center
+                    self.snapshot?.transform = CGAffineTransform.identity
+                    self.snapshot?.alpha = 0
+                }, completion: { (finished) in
+                    self.sourceIndexPath = nil
+                    self.snapshot?.removeFromSuperview()
+                    self.snapshot = nil
+                })
+            } else {
+                print ("source cell is nil")
                 self.sourceIndexPath = nil
                 self.snapshot?.removeFromSuperview()
                 self.snapshot = nil
-            })
+            }
             return
         }
     }

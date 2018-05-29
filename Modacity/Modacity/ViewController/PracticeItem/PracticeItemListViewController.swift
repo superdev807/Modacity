@@ -157,6 +157,7 @@ extension PracticeItemListViewController: UITableViewDataSource, UITableViewDele
         DropdownMenuView.instance.show(in: self.view,
                                        on: cell.buttonMenu,
                                        rows: [["icon":"icon_pen_white", "text":"Rename"],
+                                              ["icon":"icon_notes", "text":"Notes"],
                                               ["icon":"icon_row_delete", "text":"Delete"]]) { (row) in
                                                 self.processAction(row, cell)
         }
@@ -174,6 +175,10 @@ extension PracticeItemListViewController: UITableViewDataSource, UITableViewDele
             cell.textfieldNameEdit.text = cell.practiceItem.name
             self.practiceItemNameEditingCell = cell
         } else if row == 1 {
+            let controller = UIStoryboard(name: "practice_note", bundle: nil).instantiateViewController(withIdentifier: "PracticeNotesViewController") as! PracticeNotesViewController
+            controller.practiceItem = self.practiceItems?[row]
+            self.navigationController?.pushViewController(controller, animated: true)
+        } else if row == 2 {
             PracticeItemLocalManager.manager.removePracticeItem(for: cell.practiceItem)
             self.refreshList()
         }

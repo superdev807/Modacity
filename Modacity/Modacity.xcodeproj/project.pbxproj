@@ -798,6 +798,7 @@
 				8E4551D920030F7F002061AE /* Resources */,
 				DCDEB0B2CB38AC3F0D0F5BFE /* [CP] Embed Pods Frameworks */,
 				7355EF4588F3A844857D035D /* [CP] Copy Pods Resources */,
+				E2C3AC7520BC88AE00AA71AF /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -856,6 +857,7 @@
 				E21BE9F32091796A000D1877 /* Resources */,
 				E21BEA0B2091796A000D1877 /* [CP] Embed Pods Frameworks */,
 				E21BEA0C2091796A000D1877 /* [CP] Copy Pods Resources */,
+				E2E7C88520BD9D5E000E5530 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1207,6 +1209,32 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Modacity-Dev/Pods-Modacity-Dev-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		E2C3AC7520BC88AE00AA71AF /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\"";
+		};
+		E2E7C88520BD9D5E000E5530 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\"";
+		};
 		FC31956B8137EF850CC7BE8D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1555,6 +1583,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = D226H33SCU;
 				INFOPLIST_FILE = Modacity/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -1668,6 +1697,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = D226H33SCU;
 				INFOPLIST_FILE = "Modacity/Info-dev.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;

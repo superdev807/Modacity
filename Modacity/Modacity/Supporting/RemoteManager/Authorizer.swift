@@ -28,7 +28,7 @@ class Authorizer: NSObject {
         Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
             if error == nil {
                 
-                MyProfileRemoteManager.manager.createMyProfile(userId: user!.uid, data: ["uid":user!.uid,
+                MyProfileRemoteManager.manager.createMyProfile(userId: user!.user.uid, data: ["uid":user!.user.uid,
                                                                       "email":email,
                                                                       "created":"\(Date().timeIntervalSince1970)"])
                 DispatchQueue.global(qos: .background).async {

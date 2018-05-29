@@ -131,7 +131,6 @@ class PracticeViewController: UIViewController {
         self.initializeDroneUIs()
         self.processFavoriteIconImage()
         self.initializeAudioPlayerUI()
-//        self.initializeTipPromptPanel()
         self.startPractice()
         self.initializeForNotes()
         
@@ -562,6 +561,7 @@ extension PracticeViewController {
             } else {
                 self.practiceItem.updateLastPracticedTime(to: self.practiceStartedTime)
                 self.practiceItem.updateLastPracticedDuration(duration: duration)
+                AppOveralDataManager.manager.addPracticeTime(inSec: duration)
             }
             
             self.performSegue(withIdentifier: "sid_rate", sender: nil)

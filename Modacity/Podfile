@@ -32,6 +32,9 @@ def shared_pods
     pod 'SwiftMessages'
     
     pod 'MBProgressHUD'
+    
+    pod 'Fabric', '~> 1.7.7'
+    pod 'Crashlytics', '~> 3.10.2'
 end
 
 target 'Modacity' do

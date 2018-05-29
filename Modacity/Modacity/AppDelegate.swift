@@ -23,6 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         FirebaseApp.configure()
+        Fabric.sharedSDK().debug = true
+        Fabric.with([Crashlytics.self])
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
         PracticeItemLocalManager.manager.syncWithOlderVersions()
         PlaylistLocalManager.manager.syncWithOlderVersion()

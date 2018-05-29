@@ -8,6 +8,7 @@
 
 import UIKit
 import Amplitude_iOS
+import Crashlytics
 
 class HomeViewController: UIViewController {
 

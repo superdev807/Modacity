@@ -27,23 +27,33 @@ class MessagesManager: NSObject {
         
         if let me = MyProfileLocalManager.manager.me {
             if includeAudio {
+                
+                
                 let fileURL = Recording.currentRecordingURL()
-                Storage.storage().reference().child("messages").child(timeString).child(me.uid).putFile(from: fileURL, metadata: nil) { (metaData, error) in
+                Storage.storage().reference().child("messages").child(timeString).child(me.uid).child("recording.wav").putFile(from: fileURL, metadata: nil) { (metaData, error) in
                     if let error = error {
                         completion(error.localizedDescription)
                     } else {
-                        if let downloadUrl = metaData?.downloadURL() {
-                            Database.database().reference().child("messages").child(timeString).child(me.uid)
-                                .setValue(["type":contactTypeString, "message":body, "uid":me.uid, "email":me.email, "included":downloadUrl.absoluteString]) { (error, _) in
-                                    if let error = error {
-                                        completion(error.localizedDescription)
-                                    } else {
-                                        completion(nil)
+
+                        Storage.storage().reference().child("messages").child(timeString).child(me.uid).child("recording.wav").downloadURL(completion: { (url, error) in
+                            if let error = error {
+                                completion(error.localizedDescription)
+                            } else {
+                                if let url = url {
+                                    Database.database().reference().child("messages").child(timeString).child(me.uid)
+                                        .setValue(["type":contactTypeString, "message":body, "uid":me.uid, "email":me.email, "included":url.absoluteString]) { (error, _) in
+                                            if let error = error {
+                                                completion(error.localizedDescription)
+                                            } else {
+                                                completion(nil)
+                                            }
                                     }
+                                } else {
+                                    completion("Audio file has not uploaded.")
+                                }
+                                
                             }
-                        } else {
-                            completion("Included audio file is not available to upload.")
-                        }
+                        })
                     }
                 }
             } else {
