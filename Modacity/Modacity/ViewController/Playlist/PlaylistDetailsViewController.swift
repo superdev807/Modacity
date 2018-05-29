@@ -274,6 +274,7 @@ class PlaylistDetailsViewController: UIViewController {
         controller.playlistViewModel = self.viewModel
         controller.noteIsForPlaylist = true
         self.navigationController?.pushViewController(controller, animated: true)
+        ModacityAnalytics.LogStringEvent("Tapped Playlist Notes", extraParamName: "playlistName", extraParamValue: controller.playlistViewModel.playlistName)
     }
     
     
@@ -633,6 +634,7 @@ extension PlaylistDetailsViewController: PlaylistPracticeItemCellDelegate {
     }
     
     func openNotes(for item:PlaylistPracticeEntry) {
+        ModacityAnalytics.LogEvent(.OpenNotes, extraParamName: "item", extraParamValue: item.name)
         let controller = UIStoryboard(name: "practice_note", bundle: nil).instantiateViewController(withIdentifier: "PracticeNotesViewController") as! PracticeNotesViewController
         controller.playlistViewModel = self.viewModel
         controller.practiceEntry = item

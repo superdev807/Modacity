@@ -250,10 +250,12 @@ class PracticeViewController: UIViewController {
     }
     
     @IBAction func onGotItOnWalkThrough(_ sender: Any) {
+        ModacityAnalytics.LogStringEvent("Walkthrough - Practice Screen - Pressed 'Got It'")
         self.dismissWalkThrough()
     }
     
     @IBAction func onCloseWalkThrough(_ sender: Any) {
+        ModacityAnalytics.LogStringEvent("Walkthough - Practice Screen - Dismissed")
         self.dismissWalkThrough()
     }
     
@@ -591,6 +593,7 @@ extension PracticeViewController {
     }
     
     @IBAction func onToggleFavorite(_ sender: Any) {
+        ModacityAnalytics.LogStringEvent("Practice Screen - Toggled Favorite")
         if self.playlistViewModel != nil {
             if let practiceItem = self.playlistViewModel.currentPracticeEntry.practiceItem() {
                 self.playlistViewModel.setLikePracticeItem(for: practiceItem)
@@ -1081,6 +1084,7 @@ extension PracticeViewController {
 extension PracticeViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, PracticeNoteCellDelegate {
     
     @IBAction func onTabNotes(_ sender: Any) {
+        ModacityAnalytics.LogStringEvent("Practicing - Pressed Notes")
         if self.playlistViewModel != nil {
             let controller = UIStoryboard(name: "practice_note", bundle: nil).instantiateViewController(withIdentifier: "PracticeNotesViewController") as! PracticeNotesViewController
             controller.playlistViewModel = self.playlistViewModel
@@ -1170,6 +1174,7 @@ extension PracticeViewController: UICollectionViewDelegate, UICollectionViewData
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
         if self.notesToShow.count > 0 {
             let controller = UIStoryboard(name: "practice_note", bundle: nil).instantiateViewController(withIdentifier: "PracticeNoteDetailsViewController") as! PracticeNoteDetailsViewController
             controller.note = self.notesToShow[indexPath.row]
@@ -1179,11 +1184,13 @@ extension PracticeViewController: UICollectionViewDelegate, UICollectionViewData
             }
             
             controller.practiceItem = self.practiceItem
+            ModacityAnalytics.LogStringEvent("Practicing - Opened Note", extraParamName: "NoteIndex", extraParamValue: indexPath.row)
             self.navigationController?.pushViewController(controller, animated: true)
         }
     }
     
     func onNoteSwipeUp(note: Note, cell: PracticeNoteCell, indexPath: IndexPath) {
+        ModacityAnalytics.LogStringEvent("Practicing - Swiped Note Up")
         if self.playlistViewModel != nil {
             cell.startStraitUpAnimate {
                 if self.notesToShow.count > 2 {

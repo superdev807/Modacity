@@ -50,6 +50,7 @@ class PracticeRateViewController: UIViewController {
     }
     
     @IBAction func onNext(_ sender: Any) {
+        ModacityAnalytics.LogStringEvent("Pressed Rating Screen Next")
         if self.playlistViewModel != nil {
             if !self.playlistViewModel.next() {
                 if let controllers = self.navigationController?.viewControllers {
@@ -100,6 +101,7 @@ class PracticeRateViewController: UIViewController {
     }
     
     @IBAction func onBack(_ sender: Any) {
+        ModacityAnalytics.LogStringEvent("Pressed Rating Screen Back")
         if self.playlistViewModel != nil {
             if let controllers = self.navigationController?.viewControllers {
                 for controller in controllers {
@@ -115,6 +117,7 @@ class PracticeRateViewController: UIViewController {
     }
     
     @IBAction func onNotes(_ sender: Any) {
+        ModacityAnalytics.LogStringEvent("Pressed Rating Screen Item Notes")
         let controller = UIStoryboard(name: "practice_note", bundle: nil).instantiateViewController(withIdentifier: "PracticeNotesViewController") as! PracticeNotesViewController
         controller.playlistViewModel = self.playlistViewModel
         controller.noteIsForPlaylist = false
@@ -124,6 +127,7 @@ class PracticeRateViewController: UIViewController {
     }
     
     @IBAction func onCloseWalkThrough(_ sender: Any) {
+        ModacityAnalytics.LogStringEvent("Closed Rating Screen Walkthrough")
         self.dismissWalkThrough()
     }
     
