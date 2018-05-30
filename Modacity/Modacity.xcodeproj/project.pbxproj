@@ -798,7 +798,7 @@
 				8E4551D920030F7F002061AE /* Resources */,
 				DCDEB0B2CB38AC3F0D0F5BFE /* [CP] Embed Pods Frameworks */,
 				7355EF4588F3A844857D035D /* [CP] Copy Pods Resources */,
-				E2C3AC7520BC88AE00AA71AF /* ShellScript */,
+				E2C3AC7520BC88AE00AA71AF /* Run Script */,
 			);
 			buildRules = (
 			);
@@ -1209,13 +1209,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Modacity-Dev/Pods-Modacity-Dev-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E2C3AC7520BC88AE00AA71AF /* ShellScript */ = {
+		E2C3AC7520BC88AE00AA71AF /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Run Script";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;

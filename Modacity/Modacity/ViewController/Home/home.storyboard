@@ -248,7 +248,7 @@
                                                 <rect key="frame" x="0.0" y="220" width="375" height="363"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3vr-Vx-czF">
-                                                        <rect key="frame" x="30" y="102.5" width="315" height="98.5"/>
+                                                        <rect key="frame" x="30" y="103" width="315" height="98.5"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nA7-25-rjE">
                                                                 <rect key="frame" x="0.0" y="0.0" width="315" height="50.5"/>
@@ -446,6 +446,13 @@ first playlist and start practicing.</string>
                                                     <constraint firstAttribute="trailing" secondItem="3vr-Vx-czF" secondAttribute="trailing" constant="30" id="e8p-bM-1fp"/>
                                                 </constraints>
                                             </view>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ypj-Sm-GoK" userLabel="Secret Button">
+                                                <rect key="frame" x="300" y="8" width="67" height="59"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <connections>
+                                                    <action selector="onTotalHours:" destination="uL2-n6-Rai" eventType="touchUpInside" id="8k5-gT-8Y5"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
