@@ -210,6 +210,7 @@ class PracticeItemSelectViewController: UIViewController {
 extension PracticeItemSelectViewController {
     
     @IBAction func onBack(_ sender: Any) {
+        /* let's just cut this for now... - Marc 5/30/2018
         if self.shouldSelectPracticeItems {
             if !AppOveralDataManager.manager.walkThroughDoneForPracticeItemSelection() {
                 AppOveralDataManager.manager.walkThroughPracticeItemFinish()
@@ -222,6 +223,7 @@ extension PracticeItemSelectViewController {
                 return
             }
         }
+ */
         self.navigationController?.popViewController(animated: true)
     }
     
