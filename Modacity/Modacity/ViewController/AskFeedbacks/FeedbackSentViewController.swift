@@ -36,7 +36,7 @@ class FeedbackSentViewController: UIViewController {
     
     func configureForPageMode() {
         if pageUIMode == 0 {
-            self.labelResultScreenTitle.text = "Pro Boost"
+            self.labelResultScreenTitle.text = "Ask Expert"
             self.labelTitle.text = "Your Message\nWas Received!"
             self.labelSubTitle.text = "Within 24-48 hours, we'll send our answer to:"
             self.labelEmailAddress.text = MyProfileLocalManager.manager.me?.email ?? ""

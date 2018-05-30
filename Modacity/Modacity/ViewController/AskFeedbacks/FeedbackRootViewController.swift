@@ -236,7 +236,7 @@ extension FeedbackRootViewController : MFMailComposeViewControllerDelegate {
         case .Feedback:
             return "Beta feedback \(uuid)" // plus unique info
         case .AskExpert:
-            return "Pro Boost \(uuid)" // plus unique info
+            return "Ask expert \(uuid)" // plus unique info
         }
     }
     

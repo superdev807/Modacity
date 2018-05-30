@@ -105,35 +105,52 @@ class PlaylistDetailsViewController: UIViewController {
         if self.waitingPracticeSelection {
             self.waitingPracticeSelection = false
             self.processWalkThrough()
-        }
-        
-        if self.justLastPracticeItemFinished {
-            self.justLastPracticeItemFinished = false
-            if !AppOveralDataManager.manager.walkThroughDoneForPlaylistFinish() {
-                self.showWalkThrough2()
+        } else {
+            if self.justLastPracticeItemFinished {
+                self.justLastPracticeItemFinished = false
+                if !AppOveralDataManager.manager.walkThroughDoneForPlaylistFinish() {
+                    self.showWalkThrough2()
+                }
             }
         }
     }
     
     func processWalkThrough() {
-        if self.viewModel.playlistName == "" {
-            if !AppOveralDataManager.manager.walkThroughDoneForPlaylistNaming() {
-                self.showWalkThroughNaming()
-            } else {
-                self.viewWalkThroughNaming.removeFromSuperview()
-                if !AppOveralDataManager.manager.walkThroughDoneForFirstPlaylist() {
-                    self.showWalkThrough1()
-                } else {
-                    self.viewWalkThrough1.removeFromSuperview()
-                }
-            }
-        } else {
+//        if self.viewModel.playlistName == "" {
+//            if !AppOveralDataManager.manager.walkThroughDoneForPlaylistNaming() {
+//                self.showWalkThroughNaming()
+//            } else {
+//                self.viewWalkThroughNaming.removeFromSuperview()
+//                if !AppOveralDataManager.manager.walkThroughDoneForFirstPlaylist() {
+//                    self.showWalkThrough1()
+//                } else {
+//                    self.viewWalkThrough1.removeFromSuperview()
+//                }
+//            }
+//        } else {
             if !AppOveralDataManager.manager.walkThroughDoneForFirstPlaylist() {
                 self.showWalkThrough1()
             } else {
-                self.viewWalkThrough1.removeFromSuperview()
+                if self.viewWalkThrough1.superview != nil {
+                    self.viewWalkThrough1.removeFromSuperview()
+                }
+                
+                if !AppOveralDataManager.manager.walkThroughDoneForPlaylistNaming() {
+                    self.showWalkThroughNaming()
+                } else {
+                    if self.viewWalkThroughNaming.superview != nil {
+                        self.viewWalkThroughNaming.removeFromSuperview()
+                    }
+                    
+                    if !AppOveralDataManager.manager.walkThroughDoneForFirstPlaylist() {
+                        self.showWalkThrough1()
+                    } else {
+                        self.viewWalkThrough1.removeFromSuperview()
+                    }
+                }
+
             }
-        }
+//        }
     }
     
     func showWalkThrough1() {

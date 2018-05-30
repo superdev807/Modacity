@@ -218,4 +218,13 @@ class AppOveralDataManager {
         UserDefaults.standard.set(true, forKey: "walkthrough_playlist_finish")
         UserDefaults.standard.synchronize()
     }
+    
+    func walkThroughDoneForPracticeItemSelection() -> Bool {
+        return UserDefaults.standard.bool(forKey: "walkthrough_practice_item_selection_finish")
+    }
+    
+    func walkThroughPracticeItemFinish() {
+        UserDefaults.standard.set(true, forKey: "walkthrough_practice_item_selection_finish")
+        UserDefaults.standard.synchronize()
+    }
 }

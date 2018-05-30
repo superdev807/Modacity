@@ -10,4 +10,6 @@ import UIKit
 
 class DefaultDataShipManager {
     
+    static let manager = DefaultDataShipManager()
+    
 }

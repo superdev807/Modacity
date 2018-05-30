@@ -211,13 +211,16 @@ extension PracticeItemSelectViewController {
     
     @IBAction func onBack(_ sender: Any) {
         if self.shouldSelectPracticeItems {
-            let alert = UIAlertController(title: nil, message: "Please select practice items to add to playlist!", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-            alert.addAction(UIAlertAction(title: "Continue", style: .cancel, handler: { (_) in
-                self.navigationController?.dismiss(animated: true, completion: nil)
-            }))
-            self.present(alert, animated: true, completion: nil)
-            return
+            if !AppOveralDataManager.manager.walkThroughDoneForPracticeItemSelection() {
+                AppOveralDataManager.manager.walkThroughPracticeItemFinish()
+                let alert = UIAlertController(title: nil, message: "Please select practice items to add to playlist!", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                alert.addAction(UIAlertAction(title: "Continue", style: .cancel, handler: { (_) in
+                    self.navigationController?.dismiss(animated: true, completion: nil)
+                }))
+                self.present(alert, animated: true, completion: nil)
+                return
+            }
         }
         self.navigationController?.popViewController(animated: true)
     }

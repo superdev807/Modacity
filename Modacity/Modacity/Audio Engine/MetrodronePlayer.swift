@@ -19,8 +19,6 @@ protocol DroneFrameDelegate : class {
 
 class MetrodronePlayer: DroneFrameDelegate {
     
-//    static var instance : MetrodronePlayer = MetrodronePlayer()
-    
     static let minDurationValue: Float = 0.01
     static let maxDurationValue: Float = 0.99
     static let minBPM: Int = 30

@@ -28,7 +28,6 @@ class MessagesManager: NSObject {
         if let me = MyProfileLocalManager.manager.me {
             if includeAudio {
                 
-                
                 let fileURL = Recording.currentRecordingURL()
                 Storage.storage().reference().child("messages").child(timeString).child(me.uid).child("recording.wav").putFile(from: fileURL, metadata: nil) { (metaData, error) in
                     if let error = error {
@@ -51,7 +50,6 @@ class MessagesManager: NSObject {
                                 } else {
                                     completion("Audio file has not uploaded.")
                                 }
-                                
                             }
                         })
                     }
