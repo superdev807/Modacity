@@ -10,6 +10,8 @@ import UIKit
 import Amplitude_iOS
 import Crashlytics
 
+enum DashboardTime { case Minutes; case Hours; case Default }
+
 class HomeViewController: UIViewController {
 
     @IBOutlet weak var textfieldTotalHours: UITextField!
@@ -29,8 +31,8 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var constraintForRecentCollectionViewHeight: NSLayoutConstraint!
     @IBOutlet weak var constraintForFavoritesCollectionViewHeight: NSLayoutConstraint!
     
+    private var timeDisplay: DashboardTime = .Default
     private var formatter: NumberFormatter!
-    
     private var viewModel = HomeViewModel()
     
     override func viewDidLoad() {
@@ -90,13 +92,27 @@ class HomeViewController: UIViewController {
         
         self.viewModel.subscribe(to: "totalWorkingSeconds") { (_, _, totalWorkingSeconds) in
             if let seconds = totalWorkingSeconds as? Int {
+                var displayMode: DashboardTime = .Default
                 if seconds < 30 * 60 {
+                    displayMode = .Minutes
+                } else {
+                    displayMode = .Hours
+                    
+                }
+                
+                if (self.timeDisplay == .Minutes) {
+                    displayMode = .Minutes
+                }
+                
+                if (displayMode == .Minutes) {
                     self.textfieldTotalHours.text = String(format:"%.1f", Double(seconds) / 60.0)
                     self.labelTotalTimeCaption.text = "TOTAL MINUTES"
-                } else {
+                }
+                else {
                     self.textfieldTotalHours.text = String(format:"%.1f", Double(seconds) / 3600.0)
                     self.labelTotalTimeCaption.text = "TOTAL HOURS"
                 }
+                
             } else {
                 self.textfieldTotalHours.text = "0"
                 self.labelTotalTimeCaption.text = "TOTAL HOURS"
@@ -161,8 +177,15 @@ class HomeViewController: UIViewController {
     }
 
     @IBAction func onTotalHours(_ sender: Any) {
-        self.textfieldTotalHours.becomeFirstResponder()
+        //self.textfieldTotalHours.becomeFirstResponder()
+        if (self.timeDisplay == .Default) {
+            self.timeDisplay = .Minutes
+        }
+        else {
+            self.timeDisplay = .Default
+        }
     }
+
     
     @IBAction func onEditingChangedOnTotalHours(_ sender:UITextField) {
         if sender.text!.contains(".") {

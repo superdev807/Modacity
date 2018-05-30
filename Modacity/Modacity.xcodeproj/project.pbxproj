@@ -798,7 +798,7 @@
 				8E4551D920030F7F002061AE /* Resources */,
 				DCDEB0B2CB38AC3F0D0F5BFE /* [CP] Embed Pods Frameworks */,
 				7355EF4588F3A844857D035D /* [CP] Copy Pods Resources */,
-				E2C3AC7520BC88AE00AA71AF /* ShellScript */,
+				E2C3AC7520BC88AE00AA71AF /* Run Script */,
 			);
 			buildRules = (
 			);
@@ -817,6 +817,8 @@
 				8E4551EB20030F80002061AE /* Sources */,
 				8E4551EC20030F80002061AE /* Frameworks */,
 				8E4551ED20030F80002061AE /* Resources */,
+				61E8FEA6EF4C48E19C2C7C30 /* [CP] Embed Pods Frameworks */,
+				9D28FE28241F7365C84E6E28 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -836,6 +838,8 @@
 				8E4551F620030F80002061AE /* Sources */,
 				8E4551F720030F80002061AE /* Frameworks */,
 				8E4551F820030F80002061AE /* Resources */,
+				759299095AD6EBAFEAA3734F /* [CP] Embed Pods Frameworks */,
+				48732DBFF92D23C7A8BDCB2A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1011,6 +1015,36 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		48732DBFF92D23C7A8BDCB2A /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ModacityUITests/Pods-ModacityUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		61E8FEA6EF4C48E19C2C7C30 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ModacityTests/Pods-ModacityTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		7355EF4588F3A844857D035D /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1027,6 +1061,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Modacity/Pods-Modacity-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		759299095AD6EBAFEAA3734F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ModacityUITests/Pods-ModacityUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		82D61CB6A35FC3D0E237C8E8 /* [CP] Check Pods Manifest.lock */ = {
@@ -1063,6 +1112,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9D28FE28241F7365C84E6E28 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ModacityTests/Pods-ModacityTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		DCDEB0B2CB38AC3F0D0F5BFE /* [CP] Embed Pods Frameworks */ = {
@@ -1209,13 +1273,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Modacity-Dev/Pods-Modacity-Dev-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E2C3AC7520BC88AE00AA71AF /* ShellScript */ = {
+		E2C3AC7520BC88AE00AA71AF /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Run Script";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
