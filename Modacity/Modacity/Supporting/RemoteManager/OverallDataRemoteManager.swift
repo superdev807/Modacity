@@ -45,7 +45,7 @@ class OverallDataRemoteManager {
         AppOveralDataManager.manager.setDefaultDataShiped(shiped: true)
         DefaultDataShipManager.manager.produceDefaultData()
         if let userId = MyProfileLocalManager.manager.userId() {
-            self.refUser.child(userId).child("overall").updateChildValues(["default_data_shiped": AppOveralDataManager.manager.defaultDataShiped()])
+            self.refUser.child(userId).child("overall").updateChildValues(["default_data_ship": AppOveralDataManager.manager.defaultDataShiped()])
         }
         NotificationCenter.default.post(Notification(name: AppConfig.appNotificationPlaylistLoadedFromServer))
         NotificationCenter.default.post(Notification(name: AppConfig.appNotificationPlaylistUpdated))
