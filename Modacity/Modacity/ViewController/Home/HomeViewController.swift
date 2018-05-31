@@ -24,7 +24,7 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var labelRecentHeader: UILabel!
     @IBOutlet weak var labelTotalTimeCaption: UILabel!
     @IBOutlet weak var labelWelcome: UILabel!
-    @IBOutlet weak var labelEmpty: UILabel!
+//    @IBOutlet weak var labelEmpty: UILabel!
     @IBOutlet weak var constraintForHeaderImageViewHeight: NSLayoutConstraint!
     @IBOutlet weak var constraintForContentViewTopSpace: NSLayoutConstraint!
     
@@ -39,6 +39,7 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         NotificationCenter.default.addObserver(self, selector: #selector(configureNameLabels), name: AppConfig.appNotificationProfileUpdated, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshList), name: AppConfig.appNotificationPlaylistLoadedFromServer, object: nil)
         self.configureUI()
         self.bindViewModel()
         ModacityAnalytics.LogStringEvent("Home Screen")
@@ -56,6 +57,10 @@ class HomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationItem.title = "Home"
+        self.viewModel.loadRecentPlaylists()
+    }
+    
+    @objc func refreshList() {
         self.viewModel.loadRecentPlaylists()
     }
     
@@ -168,11 +173,11 @@ class HomeViewController: UIViewController {
     @objc func configureNameLabels() {
         if let me = MyProfileLocalManager.manager.me {
             self.labelWelcome.text = "Welcome \(me.displayName())!"
-            self.labelEmpty.text = "Hi \(me.displayName()), it looks like you’re new here."
+//            self.labelEmpty.text = "Hi \(me.displayName()), it looks like you’re new here."
             Amplitude.instance().setUserId(me.email)
         } else {
             self.labelWelcome.text = "Welcome!"
-            self.labelEmpty.text = "It looks like you're new here."
+//            self.labelEmpty.text = "It looks like you're new here."
         }
     }
 

@@ -248,18 +248,10 @@
                                                 <rect key="frame" x="0.0" y="220" width="375" height="363"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3vr-Vx-czF">
-                                                        <rect key="frame" x="30" y="103" width="315" height="98.5"/>
+                                                        <rect key="frame" x="30" y="135.5" width="315" height="34"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nA7-25-rjE">
-                                                                <rect key="frame" x="0.0" y="0.0" width="315" height="50.5"/>
-                                                                <string key="text">Hi Johnny, it looks like
-you’re new here.</string>
-                                                                <fontDescription key="fontDescription" name="Lato-Light" family="Lato" pointSize="21"/>
-                                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                                <nil key="highlightedColor"/>
-                                                            </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YHj-6z-v2O">
-                                                                <rect key="frame" x="0.0" y="64.5" width="315" height="34"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="315" height="34"/>
                                                                 <string key="text">To get started build your 
 first playlist and start practicing.</string>
                                                                 <fontDescription key="fontDescription" name="Lato-Italic" family="Lato" pointSize="14"/>
@@ -269,13 +261,10 @@ first playlist and start practicing.</string>
                                                         </subviews>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <constraints>
-                                                            <constraint firstItem="nA7-25-rjE" firstAttribute="top" secondItem="3vr-Vx-czF" secondAttribute="top" id="FK2-t4-3T3"/>
                                                             <constraint firstAttribute="trailing" secondItem="YHj-6z-v2O" secondAttribute="trailing" id="KNm-lG-UfF"/>
                                                             <constraint firstItem="YHj-6z-v2O" firstAttribute="leading" secondItem="3vr-Vx-czF" secondAttribute="leading" id="Kl2-46-mZo"/>
-                                                            <constraint firstAttribute="trailing" secondItem="nA7-25-rjE" secondAttribute="trailing" id="Ns5-zc-Jua"/>
-                                                            <constraint firstItem="nA7-25-rjE" firstAttribute="leading" secondItem="3vr-Vx-czF" secondAttribute="leading" id="SWt-o3-zm4"/>
                                                             <constraint firstAttribute="bottom" secondItem="YHj-6z-v2O" secondAttribute="bottom" id="aMe-qq-wdg"/>
-                                                            <constraint firstItem="YHj-6z-v2O" firstAttribute="top" secondItem="nA7-25-rjE" secondAttribute="bottom" constant="14" id="mEr-EH-4fR"/>
+                                                            <constraint firstItem="YHj-6z-v2O" firstAttribute="top" secondItem="3vr-Vx-czF" secondAttribute="top" id="uDn-Ka-I9C"/>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zsm-h9-2QW">
@@ -525,7 +514,6 @@ first playlist and start practicing.</string>
                         <outlet property="constraintForFavoritesCollectionViewHeight" destination="Utl-1w-aET" id="Q02-JA-21T"/>
                         <outlet property="constraintForHeaderImageViewHeight" destination="oX3-Fw-GRu" id="coX-DY-0fB"/>
                         <outlet property="constraintForRecentCollectionViewHeight" destination="MD6-dc-QWi" id="hlg-vl-1QF"/>
-                        <outlet property="labelEmpty" destination="nA7-25-rjE" id="xqo-RQ-AmL"/>
                         <outlet property="labelFavoritesHeader" destination="da3-DE-qjr" id="lNn-qa-edr"/>
                         <outlet property="labelRecentHeader" destination="9qr-R3-BeI" id="4ei-Up-pvp"/>
                         <outlet property="labelTotalTimeCaption" destination="b5X-Yy-dRV" id="fAA-1y-amC"/>

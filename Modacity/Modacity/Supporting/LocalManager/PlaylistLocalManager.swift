@@ -193,7 +193,22 @@ class PlaylistLocalManager: NSObject {
         }
     }
     
+    func addPlaylist(playlist: Playlist) {
+        var newPlaylists = [Playlist]()
+        if let playlists = self.loadPlaylists() {
+            newPlaylists = playlists
+        }
+        newPlaylists.append(playlist)
+        self.storePlaylists(newPlaylists)
+        PlaylistRemoteManager.manager.add(item: playlist)
+    }
+    
     func signout() {
+        if let playlistIds = loadPlaylistIds() {
+            for playlistId in playlistIds {
+                UserDefaults.standard.removeObject(forKey: "playlist:id:" + playlistId)
+            }
+        }
         UserDefaults.standard.removeObject(forKey: "playlist_ids")
         UserDefaults.standard.removeObject(forKey: "recent_playlist_ids")
         UserDefaults.standard.synchronize()

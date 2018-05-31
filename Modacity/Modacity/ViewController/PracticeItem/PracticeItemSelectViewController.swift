@@ -159,7 +159,7 @@ class PracticeItemSelectViewController: UIViewController {
             if self.viewModel.selectedPracticeItems.count > 0 {
                 self.viewAddPracticeButtonContainer.isHidden = false
                 self.constraintForAddPracticeButtonHeight.constant = 64
-                self.labelAddPracticeItemButton.text = "Add \(self.viewModel.selectedPracticeItems.count) Practices"
+                self.labelAddPracticeItemButton.text = "Add to Playlist"
             } else {
                 self.viewAddPracticeButtonContainer.isHidden = true
                 self.constraintForAddPracticeButtonHeight.constant = 0

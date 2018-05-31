@@ -25,6 +25,7 @@ class AppConfig: NSObject {
     static let appFontLatoRegular = "Lato-Regular"
     static let appFontLatoBold = "Lato-Bold"
     static let appFontLatoItalic = "Lato-Italic"
+    static let appFontLatoLight = "Lato-Light"
     
     static let appConfigTabbarSelectedIconColor = Color(hexString: "#2b67f5")
     static let appConfigTabbarNormalIconColor = Color(hexString: "#60637c")
@@ -40,6 +41,8 @@ class AppConfig: NSObject {
     static let appConfigFacebookLink = "https://www.facebook.com/ModacityApp/"
     static let appConfigWebsiteLink = "https://www.modacity.co"
     
+    static let appNotificationPracticeLoadedFromServer = Notification.Name(rawValue: "appNotificationPracticeLoadedFromServer")
+    static let appNotificationPlaylistLoadedFromServer = Notification.Name(rawValue: "appNotificationPlaylistLoadedFromServer")
     static let appNotificationPlaylistUpdated = Notification.Name(rawValue: "appNotificationPlaylistUpdated")
     static let appNotificationProfileUpdated = Notification.Name(rawValue: "appNotificationProfileUpdated")
     

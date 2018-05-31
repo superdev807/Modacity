@@ -41,7 +41,7 @@ class Authorizer: NSObject {
                 if errorCode == AuthErrorCode.emailAlreadyInUse.rawValue {
                     completion("Email already in use.")
                 } else if errorCode == AuthErrorCode.accountExistsWithDifferentCredential.rawValue || errorCode == AuthErrorCode.providerAlreadyLinked.rawValue {
-                    completion("You've already created with same E-mail address by using Faceook or Google.")
+                    completion("This email address is already in use with a different service.")
                 } else {
                     completion(error!.localizedDescription)
                 }
@@ -129,7 +129,7 @@ class Authorizer: NSObject {
                             if errorCode == AuthErrorCode.emailAlreadyInUse.rawValue {
                                 completion("Email already in use.")
                             } else if errorCode == AuthErrorCode.accountExistsWithDifferentCredential.rawValue || errorCode == AuthErrorCode.providerAlreadyLinked.rawValue {
-                                completion("You've already created with same E-mail address by normal user.")
+                                completion("This email address is already in use with a different service.")
                             } else {
                                 completion(error!.localizedDescription)
                             }
@@ -182,7 +182,7 @@ class Authorizer: NSObject {
                 if errorCode == AuthErrorCode.emailAlreadyInUse.rawValue {
                     self.completionCallbackForGoogleSignin?("Email already in use.")
                 } else if errorCode == AuthErrorCode.accountExistsWithDifferentCredential.rawValue || errorCode == AuthErrorCode.providerAlreadyLinked.rawValue {
-                    self.completionCallbackForGoogleSignin?("You've already created with same E-mail address by normal user.")
+                    self.completionCallbackForGoogleSignin?("This email address is already in use with a different service.")
                 } else {
                     self.completionCallbackForGoogleSignin?(error!.localizedDescription)
                 }

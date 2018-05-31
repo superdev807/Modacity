@@ -16,6 +16,8 @@ class PracticeItem: Mappable {
     var notes: [Note]?
     var lastPracticed: String?
     var lastPracticedDurationInSecond: Int?
+    var rating: Double = 0
+    var isFavorite: Bool = false
     
     init() {
         name = ""
@@ -28,8 +30,20 @@ class PracticeItem: Mappable {
         id          <- map["id"]
         name        <- map["name"]
         notes       <- map["notes"]
+        rating      <- map["rating"]
+        isFavorite  <- map["is_favorite"]
         lastPracticed <- map["last_practiced"]
         lastPracticedDurationInSecond <- map["last_practiced_duration"]
+    }
+    
+    func updateRating(rating: Double) {
+        self.rating = rating
+        self.updateMe()
+    }
+    
+    func updateFavorite(favorite: Bool) {
+        self.isFavorite = favorite
+        self.updateMe()
     }
     
     func addNote(text: String) {

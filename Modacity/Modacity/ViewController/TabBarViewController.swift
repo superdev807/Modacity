@@ -25,13 +25,17 @@ class TabBarViewController: UITabBarController {
     
     var viewWalkThrough: UIView!
     
+    var labelWelcome: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.tabBar.isHidden = true
+        NotificationCenter.default.addObserver(self, selector: #selector(updateWelcomeLabelText), name: AppConfig.appNotificationProfileUpdated, object: nil)
     }
     
     deinit {
+        NotificationCenter.default.removeObserver(self)
         for subview in view.subviews {
             subview.removeFromSuperview()
         }
@@ -291,13 +295,40 @@ class TabBarViewController: UITabBarController {
             label.text = "To get started build your\nfirst playlist and start practicing."
             label.textAlignment = .center
             label.textColor = Color.white
-            label.font = UIFont(name: AppConfig.appFontLatoItalic, size: 16)
+            label.font = UIFont(name: AppConfig.appFontLatoItalic, size: 18)
             self.viewWalkThrough.addSubview(label)
             label.bottomAnchor.constraint(equalTo: imageViewArrow.topAnchor).isActive = true
             label.centerXAnchor.constraint(equalTo: imageViewArrow.leadingAnchor).isActive = true
             
+            let welcomeLabel = UILabel()
+            
+            welcomeLabel.translatesAutoresizingMaskIntoConstraints = false
+            welcomeLabel.numberOfLines = 0
+            if let me = MyProfileLocalManager.manager.me {
+                welcomeLabel.text = "Hi \(me.displayName()), it looks like\nyou’re new here."
+            } else {
+                welcomeLabel.text = "Hi, it looks like you’re new here."
+            }
+            
+            welcomeLabel.textAlignment = .center
+            welcomeLabel.textColor = Color.white
+            welcomeLabel.font = UIFont(name: AppConfig.appFontLatoLight, size: 20)
+            self.viewWalkThrough.addSubview(welcomeLabel)
+            label.topAnchor.constraint(equalTo: welcomeLabel.bottomAnchor, constant: 40).isActive = true
+            welcomeLabel.centerXAnchor.constraint(equalTo: self.viewWalkThrough.centerXAnchor).isActive = true
+            
+            self.labelWelcome = welcomeLabel
+            
             self.viewWalkThrough.alpha = 0
             self.showWalkThrough()
+        }
+    }
+    
+    @objc func updateWelcomeLabelText() {
+        if self.labelWelcome != nil {
+            if let me = MyProfileLocalManager.manager.me {
+                self.labelWelcome.text = "Hi \(me.displayName()), it looks like\nyou’re new here."
+            }
         }
     }
     

@@ -30,6 +30,21 @@ class PracticeItemRemoteManager {
                             }
                         }
                     }
+                    NotificationCenter.default.post(Notification(name: AppConfig.appNotificationPracticeLoadedFromServer))
+                }
+            }
+            
+            self.refUser.child(userId).child("favorite_ids").observeSingleEvent(of: .value) { (snapshot) in
+                if snapshot.exists() {
+                    var favoriteIds = [String]()
+                    for data in snapshot.children.allObjects as! [DataSnapshot] {
+                        if let id = data.value as? String {
+                            favoriteIds.append(id)
+                        }
+                    }
+                    UserDefaults.standard.set(favoriteIds, forKey: "favorite_practice_item_ids")
+                    UserDefaults.standard.synchronize()
+                    NotificationCenter.default.post(Notification(name: AppConfig.appNotificationPracticeLoadedFromServer))
                 }
             }
         }
@@ -79,6 +94,12 @@ class PracticeItemRemoteManager {
     func add(item: PracticeItem) {
         if let db = self.dbReference(for: item.id) {
             db.setValue(item.toJSON())
+        }
+    }
+    
+    func updateFavoriteItemIds(_ itemIds: [String]) {
+        if let userId = MyProfileLocalManager.manager.userId() {
+            self.refUser.child(userId).updateChildValues(["favorite_ids": itemIds])
         }
     }
 }

@@ -50,7 +50,9 @@ class PracticeItemListViewController: UIViewController {
     }
     
     func refreshList() {
-        self.practiceItems = PracticeItemLocalManager.manager.loadPracticeItems()
+        self.practiceItems = PracticeItemLocalManager.manager.loadPracticeItems()?.sorted(by: { (item1, item2) -> Bool in
+            return item1.name < item2.name
+        })
         self.tableViewMain.reloadData()
     }
 }

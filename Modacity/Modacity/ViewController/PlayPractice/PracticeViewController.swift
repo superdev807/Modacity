@@ -774,7 +774,7 @@ extension PracticeViewController: AVAudioPlayerDelegate, FDWaveformViewDelegate 
     }
     
     @IBAction func onSaveRecord(_ sender: Any) {
-        let alertController = UIAlertController(title: nil, message: "Enter the file name!", preferredStyle: .alert)
+        let alertController = UIAlertController(title: nil, message: "Name Your Recording!", preferredStyle: .alert)
         alertController.addTextField { (textField) in
             if self.playlistViewModel != nil {
                 if var practiceName = self.playlistViewModel.currentPracticeEntry.practiceItem()?.name {

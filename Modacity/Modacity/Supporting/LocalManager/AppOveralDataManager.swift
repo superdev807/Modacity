@@ -85,16 +85,24 @@ class AppOveralDataManager {
         UserDefaults.standard.removeObject(forKey: "disable_auto_playback")
         UserDefaults.standard.removeObject(forKey: "streak_from")
         UserDefaults.standard.removeObject(forKey: "streak_to")
+        UserDefaults.standard.removeObject(forKey: "default_data_shiped")
         UserDefaults.standard.synchronize()
     }
     
-    func forcelySetValues(totalPracticeSeconds: Int, totalImprovements: Int, notPreventPhoneSleep: Bool, disableAutoPlayback: Bool, streakFrom: String, streakTo: String) {
+    func forcelySetValues(totalPracticeSeconds: Int,
+                          totalImprovements: Int,
+                          notPreventPhoneSleep: Bool,
+                          disableAutoPlayback: Bool,
+                          streakFrom: String,
+                          streakTo: String,
+                          defaultDataShiped: Bool) {
         UserDefaults.standard.set(totalPracticeSeconds, forKey: "total_practice_seconds")
         UserDefaults.standard.set(totalImprovements, forKey: "total_improvements")
         UserDefaults.standard.set(notPreventPhoneSleep, forKey: "not_prevent_phone_sleep")
         UserDefaults.standard.set(disableAutoPlayback, forKey: "disable_auto_playback")
         UserDefaults.standard.set(streakFrom, forKey: "streak_from")
         UserDefaults.standard.set(streakTo, forKey: "streak_to")
+        UserDefaults.standard.set(defaultDataShiped, forKey: "default_data_shiped")
         UserDefaults.standard.synchronize()
     }
     
@@ -225,6 +233,15 @@ class AppOveralDataManager {
     
     func walkThroughPracticeItemFinish() {
         UserDefaults.standard.set(true, forKey: "walkthrough_practice_item_selection_finish")
+        UserDefaults.standard.synchronize()
+    }
+    
+    func defaultDataShiped() -> Bool {
+        return UserDefaults.standard.bool(forKey: "default_data_shiped")
+    }
+    
+    func setDefaultDataShiped(shiped: Bool) {
+        UserDefaults.standard.set(shiped, forKey: "default_data_shiped")
         UserDefaults.standard.synchronize()
     }
 }

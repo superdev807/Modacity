@@ -30,6 +30,7 @@ class PlaylistRemoteManager {
                             }
                         }
                     }
+                    NotificationCenter.default.post(Notification(name: AppConfig.appNotificationPlaylistLoadedFromServer))
                 }
             }
         }
@@ -37,9 +38,7 @@ class PlaylistRemoteManager {
     
     func startUploadAllPlaylists() {
         if let userId = MyProfileLocalManager.manager.userId() {
-            
             print("Uploading all local playlists to backend.")
-            
             if let playlists = PlaylistLocalManager.manager.loadPlaylists() {
                 for playlist in playlists {
                     refUser.child(userId).child("playlists").child(playlist.id).setValue(playlist.toJSON())
@@ -82,5 +81,3 @@ class PlaylistRemoteManager {
         }
     }
 }
-
-// https://we.tl/jBi2XZ5FyP
