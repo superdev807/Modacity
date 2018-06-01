@@ -9,6 +9,7 @@
 import UIKit
 import FBSDKLoginKit
 import GoogleSignIn
+import Intercom
 
 class AppOveralDataManager {
     static let manager = AppOveralDataManager()
@@ -76,6 +77,7 @@ class AppOveralDataManager {
         MyProfileRemoteManager.manager.signout()
         MyProfileLocalManager.manager.signout()
         Authorizer.authorizer.signout()
+        Intercom.logout()
     }
     
     func removeValues() {
