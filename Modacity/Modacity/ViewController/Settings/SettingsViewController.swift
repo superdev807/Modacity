@@ -158,12 +158,12 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCellWithSwitch") as! SettingsCellWithSwitch
                 cell.delegate = self
-                cell.configure(caption: "Prevent phone sleep during audio activity", isOn: AppOveralDataManager.manager.settingsPhoneSleepPrevent())
+                cell.configure(caption: "Prevent Phone Sleep During Audio Activity", isOn: AppOveralDataManager.manager.settingsPhoneSleepPrevent())
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCellWithSwitch") as! SettingsCellWithSwitch
                 cell.delegate = self
-                cell.configure(caption: "Disable auto-playback", isOn: AppOveralDataManager.manager.settingsDisableAutoPlayback())
+                cell.configure(caption: "Disable Auto-Playback", isOn: AppOveralDataManager.manager.settingsDisableAutoPlayback())
                 return cell
             }
         } else if indexPath.section == 2 {

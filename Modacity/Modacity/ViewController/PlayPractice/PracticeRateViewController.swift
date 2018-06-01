@@ -106,6 +106,7 @@ class PracticeRateViewController: UIViewController {
             if let controllers = self.navigationController?.viewControllers {
                 for controller in controllers {
                     if controller is PlaylistDetailsViewController {
+                        (controller as! PlaylistDetailsViewController).justLastPracticeItemFinished = true
                         self.navigationController?.popToViewController(controller, animated: true)
                         return
                     }

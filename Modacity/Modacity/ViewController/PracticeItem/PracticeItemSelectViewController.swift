@@ -159,7 +159,7 @@ class PracticeItemSelectViewController: UIViewController {
             if self.viewModel.selectedPracticeItems.count > 0 {
                 self.viewAddPracticeButtonContainer.isHidden = false
                 self.constraintForAddPracticeButtonHeight.constant = 64
-                self.labelAddPracticeItemButton.text = "Add to Playlist"
+                self.labelAddPracticeItemButton.text = "ADD TO PLAYLIST"
             } else {
                 self.viewAddPracticeButtonContainer.isHidden = true
                 self.constraintForAddPracticeButtonHeight.constant = 0
@@ -224,6 +224,12 @@ extension PracticeItemSelectViewController {
             }
         }
  */
+        if let parentController = self.parentController {
+            if parentController.shouldStartFromPracticeSelection {
+                self.navigationController?.dismiss(animated: true, completion: nil)
+                return
+            }
+        }
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -336,7 +342,7 @@ extension PracticeItemSelectViewController: UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let returnedView = UIView(frame: CGRect(x:0, y:0, width:tableViewMain.frame.size.width, height:40))
-        returnedView.backgroundColor = Color(hexString: "#7f7f7f")
+        returnedView.backgroundColor = Color(hexString: "#3c385a")
 
         let label = UILabel(frame: CGRect(x:10, y:0, width:tableViewMain.frame.size.width - 20, height:24))
         label.text = self.viewModel.sortedSectionedResult()[section]

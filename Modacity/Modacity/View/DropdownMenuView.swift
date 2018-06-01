@@ -56,7 +56,7 @@ class DropdownMenuView {
         
         let menuPopupView = menuView.viewWithTag(11)!
         if rows.count == 1 {
-            if anchorRect.origin.y + anchorRect.size.height / 2 + heightOf1RowDropdownView < view.frame.size.height {
+            if anchorRect.origin.y + anchorRect.size.height / 2 + heightOf1RowDropdownView  + 40 < view.frame.size.height {
                 to = 0
                 imageView.image = UIImage(named: "bg_popmenu_1_row_to_down")
                 anchorPoint = anchorView.convert(CGPoint(x: anchorView.frame.size.width / 2, y: anchorView.frame.size.height / 2 + 5), to: view)
@@ -68,7 +68,7 @@ class DropdownMenuView {
                 menuPopupView.frame = CGRect(x: anchorPoint.x - 118, y: anchorPoint.y - heightOf1RowDropdownView, width: widthOfDropdownView, height: heightOf1RowDropdownView)
             }
         } else if rows.count == 2 {
-            if anchorRect.origin.y + anchorRect.size.height / 2 + heightOf2RowsDropdownView < view.frame.size.height {
+            if anchorRect.origin.y + anchorRect.size.height / 2 + heightOf2RowsDropdownView + 40 < view.frame.size.height {
                 to = 0
                 imageView.image = UIImage(named: "bg_popmenu_2_rows_to_down")
                 anchorPoint = anchorView.convert(CGPoint(x: anchorView.frame.size.width / 2, y: anchorView.frame.size.height / 2 + 5), to: view)
@@ -80,7 +80,7 @@ class DropdownMenuView {
                 menuPopupView.frame = CGRect(x: anchorPoint.x - 118, y: anchorPoint.y - heightOf2RowsDropdownView, width: widthOfDropdownView, height: heightOf2RowsDropdownView)
             }
         } else if rows.count == 3 {
-            if anchorRect.origin.y + anchorRect.size.height / 2 + heightOf3RowsDropdownView < view.frame.size.height {
+            if anchorRect.origin.y + anchorRect.size.height / 2 + heightOf3RowsDropdownView  + 40 < view.frame.size.height {
                 to = 0
                 imageView.image = UIImage(named: "bg_popmenu_3_rows_to_down")
                 anchorPoint = anchorView.convert(CGPoint(x: anchorView.frame.size.width / 2, y: anchorView.frame.size.height / 2 + 5), to: view)
@@ -138,7 +138,7 @@ class DropdownMenuView {
     func addRows(_ rows:[[String:String]], into viewPopup: UIView, to: Int) {
         
         let rowHeight = (to == 0) ? CGFloat(40) : CGFloat(40)
-        let rowMargin = CGFloat(10)
+        let rowMargin = CGFloat(5)
         var y = (to == 0) ? CGFloat(24) : CGFloat(12)
         
         for idx in 0..<rows.count {
@@ -159,7 +159,7 @@ class DropdownMenuView {
             viewPopup.addSubview(imageViewIcon)
             
             let text = row["text"]
-            let labelText = UILabel(frame: CGRect(x: rowMargin + rowHeight + 5, y: y, width: widthOfDropdownView - (rowMargin * 2 + rowHeight + 5), height: rowHeight))
+            let labelText = UILabel(frame: CGRect(x: rowMargin + rowHeight + 5, y: y, width: widthOfDropdownView - (rowMargin * 2 + rowHeight + 5) - 10, height: rowHeight))
             labelText.textColor = Color.white
             labelText.text = text
             viewPopup.addSubview(labelText)

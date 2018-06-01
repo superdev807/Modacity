@@ -76,7 +76,7 @@ class PracticeItemCell: UITableViewCell {
     
     func configure(with practiceItem: PracticeItem) {
         self.labelPracticeName.text = practiceItem.name
-        self.ratingView.rating = PracticeItemLocalManager.manager.ratingValue(for: practiceItem.id) ?? 0
+        self.ratingView.rating = PracticeItemLocalManager.manager.ratingValue(for: practiceItem.id) ?? 0        
         self.labelPracticeItemLastPracticed.text = practiceItem.lastPracticedTimeString()
         self.practiceItem = practiceItem
         self.textfieldNameEdit.isHidden = true

@@ -95,6 +95,13 @@ class HomeViewModel: ViewModel {
         
         self.totalWorkingSeconds = AppOveralDataManager.manager.totalPracticeSeconds()
         self.totalImprovements = AppOveralDataManager.manager.totalImprovements()
-        self.streakDays = AppOveralDataManager.manager.calculateStreakDays()
+        
+        var streaks = AppOveralDataManager.manager.calculateStreakDays()
+        if streaks == 1 {
+            if !AppOveralDataManager.manager.firstPlaylistStored() {
+                streaks = 0
+            }
+        }
+        self.streakDays = streaks
     }
 }

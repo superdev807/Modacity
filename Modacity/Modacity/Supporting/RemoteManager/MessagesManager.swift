@@ -29,6 +29,15 @@ class MessagesManager: NSObject {
             if includeAudio {
                 
                 let fileURL = Recording.currentRecordingURL()
+                
+                do {
+                    let _ = try fileURL.checkResourceIsReachable()
+                } catch let _ {
+                    completion("Audio file is not available.")
+                    return
+                }
+                
+                
                 Storage.storage().reference().child("messages").child(timeString).child(me.uid).child("recording.wav").putFile(from: fileURL, metadata: nil) { (metaData, error) in
                     if let error = error {
                         completion(error.localizedDescription)

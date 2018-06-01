@@ -116,41 +116,37 @@ class PlaylistDetailsViewController: UIViewController {
     }
     
     func processWalkThrough() {
-//        if self.viewModel.playlistName == "" {
-//            if !AppOveralDataManager.manager.walkThroughDoneForPlaylistNaming() {
-//                self.showWalkThroughNaming()
-//            } else {
-//                self.viewWalkThroughNaming.removeFromSuperview()
-//                if !AppOveralDataManager.manager.walkThroughDoneForFirstPlaylist() {
-//                    self.showWalkThrough1()
-//                } else {
-//                    self.viewWalkThrough1.removeFromSuperview()
-//                }
-//            }
-//        } else {
-            if !AppOveralDataManager.manager.walkThroughDoneForFirstPlaylist() {
-                self.showWalkThrough1()
-            } else {
-                if self.viewWalkThrough1.superview != nil {
-                    self.viewWalkThrough1.removeFromSuperview()
-                }
-                
+        if !AppOveralDataManager.manager.walkThroughDoneForFirstPlaylist() {
+            self.showWalkThrough1()
+        } else {
+            if self.viewWalkThrough1.superview != nil {
+                self.viewWalkThrough1.removeFromSuperview()
+            }
+            
+            if self.viewModel.playlistName == "" {
                 if !AppOveralDataManager.manager.walkThroughDoneForPlaylistNaming() {
                     self.showWalkThroughNaming()
                 } else {
                     if self.viewWalkThroughNaming.superview != nil {
                         self.viewWalkThroughNaming.removeFromSuperview()
                     }
-                    
                     if !AppOveralDataManager.manager.walkThroughDoneForFirstPlaylist() {
                         self.showWalkThrough1()
                     } else {
                         self.viewWalkThrough1.removeFromSuperview()
                     }
                 }
-
+            } else {
+                if self.viewWalkThroughNaming.superview != nil {
+                    self.viewWalkThroughNaming.removeFromSuperview()
+                }
+                if !AppOveralDataManager.manager.walkThroughDoneForFirstPlaylist() {
+                    self.showWalkThrough1()
+                } else {
+                    self.viewWalkThrough1.removeFromSuperview()
+                }
             }
-//        }
+        }
     }
     
     func showWalkThrough1() {
@@ -420,6 +416,8 @@ class PlaylistDetailsViewController: UIViewController {
     }
     
     @IBAction func onStart(_ sender: Any) {
+        
+        AppOveralDataManager.manager.storeFirstPlaylist()
         
         if self.showingWalkThrough1 {
             if self.showingWalkThrough1 {

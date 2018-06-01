@@ -163,7 +163,7 @@ class PracticeItemLocalManager {
         if let practice = self.practiceItem(forId: forItemId) {
             if practice.isFavorite {
                 practice.updateFavorite(favorite: false)
-                self.updateFavoriteIds(withNewItemId: forItemId)
+                self.updateFavoriteIds(withRemovingItemId: forItemId)
             } else {
                 practice.updateFavorite(favorite: true)
                 self.updateFavoriteIds(withNewItemId: forItemId)

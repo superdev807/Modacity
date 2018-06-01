@@ -275,7 +275,7 @@ class TabBarViewController: UITabBarController {
             self.viewWalkThrough.addSubview(buttonClose)
             
             buttonClose.leadingAnchor.constraint(equalTo: self.viewWalkThrough.leadingAnchor, constant: 0).isActive = true
-            buttonClose.topAnchor.constraint(equalTo: self.viewWalkThrough.topAnchor, constant: 0).isActive = true
+            buttonClose.topAnchor.constraint(equalTo: self.viewWalkThrough.topAnchor, constant: 20).isActive = true
             buttonClose.widthAnchor.constraint(equalToConstant: 44).isActive = true
             buttonClose.heightAnchor.constraint(equalToConstant: 44).isActive = true
             
@@ -295,10 +295,10 @@ class TabBarViewController: UITabBarController {
             label.text = "To get started build your\nfirst playlist and start practicing."
             label.textAlignment = .center
             label.textColor = Color.white
-            label.font = UIFont(name: AppConfig.appFontLatoItalic, size: 18)
+            label.font = UIFont(name: AppConfig.appFontLatoBoldItalic, size: 18)
             self.viewWalkThrough.addSubview(label)
-            label.bottomAnchor.constraint(equalTo: imageViewArrow.topAnchor).isActive = true
-            label.centerXAnchor.constraint(equalTo: imageViewArrow.leadingAnchor).isActive = true
+            label.bottomAnchor.constraint(equalTo: imageViewArrow.topAnchor, constant: -20).isActive = true
+            label.centerXAnchor.constraint(equalTo: self.viewWalkThrough.centerXAnchor).isActive = true
             
             let welcomeLabel = UILabel()
             

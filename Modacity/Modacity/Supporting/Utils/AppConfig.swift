@@ -24,13 +24,14 @@ class AppConfig: NSObject {
     
     static let appFontLatoRegular = "Lato-Regular"
     static let appFontLatoBold = "Lato-Bold"
+    static let appFontLatoBoldItalic = "Lato-BoldItalic"
     static let appFontLatoItalic = "Lato-Italic"
     static let appFontLatoLight = "Lato-Light"
     
     static let appConfigTabbarSelectedIconColor = Color(hexString: "#2b67f5")
     static let appConfigTabbarNormalIconColor = Color(hexString: "#60637c")
     static let appConfigTimerGreenColor = Color(hexString: "#1bbcb6")
-    static let appConfigWalkthroughOverlayColor = Color(hexString: "#252738").alpha(0.7)
+    static let appConfigWalkthroughOverlayColor = Color(hexString: "#252738").alpha(0.85)
     
     static let appConfigHomeUrlLink = "https://www.modacity.co/?utm_source=app&utm_medium=link&utm_campaign=about-us"
     static let appConfigPrivacyUrlLink = "https://www.modacity.co/legal/#privacy/?utm_source=app&utm_medium=link&utm_campaign=about-us"

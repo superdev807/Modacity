@@ -244,4 +244,13 @@ class AppOveralDataManager {
         UserDefaults.standard.set(shiped, forKey: "default_data_shiped")
         UserDefaults.standard.synchronize()
     }
+    
+    func firstPlaylistStored() -> Bool {
+        return UserDefaults.standard.bool(forKey: "first_playlist_stored")
+    }
+    
+    func storeFirstPlaylist() {
+        UserDefaults.standard.set(true, forKey: "first_playlist_stored")
+        UserDefaults.standard.synchronize()
+    }
 }

@@ -45,13 +45,23 @@ class DefaultDataShipManager {
         practiceItem.addNote(text: "Swipe up to archive notes")
         practiceItems.append(practiceItem)
         
+        PracticeItemLocalManager.manager.updateFavoriteIds(withNewItemId: practiceItem.id)
+        
         playlistPractice = PlaylistPracticeEntry()
         playlistPractice.name = "Scales - Major"
         playlistPractice.practiceItemId = practiceItem.id
         playlist1.playlistPracticeEntries.append(playlistPractice)
         
+        practiceItem = PracticeItem()
+        practiceItem.id = UUID().uuidString
+        practiceItem.name = "Scales - Minor"
+        practiceItem.updateFavorite(favorite: true)
+        practiceItem.addNote(text: "Swipe up to archive notes")
+        practiceItems.append(practiceItem)
+        PracticeItemLocalManager.manager.updateFavoriteIds(withNewItemId: practiceItem.id)
+        
         playlistPractice = PlaylistPracticeEntry()
-        playlistPractice.name = "Scales - Major"
+        playlistPractice.name = "Scales - Minor"
         playlistPractice.practiceItemId = practiceItem.id
         playlist1.playlistPracticeEntries.append(playlistPractice)
         
@@ -143,6 +153,7 @@ class DefaultDataShipManager {
         practiceItem.name = "Beethoven 9"
         practiceItem.updateFavorite(favorite: true)
         practiceItems.append(practiceItem)
+        PracticeItemLocalManager.manager.updateFavoriteIds(withNewItemId: practiceItem.id)
         
         playlistPractice = PlaylistPracticeEntry()
         playlistPractice.name = "Beethoven 9"

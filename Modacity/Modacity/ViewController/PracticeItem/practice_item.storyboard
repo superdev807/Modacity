@@ -63,7 +63,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Practice Item" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="lCi-yX-bpm">
-                                                    <rect key="frame" x="50" y="23" width="207" height="19"/>
+                                                    <rect key="frame" x="50" y="23" width="207" height="19.5"/>
                                                     <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="16"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -241,18 +241,22 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ls5-j1-RPP">
                                 <rect key="frame" x="0.0" y="603" width="375" height="64"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_btn_gradient" translatesAutoresizingMaskIntoConstraints="NO" id="F1E-ZR-cSL">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btn_bg_gradient2" translatesAutoresizingMaskIntoConstraints="NO" id="F1E-ZR-cSL">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BfE-8g-uuH">
-                                        <rect key="frame" x="119.5" y="14" width="136" height="36"/>
+                                        <rect key="frame" x="132.5" y="20" width="111" height="24"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_plus" translatesAutoresizingMaskIntoConstraints="NO" id="bmR-BA-vUj">
-                                                <rect key="frame" x="0.0" y="0.0" width="36" height="36"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="24" id="a8a-CE-yVu"/>
+                                                    <constraint firstAttribute="width" secondItem="bmR-BA-vUj" secondAttribute="height" multiplier="1:1" id="p5d-VV-Zpc"/>
+                                                </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add 1 Practice" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vh3-JL-EGt">
-                                                <rect key="frame" x="46" y="9" width="90" height="17"/>
-                                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                                                <rect key="frame" x="34" y="4.5" width="77" height="14.5"/>
+                                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -309,23 +313,23 @@ Working On?</string>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add your practice items. (e.g. scales, song names, excerpts, techniques, etc.)" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rVn-pa-yA6">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add your practice items. (e.g. scales, song names, excerpts, techniques, etc.)" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rVn-pa-yA6">
                                                 <rect key="frame" x="124" y="113" width="236" height="34"/>
                                                 <fontDescription key="fontDescription" name="Lato-Italic" family="Lato" pointSize="14"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="textColor" red="0.75686274509803919" green="0.76078431372549016" blue="0.78823529411764703" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select items to add to your practice playlist" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jwf-u7-d2e">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select items to add to your practice playlist" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jwf-u7-d2e">
                                                 <rect key="frame" x="15" y="205" width="170" height="34"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="170" id="XXI-bT-Kt6"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="Lato-Italic" family="Lato" pointSize="14"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="textColor" red="0.75686274509803919" green="0.76078431372549016" blue="0.78823529411764703" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" red="0.14509803921568626" green="0.15294117647058825" blue="0.2196078431372549" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.14509803921568626" green="0.15294117647058825" blue="0.2196078431372549" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstItem="DCg-Fd-Z2M" firstAttribute="leading" secondItem="GDh-Qj-fBS" secondAttribute="leading" constant="15" id="0WR-V0-jVr"/>
                                             <constraint firstItem="rVn-pa-yA6" firstAttribute="top" secondItem="tc9-6H-PMZ" secondAttribute="bottom" constant="7.5" id="4PQ-ga-2jy"/>
@@ -499,10 +503,10 @@ Working On?</string>
                                                     </connections>
                                                 </button>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f9J-PF-irF">
-                                                    <rect key="frame" x="55" y="14" width="272" height="36"/>
+                                                    <rect key="frame" x="55" y="14" width="272" height="36.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Practice Item" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ydv-5K-KIc">
-                                                            <rect key="frame" x="0.0" y="0.0" width="272" height="19"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="272" height="19.5"/>
                                                             <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="16"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
@@ -522,7 +526,7 @@ Working On?</string>
                                                             </connections>
                                                         </textField>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="16K-9l-2pZ" customClass="FloatRatingView" customModule="Modacity" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="24" width="60" height="12"/>
+                                                            <rect key="frame" x="0.0" y="24.5" width="60" height="12"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="60" id="2N8-Gf-tzt"/>
@@ -544,7 +548,7 @@ Working On?</string>
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Practice Item" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="iyS-Dy-MID">
-                                                            <rect key="frame" x="65" y="24.5" width="207" height="12"/>
+                                                            <rect key="frame" x="65" y="25" width="207" height="12"/>
                                                             <fontDescription key="fontDescription" name="Lato-Italic" family="Lato" pointSize="10"/>
                                                             <color key="textColor" red="1" green="1" blue="1" alpha="0.69999999999999996" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -653,9 +657,9 @@ Working On?</string>
         </scene>
     </scenes>
     <resources>
-        <image name="bg_btn_gradient" width="375" height="64"/>
         <image name="bg_common" width="375" height="667"/>
         <image name="bg_header_small" width="375" height="87"/>
+        <image name="btn_bg_gradient2" width="375" height="64"/>
         <image name="icon_arrow_left" width="10" height="15"/>
         <image name="icon_cell_menu" width="16" height="4"/>
         <image name="icon_heart" width="16" height="15"/>

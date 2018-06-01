@@ -142,7 +142,6 @@ class PlaylistDetailsViewModel: ViewModel {
     
     func createAndStorePlaylist() {
         if self.playlist.name != "" && self.playlist.playlistPracticeEntries != nil && self.playlist.playlistPracticeEntries.count > 0 {
-            
             if self.playlist.createdAt == "" {
                 self.playlist.createdAt = "\(Date().timeIntervalSince1970)"
             }
