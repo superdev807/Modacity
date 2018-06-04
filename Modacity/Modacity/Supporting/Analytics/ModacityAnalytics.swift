@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import FBSDKCoreKit
 import Amplitude_iOS
-
+import Intercom
 
 enum ModacityEvent:String {
     //Launch & basic functionality
@@ -78,10 +78,13 @@ class ModacityAnalytics: NSObject {
             Analytics.logEvent(eventString, parameters: [paramName: value!])
             FBSDKAppEvents.logEvent(eventString, parameters: [paramName: value!])
             Amplitude.instance().logEvent(eventString, withEventProperties: [paramName: value!])
+            Intercom.logEvent(withName: eventString, metaData: [paramName : value!])
+            
         } else {
             Analytics.logEvent(eventString, parameters: nil)
             FBSDKAppEvents.logEvent(eventString)
             Amplitude.instance().logEvent(eventString)
+            Intercom.logEvent(withName: eventString)
         }
     }
     

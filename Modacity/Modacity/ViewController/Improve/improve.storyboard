@@ -399,10 +399,10 @@ to improve?</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_common" translatesAutoresizingMaskIntoConstraints="NO" id="AAc-th-zyf">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="707"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="520"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_improvement_normal" translatesAutoresizingMaskIntoConstraints="NO" id="Esx-De-EDu">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="475"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="349.5"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GDk-oy-O9J">
                                 <rect key="frame" x="0.0" y="0.0" width="44" height="93"/>
@@ -418,22 +418,22 @@ to improve?</string>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Warm Up" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wki-fw-BgE">
-                                <rect key="frame" x="44" y="36" width="287" height="19"/>
+                                <rect key="frame" x="44" y="36" width="232" height="19"/>
                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rythm" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ydd-hg-7BO">
-                                <rect key="frame" x="165" y="73" width="46" height="19.5"/>
+                                <rect key="frame" x="137" y="73" width="47" height="19"/>
                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cEg-SS-DiD">
-                                <rect key="frame" x="0.0" y="470" width="375" height="157"/>
+                                <rect key="frame" x="0.0" y="344.5" width="320" height="95.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yeP-au-9km">
-                                        <rect key="frame" x="106.5" y="57.5" width="162" height="43.5"/>
+                                        <rect key="frame" x="69.5" y="27.5" width="181.5" height="42"/>
                                         <string key="text">Start recording your session. 
 Once finished, you’ll be prompted
 to answer a few questions.</string>
@@ -442,10 +442,10 @@ to answer a few questions.</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UK5-ym-lGY">
-                                        <rect key="frame" x="66" y="26" width="242" height="105"/>
+                                        <rect key="frame" x="38.5" y="-4.5" width="242" height="104"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vzf-zL-h4w">
-                                                <rect key="frame" x="43" y="0.0" width="156.5" height="29"/>
+                                                <rect key="frame" x="35.5" y="0.0" width="171.5" height="28"/>
                                                 <string key="text">Did this create the improvement
 you wanted?</string>
                                                 <fontDescription key="fontDescription" name="Lato-Italic" family="Lato" pointSize="12"/>
@@ -453,14 +453,14 @@ you wanted?</string>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yC5-40-YvT">
-                                                <rect key="frame" x="0.0" y="39" width="106" height="66"/>
+                                                <rect key="frame" x="0.0" y="38" width="106" height="66"/>
                                                 <state key="normal" image="btn_improved_no"/>
                                                 <connections>
                                                     <action selector="onImprovedNo:" destination="hg1-Xl-tGd" eventType="touchUpInside" id="DDf-xJ-bBK"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gPi-gO-uoz">
-                                                <rect key="frame" x="136" y="39" width="106" height="66"/>
+                                                <rect key="frame" x="136" y="38" width="106" height="66"/>
                                                 <state key="normal" image="btn_improved_yes"/>
                                                 <connections>
                                                     <action selector="onImprovedYes:" destination="hg1-Xl-tGd" eventType="touchUpInside" id="SFM-Bh-3Fz"/>
@@ -480,29 +480,29 @@ you wanted?</string>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Ih-8m-wdH">
-                                        <rect key="frame" x="66" y="18.5" width="242" height="120"/>
+                                        <rect key="frame" x="38.5" y="-12" width="242" height="119"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nice work!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8n5-fT-z8Z">
-                                                <rect key="frame" x="83" y="0.0" width="77" height="19.5"/>
+                                                <rect key="frame" x="83.5" y="0.0" width="76" height="19"/>
                                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Do you want to practice this improvement again?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M71-Z8-7Fk">
-                                                <rect key="frame" x="1.5" y="29.5" width="237.5" height="14.5"/>
+                                                <rect key="frame" x="-11.5" y="29" width="263.5" height="14"/>
                                                 <fontDescription key="fontDescription" name="Lato-Italic" family="Lato" pointSize="12"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GDV-Ee-hXD">
-                                                <rect key="frame" x="0.0" y="54" width="106" height="66"/>
+                                                <rect key="frame" x="0.0" y="53" width="106" height="66"/>
                                                 <state key="normal" image="btn_improved_no"/>
                                                 <connections>
                                                     <action selector="onImprovedNext:" destination="hg1-Xl-tGd" eventType="touchUpInside" id="RuF-Dx-Ao3"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bk9-1f-gy3">
-                                                <rect key="frame" x="136" y="54" width="106" height="66"/>
+                                                <rect key="frame" x="136" y="53" width="106" height="66"/>
                                                 <state key="normal" image="btn_improved_yes"/>
                                                 <connections>
                                                     <action selector="onImproveAgain:" destination="hg1-Xl-tGd" eventType="touchUpInside" id="HbZ-a3-uS4"/>
@@ -535,7 +535,7 @@ you wanted?</string>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D1v-0o-Nrh">
-                                <rect key="frame" x="150.5" y="183.5" width="74" height="74"/>
+                                <rect key="frame" x="123" y="182" width="74" height="74"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="74" id="2ae-tz-bWC"/>
                                     <constraint firstAttribute="height" constant="74" id="hlh-Jz-27f"/>
@@ -546,21 +546,21 @@ you wanted?</string>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dga-Px-fPn" customClass="SCSiriWaveformView">
-                                <rect key="frame" x="0.0" y="265.5" width="375" height="179.5"/>
+                                <rect key="frame" x="0.0" y="264" width="320" height="55.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jEu-dO-6EC">
-                                <rect key="frame" x="0.0" y="265.5" width="375" height="179.5"/>
+                                <rect key="frame" x="0.0" y="264" width="320" height="55.5"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LCr-ZW-I4Z" customClass="FDWaveformView" customModule="FDWaveformView">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="90.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="28.5"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1w7-KL-uFb">
-                                        <rect key="frame" x="0.0" y="90.5" width="375" height="89"/>
+                                        <rect key="frame" x="0.0" y="28.5" width="320" height="27"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k1a-LM-mdL">
-                                                <rect key="frame" x="30" y="45" width="44" height="44"/>
+                                                <rect key="frame" x="30" y="-17" width="44" height="44"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="44" id="3hN-UH-nfn"/>
                                                     <constraint firstAttribute="width" constant="44" id="yPz-29-Ovl"/>
@@ -571,13 +571,13 @@ you wanted?</string>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dJx-9q-VU0">
-                                                <rect key="frame" x="37" y="17" width="30" height="18"/>
+                                                <rect key="frame" x="37" y="-45" width="30" height="18"/>
                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="15"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aTW-CL-rL9">
-                                                <rect key="frame" x="162" y="18" width="49.5" height="16"/>
+                                                <rect key="frame" x="134.5" y="-44" width="49.5" height="16"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_forward_white" translatesAutoresizingMaskIntoConstraints="NO" id="dUA-x6-Fip">
                                                         <rect key="frame" x="0.0" y="0.0" width="24" height="16"/>
@@ -600,13 +600,13 @@ you wanted?</string>
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CfN-Ke-sgT">
-                                                <rect key="frame" x="308" y="17" width="30" height="18"/>
+                                                <rect key="frame" x="253" y="-45" width="30" height="18"/>
                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="15"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VP4-H5-1iE">
-                                                <rect key="frame" x="111" y="45" width="44" height="44"/>
+                                                <rect key="frame" x="83.5" y="-17" width="44" height="44"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="44" id="9FF-Nf-MNo"/>
                                                     <constraint firstAttribute="height" constant="44" id="z9x-bZ-Bsu"/>
@@ -617,7 +617,7 @@ you wanted?</string>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MOH-Sk-ebe">
-                                                <rect key="frame" x="165" y="45" width="44" height="44"/>
+                                                <rect key="frame" x="137.5" y="-17" width="44" height="44"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="44" id="3vL-G8-oQq"/>
                                                     <constraint firstAttribute="height" constant="44" id="4o0-LX-F3N"/>
@@ -628,7 +628,7 @@ you wanted?</string>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nHf-WG-1Zm">
-                                                <rect key="frame" x="219" y="45" width="44" height="44"/>
+                                                <rect key="frame" x="191.5" y="-17" width="44" height="44"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="44" id="UKJ-fZ-ux4"/>
                                                     <constraint firstAttribute="width" constant="44" id="UOg-Yh-Qd5"/>
@@ -639,7 +639,7 @@ you wanted?</string>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fco-M1-yrF">
-                                                <rect key="frame" x="301" y="45" width="44" height="44"/>
+                                                <rect key="frame" x="246" y="-17" width="44" height="44"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="44" id="UPF-Na-jlk"/>
                                                     <constraint firstAttribute="height" constant="44" id="oYE-pN-d4r"/>
@@ -684,10 +684,10 @@ you wanted?</string>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="glh-Og-M5h">
-                                <rect key="frame" x="0.0" y="661" width="375" height="40"/>
+                                <rect key="frame" x="0.0" y="474" width="320" height="40"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_bottom_strip_extra" translatesAutoresizingMaskIntoConstraints="NO" id="WYv-9c-ABf">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.15686274510000001" green="0.16862745100000001" blue="0.2901960784" alpha="1" colorSpace="calibratedRGB"/>
@@ -700,16 +700,16 @@ you wanted?</string>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RDU-al-hFq">
-                                <rect key="frame" x="0.0" y="331" width="375" height="336"/>
+                                <rect key="frame" x="0.0" y="144" width="320" height="336"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_drone_large" translatesAutoresizingMaskIntoConstraints="NO" id="sBe-H7-GpM">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="336"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="336"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="336" id="BVr-vS-TGX"/>
                                         </constraints>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jXP-KM-es9">
-                                        <rect key="frame" x="139.5" y="8" width="95" height="36"/>
+                                        <rect key="frame" x="112" y="8" width="95" height="36"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="METRODRONE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hgO-hh-U4F">
                                                 <rect key="frame" x="0.0" y="12" width="70" height="12"/>
@@ -732,22 +732,22 @@ you wanted?</string>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UKY-Pa-EGz" customClass="ViewDroneFrame" customModule="Modacity" customModuleProvider="target">
-                                        <rect key="frame" x="14" y="60" width="210" height="210"/>
+                                        <rect key="frame" x="14" y="60" width="155" height="155"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dPZ-ZN-Q47">
-                                                <rect key="frame" x="35" y="34.5" width="140" height="140.5"/>
+                                                <rect key="frame" x="26" y="25.5" width="103" height="103.5"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GfB-LS-FzO">
-                                                        <rect key="frame" x="10" y="10" width="120" height="120.5"/>
+                                                        <rect key="frame" x="10" y="10" width="83" height="83.5"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OCTAVE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FOR-lC-KgS">
-                                                                <rect key="frame" x="40" y="19" width="39" height="12"/>
+                                                                <rect key="frame" x="22" y="19" width="38" height="12"/>
                                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="10"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mfd-r2-htd" userLabel="Sustain">
-                                                                <rect key="frame" x="25" y="70.5" width="70" height="35"/>
+                                                                <rect key="frame" x="6.5" y="33.5" width="70" height="35"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="mfd-r2-htd" secondAttribute="height" multiplier="2:1" id="O1W-Av-lks"/>
                                                                     <constraint firstAttribute="width" constant="70" id="sDB-rl-HEa"/>
@@ -759,7 +759,7 @@ you wanted?</string>
                                                                 </connections>
                                                             </button>
                                                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M4g-ck-2TM" userLabel="labelOctave">
-                                                                <rect key="frame" x="42.5" y="42" width="36" height="19"/>
+                                                                <rect key="frame" x="24" y="42" width="36" height="19"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="36" id="rIK-x0-Bo3"/>
                                                                 </constraints>
@@ -768,14 +768,14 @@ you wanted?</string>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <button opaque="NO" alpha="0.75" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="soY-GL-1GH" userLabel="octave-">
-                                                                <rect key="frame" x="11.5" y="34" width="36" height="36"/>
+                                                                <rect key="frame" x="-7" y="34" width="36" height="36"/>
                                                                 <state key="normal" image="icon_minus"/>
                                                                 <connections>
                                                                     <action selector="onOctaveDown:" destination="hg1-Xl-tGd" eventType="touchUpInside" id="Oet-nw-jxK"/>
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" alpha="0.75" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2yu-WV-yNR" userLabel="octave+">
-                                                                <rect key="frame" x="73.5" y="34" width="36" height="36"/>
+                                                                <rect key="frame" x="55" y="34" width="36" height="36"/>
                                                                 <state key="normal" image="icon_plus"/>
                                                                 <connections>
                                                                     <action selector="onOctaveUp:" destination="hg1-Xl-tGd" eventType="touchUpInside" id="tNJ-Br-O4E"/>
@@ -816,7 +816,7 @@ you wanted?</string>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rR9-07-jtj">
-                                        <rect key="frame" x="14" y="277" width="208" height="24"/>
+                                        <rect key="frame" x="14" y="277" width="153" height="24"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DRONE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hOi-8p-nyp">
                                                 <rect key="frame" x="0.0" y="2" width="40" height="20"/>
@@ -847,13 +847,13 @@ you wanted?</string>
                                                 </constraints>
                                             </view>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_max_track" translatesAutoresizingMaskIntoConstraints="NO" id="dFf-eZ-W48">
-                                                <rect key="frame" x="45" y="6" width="110" height="12"/>
+                                                <rect key="frame" x="45" y="6" width="55" height="12"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="12" id="7ck-Rd-ney"/>
                                                 </constraints>
                                             </imageView>
                                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="4bs-7F-27b">
-                                                <rect key="frame" x="43" y="5.5" width="113.5" height="13"/>
+                                                <rect key="frame" x="43" y="5.5" width="58.5" height="13"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="12" id="n1h-Kn-6Qv"/>
                                                 </constraints>
@@ -865,7 +865,7 @@ you wanted?</string>
                                                 </connections>
                                             </slider>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Duration" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Dd-cz-ElQ">
-                                                <rect key="frame" x="159.5" y="2" width="40" height="20"/>
+                                                <rect key="frame" x="104.5" y="2" width="40" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="40" id="qFf-qa-wEY"/>
                                                     <constraint firstAttribute="height" constant="20" id="wa9-aq-27Y"/>
@@ -894,23 +894,23 @@ you wanted?</string>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0kn-4t-SQ0">
-                                        <rect key="frame" x="236" y="55" width="1" height="251"/>
+                                        <rect key="frame" x="181" y="55" width="1" height="251"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.10000000000000001" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="1" id="oCC-8o-FWt"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tw7-38-B18">
-                                        <rect key="frame" x="251" y="55" width="110" height="246"/>
+                                        <rect key="frame" x="196" y="55" width="110" height="246"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="19D-2b-jbd">
                                                 <rect key="frame" x="0.0" y="0.0" width="110" height="68"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gby-wu-4ug">
-                                                        <rect key="frame" x="9" y="5" width="92" height="58"/>
+                                                        <rect key="frame" x="9" y="5.5" width="92" height="57"/>
                                                         <subviews>
                                                             <button opaque="NO" alpha="0.75" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dpB-zg-V1E" userLabel="bpm+">
-                                                                <rect key="frame" x="56" y="22" width="36" height="36"/>
+                                                                <rect key="frame" x="56" y="21" width="36" height="36"/>
                                                                 <state key="normal" image="icon_plus"/>
                                                                 <connections>
                                                                     <action selector="onChangeBPMStop:" destination="hg1-Xl-tGd" eventType="touchUpOutside" id="cUQ-b9-sEm"/>
@@ -919,13 +919,13 @@ you wanted?</string>
                                                                 </connections>
                                                             </button>
                                                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="18" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WBn-dd-UwQ" userLabel="BPM">
-                                                                <rect key="frame" x="35.5" y="0.0" width="21" height="22"/>
+                                                                <rect key="frame" x="35.5" y="0.0" width="21" height="21"/>
                                                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="18"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <button opaque="NO" alpha="0.75" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aQI-LY-vvX" userLabel="bpm-">
-                                                                <rect key="frame" x="0.0" y="22" width="36" height="36"/>
+                                                                <rect key="frame" x="0.0" y="21" width="36" height="36"/>
                                                                 <state key="normal" image="icon_minus"/>
                                                                 <connections>
                                                                     <action selector="onChangeBPMStop:" destination="hg1-Xl-tGd" eventType="touchUpInside" id="duO-4S-6ol"/>
@@ -1046,7 +1046,7 @@ you wanted?</string>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZYX-le-a9q">
-                                <rect key="frame" x="257" y="295" width="96" height="272"/>
+                                <rect key="frame" x="202" y="108" width="96" height="272"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_subdivision" translatesAutoresizingMaskIntoConstraints="NO" id="nVB-Kf-qd7">
                                         <rect key="frame" x="0.0" y="0.0" width="96" height="272"/>
@@ -1117,7 +1117,7 @@ you wanted?</string>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dOc-S4-3Wh">
-                                <rect key="frame" x="103" y="109" width="170" height="38.5"/>
+                                <rect key="frame" x="75.5" y="108.5" width="170.5" height="37.5"/>
                                 <string key="text">Play all the way through
 til the very end of the…</string>
                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
@@ -1228,10 +1228,10 @@ til the very end of the…</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_common" translatesAutoresizingMaskIntoConstraints="NO" id="wZS-FU-gAc">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="707"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="520"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_improvement_normal" translatesAutoresizingMaskIntoConstraints="NO" id="WWB-Kv-nA3">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="475"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="326"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r8Y-sd-w3N">
                                 <rect key="frame" x="0.0" y="0.0" width="44" height="93"/>
@@ -1247,22 +1247,22 @@ til the very end of the…</string>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Warm Up" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VFo-0a-Yhv">
-                                <rect key="frame" x="44" y="36" width="287" height="19"/>
+                                <rect key="frame" x="44" y="36" width="232" height="19"/>
                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rythm" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hyE-S4-WCR">
-                                <rect key="frame" x="165" y="73" width="46" height="19.5"/>
+                                <rect key="frame" x="137" y="65" width="47" height="19"/>
                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BGj-Hd-ioY">
-                                <rect key="frame" x="0.0" y="470" width="375" height="157"/>
+                                <rect key="frame" x="0.0" y="321" width="320" height="119"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UgZ-qT-vAP">
-                                        <rect key="frame" x="106.5" y="57.5" width="162" height="43.5"/>
+                                        <rect key="frame" x="69.5" y="39" width="181.5" height="42"/>
                                         <string key="text">Start recording your session. 
 Once finished, you’ll be prompted
 to answer a few questions.</string>
@@ -1271,10 +1271,10 @@ to answer a few questions.</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9jn-Ne-Ef3">
-                                        <rect key="frame" x="66" y="26" width="242" height="105"/>
+                                        <rect key="frame" x="38.5" y="7.5" width="242" height="104"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lXS-fG-87b">
-                                                <rect key="frame" x="43" y="0.0" width="156.5" height="29"/>
+                                                <rect key="frame" x="35.5" y="0.0" width="171.5" height="28"/>
                                                 <string key="text">Did this create the improvement
 you wanted?</string>
                                                 <fontDescription key="fontDescription" name="Lato-Italic" family="Lato" pointSize="12"/>
@@ -1282,14 +1282,14 @@ you wanted?</string>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iWI-wV-Tip">
-                                                <rect key="frame" x="0.0" y="39" width="106" height="66"/>
+                                                <rect key="frame" x="0.0" y="38" width="106" height="66"/>
                                                 <state key="normal" image="btn_improved_no"/>
                                                 <connections>
                                                     <action selector="onImprovedNo:" destination="ey2-fW-n4E" eventType="touchUpInside" id="9Yh-DE-WT2"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d33-Hg-Srq">
-                                                <rect key="frame" x="136" y="39" width="106" height="66"/>
+                                                <rect key="frame" x="136" y="38" width="106" height="66"/>
                                                 <state key="normal" image="btn_improved_yes"/>
                                                 <connections>
                                                     <action selector="onImprovedYes:" destination="ey2-fW-n4E" eventType="touchUpInside" id="L9E-94-65C"/>
@@ -1309,29 +1309,29 @@ you wanted?</string>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eJa-II-tGv">
-                                        <rect key="frame" x="66" y="18.5" width="242" height="120"/>
+                                        <rect key="frame" x="38.5" y="0.0" width="242" height="119"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nice work!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xLn-fh-CgL">
-                                                <rect key="frame" x="83" y="0.0" width="77" height="19.5"/>
+                                                <rect key="frame" x="83.5" y="0.0" width="76" height="19"/>
                                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Do you want to practice this improvement again?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9f7-Jm-1Of">
-                                                <rect key="frame" x="1.5" y="29.5" width="237.5" height="14.5"/>
+                                                <rect key="frame" x="-11.5" y="29" width="263.5" height="14"/>
                                                 <fontDescription key="fontDescription" name="Lato-Italic" family="Lato" pointSize="12"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CU6-cL-1Q8">
-                                                <rect key="frame" x="0.0" y="54" width="106" height="66"/>
+                                                <rect key="frame" x="0.0" y="53" width="106" height="66"/>
                                                 <state key="normal" image="btn_improved_no"/>
                                                 <connections>
                                                     <action selector="onImprovedNext:" destination="ey2-fW-n4E" eventType="touchUpInside" id="ca2-2a-sKr"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wuT-OS-UQc">
-                                                <rect key="frame" x="136" y="54" width="106" height="66"/>
+                                                <rect key="frame" x="136" y="53" width="106" height="66"/>
                                                 <state key="normal" image="btn_improved_yes"/>
                                                 <connections>
                                                     <action selector="onImproveAgain:" destination="ey2-fW-n4E" eventType="touchUpInside" id="gCw-J7-g72"/>
@@ -1364,7 +1364,7 @@ you wanted?</string>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XCN-Qq-HnU">
-                                <rect key="frame" x="150.5" y="183.5" width="74" height="74"/>
+                                <rect key="frame" x="123" y="151.5" width="74" height="74"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="74" id="eZS-r9-KmL"/>
                                     <constraint firstAttribute="width" constant="74" id="vgb-bz-FEi"/>
@@ -1375,21 +1375,21 @@ you wanted?</string>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hEd-zD-q8c" customClass="SCSiriWaveformView">
-                                <rect key="frame" x="0.0" y="265.5" width="375" height="179.5"/>
+                                <rect key="frame" x="0.0" y="233.5" width="320" height="82.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4at-MK-eiG">
-                                <rect key="frame" x="0.0" y="265.5" width="375" height="179.5"/>
+                                <rect key="frame" x="0.0" y="233.5" width="320" height="82.5"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rd3-wW-Frf" customClass="FDWaveformView" customModule="FDWaveformView">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="90.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="33"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YA6-Qg-Tb1">
-                                        <rect key="frame" x="0.0" y="90.5" width="375" height="89"/>
+                                        <rect key="frame" x="0.0" y="33" width="320" height="49.5"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E5a-mJ-Fci">
-                                                <rect key="frame" x="30" y="45" width="44" height="44"/>
+                                                <rect key="frame" x="30" y="5.5" width="44" height="44"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="44" id="ORW-V3-aba"/>
                                                     <constraint firstAttribute="height" constant="44" id="vKq-dF-ZYS"/>
@@ -1400,13 +1400,13 @@ you wanted?</string>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vos-2R-MlM">
-                                                <rect key="frame" x="37" y="17" width="30" height="18"/>
+                                                <rect key="frame" x="37" y="-17.5" width="30" height="18"/>
                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="15"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E18-pb-yFF">
-                                                <rect key="frame" x="162" y="18" width="49.5" height="16"/>
+                                                <rect key="frame" x="134.5" y="-16.5" width="49.5" height="16"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_forward_white" translatesAutoresizingMaskIntoConstraints="NO" id="rGt-dK-zrf">
                                                         <rect key="frame" x="0.0" y="0.0" width="24" height="16"/>
@@ -1429,13 +1429,13 @@ you wanted?</string>
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9K9-lY-yxl">
-                                                <rect key="frame" x="308" y="17" width="30" height="18"/>
+                                                <rect key="frame" x="253" y="-17.5" width="30" height="18"/>
                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="15"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fJa-xz-dgw">
-                                                <rect key="frame" x="111" y="45" width="44" height="44"/>
+                                                <rect key="frame" x="83.5" y="5.5" width="44" height="44"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="44" id="rQg-cY-Hsu"/>
                                                     <constraint firstAttribute="width" constant="44" id="wTU-d8-94X"/>
@@ -1446,7 +1446,7 @@ you wanted?</string>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sAH-iB-9XP">
-                                                <rect key="frame" x="165" y="45" width="44" height="44"/>
+                                                <rect key="frame" x="137.5" y="5.5" width="44" height="44"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="44" id="J4X-vX-7u5"/>
                                                     <constraint firstAttribute="height" constant="44" id="vzJ-4p-gdL"/>
@@ -1457,7 +1457,7 @@ you wanted?</string>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aZu-6o-vXv">
-                                                <rect key="frame" x="219" y="45" width="44" height="44"/>
+                                                <rect key="frame" x="191.5" y="5.5" width="44" height="44"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="44" id="afC-iV-wfI"/>
                                                     <constraint firstAttribute="width" constant="44" id="mCl-td-xt5"/>
@@ -1468,7 +1468,7 @@ you wanted?</string>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="veN-hc-7Lg">
-                                                <rect key="frame" x="301" y="45" width="44" height="44"/>
+                                                <rect key="frame" x="246" y="5.5" width="44" height="44"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="44" id="1Fx-H5-f5d"/>
                                                     <constraint firstAttribute="width" constant="44" id="wwI-YZ-USo"/>
@@ -1513,10 +1513,10 @@ you wanted?</string>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p9Y-d1-ELL">
-                                <rect key="frame" x="0.0" y="661" width="375" height="40"/>
+                                <rect key="frame" x="0.0" y="474" width="320" height="40"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_bottom_strip_extra" translatesAutoresizingMaskIntoConstraints="NO" id="uN3-69-foE">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.15686274510000001" green="0.16862745100000001" blue="0.2901960784" alpha="1" colorSpace="calibratedRGB"/>
@@ -1529,16 +1529,16 @@ you wanted?</string>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Exn-Lj-YhY">
-                                <rect key="frame" x="0.0" y="331" width="375" height="336"/>
+                                <rect key="frame" x="0.0" y="144" width="320" height="336"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_drone_large" translatesAutoresizingMaskIntoConstraints="NO" id="MTm-pq-8GG">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="336"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="336"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="336" id="lQe-ae-Jpc"/>
                                         </constraints>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cWB-a3-ydS">
-                                        <rect key="frame" x="139.5" y="8" width="95" height="36"/>
+                                        <rect key="frame" x="112" y="8" width="95" height="36"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="METRODRONE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uhI-ca-y4F">
                                                 <rect key="frame" x="0.0" y="12" width="70" height="12"/>
@@ -1564,7 +1564,7 @@ you wanted?</string>
                                         <rect key="frame" x="127" y="107" width="120" height="120.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OCTAVE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sdq-ur-Vo9">
-                                                <rect key="frame" x="-19.5" y="19" width="39" height="12"/>
+                                                <rect key="frame" x="-19" y="19" width="38" height="12"/>
                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="10"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
@@ -1606,13 +1606,13 @@ you wanted?</string>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2fJ-SB-Qde" customClass="ViewDroneFrame" customModule="Modacity" customModuleProvider="target">
-                                        <rect key="frame" x="14" y="47" width="210" height="210"/>
+                                        <rect key="frame" x="14" y="102" width="155" height="155"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Oqc-jQ-KYU">
-                                                <rect key="frame" x="35" y="34.5" width="140" height="140.5"/>
+                                                <rect key="frame" x="26" y="25.5" width="103" height="103.5"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cyv-Vm-7dq" userLabel="Sustain">
-                                                        <rect key="frame" x="35" y="52.5" width="70" height="35"/>
+                                                        <rect key="frame" x="16.5" y="34" width="70" height="35"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="Cyv-Vm-7dq" secondAttribute="height" multiplier="2:1" id="cd7-Q2-PS6"/>
                                                             <constraint firstAttribute="width" constant="70" id="kds-cR-RlT"/>
@@ -1641,7 +1641,7 @@ you wanted?</string>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="reR-6l-mO4">
-                                        <rect key="frame" x="10" y="277" width="216" height="24"/>
+                                        <rect key="frame" x="10" y="277" width="161" height="24"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DRONE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gjn-T6-AIQ">
                                                 <rect key="frame" x="0.0" y="2" width="36" height="20"/>
@@ -1672,13 +1672,13 @@ you wanted?</string>
                                                 </constraints>
                                             </view>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_max_track" translatesAutoresizingMaskIntoConstraints="NO" id="Vub-CX-dwN">
-                                                <rect key="frame" x="41" y="6" width="126" height="12"/>
+                                                <rect key="frame" x="41" y="6" width="71" height="12"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="12" id="TE3-4S-MPI"/>
                                                 </constraints>
                                             </imageView>
                                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="iPR-o4-qH5">
-                                                <rect key="frame" x="39" y="5.5" width="129.5" height="13"/>
+                                                <rect key="frame" x="39" y="5.5" width="74.5" height="13"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="12" id="TSz-rL-bJi"/>
                                                 </constraints>
@@ -1690,7 +1690,7 @@ you wanted?</string>
                                                 </connections>
                                             </slider>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Duration" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="muY-Gr-RpP">
-                                                <rect key="frame" x="171.5" y="2" width="36" height="20"/>
+                                                <rect key="frame" x="116.5" y="2" width="36" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="36" id="4tH-dN-mtf"/>
                                                     <constraint firstAttribute="height" constant="20" id="UFj-k6-wLr"/>
@@ -1719,23 +1719,23 @@ you wanted?</string>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ruh-yo-KZC">
-                                        <rect key="frame" x="236" y="55" width="1" height="251"/>
+                                        <rect key="frame" x="181" y="55" width="1" height="251"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.10000000000000001" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="1" id="ef2-Xk-1Hj"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vnj-3d-rRi">
-                                        <rect key="frame" x="251" y="55" width="110" height="246"/>
+                                        <rect key="frame" x="196" y="55" width="110" height="246"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QH7-B6-9Vo">
                                                 <rect key="frame" x="0.0" y="0.0" width="110" height="68"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dn7-18-1Zw">
-                                                        <rect key="frame" x="9" y="5" width="92" height="58"/>
+                                                        <rect key="frame" x="9" y="5.5" width="92" height="57"/>
                                                         <subviews>
                                                             <button opaque="NO" alpha="0.75" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dbj-hb-gje" userLabel="bpm+">
-                                                                <rect key="frame" x="56" y="22" width="36" height="36"/>
+                                                                <rect key="frame" x="56" y="21" width="36" height="36"/>
                                                                 <state key="normal" image="icon_plus"/>
                                                                 <connections>
                                                                     <action selector="onChangeBPMStop:" destination="ey2-fW-n4E" eventType="touchUpInside" id="Ajx-JH-Pz5"/>
@@ -1744,13 +1744,13 @@ you wanted?</string>
                                                                 </connections>
                                                             </button>
                                                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="18" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oBx-Jm-hhA" userLabel="BPM">
-                                                                <rect key="frame" x="35.5" y="0.0" width="21" height="22"/>
+                                                                <rect key="frame" x="35.5" y="0.0" width="21" height="21"/>
                                                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="18"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <button opaque="NO" alpha="0.75" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HFi-FN-cBI" userLabel="bpm-">
-                                                                <rect key="frame" x="0.0" y="22" width="36" height="36"/>
+                                                                <rect key="frame" x="0.0" y="21" width="36" height="36"/>
                                                                 <state key="normal" image="icon_minus"/>
                                                                 <connections>
                                                                     <action selector="onChangeBPMStop:" destination="ey2-fW-n4E" eventType="touchUpOutside" id="5nA-aC-Sih"/>
@@ -1873,7 +1873,7 @@ you wanted?</string>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yKr-6a-hqv">
-                                <rect key="frame" x="257" y="295" width="96" height="272"/>
+                                <rect key="frame" x="202" y="108" width="96" height="272"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_subdivision" translatesAutoresizingMaskIntoConstraints="NO" id="p6G-z9-maO">
                                         <rect key="frame" x="0.0" y="0.0" width="96" height="272"/>
@@ -1944,7 +1944,7 @@ you wanted?</string>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ce0-fW-BLl">
-                                <rect key="frame" x="103" y="109" width="170" height="38.5"/>
+                                <rect key="frame" x="75.5" y="94" width="170.5" height="37.5"/>
                                 <string key="text">Play all the way through
 til the very end of the…</string>
                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>

@@ -9,6 +9,7 @@
 import UIKit
 import Amplitude_iOS
 import Crashlytics
+import Intercom
 
 enum DashboardTime { case Minutes; case Hours; case Default }
 
@@ -177,6 +178,13 @@ class HomeViewController: UIViewController {
         if let me = MyProfileLocalManager.manager.me {
             self.labelWelcome.text = "Welcome \(me.displayName())!"
             Amplitude.instance().setUserId(me.email)
+            Intercom.registerUser(withEmail: me.email)
+            let userAttributes = ICMUserAttributes()
+            userAttributes.name = me.displayName()
+            userAttributes.email = me.email
+            
+            Intercom.updateUser(userAttributes)
+            
         } else {
             self.labelWelcome.text = "Welcome!"
         }

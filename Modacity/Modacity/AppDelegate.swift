@@ -12,6 +12,7 @@ import FBSDKCoreKit
 import GoogleSignIn
 import Amplitude_iOS
 import SwiftMessages
+import Intercom
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -20,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        Intercom.setApiKey("ios_sdk-f447e55f2c171cec792a026f22b81c2188765217", forAppId:"q5zl4zj8")
         
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         FirebaseApp.configure()
@@ -35,6 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             ModacityAnalytics.LogStringEvent("FIRST LAUNCH")
         }
         
+        Intercom.registerUnidentifiedUser()
         ModacityAnalytics.LogEvent(.Launch)
         ModacityAudioEngine.engine.initEngine()
         
