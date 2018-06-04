@@ -81,6 +81,12 @@ class AppOveralDataManager {
     }
     
     func removeValues() {
+
+ 
+        for (key, _) in UserDefaults.standard.dictionaryRepresentation() {
+            UserDefaults.standard.removeObject(forKey: key)
+        }
+        
         UserDefaults.standard.removeObject(forKey: "total_practice_seconds")
         UserDefaults.standard.removeObject(forKey: "total_improvements")
         UserDefaults.standard.removeObject(forKey: "not_prevent_phone_sleep")
