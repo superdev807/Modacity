@@ -183,7 +183,8 @@ class AppOveralDataManager {
     }
     
     func walkThroughDoneForPracticePage() -> Bool {
-        return UserDefaults.standard.bool(forKey: "walkthrough_practice_page")
+        return false
+//        return UserDefaults.standard.bool(forKey: "walkthrough_practice_page")
     }
     
     func walkThroughPracticePage() {

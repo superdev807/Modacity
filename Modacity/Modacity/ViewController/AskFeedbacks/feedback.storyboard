@@ -57,13 +57,13 @@
                                 <rect key="frame" x="0.0" y="92" width="375" height="686"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Need Help?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XUO-hB-DCO">
-                                        <rect key="frame" x="145.66666666666666" y="31" width="83" height="19"/>
+                                        <rect key="frame" x="145.66666666666666" y="15" width="83" height="19"/>
                                         <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q0L-hD-vyI">
-                                        <rect key="frame" x="50" y="60" width="275" height="29"/>
+                                        <rect key="frame" x="20" y="39" width="335" height="29"/>
                                         <string key="text">Got a question about practice? Want ideas on
 how to improve? Connect with one of our experts.</string>
                                         <fontDescription key="fontDescription" name="Lato-Italic" family="Lato" pointSize="12"/>
@@ -131,10 +131,10 @@ how to improve? Connect with one of our experts.</string>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hrk-2e-o4E">
-                                        <rect key="frame" x="20" y="109" width="335" height="522"/>
+                                        <rect key="frame" x="20" y="78" width="335" height="553"/>
                                         <subviews>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="kD5-hw-U8I">
-                                                <rect key="frame" x="10" y="10" width="315" height="502"/>
+                                                <rect key="frame" x="5" y="5" width="325" height="543"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="16"/>
@@ -143,30 +143,30 @@ how to improve? Connect with one of our experts.</string>
                                         </subviews>
                                         <color key="backgroundColor" red="0.24705882352941178" green="0.24313725490196078" blue="0.35686274509803922" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="kD5-hw-U8I" secondAttribute="bottom" constant="10" id="J97-QL-bsc"/>
-                                            <constraint firstItem="kD5-hw-U8I" firstAttribute="top" secondItem="Hrk-2e-o4E" secondAttribute="top" constant="10" id="l4a-sS-JQA"/>
-                                            <constraint firstItem="kD5-hw-U8I" firstAttribute="leading" secondItem="Hrk-2e-o4E" secondAttribute="leading" constant="10" id="ofS-Qt-KGu"/>
-                                            <constraint firstAttribute="trailing" secondItem="kD5-hw-U8I" secondAttribute="trailing" constant="10" id="zzj-tY-Lat"/>
+                                            <constraint firstAttribute="bottom" secondItem="kD5-hw-U8I" secondAttribute="bottom" constant="5" id="J97-QL-bsc"/>
+                                            <constraint firstItem="kD5-hw-U8I" firstAttribute="top" secondItem="Hrk-2e-o4E" secondAttribute="top" constant="5" id="l4a-sS-JQA"/>
+                                            <constraint firstItem="kD5-hw-U8I" firstAttribute="leading" secondItem="Hrk-2e-o4E" secondAttribute="leading" constant="5" id="ofS-Qt-KGu"/>
+                                            <constraint firstAttribute="trailing" secondItem="kD5-hw-U8I" secondAttribute="trailing" constant="5" id="zzj-tY-Lat"/>
                                         </constraints>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="VFo-hQ-XVT" secondAttribute="bottom" constant="5" id="3Vr-Vi-Qji"/>
-                                    <constraint firstItem="Q0L-hD-vyI" firstAttribute="leading" secondItem="EBG-sn-qm4" secondAttribute="leading" constant="50" id="DzT-CU-cAI"/>
-                                    <constraint firstItem="Hrk-2e-o4E" firstAttribute="top" secondItem="Q0L-hD-vyI" secondAttribute="bottom" constant="20" id="H1z-Lg-oSH"/>
+                                    <constraint firstItem="Q0L-hD-vyI" firstAttribute="leading" secondItem="EBG-sn-qm4" secondAttribute="leading" constant="20" id="DzT-CU-cAI"/>
+                                    <constraint firstItem="Hrk-2e-o4E" firstAttribute="top" secondItem="Q0L-hD-vyI" secondAttribute="bottom" constant="10" id="H1z-Lg-oSH"/>
                                     <constraint firstItem="ZMQ-N4-7bj" firstAttribute="top" secondItem="EBG-sn-qm4" secondAttribute="top" id="LBX-K2-qS9"/>
                                     <constraint firstItem="XUO-hB-DCO" firstAttribute="centerX" secondItem="EBG-sn-qm4" secondAttribute="centerX" id="LHv-WP-Skv"/>
                                     <constraint firstAttribute="trailing" secondItem="VFo-hQ-XVT" secondAttribute="trailing" constant="20" id="TKd-dR-anX"/>
                                     <constraint firstItem="ZMQ-N4-7bj" firstAttribute="leading" secondItem="EBG-sn-qm4" secondAttribute="leading" id="UcV-bq-dja"/>
                                     <constraint firstItem="VFo-hQ-XVT" firstAttribute="top" secondItem="Hrk-2e-o4E" secondAttribute="bottom" constant="5" id="YOC-nu-dRY"/>
-                                    <constraint firstAttribute="trailing" secondItem="Q0L-hD-vyI" secondAttribute="trailing" constant="50" id="c2N-ev-7rA"/>
+                                    <constraint firstAttribute="trailing" secondItem="Q0L-hD-vyI" secondAttribute="trailing" constant="20" id="c2N-ev-7rA"/>
                                     <constraint firstItem="VFo-hQ-XVT" firstAttribute="leading" secondItem="Hrk-2e-o4E" secondAttribute="leading" id="cKk-Lz-gqI"/>
-                                    <constraint firstItem="Q0L-hD-vyI" firstAttribute="top" secondItem="XUO-hB-DCO" secondAttribute="bottom" constant="10" id="cwZ-dt-a78"/>
+                                    <constraint firstItem="Q0L-hD-vyI" firstAttribute="top" secondItem="XUO-hB-DCO" secondAttribute="bottom" constant="5" id="cwZ-dt-a78"/>
                                     <constraint firstAttribute="bottom" secondItem="ZMQ-N4-7bj" secondAttribute="bottom" id="eBa-y8-f3g"/>
                                     <constraint firstItem="VFo-hQ-XVT" firstAttribute="leading" secondItem="EBG-sn-qm4" secondAttribute="leading" constant="20" id="iK2-Co-fUZ"/>
                                     <constraint firstAttribute="trailing" secondItem="ZMQ-N4-7bj" secondAttribute="trailing" id="kuM-V2-UnM"/>
-                                    <constraint firstItem="XUO-hB-DCO" firstAttribute="top" secondItem="EBG-sn-qm4" secondAttribute="top" constant="31" id="pI5-4h-XBn"/>
+                                    <constraint firstItem="XUO-hB-DCO" firstAttribute="top" secondItem="EBG-sn-qm4" secondAttribute="top" constant="15" id="pI5-4h-XBn"/>
                                     <constraint firstItem="VFo-hQ-XVT" firstAttribute="trailing" secondItem="Hrk-2e-o4E" secondAttribute="trailing" id="yem-6s-pHa"/>
                                 </constraints>
                             </view>

@@ -28,6 +28,9 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var constraintForHeaderImageViewHeight: NSLayoutConstraint!
     @IBOutlet weak var constraintForContentViewTopSpace: NSLayoutConstraint!
     
+    @IBOutlet weak var constraintForRecentsViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var constraintForFavoritesViewHeight: NSLayoutConstraint!
+    
     @IBOutlet weak var constraintForRecentCollectionViewHeight: NSLayoutConstraint!
     @IBOutlet weak var constraintForFavoritesCollectionViewHeight: NSLayoutConstraint!
     
@@ -152,8 +155,8 @@ class HomeViewController: UIViewController {
         if AppUtils.sizeModelOfiPhone() == .iphone4_35in {
             self.constraintForHeaderImageViewHeight.constant = 230
             self.constraintForContentViewTopSpace.constant = 220
-            self.constraintForRecentCollectionViewHeight.constant = 80
-            self.constraintForFavoritesCollectionViewHeight.constant  = 80
+            self.constraintForRecentCollectionViewHeight.constant = 64
+            self.constraintForFavoritesCollectionViewHeight.constant  = 64
         } else if AppUtils.sizeModelOfiPhone() == .iphone5_4in {
             self.constraintForHeaderImageViewHeight.constant = 230
             self.constraintForContentViewTopSpace.constant = 210
@@ -173,11 +176,9 @@ class HomeViewController: UIViewController {
     @objc func configureNameLabels() {
         if let me = MyProfileLocalManager.manager.me {
             self.labelWelcome.text = "Welcome \(me.displayName())!"
-//            self.labelEmpty.text = "Hi \(me.displayName()), it looks like you’re new here."
             Amplitude.instance().setUserId(me.email)
         } else {
             self.labelWelcome.text = "Welcome!"
-//            self.labelEmpty.text = "It looks like you're new here."
         }
     }
 

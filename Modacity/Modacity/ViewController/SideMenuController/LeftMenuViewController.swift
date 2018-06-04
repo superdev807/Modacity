@@ -99,7 +99,8 @@ extension LeftMenuViewController: UITableViewDataSource, UITableViewDelegate {
             self.sideMenuController?.hideLeftViewAnimated()
         } else if indexPath.row == 1 {
             if !(self.sideMenuController?.rootViewController is MetrodoneViewController) {
-                let controller = UIStoryboard(name: "metrodone", bundle: nil).instantiateViewController(withIdentifier: "MetrodoneViewController") as! MetrodoneViewController
+                let controllerId = (AppUtils.sizeModelOfiPhone() == .iphone4_35in || AppUtils.sizeModelOfiPhone() == .iphone5_4in) ? "MetrodoneViewControllerSmallSizes" : "MetrodoneViewController"
+                let controller = UIStoryboard(name: "metrodone", bundle: nil).instantiateViewController(withIdentifier: controllerId) as! MetrodoneViewController
                 self.sideMenuController?.rootViewController = controller
             }
             self.sideMenuController?.hideLeftViewAnimated()

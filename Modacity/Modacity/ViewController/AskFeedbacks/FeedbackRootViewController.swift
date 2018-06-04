@@ -40,8 +40,10 @@ class FeedbackRootViewController: UIViewController {
         self.textViewMessage.placeholderColor = Color(hexString:"#9F9EAD")
         if AppUtils.iphoneIsXModel() {
             self.constraintForHeaderImageViewHeight.constant = 108
+        } else if AppUtils.sizeModelOfiPhone() == .iphone4_35in {
+            self.constraintForHeaderImageViewHeight.constant = 70
         } else {
-            self.constraintForHeaderImageViewHeight.constant = 88
+            self.constraintForHeaderImageViewHeight.constant = 80
         }
         
         if self.pageIsRootFromMenu {
@@ -96,13 +98,21 @@ class FeedbackRootViewController: UIViewController {
     
     @objc func onKeyboardWillShow(notification: Notification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            self.constraintForBottomSpace.constant = keyboardSize.height
+            if AppUtils.sizeModelOfiPhone() == .iphone4_35in {
+                self.constraintForBottomSpace.constant = keyboardSize.height - 30
+            } else {
+                self.constraintForBottomSpace.constant = keyboardSize.height
+            }
         }
     }
     
     @objc func onKeyboardWillChangeFrame(notification: Notification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            self.constraintForBottomSpace.constant = keyboardSize.height
+            if AppUtils.sizeModelOfiPhone() == .iphone4_35in {
+                self.constraintForBottomSpace.constant = keyboardSize.height - 30
+            } else {
+                self.constraintForBottomSpace.constant = keyboardSize.height
+            }
         }
     }
     

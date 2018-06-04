@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina3_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -47,20 +47,20 @@
             <objects>
                 <viewController storyboardIdentifier="ImproveSuggestionViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="XIS-Ip-IXR" customClass="ImproveSuggestionViewController" customModule="Modacity" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ulR-zu-MCj">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_common" translatesAutoresizingMaskIntoConstraints="NO" id="nkb-hY-71l">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="707"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="520"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aVZ-SE-9ND">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                                 <connections>
                                     <action selector="onHideKeyboard:" destination="XIS-Ip-IXR" eventType="touchUpInside" id="jC3-Ek-PT8"/>
                                 </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="XqI-WU-1BM">
-                                <rect key="frame" x="0.0" y="198" width="375" height="469"/>
+                                <rect key="frame" x="0.0" y="198" width="320" height="282"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="5" id="AXX-pl-RBw">
                                     <size key="itemSize" width="96" height="64"/>
@@ -102,7 +102,7 @@
                                 </connections>
                             </collectionView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_header_216" translatesAutoresizingMaskIntoConstraints="NO" id="15h-qP-6E3">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="222"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="222"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="222" id="RnJ-EW-lDD"/>
                                 </constraints>
@@ -111,13 +111,13 @@
                                 <rect key="frame" x="16" y="35" width="10" height="15"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Practice name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F76-Dq-s3e">
-                                <rect key="frame" x="40" y="33.5" width="295" height="19"/>
+                                <rect key="frame" x="40" y="33.5" width="240" height="19"/>
                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J8a-Y6-gKl">
-                                <rect key="frame" x="102.5" y="67.5" width="170.5" height="38.5"/>
+                                <rect key="frame" x="75" y="67.5" width="170.5" height="38.5"/>
                                 <string key="text">What do you most want
 to improve?</string>
                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
@@ -125,10 +125,10 @@ to improve?</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KNt-Qa-brb">
-                                <rect key="frame" x="40" y="125.5" width="295" height="40"/>
+                                <rect key="frame" x="40" y="125.5" width="240" height="40"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Type here or choose a suggestion" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GOk-Oe-5yQ">
-                                        <rect key="frame" x="10" y="0.0" width="275" height="40"/>
+                                        <rect key="frame" x="10" y="0.0" width="220" height="40"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
@@ -210,40 +210,40 @@ to improve?</string>
             <objects>
                 <viewController storyboardIdentifier="ImproveHypothesisViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="EEk-em-v4u" customClass="ImproveHypothesisViewController" customModule="Modacity" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7yC-Rn-9nX">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_common" translatesAutoresizingMaskIntoConstraints="NO" id="TWI-je-0k1">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="707"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="520"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XiW-8A-0Jh">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <action selector="onHideKeyboard:" destination="EEk-em-v4u" eventType="touchUpInside" id="cWq-1w-VBJ"/>
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="06b-zD-X1N">
-                                <rect key="frame" x="0.0" y="196" width="375" height="471"/>
+                                <rect key="frame" x="0.0" y="196" width="320" height="284"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="ONP-b6-CEc">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="30"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HypothesisCell" rowHeight="60" id="Zgx-Oc-q57">
-                                        <rect key="frame" x="0.0" y="58" width="375" height="60"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HypothesisCell" rowHeight="60" id="Zgx-Oc-q57">
+                                        <rect key="frame" x="0.0" y="58" width="320" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Zgx-Oc-q57" id="HTh-D3-Hgf">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" image="bg_hypothesis_box" translatesAutoresizingMaskIntoConstraints="NO" id="hMx-sp-UN2">
-                                                    <rect key="frame" x="30" y="5.5" width="314" height="50"/>
+                                                    <rect key="frame" x="2.5" y="5.5" width="314" height="50"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="10" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="azI-ok-yu8">
-                                                    <rect key="frame" x="50" y="10.5" width="284" height="35"/>
+                                                    <rect key="frame" x="22.5" y="10.5" width="284" height="35"/>
                                                     <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -267,7 +267,7 @@ to improve?</string>
                                 </connections>
                             </tableView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_header_216" translatesAutoresizingMaskIntoConstraints="NO" id="Sfh-3U-LUg">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="222"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="222"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="222" id="SZ2-Et-8Ia"/>
                                 </constraints>
@@ -276,28 +276,28 @@ to improve?</string>
                                 <rect key="frame" x="16" y="35" width="10" height="15"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Practice name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wRI-PG-GAA">
-                                <rect key="frame" x="40" y="33.5" width="295" height="19"/>
+                                <rect key="frame" x="40" y="33.5" width="240" height="19"/>
                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rythm" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hI4-7k-Ypn">
-                                <rect key="frame" x="163.5" y="62.5" width="47" height="19.5"/>
+                                <rect key="frame" x="136" y="62.5" width="47" height="19.5"/>
                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set a specific achievable  goal to improve." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sm0-yO-zPq">
-                                <rect key="frame" x="87.5" y="92" width="199.5" height="14.5"/>
+                                <rect key="frame" x="60" y="92" width="199.5" height="14.5"/>
                                 <fontDescription key="fontDescription" name="Lato-Italic" family="Lato" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d3K-3Q-jhR">
-                                <rect key="frame" x="40" y="116.5" width="295" height="40"/>
+                                <rect key="frame" x="40" y="116.5" width="240" height="40"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Type here or choose a suggestion" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ept-D1-o2E">
-                                        <rect key="frame" x="10" y="0.0" width="275" height="40"/>
+                                        <rect key="frame" x="10" y="0.0" width="220" height="40"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
@@ -327,7 +327,7 @@ to improve?</string>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DRq-ko-RoK">
-                                <rect key="frame" x="103.5" y="583" width="168" height="64"/>
+                                <rect key="frame" x="76" y="396" width="168" height="64"/>
                                 <state key="normal" image="btn_try_again"/>
                                 <connections>
                                     <action selector="onTryAgain:" destination="EEk-em-v4u" eventType="touchUpInside" id="ceM-Xq-Dia"/>
@@ -1486,7 +1486,7 @@ you wanted?</string>
                                             <constraint firstItem="veN-hc-7Lg" firstAttribute="centerX" secondItem="9K9-lY-yxl" secondAttribute="centerX" id="Bqw-K7-ZjO"/>
                                             <constraint firstAttribute="bottom" secondItem="fJa-xz-dgw" secondAttribute="bottom" id="GzZ-MV-NF0"/>
                                             <constraint firstItem="aZu-6o-vXv" firstAttribute="leading" secondItem="sAH-iB-9XP" secondAttribute="trailing" constant="10" id="N08-B0-pzb"/>
-                                            <constraint firstItem="E5a-mJ-Fci" firstAttribute="top" secondItem="Vos-2R-MlM" secondAttribute="bottom" constant="10" id="UGN-qT-stA"/>
+                                            <constraint firstItem="E5a-mJ-Fci" firstAttribute="top" secondItem="Vos-2R-MlM" secondAttribute="bottom" constant="5" id="UGN-qT-stA"/>
                                             <constraint firstAttribute="bottom" secondItem="veN-hc-7Lg" secondAttribute="bottom" id="VmD-HX-N1O"/>
                                             <constraint firstItem="Vos-2R-MlM" firstAttribute="centerX" secondItem="E5a-mJ-Fci" secondAttribute="centerX" id="a0d-gc-Nty"/>
                                             <constraint firstAttribute="trailing" secondItem="veN-hc-7Lg" secondAttribute="trailing" constant="30" id="aEk-bG-vlL"/>
@@ -1509,7 +1509,7 @@ you wanted?</string>
                                     <constraint firstItem="Rd3-wW-Frf" firstAttribute="leading" secondItem="4at-MK-eiG" secondAttribute="leading" id="pVl-xM-own"/>
                                     <constraint firstItem="Rd3-wW-Frf" firstAttribute="top" secondItem="4at-MK-eiG" secondAttribute="top" id="rzT-t6-oZb"/>
                                     <constraint firstItem="YA6-Qg-Tb1" firstAttribute="top" secondItem="Rd3-wW-Frf" secondAttribute="bottom" id="srE-W5-CPj"/>
-                                    <constraint firstItem="Rd3-wW-Frf" firstAttribute="height" secondItem="4at-MK-eiG" secondAttribute="height" multiplier="0.5" id="tda-0s-bdf"/>
+                                    <constraint firstItem="Rd3-wW-Frf" firstAttribute="height" secondItem="4at-MK-eiG" secondAttribute="height" multiplier="0.4" id="tda-0s-bdf"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p9Y-d1-ELL">
@@ -1564,13 +1564,13 @@ you wanted?</string>
                                         <rect key="frame" x="127" y="107" width="120" height="120.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OCTAVE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sdq-ur-Vo9">
-                                                <rect key="frame" x="-20" y="19" width="39" height="12"/>
+                                                <rect key="frame" x="-19.5" y="19" width="39" height="12"/>
                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="10"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cOt-ch-ZN4" userLabel="labelOctave">
-                                                <rect key="frame" x="-17.5" y="42" width="36" height="19"/>
+                                                <rect key="frame" x="-18" y="42" width="36" height="19"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="36" id="MsD-H9-fZK"/>
                                                 </constraints>
@@ -1579,14 +1579,14 @@ you wanted?</string>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" alpha="0.75" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="52N-E6-Efj" userLabel="octave-">
-                                                <rect key="frame" x="-48.5" y="34" width="36" height="36"/>
+                                                <rect key="frame" x="-49" y="34" width="36" height="36"/>
                                                 <state key="normal" image="icon_minus"/>
                                                 <connections>
                                                     <action selector="onOctaveDown:" destination="ey2-fW-n4E" eventType="touchUpInside" id="IxS-UT-dAh"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" alpha="0.75" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vOB-Th-tBr" userLabel="octave+">
-                                                <rect key="frame" x="13.5" y="34" width="36" height="36"/>
+                                                <rect key="frame" x="13" y="34" width="36" height="36"/>
                                                 <state key="normal" image="icon_plus"/>
                                                 <connections>
                                                     <action selector="onOctaveUp:" destination="ey2-fW-n4E" eventType="touchUpInside" id="paM-rq-s51"/>
@@ -1965,8 +1965,8 @@ til the very end of the…</string>
                             <constraint firstItem="hEd-zD-q8c" firstAttribute="top" secondItem="XCN-Qq-HnU" secondAttribute="bottom" constant="8" id="F0A-mX-fPR"/>
                             <constraint firstItem="WWB-Kv-nA3" firstAttribute="leading" secondItem="Aji-Qk-fnE" secondAttribute="leading" id="Ge3-ik-TP2"/>
                             <constraint firstItem="hEd-zD-q8c" firstAttribute="leading" secondItem="Aji-Qk-fnE" secondAttribute="leading" id="KdR-1y-EKq"/>
-                            <constraint firstItem="ce0-fW-BLl" firstAttribute="top" secondItem="hyE-S4-WCR" secondAttribute="bottom" constant="16.5" id="LqR-15-QWd"/>
-                            <constraint firstItem="XCN-Qq-HnU" firstAttribute="top" secondItem="ce0-fW-BLl" secondAttribute="bottom" constant="36" id="Niy-Qr-LTj"/>
+                            <constraint firstItem="ce0-fW-BLl" firstAttribute="top" secondItem="hyE-S4-WCR" secondAttribute="bottom" constant="10" id="LqR-15-QWd"/>
+                            <constraint firstItem="XCN-Qq-HnU" firstAttribute="top" secondItem="ce0-fW-BLl" secondAttribute="bottom" constant="20" id="Niy-Qr-LTj"/>
                             <constraint firstItem="4at-MK-eiG" firstAttribute="trailing" secondItem="hEd-zD-q8c" secondAttribute="trailing" id="OSG-C9-OMQ"/>
                             <constraint firstItem="BGj-Hd-ioY" firstAttribute="top" secondItem="WWB-Kv-nA3" secondAttribute="bottom" constant="-5" id="Pdc-8u-hXN"/>
                             <constraint firstItem="VFo-0a-Yhv" firstAttribute="top" secondItem="Aji-Qk-fnE" secondAttribute="top" constant="16" id="REC-AU-V5G"/>
@@ -1974,10 +1974,10 @@ til the very end of the…</string>
                             <constraint firstItem="WWB-Kv-nA3" firstAttribute="top" secondItem="HH3-Ky-cm9" secondAttribute="top" id="UQy-Ae-5N3"/>
                             <constraint firstItem="BGj-Hd-ioY" firstAttribute="trailing" secondItem="Aji-Qk-fnE" secondAttribute="trailing" id="WbF-zI-lY5"/>
                             <constraint firstItem="wZS-FU-gAc" firstAttribute="trailing" secondItem="Aji-Qk-fnE" secondAttribute="trailing" id="Ya7-fK-2DH"/>
-                            <constraint firstItem="WWB-Kv-nA3" firstAttribute="height" secondItem="wZS-FU-gAc" secondAttribute="height" multiplier="448/667" id="Zw7-Y1-1om"/>
+                            <constraint firstItem="WWB-Kv-nA3" firstAttribute="height" secondItem="wZS-FU-gAc" secondAttribute="height" multiplier="418/667" id="Zw7-Y1-1om"/>
                             <constraint firstItem="r8Y-sd-w3N" firstAttribute="top" secondItem="Aji-Qk-fnE" secondAttribute="top" constant="-20" id="bNc-iw-NHB"/>
                             <constraint firstItem="VFo-0a-Yhv" firstAttribute="leading" secondItem="Aji-Qk-fnE" secondAttribute="leading" constant="44" id="ciH-eW-km5"/>
-                            <constraint firstItem="hyE-S4-WCR" firstAttribute="top" secondItem="VFo-0a-Yhv" secondAttribute="bottom" constant="18" id="cvp-eg-qmO"/>
+                            <constraint firstItem="hyE-S4-WCR" firstAttribute="top" secondItem="VFo-0a-Yhv" secondAttribute="bottom" constant="10" id="cvp-eg-qmO"/>
                             <constraint firstItem="wZS-FU-gAc" firstAttribute="leading" secondItem="Aji-Qk-fnE" secondAttribute="leading" id="edn-Ny-nny"/>
                             <constraint firstItem="Exn-Lj-YhY" firstAttribute="bottom" secondItem="Aji-Qk-fnE" secondAttribute="bottom" id="iI9-9Q-LSE"/>
                             <constraint firstAttribute="trailing" secondItem="p9Y-d1-ELL" secondAttribute="trailing" id="j2V-AX-lSc"/>
@@ -1985,7 +1985,7 @@ til the very end of the…</string>
                             <constraint firstItem="r8Y-sd-w3N" firstAttribute="leading" secondItem="Aji-Qk-fnE" secondAttribute="leading" id="jWf-m1-bDB"/>
                             <constraint firstItem="Aji-Qk-fnE" firstAttribute="bottom" secondItem="yKr-6a-hqv" secondAttribute="bottom" constant="100" id="lRz-mp-6xf"/>
                             <constraint firstItem="p9Y-d1-ELL" firstAttribute="leading" secondItem="HH3-Ky-cm9" secondAttribute="leading" id="nFc-uY-5Pi"/>
-                            <constraint firstItem="hEd-zD-q8c" firstAttribute="bottom" secondItem="WWB-Kv-nA3" secondAttribute="bottom" constant="-30" id="nP3-cQ-byG"/>
+                            <constraint firstItem="hEd-zD-q8c" firstAttribute="bottom" secondItem="WWB-Kv-nA3" secondAttribute="bottom" constant="-10" id="nP3-cQ-byG"/>
                             <constraint firstItem="Aji-Qk-fnE" firstAttribute="bottom" secondItem="p9Y-d1-ELL" secondAttribute="bottom" constant="-34" id="nSe-Jh-z1k"/>
                             <constraint firstItem="XCN-Qq-HnU" firstAttribute="centerX" secondItem="Aji-Qk-fnE" secondAttribute="centerX" id="njU-gJ-5Yh"/>
                             <constraint firstItem="Exn-Lj-YhY" firstAttribute="trailing" secondItem="Aji-Qk-fnE" secondAttribute="trailing" id="pck-n6-bZd"/>
@@ -2044,7 +2044,7 @@ til the very end of the…</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aNm-EF-INa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1561" y="936"/>
+            <point key="canvasLocation" x="1561" y="1172"/>
         </scene>
     </scenes>
     <resources>

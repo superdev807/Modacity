@@ -155,10 +155,10 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rue-UM-oQB">
-                                                    <rect key="frame" x="10" y="19.5" width="357" height="17"/>
+                                                    <rect key="frame" x="10" y="19" width="299" height="17"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rate the App" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cC6-go-BKC">
-                                                            <rect key="frame" x="0.0" y="0.0" width="80" height="17"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rate the App" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cC6-go-BKC">
+                                                            <rect key="frame" x="0.0" y="0.0" width="299" height="17"/>
                                                             <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
@@ -169,11 +169,15 @@
                                                         <constraint firstItem="cC6-go-BKC" firstAttribute="leading" secondItem="rue-UM-oQB" secondAttribute="leading" id="DuW-1a-JL3"/>
                                                         <constraint firstAttribute="bottom" secondItem="cC6-go-BKC" secondAttribute="bottom" id="JNT-sa-gai"/>
                                                         <constraint firstItem="cC6-go-BKC" firstAttribute="top" secondItem="rue-UM-oQB" secondAttribute="top" id="XKw-II-2Et"/>
+                                                        <constraint firstAttribute="trailing" secondItem="cC6-go-BKC" secondAttribute="trailing" id="sO9-pr-lda"/>
                                                     </constraints>
                                                 </view>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ki4-zQ-5DI">
-                                                    <rect key="frame" x="325" y="13.5" width="42" height="28"/>
+                                                    <rect key="frame" x="317" y="13.5" width="50" height="28"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="50" id="viR-hx-T1g"/>
+                                                    </constraints>
                                                     <state key="normal" image="img_switch_off"/>
                                                     <state key="selected" image="img_switch_on"/>
                                                     <connections>
@@ -186,7 +190,7 @@
                                                 <constraint firstItem="rue-UM-oQB" firstAttribute="centerY" secondItem="2th-Il-g2i" secondAttribute="centerY" id="F5S-eh-tPt"/>
                                                 <constraint firstItem="Ki4-zQ-5DI" firstAttribute="centerY" secondItem="2th-Il-g2i" secondAttribute="centerY" id="QOU-re-qwu"/>
                                                 <constraint firstAttribute="trailing" secondItem="Ki4-zQ-5DI" secondAttribute="trailing" constant="8" id="Whu-4B-UDk"/>
-                                                <constraint firstAttribute="trailing" secondItem="rue-UM-oQB" secondAttribute="trailing" constant="8" id="rJP-63-84y"/>
+                                                <constraint firstItem="Ki4-zQ-5DI" firstAttribute="leading" secondItem="rue-UM-oQB" secondAttribute="trailing" constant="8" id="s11-AT-XNy"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -491,7 +495,7 @@
     </scenes>
     <resources>
         <image name="bg_common" width="375" height="667"/>
-        <image name="bg_header_small" width="375" height="126"/>
+        <image name="bg_header_small" width="375" height="87"/>
         <image name="btn_update_password" width="314" height="64"/>
         <image name="icon_arrow_down" width="15" height="10"/>
         <image name="icon_arrow_left" width="10" height="15"/>

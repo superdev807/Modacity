@@ -38,11 +38,6 @@ class PracticeViewController: UIViewController {
     var timerShouldFinish = 0
     var dingSoundPlayer: AVAudioPlayer? = nil
     
-    
-    // MARK: - Properties for prompt panel processing
-    @IBOutlet weak var viewPromptPanel: UIView!
-    @IBOutlet weak var viewWalkThrough: UIView!
-    
     // MARK: - Properties for recording
     @IBOutlet weak var btnRecord: UIButton!
     @IBOutlet weak var waveformAudioPlay: FDWaveformView!
@@ -110,6 +105,14 @@ class PracticeViewController: UIViewController {
     var quoteSelected: [String:String]!
     var notesToShow = [Note]()
     
+    // MARK: - Properties for prompt panel processing
+    @IBOutlet weak var viewWalkThrough: UIView!
+    @IBOutlet weak var constraintWalkThroughNotesLeadingSpace: NSLayoutConstraint!
+    
+    // MARK: - Properties for ui resizing
+    
+    @IBOutlet weak var constraintForImageHeaderViewHeight: NSLayoutConstraint!
+    
     var practiceStartedTime: Date!
     
     override func viewDidLoad() {
@@ -126,6 +129,14 @@ class PracticeViewController: UIViewController {
         if AppUtils.sizeModelOfiPhone() == .iphone6p_55in {
             metrodroneViewHeight = CGFloat(380)
             constraintForDroneBackgroundImageViewHeight.constant = CGFloat(380)
+            constraintWalkThroughNotesLeadingSpace.constant = 100
+            constraintForImageHeaderViewHeight.constant = 480
+        } else if AppUtils.sizeModelOfiPhone() == .iphone6_47in {
+            constraintForImageHeaderViewHeight.constant = 480
+        } else if AppUtils.sizeModelOfiPhone() == .iphone5_4in {
+            constraintForImageHeaderViewHeight.constant = 360
+        } else if AppUtils.sizeModelOfiPhone() == .iphone4_35in {
+            constraintForImageHeaderViewHeight.constant = 320
         }
         
         self.initializeDroneUIs()
@@ -423,9 +434,6 @@ extension PracticeViewController {
     
     func startMetrodrone() {
         ModacityAnalytics.LogEvent(.MetrodroneDrawerOpen)
-        if !self.viewPromptPanel.isHidden {
-            self.onCloseAlertPanel(self.view)
-        }
         if self.metrodonePlayer == nil {
             prepareMetrodrone()
         }
@@ -552,9 +560,11 @@ extension PracticeViewController {
             if timerRunning {
                 duration = Int(Date().timeIntervalSince1970 - self.timerStarted.timeIntervalSince1970) + self.secondsPrevPlayed
             } else {
-                duration = self.secondsPrevPlayed
+                duration = self.secondsPrevPlayed ?? 0
             }
-            self.timer.invalidate()
+            if self.timer != nil {
+                self.timer.invalidate()
+            }
             if self.playlistViewModel != nil {
                 self.playlistViewModel.setDuration(forPracticeItem: self.playlistViewModel.currentPracticeEntry.entryId,
                                                    duration: duration + (self.playlistViewModel.duration(forPracticeItem: self.playlistViewModel.currentPracticeEntry.entryId) ?? 0))
@@ -822,11 +832,6 @@ extension PracticeViewController: AVAudioPlayerDelegate, FDWaveformViewDelegate 
 // MARK: - Process recording
 extension PracticeViewController {
     @IBAction func onRecordStart(_ sender: Any) {
-        
-        if !self.viewPromptPanel.isHidden {
-            self.onCloseAlertPanel(sender)
-        }
-        
         if !self.isRecording {
             
             self.viewAudioPlayer.isHidden = true
@@ -901,30 +906,6 @@ extension PracticeViewController {
     }
 }
 
-// MARK: - Tip prompt panel processing
-extension PracticeViewController {
-    
-    func initializeTipPromptPanel() {
-        self.viewPromptPanel.layer.cornerRadius = 5
-        if UserDefaults.standard.bool(forKey: "tooltip_shown") {
-            self.viewPromptPanel.isHidden = true
-        } else {
-            self.viewPromptPanel.isHidden = false
-            UserDefaults.standard.set(true, forKey: "tooltip_shown")
-            UserDefaults.standard.synchronize()
-        }
-    }
-    
-    @IBAction func onCloseAlertPanel(_ sender: Any) {
-        UIView.animate(withDuration: 0.5, animations: {
-            self.viewPromptPanel.alpha = 0
-        }) { (_) in
-            self.viewPromptPanel.isHidden = true
-        }
-    }
-    
-}
-
 // MARK: - Timer processing
 extension PracticeViewController {
     
@@ -960,10 +941,6 @@ extension PracticeViewController {
     }
     
     @IBAction func onTapTimer(_ sender: Any) {
-        if !self.viewPromptPanel.isHidden {
-            self.onCloseAlertPanel(sender)
-        }
-        
         if self.timerRunning {
              ModacityAnalytics.LogStringEvent("Paused Practice Timer")
             self.secondsPrevPlayed = Int(Date().timeIntervalSince1970 - self.timerStarted.timeIntervalSince1970) + self.secondsPrevPlayed
