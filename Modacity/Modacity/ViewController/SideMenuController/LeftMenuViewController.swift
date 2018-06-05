@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Intercom
 
 class LeftMenuViewController: UIViewController {
     
@@ -125,30 +126,6 @@ extension LeftMenuViewController: UITableViewDataSource, UITableViewDelegate {
             }
             self.sideMenuController?.hideLeftViewAnimated()
             
-//            if self.sideMenuController?.rootViewController is TabBarViewController {
-//                let tabbarController = self.sideMenuController?.rootViewController as! TabBarViewController
-//                if tabbarController.selectedIndex != 2 {
-//                    tabbarController.onTabRecord()
-//                }
-//            } else {
-//                let tabBarViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TabBarViewController") as! TabBarViewController
-//                tabBarViewController.startingTabIndex = 2
-//                self.sideMenuController?.rootViewController = tabBarViewController
-//            }
-//
-//            self.sideMenuController?.hideLeftViewAnimated()
-//        } else if indexPath.row == 4 {
-//            if (self.sideMenuController?.rootViewController is UINavigationController)
-//                && (self.sideMenuController?.rootViewController as! UINavigationController).viewControllers[0] is FeedbackRootViewController {
-//                let feedbackRootViewController = (self.sideMenuController?.rootViewController as! UINavigationController).viewControllers[0] as! FeedbackRootViewController
-//                if feedbackRootViewController.pageUIMode == 1 {
-//                    feedbackRootViewController.changePageUIMode(to: 0)
-//                }
-//            } else {
-//                let controller = UIStoryboard(name:"feedback", bundle:nil).instantiateViewController(withIdentifier: "feedbackscene")
-//                self.sideMenuController?.rootViewController = controller
-//            }
-//            self.sideMenuController?.hideLeftViewAnimated()
         } else if indexPath.row == 3 {
             if (self.sideMenuController?.rootViewController is UINavigationController)
                 && (self.sideMenuController?.rootViewController as! UINavigationController).viewControllers[0] is SettingsViewController {
@@ -159,6 +136,7 @@ extension LeftMenuViewController: UITableViewDataSource, UITableViewDelegate {
             }
             self.sideMenuController?.hideLeftViewAnimated()
         } else if indexPath.row == 4 {
+            /*
             if (self.sideMenuController?.rootViewController is UINavigationController)
                 && (self.sideMenuController?.rootViewController as! UINavigationController).viewControllers[0] is FeedbackRootViewController {
                 let feedbackRootViewController = (self.sideMenuController?.rootViewController as! UINavigationController).viewControllers[0] as! FeedbackRootViewController
@@ -166,11 +144,15 @@ extension LeftMenuViewController: UITableViewDataSource, UITableViewDelegate {
                     feedbackRootViewController.changePageUIMode(to: 1)
                 }
             } else {
+                // open feedback
                 let controller = UIStoryboard(name:"feedback", bundle:nil).instantiateViewController(withIdentifier: "feedbackscene") as! UINavigationController
                 let feedbackRootViewController = controller.viewControllers[0] as! FeedbackRootViewController
                 feedbackRootViewController.pageUIMode = 1
                 self.sideMenuController?.rootViewController = controller
             }
+ */
+            Intercom.presentMessageComposer()
+            
             self.sideMenuController?.hideLeftViewAnimated()
         } else if indexPath.row == 5 {
             if (self.sideMenuController?.rootViewController is UINavigationController)

@@ -10,6 +10,7 @@ import UIKit
 import AVFoundation
 import SCSiriWaveformView
 import FDWaveformView
+import Intercom
 
 class PracticeViewController: UIViewController {
     
@@ -635,6 +636,7 @@ extension PracticeViewController {
     
     @IBAction func onAskExpert(_ sender: Any) {
         ModacityAnalytics.LogEvent(.PressedAsk)
+        /*
         if self.recorder != nil && self.recorder.isRecording {
             AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Please stop recording before leaving the page.")
             return
@@ -645,22 +647,11 @@ extension PracticeViewController {
         feedbackRootViewController.pageIsRootFromMenu = false
         feedbackRootViewController.pageUIMode = 0
         self.present(controller, animated: true, completion: nil)
-        
+        */
+        //Intercom.presentMessageComposer()
+        Intercom.presentMessenger()
     }
     
-    @IBAction func onFeedback(_ sender: Any) {
-        ModacityAnalytics.LogEvent(.PressedFeedback)
-        if self.recorder != nil && self.recorder.isRecording {
-            AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Please stop recording before leaving the page.")
-            return
-        }
-        
-        let controller = UIStoryboard(name:"feedback", bundle:nil).instantiateViewController(withIdentifier: "feedbackscene") as! UINavigationController
-        let feedbackRootViewController = controller.viewControllers[0] as! FeedbackRootViewController
-        feedbackRootViewController.pageIsRootFromMenu = false
-        feedbackRootViewController.pageUIMode = 1
-        self.present(controller, animated: true, completion: nil)
-    }
 }
 
 // MARK: - Process audio player
