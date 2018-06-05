@@ -649,6 +649,10 @@ extension PracticeViewController {
         self.present(controller, animated: true, completion: nil)
         */
         //Intercom.presentMessageComposer()
+        let foo :ICMUserAttributes = ICMUserAttributes.init()
+        foo.customAttributes = ["locationfoo" : "practice"]
+        Intercom.updateUser(foo)
+        
         Intercom.presentMessenger()
     }
     
@@ -756,11 +760,7 @@ extension PracticeViewController: AVAudioPlayerDelegate, FDWaveformViewDelegate 
     
     @IBAction func onPlayPauseAudio(_ sender: Any) {
         if self.isPlaying {
-            if let player = player {
-                player.pause()
-            }
-            self.isPlaying = false
-            self.buttonAudioPlay.setImage(UIImage(named: "icon_play"), for: .normal)
+            pauseAudio()
         } else {
             startPlayAudio()
         }
@@ -772,6 +772,14 @@ extension PracticeViewController: AVAudioPlayerDelegate, FDWaveformViewDelegate 
         }
         self.isPlaying = true
         self.buttonAudioPlay.setImage(UIImage(named: "icon_pause_white"), for: .normal)
+    }
+    
+    func pauseAudio() {
+        if let player = player {
+            player.pause()
+        }
+        self.isPlaying = false
+        self.buttonAudioPlay.setImage(UIImage(named: "icon_play"), for: .normal)
     }
     
     @IBAction func onSaveRecord(_ sender: Any) {
@@ -824,19 +832,20 @@ extension PracticeViewController: AVAudioPlayerDelegate, FDWaveformViewDelegate 
 extension PracticeViewController {
     @IBAction func onRecordStart(_ sender: Any) {
         if !self.isRecording {
-            
+            // Start Recording
             self.viewAudioPlayer.isHidden = true
             self.viewSiriWaveFormView.isHidden = false
             
             self.imageViewHeader.image = UIImage(named:"bg_practice_recording_header")
             self.btnRecord.setImage(UIImage(named:"btn_record_stop"), for: .normal)
             
+            self.pauseAudio()
             self.startRecording()
             
             self.isRecording = true
             
         } else {
-            
+            // Stop Recording
             self.imageViewHeader.image = UIImage(named:"bg_practice_header")
             self.btnRecord.setImage(UIImage(named:"img_record"), for: .normal)
             
