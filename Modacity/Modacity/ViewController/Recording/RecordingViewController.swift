@@ -430,9 +430,9 @@ extension RecordingViewController: RecordingCellDelegate {
         
         DropdownMenuView.instance.show(in: self.view,
                                        on: buttonMenu,
-                                       rows: [["icon":"icon_row_delete", "text":"Delete"],
-                                              ["icon":"icon_share_white", "text": "Share"]]) { (row) in
-                                                if row == 0 {
+                                       rows: [["icon":"icon_share_white", "text": "Share"],
+                                              ["icon":"icon_row_delete", "text":"Delete"]]) { (row) in
+                                                if row == 1 {
                                                     if let currentPlaying = self.viewModel.playingRecording {
                                                         if currentPlaying.id == recording.id {
                                                             return

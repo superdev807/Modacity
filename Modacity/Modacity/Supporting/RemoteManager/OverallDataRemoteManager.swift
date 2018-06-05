@@ -19,7 +19,7 @@ class OverallDataRemoteManager {
         if let userId = MyProfileLocalManager.manager.userId() {
             self.refUser.child(userId).child("overall").observeSingleEvent(of: .value) { (snapshot) in
                 if (!snapshot.exists()) {
-                    self.shipDefaultData()
+//                    self.shipDefaultData()
                     self.startUpdatingOverallData()      // sync from local
                 } else {
                     if let overallData = snapshot.value as? [String:Any] {
@@ -31,9 +31,9 @@ class OverallDataRemoteManager {
                                                                       streakTo: overallData["streak_to"] as? String ?? Date().toString(format: "yyyy-MM-dd"),
                                                                       defaultDataShiped: overallData["default_data_ship"] as? Bool ?? false)
                         
-                        if !AppOveralDataManager.manager.defaultDataShiped() {
-                            self.shipDefaultData()
-                        }
+//                        if !AppOveralDataManager.manager.defaultDataShiped() {
+//                            self.shipDefaultData()
+//                        }
                     }
                 }
             }

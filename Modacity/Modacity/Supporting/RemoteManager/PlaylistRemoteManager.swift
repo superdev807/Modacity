@@ -21,6 +21,9 @@ class PlaylistRemoteManager {
                 if (!snapshot.exists()) {
                     self.startUploadAllPlaylists()      // sync from local
                 } else {
+                    if snapshot.children.allObjects.count == 0 {
+                        self.processDefaultDataship()
+                    }
                     for data in snapshot.children.allObjects as! [DataSnapshot] {
                         if let playlistData = data.value as? [String:Any] {
                             if let item = Playlist(JSON: playlistData) {
@@ -38,12 +41,22 @@ class PlaylistRemoteManager {
     
     func startUploadAllPlaylists() {
         if let userId = MyProfileLocalManager.manager.userId() {
-            print("Uploading all local playlists to backend.")
             if let playlists = PlaylistLocalManager.manager.loadPlaylists() {
+                if playlists.count == 0 {
+                    self.processDefaultDataship()
+                }
                 for playlist in playlists {
                     refUser.child(userId).child("playlists").child(playlist.id).setValue(playlist.toJSON())
                 }
+            } else {
+                self.processDefaultDataship()
             }
+        }
+    }
+    
+    func processDefaultDataship() {
+        if !AppOveralDataManager.manager.defaultDataShiped() {
+            OverallDataRemoteManager.manager.shipDefaultData()
         }
     }
     

@@ -161,9 +161,9 @@ extension PlaylistViewController: PlaylistCellDelegate {
     func onMenu(_ playlist: Playlist, buttonMenu: UIButton, cell: PlaylistCell) {
         DropdownMenuView.instance.show(in: self.view,
                                        on: buttonMenu,
-                                       rows: [["icon":"icon_row_delete", "text":"Delete"],
-                                              ["icon":"icon_pen_white", "text": "Rename"]]) { (row) in
-                                                if row == 0 {
+                                       rows: [["icon":"icon_pen_white", "text": "Rename"],
+                                              ["icon":"icon_row_delete", "text":"Delete"]]) { (row) in
+                                                if row == 1 {
                                                     self.viewModel.deletePlaylist(for: playlist)
                                                 } else  {
 
@@ -177,9 +177,6 @@ extension PlaylistViewController: PlaylistCellDelegate {
                                                     cell.textfieldPlaylistName.text = cell.playlist.name
                                                     self.editingCell = cell
                                                     cell.textfieldPlaylistName.becomeFirstResponder()
-//                                                    self.viewModel.detailSelection = playlist
-//                                                    ModacityAnalytics.LogEvent(.NewPlaylist, extraParamName: "Playlist", extraParamValue: self.viewModel.detailSelection!.name)
-//                                                    self.performSegue(withIdentifier: "sid_details", sender: nil)
                                                 }
         }
     }

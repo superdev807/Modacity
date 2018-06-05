@@ -279,10 +279,10 @@ extension PracticeNotesViewController: NoteCellDelegate, ButtonCellDelegate {
     func onMenu(note: Note, buttonMenu: UIButton, cell:NoteCell) {
         DropdownMenuView.instance.show(in: self.view,
                                        on: buttonMenu,
-                                       rows: [["icon":"icon_row_delete", "text":"Delete"],
-                                              ["icon":"icon_pen_white", "text": "Edit"]]) { (row) in
+                                       rows: [["icon":"icon_pen_white", "text": "Edit"],
+                                              ["icon":"icon_row_delete", "text":"Delete"]]) { (row) in
                                         
-                                                if row == 0 {
+                                                if row == 1 {
                                                     
                                                     let alert = UIAlertController(title: nil, message: "Are you sure to delete this note?", preferredStyle: .alert)
                                                     alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (_) in

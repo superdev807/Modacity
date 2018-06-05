@@ -17,7 +17,7 @@ class PracticeItem: Mappable {
     var lastPracticed: String?
     var lastPracticedDurationInSecond: Int?
     var rating: Double = 0
-    var isFavorite: Bool = false
+    var isFavorite: Int = 0
     
     init() {
         name = ""
@@ -42,7 +42,7 @@ class PracticeItem: Mappable {
     }
     
     func updateFavorite(favorite: Bool) {
-        self.isFavorite = favorite
+        self.isFavorite = favorite ? 1 : 0
         self.updateMe()
     }
     
@@ -87,7 +87,6 @@ class PracticeItem: Mappable {
     
     func updateMe() {
         PracticeItemLocalManager.manager.updatePracticeItem(self)
-        PracticeItemRemoteManager.manager.update(item: self)
     }
     
     func lastPracticedTimeString() -> String {

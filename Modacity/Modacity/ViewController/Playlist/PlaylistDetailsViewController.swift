@@ -64,15 +64,14 @@ class PlaylistDetailsViewController: UIViewController {
         self.viewWalkThrough2.isHidden = true
         
         if self.shouldStartFromPracticeSelection {
-            if let playlists = PlaylistLocalManager.manager.loadPlaylists() {
-                if playlists.count > 0 {
-                    self.openPracticeItemsSelection()
-                    return
-                }
+            if AppOveralDataManager.manager.firstPlaylistGenerated() {
+                self.openPracticeItemsSelection()
+                return
             }
             self.viewModel.playlistName = "My First Playlist"
             self.buttonEditName.isHidden = false
             self.openPracticeItemsSelection()
+            AppOveralDataManager.manager.generatedFirstPlaylist()
         } else {
             self.processWalkThrough()
         }
@@ -164,9 +163,11 @@ class PlaylistDetailsViewController: UIViewController {
         }
     }
     
-    func dismissWalkThrough1() {
+    func dismissWalkThrough1(withSetting: Bool) {
         self.viewWalkThrough1.removeFromSuperview()
-        AppOveralDataManager.manager.walkThroughFirstPlaylist()
+        if withSetting {
+            AppOveralDataManager.manager.walkThroughFirstPlaylist()
+        }
         self.showingWalkThrough1 = false
     }
     
@@ -182,7 +183,7 @@ class PlaylistDetailsViewController: UIViewController {
     }
     
     @IBAction func onDismissWalkThrough1(_ sender: Any) {
-        self.dismissWalkThrough1()
+        self.dismissWalkThrough1(withSetting: false)
     }
     
     func showWalkThroughNaming() {
@@ -420,9 +421,7 @@ class PlaylistDetailsViewController: UIViewController {
         AppOveralDataManager.manager.storeFirstPlaylist()
         
         if self.showingWalkThrough1 {
-            if self.showingWalkThrough1 {
-                self.dismissWalkThrough1()
-            }
+            self.dismissWalkThrough1(withSetting: true)
         }
         
         if !self.viewWalkThrough2.isHidden {

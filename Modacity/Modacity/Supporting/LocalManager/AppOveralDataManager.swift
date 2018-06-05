@@ -255,4 +255,13 @@ class AppOveralDataManager {
         UserDefaults.standard.set(true, forKey: "first_playlist_stored")
         UserDefaults.standard.synchronize()
     }
+    
+    func firstPlaylistGenerated() -> Bool {
+        return UserDefaults.standard.bool(forKey: "first_playlist_generated")
+    }
+    
+    func generatedFirstPlaylist() {
+        UserDefaults.standard.set(true, forKey: "first_playlist_generated")
+        UserDefaults.standard.synchronize()
+    }
 }

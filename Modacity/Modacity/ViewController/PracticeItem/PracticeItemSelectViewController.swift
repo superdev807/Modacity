@@ -192,16 +192,18 @@ class PracticeItemSelectViewController: UIViewController {
     }
     
     @IBAction func onDismissWalkThrough(_ sender: Any) {
-        self.dismissWalkThrough()
+        self.dismissWalkThrough(withSetting: false)
     }
     
-    func dismissWalkThrough() {
+    func dismissWalkThrough(withSetting: Bool) {
         UIView.animate(withDuration: 0.5, animations: {
             self.viewWalkthrough.alpha = 0
         }) { (finished) in
             self.viewWalkthrough.isHidden = true
             if self.viewModel.practiceItems.count > 0 {
-                AppOveralDataManager.manager.walkThroughSecondPage()
+                if withSetting {
+                    AppOveralDataManager.manager.walkThroughSecondPage()
+                }
             }
         }
     }
@@ -263,7 +265,7 @@ extension PracticeItemSelectViewController {
     
     @IBAction func cancelCellEditingMode() {
         
-        self.dismissWalkThrough()
+        self.dismissWalkThrough(withSetting: false)
         
         if self.practiceItemNameEditingCell != nil {
             self.practiceItemNameEditingCell!.textfieldInputPracticeItemName.isHidden = true
@@ -287,6 +289,7 @@ extension PracticeItemSelectViewController {
     
     @IBAction func onSelectItems(_ sender: Any) {
         ModacityAnalytics.LogStringEvent("Added Practice Item to Playlist", extraParamName: "Item Count", extraParamValue: self.viewModel.selectedPracticeItems.count)
+        AppOveralDataManager.manager.walkThroughSecondPage()
         self.parentViewModel.addPracticeItems(self.viewModel.selectedPracticeItems)
         if let parentController = self.parentController {
             parentController.practiceItemsSelected()

@@ -137,17 +137,18 @@ extension PracticeItemListViewController: UITableViewDataSource, UITableViewDele
         tableView.deselectRow(at: indexPath, animated: true)
         
         let practiceItem = self.practiceItems![indexPath.row]
-        var sceneName = ""
-        if AppUtils.sizeModelOfiPhone() == .iphone5_4in || AppUtils.sizeModelOfiPhone() == .iphone4_35in {
-            sceneName = "PracticeSceneForSmallSizes"
-        } else {
-            sceneName = "PracticeScene"
+        if let practice = PracticeItemLocalManager.manager.practiceItem(forId: practiceItem.id) {
+            var sceneName = ""
+            if AppUtils.sizeModelOfiPhone() == .iphone5_4in || AppUtils.sizeModelOfiPhone() == .iphone4_35in {
+                sceneName = "PracticeSceneForSmallSizes"
+            } else {
+                sceneName = "PracticeScene"
+            }
+            let controller = UIStoryboard(name: "practice", bundle: nil).instantiateViewController(withIdentifier: sceneName) as! UINavigationController
+            let practiceViewController = controller.viewControllers[0] as! PracticeViewController
+            practiceViewController.practiceItem = practice
+            self.tabBarController?.present(controller, animated: true, completion: nil)
         }
-        let controller = UIStoryboard(name: "practice", bundle: nil).instantiateViewController(withIdentifier: sceneName) as! UINavigationController
-        let practiceViewController = controller.viewControllers[0] as! PracticeViewController
-        practiceViewController.practiceItem = practiceItem
-        self.tabBarController?.present(controller, animated: true, completion: nil)
-        
         ModacityAnalytics.LogStringEvent("Selected Practice Item", extraParamName: "Name", extraParamValue: practiceItem.name)
     }
     

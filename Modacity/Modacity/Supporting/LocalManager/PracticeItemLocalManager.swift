@@ -139,11 +139,10 @@ class PracticeItemLocalManager {
     
     func isFavoritePracticeItem(for item:String) -> Bool {
         if let practice = self.practiceItem(forId: item) {
-            return practice.isFavorite
+            return practice.isFavorite == 1
         }
         
         return false
-//        return UserDefaults.standard.bool(forKey: "favorite_\(item)")
     }
     
     func ratingValue(for itemId: String) -> Double? {
@@ -152,16 +151,11 @@ class PracticeItemLocalManager {
         }
         
         return nil
-//        if UserDefaults.standard.object(forKey:"rating-" + itemId) == nil {
-//            return nil
-//        } else {
-//            return UserDefaults.standard.double(forKey:"rating-" + itemId)
-//        }
     }
     
     func setFavoritePracticeItem(forItemId:String) {
         if let practice = self.practiceItem(forId: forItemId) {
-            if practice.isFavorite {
+            if practice.isFavorite == 1 {
                 practice.updateFavorite(favorite: false)
                 self.updateFavoriteIds(withRemovingItemId: forItemId)
             } else {
@@ -169,23 +163,12 @@ class PracticeItemLocalManager {
                 self.updateFavoriteIds(withNewItemId: forItemId)
             }
         }
-//        let isFavorite = UserDefaults.standard.bool(forKey: "favorite_\(forItemId)")
-//        if isFavorite {
-//            UserDefaults.standard.removeObject(forKey: "favorite_\(forItemId)")
-//            self.updateFavoriteIds(withRemovingItemId:forItemId)
-//        } else {
-//            UserDefaults.standard.set(true, forKey: "favorite_\(forItemId)")
-//            self.updateFavoriteIds(withNewItemId:forItemId)
-//        }
-//        UserDefaults.standard.synchronize()
     }
     
     func setRatingValue(forItemId: String, rating: Double) {
         if let practice = self.practiceItem(forId: forItemId) {
             practice.updateRating(rating: rating)
         }
-//        UserDefaults.standard.set(rating, forKey: "rating-" + forItemId)
-//        UserDefaults.standard.synchronize()
     }
     
     func updateFavoriteIds(withRemovingItemId: String) {
