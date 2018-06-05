@@ -649,9 +649,9 @@ extension PracticeViewController {
         self.present(controller, animated: true, completion: nil)
         */
         //Intercom.presentMessageComposer()
-        let foo :ICMUserAttributes = ICMUserAttributes.init()
-        foo.customAttributes = ["locationfoo" : "practice"]
-        Intercom.updateUser(foo)
+        let attr :ICMUserAttributes = ICMUserAttributes.init()
+        attr.customAttributes = ["AppLocation" : "practice"]
+        Intercom.updateUser(attr)
         
         Intercom.presentMessenger()
     }

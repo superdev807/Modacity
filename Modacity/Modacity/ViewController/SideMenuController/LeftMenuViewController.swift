@@ -151,9 +151,9 @@ extension LeftMenuViewController: UITableViewDataSource, UITableViewDelegate {
                 self.sideMenuController?.rootViewController = controller
             }
  */
-            let foo :ICMUserAttributes = ICMUserAttributes.init()
-            foo.customAttributes = ["locationfoo" : "feedback"]
-            Intercom.updateUser(foo)
+            let attr :ICMUserAttributes = ICMUserAttributes.init()
+            attr.customAttributes = ["AppLocation" : "feedback"]
+            Intercom.updateUser(attr)
             Intercom.presentMessageComposer()
             
             self.sideMenuController?.hideLeftViewAnimated()
