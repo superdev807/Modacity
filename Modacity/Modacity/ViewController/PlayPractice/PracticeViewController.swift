@@ -10,6 +10,7 @@ import UIKit
 import AVFoundation
 import SCSiriWaveformView
 import FDWaveformView
+import Intercom
 
 class PracticeViewController: UIViewController {
     
@@ -635,6 +636,7 @@ extension PracticeViewController {
     
     @IBAction func onAskExpert(_ sender: Any) {
         ModacityAnalytics.LogEvent(.PressedAsk)
+        /*
         if self.recorder != nil && self.recorder.isRecording {
             AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Please stop recording before leaving the page.")
             return
@@ -645,22 +647,15 @@ extension PracticeViewController {
         feedbackRootViewController.pageIsRootFromMenu = false
         feedbackRootViewController.pageUIMode = 0
         self.present(controller, animated: true, completion: nil)
+        */
+        //Intercom.presentMessageComposer()
+        let attr :ICMUserAttributes = ICMUserAttributes.init()
+        attr.customAttributes = ["AppLocation" : "practice"]
+        Intercom.updateUser(attr)
         
+        Intercom.presentMessenger()
     }
     
-    @IBAction func onFeedback(_ sender: Any) {
-        ModacityAnalytics.LogEvent(.PressedFeedback)
-        if self.recorder != nil && self.recorder.isRecording {
-            AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Please stop recording before leaving the page.")
-            return
-        }
-        
-        let controller = UIStoryboard(name:"feedback", bundle:nil).instantiateViewController(withIdentifier: "feedbackscene") as! UINavigationController
-        let feedbackRootViewController = controller.viewControllers[0] as! FeedbackRootViewController
-        feedbackRootViewController.pageIsRootFromMenu = false
-        feedbackRootViewController.pageUIMode = 1
-        self.present(controller, animated: true, completion: nil)
-    }
 }
 
 // MARK: - Process audio player
@@ -765,11 +760,7 @@ extension PracticeViewController: AVAudioPlayerDelegate, FDWaveformViewDelegate 
     
     @IBAction func onPlayPauseAudio(_ sender: Any) {
         if self.isPlaying {
-            if let player = player {
-                player.pause()
-            }
-            self.isPlaying = false
-            self.buttonAudioPlay.setImage(UIImage(named: "icon_play"), for: .normal)
+            pauseAudio()
         } else {
             startPlayAudio()
         }
@@ -781,6 +772,14 @@ extension PracticeViewController: AVAudioPlayerDelegate, FDWaveformViewDelegate 
         }
         self.isPlaying = true
         self.buttonAudioPlay.setImage(UIImage(named: "icon_pause_white"), for: .normal)
+    }
+    
+    func pauseAudio() {
+        if let player = player {
+            player.pause()
+        }
+        self.isPlaying = false
+        self.buttonAudioPlay.setImage(UIImage(named: "icon_play"), for: .normal)
     }
     
     @IBAction func onSaveRecord(_ sender: Any) {
@@ -833,19 +832,20 @@ extension PracticeViewController: AVAudioPlayerDelegate, FDWaveformViewDelegate 
 extension PracticeViewController {
     @IBAction func onRecordStart(_ sender: Any) {
         if !self.isRecording {
-            
+            // Start Recording
             self.viewAudioPlayer.isHidden = true
             self.viewSiriWaveFormView.isHidden = false
             
             self.imageViewHeader.image = UIImage(named:"bg_practice_recording_header")
             self.btnRecord.setImage(UIImage(named:"btn_record_stop"), for: .normal)
             
+            self.pauseAudio()
             self.startRecording()
             
             self.isRecording = true
             
         } else {
-            
+            // Stop Recording
             self.imageViewHeader.image = UIImage(named:"bg_practice_header")
             self.btnRecord.setImage(UIImage(named:"img_record"), for: .normal)
             
