@@ -28,6 +28,8 @@ class DefaultDataShipManager {
         var playlistPractice = PlaylistPracticeEntry()
         var practiceItem = PracticeItem()
         
+        /*
+         deleted by marc
         practiceItem.id = UUID().uuidString
         practiceItem.name = "Breathing"
         practiceItem.addNote(text: "Use the breath to get focused")
@@ -37,7 +39,7 @@ class DefaultDataShipManager {
         playlistPractice.countDownDuration = 60
         playlistPractice.practiceItemId = practiceItem.id
         playlist1.playlistPracticeEntries.append(playlistPractice)
-        
+        */
         practiceItem = PracticeItem()
         practiceItem.id = UUID().uuidString
         practiceItem.name = "Scales - Major"
@@ -113,16 +115,22 @@ class DefaultDataShipManager {
         playlistPractice.countDownDuration = 300
         playlist1.playlistPracticeEntries.append(playlistPractice)
         
-        practiceItem = PracticeItem()
+        /*
+         
+         removed by Marc
+         
+         practiceItem = PracticeItem()
         practiceItem.id = UUID().uuidString
         practiceItem.name = "Audition Binder"
         practiceItems.append(practiceItem)
+
         
         playlistPractice = PlaylistPracticeEntry()
         playlistPractice.name = "Audition Binder"
         playlistPractice.practiceItemId = practiceItem.id
         playlist2.playlistPracticeEntries.append(playlistPractice)
-        
+ */
+ 
         playlistPractice = PlaylistPracticeEntry()
         playlistPractice.name = "Visualization"
         playlistPractice.practiceItemId = visualizationPracticeItemId

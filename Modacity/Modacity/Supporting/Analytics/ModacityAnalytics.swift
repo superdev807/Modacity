@@ -69,7 +69,8 @@ class ModacityAnalytics: NSObject {
     }
     
     static func LogStringEvent(_ eventString: String, extraParamName: String? = nil, extraParamValue: AnyHashable? = nil) {
-//        ModacityAnalytics.amplitudeLog(eventString, extraParamName: extraParamName, extraParamValue: extraParamValue)
+
+        
         if let paramName = extraParamName {
             var value : AnyHashable? = extraParamValue
             if (value == nil) {
