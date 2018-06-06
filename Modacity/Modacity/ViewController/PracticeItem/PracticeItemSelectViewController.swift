@@ -245,9 +245,6 @@ extension PracticeItemSelectViewController {
         self.textfieldSearch.text = ""
         self.buttonRemoveKeyword.isHidden = true
         self.viewModel.changeKeyword(to: "")
-        if !AppOveralDataManager.manager.firstPlaylistGenerated() {
-            AppOveralDataManager.manager.generatedFirstPlaylist()
-        }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             self.scrollTableView(to:newName)
@@ -293,6 +290,9 @@ extension PracticeItemSelectViewController {
     @IBAction func onSelectItems(_ sender: Any) {
         ModacityAnalytics.LogStringEvent("Added Practice Item to Playlist", extraParamName: "Item Count", extraParamValue: self.viewModel.selectedPracticeItems.count)
         AppOveralDataManager.manager.walkThroughSecondPage()
+        if !AppOveralDataManager.manager.firstPlaylistGenerated() {
+            AppOveralDataManager.manager.generatedFirstPlaylist()
+        }
         self.parentViewModel.addPracticeItems(self.viewModel.selectedPracticeItems)
         if let parentController = self.parentController {
             parentController.practiceItemsSelected()

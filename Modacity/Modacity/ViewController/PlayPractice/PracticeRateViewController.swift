@@ -135,13 +135,15 @@ class PracticeRateViewController: UIViewController {
     }
     
     func dismissWalkThrough() {
-        UIView.animate(withDuration: 0.5, animations: {
-            self.viewWalkThrough.alpha = 0
-        }) { (finished) in
-            if finished {
-                self.viewWalkThrough.isHidden = true
-                self.viewWalkThrough.removeFromSuperview()
-                AppOveralDataManager.manager.walkThroughPracticeRatePage()
+        if self.viewWalkThrough != nil && self.viewWalkThrough.superview != nil {
+            UIView.animate(withDuration: 0.5, animations: {
+                self.viewWalkThrough.alpha = 0
+            }) { (finished) in
+                if finished {
+                    self.viewWalkThrough.isHidden = true
+                    self.viewWalkThrough.removeFromSuperview()
+                    AppOveralDataManager.manager.walkThroughPracticeRatePage()
+                }
             }
         }
     }
