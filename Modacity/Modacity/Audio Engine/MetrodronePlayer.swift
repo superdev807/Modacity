@@ -263,14 +263,15 @@ class MetrodronePlayer: DroneFrameDelegate {
         UIDelegate?.setSelectedIndex(-1)
         MetrodroneParameters.instance.currNote = "X"
         
-        if (!MetrodroneParameters.instance.sustain) {
+        if (isMetrodronePlaying) {
+            startMetronome()
+        }
+        
+        if (MetrodroneParameters.instance.isSustaining) {
             metrodrone.stop()
             MetrodroneParameters.instance.isSustaining = false
         }
         
-        if (isMetrodronePlaying) {
-            startMetronome()
-        }
         
     }
     
@@ -337,6 +338,7 @@ class MetrodronePlayer: DroneFrameDelegate {
     
     func disableSustain() {
         MetrodroneParameters.instance.sustain = false
+        MetrodroneParameters.instance.isSustaining = false // must be so!
         _buttonSustain.isSelected = false
         _buttonSustain.isEnabled = false
         _buttonSustain.alpha = 0.50
@@ -423,7 +425,6 @@ class MetrodronePlayer: DroneFrameDelegate {
         metrodrone.loadDrone(droneAudio: waveformURL(wavename: fileDrone)!)
         
     }
-    
     
     func waveformURL(wavename: String) -> URL? {
         return Bundle.main.url(forResource: wavename, withExtension: "m4a", subdirectory: "_Comp")

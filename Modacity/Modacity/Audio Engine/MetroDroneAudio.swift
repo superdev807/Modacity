@@ -252,8 +252,13 @@ class MetroDroneAudio {
     }
     
     func stop() {
+        
         clickPlayerNode.stop()
+        
         dronePlayerNode.stop()
+        
+        
+        
         //        ModacityAudioEngine.engine.audioEngine.detach(audioPlayerNode)
     }
     

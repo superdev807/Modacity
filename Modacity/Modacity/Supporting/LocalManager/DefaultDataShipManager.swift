@@ -54,6 +54,7 @@ class DefaultDataShipManager {
         playlistPractice.practiceItemId = practiceItem.id
         playlist1.playlistPracticeEntries.append(playlistPractice)
         
+        /*
         practiceItem = PracticeItem()
         practiceItem.id = UUID().uuidString
         practiceItem.name = "Scales - Minor"
@@ -66,6 +67,7 @@ class DefaultDataShipManager {
         playlistPractice.name = "Scales - Minor"
         playlistPractice.practiceItemId = practiceItem.id
         playlist1.playlistPracticeEntries.append(playlistPractice)
+        */
         
         practiceItem = PracticeItem()
         practiceItem.name = "Visualization"
@@ -138,15 +140,16 @@ class DefaultDataShipManager {
         
         practiceItem = PracticeItem()
         practiceItem.id = UUID().uuidString
-        practiceItem.name = "Shostakovich 5"
+        practiceItem.name = "Ein Heldenleben"
+        practiceItem.addNote(text: "Be a hero! Communicate the musical message")
         practiceItems.append(practiceItem)
         
         playlistPractice = PlaylistPracticeEntry()
-        playlistPractice.name = "Shostakovich 5"
+        playlistPractice.name = "Ein Heldenleben"
         playlistPractice.practiceItemId = practiceItem.id
         playlist2.playlistPracticeEntries.append(playlistPractice)
         
-        practiceItem = PracticeItem()
+        /*practiceItem = PracticeItem()
         practiceItem.id = UUID().uuidString
         practiceItem.name = "Porgy & Bess"
         practiceItems.append(practiceItem)
@@ -167,6 +170,7 @@ class DefaultDataShipManager {
         playlistPractice.name = "Beethoven 9"
         playlistPractice.practiceItemId = practiceItem.id
         playlist2.playlistPracticeEntries.append(playlistPractice)
+        */
         
         playlistPractice = PlaylistPracticeEntry()
         playlistPractice.name = "Stretch, Reflect, Tidy Up"

@@ -54,7 +54,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_common" translatesAutoresizingMaskIntoConstraints="NO" id="fvc-u8-dWp">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="520"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="667"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="bg_practice_header" translatesAutoresizingMaskIntoConstraints="NO" id="6oE-xZ-flo">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
@@ -420,7 +420,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eWg-AM-3qY">
-                                <rect key="frame" x="0.0" y="474" width="320" height="40"/>
+                                <rect key="frame" x="0.0" y="621" width="320" height="40"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_bottom_strip_extra" translatesAutoresizingMaskIntoConstraints="NO" id="MEQ-1h-TOZ">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
@@ -436,7 +436,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vlz-sL-9vy">
-                                <rect key="frame" x="0.0" y="416" width="320" height="64"/>
+                                <rect key="frame" x="0.0" y="563" width="320" height="64"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_practice_tabbar" translatesAutoresizingMaskIntoConstraints="NO" id="Kk9-eL-Ki6">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
@@ -580,7 +580,7 @@
                                 </cells>
                             </collectionView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U1r-XY-SBh">
-                                <rect key="frame" x="0.0" y="144" width="320" height="336"/>
+                                <rect key="frame" x="0.0" y="291" width="320" height="336"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_drone_large" translatesAutoresizingMaskIntoConstraints="NO" id="V1m-zz-BJU">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="336"/>
@@ -732,7 +732,7 @@
                                                     <constraint firstAttribute="height" constant="12" id="Umy-oe-5Ot"/>
                                                 </constraints>
                                             </imageView>
-                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" continuous="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wo1-KC-Q5v">
+                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Wo1-KC-Q5v">
                                                 <rect key="frame" x="43" y="5.5" width="58.5" height="13"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="12" id="OwZ-1k-Tv0"/>
@@ -925,7 +925,7 @@
                                 </constraints>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DlB-Ud-NdT">
-                                <rect key="frame" x="202" y="128" width="96" height="272"/>
+                                <rect key="frame" x="202" y="275" width="96" height="272"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_subdivision" translatesAutoresizingMaskIntoConstraints="NO" id="93L-qN-IE0">
                                         <rect key="frame" x="0.0" y="0.0" width="96" height="272"/>
@@ -996,10 +996,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="suv-aC-maH">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="627"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B89-og-X1B">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="627"/>
                                         <connections>
                                             <action selector="onCloseWalkThrough:" destination="ruu-CR-fPU" eventType="touchUpInside" id="YSe-b8-JQv"/>
                                         </connections>
@@ -1043,10 +1043,10 @@ your practice session.</string>
                                         </connections>
                                     </button>
                                     <imageView userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="walkthrough_practice_arrow_3" translatesAutoresizingMaskIntoConstraints="NO" id="igy-Uw-Sly">
-                                        <rect key="frame" x="44" y="370" width="15" height="60"/>
+                                        <rect key="frame" x="44" y="517" width="15" height="60"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eX5-vd-2LI">
-                                        <rect key="frame" x="10" y="330.5" width="157.5" height="29.5"/>
+                                        <rect key="frame" x="10" y="477.5" width="157.5" height="29.5"/>
                                         <attributedString key="attributedText">
                                             <fragment content="Deliberate practice mode">
                                                 <attributes>
@@ -1074,28 +1074,28 @@ Cg
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="walkthrough_practice_arrow_4" translatesAutoresizingMaskIntoConstraints="NO" id="Cco-sX-rbh">
-                                        <rect key="frame" x="140" y="405" width="12" height="25"/>
+                                        <rect key="frame" x="140" y="552" width="12" height="25"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Metrodrone" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ECs-le-wwb">
-                                        <rect key="frame" x="112" y="378" width="68" height="17"/>
+                                        <rect key="frame" x="112" y="525" width="68" height="17"/>
                                         <fontDescription key="fontDescription" name="Lato-Italic" family="Lato" pointSize="14"/>
                                         <color key="textColor" red="0.75686274509803919" green="0.76078431372549016" blue="0.78823529411764703" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="walkthrough_practice_arrow_5" translatesAutoresizingMaskIntoConstraints="NO" id="V8e-tq-Cki">
-                                        <rect key="frame" x="212" y="405" width="12" height="25"/>
+                                        <rect key="frame" x="212" y="552" width="12" height="25"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notes" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fUm-ob-DsA">
-                                        <rect key="frame" x="202" y="378" width="33.5" height="17"/>
+                                        <rect key="frame" x="202" y="525" width="33.5" height="17"/>
                                         <fontDescription key="fontDescription" name="Lato-Italic" family="Lato" pointSize="14"/>
                                         <color key="textColor" red="0.75686274509803919" green="0.76078431372549016" blue="0.78823529411764703" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="walkthrough_practice_arrow_6" translatesAutoresizingMaskIntoConstraints="NO" id="Qdh-wV-lGB">
-                                        <rect key="frame" x="264" y="405" width="12" height="25"/>
+                                        <rect key="frame" x="264" y="552" width="12" height="25"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QpX-xd-cNZ">
-                                        <rect key="frame" x="236" y="361" width="69.5" height="34"/>
+                                        <rect key="frame" x="235.5" y="508" width="69.5" height="34"/>
                                         <string key="text">Get practice
 help</string>
                                         <fontDescription key="fontDescription" name="Lato-Italic" family="Lato" pointSize="14"/>
@@ -1278,7 +1278,7 @@ help</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How did it go?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f0n-45-xgb">
-                                        <rect key="frame" x="9.5" y="19" width="167" height="34"/>
+                                        <rect key="frame" x="9" y="19" width="167" height="34"/>
                                         <fontDescription key="fontDescription" name="Lato-Light" family="Lato" pointSize="28"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -2153,7 +2153,7 @@ note</string>
                                                     <constraint firstAttribute="height" constant="12" id="Dgl-GL-85N"/>
                                                 </constraints>
                                             </imageView>
-                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" continuous="NO" translatesAutoresizingMaskIntoConstraints="NO" id="05n-jQ-vxQ">
+                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="05n-jQ-vxQ">
                                                 <rect key="frame" x="39" y="5.5" width="74.5" height="13"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="12" id="cGG-Dg-bxp"/>
@@ -2509,7 +2509,7 @@ Cg
                                         <rect key="frame" x="192" y="405" width="12" height="25"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notes" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Snd-mY-fsE">
-                                        <rect key="frame" x="180" y="378" width="37" height="17"/>
+                                        <rect key="frame" x="179.5" y="378" width="37" height="17"/>
                                         <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                                         <color key="textColor" red="0.75686274509803919" green="0.76078431372549016" blue="0.78823529411764703" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -2518,7 +2518,7 @@ Cg
                                         <rect key="frame" x="272" y="405" width="12" height="25"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v4t-JY-BvY">
-                                        <rect key="frame" x="241" y="361" width="75.5" height="34"/>
+                                        <rect key="frame" x="240.5" y="361" width="75.5" height="34"/>
                                         <string key="text">Get practice
 help</string>
                                         <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
@@ -2728,6 +2728,6 @@ help</string>
         <image name="walkthrough_rate_arrow_2" width="12" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="dLc-mu-N4Z"/>
+        <segue reference="Nwc-WJ-zdU"/>
     </inferredMetricsTieBreakers>
 </document>

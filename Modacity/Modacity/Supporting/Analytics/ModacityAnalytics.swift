@@ -82,6 +82,7 @@ class ModacityAnalytics: NSObject {
             Intercom.logEvent(withName: eventString, metaData: [paramName : value!])
             
         } else {
+            
             Analytics.logEvent(eventString, parameters: nil)
             FBSDKAppEvents.logEvent(eventString)
             Amplitude.instance().logEvent(eventString)

@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		100DC91A20C8635300A0BE70 /* waveforms in Resources */ = {isa = PBXBuildFile; fileRef = 100DC91920C8635200A0BE70 /* waveforms */; };
 		1013425D2058E5FD00A9734B /* ModacityAudioEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1013425C2058E5FD00A9734B /* ModacityAudioEngine.swift */; };
-		101342612058EE2700A9734B /* waveforms in Resources */ = {isa = PBXBuildFile; fileRef = 101342602058EE2700A9734B /* waveforms */; };
 		101342632059020300A9734B /* TapTempo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101342622059020300A9734B /* TapTempo.swift */; };
 		1084BAA420811A3500D7F67D /* _Comp in Resources */ = {isa = PBXBuildFile; fileRef = 1084BAA320811A3500D7F67D /* _Comp */; };
 		14A63A48B0FA29B0F7388A3B /* Pods_Modacity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C77FB2C0A58ED4E886E0F33 /* Pods_Modacity.framework */; };
@@ -167,7 +167,6 @@
 		E21BE9FF2091796A000D1877 /* sidemenu.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EDEB719203DFB9A00E8D48D /* sidemenu.storyboard */; };
 		E21BEA002091796A000D1877 /* ding.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8ECCAF962056F5B9000E2B75 /* ding.wav */; };
 		E21BEA012091796A000D1877 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E4551E220030F7F002061AE /* Main.storyboard */; };
-		E21BEA022091796A000D1877 /* waveforms in Resources */ = {isa = PBXBuildFile; fileRef = 101342602058EE2700A9734B /* waveforms */; };
 		E21BEA032091796A000D1877 /* lato-italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8EDEB6FC203DE38F00E8D48D /* lato-italic.ttf */; };
 		E21BEA042091796A000D1877 /* welcome.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EE2BD21203DAED900D6D7A8 /* welcome.storyboard */; };
 		E21BEA052091796A000D1877 /* home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EAC121220052668004232A2 /* home.storyboard */; };
@@ -238,8 +237,8 @@
 
 /* Begin PBXFileReference section */
 		0ED0F8A74BFAB54DDD3FAD0E /* Pods-Modacity-Dev.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Modacity-Dev.release.xcconfig"; path = "Pods/Target Support Files/Pods-Modacity-Dev/Pods-Modacity-Dev.release.xcconfig"; sourceTree = "<group>"; };
+		100DC91920C8635200A0BE70 /* waveforms */ = {isa = PBXFileReference; lastKnownFileType = folder; path = waveforms; sourceTree = "<group>"; };
 		1013425C2058E5FD00A9734B /* ModacityAudioEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModacityAudioEngine.swift; sourceTree = "<group>"; };
-		101342602058EE2700A9734B /* waveforms */ = {isa = PBXFileReference; lastKnownFileType = folder; path = waveforms; sourceTree = "<group>"; };
 		101342622059020300A9734B /* TapTempo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapTempo.swift; sourceTree = "<group>"; };
 		1084BAA320811A3500D7F67D /* _Comp */ = {isa = PBXFileReference; lastKnownFileType = folder; path = _Comp; sourceTree = "<group>"; };
 		1C77FB2C0A58ED4E886E0F33 /* Pods_Modacity.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Modacity.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -482,8 +481,8 @@
 				8E4551DE20030F7F002061AE /* AppDelegate.swift */,
 				8E4551E220030F7F002061AE /* Main.storyboard */,
 				8E4551E520030F7F002061AE /* Assets.xcassets */,
+				100DC91920C8635200A0BE70 /* waveforms */,
 				1084BAA320811A3500D7F67D /* _Comp */,
-				101342602058EE2700A9734B /* waveforms */,
 				8E4551E720030F7F002061AE /* LaunchScreen.storyboard */,
 				8E4551EA20030F7F002061AE /* Info.plist */,
 				E21BEA1E2091807D000D1877 /* Info-dev.plist */,
@@ -821,6 +820,8 @@
 				8E4551EB20030F80002061AE /* Sources */,
 				8E4551EC20030F80002061AE /* Frameworks */,
 				8E4551ED20030F80002061AE /* Resources */,
+				640C39307866359DE6D7D7C1 /* [CP] Embed Pods Frameworks */,
+				161935C268A04E45E9109A28 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -840,6 +841,8 @@
 				8E4551F620030F80002061AE /* Sources */,
 				8E4551F720030F80002061AE /* Frameworks */,
 				8E4551F820030F80002061AE /* Resources */,
+				F916A328950FF6C7D6A8A690 /* [CP] Embed Pods Frameworks */,
+				C866425C04C366012AC1B2F9 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -935,6 +938,7 @@
 			files = (
 				8EB479B920458B7100BE6461 /* about.storyboard in Resources */,
 				E2806C2920ABCD910066959A /* PracticeMusicQuoteCell.xib in Resources */,
+				100DC91A20C8635300A0BE70 /* waveforms in Resources */,
 				8EDEB706203DE38F00E8D48D /* Lato-Bold.ttf in Resources */,
 				8E4551E920030F7F002061AE /* LaunchScreen.storyboard in Resources */,
 				8E4551E620030F7F002061AE /* Assets.xcassets in Resources */,
@@ -947,7 +951,6 @@
 				8EDEB71A203DFB9A00E8D48D /* sidemenu.storyboard in Resources */,
 				8ECCAF972056F5B9000E2B75 /* ding.wav in Resources */,
 				8E4551E420030F7F002061AE /* Main.storyboard in Resources */,
-				101342612058EE2700A9734B /* waveforms in Resources */,
 				8EDEB707203DE38F00E8D48D /* lato-italic.ttf in Resources */,
 				8EE2BD22203DAEDA00D6D7A8 /* welcome.storyboard in Resources */,
 				E2806C2520ABCD910066959A /* practice_note.storyboard in Resources */,
@@ -996,7 +999,6 @@
 				E21BE9FF2091796A000D1877 /* sidemenu.storyboard in Resources */,
 				E21BEA002091796A000D1877 /* ding.wav in Resources */,
 				E21BEA012091796A000D1877 /* Main.storyboard in Resources */,
-				E21BEA022091796A000D1877 /* waveforms in Resources */,
 				E21BEA032091796A000D1877 /* lato-italic.ttf in Resources */,
 				E2806C2620ABCD910066959A /* practice_note.storyboard in Resources */,
 				E21BEA042091796A000D1877 /* welcome.storyboard in Resources */,
@@ -1015,6 +1017,36 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		161935C268A04E45E9109A28 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ModacityTests/Pods-ModacityTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		640C39307866359DE6D7D7C1 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ModacityTests/Pods-ModacityTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		7355EF4588F3A844857D035D /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1071,6 +1103,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C866425C04C366012AC1B2F9 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ModacityUITests/Pods-ModacityUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		DCDEB0B2CB38AC3F0D0F5BFE /* [CP] Embed Pods Frameworks */ = {
@@ -1247,6 +1294,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\"";
+		};
+		F916A328950FF6C7D6A8A690 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ModacityUITests/Pods-ModacityUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 		FC31956B8137EF850CC7BE8D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
