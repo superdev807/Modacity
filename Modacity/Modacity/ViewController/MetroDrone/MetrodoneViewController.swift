@@ -123,6 +123,7 @@ class MetrodoneViewController: UIViewController {
             self.constraintForHeaderImageViewHeight.constant = 88
         }
         
+        self.constraintForMinTrickViewWidth.constant = self.imageViewMaxTrick.frame.size.width * CGFloat((MetrodroneParameters.instance.durationRatio - self.sliderDuration.minimumValue) / (self.sliderDuration.maximumValue - self.sliderDuration.minimumValue))
     }
 
     @IBAction func onDurationChanged(_ sender: Any) {

@@ -85,6 +85,12 @@ class PracticeItem: Mappable {
         self.updateMe()
     }
     
+    func changeNoteTitle(for noteId:String, title: String) {
+        let note = self.notes?.first { $0.id == noteId }
+        note?.note = title
+        self.updateMe()
+    }
+    
     func updateMe() {
         PracticeItemLocalManager.manager.updatePracticeItem(self)
     }

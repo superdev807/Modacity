@@ -93,6 +93,12 @@ class ImproveHypothesisViewController: UIViewController {
         }
     }
     
+    @IBAction func onEditingChanged(_ sender: Any) {
+        if "" != self.textfieldInputBox.text {
+            self.viewModel.selectedHypothesis = self.textfieldInputBox.text ?? ""
+        }
+    }
+    
     @objc func onKeyboardWillChangeFrame(notification: Notification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             if AppUtils.iphoneIsXModel() {

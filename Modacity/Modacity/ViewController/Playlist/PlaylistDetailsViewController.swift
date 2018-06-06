@@ -71,7 +71,6 @@ class PlaylistDetailsViewController: UIViewController {
             self.viewModel.playlistName = "My First Playlist"
             self.buttonEditName.isHidden = false
             self.openPracticeItemsSelection()
-            AppOveralDataManager.manager.generatedFirstPlaylist()
         } else {
             self.processWalkThrough()
         }

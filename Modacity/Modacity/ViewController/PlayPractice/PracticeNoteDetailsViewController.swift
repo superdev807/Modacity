@@ -18,8 +18,9 @@ class PracticeNoteDetailsViewController: UIViewController {
     var playlistViewModel: PlaylistDetailsViewModel!
     var playlistPracticeEntry: PlaylistPracticeEntry!
     
-    var practiceItem : PracticeItem!
+    @IBOutlet weak var textfieldNoteTitleEdit: UITextField!
     
+    var practiceItem : PracticeItem!
     
     var noteIsForPlaylist = false
     var note: Note!
@@ -30,6 +31,8 @@ class PracticeNoteDetailsViewController: UIViewController {
         self.textViewInputBox.placeholder = "Add a note..."
         self.textViewInputBox.text = note.subTitle
         self.labelNoteTitle.text = note.note
+        self.textfieldNoteTitleEdit.text = note.note
+        self.textfieldNoteTitleEdit.isHidden = true
         self.textViewInputBox.becomeFirstResponder()
         self.textViewInputBox.placeholderColor = Color.white.alpha(0.7)
         self.textViewInputBox.tintColor = Color.white
@@ -48,14 +51,18 @@ class PracticeNoteDetailsViewController: UIViewController {
     }
 
     @IBAction func onBack(_ sender:Any) {
+        
         if self.playlistViewModel != nil {
             if self.noteIsForPlaylist {
+                self.playlistViewModel.changeNoteTitle(noteId: self.note.id, title: self.textfieldNoteTitleEdit.text ?? "")
                 self.playlistViewModel.changeNoteSubTitle(noteId: self.note.id, subTitle: self.textViewInputBox.text)
             } else {
+                self.playlistPracticeEntry.practiceItem()?.changeNoteTitle(for: self.note.id, title: self.textfieldNoteTitleEdit.text ?? "")
                 self.playlistPracticeEntry.practiceItem()?.changeNoteSubTitle(for: self.note.id, subTitle: self.textViewInputBox.text)
             }
         } else {
             self.practiceItem.changeNoteSubTitle(for: self.note.id, subTitle: self.textViewInputBox.text)
+            self.practiceItem.changeNoteTitle(for: self.note.id, title: self.textfieldNoteTitleEdit.text ?? "")
         }
         self.navigationController?.popViewController(animated: true)
     }
@@ -92,5 +99,30 @@ class PracticeNoteDetailsViewController: UIViewController {
         }))
         alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    @IBAction func onStartEdit(_ sender: Any) {
+        if self.textfieldNoteTitleEdit.isHidden {
+            self.textfieldNoteTitleEdit.isHidden = false
+            self.labelNoteTitle.isHidden = true
+            self.textfieldNoteTitleEdit.becomeFirstResponder()
+        }
+    }
+    
+    @IBAction func onDidEndOnExitOnField(_ sender: Any) {
+        if "" != self.textfieldNoteTitleEdit.text {
+            self.labelNoteTitle.text = self.textfieldNoteTitleEdit.text
+            if self.playlistViewModel != nil {
+                if self.noteIsForPlaylist {
+                    self.playlistViewModel.changeNoteTitle(noteId: self.note.id, title: self.textfieldNoteTitleEdit.text ?? "")
+                } else {
+                    self.playlistPracticeEntry.practiceItem()?.changeNoteTitle(for: self.note.id, title: self.textfieldNoteTitleEdit.text ?? "")
+                }
+            } else {
+                self.practiceItem.changeNoteSubTitle(for: self.note.id, subTitle: self.textViewInputBox.text)
+            }
+            self.textfieldNoteTitleEdit.isHidden = true
+            self.labelNoteTitle.isHidden = false
+        }
     }
 }

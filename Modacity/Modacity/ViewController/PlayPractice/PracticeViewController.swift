@@ -296,6 +296,7 @@ extension PracticeViewController {
         self.viewMaximizedDrone.addGestureRecognizer(self.panGesture)
         self.viewMaximizedDrone.addGestureRecognizer(self.tapGesture)
         prepareMetrodrone()
+        self.constraintForMinTrackViewWidth.constant = self.imageViewMaxTrack.frame.size.width * CGFloat((MetrodroneParameters.instance.durationRatio - self.sliderDuration.minimumValue) / (self.sliderDuration.maximumValue - self.sliderDuration.minimumValue))
     }
     
     func configureSubdivisionNoteSelectionGUI() {
@@ -612,6 +613,11 @@ extension PracticeViewController {
             }
         } else {
             PracticeItemLocalManager.manager.setFavoritePracticeItem(forItemId: self.practiceItem.id)
+            if self.practiceItem.isFavorite == 1 {
+                self.practiceItem.isFavorite = 0
+            } else {
+                self.practiceItem.isFavorite = 1
+            }
             self.processFavoriteIconImage()
         }
         ModacityAnalytics.LogStringEvent("Toggled Favorite")

@@ -311,6 +311,10 @@ class PlaylistDetailsViewModel: ViewModel {
         entry.practiceItem()?.deleteNote(for: note.id)
     }
     
+    func changeNoteTitle(noteId: String, title: String) {
+        self.playlist.changeNoteTitle(for: noteId, title: title)
+    }
+    
     func changeNoteSubTitle(noteId: String, subTitle: String) {
         self.playlist.changeNoteSubTitle(for: noteId, subTitle: subTitle)
     }

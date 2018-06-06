@@ -135,6 +135,7 @@ to improve?</string>
                                         <textInputTraits key="textInputTraits" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
                                         <connections>
                                             <action selector="onDidEndOnExit:" destination="XIS-Ip-IXR" eventType="editingDidEndOnExit" id="0Um-No-mfd"/>
+                                            <action selector="onEditingChangedOnField:" destination="XIS-Ip-IXR" eventType="editingChanged" id="TpK-6f-k0j"/>
                                         </connections>
                                     </textField>
                                 </subviews>
@@ -232,7 +233,7 @@ to improve?</string>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HypothesisCell" rowHeight="60" id="Zgx-Oc-q57">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HypothesisCell" rowHeight="60" id="Zgx-Oc-q57">
                                         <rect key="frame" x="0.0" y="58" width="320" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Zgx-Oc-q57" id="HTh-D3-Hgf">
@@ -304,6 +305,7 @@ to improve?</string>
                                         <textInputTraits key="textInputTraits" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
                                         <connections>
                                             <action selector="onDidEndOnExit:" destination="EEk-em-v4u" eventType="editingDidEndOnExit" id="HIx-pa-yor"/>
+                                            <action selector="onEditingChanged:" destination="EEk-em-v4u" eventType="editingChanged" id="Slm-mQ-xzc"/>
                                         </connections>
                                     </textField>
                                 </subviews>
@@ -395,7 +397,7 @@ to improve?</string>
             <objects>
                 <viewController storyboardIdentifier="ImprovementViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="hg1-Xl-tGd" customClass="ImprovementViewController" customModule="Modacity" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="XzL-Ku-AHY">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_common" translatesAutoresizingMaskIntoConstraints="NO" id="AAc-th-zyf">
@@ -424,7 +426,7 @@ to improve?</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rythm" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ydd-hg-7BO">
-                                <rect key="frame" x="137" y="73" width="47" height="19"/>
+                                <rect key="frame" x="137.5" y="73" width="46" height="19.5"/>
                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -433,7 +435,7 @@ to improve?</string>
                                 <rect key="frame" x="0.0" y="344.5" width="320" height="95.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yeP-au-9km">
-                                        <rect key="frame" x="69.5" y="27.5" width="181.5" height="42"/>
+                                        <rect key="frame" x="79.5" y="27" width="162" height="43.5"/>
                                         <string key="text">Start recording your session. 
 Once finished, you’ll be prompted
 to answer a few questions.</string>
@@ -442,10 +444,10 @@ to answer a few questions.</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UK5-ym-lGY">
-                                        <rect key="frame" x="38.5" y="-4.5" width="242" height="104"/>
+                                        <rect key="frame" x="38.5" y="-5" width="242" height="105"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vzf-zL-h4w">
-                                                <rect key="frame" x="35.5" y="0.0" width="171.5" height="28"/>
+                                                <rect key="frame" x="43" y="0.0" width="156.5" height="29"/>
                                                 <string key="text">Did this create the improvement
 you wanted?</string>
                                                 <fontDescription key="fontDescription" name="Lato-Italic" family="Lato" pointSize="12"/>
@@ -453,14 +455,14 @@ you wanted?</string>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yC5-40-YvT">
-                                                <rect key="frame" x="0.0" y="38" width="106" height="66"/>
+                                                <rect key="frame" x="0.0" y="39" width="106" height="66"/>
                                                 <state key="normal" image="btn_improved_no"/>
                                                 <connections>
                                                     <action selector="onImprovedNo:" destination="hg1-Xl-tGd" eventType="touchUpInside" id="DDf-xJ-bBK"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gPi-gO-uoz">
-                                                <rect key="frame" x="136" y="38" width="106" height="66"/>
+                                                <rect key="frame" x="136" y="39" width="106" height="66"/>
                                                 <state key="normal" image="btn_improved_yes"/>
                                                 <connections>
                                                     <action selector="onImprovedYes:" destination="hg1-Xl-tGd" eventType="touchUpInside" id="SFM-Bh-3Fz"/>
@@ -480,29 +482,29 @@ you wanted?</string>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Ih-8m-wdH">
-                                        <rect key="frame" x="38.5" y="-12" width="242" height="119"/>
+                                        <rect key="frame" x="38.5" y="-12.5" width="242" height="120"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nice work!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8n5-fT-z8Z">
-                                                <rect key="frame" x="83.5" y="0.0" width="76" height="19"/>
+                                                <rect key="frame" x="83" y="0.0" width="77" height="19.5"/>
                                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Do you want to practice this improvement again?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M71-Z8-7Fk">
-                                                <rect key="frame" x="-11.5" y="29" width="263.5" height="14"/>
+                                                <rect key="frame" x="1.5" y="29.5" width="237.5" height="14.5"/>
                                                 <fontDescription key="fontDescription" name="Lato-Italic" family="Lato" pointSize="12"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GDV-Ee-hXD">
-                                                <rect key="frame" x="0.0" y="53" width="106" height="66"/>
+                                                <rect key="frame" x="0.0" y="54" width="106" height="66"/>
                                                 <state key="normal" image="btn_improved_no"/>
                                                 <connections>
                                                     <action selector="onImprovedNext:" destination="hg1-Xl-tGd" eventType="touchUpInside" id="RuF-Dx-Ao3"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bk9-1f-gy3">
-                                                <rect key="frame" x="136" y="53" width="106" height="66"/>
+                                                <rect key="frame" x="136" y="54" width="106" height="66"/>
                                                 <state key="normal" image="btn_improved_yes"/>
                                                 <connections>
                                                     <action selector="onImproveAgain:" destination="hg1-Xl-tGd" eventType="touchUpInside" id="HbZ-a3-uS4"/>
@@ -535,7 +537,7 @@ you wanted?</string>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D1v-0o-Nrh">
-                                <rect key="frame" x="123" y="182" width="74" height="74"/>
+                                <rect key="frame" x="123" y="183.5" width="74" height="74"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="74" id="2ae-tz-bWC"/>
                                     <constraint firstAttribute="height" constant="74" id="hlh-Jz-27f"/>
@@ -546,21 +548,21 @@ you wanted?</string>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dga-Px-fPn" customClass="SCSiriWaveformView">
-                                <rect key="frame" x="0.0" y="264" width="320" height="55.5"/>
+                                <rect key="frame" x="0.0" y="265.5" width="320" height="54"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jEu-dO-6EC">
-                                <rect key="frame" x="0.0" y="264" width="320" height="55.5"/>
+                                <rect key="frame" x="0.0" y="265.5" width="320" height="54"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LCr-ZW-I4Z" customClass="FDWaveformView" customModule="FDWaveformView">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="28.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="28"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1w7-KL-uFb">
-                                        <rect key="frame" x="0.0" y="28.5" width="320" height="27"/>
+                                        <rect key="frame" x="0.0" y="28" width="320" height="26"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k1a-LM-mdL">
-                                                <rect key="frame" x="30" y="-17" width="44" height="44"/>
+                                                <rect key="frame" x="30" y="-18" width="44" height="44"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="44" id="3hN-UH-nfn"/>
                                                     <constraint firstAttribute="width" constant="44" id="yPz-29-Ovl"/>
@@ -571,13 +573,13 @@ you wanted?</string>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dJx-9q-VU0">
-                                                <rect key="frame" x="37" y="-45" width="30" height="18"/>
+                                                <rect key="frame" x="37" y="-46" width="30" height="18"/>
                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="15"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aTW-CL-rL9">
-                                                <rect key="frame" x="134.5" y="-44" width="49.5" height="16"/>
+                                                <rect key="frame" x="134.5" y="-45" width="49.5" height="16"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_forward_white" translatesAutoresizingMaskIntoConstraints="NO" id="dUA-x6-Fip">
                                                         <rect key="frame" x="0.0" y="0.0" width="24" height="16"/>
@@ -600,13 +602,13 @@ you wanted?</string>
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CfN-Ke-sgT">
-                                                <rect key="frame" x="253" y="-45" width="30" height="18"/>
+                                                <rect key="frame" x="253" y="-46" width="30" height="18"/>
                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="15"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VP4-H5-1iE">
-                                                <rect key="frame" x="83.5" y="-17" width="44" height="44"/>
+                                                <rect key="frame" x="83.5" y="-18" width="44" height="44"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="44" id="9FF-Nf-MNo"/>
                                                     <constraint firstAttribute="height" constant="44" id="z9x-bZ-Bsu"/>
@@ -617,7 +619,7 @@ you wanted?</string>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MOH-Sk-ebe">
-                                                <rect key="frame" x="137.5" y="-17" width="44" height="44"/>
+                                                <rect key="frame" x="137.5" y="-18" width="44" height="44"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="44" id="3vL-G8-oQq"/>
                                                     <constraint firstAttribute="height" constant="44" id="4o0-LX-F3N"/>
@@ -628,7 +630,7 @@ you wanted?</string>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nHf-WG-1Zm">
-                                                <rect key="frame" x="191.5" y="-17" width="44" height="44"/>
+                                                <rect key="frame" x="191.5" y="-18" width="44" height="44"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="44" id="UKJ-fZ-ux4"/>
                                                     <constraint firstAttribute="width" constant="44" id="UOg-Yh-Qd5"/>
@@ -639,7 +641,7 @@ you wanted?</string>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fco-M1-yrF">
-                                                <rect key="frame" x="246" y="-17" width="44" height="44"/>
+                                                <rect key="frame" x="246" y="-18" width="44" height="44"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="44" id="UPF-Na-jlk"/>
                                                     <constraint firstAttribute="height" constant="44" id="oYE-pN-d4r"/>
@@ -741,7 +743,7 @@ you wanted?</string>
                                                         <rect key="frame" x="10" y="10" width="83" height="83.5"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OCTAVE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FOR-lC-KgS">
-                                                                <rect key="frame" x="22" y="19" width="38" height="12"/>
+                                                                <rect key="frame" x="21.5" y="19" width="39" height="12"/>
                                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="10"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <nil key="highlightedColor"/>
@@ -907,10 +909,10 @@ you wanted?</string>
                                                 <rect key="frame" x="0.0" y="0.0" width="110" height="68"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gby-wu-4ug">
-                                                        <rect key="frame" x="9" y="5.5" width="92" height="57"/>
+                                                        <rect key="frame" x="9" y="5" width="92" height="58"/>
                                                         <subviews>
                                                             <button opaque="NO" alpha="0.75" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dpB-zg-V1E" userLabel="bpm+">
-                                                                <rect key="frame" x="56" y="21" width="36" height="36"/>
+                                                                <rect key="frame" x="56" y="22" width="36" height="36"/>
                                                                 <state key="normal" image="icon_plus"/>
                                                                 <connections>
                                                                     <action selector="onChangeBPMStop:" destination="hg1-Xl-tGd" eventType="touchUpOutside" id="cUQ-b9-sEm"/>
@@ -919,13 +921,13 @@ you wanted?</string>
                                                                 </connections>
                                                             </button>
                                                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="18" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WBn-dd-UwQ" userLabel="BPM">
-                                                                <rect key="frame" x="35.5" y="0.0" width="21" height="21"/>
+                                                                <rect key="frame" x="35.5" y="0.0" width="21" height="22"/>
                                                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="18"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <button opaque="NO" alpha="0.75" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aQI-LY-vvX" userLabel="bpm-">
-                                                                <rect key="frame" x="0.0" y="21" width="36" height="36"/>
+                                                                <rect key="frame" x="0.0" y="22" width="36" height="36"/>
                                                                 <state key="normal" image="icon_minus"/>
                                                                 <connections>
                                                                     <action selector="onChangeBPMStop:" destination="hg1-Xl-tGd" eventType="touchUpInside" id="duO-4S-6ol"/>
@@ -1117,7 +1119,7 @@ you wanted?</string>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dOc-S4-3Wh">
-                                <rect key="frame" x="75.5" y="108.5" width="170.5" height="37.5"/>
+                                <rect key="frame" x="76" y="109" width="170" height="38.5"/>
                                 <string key="text">Play all the way through
 til the very end of the…</string>
                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
@@ -1224,7 +1226,7 @@ til the very end of the…</string>
             <objects>
                 <viewController storyboardIdentifier="ImprovementViewControllerForSmallSizes" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ey2-fW-n4E" customClass="ImprovementViewController" customModule="Modacity" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="HH3-Ky-cm9">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_common" translatesAutoresizingMaskIntoConstraints="NO" id="wZS-FU-gAc">
@@ -1253,7 +1255,7 @@ til the very end of the…</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rythm" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hyE-S4-WCR">
-                                <rect key="frame" x="137" y="65" width="47" height="19"/>
+                                <rect key="frame" x="137.5" y="65" width="46" height="19.5"/>
                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -1262,7 +1264,7 @@ til the very end of the…</string>
                                 <rect key="frame" x="0.0" y="321" width="320" height="119"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UgZ-qT-vAP">
-                                        <rect key="frame" x="69.5" y="39" width="181.5" height="42"/>
+                                        <rect key="frame" x="79.5" y="38.5" width="162" height="43.5"/>
                                         <string key="text">Start recording your session. 
 Once finished, you’ll be prompted
 to answer a few questions.</string>
@@ -1271,10 +1273,10 @@ to answer a few questions.</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9jn-Ne-Ef3">
-                                        <rect key="frame" x="38.5" y="7.5" width="242" height="104"/>
+                                        <rect key="frame" x="38.5" y="7" width="242" height="105"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lXS-fG-87b">
-                                                <rect key="frame" x="35.5" y="0.0" width="171.5" height="28"/>
+                                                <rect key="frame" x="43" y="0.0" width="156.5" height="29"/>
                                                 <string key="text">Did this create the improvement
 you wanted?</string>
                                                 <fontDescription key="fontDescription" name="Lato-Italic" family="Lato" pointSize="12"/>
@@ -1282,14 +1284,14 @@ you wanted?</string>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iWI-wV-Tip">
-                                                <rect key="frame" x="0.0" y="38" width="106" height="66"/>
+                                                <rect key="frame" x="0.0" y="39" width="106" height="66"/>
                                                 <state key="normal" image="btn_improved_no"/>
                                                 <connections>
                                                     <action selector="onImprovedNo:" destination="ey2-fW-n4E" eventType="touchUpInside" id="9Yh-DE-WT2"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d33-Hg-Srq">
-                                                <rect key="frame" x="136" y="38" width="106" height="66"/>
+                                                <rect key="frame" x="136" y="39" width="106" height="66"/>
                                                 <state key="normal" image="btn_improved_yes"/>
                                                 <connections>
                                                     <action selector="onImprovedYes:" destination="ey2-fW-n4E" eventType="touchUpInside" id="L9E-94-65C"/>
@@ -1309,29 +1311,29 @@ you wanted?</string>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eJa-II-tGv">
-                                        <rect key="frame" x="38.5" y="0.0" width="242" height="119"/>
+                                        <rect key="frame" x="38.5" y="-0.5" width="242" height="120"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nice work!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xLn-fh-CgL">
-                                                <rect key="frame" x="83.5" y="0.0" width="76" height="19"/>
+                                                <rect key="frame" x="83" y="0.0" width="77" height="19.5"/>
                                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Do you want to practice this improvement again?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9f7-Jm-1Of">
-                                                <rect key="frame" x="-11.5" y="29" width="263.5" height="14"/>
+                                                <rect key="frame" x="1.5" y="29.5" width="237.5" height="14.5"/>
                                                 <fontDescription key="fontDescription" name="Lato-Italic" family="Lato" pointSize="12"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CU6-cL-1Q8">
-                                                <rect key="frame" x="0.0" y="53" width="106" height="66"/>
+                                                <rect key="frame" x="0.0" y="54" width="106" height="66"/>
                                                 <state key="normal" image="btn_improved_no"/>
                                                 <connections>
                                                     <action selector="onImprovedNext:" destination="ey2-fW-n4E" eventType="touchUpInside" id="ca2-2a-sKr"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wuT-OS-UQc">
-                                                <rect key="frame" x="136" y="53" width="106" height="66"/>
+                                                <rect key="frame" x="136" y="54" width="106" height="66"/>
                                                 <state key="normal" image="btn_improved_yes"/>
                                                 <connections>
                                                     <action selector="onImproveAgain:" destination="ey2-fW-n4E" eventType="touchUpInside" id="gCw-J7-g72"/>
@@ -1364,7 +1366,7 @@ you wanted?</string>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XCN-Qq-HnU">
-                                <rect key="frame" x="123" y="151.5" width="74" height="74"/>
+                                <rect key="frame" x="123" y="153" width="74" height="74"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="74" id="eZS-r9-KmL"/>
                                     <constraint firstAttribute="width" constant="74" id="vgb-bz-FEi"/>
@@ -1375,21 +1377,21 @@ you wanted?</string>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hEd-zD-q8c" customClass="SCSiriWaveformView">
-                                <rect key="frame" x="0.0" y="233.5" width="320" height="82.5"/>
+                                <rect key="frame" x="0.0" y="235" width="320" height="81"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4at-MK-eiG">
-                                <rect key="frame" x="0.0" y="233.5" width="320" height="82.5"/>
+                                <rect key="frame" x="0.0" y="235" width="320" height="81"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rd3-wW-Frf" customClass="FDWaveformView" customModule="FDWaveformView">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="33"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="32.5"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YA6-Qg-Tb1">
-                                        <rect key="frame" x="0.0" y="33" width="320" height="49.5"/>
+                                        <rect key="frame" x="0.0" y="32.5" width="320" height="48.5"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E5a-mJ-Fci">
-                                                <rect key="frame" x="30" y="5.5" width="44" height="44"/>
+                                                <rect key="frame" x="30" y="4.5" width="44" height="44"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="44" id="ORW-V3-aba"/>
                                                     <constraint firstAttribute="height" constant="44" id="vKq-dF-ZYS"/>
@@ -1400,13 +1402,13 @@ you wanted?</string>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vos-2R-MlM">
-                                                <rect key="frame" x="37" y="-17.5" width="30" height="18"/>
+                                                <rect key="frame" x="37" y="-18.5" width="30" height="18"/>
                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="15"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E18-pb-yFF">
-                                                <rect key="frame" x="134.5" y="-16.5" width="49.5" height="16"/>
+                                                <rect key="frame" x="134.5" y="-17.5" width="49.5" height="16"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_forward_white" translatesAutoresizingMaskIntoConstraints="NO" id="rGt-dK-zrf">
                                                         <rect key="frame" x="0.0" y="0.0" width="24" height="16"/>
@@ -1429,13 +1431,13 @@ you wanted?</string>
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9K9-lY-yxl">
-                                                <rect key="frame" x="253" y="-17.5" width="30" height="18"/>
+                                                <rect key="frame" x="253" y="-18.5" width="30" height="18"/>
                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="15"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fJa-xz-dgw">
-                                                <rect key="frame" x="83.5" y="5.5" width="44" height="44"/>
+                                                <rect key="frame" x="83.5" y="4.5" width="44" height="44"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="44" id="rQg-cY-Hsu"/>
                                                     <constraint firstAttribute="width" constant="44" id="wTU-d8-94X"/>
@@ -1446,7 +1448,7 @@ you wanted?</string>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sAH-iB-9XP">
-                                                <rect key="frame" x="137.5" y="5.5" width="44" height="44"/>
+                                                <rect key="frame" x="137.5" y="4.5" width="44" height="44"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="44" id="J4X-vX-7u5"/>
                                                     <constraint firstAttribute="height" constant="44" id="vzJ-4p-gdL"/>
@@ -1457,7 +1459,7 @@ you wanted?</string>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aZu-6o-vXv">
-                                                <rect key="frame" x="191.5" y="5.5" width="44" height="44"/>
+                                                <rect key="frame" x="191.5" y="4.5" width="44" height="44"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="44" id="afC-iV-wfI"/>
                                                     <constraint firstAttribute="width" constant="44" id="mCl-td-xt5"/>
@@ -1468,7 +1470,7 @@ you wanted?</string>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="veN-hc-7Lg">
-                                                <rect key="frame" x="246" y="5.5" width="44" height="44"/>
+                                                <rect key="frame" x="246" y="4.5" width="44" height="44"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="44" id="1Fx-H5-f5d"/>
                                                     <constraint firstAttribute="width" constant="44" id="wwI-YZ-USo"/>
@@ -1564,7 +1566,7 @@ you wanted?</string>
                                         <rect key="frame" x="127" y="107" width="120" height="120.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OCTAVE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sdq-ur-Vo9">
-                                                <rect key="frame" x="-19" y="19" width="38" height="12"/>
+                                                <rect key="frame" x="-19.5" y="19" width="39" height="12"/>
                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="10"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
@@ -1732,10 +1734,10 @@ you wanted?</string>
                                                 <rect key="frame" x="0.0" y="0.0" width="110" height="68"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dn7-18-1Zw">
-                                                        <rect key="frame" x="9" y="5.5" width="92" height="57"/>
+                                                        <rect key="frame" x="9" y="5" width="92" height="58"/>
                                                         <subviews>
                                                             <button opaque="NO" alpha="0.75" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dbj-hb-gje" userLabel="bpm+">
-                                                                <rect key="frame" x="56" y="21" width="36" height="36"/>
+                                                                <rect key="frame" x="56" y="22" width="36" height="36"/>
                                                                 <state key="normal" image="icon_plus"/>
                                                                 <connections>
                                                                     <action selector="onChangeBPMStop:" destination="ey2-fW-n4E" eventType="touchUpInside" id="Ajx-JH-Pz5"/>
@@ -1744,13 +1746,13 @@ you wanted?</string>
                                                                 </connections>
                                                             </button>
                                                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="18" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oBx-Jm-hhA" userLabel="BPM">
-                                                                <rect key="frame" x="35.5" y="0.0" width="21" height="21"/>
+                                                                <rect key="frame" x="35.5" y="0.0" width="21" height="22"/>
                                                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="18"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <button opaque="NO" alpha="0.75" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HFi-FN-cBI" userLabel="bpm-">
-                                                                <rect key="frame" x="0.0" y="21" width="36" height="36"/>
+                                                                <rect key="frame" x="0.0" y="22" width="36" height="36"/>
                                                                 <state key="normal" image="icon_minus"/>
                                                                 <connections>
                                                                     <action selector="onChangeBPMStop:" destination="ey2-fW-n4E" eventType="touchUpOutside" id="5nA-aC-Sih"/>
@@ -1944,7 +1946,7 @@ you wanted?</string>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ce0-fW-BLl">
-                                <rect key="frame" x="75.5" y="94" width="170.5" height="37.5"/>
+                                <rect key="frame" x="76" y="94.5" width="170" height="38.5"/>
                                 <string key="text">Play all the way through
 til the very end of the…</string>
                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>

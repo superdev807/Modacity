@@ -19,7 +19,6 @@ class OverallDataRemoteManager {
         if let userId = MyProfileLocalManager.manager.userId() {
             self.refUser.child(userId).child("overall").observeSingleEvent(of: .value) { (snapshot) in
                 if (!snapshot.exists()) {
-//                    self.shipDefaultData()
                     self.startUpdatingOverallData()      // sync from local
                 } else {
                     if let overallData = snapshot.value as? [String:Any] {
@@ -29,11 +28,8 @@ class OverallDataRemoteManager {
                                                                       disableAutoPlayback: overallData["disable_auto_playback"] as? Bool ?? false,
                                                                       streakFrom: overallData["streak_from"] as? String ?? Date().toString(format: "yyyy-MM-dd"),
                                                                       streakTo: overallData["streak_to"] as? String ?? Date().toString(format: "yyyy-MM-dd"),
-                                                                      defaultDataShiped: overallData["default_data_ship"] as? Bool ?? false)
-                        
-//                        if !AppOveralDataManager.manager.defaultDataShiped() {
-//                            self.shipDefaultData()
-//                        }
+                                                                      defaultDataShiped: overallData["default_data_ship"] as? Bool ?? false,
+                                                                      firstPlaylistGenerated: overallData["first_playlist_generated"] as? Bool ?? false)
                     }
                 }
             }
@@ -60,7 +56,8 @@ class OverallDataRemoteManager {
                                                                            "disable_auto_playback": AppOveralDataManager.manager.settingsDisableAutoPlayback(),
                                                                            "streak_from": UserDefaults.standard.string(forKey: "streak_from") ?? Date().toString(format: "yyyy-MM-dd"),
                                                                            "streak_to": UserDefaults.standard.string(forKey: "streak_to") ?? Date().toString(format: "yyyy-MM-dd"),
-                                                                           "default_data_shiped": AppOveralDataManager.manager.defaultDataShiped()])
+                                                                           "default_data_shiped": AppOveralDataManager.manager.defaultDataShiped(),
+                                                                           "first_playlist_generated": AppOveralDataManager.manager.firstPlaylistGenerated()])
         }
     }
 
@@ -87,5 +84,10 @@ class OverallDataRemoteManager {
             self.refUser.child(userId).child("overall").updateChildValues(["total_improvements": improvements])
         }
     }
-
+    
+    func updateFirstplaylistGenerated(_ generated: Bool) {
+        if let userId = MyProfileLocalManager.manager.userId() {
+            self.refUser.child(userId).child("overall").updateChildValues(["first_playlist_generated": generated])
+        }
+    }
 }

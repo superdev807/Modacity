@@ -26,6 +26,8 @@ class MetrodronePlayer: DroneFrameDelegate {
     static let maxOctave: Int = 6
     static let minOctave: Int = 2
     
+    var isMetrodronePlaying : Bool = false
+    
     var _viewDroneFrame: ViewDroneFrame!
     var _labelTempo: UILabel!
     var _buttonPlayPause: UIButton!
@@ -42,18 +44,6 @@ class MetrodronePlayer: DroneFrameDelegate {
     var UIDelegate: MetrodroneUIDelegate?
     
     var timerBPMAdjust: Timer!
-    var durationRatio: Float = 0.5
-    var currNote : String = "X"
-    
-    var lastUpIndex: Int = -1
-    var sustain  : Bool = false
-    var isMetrodronePlaying : Bool = false
-    var isSustaining : Bool = false
-    var tempoDetective : DetectTapTempo = DetectTapTempo(timeOut: 1.5, minimumTaps: 3)
-
-    var tempo: Int = 120
-    var subdivisions: Int = 1
-    var currOctave: Int = 4
     
     let highClick: URL = {
         return Bundle.main.url(forResource: "High", withExtension: "wav", subdirectory: "waveforms")!
@@ -117,20 +107,20 @@ class MetrodronePlayer: DroneFrameDelegate {
     func updateMetrodroneOutlets() {
         // updates labels, sliders, etc.
         DispatchQueue.main.async {
-            self._labelTempo.text = String(self.tempo)
-            self._sliderDuration.value = self.durationRatio
-            self._buttonSustain.isSelected = self.sustain
-            self._viewDroneFrame.setSelectedNote(self.currNote)
+            self._labelTempo.text = String(MetrodroneParameters.instance.tempo)
+            self._sliderDuration.value = MetrodroneParameters.instance.durationRatio
+            self._buttonSustain.isSelected = MetrodroneParameters.instance.sustain
+            self._viewDroneFrame.setSelectedNote(MetrodroneParameters.instance.currNote)
             
-            self._labelOctaveNumber.text = String(self.currOctave - MetrodronePlayer.minOctave + 1)
+            self._labelOctaveNumber.text = String(MetrodroneParameters.instance.currOctave - MetrodronePlayer.minOctave + 1)
             
             self._buttonOctaveDown.isEnabled = true
             self._buttonOctaveUp.isEnabled = true
             
-            if (self.currOctave == MetrodronePlayer.minOctave) {
+            if (MetrodroneParameters.instance.currOctave == MetrodronePlayer.minOctave) {
                 self._buttonOctaveDown.isEnabled = false
             }
-            if (self.currOctave == MetrodronePlayer.maxOctave) {
+            if (MetrodroneParameters.instance.currOctave == MetrodronePlayer.maxOctave) {
                 self._buttonOctaveUp.isEnabled = false
             }
             
@@ -149,39 +139,39 @@ class MetrodronePlayer: DroneFrameDelegate {
     }
     
     func changeDuration(newValue: Float) {
-        durationRatio = newValue
+        MetrodroneParameters.instance.durationRatio = newValue
         //ModacityAnalytics.LogStringEvent("Changed Metrodrone Duration", extraParamName: "duration", extraParamValue: newValue)
         
         startMetronome()
     }
     
     func toggleSustain() -> Bool {
-        sustain = !sustain
+        MetrodroneParameters.instance.sustain = !MetrodroneParameters.instance.sustain
         ModacityAnalytics.LogStringEvent("Toggled Sustain")
         if (!isMetrodronePlaying) {
-            if (sustain) {
+            if (MetrodroneParameters.instance.sustain) {
                 updateMetrodroneNote()
-                if (currNote != "X") {
-                    isSustaining = true
+                if (MetrodroneParameters.instance.currNote != "X") {
+                    MetrodroneParameters.instance.isSustaining = true
                     metrodrone.playUntimed()
                 }
             } else {
                 stopMetrodrone() //
-                isSustaining = false
+                MetrodroneParameters.instance.isSustaining = false
             }
         }
         
-        return sustain
+        return MetrodroneParameters.instance.sustain
     }
     
     func setSubdivision(_ divisions:Int) {
         ModacityAnalytics.LogStringEvent("Set subdivision", extraParamName: "subdivision", extraParamValue: divisions)
         
-        if (self.subdivisions != divisions) {
-            self.subdivisions = divisions
+        if (MetrodroneParameters.instance.subdivisions != divisions) {
+            MetrodroneParameters.instance.subdivisions = divisions
             
             if _imageViewSubdivisionNote != nil {
-                switch self.subdivisions {
+                switch MetrodroneParameters.instance.subdivisions {
                 case 0:
                     fallthrough
                 case 1:
@@ -197,7 +187,9 @@ class MetrodronePlayer: DroneFrameDelegate {
                 }
             }
             
-            startMetronome()
+            if self.isMetrodronePlaying {
+                startMetronome()
+            }
         }
         
     }
@@ -224,7 +216,7 @@ class MetrodronePlayer: DroneFrameDelegate {
     }
     
     func singleFire(_ change: Int) {
-        setNewTempo(self.tempo + change)
+        setNewTempo(MetrodroneParameters.instance.tempo + change)
     }
     
     @objc func rapidFireDown() {
@@ -238,17 +230,17 @@ class MetrodronePlayer: DroneFrameDelegate {
     }
     
     func setNewTempo(_ bpm: Int) {
-        tempo = bpm
+        MetrodroneParameters.instance.tempo = bpm
         
         if (bpm < MetrodronePlayer.minBPM) {
-            tempo = MetrodronePlayer.minBPM
+            MetrodroneParameters.instance.tempo = MetrodronePlayer.minBPM
         }
         if (bpm > MetrodronePlayer.maxBPM) {
-            tempo = MetrodronePlayer.maxBPM
+            MetrodroneParameters.instance.tempo = MetrodronePlayer.maxBPM
         }
         
         
-        _labelTempo.text = String(tempo)
+        _labelTempo.text = String(MetrodroneParameters.instance.tempo)
         if (isMetrodronePlaying) {
             startMetronome()
         }
@@ -257,9 +249,9 @@ class MetrodronePlayer: DroneFrameDelegate {
 
     func updateCurrNote(_ newIndex:Int) {
         if (newIndex < 0) {
-            currNote = "X"
+            MetrodroneParameters.instance.currNote = "X"
         } else {
-            currNote = _viewDroneFrame.droneLetters[newIndex]
+            MetrodroneParameters.instance.currNote = _viewDroneFrame.droneLetters[newIndex]
         }
         updateMetrodroneOutlets()
     }
@@ -269,11 +261,11 @@ class MetrodronePlayer: DroneFrameDelegate {
         // if metrodrone is going, turn it into click only
         // if sustain is going, stop it and deselect any note
         UIDelegate?.setSelectedIndex(-1)
-        currNote = "X"
+        MetrodroneParameters.instance.currNote = "X"
         
-        if (!sustain) {
+        if (!MetrodroneParameters.instance.sustain) {
             metrodrone.stop()
-            isSustaining = false
+            MetrodroneParameters.instance.isSustaining = false
         }
         
         if (isMetrodronePlaying) {
@@ -296,7 +288,7 @@ class MetrodronePlayer: DroneFrameDelegate {
             // it's not playing so start doing untime play
             updateMetrodroneNote() // required for untimed play
             metrodrone.playUntimed(withLooping: true)
-            isSustaining = true
+            MetrodroneParameters.instance.isSustaining = true
         }
     }
     
@@ -316,10 +308,10 @@ class MetrodronePlayer: DroneFrameDelegate {
         // if the metronome isn't going, check if sustain is off - if so, stop playing the current untimed drone
         // if sustain is on, also no need to do anything.
         
-            if (!isMetrodronePlaying && !sustain) {
+            if (!isMetrodronePlaying && !MetrodroneParameters.instance.sustain) {
                 // stop playing if not in sustain or metrodrone mode
                 metrodrone.stop()
-                isSustaining = false
+                MetrodroneParameters.instance.isSustaining = false
             }
   
         
@@ -327,7 +319,7 @@ class MetrodronePlayer: DroneFrameDelegate {
     }
     
     func startMetronome() { // will restart it if already going.
-        if (isSustaining) {
+        if (MetrodroneParameters.instance.isSustaining) {
             print("Stopping met because of sustain")
             metrodrone.stop()
         }
@@ -335,7 +327,7 @@ class MetrodronePlayer: DroneFrameDelegate {
         
         updateMetrodroneNote()
         
-        metrodrone.play(bpm: Double(tempo), ratio: durationRatio, subdivision: subdivisions)
+        metrodrone.play(bpm: Double(MetrodroneParameters.instance.tempo), ratio: MetrodroneParameters.instance.durationRatio, subdivision: MetrodroneParameters.instance.subdivisions)
         isMetrodronePlaying = true
         setPauseImage()
         
@@ -344,7 +336,7 @@ class MetrodronePlayer: DroneFrameDelegate {
     
     
     func disableSustain() {
-        sustain = false
+        MetrodroneParameters.instance.sustain = false
         _buttonSustain.isSelected = false
         _buttonSustain.isEnabled = false
         _buttonSustain.alpha = 0.50
@@ -354,7 +346,7 @@ class MetrodronePlayer: DroneFrameDelegate {
     func stopMetrodrone() {
         metrodrone.stop()
         isMetrodronePlaying = false
-        isSustaining = false
+        MetrodroneParameters.instance.isSustaining = false
         setPlayImage()
         _buttonSustain.isEnabled = true
         _buttonSustain.alpha = 1
@@ -380,11 +372,11 @@ class MetrodronePlayer: DroneFrameDelegate {
     
     
     func changeOctave(direction: Int) {
-        self.currOctave -= direction
+        MetrodroneParameters.instance.currOctave -= direction
         updateMetrodroneOutlets()
         updateMetrodroneNote()
         
-        if (isSustaining) {
+        if (MetrodroneParameters.instance.isSustaining) {
             metrodrone.playUntimed()
         }
         if (isMetrodronePlaying) {
@@ -406,7 +398,7 @@ class MetrodronePlayer: DroneFrameDelegate {
         updateMetrodroneNote()
         metrodrone.playClick()
         
-        if let bpm = tempoDetective.addTap() {
+        if let bpm = MetrodroneParameters.instance.tempoDetective.addTap() {
             // if BPM is detected (after ~3 taps)
             print("bpm = \(bpm) detected")
             setNewTempo(Int(bpm))
@@ -423,8 +415,8 @@ class MetrodronePlayer: DroneFrameDelegate {
     func updateMetrodroneNote() {
         updateCurrNote(UIDelegate!.getSelectedIndex())
         
-        var fileDrone = "440-" + currNote + String(currOctave)
-        if (currNote == "X") {
+        var fileDrone = "440-" + MetrodroneParameters.instance.currNote + String(MetrodroneParameters.instance.currOctave)
+        if (MetrodroneParameters.instance.currNote == "X") {
             fileDrone = "silence"
         }
         

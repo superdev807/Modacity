@@ -94,6 +94,7 @@ class AppOveralDataManager {
         UserDefaults.standard.removeObject(forKey: "streak_from")
         UserDefaults.standard.removeObject(forKey: "streak_to")
         UserDefaults.standard.removeObject(forKey: "default_data_shiped")
+        UserDefaults.standard.removeObject(forKey: "first_playlist_generated")
         UserDefaults.standard.synchronize()
     }
     
@@ -103,7 +104,8 @@ class AppOveralDataManager {
                           disableAutoPlayback: Bool,
                           streakFrom: String,
                           streakTo: String,
-                          defaultDataShiped: Bool) {
+                          defaultDataShiped: Bool,
+                          firstPlaylistGenerated: Bool) {
         UserDefaults.standard.set(totalPracticeSeconds, forKey: "total_practice_seconds")
         UserDefaults.standard.set(totalImprovements, forKey: "total_improvements")
         UserDefaults.standard.set(notPreventPhoneSleep, forKey: "not_prevent_phone_sleep")
@@ -111,6 +113,7 @@ class AppOveralDataManager {
         UserDefaults.standard.set(streakFrom, forKey: "streak_from")
         UserDefaults.standard.set(streakTo, forKey: "streak_to")
         UserDefaults.standard.set(defaultDataShiped, forKey: "default_data_shiped")
+        UserDefaults.standard.set(firstPlaylistGenerated, forKey: "first_playlist_generated")
         UserDefaults.standard.synchronize()
     }
     
@@ -269,5 +272,7 @@ class AppOveralDataManager {
     func generatedFirstPlaylist() {
         UserDefaults.standard.set(true, forKey: "first_playlist_generated")
         UserDefaults.standard.synchronize()
+        
+        OverallDataRemoteManager.manager.updateFirstplaylistGenerated(true)
     }
 }

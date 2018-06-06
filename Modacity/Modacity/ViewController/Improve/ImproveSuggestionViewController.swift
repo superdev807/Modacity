@@ -72,6 +72,12 @@ class ImproveSuggestionViewController: UIViewController {
         self.performSegue(withIdentifier: "sid_next", sender: nil)
     }
     
+    @IBAction func onEditingChangedOnField(_ sender: Any) {
+        if "" != self.textfieldInputBox.text {
+            self.viewModel.selectedSuggestion = self.textfieldInputBox.text ?? ""
+        }
+    }
+    
     @objc func onKeyboardWillShow(notification: Notification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             self.constraintForCollectionViewBottomSpace.constant = -1 * keyboardSize.height

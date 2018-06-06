@@ -15,6 +15,7 @@ class PlaylistFinishViewController: UIViewController {
     @IBOutlet weak var labelSessionImprovements: UILabel!
     @IBOutlet weak var labelDurationUnits: UILabel!
     
+    @IBOutlet weak var buttonNotes: UIButton!
     var playlistDetailsViewModel: PlaylistDetailsViewModel!
     
     override func viewDidLoad() {
@@ -29,6 +30,11 @@ class PlaylistFinishViewController: UIViewController {
         } else {
             self.labelSessionDuration.text = "\(sessionDuration / 60)"
             self.labelDurationUnits.text = "MINUTES"
+        }
+        if self.playlistDetailsViewModel.playlistName == "" {
+            self.buttonNotes.isHidden = true
+        } else {
+            self.buttonNotes.isHidden = false
         }
         
         self.labelSessionImprovements.text = "\(AppOveralDataManager.manager.calculateStreakDays())"

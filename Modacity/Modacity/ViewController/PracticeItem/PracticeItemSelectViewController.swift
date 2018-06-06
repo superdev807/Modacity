@@ -245,6 +245,9 @@ extension PracticeItemSelectViewController {
         self.textfieldSearch.text = ""
         self.buttonRemoveKeyword.isHidden = true
         self.viewModel.changeKeyword(to: "")
+        if !AppOveralDataManager.manager.firstPlaylistGenerated() {
+            AppOveralDataManager.manager.generatedFirstPlaylist()
+        }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             self.scrollTableView(to:newName)

@@ -379,9 +379,32 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_delete_white" translatesAutoresizingMaskIntoConstraints="NO" id="FPM-eO-Wld">
                                 <rect key="frame" x="341" y="34.5" width="18" height="19"/>
                             </imageView>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Warm Up" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="d6o-Cy-Ojk">
+                                <rect key="frame" x="56" y="30" width="263" height="30"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="wnC-PR-ARo"/>
+                                </constraints>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                <connections>
+                                    <action selector="onDidEndOnExitOnField:" destination="M8X-FW-IvU" eventType="editingDidEndOnExit" id="woe-Tw-mvX"/>
+                                </connections>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KFq-s4-u3c">
+                                <rect key="frame" x="48" y="0.0" width="279" height="82"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="82" id="QJu-gi-Ve9"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="onStartEdit:" destination="M8X-FW-IvU" eventType="touchUpInside" id="kp3-D6-Hnj"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="gYm-0x-n25" firstAttribute="trailing" secondItem="d6o-Cy-Ojk" secondAttribute="trailing" constant="56" id="2hf-C8-hgq"/>
                             <constraint firstItem="gL6-FW-upe" firstAttribute="top" secondItem="brv-6l-oeA" secondAttribute="top" id="5CB-ou-AYu"/>
                             <constraint firstItem="MFe-XI-eIX" firstAttribute="centerY" secondItem="Nk1-1u-loJ" secondAttribute="centerY" id="5bW-dA-FOR"/>
                             <constraint firstItem="j5T-Qc-BbY" firstAttribute="leading" secondItem="gYm-0x-n25" secondAttribute="leading" constant="20" id="9R9-Wi-cpH"/>
@@ -389,6 +412,8 @@
                             <constraint firstItem="gL6-FW-upe" firstAttribute="trailing" secondItem="gYm-0x-n25" secondAttribute="trailing" id="FWE-XH-TCD"/>
                             <constraint firstItem="3Ju-FI-RoC" firstAttribute="trailing" secondItem="gYm-0x-n25" secondAttribute="trailing" id="JoA-48-CfY"/>
                             <constraint firstItem="gYm-0x-n25" firstAttribute="top" secondItem="Cxy-rN-GE7" secondAttribute="top" constant="20" id="M5b-4q-aGJ"/>
+                            <constraint firstItem="d6o-Cy-Ojk" firstAttribute="leading" secondItem="gYm-0x-n25" secondAttribute="leading" constant="56" id="ONU-g8-J3o"/>
+                            <constraint firstItem="KFq-s4-u3c" firstAttribute="leading" secondItem="Cxy-rN-GE7" secondAttribute="trailing" id="PSg-pa-adp"/>
                             <constraint firstItem="j5T-Qc-BbY" firstAttribute="bottom" secondItem="gYm-0x-n25" secondAttribute="bottom" id="QSa-Rg-e1p"/>
                             <constraint firstItem="3Ju-FI-RoC" firstAttribute="top" secondItem="brv-6l-oeA" secondAttribute="top" id="Rua-BK-vxj"/>
                             <constraint firstItem="j5T-Qc-BbY" firstAttribute="top" secondItem="Nk1-1u-loJ" secondAttribute="bottom" constant="10" id="WEK-hD-MrO"/>
@@ -398,7 +423,10 @@
                             <constraint firstItem="Cxy-rN-GE7" firstAttribute="leading" secondItem="gYm-0x-n25" secondAttribute="leading" id="XtA-m8-wVJ"/>
                             <constraint firstItem="Nk1-1u-loJ" firstAttribute="trailing" secondItem="gYm-0x-n25" secondAttribute="trailing" id="dop-Qu-y6z"/>
                             <constraint firstAttribute="bottom" secondItem="3Ju-FI-RoC" secondAttribute="bottom" id="gEC-pp-QvK"/>
+                            <constraint firstItem="gL6-FW-upe" firstAttribute="leading" secondItem="KFq-s4-u3c" secondAttribute="trailing" id="h5M-nb-REu"/>
                             <constraint firstItem="FPM-eO-Wld" firstAttribute="centerY" secondItem="awN-JO-dzh" secondAttribute="centerY" id="jcl-yM-SFK"/>
+                            <constraint firstItem="KFq-s4-u3c" firstAttribute="top" secondItem="brv-6l-oeA" secondAttribute="top" id="l4E-uz-i8c"/>
+                            <constraint firstItem="MFe-XI-eIX" firstAttribute="centerY" secondItem="d6o-Cy-Ojk" secondAttribute="centerY" id="n0b-Nz-rSm"/>
                             <constraint firstItem="awN-JO-dzh" firstAttribute="leading" secondItem="gYm-0x-n25" secondAttribute="leading" constant="16" id="ooc-FH-veA"/>
                             <constraint firstItem="gYm-0x-n25" firstAttribute="trailing" secondItem="MFe-XI-eIX" secondAttribute="trailing" constant="50" id="rfo-j4-PI4"/>
                             <constraint firstItem="awN-JO-dzh" firstAttribute="centerY" secondItem="Nk1-1u-loJ" secondAttribute="centerY" id="wzn-ZM-OiL"/>
@@ -411,6 +439,7 @@
                         <outlet property="constraintForInputboxBottomSpace" destination="QSa-Rg-e1p" id="xoi-Ly-VJO"/>
                         <outlet property="labelNoteTitle" destination="MFe-XI-eIX" id="TU3-d0-Jk4"/>
                         <outlet property="textViewInputBox" destination="j5T-Qc-BbY" id="ogZ-HQ-mza"/>
+                        <outlet property="textfieldNoteTitleEdit" destination="d6o-Cy-Ojk" id="cSI-uR-Noy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fpi-aL-kkM" userLabel="First Responder" sceneMemberID="firstResponder"/>
