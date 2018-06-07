@@ -733,6 +733,16 @@ you wanted?</string>
                                             <constraint firstItem="hgO-hh-U4F" firstAttribute="centerY" secondItem="jXP-KM-es9" secondAttribute="centerY" id="ryP-eM-5si"/>
                                         </constraints>
                                     </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Agq-iA-2sP">
+                                        <rect key="frame" x="0.0" y="146" width="320" height="44"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="HiR-Se-ReP"/>
+                                        </constraints>
+                                        <connections>
+                                            <action selector="onCloseDrone:" destination="hg1-Xl-tGd" eventType="touchUpInside" id="IlK-rU-Rst"/>
+                                        </connections>
+                                    </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UKY-Pa-EGz" customClass="ViewDroneFrame" customModule="Modacity" customModuleProvider="target">
                                         <rect key="frame" x="14" y="60" width="155" height="155"/>
                                         <subviews>
@@ -1036,12 +1046,16 @@ you wanted?</string>
                                     <constraint firstAttribute="trailing" secondItem="sBe-H7-GpM" secondAttribute="trailing" id="NqH-5j-0Fz"/>
                                     <constraint firstItem="jXP-KM-es9" firstAttribute="centerX" secondItem="RDU-al-hFq" secondAttribute="centerX" id="Nxq-dr-65Z"/>
                                     <constraint firstItem="sBe-H7-GpM" firstAttribute="top" secondItem="RDU-al-hFq" secondAttribute="top" id="Rod-kr-7wq"/>
+                                    <constraint firstAttribute="trailing" secondItem="Agq-iA-2sP" secondAttribute="trailing" id="V0u-Y2-Wim"/>
+                                    <constraint firstItem="Agq-iA-2sP" firstAttribute="leading" secondItem="RDU-al-hFq" secondAttribute="leading" id="ayF-P0-2Qy"/>
                                     <constraint firstItem="0kn-4t-SQ0" firstAttribute="top" secondItem="RDU-al-hFq" secondAttribute="top" constant="55" id="bou-b7-GPP"/>
                                     <constraint firstItem="0kn-4t-SQ0" firstAttribute="leading" secondItem="rR9-07-jtj" secondAttribute="trailing" constant="14" id="dY7-NO-iAh"/>
                                     <constraint firstItem="UKY-Pa-EGz" firstAttribute="leading" secondItem="RDU-al-hFq" secondAttribute="leading" constant="14" id="dwn-39-ha6"/>
+                                    <constraint firstItem="Agq-iA-2sP" firstAttribute="top" secondItem="RDU-al-hFq" secondAttribute="top" id="ev1-f8-1dm"/>
                                     <constraint firstItem="sBe-H7-GpM" firstAttribute="leading" secondItem="RDU-al-hFq" secondAttribute="leading" id="mib-4o-zPc"/>
                                     <constraint firstAttribute="bottom" secondItem="0kn-4t-SQ0" secondAttribute="bottom" constant="30" id="q1g-D4-5UJ"/>
                                     <constraint firstItem="tw7-38-B18" firstAttribute="bottom" secondItem="0kn-4t-SQ0" secondAttribute="bottom" constant="-5" id="qdh-rs-Kh6"/>
+                                    <constraint firstItem="jXP-KM-es9" firstAttribute="leading" secondItem="RDU-al-hFq" secondAttribute="leading" constant="112" id="tPg-n5-N9K"/>
                                     <constraint firstAttribute="trailing" secondItem="tw7-38-B18" secondAttribute="trailing" constant="14" id="wmI-Bk-xKe"/>
                                     <constraint firstItem="rR9-07-jtj" firstAttribute="leading" secondItem="RDU-al-hFq" secondAttribute="leading" constant="14" id="xVo-pV-aVC"/>
                                     <constraint firstItem="jXP-KM-es9" firstAttribute="top" secondItem="RDU-al-hFq" secondAttribute="top" constant="8" id="zAM-28-3VE"/>
@@ -1564,11 +1578,12 @@ you wanted?</string>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v36-h9-pqD">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="VvF-Yp-cHi"/>
                                         </constraints>
                                         <connections>
-                                            <action selector="onCloseDrone:" destination="ey2-fW-n4E" eventType="touchUpInside" id="jaa-Qp-KWs"/>
+                                            <action selector="onCloseDrone:" destination="ey2-fW-n4E" eventType="touchUpInside" id="g2B-X8-Xph"/>
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rqU-M7-XIk">

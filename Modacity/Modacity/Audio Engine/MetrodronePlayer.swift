@@ -126,7 +126,7 @@ class MetrodronePlayer: DroneFrameDelegate {
             self._labelTempo.text = String(MetrodroneParameters.instance.tempo)
             self._sliderDuration.value = MetrodroneParameters.instance.durationRatio
             self._buttonSustain.isSelected = MetrodroneParameters.instance.sustain
-//            self._viewDroneFrame.setSelectedNote(MetrodroneParameters.instance.currNote)
+            self._viewDroneFrame.setSelectedNote(MetrodroneParameters.instance.currNote)
             
             self._labelOctaveNumber.text = String(MetrodroneParameters.instance.currOctave - MetrodronePlayer.minOctave + 1)
             
@@ -304,7 +304,7 @@ class MetrodronePlayer: DroneFrameDelegate {
         
         UIDelegate?.setSelectedIndex(noteIndex)
         wheelSelected = noteIndex
-        self.processDurationSliderEnabledStatus()
+        
         
         if (isMetrodronePlaying) {
             startMetronome() // starts it playing again with correct note
@@ -314,10 +314,11 @@ class MetrodronePlayer: DroneFrameDelegate {
             metrodrone.playUntimed(withLooping: true)
             MetrodroneParameters.instance.isSustaining = true
         }
+        self.processDurationSliderEnabledStatus()
     }
     
     func processDurationSliderEnabledStatus() {
-        if wheelSelected != -1 && isMetrodronePlaying {
+        if MetrodroneParameters.instance.currNote != "X" && isMetrodronePlaying {
             self.enableDurationSlider()
         } else {
             self.disableDurationSlider()
