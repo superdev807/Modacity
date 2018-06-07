@@ -12,6 +12,7 @@ class AboutViewController: UIViewController {
     
     @IBOutlet weak var tableViewMain: UITableView!
     @IBOutlet weak var constraintForHeaderImageViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var labelVersion: UILabel!
     
     let icons = ["icon_share_white", "icon_instagram", "icon_settings_twitter", "icon_settings_facebook", "icon_settings_web"]
     let captions = ["Share the App", "Modacity on Instagram", "Modacity on Twitter", "Modacity on Facebook", "www.modacity.co"]
@@ -25,6 +26,18 @@ class AboutViewController: UIViewController {
         } else {
             self.constraintForHeaderImageViewHeight.constant = 88
         }
+        
+        if let text = Bundle.main.infoDictionary?["CFBundleVersion"]  as? String {
+            print(text)
+        }
+        self.labelVersion.text = self.version()
+    }
+    
+    func version() -> String {
+        let dictionary = Bundle.main.infoDictionary!
+        let version = dictionary["CFBundleShortVersionString"] as! String
+        let build = dictionary["CFBundleVersion"] as! String
+        return "\(version)(\(build))"
     }
 
     @IBAction func onMenu(_ sender: Any) {

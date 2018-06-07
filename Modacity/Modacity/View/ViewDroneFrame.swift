@@ -162,7 +162,6 @@ class ViewDroneFrame: UIView, MetrodroneUIDelegate {
         
         if ((delegate != nil) && (touchedIndex >= 0)) {
             touchMode = (touchedIndex == self.selectedDronFrameIdx) ? .Deselect : .Select
-            
             delegate?.toneWheelNoteDown(noteIndex: touchedIndex, currMode: touchMode)
         }
     }
@@ -180,13 +179,18 @@ class ViewDroneFrame: UIView, MetrodroneUIDelegate {
                 delegate?.toneWheelNoteDown(noteIndex: touchedIndex, currMode: touchMode)
             }
         }
+    }
+    
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        print("Touches cancel at \(selectedDronFrameIdx)")
         
-        
+        if ((delegate != nil) && (touchMode == .Select))  {
+            delegate?.toneWheelNoteUp()
+        }
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         print("Touches up at \(selectedDronFrameIdx)")
-        //let touchedIndex = detectDroneIndex(forEvent: event!)
         
         if ((delegate != nil) && (touchMode == .Select))  {
             delegate?.toneWheelNoteUp()

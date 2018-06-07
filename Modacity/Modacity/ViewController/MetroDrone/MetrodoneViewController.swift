@@ -50,6 +50,7 @@ class MetrodoneViewController: UIViewController {
         ModacityAnalytics.LogStringEvent("Loaded Standalone Metrodrone")
         self.prepareMetrodronePlayer()
         self.viewSubdivision.isHidden = true
+        self.selectedSubdivisionNote = MetrodroneParameters.instance.subdivisions - 1
         self.configureSubdivisionNoteSelectionGUI()
         self.configureLayout()
         NotificationCenter.default.addObserver(self, selector: #selector(processRouteChange), name: Notification.Name.AVAudioSessionRouteChange, object: nil)
@@ -98,6 +99,8 @@ class MetrodoneViewController: UIViewController {
                                           buttonOctaveDown: buttonOctaveDown,
                                           labelOctaveNum: labelOctave,
                                           imageViewSubdivisionCircleStatus: imageViewNoteStatusOnButton,
+                                          viewSliderMinTrack: self.viewMintrick,
+                                          imageViewSliderMaxTrack: self.imageViewMaxTrick,
                                           imageViewSubdivisionNote: imageViewNoteOnButton,
                                           playButtonImage: UIImage(named:"btn_drone_play_large"),
                                           pauseButtonImage: UIImage(named:"btn_drone_pause_large"))
@@ -233,16 +236,12 @@ class MetrodoneViewController: UIViewController {
         switch self.selectedSubdivisionNote {
         case 0:
             self.buttonSubdivisionNote1.alpha = 1.0
-//            self.imageViewNoteOnButton.image = UIImage(named:"icon_note_1")
         case 1:
             self.buttonSubdivisionNote2.alpha = 1.0
-//            self.imageViewNoteOnButton.image = UIImage(named:"icon_note_2")
         case 2:
             self.buttonSubdivisionNote3.alpha = 1.0
-//            self.imageViewNoteOnButton.image = UIImage(named:"icon_note_3")
         case 3:
             self.buttonSubdivisionNote4.alpha = 1.0
-//            self.imageViewNoteOnButton.image = UIImage(named:"icon_note_4")
         default:
             return
         }

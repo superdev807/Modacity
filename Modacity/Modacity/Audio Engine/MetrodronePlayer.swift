@@ -40,8 +40,11 @@ class MetrodronePlayer: DroneFrameDelegate {
     var _buttonOctaveUp: UIButton!
     var _imageViewSubdivisionCircleStatus: UIImageView!
     var _imageViewSubdivisionNote: UIImageView!
+    var _viewDurationSliderMinTrack: UIView!
+    var _imageviewDurationSliderMaxTrack: UIImageView!
     
     var UIDelegate: MetrodroneUIDelegate?
+    var wheelSelected: Int = -1
     
     var timerBPMAdjust: Timer!
     
@@ -75,6 +78,8 @@ class MetrodronePlayer: DroneFrameDelegate {
                            buttonOctaveDown: UIButton!,
                            labelOctaveNum: UILabel!,
                            imageViewSubdivisionCircleStatus: UIImageView!,
+                           viewSliderMinTrack: UIView!,
+                           imageViewSliderMaxTrack: UIImageView!,
                            imageViewSubdivisionNote: UIImageView! = nil,
                            playButtonImage: UIImage! = UIImage(named:"btn_drone_play"),
                            pauseButtonImage: UIImage! = UIImage(named:"btn_drone_pause")
@@ -91,16 +96,22 @@ class MetrodronePlayer: DroneFrameDelegate {
         self._labelOctaveNumber = labelOctaveNum
         self._imageViewSubdivisionCircleStatus = imageViewSubdivisionCircleStatus
         self._imageViewSubdivisionNote = imageViewSubdivisionNote
+        self._viewDurationSliderMinTrack = viewSliderMinTrack
+        self._imageviewDurationSliderMaxTrack = imageViewSliderMaxTrack
         
-        // Make sure the duration slider has the right range, and set it in the middle.
-        self._sliderDuration.maximumValue = MetrodronePlayer.maxDurationValue
-        self._sliderDuration.minimumValue = MetrodronePlayer.minDurationValue
-        self._sliderDuration.value = 0.5 * (MetrodronePlayer.minDurationValue + MetrodronePlayer.maxDurationValue)
+        DispatchQueue.main.async {
+            // Make sure the duration slider has the right range, and set it in the middle.
+            self._sliderDuration.maximumValue = MetrodronePlayer.maxDurationValue
+            self._sliderDuration.minimumValue = MetrodronePlayer.minDurationValue
+            self._sliderDuration.value = 0.5 * (MetrodronePlayer.minDurationValue + MetrodronePlayer.maxDurationValue)
+            self.updateSubdivisionIcons()
+        }
         
         self._playButtonImage = playButtonImage
         self._pauseButtonImage = pauseButtonImage
         
         _viewDroneFrame.setDelegate(self) // establish bi-directional relationships
+        self.disableDurationSlider()
         updateMetrodroneOutlets()
     }
     
@@ -170,28 +181,32 @@ class MetrodronePlayer: DroneFrameDelegate {
         if (MetrodroneParameters.instance.subdivisions != divisions) {
             MetrodroneParameters.instance.subdivisions = divisions
             
-            if _imageViewSubdivisionNote != nil {
-                switch MetrodroneParameters.instance.subdivisions {
-                case 0:
-                    fallthrough
-                case 1:
-                    _imageViewSubdivisionNote.image = UIImage(named:"icon_note_1")
-                case 2:
-                    _imageViewSubdivisionNote.image = UIImage(named:"icon_note_2")
-                case 3:
-                    _imageViewSubdivisionNote.image = UIImage(named:"icon_note_3")
-                case 4:
-                    _imageViewSubdivisionNote.image = UIImage(named:"icon_note_4")
-                default:
-                    return
-                }
-            }
+            updateSubdivisionIcons()
             
             if self.isMetrodronePlaying {
                 startMetronome()
             }
         }
         
+    }
+    
+    func updateSubdivisionIcons() {
+        if _imageViewSubdivisionNote != nil {
+            switch MetrodroneParameters.instance.subdivisions {
+            case 0:
+                fallthrough
+            case 1:
+                _imageViewSubdivisionNote.image = UIImage(named:"icon_note_1")
+            case 2:
+                _imageViewSubdivisionNote.image = UIImage(named:"icon_note_2")
+            case 3:
+                _imageViewSubdivisionNote.image = UIImage(named:"icon_note_3")
+            case 4:
+                _imageViewSubdivisionNote.image = UIImage(named:"icon_note_4")
+            default:
+                return
+            }
+        }
     }
     
     func stopBPMChangeTimer() {
@@ -261,7 +276,9 @@ class MetrodronePlayer: DroneFrameDelegate {
         // if metrodrone is going, turn it into click only
         // if sustain is going, stop it and deselect any note
         UIDelegate?.setSelectedIndex(-1)
+        wheelSelected = -1
         MetrodroneParameters.instance.currNote = "X"
+        self.disableDurationSlider()
         
         if (isMetrodronePlaying) {
             startMetronome()
@@ -281,7 +298,8 @@ class MetrodronePlayer: DroneFrameDelegate {
         // start playing this note. on toneWheelUp event, stop playing (unless sustain is on)
         
         UIDelegate?.setSelectedIndex(noteIndex)
-        
+        wheelSelected = noteIndex
+        self.enableDurationSlider()
         
         if (isMetrodronePlaying) {
             startMetronome() // starts it playing again with correct note
@@ -290,6 +308,24 @@ class MetrodronePlayer: DroneFrameDelegate {
             updateMetrodroneNote() // required for untimed play
             metrodrone.playUntimed(withLooping: true)
             MetrodroneParameters.instance.isSustaining = true
+        }
+    }
+    
+    func enableDurationSlider() {
+        print("Enable duration slider")
+        DispatchQueue.main.async {
+            self._viewDurationSliderMinTrack.alpha = 1
+            self._imageviewDurationSliderMaxTrack.alpha = 1
+            self._sliderDuration.isEnabled = true
+        }
+    }
+    
+    func disableDurationSlider() {
+        print("Disable duration slider")
+        DispatchQueue.main.async {
+            self._viewDurationSliderMinTrack.alpha = 0
+            self._imageviewDurationSliderMaxTrack.alpha = 0.5
+            self._sliderDuration.isEnabled = false
         }
     }
     

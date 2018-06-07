@@ -1562,6 +1562,15 @@ you wanted?</string>
                                             <constraint firstAttribute="trailing" secondItem="rDl-js-Sle" secondAttribute="trailing" id="iLK-Ra-tSg"/>
                                         </constraints>
                                     </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v36-h9-pqD">
+                                        <rect key="frame" x="137" y="153" width="46" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="VvF-Yp-cHi"/>
+                                        </constraints>
+                                        <connections>
+                                            <action selector="onCloseDrone:" destination="ey2-fW-n4E" eventType="touchUpInside" id="jaa-Qp-KWs"/>
+                                        </connections>
+                                    </button>
                                     <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rqU-M7-XIk">
                                         <rect key="frame" x="127" y="107" width="120" height="120.5"/>
                                         <subviews>
@@ -1862,11 +1871,14 @@ you wanted?</string>
                                     <constraint firstAttribute="trailing" secondItem="vnj-3d-rRi" secondAttribute="trailing" constant="14" id="FdK-X6-Rkz"/>
                                     <constraint firstAttribute="bottom" secondItem="Ruh-yo-KZC" secondAttribute="bottom" constant="30" id="Mgi-93-VBo"/>
                                     <constraint firstItem="vnj-3d-rRi" firstAttribute="leading" secondItem="Ruh-yo-KZC" secondAttribute="trailing" constant="14" id="SIO-6p-I8V"/>
+                                    <constraint firstItem="v36-h9-pqD" firstAttribute="top" secondItem="Exn-Lj-YhY" secondAttribute="top" id="SlD-IC-hlr"/>
                                     <constraint firstAttribute="bottom" secondItem="MTm-pq-8GG" secondAttribute="bottom" id="cdy-6i-SUg"/>
                                     <constraint firstItem="vnj-3d-rRi" firstAttribute="top" secondItem="Ruh-yo-KZC" secondAttribute="top" id="ctb-g9-ESf"/>
                                     <constraint firstItem="MTm-pq-8GG" firstAttribute="leading" secondItem="Exn-Lj-YhY" secondAttribute="leading" id="dv4-az-unV"/>
                                     <constraint firstItem="rqU-M7-XIk" firstAttribute="centerX" secondItem="2fJ-SB-Qde" secondAttribute="centerX" id="hAv-2f-zhh"/>
+                                    <constraint firstItem="v36-h9-pqD" firstAttribute="leading" secondItem="Exn-Lj-YhY" secondAttribute="leading" id="q5P-04-JdL"/>
                                     <constraint firstItem="reR-6l-mO4" firstAttribute="top" secondItem="2fJ-SB-Qde" secondAttribute="bottom" constant="20" id="qh8-Rj-LT6"/>
+                                    <constraint firstAttribute="trailing" secondItem="v36-h9-pqD" secondAttribute="trailing" id="uJp-5j-owV"/>
                                     <constraint firstItem="MTm-pq-8GG" firstAttribute="top" secondItem="Exn-Lj-YhY" secondAttribute="top" id="uaK-yw-f4Z"/>
                                     <constraint firstAttribute="trailing" secondItem="MTm-pq-8GG" secondAttribute="trailing" id="vCw-CP-K45"/>
                                     <constraint firstItem="vnj-3d-rRi" firstAttribute="bottom" secondItem="Ruh-yo-KZC" secondAttribute="bottom" constant="-5" id="xef-kA-lMg"/>

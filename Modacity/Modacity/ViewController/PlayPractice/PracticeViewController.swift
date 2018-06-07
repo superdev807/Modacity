@@ -289,14 +289,15 @@ extension PracticeViewController {
         self.viewBottomXBar.backgroundColor = Color(hexString:"#292a4a")
         self.constraintForMaximizedDroneBottomSpace.constant =  metrodroneViewHeight - metrodroneViewMinHeight
         self.viewSubdivision.isHidden = true
-        self.configureSubdivisionNoteSelectionGUI()
         self.imageViewMetrodroneViewShowingArrow.image = UIImage(named:"icon_arrow_up")
-        self.panGesture = UIPanGestureRecognizer(target: self, action: #selector(draggingDroneView))
-        self.tapGesture = UITapGestureRecognizer(target: self, action: #selector(processDroneViewTap))
-        self.viewMaximizedDrone.addGestureRecognizer(self.panGesture)
-        self.viewMaximizedDrone.addGestureRecognizer(self.tapGesture)
+//        self.panGesture = UIPanGestureRecognizer(target: self, action: #selector(draggingDroneView))
+//        self.tapGesture = UITapGestureRecognizer(target: self, action: #selector(processDroneViewTap))
+//        self.viewMaximizedDrone.addGestureRecognizer(self.panGesture)
+//        self.viewMaximizedDrone.addGestureRecognizer(self.tapGesture)
         prepareMetrodrone()
         self.constraintForMinTrackViewWidth.constant = self.imageViewMaxTrack.frame.size.width * CGFloat((MetrodroneParameters.instance.durationRatio - self.sliderDuration.minimumValue) / (self.sliderDuration.maximumValue - self.sliderDuration.minimumValue))
+        self.selectedSubdivisionNote = MetrodroneParameters.instance.subdivisions - 1
+        self.configureSubdivisionNoteSelectionGUI()
     }
     
     func configureSubdivisionNoteSelectionGUI() {
@@ -385,6 +386,10 @@ extension PracticeViewController {
         
     }
     
+    @IBAction func onCloseDrone(_ sender:Any) {
+        self.closeDroneView()
+    }
+    
     @objc func processDroneViewTap(gesture : UITapGestureRecognizer) {
         let touchPoint = gesture.location(in: self.viewMaximizedDrone)
         
@@ -430,6 +435,8 @@ extension PracticeViewController {
                                                     buttonOctaveDown: self.buttonOctaveDown,
                                                     labelOctaveNum: self.labelOctave,
                                                     imageViewSubdivisionCircleStatus: self.buttonSubdivisionStatusOnButton,
+                                                    viewSliderMinTrack: self.viewMinTrack,
+                                                    imageViewSliderMaxTrack: self.imageViewMaxTrack,
                                                     imageViewSubdivisionNote: self.buttonSubDivisionNoteOnButton)
         }
     }
@@ -443,6 +450,10 @@ extension PracticeViewController {
     }
     
     func closeDroneView() {
+        
+        if self.subdivisionPanelShown {
+            self.onSubdivision(self.view)
+        }
         
         let distance = abs(metrodroneViewHeight - metrodroneViewMinHeight - self.constraintForMaximizedDroneBottomSpace.constant)
         self.constraintForMaximizedDroneBottomSpace.constant = metrodroneViewHeight - metrodroneViewMinHeight
@@ -461,9 +472,7 @@ extension PracticeViewController {
         if self.metrodronePlayerShown {
             
             ModacityAnalytics.LogEvent(.MetrodroneDrawerClose)
-            if self.subdivisionPanelShown {
-                self.onSubdivision(self.view)
-            }
+            
             
 //            if let metrodronePlayer = self.metrodonePlayer {
 //                metrodronePlayer.stopPlayer()
