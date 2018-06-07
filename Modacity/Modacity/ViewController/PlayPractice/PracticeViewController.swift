@@ -274,7 +274,7 @@ class PracticeViewController: UIViewController {
 }
 
 // MARK: - Metrodone processing
-extension PracticeViewController {
+extension PracticeViewController: MetrodronePlayerDelegate {
     
     @objc func processRouteChange() {
         if let player = self.metrodonePlayer {
@@ -425,6 +425,7 @@ extension PracticeViewController {
     
     func prepareMetrodrone() {
         self.metrodonePlayer = MetrodronePlayer()//MetrodronePlayer.instance
+        self.metrodonePlayer!.metrodronePlayerDelegate = self
         DispatchQueue.main.async {
             self.metrodonePlayer!.initializeOutlets(lblTempo: self.labelTempo,
                                                     droneFrame: self.viewDroneFrame,
@@ -439,6 +440,10 @@ extension PracticeViewController {
                                                     imageViewSliderMaxTrack: self.imageViewMaxTrack,
                                                     imageViewSubdivisionNote: self.buttonSubDivisionNoteOnButton)
         }
+    }
+    
+    func onDurationSliderEnabled() {
+        self.constraintForMinTrackViewWidth.constant = self.imageViewMaxTrack.frame.size.width * CGFloat((self.sliderDuration.value - self.sliderDuration.minimumValue) / (self.sliderDuration.maximumValue - self.sliderDuration.minimumValue))
     }
     
     func startMetrodrone() {

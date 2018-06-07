@@ -17,6 +17,10 @@ protocol DroneFrameDelegate : class {
     var UIDelegate: MetrodroneUIDelegate? {get set}
 }
 
+protocol MetrodronePlayerDelegate {
+    func onDurationSliderEnabled()
+}
+
 class MetrodronePlayer: DroneFrameDelegate {
     
     static let minDurationValue: Float = 0.01
@@ -45,6 +49,7 @@ class MetrodronePlayer: DroneFrameDelegate {
     
     var UIDelegate: MetrodroneUIDelegate?
     var wheelSelected: Int = -1
+    var metrodronePlayerDelegate: MetrodronePlayerDelegate? = nil
     
     var timerBPMAdjust: Timer!
     
@@ -103,7 +108,7 @@ class MetrodronePlayer: DroneFrameDelegate {
             // Make sure the duration slider has the right range, and set it in the middle.
             self._sliderDuration.maximumValue = MetrodronePlayer.maxDurationValue
             self._sliderDuration.minimumValue = MetrodronePlayer.minDurationValue
-            self._sliderDuration.value = 0.5 * (MetrodronePlayer.minDurationValue + MetrodronePlayer.maxDurationValue)
+            self._sliderDuration.value = MetrodroneParameters.instance.durationRatio * (MetrodronePlayer.minDurationValue + MetrodronePlayer.maxDurationValue)
             self.updateSubdivisionIcons()
         }
         
@@ -111,7 +116,7 @@ class MetrodronePlayer: DroneFrameDelegate {
         self._pauseButtonImage = pauseButtonImage
         
         _viewDroneFrame.setDelegate(self) // establish bi-directional relationships
-        self.disableDurationSlider()
+        self.processDurationSliderEnabledStatus()
         updateMetrodroneOutlets()
     }
     
@@ -121,7 +126,7 @@ class MetrodronePlayer: DroneFrameDelegate {
             self._labelTempo.text = String(MetrodroneParameters.instance.tempo)
             self._sliderDuration.value = MetrodroneParameters.instance.durationRatio
             self._buttonSustain.isSelected = MetrodroneParameters.instance.sustain
-            self._viewDroneFrame.setSelectedNote(MetrodroneParameters.instance.currNote)
+//            self._viewDroneFrame.setSelectedNote(MetrodroneParameters.instance.currNote)
             
             self._labelOctaveNumber.text = String(MetrodroneParameters.instance.currOctave - MetrodronePlayer.minOctave + 1)
             
@@ -278,7 +283,7 @@ class MetrodronePlayer: DroneFrameDelegate {
         UIDelegate?.setSelectedIndex(-1)
         wheelSelected = -1
         MetrodroneParameters.instance.currNote = "X"
-        self.disableDurationSlider()
+        self.processDurationSliderEnabledStatus()
         
         if (isMetrodronePlaying) {
             startMetronome()
@@ -299,7 +304,7 @@ class MetrodronePlayer: DroneFrameDelegate {
         
         UIDelegate?.setSelectedIndex(noteIndex)
         wheelSelected = noteIndex
-        self.enableDurationSlider()
+        self.processDurationSliderEnabledStatus()
         
         if (isMetrodronePlaying) {
             startMetronome() // starts it playing again with correct note
@@ -311,12 +316,23 @@ class MetrodronePlayer: DroneFrameDelegate {
         }
     }
     
+    func processDurationSliderEnabledStatus() {
+        if wheelSelected != -1 && isMetrodronePlaying {
+            self.enableDurationSlider()
+        } else {
+            self.disableDurationSlider()
+        }
+    }
+    
     func enableDurationSlider() {
         print("Enable duration slider")
         DispatchQueue.main.async {
             self._viewDurationSliderMinTrack.alpha = 1
             self._imageviewDurationSliderMaxTrack.alpha = 1
             self._sliderDuration.isEnabled = true
+            if let delegate = self.metrodronePlayerDelegate {
+                delegate.onDurationSliderEnabled()
+            }
         }
     }
     
@@ -366,6 +382,7 @@ class MetrodronePlayer: DroneFrameDelegate {
         
         metrodrone.play(bpm: Double(MetrodroneParameters.instance.tempo), ratio: MetrodroneParameters.instance.durationRatio, subdivision: MetrodroneParameters.instance.subdivisions)
         isMetrodronePlaying = true
+        self.processDurationSliderEnabledStatus()
         setPauseImage()
         
         
@@ -384,6 +401,7 @@ class MetrodronePlayer: DroneFrameDelegate {
     func stopMetrodrone() {
         metrodrone.stop()
         isMetrodronePlaying = false
+        self.processDurationSliderEnabledStatus()
         MetrodroneParameters.instance.isSustaining = false
         setPlayImage()
         _buttonSustain.isEnabled = true

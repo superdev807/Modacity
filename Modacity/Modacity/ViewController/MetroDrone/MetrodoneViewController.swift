@@ -104,6 +104,7 @@ class MetrodoneViewController: UIViewController {
                                           imageViewSubdivisionNote: imageViewNoteOnButton,
                                           playButtonImage: UIImage(named:"btn_drone_play_large"),
                                           pauseButtonImage: UIImage(named:"btn_drone_pause_large"))
+        self.metrodronePlayer!.metrodronePlayerDelegate = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -245,5 +246,11 @@ class MetrodoneViewController: UIViewController {
         default:
             return
         }
+    }
+}
+
+extension MetrodoneViewController: MetrodronePlayerDelegate {
+    func onDurationSliderEnabled() {
+        self.constraintForMinTrickViewWidth.constant = self.imageViewMaxTrick.frame.size.width * CGFloat((self.sliderDuration.value - self.sliderDuration.minimumValue) / (self.sliderDuration.maximumValue - self.sliderDuration.minimumValue))
     }
 }

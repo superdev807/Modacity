@@ -183,7 +183,7 @@ class ImprovementViewController: UIViewController {
 }
 
 // MARK: - Drone processing
-extension ImprovementViewController {
+extension ImprovementViewController: MetrodronePlayerDelegate {
     
     @objc func processRouteChange() {
         if let player = self.metrodonePlayer {
@@ -206,6 +206,10 @@ extension ImprovementViewController {
         prepareMetrodrone()
         self.selectedSubdivisionNote = MetrodroneParameters.instance.subdivisions - 1
         self.configureSubdivisionNoteSelectionGUI()
+    }
+    
+    func onDurationSliderEnabled() {
+        self.constraintForMinTrackViewWidth.constant = self.imageViewMaxTrack.frame.size.width * CGFloat((self.sliderDuration.value - self.sliderDuration.minimumValue) / (self.sliderDuration.maximumValue - self.sliderDuration.minimumValue))
     }
     
     func configureSubdivisionNoteSelectionGUI() {
@@ -265,7 +269,11 @@ extension ImprovementViewController {
     }
     
     @IBAction func onCloseDrone(_ sender:Any) {
-        self.closeDroneView()
+        if !self.metrodronePlayerShown {
+            self.openDroneView()
+        } else {
+            self.closeDroneView()
+        }
     }
     
     @objc func draggingDroneView(_ sender: UIPanGestureRecognizer) {
@@ -326,6 +334,7 @@ extension ImprovementViewController {
     }
     func prepareMetrodrone() {
         self.metrodonePlayer = MetrodronePlayer()//MetrodronePlayer.instance
+        self.metrodonePlayer!.metrodronePlayerDelegate = self
         DispatchQueue.main.async {
             self.metrodonePlayer!.initializeOutlets(lblTempo: self.labelBPM,
                                                     droneFrame: self.viewDroneFrame,
