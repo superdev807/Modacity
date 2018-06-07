@@ -14,6 +14,7 @@ import Intercom
 class AppOveralDataManager {
     static let manager = AppOveralDataManager()
     
+    
     func beenTutorialRead() -> Bool {
         return UserDefaults.standard.bool(forKey: "tutorial_read")
     }
