@@ -69,18 +69,20 @@ class AboutViewController: UIViewController {
     }
     
     func shareModacityApp() {
+        //asdasdasd REFACTOR ME!!!
         let textString:String = "I practice with Modacity - Self-recording, MetroDrone, Timers, Deliberate Practice. You can too!\n"
         
         let stringWithLink:String = "https://itunes.apple.com/us/app/modacity-pro-music-practice/id1351617981?ls=1&mt=8"
         
         let activityController = UIActivityViewController(activityItems: [textString, stringWithLink], applicationActivities:nil)
         
+        
         activityController.completionWithItemsHandler = { (nil, completed, _, error)
             in
             if completed {
-                print("completed")
+                ModacityAnalytics.LogStringEvent("Shared Modacity App! Yay!")
             } else {
-                print("canceled")
+                ModacityAnalytics.LogStringEvent("Canceled App Share")
             }
         }
         present(activityController, animated: true)
@@ -122,7 +124,9 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
                 // Fallback on earlier versions
                 UIApplication.shared.openURL(URL(string:AppConfig.appConfigShareTheAppUrlLink)!)
             }*/
-            shareModacityApp()
+            
+            
+            //AppDelegate.
         } else if indexPath.row == 1 {
             if #available(iOS 10.0, *) {
                 UIApplication.shared.open(URL(string:AppConfig.appConfigInstagramLink)!, options: [:], completionHandler: nil)

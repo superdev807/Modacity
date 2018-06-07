@@ -102,7 +102,7 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            return 4
+            return 5
         } else if section == 1 {
             return 2
         }
@@ -150,8 +150,13 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
                 }
                 return cell
             } else {
+                
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCellWithIcon") as! SettingsCellWithIcon
-                cell.configure(icon: "icon_settings_star", caption: "Rate the App")
+                if indexPath.row == 3 {
+                    cell.configure(icon: "icon_settings_star", caption: "Rate the App")
+                } else if indexPath.row == 4 {
+                    cell.configure(icon: "icon_settings_share", caption: "Share the App")
+                }
                 return cell
             }
         } else if indexPath.section == 1 {
@@ -189,6 +194,8 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
                 self.changePassword()
             } else if indexPath.row == 3 {
                 self.rateApp()
+            } else if indexPath.row == 4 {
+                self.shareModacityApp()
             }
         }
         
@@ -227,6 +234,26 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
             return
         }
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
+    
+    func shareModacityApp() {
+        //asdasdasd REFACTOR ME!!! this is duplicate code from About menu screen!!!
+        let textString:String = "I practice with Modacity - Self-recording, MetroDrone, Timers, Deliberate Practice. You can too!\n"
+        
+        let stringWithLink:String = "https://itunes.apple.com/us/app/modacity-pro-music-practice/id1351617981?ls=1&mt=8"
+        
+        let activityController = UIActivityViewController(activityItems: [textString, stringWithLink], applicationActivities:nil)
+        
+        
+        activityController.completionWithItemsHandler = { (nil, completed, _, error)
+            in
+            if completed {
+                ModacityAnalytics.LogStringEvent("Shared Modacity App! Yay!")
+            } else {
+                ModacityAnalytics.LogStringEvent("Canceled App Share")
+            }
+        }
+        present(activityController, animated: true)
     }
 }
 
