@@ -64,6 +64,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         FBSDKAppEvents.activateApp()
         ModacityAnalytics.LogEvent(.ResumeActive)
+        let settings = UIUserNotificationSettings(types: [.badge, .sound, .alert], categories: nil)
+        application.registerUserNotificationSettings(settings)
+        application.registerForRemoteNotifications()
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
@@ -99,6 +102,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         view.configureContent(title: title, body: body)
         SwiftMessages.show(config: config, view: view)
+    }
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        Intercom.setDeviceToken(deviceToken)
+    }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        if (Intercom.isIntercomPushNotification(userInfo)) {
+            Intercom.handlePushNotification(userInfo)
+        }
+        completionHandler(.noData);
     }
 }
 

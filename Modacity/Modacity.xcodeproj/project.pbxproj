@@ -360,6 +360,8 @@
 		E2BA245E20C8D1590048A5D5 /* ModacityAudioEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModacityAudioEngine.swift; sourceTree = "<group>"; };
 		E2BA252D20C8D3860048A5D5 /* waveforms */ = {isa = PBXFileReference; lastKnownFileType = folder; name = waveforms; path = AudioAssets/waveforms; sourceTree = "<group>"; };
 		E2BA252E20C8D3860048A5D5 /* _Comp */ = {isa = PBXFileReference; lastKnownFileType = folder; name = _Comp; path = AudioAssets/_Comp; sourceTree = "<group>"; };
+		E2C26BFC20CA15FD00B4EA66 /* Modacity.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Modacity.entitlements; sourceTree = "<group>"; };
+		E2C26BFD20CA160200B4EA66 /* Modacity-Dev.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Modacity-Dev.entitlements"; sourceTree = "<group>"; };
 		E2D01BD5208A146B00F54B5D /* MessagesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesManager.swift; sourceTree = "<group>"; };
 		E91BAC853A8BF6F8434DAB14 /* libPods-ModacityTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ModacityTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -438,6 +440,7 @@
 		8E4551D220030F7E002061AE = {
 			isa = PBXGroup;
 			children = (
+				E2C26BFD20CA160200B4EA66 /* Modacity-Dev.entitlements */,
 				8E4551DD20030F7F002061AE /* Modacity */,
 				8E4551F220030F80002061AE /* ModacityTests */,
 				8E4551FD20030F80002061AE /* ModacityUITests */,
@@ -461,6 +464,7 @@
 		8E4551DD20030F7F002061AE /* Modacity */ = {
 			isa = PBXGroup;
 			children = (
+				E2C26BFC20CA15FD00B4EA66 /* Modacity.entitlements */,
 				E2BA245A20C8D1590048A5D5 /* Audio Engine */,
 				8ED83FBE20031EF400052256 /* Model */,
 				8ED83FC020031EF400052256 /* ViewController */,
@@ -890,6 +894,9 @@
 							com.apple.BackgroundModes = {
 								enabled = 1;
 							};
+							com.apple.Push = {
+								enabled = 1;
+							};
 						};
 					};
 					8E4551EE20030F80002061AE = {
@@ -904,6 +911,11 @@
 					};
 					E21BE9AE2091796A000D1877 = {
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -1595,6 +1607,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Modacity/Modacity.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -1620,6 +1633,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Modacity/Modacity.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -1709,6 +1723,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "Modacity-Dev.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -1734,6 +1749,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "Modacity-Dev.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
