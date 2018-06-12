@@ -51,7 +51,8 @@ class PracticeViewController: UIViewController {
     var isPlaying = false
     var currentRate = 1.0
     @IBOutlet weak var viewAudioPlayer: UIView!
-    @IBOutlet weak var viewSiriWaveFormView: SCSiriWaveformView!
+    @IBOutlet weak var viewWaveFormContainer: UIView!
+    var viewSiriWaveFormView: SCSiriWaveformView!
     @IBOutlet weak var buttonAudioPlay: UIButton!
     @IBOutlet weak var buttonAudioForward: UIButton!
     @IBOutlet weak var buttonAudioBackward: UIButton!
@@ -107,8 +108,8 @@ class PracticeViewController: UIViewController {
     var notesToShow = [Note]()
     
     // MARK: - Properties for prompt panel processing
-    @IBOutlet weak var viewWalkThrough: UIView!
-    @IBOutlet weak var constraintWalkThroughNotesLeadingSpace: NSLayoutConstraint!
+//    var viewWalkThrough: PlayPracticeWalkthroughView? = nil
+//    @IBOutlet weak var constraintWalkThroughNotesLeadingSpace: NSLayoutConstraint!
     
     // MARK: - Properties for ui resizing
     
@@ -130,7 +131,6 @@ class PracticeViewController: UIViewController {
         if AppUtils.sizeModelOfiPhone() == .iphone6p_55in {
             metrodroneViewHeight = CGFloat(380)
             constraintForDroneBackgroundImageViewHeight.constant = CGFloat(380)
-            constraintWalkThroughNotesLeadingSpace.constant = 100
             constraintForImageHeaderViewHeight.constant = 480
         } else if AppUtils.sizeModelOfiPhone() == .iphone6_47in {
             constraintForImageHeaderViewHeight.constant = 480
@@ -146,18 +146,17 @@ class PracticeViewController: UIViewController {
         self.startPractice()
         self.initializeForNotes()
         
+        self.addTabBar()
+        
         ModacityAnalytics.LogEvent(.StartPracticeItem, extraParamName: "ItemName", extraParamValue: self.labelPracticeItemName.text)
         NotificationCenter.default.addObserver(self, selector: #selector(processRouteChange), name: Notification.Name.AVAudioSessionRouteChange, object: nil)
     }
     
     func startPractice() {
+        
         if !AppOveralDataManager.manager.walkThroughDoneForPracticePage() {
-            self.viewWalkThrough.alpha = 0
-            UIView.animate(withDuration: 0.5) {
-                self.viewWalkThrough.alpha = 1
-            }
+            self.showWalkthrough()
         } else {
-            self.viewWalkThrough.isHidden = true
             self.startPracticeTimer()
         }
     }
@@ -248,29 +247,6 @@ class PracticeViewController: UIViewController {
             self.metrodonePlayer = nil
         }
     }
-    
-    func dismissWalkThrough() {
-        UIView.animate(withDuration: 0.5, animations: {
-            self.viewWalkThrough.alpha = 0
-        }) { (finished) in
-            if finished {
-                self.viewWalkThrough.isHidden = true
-                AppOveralDataManager.manager.walkThroughPracticePage()
-                self.startPracticeTimer()
-            }
-        }
-    }
-    
-    @IBAction func onGotItOnWalkThrough(_ sender: Any) {
-        ModacityAnalytics.LogStringEvent("Walkthrough - Practice Screen - Pressed 'Got It'")
-        self.dismissWalkThrough()
-    }
-    
-    @IBAction func onCloseWalkThrough(_ sender: Any) {
-        ModacityAnalytics.LogStringEvent("Walkthough - Practice Screen - Dismissed")
-        self.dismissWalkThrough()
-    }
-    
 }
 
 // MARK: - Metrodone processing
@@ -402,7 +378,7 @@ extension PracticeViewController: MetrodronePlayerDelegate {
         }
     }
     
-    @IBAction func onTabDrone(_ sender: Any) {
+    @IBAction func onTabDrone() {
         self.openDroneView()
     }
     
@@ -498,9 +474,6 @@ extension PracticeViewController: MetrodronePlayerDelegate {
             mPlayer.changeDuration(newValue: self.sliderDuration.value)
         }
     }
-    
-    
-    
     
     @IBAction func onBtnPlay(_ sender: Any) {
         if let mPlayer = self.metrodonePlayer {
@@ -637,52 +610,14 @@ extension PracticeViewController {
         ModacityAnalytics.LogStringEvent("Toggled Favorite")
     }
     
-    @IBAction func onImprove(_ sender: Any) {
-        ModacityAnalytics.LogEvent(.PressedImprove)
-        if self.recorder != nil && self.recorder.isRecording {
-            AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Please stop recording before leaving the page.")
-            return
-        }
-        
-        let controller = UIStoryboard(name: "improve", bundle: nil).instantiateViewController(withIdentifier: "improve_scene") as! UINavigationController
-        let root = controller.viewControllers[0] as! ImproveSuggestionViewController
-        if self.playlistViewModel != nil {
-            root.playlistModel = self.playlistViewModel
-        } else {
-            root.practiceItem = self.practiceItem
-        }
-        self.present(controller, animated: true, completion: nil)
-    }
-    
-    @IBAction func onAskExpert(_ sender: Any) {
-        ModacityAnalytics.LogEvent(.PressedAsk)
-        /*
-        if self.recorder != nil && self.recorder.isRecording {
-            AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Please stop recording before leaving the page.")
-            return
-        }
-        
-        let controller = UIStoryboard(name:"feedback", bundle:nil).instantiateViewController(withIdentifier: "feedbackscene") as! UINavigationController
-        let feedbackRootViewController = controller.viewControllers[0] as! FeedbackRootViewController
-        feedbackRootViewController.pageIsRootFromMenu = false
-        feedbackRootViewController.pageUIMode = 0
-        self.present(controller, animated: true, completion: nil)
-        */
-        //Intercom.presentMessageComposer()
-        let attr :ICMUserAttributes = ICMUserAttributes.init()
-        attr.customAttributes = ["AppLocation" : "practice"]
-        Intercom.updateUser(attr)
-        
-        Intercom.presentMessenger()
-    }
-    
 }
 
 // MARK: - Process audio player
 extension PracticeViewController: AVAudioPlayerDelegate, FDWaveformViewDelegate {
     
     func initializeAudioPlayerUI() {
-        self.viewSiriWaveFormView.isHidden = true
+        self.viewWaveFormContainer.isHidden = true
+//        self.viewSiriWaveFormView.isHidden = true
         self.viewAudioPlayer.isHidden = true
         self.viewRatePanel.isHidden = true
     }
@@ -737,7 +672,8 @@ extension PracticeViewController: AVAudioPlayerDelegate, FDWaveformViewDelegate 
     }
     
     func prepareAudioPlay() {
-        self.viewSiriWaveFormView.isHidden = true
+        self.viewWaveFormContainer.isHidden = true
+//        self.viewSiriWaveFormView.isHidden = true
         self.viewAudioPlayer.isHidden = false
         
         let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
@@ -854,7 +790,19 @@ extension PracticeViewController {
         if !self.isRecording {
             // Start Recording
             self.viewAudioPlayer.isHidden = true
-            self.viewSiriWaveFormView.isHidden = false
+            self.viewWaveFormContainer.isHidden = false
+            if self.viewSiriWaveFormView == nil {
+                self.viewSiriWaveFormView = SCSiriWaveformView()
+                self.viewSiriWaveFormView.backgroundColor = Color.clear
+                self.viewSiriWaveFormView.translatesAutoresizingMaskIntoConstraints = false
+                self.viewWaveFormContainer.addSubview(self.viewSiriWaveFormView)
+                self.viewSiriWaveFormView.leadingAnchor.constraint(equalTo: self.viewWaveFormContainer.leadingAnchor).isActive = true
+                self.viewSiriWaveFormView.trailingAnchor.constraint(equalTo: self.viewWaveFormContainer.trailingAnchor).isActive = true
+                self.viewSiriWaveFormView.topAnchor.constraint(equalTo: self.viewWaveFormContainer.topAnchor).isActive = true
+                self.viewSiriWaveFormView.bottomAnchor.constraint(equalTo: self.viewWaveFormContainer.bottomAnchor).isActive = true
+            }
+            
+            self.viewWaveFormContainer.isHidden = false
             
             self.imageViewHeader.image = UIImage(named:"bg_practice_recording_header")
             self.btnRecord.setImage(UIImage(named:"btn_record_stop"), for: .normal)
@@ -1080,7 +1028,7 @@ extension PracticeViewController {
 
 extension PracticeViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, PracticeNoteCellDelegate {
     
-    @IBAction func onTabNotes(_ sender: Any) {
+    @IBAction func onTabNotes() {
         ModacityAnalytics.LogStringEvent("Practicing - Pressed Notes")
         if self.playlistViewModel != nil {
             let controller = UIStoryboard(name: "practice_note", bundle: nil).instantiateViewController(withIdentifier: "PracticeNotesViewController") as! PracticeNotesViewController
@@ -1215,5 +1163,99 @@ extension PracticeViewController: UICollectionViewDelegate, UICollectionViewData
                 }
             }
         }
+    }
+}
+
+// MARK: - Process walkthrough
+
+extension PracticeViewController: PlayPracticeWalkthroughViewDelegate {
+    
+    func showWalkthrough() {
+        
+        let walkThrough: PlayPracticeWalkthroughView = PlayPracticeWalkthroughView()
+        self.view.addSubview(walkThrough)
+        walkThrough.commonInit()
+        
+        self.view.topAnchor.constraint(equalTo: walkThrough.topAnchor).isActive = true
+        self.view.bottomAnchor.constraint(equalTo: walkThrough.bottomAnchor).isActive = true
+        self.view.leadingAnchor.constraint(equalTo: walkThrough.leadingAnchor).isActive = true
+        self.view.trailingAnchor.constraint(equalTo: walkThrough.trailingAnchor).isActive = true
+        self.view.bringSubview(toFront: walkThrough)
+        walkThrough.delegate = self
+        walkThrough.alpha = 0
+        UIView.animate(withDuration: 0.5) {
+            walkThrough.alpha = 1
+        }
+    }
+    
+    func dismiss(playpracticeWalkThroughView: PlayPracticeWalkthroughView, storing: Bool) {
+        UIView.animate(withDuration: 0.5, animations: {
+            playpracticeWalkThroughView.alpha = 0
+        }) { (finished) in
+            if finished {
+                playpracticeWalkThroughView.removeConstraints(playpracticeWalkThroughView.constraints)
+                playpracticeWalkThroughView.removeFromSuperview()
+                if storing {
+                    AppOveralDataManager.manager.walkThroughPracticePage()
+                }
+                self.startPracticeTimer()
+            }
+        }
+    }
+}
+
+// MARK: - Tab bar control
+
+extension PracticeViewController: PlayPracticeTabBarViewDelegate {
+    
+    func addTabBar() {
+        let tabBarView = PlayPracticeTabBarView()
+        tabBarView.delegate = self
+        self.view.insertSubview(tabBarView, at: self.view.subviews.count - 2)
+        tabBarView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        tabBarView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+        tabBarView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+    }
+    
+    func onTab(idx: Int) {
+        switch idx {
+        case 0:
+            self.onImprove()
+        case 1:
+            self.onTabDrone()
+        case 2:
+            self.onTabNotes()
+        case 3:
+            return
+        case 4:
+            self.onAskExpert()
+        default:
+            return
+        }
+    }
+    
+    @IBAction func onImprove() {
+        ModacityAnalytics.LogEvent(.PressedImprove)
+        if self.recorder != nil && self.recorder.isRecording {
+            AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Please stop recording before leaving the page.")
+            return
+        }
+        
+        let controller = UIStoryboard(name: "improve", bundle: nil).instantiateViewController(withIdentifier: "improve_scene") as! UINavigationController
+        let root = controller.viewControllers[0] as! ImproveSuggestionViewController
+        if self.playlistViewModel != nil {
+            root.playlistModel = self.playlistViewModel
+        } else {
+            root.practiceItem = self.practiceItem
+        }
+        self.present(controller, animated: true, completion: nil)
+    }
+    
+    @IBAction func onAskExpert() {
+        ModacityAnalytics.LogEvent(.PressedAsk)
+        let attr :ICMUserAttributes = ICMUserAttributes.init()
+        attr.customAttributes = ["AppLocation" : "practice"]
+        Intercom.updateUser(attr)
+        Intercom.presentMessenger()
     }
 }

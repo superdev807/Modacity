@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="lato-italic.ttf">
+            <string>Lato-Italic</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PlayPracticeWalkthroughView" customModule="Modacity" customModuleProvider="target">
+            <connections>
+                <outlet property="constraintForWalkthroughNotesLeading" destination="vk4-iy-zXY" id="Xgz-TJ-5pA"/>
+                <outlet property="viewContent" destination="mXc-6y-zp0" id="yO9-UA-euQ"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="mXc-6y-zp0">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cEm-zq-VjI">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <connections>
+                        <action selector="onCoverClick:" destination="-1" eventType="touchUpInside" id="l5d-Xb-wyM"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zFu-ga-FGd">
+                    <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="64" id="lcD-Zl-9ub"/>
+                        <constraint firstAttribute="width" constant="64" id="pab-vz-Dew"/>
+                    </constraints>
+                    <state key="normal" image="icon_close"/>
+                    <connections>
+                        <action selector="onCloseButtonClick:" destination="-1" eventType="touchUpInside" id="DiO-Wc-VJL"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vtC-gX-KCU">
+                    <rect key="frame" x="236" y="60" width="129" height="34"/>
+                    <string key="text">Tap the timer to pause 
+your practice session.</string>
+                    <fontDescription key="fontDescription" name="Lato-Italic" family="Lato" pointSize="14"/>
+                    <color key="textColor" red="0.75686274509999996" green="0.76078431369999999" blue="0.78823529410000004" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="walkthrough_practice_arrow_1" translatesAutoresizingMaskIntoConstraints="NO" id="pf2-KR-5Bx">
+                    <rect key="frame" x="236" y="102" width="12" height="25"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="walkthrough_practice_arrow_2" translatesAutoresizingMaskIntoConstraints="NO" id="w3f-qh-wYu">
+                    <rect key="frame" x="181.5" y="240" width="12" height="25"/>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Record yourself" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bAc-7c-6Ko">
+                    <rect key="frame" x="143.5" y="273" width="88" height="17"/>
+                    <fontDescription key="fontDescription" name="Lato-Italic" family="Lato" pointSize="14"/>
+                    <color key="textColor" red="0.75686274509999996" green="0.76078431369999999" blue="0.78823529410000004" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bb5-bb-MfZ">
+                    <rect key="frame" x="134.5" y="320" width="106" height="66"/>
+                    <state key="normal" image="btn_walkthrough_gotit"/>
+                    <connections>
+                        <action selector="onGotitButtonClick:" destination="-1" eventType="touchUpInside" id="a3M-KU-3KS"/>
+                    </connections>
+                </button>
+                <imageView userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="walkthrough_practice_arrow_3" translatesAutoresizingMaskIntoConstraints="NO" id="xLE-Ox-0BX">
+                    <rect key="frame" x="44" y="557" width="15" height="60"/>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HGM-2O-pes">
+                    <rect key="frame" x="10" y="517.5" width="157.5" height="29.5"/>
+                    <attributedString key="attributedText">
+                        <fragment content="Deliberate practice mode">
+                            <attributes>
+                                <color key="NSColor" red="0.75686274509803919" green="0.76078431372549016" blue="0.78823529411764703" alpha="1" colorSpace="calibratedRGB"/>
+                                <font key="NSFont" size="14" name="HelveticaNeue-Italic"/>
+                            </attributes>
+                        </fragment>
+                        <fragment>
+                            <string key="content" base64-UTF8="YES">
+Cg
+</string>
+                            <attributes>
+                                <color key="NSColor" red="0.75686274509803919" green="0.76078431372549016" blue="0.78823529411764703" alpha="1" colorSpace="calibratedRGB"/>
+                                <font key="NSFont" size="14" name=".AppleSystemUIFont"/>
+                            </attributes>
+                        </fragment>
+                        <fragment content="(for faster improvement)">
+                            <attributes>
+                                <color key="NSColor" red="0.75686274509803919" green="0.76078431372549016" blue="0.78823529411764703" alpha="1" colorSpace="calibratedRGB"/>
+                                <font key="NSFont" size="11" name="HelveticaNeue-Italic"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                            </attributes>
+                        </fragment>
+                    </attributedString>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="walkthrough_practice_arrow_4" translatesAutoresizingMaskIntoConstraints="NO" id="ZFu-4B-Q10">
+                    <rect key="frame" x="140" y="592" width="12" height="25"/>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Metrodrone" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kSa-J3-jCW">
+                    <rect key="frame" x="112" y="565" width="68" height="17"/>
+                    <fontDescription key="fontDescription" name="Lato-Italic" family="Lato" pointSize="14"/>
+                    <color key="textColor" red="0.75686274509999996" green="0.76078431369999999" blue="0.78823529410000004" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="walkthrough_practice_arrow_5" translatesAutoresizingMaskIntoConstraints="NO" id="ys0-v5-B27">
+                    <rect key="frame" x="212" y="592" width="12" height="25"/>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notes" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d0Q-QH-PfR">
+                    <rect key="frame" x="202" y="565" width="33.5" height="17"/>
+                    <fontDescription key="fontDescription" name="Lato-Italic" family="Lato" pointSize="14"/>
+                    <color key="textColor" red="0.75686274509999996" green="0.76078431369999999" blue="0.78823529410000004" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="walkthrough_practice_arrow_6" translatesAutoresizingMaskIntoConstraints="NO" id="kRh-P3-yv1">
+                    <rect key="frame" x="319" y="592" width="12" height="25"/>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2ax-VN-UYs">
+                    <rect key="frame" x="290.5" y="548" width="69.5" height="34"/>
+                    <string key="text">Get practice
+help</string>
+                    <fontDescription key="fontDescription" name="Lato-Italic" family="Lato" pointSize="14"/>
+                    <color key="textColor" red="0.75686274509999996" green="0.76078431369999999" blue="0.78823529410000004" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="0.1450980392" green="0.1529411765" blue="0.21960784310000001" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="w3f-qh-wYu" firstAttribute="centerX" secondItem="mXc-6y-zp0" secondAttribute="centerX" id="07k-Uk-M5o"/>
+                <constraint firstItem="pf2-KR-5Bx" firstAttribute="leading" secondItem="vtC-gX-KCU" secondAttribute="leading" id="0aE-PN-82A"/>
+                <constraint firstItem="kRh-P3-yv1" firstAttribute="top" secondItem="2ax-VN-UYs" secondAttribute="bottom" constant="10" id="7Eh-e3-PjT"/>
+                <constraint firstItem="vtC-gX-KCU" firstAttribute="top" secondItem="mXc-6y-zp0" secondAttribute="top" constant="60" id="8Lz-Yg-DbJ"/>
+                <constraint firstItem="kSa-J3-jCW" firstAttribute="bottom" secondItem="ZFu-4B-Q10" secondAttribute="top" constant="-10" id="A5G-ZX-wQ0"/>
+                <constraint firstItem="xLE-Ox-0BX" firstAttribute="top" secondItem="HGM-2O-pes" secondAttribute="bottom" constant="10" id="Cqx-CA-MjV"/>
+                <constraint firstItem="bb5-bb-MfZ" firstAttribute="top" secondItem="bAc-7c-6Ko" secondAttribute="bottom" constant="30" id="DrL-wr-JU3"/>
+                <constraint firstItem="pf2-KR-5Bx" firstAttribute="top" secondItem="vtC-gX-KCU" secondAttribute="bottom" constant="8" id="Gg1-DS-nwO"/>
+                <constraint firstItem="cEm-zq-VjI" firstAttribute="leading" secondItem="mXc-6y-zp0" secondAttribute="leading" id="QNw-Vg-cDW"/>
+                <constraint firstItem="bAc-7c-6Ko" firstAttribute="top" secondItem="w3f-qh-wYu" secondAttribute="bottom" constant="8" id="S3H-jC-pWx"/>
+                <constraint firstItem="xLE-Ox-0BX" firstAttribute="leading" secondItem="mXc-6y-zp0" secondAttribute="leading" constant="44" id="SP9-s4-NVN"/>
+                <constraint firstItem="ZFu-4B-Q10" firstAttribute="leading" secondItem="mXc-6y-zp0" secondAttribute="leading" constant="140" id="Tay-DQ-2ro"/>
+                <constraint firstAttribute="bottom" secondItem="cEm-zq-VjI" secondAttribute="bottom" id="W01-3T-Oht"/>
+                <constraint firstAttribute="trailing" secondItem="vtC-gX-KCU" secondAttribute="trailing" constant="10" id="XAb-JT-i5w"/>
+                <constraint firstItem="bb5-bb-MfZ" firstAttribute="centerX" secondItem="mXc-6y-zp0" secondAttribute="centerX" id="Xzb-sy-h0K"/>
+                <constraint firstAttribute="trailing" secondItem="cEm-zq-VjI" secondAttribute="trailing" id="ZQU-g2-2UK"/>
+                <constraint firstItem="kRh-P3-yv1" firstAttribute="bottom" secondItem="ys0-v5-B27" secondAttribute="bottom" id="aP4-lz-5o2"/>
+                <constraint firstItem="cEm-zq-VjI" firstAttribute="top" secondItem="mXc-6y-zp0" secondAttribute="top" id="asG-oc-oI1"/>
+                <constraint firstItem="w3f-qh-wYu" firstAttribute="top" secondItem="mXc-6y-zp0" secondAttribute="top" constant="240" id="axR-cu-vF6"/>
+                <constraint firstItem="ZFu-4B-Q10" firstAttribute="bottom" secondItem="xLE-Ox-0BX" secondAttribute="bottom" id="cJd-Ik-EhZ"/>
+                <constraint firstItem="ys0-v5-B27" firstAttribute="bottom" secondItem="ZFu-4B-Q10" secondAttribute="bottom" id="coi-TH-oTI"/>
+                <constraint firstItem="zFu-ga-FGd" firstAttribute="leading" secondItem="mXc-6y-zp0" secondAttribute="leading" id="f98-Xl-0XK"/>
+                <constraint firstAttribute="trailing" secondItem="kRh-P3-yv1" secondAttribute="trailing" constant="44" id="geL-qe-31c"/>
+                <constraint firstItem="HGM-2O-pes" firstAttribute="leading" secondItem="mXc-6y-zp0" secondAttribute="leading" constant="10" id="hlh-e4-ll7"/>
+                <constraint firstAttribute="bottom" secondItem="xLE-Ox-0BX" secondAttribute="bottom" constant="50" id="i81-yM-pbR"/>
+                <constraint firstItem="d0Q-QH-PfR" firstAttribute="bottom" secondItem="ys0-v5-B27" secondAttribute="top" constant="-10" id="iaB-nc-Fy2"/>
+                <constraint firstItem="bAc-7c-6Ko" firstAttribute="centerX" secondItem="w3f-qh-wYu" secondAttribute="centerX" id="ogL-34-64j"/>
+                <constraint firstItem="kSa-J3-jCW" firstAttribute="centerX" secondItem="ZFu-4B-Q10" secondAttribute="centerX" id="qF8-cJ-8LH"/>
+                <constraint firstItem="d0Q-QH-PfR" firstAttribute="centerX" secondItem="ys0-v5-B27" secondAttribute="centerX" id="tMq-0Q-7Ee"/>
+                <constraint firstItem="2ax-VN-UYs" firstAttribute="centerX" secondItem="kRh-P3-yv1" secondAttribute="centerX" id="tgc-5S-yN7"/>
+                <constraint firstItem="ys0-v5-B27" firstAttribute="leading" secondItem="ZFu-4B-Q10" secondAttribute="trailing" constant="60" id="vk4-iy-zXY"/>
+                <constraint firstItem="zFu-ga-FGd" firstAttribute="top" secondItem="mXc-6y-zp0" secondAttribute="top" id="zmw-Xj-UdO"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="9Df-qb-l5P"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="btn_walkthrough_gotit" width="106" height="66"/>
+        <image name="icon_close" width="15" height="15"/>
+        <image name="walkthrough_practice_arrow_1" width="12" height="25"/>
+        <image name="walkthrough_practice_arrow_2" width="12" height="25"/>
+        <image name="walkthrough_practice_arrow_3" width="15" height="60"/>
+        <image name="walkthrough_practice_arrow_4" width="12" height="25"/>
+        <image name="walkthrough_practice_arrow_5" width="12" height="25"/>
+        <image name="walkthrough_practice_arrow_6" width="12" height="25"/>
+    </resources>
+</document>

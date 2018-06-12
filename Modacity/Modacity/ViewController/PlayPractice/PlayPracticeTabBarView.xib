@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PlayPracticeTabBarView" customModule="Modacity" customModuleProvider="target">
+            <connections>
+                <outlet property="viewContent" destination="CaV-cw-G1b" id="vdz-WY-Nxf"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CaV-cw-G1b">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_practice_tabbar" translatesAutoresizingMaskIntoConstraints="NO" id="LDi-sU-faP">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
+                </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F1I-EX-oyf">
+                    <rect key="frame" x="0.0" y="0.0" width="75" height="64"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="practice_tab_improve" translatesAutoresizingMaskIntoConstraints="NO" id="iWT-gS-euH">
+                            <rect key="frame" x="22.5" y="17" width="30" height="30"/>
+                        </imageView>
+                        <button opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uC7-vj-YKO">
+                            <rect key="frame" x="0.0" y="0.0" width="75" height="64"/>
+                            <connections>
+                                <action selector="onTab:" destination="-1" eventType="touchUpInside" id="rvL-aB-GgW"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="iWT-gS-euH" firstAttribute="centerX" secondItem="F1I-EX-oyf" secondAttribute="centerX" id="03Y-L5-lQk"/>
+                        <constraint firstItem="uC7-vj-YKO" firstAttribute="top" secondItem="F1I-EX-oyf" secondAttribute="top" id="NYS-ds-FJ1"/>
+                        <constraint firstItem="iWT-gS-euH" firstAttribute="centerY" secondItem="F1I-EX-oyf" secondAttribute="centerY" id="WZs-hP-7pb"/>
+                        <constraint firstAttribute="trailing" secondItem="uC7-vj-YKO" secondAttribute="trailing" id="ZVQ-FR-Ewp"/>
+                        <constraint firstItem="uC7-vj-YKO" firstAttribute="leading" secondItem="F1I-EX-oyf" secondAttribute="leading" id="g9O-de-yWB"/>
+                        <constraint firstAttribute="bottom" secondItem="uC7-vj-YKO" secondAttribute="bottom" id="kFk-UF-jA6"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zIm-3F-OxE">
+                    <rect key="frame" x="75" y="0.0" width="74.5" height="64"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="practice_tab_metrodrone" translatesAutoresizingMaskIntoConstraints="NO" id="DMq-ZO-VWe">
+                            <rect key="frame" x="23" y="17.5" width="28" height="29"/>
+                        </imageView>
+                        <button opaque="NO" tag="11" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ORO-mm-XXR">
+                            <rect key="frame" x="0.0" y="0.0" width="74.5" height="64"/>
+                            <connections>
+                                <action selector="onTab:" destination="-1" eventType="touchUpInside" id="Z1H-tg-Q3t"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="ORO-mm-XXR" secondAttribute="bottom" id="Rm2-tD-hQF"/>
+                        <constraint firstAttribute="trailing" secondItem="ORO-mm-XXR" secondAttribute="trailing" id="YpT-Of-ylf"/>
+                        <constraint firstItem="DMq-ZO-VWe" firstAttribute="centerX" secondItem="zIm-3F-OxE" secondAttribute="centerX" id="Yrn-E2-yMW"/>
+                        <constraint firstItem="ORO-mm-XXR" firstAttribute="leading" secondItem="zIm-3F-OxE" secondAttribute="leading" id="a6G-Ha-XIi"/>
+                        <constraint firstItem="ORO-mm-XXR" firstAttribute="top" secondItem="zIm-3F-OxE" secondAttribute="top" id="j4W-VK-dR1"/>
+                        <constraint firstItem="DMq-ZO-VWe" firstAttribute="centerY" secondItem="zIm-3F-OxE" secondAttribute="centerY" id="r3B-MC-kxo"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Il3-LR-eAZ">
+                    <rect key="frame" x="149.5" y="0.0" width="75" height="64"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="practice_tab_notes" translatesAutoresizingMaskIntoConstraints="NO" id="mZK-wv-vAK">
+                            <rect key="frame" x="25" y="19" width="25" height="26"/>
+                        </imageView>
+                        <button opaque="NO" tag="12" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Wd-8q-ss8">
+                            <rect key="frame" x="0.0" y="0.0" width="75" height="64"/>
+                            <connections>
+                                <action selector="onTab:" destination="-1" eventType="touchUpInside" id="7YK-tm-hn5"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="5Wd-8q-ss8" firstAttribute="leading" secondItem="Il3-LR-eAZ" secondAttribute="leading" id="04l-iw-1x6"/>
+                        <constraint firstAttribute="trailing" secondItem="5Wd-8q-ss8" secondAttribute="trailing" id="0qh-qF-D1z"/>
+                        <constraint firstItem="mZK-wv-vAK" firstAttribute="centerX" secondItem="Il3-LR-eAZ" secondAttribute="centerX" id="Ixf-F1-1nf"/>
+                        <constraint firstAttribute="bottom" secondItem="5Wd-8q-ss8" secondAttribute="bottom" id="KHX-P7-Vs8"/>
+                        <constraint firstItem="5Wd-8q-ss8" firstAttribute="top" secondItem="Il3-LR-eAZ" secondAttribute="top" id="P1y-5F-748"/>
+                        <constraint firstItem="mZK-wv-vAK" firstAttribute="centerY" secondItem="Il3-LR-eAZ" secondAttribute="centerY" id="fKe-v7-YLg"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QdO-Wd-iwX">
+                    <rect key="frame" x="224.5" y="0.0" width="75" height="64"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="practice_tab_timer" translatesAutoresizingMaskIntoConstraints="NO" id="89p-pB-vah">
+                            <rect key="frame" x="23.5" y="17.5" width="28" height="29"/>
+                        </imageView>
+                        <button opaque="NO" tag="13" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Vf-ln-iPU">
+                            <rect key="frame" x="0.0" y="0.0" width="75" height="64"/>
+                            <connections>
+                                <action selector="onTab:" destination="-1" eventType="touchUpInside" id="ZYr-eC-4oh"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="89p-pB-vah" firstAttribute="centerY" secondItem="QdO-Wd-iwX" secondAttribute="centerY" id="89L-hG-g9f"/>
+                        <constraint firstItem="7Vf-ln-iPU" firstAttribute="top" secondItem="QdO-Wd-iwX" secondAttribute="top" id="BPI-2Z-nTD"/>
+                        <constraint firstAttribute="trailing" secondItem="7Vf-ln-iPU" secondAttribute="trailing" id="Ebt-eD-CWq"/>
+                        <constraint firstItem="89p-pB-vah" firstAttribute="centerX" secondItem="QdO-Wd-iwX" secondAttribute="centerX" id="T4p-FE-XUf"/>
+                        <constraint firstAttribute="bottom" secondItem="7Vf-ln-iPU" secondAttribute="bottom" id="ajC-Kq-rP5"/>
+                        <constraint firstItem="7Vf-ln-iPU" firstAttribute="leading" secondItem="QdO-Wd-iwX" secondAttribute="leading" id="esU-wr-kxW"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Mz-Ct-L1R">
+                    <rect key="frame" x="299.5" y="0.0" width="75" height="64"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="practice_tab_ask_expert" translatesAutoresizingMaskIntoConstraints="NO" id="f5J-WJ-ZWc">
+                            <rect key="frame" x="22.5" y="17" width="30" height="30"/>
+                        </imageView>
+                        <button opaque="NO" tag="14" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Of2-SQ-8di">
+                            <rect key="frame" x="0.0" y="0.0" width="75" height="64"/>
+                            <connections>
+                                <action selector="onTab:" destination="-1" eventType="touchUpInside" id="udd-xC-zJs"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="Of2-SQ-8di" firstAttribute="top" secondItem="1Mz-Ct-L1R" secondAttribute="top" id="57T-ET-tua"/>
+                        <constraint firstItem="f5J-WJ-ZWc" firstAttribute="centerX" secondItem="1Mz-Ct-L1R" secondAttribute="centerX" id="8L4-w9-Ula"/>
+                        <constraint firstAttribute="trailing" secondItem="Of2-SQ-8di" secondAttribute="trailing" id="DzH-Mp-hoN"/>
+                        <constraint firstAttribute="bottom" secondItem="Of2-SQ-8di" secondAttribute="bottom" id="QEF-2E-cqi"/>
+                        <constraint firstItem="Of2-SQ-8di" firstAttribute="leading" secondItem="1Mz-Ct-L1R" secondAttribute="leading" id="chH-so-aIY"/>
+                        <constraint firstItem="f5J-WJ-ZWc" firstAttribute="centerY" secondItem="1Mz-Ct-L1R" secondAttribute="centerY" id="pMF-fG-1qg"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="LDi-sU-faP" firstAttribute="leading" secondItem="CaV-cw-G1b" secondAttribute="leading" id="14x-9z-rNc"/>
+                <constraint firstItem="zIm-3F-OxE" firstAttribute="top" secondItem="F1I-EX-oyf" secondAttribute="top" id="5OP-2Z-fby"/>
+                <constraint firstItem="F1I-EX-oyf" firstAttribute="leading" secondItem="CaV-cw-G1b" secondAttribute="leading" id="7Ra-TU-c0X"/>
+                <constraint firstItem="QdO-Wd-iwX" firstAttribute="bottom" secondItem="F1I-EX-oyf" secondAttribute="bottom" id="8RD-WW-FEQ"/>
+                <constraint firstItem="Il3-LR-eAZ" firstAttribute="leading" secondItem="zIm-3F-OxE" secondAttribute="trailing" id="9rR-kX-xyI"/>
+                <constraint firstItem="zIm-3F-OxE" firstAttribute="leading" secondItem="F1I-EX-oyf" secondAttribute="trailing" id="EN9-YE-MeW"/>
+                <constraint firstItem="zIm-3F-OxE" firstAttribute="bottom" secondItem="F1I-EX-oyf" secondAttribute="bottom" id="Gdy-BV-PFR"/>
+                <constraint firstItem="F1I-EX-oyf" firstAttribute="top" secondItem="CaV-cw-G1b" secondAttribute="top" id="InZ-pM-u9F"/>
+                <constraint firstItem="QdO-Wd-iwX" firstAttribute="leading" secondItem="Il3-LR-eAZ" secondAttribute="trailing" id="KkF-Su-j4m"/>
+                <constraint firstItem="1Mz-Ct-L1R" firstAttribute="width" secondItem="F1I-EX-oyf" secondAttribute="width" id="Rff-M0-mab"/>
+                <constraint firstItem="LDi-sU-faP" firstAttribute="top" secondItem="CaV-cw-G1b" secondAttribute="top" id="Rfs-m0-lWP"/>
+                <constraint firstAttribute="height" constant="64" id="VrI-e1-aLI"/>
+                <constraint firstItem="Il3-LR-eAZ" firstAttribute="bottom" secondItem="F1I-EX-oyf" secondAttribute="bottom" id="WH7-0i-mvZ"/>
+                <constraint firstItem="1Mz-Ct-L1R" firstAttribute="top" secondItem="F1I-EX-oyf" secondAttribute="top" id="X8G-cl-dnW"/>
+                <constraint firstItem="Il3-LR-eAZ" firstAttribute="top" secondItem="F1I-EX-oyf" secondAttribute="top" id="X99-ln-Kgr"/>
+                <constraint firstItem="Il3-LR-eAZ" firstAttribute="width" secondItem="F1I-EX-oyf" secondAttribute="width" id="Ydi-QC-zF4"/>
+                <constraint firstAttribute="bottom" secondItem="LDi-sU-faP" secondAttribute="bottom" id="bMj-iH-oEe"/>
+                <constraint firstItem="QdO-Wd-iwX" firstAttribute="width" secondItem="F1I-EX-oyf" secondAttribute="width" id="bdd-3X-2WN"/>
+                <constraint firstAttribute="bottom" secondItem="F1I-EX-oyf" secondAttribute="bottom" id="cEs-N0-Kr4"/>
+                <constraint firstAttribute="trailing" secondItem="LDi-sU-faP" secondAttribute="trailing" id="f9A-1J-a78"/>
+                <constraint firstItem="1Mz-Ct-L1R" firstAttribute="leading" secondItem="QdO-Wd-iwX" secondAttribute="trailing" id="g23-NV-isV"/>
+                <constraint firstItem="F1I-EX-oyf" firstAttribute="width" secondItem="CaV-cw-G1b" secondAttribute="width" multiplier="1/5" id="n1J-Zx-mOY"/>
+                <constraint firstItem="1Mz-Ct-L1R" firstAttribute="bottom" secondItem="F1I-EX-oyf" secondAttribute="bottom" id="oxA-KN-Odg"/>
+                <constraint firstItem="QdO-Wd-iwX" firstAttribute="top" secondItem="F1I-EX-oyf" secondAttribute="top" id="pf2-Hz-7eD"/>
+                <constraint firstItem="zIm-3F-OxE" firstAttribute="width" secondItem="F1I-EX-oyf" secondAttribute="width" id="tVu-UH-Mzc"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="GUY-bv-dVL"/>
+            <point key="canvasLocation" x="557.5" y="195.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="bg_practice_tabbar" width="375" height="68"/>
+        <image name="practice_tab_ask_expert" width="30" height="30"/>
+        <image name="practice_tab_improve" width="30" height="30"/>
+        <image name="practice_tab_metrodrone" width="28" height="29"/>
+        <image name="practice_tab_notes" width="25" height="26"/>
+        <image name="practice_tab_timer" width="28" height="29"/>
+    </resources>
+</document>

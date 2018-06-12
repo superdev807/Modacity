@@ -106,6 +106,8 @@ class MetrodronePlayer: DroneFrameDelegate {
         
         DispatchQueue.main.async {
             // Make sure the duration slider has the right range, and set it in the middle.
+            self._sliderDuration.setThumbImage(UIImage(named: "img_slider_thumb_normal"), for: .normal)
+            self._sliderDuration.setThumbImage(UIImage(named: "img_slider_thumb_normal"), for: .highlighted)
             self._sliderDuration.maximumValue = MetrodronePlayer.maxDurationValue
             self._sliderDuration.minimumValue = MetrodronePlayer.minDurationValue
             self._sliderDuration.value = MetrodroneParameters.instance.durationRatio * (MetrodronePlayer.minDurationValue + MetrodronePlayer.maxDurationValue)
@@ -330,7 +332,9 @@ class MetrodronePlayer: DroneFrameDelegate {
         DispatchQueue.main.async {
             self._viewDurationSliderMinTrack.alpha = 1
             self._imageviewDurationSliderMaxTrack.alpha = 1
-            self._sliderDuration.isEnabled = true
+            self._sliderDuration.isUserInteractionEnabled = true
+            self._sliderDuration.setThumbImage(UIImage(named:"img_slider_thumb_normal"), for: .normal)
+            self._sliderDuration.setThumbImage(UIImage(named:"img_slider_thumb_normal"), for: .highlighted)
             if let delegate = self.metrodronePlayerDelegate {
                 delegate.onDurationSliderEnabled()
             }
@@ -342,7 +346,8 @@ class MetrodronePlayer: DroneFrameDelegate {
         DispatchQueue.main.async {
             self._viewDurationSliderMinTrack.alpha = 0
             self._imageviewDurationSliderMaxTrack.alpha = 0.5
-            self._sliderDuration.isEnabled = false
+            self._sliderDuration.isUserInteractionEnabled = false
+            self._sliderDuration.setThumbImage(UIImage(named:"img_slider_thumb_disabled"), for: .normal)
         }
     }
     
