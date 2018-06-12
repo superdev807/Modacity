@@ -25,7 +25,6 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var labelRecentHeader: UILabel!
     @IBOutlet weak var labelTotalTimeCaption: UILabel!
     @IBOutlet weak var labelWelcome: UILabel!
-//    @IBOutlet weak var labelEmpty: UILabel!
     @IBOutlet weak var constraintForHeaderImageViewHeight: NSLayoutConstraint!
     @IBOutlet weak var constraintForContentViewTopSpace: NSLayoutConstraint!
     
@@ -39,6 +38,8 @@ class HomeViewController: UIViewController {
     private var formatter: NumberFormatter!
     private var viewModel = HomeViewModel()
     
+    var metrodroneView : MetrodroneView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -47,6 +48,16 @@ class HomeViewController: UIViewController {
         self.configureUI()
         self.bindViewModel()
         ModacityAnalytics.LogStringEvent("Home Screen")
+        
+//        self.metrodroneView = MetrodroneView()
+//        self.view.addSubview(self.metrodroneView)
+//        self.view.topAnchor.constraint(equalTo: self.metrodroneView.topAnchor).isActive = true
+//        self.view.trailingAnchor.constraint(equalTo: self.metrodroneView.trailingAnchor).isActive = true
+//        self.view.leadingAnchor.constraint(equalTo: self.metrodroneView.leadingAnchor).isActive = true
+//        self.metrodroneView.heightAnchor.constraint(equalToConstant: 360).isActive = true
+//        self.metrodroneView.initializeDroneUIs()
+//        self.metrodroneView.delegate = self
+        
     }
     
     deinit {
@@ -325,5 +336,23 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         }
         return CGSize(width: 130, height: 115)
     }
+}
+
+extension HomeViewController: MetrodroneViewDelegate {
     
+    func onTapHeaderBar() {
+        self.metrodroneView.isHidden = true
+    }
+    
+    func onSubdivision() {
+        self.showSubdivision()
+    }
+    
+    func showSubdivision() {
+        let subdivisionSelectView = SubdivisionSelectView()
+        self.view.addSubview(subdivisionSelectView)
+        let frame = self.view.convert(self.metrodroneView.buttonSubDivision.frame, from: self.metrodroneView.buttonSubDivision.superview)
+        subdivisionSelectView.bottomAnchor.constraint(equalTo: self.view.topAnchor, constant: frame.origin.y).isActive = true
+        subdivisionSelectView.centerXAnchor.constraint(equalTo: self.view.leadingAnchor, constant: frame.origin.x + frame.size.width / 2).isActive = true
+    }
 }

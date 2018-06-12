@@ -171,6 +171,10 @@
 		E21BEA1F2091807D000D1877 /* Info-dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = E21BEA1E2091807D000D1877 /* Info-dev.plist */; };
 		E23D7A7020A1EEB40052EE78 /* OverallDataRemoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23D7A6F20A1EEB40052EE78 /* OverallDataRemoteManager.swift */; };
 		E23D7A7120A1EEB40052EE78 /* OverallDataRemoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23D7A6F20A1EEB40052EE78 /* OverallDataRemoteManager.swift */; };
+		E245700120D00C6F00C9F720 /* SubdivisionSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E245700020D00C6F00C9F720 /* SubdivisionSelectView.swift */; };
+		E245700220D00C6F00C9F720 /* SubdivisionSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E245700020D00C6F00C9F720 /* SubdivisionSelectView.swift */; };
+		E245700420D00C9C00C9F720 /* SubdivisionSelectView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E245700320D00C9C00C9F720 /* SubdivisionSelectView.xib */; };
+		E245700520D00C9C00C9F720 /* SubdivisionSelectView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E245700320D00C9C00C9F720 /* SubdivisionSelectView.xib */; };
 		E24DF50320987E9E00BAF0C7 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24DF50220987E9E00BAF0C7 /* Note.swift */; };
 		E24DF50420987E9E00BAF0C7 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24DF50220987E9E00BAF0C7 /* Note.swift */; };
 		E24DF50C2098C1D400BAF0C7 /* MusicQuotesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24DF50B2098C1D400BAF0C7 /* MusicQuotesManager.swift */; };
@@ -350,6 +354,8 @@
 		E21BEA1920917C46000D1877 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E21BEA1E2091807D000D1877 /* Info-dev.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-dev.plist"; sourceTree = "<group>"; };
 		E23D7A6F20A1EEB40052EE78 /* OverallDataRemoteManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverallDataRemoteManager.swift; sourceTree = "<group>"; };
+		E245700020D00C6F00C9F720 /* SubdivisionSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubdivisionSelectView.swift; sourceTree = "<group>"; };
+		E245700320D00C9C00C9F720 /* SubdivisionSelectView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SubdivisionSelectView.xib; sourceTree = "<group>"; };
 		E24DF50220987E9E00BAF0C7 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 		E24DF50B2098C1D400BAF0C7 /* MusicQuotesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicQuotesManager.swift; sourceTree = "<group>"; };
 		E264C09520CB01A20016CF8D /* metrodroneview.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = metrodroneview.xib; sourceTree = "<group>"; };
@@ -562,10 +568,12 @@
 			isa = PBXGroup;
 			children = (
 				8E99A068204072F900A9A9B8 /* metrodone.storyboard */,
-				E264C09520CB01A20016CF8D /* metrodroneview.xib */,
 				8E99A066204072E900A9A9B8 /* MetrodoneViewController.swift */,
 				101342622059020300A9734B /* TapTempo.swift */,
 				E264C09820CB02F50016CF8D /* MetrodroneView.swift */,
+				E264C09520CB01A20016CF8D /* metrodroneview.xib */,
+				E245700020D00C6F00C9F720 /* SubdivisionSelectView.swift */,
+				E245700320D00C9C00C9F720 /* SubdivisionSelectView.xib */,
 			);
 			path = MetroDrone;
 			sourceTree = "<group>";
@@ -973,6 +981,7 @@
 				E2806C2920ABCD910066959A /* PracticeMusicQuoteCell.xib in Resources */,
 				8EDEB706203DE38F00E8D48D /* Lato-Bold.ttf in Resources */,
 				8E4551E920030F7F002061AE /* LaunchScreen.storyboard in Resources */,
+				E245700420D00C9C00C9F720 /* SubdivisionSelectView.xib in Resources */,
 				8E4551E620030F7F002061AE /* Assets.xcassets in Resources */,
 				8EA33BA520052D0600539A3F /* recording.storyboard in Resources */,
 				E2BA253120C8D3870048A5D5 /* _Comp in Resources */,
@@ -1040,6 +1049,7 @@
 				E21BEA032091796A000D1877 /* lato-italic.ttf in Resources */,
 				E2806C2620ABCD910066959A /* practice_note.storyboard in Resources */,
 				E21BEA042091796A000D1877 /* welcome.storyboard in Resources */,
+				E245700520D00C9C00C9F720 /* SubdivisionSelectView.xib in Resources */,
 				E21BEA1F2091807D000D1877 /* Info-dev.plist in Resources */,
 				E2806C3D20ABCE0B0066959A /* practice_item.storyboard in Resources */,
 				E21BEA052091796A000D1877 /* home.storyboard in Resources */,
@@ -1353,6 +1363,7 @@
 				8ED6218B207B09A900593EF2 /* PlaylistRemoteManager.swift in Sources */,
 				8EB81FCB2063D33E00EADDA5 /* SetReminderViewController.swift in Sources */,
 				8E0A51C5207E4663006BDDC6 /* ModacityAnalytics.swift in Sources */,
+				E245700120D00C6F00C9F720 /* SubdivisionSelectView.swift in Sources */,
 				8E455D112045A84F003FDB80 /* PlaylistDetailsViewController.swift in Sources */,
 				E2806C3F20ABD1290066959A /* PracticeItemListViewController.swift in Sources */,
 				E2D01BD6208A146B00F54B5D /* MessagesManager.swift in Sources */,
@@ -1453,6 +1464,7 @@
 				E21BE9D02091796A000D1877 /* PlaylistRemoteManager.swift in Sources */,
 				E21BE9D12091796A000D1877 /* SetReminderViewController.swift in Sources */,
 				E21BE9D22091796A000D1877 /* ModacityAnalytics.swift in Sources */,
+				E245700220D00C6F00C9F720 /* SubdivisionSelectView.swift in Sources */,
 				E21BE9D32091796A000D1877 /* PlaylistDetailsViewController.swift in Sources */,
 				E2806C4020ABD12A0066959A /* PracticeItemListViewController.swift in Sources */,
 				E21BE9D42091796A000D1877 /* MessagesManager.swift in Sources */,

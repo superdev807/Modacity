@@ -26,14 +26,6 @@ class MetrodoneViewController: UIViewController {
     
     @IBOutlet weak var buttonOctaveUp: UIButton!
     
-    var subdivisionPanelShown = false
-    var selectedSubdivisionNote: Int = -1
-    @IBOutlet weak var viewSubdivision: UIView!
-    @IBOutlet weak var buttonSubdivisionNote1: UIButton!
-    @IBOutlet weak var buttonSubdivisionNote2: UIButton!
-    @IBOutlet weak var buttonSubdivisionNote3: UIButton!
-    @IBOutlet weak var buttonSubdivisionNote4: UIButton!
-    
     @IBOutlet weak var imageViewMaxTrick: UIImageView!
     @IBOutlet weak var viewMintrick: UIView!
     @IBOutlet weak var constraintForMinTrickViewWidth: NSLayoutConstraint!
@@ -42,6 +34,11 @@ class MetrodoneViewController: UIViewController {
     @IBOutlet weak var imageViewNoteStatusOnButton: UIImageView!
     @IBOutlet weak var imageViewNoteOnButton: UIImageView!
     
+    var selectedSubdivisionNote: Int = -1
+    
+    @IBOutlet weak var btnShowSubdivision: UIButton!
+    var subdivisionView: SubdivisionSelectView? = nil
+    
     var metrodronePlayer: MetrodronePlayer? = nil// MetrodronePlayer()//MetrodronePlayer.instance
     
     override func viewDidLoad() {
@@ -49,9 +46,6 @@ class MetrodoneViewController: UIViewController {
         // Do any additional setup after loading the view.
         ModacityAnalytics.LogStringEvent("Loaded Standalone Metrodrone")
         self.prepareMetrodronePlayer()
-        self.viewSubdivision.isHidden = true
-        self.selectedSubdivisionNote = MetrodroneParameters.instance.subdivisions - 1
-        self.configureSubdivisionNoteSelectionGUI()
         self.configureLayout()
         NotificationCenter.default.addObserver(self, selector: #selector(processRouteChange), name: Notification.Name.AVAudioSessionRouteChange, object: nil)
     }
@@ -196,55 +190,30 @@ class MetrodoneViewController: UIViewController {
     }
     
     @IBAction func onSubdivision(_ sender: Any) {
-        if !self.subdivisionPanelShown {
-            self.viewSubdivision.isHidden = false
-        } else {
-            self.viewSubdivision.isHidden = true
-        }
-        
-        self.subdivisionPanelShown = !self.subdivisionPanelShown
+        self.showSubdivision()
     }
     
-    func processSubdivision() {
-        if ((self.selectedSubdivisionNote < 0) || (self.selectedSubdivisionNote > 3)) {
-            self.selectedSubdivisionNote = 0
+    func showSubdivision() {
+        if self.subdivisionView == nil {
+            self.subdivisionView = SubdivisionSelectView()
+            self.subdivisionView!.delegate = self
+            self.view.addSubview(self.subdivisionView!)
+            let frame = self.view.convert(self.btnShowSubdivision.frame, from: self.btnShowSubdivision.superview)
+            self.subdivisionView!.bottomAnchor.constraint(equalTo: self.view.topAnchor, constant: frame.origin.y).isActive = true
+            self.subdivisionView!.centerXAnchor.constraint(equalTo: self.view.leadingAnchor, constant: frame.origin.x + frame.size.width / 2).isActive = true
+            self.subdivisionView!.isHidden = true
         }
+        
+        if let subdivisionView = self.subdivisionView {
+            subdivisionView.isHidden = !subdivisionView.isHidden
+        }
+    }
+}
+
+extension MetrodoneViewController: SubdivisionSelectViewDelegate {
+    func subdivisionSelectionChanged(idx: Int) {
         if let player = self.metrodronePlayer {
-            player.setSubdivision(self.selectedSubdivisionNote + 1)
-        }
-    }
-    
-    @IBAction func onSubdivisionNotes(_ sender: UIButton) {
-        if sender == self.buttonSubdivisionNote1 {
-            self.selectedSubdivisionNote = 0
-        } else if sender == self.buttonSubdivisionNote2 {
-            self.selectedSubdivisionNote = 1
-        } else if sender == self.buttonSubdivisionNote3 {
-            self.selectedSubdivisionNote = 2
-        } else if sender == self.buttonSubdivisionNote4 {
-            self.selectedSubdivisionNote = 3
-        }
-        
-        self.configureSubdivisionNoteSelectionGUI()
-        self.processSubdivision()
-    }
-    
-    func configureSubdivisionNoteSelectionGUI() {
-        self.buttonSubdivisionNote1.alpha = 0.5
-        self.buttonSubdivisionNote2.alpha = 0.5
-        self.buttonSubdivisionNote3.alpha = 0.5
-        self.buttonSubdivisionNote4.alpha = 0.5
-        switch self.selectedSubdivisionNote {
-        case 0:
-            self.buttonSubdivisionNote1.alpha = 1.0
-        case 1:
-            self.buttonSubdivisionNote2.alpha = 1.0
-        case 2:
-            self.buttonSubdivisionNote3.alpha = 1.0
-        case 3:
-            self.buttonSubdivisionNote4.alpha = 1.0
-        default:
-            return
+            player.setSubdivision(idx + 1)
         }
     }
 }

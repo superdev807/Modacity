@@ -26,12 +26,15 @@ class ImprovementViewController: UIViewController {
     var recorder: AVAudioRecorder!
     var isRecording = false
     @IBOutlet weak var btnRecord: UIButton!
-    @IBOutlet weak var viewSiriWaveFormView: SCSiriWaveformView!
+    
+    @IBOutlet weak var viewWaveformContainer: UIView!
+    var viewSiriWaveFormView: SCSiriWaveformView!
     
     var player: AVAudioPlayer?
     var audioPlayerTimer: Timer?
     var isPlaying = false
     var currentRate = 1.0
+    
     @IBOutlet weak var waveformAudioPlay: FDWaveformView!
     @IBOutlet weak var viewAudioPlayer: UIView!
     @IBOutlet weak var buttonAudioPlay: UIButton!
@@ -43,48 +46,14 @@ class ImprovementViewController: UIViewController {
     @IBOutlet weak var imageViewRateDirection: UIImageView!
     @IBOutlet weak var labelRateValue: UILabel!
     
-    @IBOutlet weak var viewMinimizedDrone: UIView!
-    @IBOutlet weak var viewMaximizedDrone: UIView!
-    @IBOutlet weak var constraintForMaximizedDroneBottomSpace: NSLayoutConstraint!
+    var metrodroneViewShown = false
+    var metrodroneView: MetrodroneView? = nil
+    var metrodroneViewTopConstraint: NSLayoutConstraint!
+    var subdivisionView: SubdivisionSelectView? = nil
+    
     @IBOutlet weak var viewBottomXBar: UIView!
-    @IBOutlet weak var imageViewMetrodroneViewShowingArrow: UIImageView!
     
     // MARK: - Properties for drone
-    
-    var metrodonePlayer : MetrodronePlayer? = nil
-    
-    @IBOutlet weak var viewDroneFrame: ViewDroneFrame!
-    @IBOutlet weak var buttonSustain: UIButton!
-    @IBOutlet weak var sliderDuration: UISlider!
-    @IBOutlet weak var buttonMetroPlay: UIButton!
-    @IBOutlet weak var buttonTap: UIButton!
-    @IBOutlet weak var labelBPM: UILabel!
-    @IBOutlet weak var buttonOctaveUp: UIButton!
-    @IBOutlet weak var buttonOctaveDown: UIButton!
-    @IBOutlet weak var labelOctave: UILabel!
-    
-    @IBOutlet weak var viewSubdivision: UIView!
-    @IBOutlet weak var buttonSubdivisionStatusOnButton: UIImageView!
-    @IBOutlet weak var buttonSubDivisionNoteOnButton: UIImageView!
-    @IBOutlet weak var buttonSubdivisionNote1: UIButton!
-    @IBOutlet weak var buttonSubdivisionNote2: UIButton!
-    @IBOutlet weak var buttonSubdivisionNote3: UIButton!
-    @IBOutlet weak var buttonSubdivisionNote4: UIButton!
-    
-    @IBOutlet weak var viewMinTrack: UIView!
-    @IBOutlet weak var constraintForMinTrackViewWidth: NSLayoutConstraint!
-    @IBOutlet weak var constraintForMinTrackImageWidth: NSLayoutConstraint!
-    @IBOutlet weak var imageViewMaxTrack: UIImageView!
-    
-    @IBOutlet weak var constraintForDroneBackgroundImageViewHeight: NSLayoutConstraint!
-    var selectedSubdivisionNote: Int = -1
-    var subdivisionPanelShown = false
-    
-    var panGesture  = UIPanGestureRecognizer()
-    var tapGesture  = UITapGestureRecognizer()
-    var metrodroneViewHeight = CGFloat(336)
-    let metrodroneViewMinHeight = CGFloat(40)
-    var metrodronePlayerShown  = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -100,11 +69,9 @@ class ImprovementViewController: UIViewController {
         self.labelSuggestion.text = self.viewModel.selectedSuggestion
         
         if AppUtils.sizeModelOfiPhone() == .iphone6p_55in {
-            metrodroneViewHeight = CGFloat(380)
-            constraintForDroneBackgroundImageViewHeight.constant = CGFloat(380)
         }
         
-        self.initializeDronesUI()
+        self.initializeDroneUIs()
         self.initializeAudioPlayerUI()
         self.viewAudioPlayer.isHidden = true
         
@@ -140,7 +107,6 @@ class ImprovementViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.constraintForMinTrackViewWidth.constant = self.imageViewMaxTrack.frame.size.width * CGFloat((self.sliderDuration.value - self.sliderDuration.minimumValue) / (self.sliderDuration.maximumValue - self.sliderDuration.minimumValue))
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -162,10 +128,9 @@ class ImprovementViewController: UIViewController {
                 self.onPlayPauseAudio(self)
             }
         }
-        if let mPlayer = self.metrodonePlayer {
-            mPlayer.stopPlayer()
-            mPlayer.stopMetrodrone()
-            self.metrodonePlayer = nil
+        
+        if let metrodroneView = self.metrodroneView {
+            metrodroneView.viewDidDisappear()
         }
     }
     
@@ -175,293 +140,107 @@ class ImprovementViewController: UIViewController {
             AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Please stop recording before leaving the page.")
             return
         }
-         ModacityAnalytics.LogStringEvent("Exited Hypothesis Test Screen")
+        ModacityAnalytics.LogStringEvent("Exited Hypothesis Test Screen")
         self.navigationController?.popViewController(animated: true)
+        
     }
-    
-   
 }
 
 // MARK: - Drone processing
-extension ImprovementViewController: MetrodronePlayerDelegate {
-    
+extension ImprovementViewController: MetrodroneViewDelegate, SubdivisionSelectViewDelegate {
+
     @objc func processRouteChange() {
-        if let player = self.metrodonePlayer {
+        if let player = self.metrodroneView?.metrodonePlayer {
             player.stopPlayer()
-            self.metrodonePlayer = nil
+            self.self.metrodroneView?.metrodonePlayer = nil
+            self.self.metrodroneView?.prepareMetrodrone()
+        }
+    }
+    
+    func initializeDroneUIs() {
+        self.metrodroneView = MetrodroneView()
+        self.view.addSubview(self.metrodroneView!)
+        self.view.leadingAnchor.constraint(equalTo: self.metrodroneView!.leadingAnchor).isActive = true
+        self.view.trailingAnchor.constraint(equalTo: self.metrodroneView!.trailingAnchor).isActive = true
+        self.metrodroneView!.heightAnchor.constraint(equalToConstant: 360).isActive = true
+        self.metrodroneView!.delegate = self
+        self.metrodroneViewTopConstraint = self.view.bottomAnchor.constraint(equalTo: self.metrodroneView!.topAnchor)
+        self.metrodroneViewTopConstraint?.constant = 44
+        self.metrodroneViewTopConstraint?.isActive = true
+        self.metrodroneView!.initializeDroneUIs()
+    }
+    
+    func onTapHeaderBar() {
+        self.showMetrodroneView()
+    }
+    
+    func onSubdivision() {
+        if self.subdivisionView == nil {
+            self.subdivisionView = SubdivisionSelectView()
+            self.subdivisionView!.delegate = self
+            self.view.addSubview(self.subdivisionView!)
+            let frame = self.view.convert(self.metrodroneView!.buttonSubDivision.frame, from: self.metrodroneView!.buttonSubDivision.superview)
+            self.subdivisionView!.bottomAnchor.constraint(equalTo: self.view.topAnchor, constant: frame.origin.y).isActive = true
+            self.subdivisionView!.centerXAnchor.constraint(equalTo: self.view.leadingAnchor, constant: frame.origin.x + frame.size.width / 2).isActive = true
+            self.subdivisionView!.isHidden = true
+        }
+        
+        if let subdivisionView = self.subdivisionView {
+            subdivisionView.isHidden = !subdivisionView.isHidden
+        }
+    }
+    
+    func subdivisionSelectionChanged(idx: Int) {
+        if let player = self.metrodroneView?.metrodonePlayer {
+            player.setSubdivision(idx + 1)
+        }
+    }
+    
+    func showMetrodroneView() {
+        
+        if !self.metrodroneViewShown {
             
-            self.prepareMetrodrone()
-        }
-    }
-    
-    func initializeDronesUI() {
-        self.viewBottomXBar.backgroundColor = Color(hexString:"#292a4a")
-        self.constraintForMaximizedDroneBottomSpace.constant =  metrodroneViewHeight - metrodroneViewMinHeight
-        self.viewSubdivision.isHidden = true
-        self.imageViewMetrodroneViewShowingArrow.image = UIImage(named:"icon_arrow_up")
-//        self.panGesture = UIPanGestureRecognizer(target: self, action: #selector(draggingDroneView))
-//        self.tapGesture = UITapGestureRecognizer(target: self, action: #selector(processDroneViewTap))
-//        self.viewMaximizedDrone.addGestureRecognizer(panGesture)
-//        self.viewMaximizedDrone.addGestureRecognizer(tapGesture)
-        prepareMetrodrone()
-        self.selectedSubdivisionNote = MetrodroneParameters.instance.subdivisions - 1
-        self.configureSubdivisionNoteSelectionGUI()
-    }
-    
-    func onDurationSliderEnabled() {
-        self.constraintForMinTrackViewWidth.constant = self.imageViewMaxTrack.frame.size.width * CGFloat((self.sliderDuration.value - self.sliderDuration.minimumValue) / (self.sliderDuration.maximumValue - self.sliderDuration.minimumValue))
-    }
-    
-    func configureSubdivisionNoteSelectionGUI() {
-        self.buttonSubdivisionNote1.alpha = 0.5
-        self.buttonSubdivisionNote2.alpha = 0.5
-        self.buttonSubdivisionNote3.alpha = 0.5
-        self.buttonSubdivisionNote4.alpha = 0.5
-        switch self.selectedSubdivisionNote {
-        case 0:
-            self.buttonSubdivisionNote1.alpha = 1.0
-        case 1:
-            self.buttonSubdivisionNote2.alpha = 1.0
-        case 2:
-            self.buttonSubdivisionNote3.alpha = 1.0
-        case 3:
-            self.buttonSubdivisionNote4.alpha = 1.0
-        default:
-            return
-        }
-    }
-    
-    func processSubdivision() {
-        // TODO : here, drone media programming for subdivisions
-        // self.selectedSubdivisionNote value will be used here
-        
-        if ((self.selectedSubdivisionNote < 0) || (self.selectedSubdivisionNote > 3)) {
-            self.selectedSubdivisionNote = 0
-        }
-        if let mPlayer = self.metrodonePlayer {
-            mPlayer.setSubdivision(self.selectedSubdivisionNote+1)
-        }
-    }
-    
-    @IBAction func onSubdivisionNotes(_ sender: UIButton) {
-        if sender == self.buttonSubdivisionNote1 {
-            self.selectedSubdivisionNote = 0
-        } else if sender == self.buttonSubdivisionNote2 {
-            self.selectedSubdivisionNote = 1
-        } else if sender == self.buttonSubdivisionNote3 {
-            self.selectedSubdivisionNote = 2
-        } else if sender == self.buttonSubdivisionNote4 {
-            self.selectedSubdivisionNote = 3
-        }
-        
-        self.configureSubdivisionNoteSelectionGUI()
-        self.processSubdivision()
-    }
-    
-    @IBAction func onSubdivision(_ sender: Any) {
-        if !self.subdivisionPanelShown {
-            self.viewSubdivision.isHidden = false
-        } else {
-            self.viewSubdivision.isHidden = true
-        }
-        
-        self.subdivisionPanelShown = !self.subdivisionPanelShown
-    }
-    
-    @IBAction func onCloseDrone(_ sender:Any) {
-        if !self.metrodronePlayerShown {
-            self.openDroneView()
-        } else {
-            self.closeDroneView()
-        }
-    }
-    
-    @objc func draggingDroneView(_ sender: UIPanGestureRecognizer) {
-        
-        let translation = sender.translation(in: self.view)
-        
-        let direction = self.constraintForMaximizedDroneBottomSpace.constant > (metrodroneViewHeight - metrodroneViewMinHeight) / 2
-        
-        if sender.state == .ended {
-            if direction {
-                self.closeDroneView()
-            } else {
-                self.openDroneView()
-            }
-        } else {
-            if self.metrodronePlayerShown {
-                let newPosition = translation.y
-                if newPosition <  metrodroneViewHeight - metrodroneViewMinHeight && newPosition > 0 {
-                    self.constraintForMaximizedDroneBottomSpace.constant = newPosition
-                }
-            } else {
-                let newPosition = metrodroneViewHeight - metrodroneViewMinHeight + translation.y
-                if newPosition > 0 {
-                    self.constraintForMaximizedDroneBottomSpace.constant = newPosition
+            ModacityAnalytics.LogEvent(.MetrodroneDrawerOpen)
+            self.metrodroneView!.isHidden = false
+            self.metrodroneViewTopConstraint.constant = 360
+            UIView.animate(withDuration: 0.5, animations: {
+                self.view.layoutIfNeeded()
+            }) { (finished) in
+                if finished {
+                    self.metrodroneView!.imageViewMetrodroneViewShowingArrow.image = UIImage(named:"icon_arrow_down")
+                    self.metrodroneViewShown = true
                 }
             }
-        }
-        
-    }
-    
-    @objc func processDroneViewTap(gesture : UITapGestureRecognizer) {
-        let touchPoint = gesture.location(in: self.viewMaximizedDrone)
-        
-        if !self.metrodronePlayerShown {
-            self.openDroneView()
+            
         } else {
-            if touchPoint.y < 50 {
-                self.closeDroneView()
+            
+            if self.subdivisionView != nil && self.subdivisionView!.isHidden == false {
+                self.subdivisionView!.isHidden = true
             }
-        }
-    }
-    
-    func openDroneView() {
-        
-        let distance = abs(self.constraintForMaximizedDroneBottomSpace.constant)
-        self.constraintForMaximizedDroneBottomSpace.constant = 0
-        
-        UIView.animate(withDuration: TimeInterval(distance / (metrodroneViewHeight - metrodroneViewMinHeight) * CGFloat(1.0)), animations: {
-            self.view.layoutIfNeeded()
-        }) { (finished) in
-            if finished {
-                self.imageViewMetrodroneViewShowingArrow.image = UIImage(named:"icon_arrow_down")
-                if !self.metrodronePlayerShown {
-                    self.startMetrodrone()
+            
+            self.metrodroneViewTopConstraint.constant = 44
+            
+            UIView.animate(withDuration: 0.5, animations: {
+                self.view.layoutIfNeeded()
+            }) { (finished) in
+                if finished {
+                    self.metrodroneView!.imageViewMetrodroneViewShowingArrow.image = UIImage(named:"icon_arrow_up")
+                    self.metrodroneViewShown = false
                 }
             }
         }
     }
-    func prepareMetrodrone() {
-        self.metrodonePlayer = MetrodronePlayer()//MetrodronePlayer.instance
-        self.metrodonePlayer!.metrodronePlayerDelegate = self
-        DispatchQueue.main.async {
-            self.metrodonePlayer!.initializeOutlets(lblTempo: self.labelBPM,
-                                                    droneFrame: self.viewDroneFrame,
-                                                    playButton: self.buttonMetroPlay,
-                                                    durationSlider: self.sliderDuration,
-                                                    sustainButton: self.buttonSustain,
-                                                    buttonOctaveUp: self.buttonOctaveUp,
-                                                    buttonOctaveDown:self.buttonOctaveDown,
-                                                    labelOctaveNum: self.labelOctave,
-                                                    imageViewSubdivisionCircleStatus: self.buttonSubdivisionStatusOnButton,
-                                                    viewSliderMinTrack: self.viewMinTrack,
-                                                    imageViewSliderMaxTrack: self.imageViewMaxTrack,
-                                                    imageViewSubdivisionNote: self.buttonSubDivisionNoteOnButton)
-        }
-        
-    }
     
-    func startMetrodrone() {
-        ModacityAnalytics.LogEvent(.MetrodroneDrawerOpen)
-        if self.metrodonePlayer == nil {
-            prepareMetrodrone()
-        }
-        self.metrodronePlayerShown = true
-    }
-    
-    func closeDroneView() {
-        
-        if self.subdivisionPanelShown {
-            self.onSubdivision(self.view)
-        }
-        
-        let distance = abs(metrodroneViewHeight - metrodroneViewMinHeight - self.constraintForMaximizedDroneBottomSpace.constant)
-        self.constraintForMaximizedDroneBottomSpace.constant = metrodroneViewHeight - metrodroneViewMinHeight
-        
-        UIView.animate(withDuration: TimeInterval(distance / (metrodroneViewHeight - metrodroneViewMinHeight) * CGFloat(1.0)), animations: {
-            self.view.layoutIfNeeded()
-        }) { (finished) in
-            if finished {
-                self.imageViewMetrodroneViewShowingArrow.image = UIImage(named:"icon_arrow_up")
-                self.endMetrodrone()
-            }
-        }
-    }
-    
-    func endMetrodrone() {
-        ModacityAnalytics.LogEvent(.MetrodroneDrawerClose)
-        if self.metrodronePlayerShown {
-            self.metrodronePlayerShown = false
-        }
-    }
-
-    
-    @IBAction func onSustainButton(_ sender: Any) {
-        if let mPlayer = self.metrodonePlayer {
-            self.buttonSustain.isSelected = mPlayer.toggleSustain()
-        }
-    }
-    
-    @IBAction func onDurationChanged(_ sender: Any) {
-        self.constraintForMinTrackViewWidth.constant = self.imageViewMaxTrack.frame.size.width * CGFloat((self.sliderDuration.value - self.sliderDuration.minimumValue) / (self.sliderDuration.maximumValue - self.sliderDuration.minimumValue))
-        if let mPlayer = self.metrodonePlayer {
-            mPlayer.changeDuration(newValue: self.sliderDuration.value)
-        }
-    }
-    
-    @IBAction func onBtnPlay(_ sender: Any) {
-        if let mPlayer = self.metrodonePlayer {
-            if (!mPlayer.isMetrodronePlaying) {
-                mPlayer.startMetronome()
-            } else {
-                mPlayer.stopMetrodrone()
-            }
-        }
-    }
-    
-    @IBAction func onOctaveUp(_ sender: Any) {
-        if let mPlayer = self.metrodonePlayer {
-            mPlayer.onOctaveUp()
-        }
-
-    }
-    
-    @IBAction func onOctaveDown(_ sender: Any) {
-        if let mPlayer = self.metrodonePlayer {
-            mPlayer.onOctaveDown()
-        }
-    }
-    
-    @IBAction func onTapDown(_ sender: Any) {
-        if let mPlayer = self.metrodonePlayer {
-            mPlayer.tapDown()
-        }
-    }
-    
-    @IBAction func onTapTouchup(_ sender: Any) {
-        if let mPlayer = self.metrodonePlayer {
-            mPlayer.tapUp()
-        }
-    }
-    
-    @IBAction func onIncreaseBPMTouch(_ sender: Any) {
-        if let mPlayer = self.metrodonePlayer {
-            mPlayer.increaseBPMTouch()
-        }
-    }
-    
-    @IBAction func onDecreaseBPMTouch(_ sender: Any) {
-        if let mPlayer = self.metrodonePlayer {
-            mPlayer.decreaseBPMTouch()
-        }
-    }
-    
-    @IBAction func onChangeBPMStop(_ sender: Any) {
-        if let mPlayer = self.metrodonePlayer {
-            mPlayer.stopBPMChangeTimer()
-        }
+    @IBAction func onTabDrone() {
+        self.showMetrodroneView()
     }
 }
-
-
-
 
 // MARK: - Audio playing
 extension ImprovementViewController: AVAudioPlayerDelegate, FDWaveformViewDelegate {
     
     func initializeAudioPlayerUI() {
-        self.viewSiriWaveFormView.isHidden = true
+        self.viewWaveformContainer.isHidden = true
         self.viewAudioPlayer.isHidden = true
         self.viewRatePanel.isHidden = true
     }
@@ -482,7 +261,7 @@ extension ImprovementViewController: AVAudioPlayerDelegate, FDWaveformViewDelega
     }
     
     func prepareAudioPlay() {
-        self.viewSiriWaveFormView.isHidden = true
+        self.viewWaveformContainer.isHidden = true
         self.viewAudioPlayer.isHidden = false
         
         let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
@@ -618,13 +397,20 @@ extension ImprovementViewController {
             
             self.labelImprovementNote.isHidden = true
             self.viewAudioPlayer.isHidden = true
-            self.viewSiriWaveFormView.isHidden = false
-            
+            self.viewWaveformContainer.isHidden = false
+            if self.viewSiriWaveFormView == nil {
+                self.viewSiriWaveFormView = SCSiriWaveformView()
+                self.viewSiriWaveFormView.backgroundColor = Color.clear
+                self.viewSiriWaveFormView.translatesAutoresizingMaskIntoConstraints = false
+                self.viewWaveformContainer.addSubview(self.viewSiriWaveFormView)
+                self.viewWaveformContainer.leadingAnchor.constraint(equalTo: self.viewSiriWaveFormView.leadingAnchor).isActive = true
+                self.viewWaveformContainer.trailingAnchor.constraint(equalTo: self.viewSiriWaveFormView.trailingAnchor).isActive = true
+                self.viewWaveformContainer.topAnchor.constraint(equalTo: self.viewSiriWaveFormView.topAnchor).isActive = true
+                self.viewWaveformContainer.bottomAnchor.constraint(equalTo: self.viewSiriWaveFormView.bottomAnchor).isActive = true
+            }
             self.imageViewHeader.image = UIImage(named:"bg_improvement_recording")
             self.btnRecord.setImage(UIImage(named:"btn_record_stop"), for: .normal)
-            
             self.startRecording()
-            
             self.isRecording = true
             
         } else {
