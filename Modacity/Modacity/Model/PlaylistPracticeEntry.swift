@@ -15,7 +15,6 @@ class PlaylistPracticeEntry: Mappable {
     var name: String!
     var countDownDuration: Int?
     var practiceItemId: String!
-//    var notes: [Note]?
     
     init() {
         self.entryId = UUID().uuidString
@@ -30,7 +29,6 @@ class PlaylistPracticeEntry: Mappable {
         name                <- map["name"]
         countDownDuration   <- map["count_down_duration"]
         practiceItemId      <- map["item_id"]
-//        notes               <- map["notes"]
     }
     
     func practiceItem() -> PracticeItem? {
@@ -40,16 +38,4 @@ class PlaylistPracticeEntry: Mappable {
     func storePracticeItem() {
         
     }
-    
-//    func addNote(text: String) {
-//        if self.notes == nil {
-//            self.notes = [Note]()
-//        }
-//
-//        let note = Note()
-//        note.id = UUID().uuidString
-//        note.note = text
-//        note.createdAt = "\(Date().timeIntervalSince1970)"
-//        self.notes!.append(note)
-//    }
 }

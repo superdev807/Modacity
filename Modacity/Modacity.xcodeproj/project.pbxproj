@@ -215,6 +215,10 @@
 		E2806C3D20ABCE0B0066959A /* practice_item.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E2806C3B20ABCE0B0066959A /* practice_item.storyboard */; };
 		E2806C3F20ABD1290066959A /* PracticeItemListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2806C3E20ABD1290066959A /* PracticeItemListViewController.swift */; };
 		E2806C4020ABD12A0066959A /* PracticeItemListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2806C3E20ABD1290066959A /* PracticeItemListViewController.swift */; };
+		E283C51B20D16953002651E0 /* TimerInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E283C51A20D16953002651E0 /* TimerInputView.xib */; };
+		E283C51C20D16953002651E0 /* TimerInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E283C51A20D16953002651E0 /* TimerInputView.xib */; };
+		E283C51E20D1696A002651E0 /* TimerInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E283C51D20D1696A002651E0 /* TimerInputView.swift */; };
+		E283C51F20D1696A002651E0 /* TimerInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E283C51D20D1696A002651E0 /* TimerInputView.swift */; };
 		E2BA245F20C8D1590048A5D5 /* MetroDroneAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2BA245B20C8D1590048A5D5 /* MetroDroneAudio.swift */; };
 		E2BA246020C8D1590048A5D5 /* MetroDroneAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2BA245B20C8D1590048A5D5 /* MetroDroneAudio.swift */; };
 		E2BA246120C8D1590048A5D5 /* MetrodroneParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2BA245C20C8D1590048A5D5 /* MetrodroneParameters.swift */; };
@@ -376,6 +380,8 @@
 		E2806C3820ABCDEA0066959A /* PracticeItemSelectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PracticeItemSelectViewController.swift; sourceTree = "<group>"; };
 		E2806C3B20ABCE0B0066959A /* practice_item.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = practice_item.storyboard; sourceTree = "<group>"; };
 		E2806C3E20ABD1290066959A /* PracticeItemListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeItemListViewController.swift; sourceTree = "<group>"; };
+		E283C51A20D16953002651E0 /* TimerInputView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimerInputView.xib; sourceTree = "<group>"; };
+		E283C51D20D1696A002651E0 /* TimerInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerInputView.swift; sourceTree = "<group>"; };
 		E2BA245B20C8D1590048A5D5 /* MetroDroneAudio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetroDroneAudio.swift; sourceTree = "<group>"; };
 		E2BA245C20C8D1590048A5D5 /* MetrodroneParameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetrodroneParameters.swift; sourceTree = "<group>"; };
 		E2BA245D20C8D1590048A5D5 /* MetrodronePlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetrodronePlayer.swift; sourceTree = "<group>"; };
@@ -754,6 +760,8 @@
 				8EF559C8207E89FA006728E4 /* FloatRatingView.swift */,
 				8EF559C6207E89D3006728E4 /* ViewDroneFrame.swift */,
 				8EF559CA207E8A35006728E4 /* DropdownMenuView.swift */,
+				E283C51A20D16953002651E0 /* TimerInputView.xib */,
+				E283C51D20D1696A002651E0 /* TimerInputView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -992,6 +1000,7 @@
 				8EDEB71A203DFB9A00E8D48D /* sidemenu.storyboard in Resources */,
 				8ECCAF972056F5B9000E2B75 /* ding.wav in Resources */,
 				8E4551E420030F7F002061AE /* Main.storyboard in Resources */,
+				E283C51B20D16953002651E0 /* TimerInputView.xib in Resources */,
 				8EDEB707203DE38F00E8D48D /* lato-italic.ttf in Resources */,
 				8EE2BD22203DAEDA00D6D7A8 /* welcome.storyboard in Resources */,
 				E2BA252F20C8D3870048A5D5 /* waveforms in Resources */,
@@ -1042,6 +1051,7 @@
 				E21BE9FC2091796A000D1877 /* improve.storyboard in Resources */,
 				E264C09720CB01A20016CF8D /* metrodroneview.xib in Resources */,
 				E2BA253220C8D3870048A5D5 /* _Comp in Resources */,
+				E283C51C20D16953002651E0 /* TimerInputView.xib in Resources */,
 				E21BE9FD2091796A000D1877 /* feedback.storyboard in Resources */,
 				E21BE9FF2091796A000D1877 /* sidemenu.storyboard in Resources */,
 				E21BEA002091796A000D1877 /* ding.wav in Resources */,
@@ -1340,6 +1350,7 @@
 				8EA33BA720052D2700539A3F /* RecordingViewController.swift in Sources */,
 				8EDEB6F2203DD7A800E8D48D /* AuthViewModel.swift in Sources */,
 				8E3596222049AA9500F2E6DF /* Playlist.swift in Sources */,
+				E283C51E20D1696A002651E0 /* TimerInputView.swift in Sources */,
 				E264C09920CB02F50016CF8D /* MetrodroneView.swift in Sources */,
 				8EDEB70C203DE38F00E8D48D /* AppConfig.swift in Sources */,
 				8EB479BB20458B7C00BE6461 /* AboutViewController.swift in Sources */,
@@ -1441,6 +1452,7 @@
 				E21BE9BE2091796A000D1877 /* RecordingViewController.swift in Sources */,
 				E21BE9BF2091796A000D1877 /* AuthViewModel.swift in Sources */,
 				E21BE9C02091796A000D1877 /* Playlist.swift in Sources */,
+				E283C51F20D1696A002651E0 /* TimerInputView.swift in Sources */,
 				E264C09A20CB02F50016CF8D /* MetrodroneView.swift in Sources */,
 				E21BE9C12091796A000D1877 /* AppConfig.swift in Sources */,
 				E21BE9C22091796A000D1877 /* AboutViewController.swift in Sources */,

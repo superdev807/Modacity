@@ -28,16 +28,21 @@ class PracticeViewController: UIViewController {
     @IBOutlet weak var viewTimeArea: UIView!
     @IBOutlet weak var viewTimeAreaPausedPanel: UIView!
     @IBOutlet weak var buttonTimerUpDownArrow: UIButton!
+    
     var timer: Timer!
     var timerRunning = false
     var timerStarted: Date!
     var secondsPrevPlayed: Int!
+    
     var isCountDown = false
     var countDownTimerStart = 0
     var timerShouldStartFrom = 0
     var timerShouldDown = false
     var timerShouldFinish = 0
     var dingSoundPlayer: AVAudioPlayer? = nil
+    
+    var timerDirection = 0      // 0 for count up, 1 for count down
+    var overallPracticeTimeInSeconds: Int! = 0
     
     // MARK: - Properties for recording
     @IBOutlet weak var btnRecord: UIButton!
@@ -76,8 +81,11 @@ class PracticeViewController: UIViewController {
     var notesToShow = [Note]()
     
     // MARK: - Properties for ui resizing
-    
     @IBOutlet weak var constraintForImageHeaderViewHeight: NSLayoutConstraint!
+    
+    // MARK: - Timer processing
+    var timerInputView: TimerInputView!
+    var timerInputViewTopConstraint: NSLayoutConstraint!
     
     var practiceStartedTime: Date!
     
@@ -387,7 +395,6 @@ extension PracticeViewController: AVAudioPlayerDelegate, FDWaveformViewDelegate 
     
     func initializeAudioPlayerUI() {
         self.viewWaveFormContainer.isHidden = true
-//        self.viewSiriWaveFormView.isHidden = true
         self.viewAudioPlayer.isHidden = true
         self.viewRatePanel.isHidden = true
     }
@@ -998,7 +1005,7 @@ extension PracticeViewController: PlayPracticeTabBarViewDelegate {
         case 2:
             self.onTabNotes()
         case 3:
-            return
+            self.onTabTimer()
         case 4:
             self.onAskExpert()
         default:
@@ -1029,5 +1036,58 @@ extension PracticeViewController: PlayPracticeTabBarViewDelegate {
         attr.customAttributes = ["AppLocation" : "practice"]
         Intercom.updateUser(attr)
         Intercom.presentMessenger()
+    }
+}
+
+extension PracticeViewController: TimerInputViewDelegate {
+    func onTabTimer() {
+        self.showTimer()
+    }
+    
+    func showTimer() {
+        if self.timerInputView == nil {
+            self.timerInputView = TimerInputView()
+            self.view.addSubview(self.timerInputView)
+            self.timerInputView.imageViewTriangle.isHidden = true
+            self.timerInputView.delegate = self
+            self.view.leadingAnchor.constraint(equalTo: self.timerInputView.leadingAnchor).isActive = true
+            self.view.trailingAnchor.constraint(equalTo: self.timerInputView.trailingAnchor).isActive = true
+            self.timerInputView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.size.height - 80).isActive = true
+            timerInputViewTopConstraint = self.timerInputView.topAnchor.constraint(equalTo: self.view.topAnchor, constant:  UIScreen.main.bounds.size.height)
+            timerInputViewTopConstraint.isActive = true
+            
+            let deadline = DispatchTime.now() + .milliseconds(200)
+            DispatchQueue.main.asyncAfter(deadline: deadline) {
+                self.timerInputViewTopConstraint.constant = 80
+                UIView.animate(withDuration: 0.5) {
+                    self.view.layoutIfNeeded()
+                }
+            }
+        } else {
+            self.timerInputView.isHidden = false
+            self.timerInputViewTopConstraint.constant = 80
+            UIView.animate(withDuration: 0.5) {
+                self.view.layoutIfNeeded()
+            }
+        }
+    }
+    
+    func closeTimer() {
+        self.timerInputViewTopConstraint.constant = UIScreen.main.bounds.size.height
+        UIView.animate(withDuration: 0.5, animations: {
+            self.view.layoutIfNeeded()
+        }) { (finished) in
+            if finished {
+                self.timerInputView.isHidden = true
+            }
+        }
+    }
+    
+    func onTimerSelected(timerInSec: Int) {
+        
+    }
+    
+    func onTimerDismiss() {
+        self.closeTimer()
     }
 }

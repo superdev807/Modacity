@@ -15,7 +15,6 @@ protocol PlayPracticeWalkthroughViewDelegate {
 class PlayPracticeWalkthroughView: UIView {
 
     @IBOutlet var viewContent: UIView!
-    @IBOutlet var constraintForWalkthroughNotesLeading: NSLayoutConstraint!
     var delegate: PlayPracticeWalkthroughViewDelegate!
     
     override init(frame: CGRect) {
@@ -37,10 +36,6 @@ class PlayPracticeWalkthroughView: UIView {
         self.viewContent.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         self.viewContent.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
         self.viewContent.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        
-        if AppUtils.sizeModelOfiPhone() == .iphone6p_55in {
-            self.constraintForWalkthroughNotesLeading.constant = 100
-        }
     }
     
     @IBAction func onCoverClick(_ sender: Any) {

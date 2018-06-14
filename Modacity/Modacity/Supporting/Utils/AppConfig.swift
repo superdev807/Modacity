@@ -50,4 +50,7 @@ class AppConfig: NSObject {
     static let appMaxNumberForRecentPlaylists = 10
     
     static let appIdOnAppStore = "1351617981"
+    
+    static let appIntercomApiKey = "ios_sdk-f447e55f2c171cec792a026f22b81c2188765217"
+    static let appIntercomAppId = "q5zl4zj8"
 }

@@ -21,8 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        Intercom.setApiKey("ios_sdk-f447e55f2c171cec792a026f22b81c2188765217", forAppId:"q5zl4zj8")
-        
+        Intercom.setApiKey(AppConfig.appIntercomApiKey, forAppId:AppConfig.appIntercomAppId)
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         FirebaseApp.configure()
         Fabric.sharedSDK().debug = true
