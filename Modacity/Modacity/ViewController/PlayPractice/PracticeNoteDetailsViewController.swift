@@ -15,7 +15,7 @@ class PracticeNoteDetailsViewController: UIViewController {
     @IBOutlet weak var textViewInputBox: UITextView!
     @IBOutlet weak var constraintForInputboxBottomSpace: NSLayoutConstraint!
     
-    var playlistViewModel: PlaylistDetailsViewModel!
+    var playlistViewModel: PlaylistContentsViewModel!
     var playlistPracticeEntry: PlaylistPracticeEntry!
     
     @IBOutlet weak var textfieldNoteTitleEdit: UITextField!

@@ -59,7 +59,7 @@ class PlaylistCell: UITableViewCell {
     }
 }
 
-class PlaylistViewController: UIViewController {
+class PlaylistListViewController: UIViewController {
 
     @IBOutlet weak var constraintForHeaderImageViewHeight: NSLayoutConstraint!
     @IBOutlet weak var tableViewMain: UITableView!
@@ -93,7 +93,7 @@ class PlaylistViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "sid_details" {
-            let controller = (segue.destination as! UINavigationController).viewControllers[0] as! PlaylistDetailsViewController
+            let controller = (segue.destination as! UINavigationController).viewControllers[0] as! PlaylistContentsViewController
             let model = PlaylistAndPracticeDeliverModel()
             model.deliverPlaylist = self.viewModel.detailSelection
             controller.parentViewModel = model
@@ -123,7 +123,7 @@ class PlaylistViewController: UIViewController {
     
 }
 
-extension PlaylistViewController: UITableViewDelegate, UITableViewDataSource {
+extension PlaylistListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.viewModel.countOfPlaylists()
@@ -151,7 +151,7 @@ extension PlaylistViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension PlaylistViewController: PlaylistCellDelegate {
+extension PlaylistListViewController: PlaylistCellDelegate {
     
     func onFavorite(_ playlist: Playlist) {
         self.viewModel.setFavorite(playlist)

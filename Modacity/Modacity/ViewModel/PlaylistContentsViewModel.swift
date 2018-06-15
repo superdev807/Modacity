@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PlaylistDetailsViewModel: ViewModel {
+class PlaylistContentsViewModel: ViewModel {
     
     var playlist = Playlist()
     
@@ -42,6 +42,15 @@ class PlaylistDetailsViewModel: ViewModel {
             }
         }
     }
+    
+    var countDownPlayed: [String: Int] = [String: Int]() {
+        didSet {
+            if let callback = self.callBacks["count_down_played"] {
+                callback(.simpleChange, oldValue, countDownPlayed)
+            }
+        }
+    }
+    
     var countdownReseted:[String:Bool] = [String:Bool]()
     
     var editingRow: Int = -1 {
@@ -215,6 +224,18 @@ class PlaylistDetailsViewModel: ViewModel {
     
     func duration(forPracticeItem entryId: String) -> Int? {
         return self.timePracticed[entryId]
+    }
+    
+    func countDownPlayedTime(forPracticeItem entryId: String) -> Int? {
+        return self.countDownPlayed[entryId]
+    }
+    
+    func updateCountDownPlayedTime(forPracticeItem entryId: String, time:Int) {
+        self.countDownPlayed[entryId] = time
+    }
+    
+    func updateDuration(forPracticeItem entryId: String, duration: Int) {
+        self.timePracticed[entryId] = duration + (self.timePracticed[entryId] ?? 0)
     }
     
     func setDuration(forPracticeItem entryId: String, duration: Int) {

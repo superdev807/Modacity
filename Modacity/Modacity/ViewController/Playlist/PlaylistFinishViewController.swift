@@ -16,7 +16,7 @@ class PlaylistFinishViewController: UIViewController {
     @IBOutlet weak var labelDurationUnits: UILabel!
     
     @IBOutlet weak var buttonNotes: UIButton!
-    var playlistDetailsViewModel: PlaylistDetailsViewModel!
+    var playlistDetailsViewModel: PlaylistContentsViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()

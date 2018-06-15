@@ -93,13 +93,13 @@ class PracticeItemSelectViewController: UIViewController {
     @IBOutlet weak var imageViewWalkThrough2: UIImageView!
     @IBOutlet weak var labelWalkThrough2: UILabel!
     
-    var parentController : PlaylistDetailsViewController?
+    var parentController : PlaylistContentsViewController?
     
     var practiceItemNameEditingCell: PracticeItemSelectCell? = nil
     var editingSection: Int = 0
     var editingRow: Int = 0
     
-    var parentViewModel = PlaylistDetailsViewModel()
+    var parentViewModel = PlaylistContentsViewModel()
     var shouldSelectPracticeItems = false
     private let viewModel = PracticeItemViewModel()
     

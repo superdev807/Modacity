@@ -18,7 +18,7 @@ class SetReminderViewController: UIViewController {
     @IBOutlet weak var labelTimeAndDate: UILabel!
     @IBOutlet weak var buttonPlaylistNamePanel: UIButton!
     
-    var playlistParentViewModel: PlaylistDetailsViewModel!
+    var playlistParentViewModel: PlaylistContentsViewModel!
     var selectedDate: Date!
     
     override func viewDidLoad() {

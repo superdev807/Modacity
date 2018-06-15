@@ -13,7 +13,7 @@ import FDWaveformView
 
 class ImprovementViewController: UIViewController {
     
-    var playlistViewModel: PlaylistDetailsViewModel!
+    var playlistViewModel: PlaylistContentsViewModel!
     var practiceItem: PracticeItem!
     var viewModel: ImprovementViewModel!
     

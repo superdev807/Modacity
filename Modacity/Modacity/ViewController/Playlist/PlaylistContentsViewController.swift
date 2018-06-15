@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PlaylistDetailsViewController: UIViewController {
+class PlaylistContentsViewController: UIViewController {
 
     @IBOutlet weak var labelPlaylistName: UILabel!
     @IBOutlet weak var textfieldPlaylistName: UITextField!
@@ -31,7 +31,7 @@ class PlaylistDetailsViewController: UIViewController {
     
     var isNameEditing = false
     var parentViewModel: PlaylistAndPracticeDeliverModel? = nil
-    var viewModel = PlaylistDetailsViewModel()
+    var viewModel = PlaylistContentsViewModel()
     var isPlaying = false
     var playingStartedTime: Date? = nil
     var sessionTimer : Timer? = nil
@@ -463,7 +463,7 @@ class PlaylistDetailsViewController: UIViewController {
     }
 }
 
-extension PlaylistDetailsViewController: UITableViewDelegate, UITableViewDataSource {
+extension PlaylistContentsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.viewModel.playlistPracticeEntries.count
@@ -601,7 +601,7 @@ extension PlaylistDetailsViewController: UITableViewDelegate, UITableViewDataSou
     }
 }
 
-extension PlaylistDetailsViewController: PlaylistPracticeItemCellDelegate {
+extension PlaylistContentsViewController: PlaylistPracticeItemCellDelegate {
     func onLike(item: PracticeItem?) {
         if let item = item {
             self.viewModel.setLikePracticeItem(for: item)

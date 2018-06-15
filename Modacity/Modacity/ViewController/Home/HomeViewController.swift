@@ -289,7 +289,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         if collectionView == self.collectionViewRecentPlaylists {
             let deliverViewModel = PlaylistAndPracticeDeliverModel()
             deliverViewModel.deliverPlaylist = self.viewModel.recentPlaylists[indexPath.row]
-            let controller = UIStoryboard(name: "playlist", bundle: nil).instantiateViewController(withIdentifier: "PlaylistDetailsViewController") as! PlaylistDetailsViewController
+            let controller = UIStoryboard(name: "playlist", bundle: nil).instantiateViewController(withIdentifier: "PlaylistContentsViewController") as! PlaylistContentsViewController
             controller.parentViewModel = deliverViewModel
             let nav = UINavigationController(rootViewController: controller)
             nav.isNavigationBarHidden = true
@@ -301,7 +301,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 
                 let deliverViewModel = PlaylistAndPracticeDeliverModel()
                 deliverViewModel.deliverPlaylist = item["data"] as! Playlist
-                let controller = UIStoryboard(name: "playlist", bundle: nil).instantiateViewController(withIdentifier: "PlaylistDetailsViewController") as! PlaylistDetailsViewController
+                let controller = UIStoryboard(name: "playlist", bundle: nil).instantiateViewController(withIdentifier: "PlaylistContentsViewController") as! PlaylistContentsViewController
                 controller.parentViewModel = deliverViewModel
                 let nav = UINavigationController(rootViewController: controller)
                 nav.isNavigationBarHidden = true

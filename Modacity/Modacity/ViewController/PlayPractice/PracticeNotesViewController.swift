@@ -86,7 +86,7 @@ class PracticeNotesViewController: UIViewController {
     @IBOutlet weak var textfieldAddNote: UITextField!
     @IBOutlet weak var tableViewMain: UITableView!
 
-    var playlistViewModel: PlaylistDetailsViewModel!
+    var playlistViewModel: PlaylistContentsViewModel!
     var practiceEntry: PlaylistPracticeEntry!
     var practiceItem: PracticeItem!
     var noteIsForPlaylist = false

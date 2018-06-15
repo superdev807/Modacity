@@ -12,7 +12,7 @@ class ImproveSuggestionViewController: UIViewController {
     
     var viewModel = ImprovementViewModel()
 
-    var playlistModel: PlaylistDetailsViewModel!
+    var playlistModel: PlaylistContentsViewModel!
     var practiceItem: PracticeItem!
     
     @IBOutlet weak var labelPracticeName: UILabel!

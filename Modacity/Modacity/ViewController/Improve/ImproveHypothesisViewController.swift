@@ -11,7 +11,7 @@ import UIKit
 class ImproveHypothesisViewController: UIViewController {
     
     var viewModel: ImprovementViewModel!
-    var playlistModel: PlaylistDetailsViewModel!
+    var playlistModel: PlaylistContentsViewModel!
     var practiceItem: PracticeItem!
     
     @IBOutlet weak var tableViewHypothesis: UITableView!

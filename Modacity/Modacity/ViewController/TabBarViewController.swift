@@ -378,7 +378,7 @@ class TabBarViewController: UITabBarController {
                     AppOveralDataManager.manager.walkThroughFirstPage()
                     
                     let playlistCreateNew = UIStoryboard(name:"playlist", bundle: nil).instantiateViewController(withIdentifier: "playlist_control_scene") as! UINavigationController
-                    let controller = playlistCreateNew.viewControllers[0] as! PlaylistDetailsViewController
+                    let controller = playlistCreateNew.viewControllers[0] as! PlaylistContentsViewController
                     controller.shouldStartFromPracticeSelection = true
                     ModacityAnalytics.LogEvent(.NewPlaylist)
                     self.present(playlistCreateNew, animated: true, completion: nil)
@@ -388,7 +388,7 @@ class TabBarViewController: UITabBarController {
         }
         
         let playlistCreateNew = UIStoryboard(name:"playlist", bundle: nil).instantiateViewController(withIdentifier: "playlist_control_scene") as! UINavigationController
-        let controller = playlistCreateNew.viewControllers[0] as! PlaylistDetailsViewController
+        let controller = playlistCreateNew.viewControllers[0] as! PlaylistContentsViewController
         controller.shouldStartFromPracticeSelection = true
         ModacityAnalytics.LogEvent(.NewPlaylist)
         self.present(playlistCreateNew, animated: true, completion: nil)

@@ -14,7 +14,7 @@
 		8E0A51C5207E4663006BDDC6 /* ModacityAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0A51C4207E4663006BDDC6 /* ModacityAnalytics.swift */; };
 		8E16B46D2052ECDE00A9BF8A /* PlaylistPracticeEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E16B46C2052ECDE00A9BF8A /* PlaylistPracticeEntry.swift */; };
 		8E1EFEFC20500E7A000DE107 /* PlaylistPracticeDurationKeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1EFEFB20500E7A000DE107 /* PlaylistPracticeDurationKeyboardViewController.swift */; };
-		8E3596202049A61C00F2E6DF /* PlaylistDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E35961F2049A61C00F2E6DF /* PlaylistDetailsViewModel.swift */; };
+		8E3596202049A61C00F2E6DF /* PlaylistContentsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E35961F2049A61C00F2E6DF /* PlaylistContentsViewModel.swift */; };
 		8E3596222049AA9500F2E6DF /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3596212049AA9500F2E6DF /* Playlist.swift */; };
 		8E4551DF20030F7F002061AE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4551DE20030F7F002061AE /* AppDelegate.swift */; };
 		8E4551E420030F7F002061AE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E4551E220030F7F002061AE /* Main.storyboard */; };
@@ -22,7 +22,7 @@
 		8E4551E920030F7F002061AE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E4551E720030F7F002061AE /* LaunchScreen.storyboard */; };
 		8E4551F420030F80002061AE /* ModacityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4551F320030F80002061AE /* ModacityTests.swift */; };
 		8E4551FF20030F80002061AE /* ModacityUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4551FE20030F80002061AE /* ModacityUITests.swift */; };
-		8E455D112045A84F003FDB80 /* PlaylistDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E455D102045A84F003FDB80 /* PlaylistDetailsViewController.swift */; };
+		8E455D112045A84F003FDB80 /* PlaylistContentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E455D102045A84F003FDB80 /* PlaylistContentsViewController.swift */; };
 		8E58B43520445BC20022704B /* FeedbackSentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E58B43420445BC10022704B /* FeedbackSentViewController.swift */; };
 		8E58B43720445FEB0022704B /* lato-bolditalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8E58B43620445FEA0022704B /* lato-bolditalic.ttf */; };
 		8E58B439204468100022704B /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E58B438204468100022704B /* ProfileViewModel.swift */; };
@@ -43,7 +43,7 @@
 		8E99A069204072F900A9A9B8 /* metrodone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E99A068204072F900A9A9B8 /* metrodone.storyboard */; };
 		8E9DF9052057CF47003F5FE8 /* Improvement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9DF9042057CF47003F5FE8 /* Improvement.swift */; };
 		8EA33BA120052A3300539A3F /* playlist.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EA33BA020052A3300539A3F /* playlist.storyboard */; };
-		8EA33BA320052A4A00539A3F /* PlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA33BA220052A4A00539A3F /* PlaylistViewController.swift */; };
+		8EA33BA320052A4A00539A3F /* PlaylistListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA33BA220052A4A00539A3F /* PlaylistListViewController.swift */; };
 		8EA33BA520052D0600539A3F /* recording.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EA33BA420052D0600539A3F /* recording.storyboard */; };
 		8EA33BA720052D2700539A3F /* RecordingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA33BA620052D2700539A3F /* RecordingViewController.swift */; };
 		8EA9E7CB20429EE00019EFA5 /* feedback.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EA9E7CA20429EE00019EFA5 /* feedback.storyboard */; };
@@ -91,7 +91,7 @@
 		E21BE9B22091796A000D1877 /* SigninViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDEB6EF203DD3B900E8D48D /* SigninViewController.swift */; };
 		E21BE9B42091796A000D1877 /* FeedbackSentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E58B43420445BC10022704B /* FeedbackSentViewController.swift */; };
 		E21BE9B52091796A000D1877 /* Recording.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E64B7A92056A09E00900775 /* Recording.swift */; };
-		E21BE9B62091796A000D1877 /* PlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA33BA220052A4A00539A3F /* PlaylistViewController.swift */; };
+		E21BE9B62091796A000D1877 /* PlaylistListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA33BA220052A4A00539A3F /* PlaylistListViewController.swift */; };
 		E21BE9B72091796A000D1877 /* SideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDEB717203DFAC200E8D48D /* SideMenuController.swift */; };
 		E21BE9B82091796A000D1877 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED335E32048EBC700FB61C1 /* ViewModel.swift */; };
 		E21BE9B92091796A000D1877 /* PlaylistFinishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAE1650204FE1050012450E /* PlaylistFinishViewController.swift */; };
@@ -112,13 +112,13 @@
 		E21BE9C92091796A000D1877 /* PracticeItemRemoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED6218C207B09D600593EF2 /* PracticeItemRemoteManager.swift */; };
 		E21BE9CA2091796A000D1877 /* RecordingsLocalManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E64B7AB2056A35200900775 /* RecordingsLocalManager.swift */; };
 		E21BE9CC2091796A000D1877 /* PracticeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDA6193204827DE006D3208 /* PracticeItem.swift */; };
-		E21BE9CD2091796A000D1877 /* PlaylistDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E35961F2049A61C00F2E6DF /* PlaylistDetailsViewModel.swift */; };
+		E21BE9CD2091796A000D1877 /* PlaylistContentsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E35961F2049A61C00F2E6DF /* PlaylistContentsViewModel.swift */; };
 		E21BE9CE2091796A000D1877 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E64B7A72056332300900775 /* HomeViewModel.swift */; };
 		E21BE9CF2091796A000D1877 /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDEB6ED203DCD2200E8D48D /* CreateAccountViewController.swift */; };
 		E21BE9D02091796A000D1877 /* PlaylistRemoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED6218A207B09A900593EF2 /* PlaylistRemoteManager.swift */; };
 		E21BE9D12091796A000D1877 /* SetReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB81FCA2063D33E00EADDA5 /* SetReminderViewController.swift */; };
 		E21BE9D22091796A000D1877 /* ModacityAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0A51C4207E4663006BDDC6 /* ModacityAnalytics.swift */; };
-		E21BE9D32091796A000D1877 /* PlaylistDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E455D102045A84F003FDB80 /* PlaylistDetailsViewController.swift */; };
+		E21BE9D32091796A000D1877 /* PlaylistContentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E455D102045A84F003FDB80 /* PlaylistContentsViewController.swift */; };
 		E21BE9D42091796A000D1877 /* MessagesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D01BD5208A146B00F54B5D /* MessagesManager.swift */; };
 		E21BE9D52091796A000D1877 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4551DE20030F7F002061AE /* AppDelegate.swift */; };
 		E21BE9D62091796A000D1877 /* MyProfileLocalManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E58B44220446AE40022704B /* MyProfileLocalManager.swift */; };
@@ -268,7 +268,7 @@
 		8E0A51C4207E4663006BDDC6 /* ModacityAnalytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModacityAnalytics.swift; sourceTree = "<group>"; };
 		8E16B46C2052ECDE00A9BF8A /* PlaylistPracticeEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistPracticeEntry.swift; sourceTree = "<group>"; };
 		8E1EFEFB20500E7A000DE107 /* PlaylistPracticeDurationKeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistPracticeDurationKeyboardViewController.swift; sourceTree = "<group>"; };
-		8E35961F2049A61C00F2E6DF /* PlaylistDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistDetailsViewModel.swift; sourceTree = "<group>"; };
+		8E35961F2049A61C00F2E6DF /* PlaylistContentsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistContentsViewModel.swift; sourceTree = "<group>"; };
 		8E3596212049AA9500F2E6DF /* Playlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
 		8E4551DB20030F7F002061AE /* Modacity.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Modacity.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E4551DE20030F7F002061AE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -282,7 +282,7 @@
 		8E4551FA20030F80002061AE /* ModacityUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ModacityUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E4551FE20030F80002061AE /* ModacityUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModacityUITests.swift; sourceTree = "<group>"; };
 		8E45520020030F80002061AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8E455D102045A84F003FDB80 /* PlaylistDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistDetailsViewController.swift; sourceTree = "<group>"; };
+		8E455D102045A84F003FDB80 /* PlaylistContentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistContentsViewController.swift; sourceTree = "<group>"; };
 		8E58B43420445BC10022704B /* FeedbackSentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackSentViewController.swift; sourceTree = "<group>"; };
 		8E58B43620445FEA0022704B /* lato-bolditalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "lato-bolditalic.ttf"; sourceTree = "<group>"; };
 		8E58B438204468100022704B /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
@@ -303,7 +303,7 @@
 		8E99A068204072F900A9A9B8 /* metrodone.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = metrodone.storyboard; sourceTree = "<group>"; };
 		8E9DF9042057CF47003F5FE8 /* Improvement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Improvement.swift; sourceTree = "<group>"; };
 		8EA33BA020052A3300539A3F /* playlist.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = playlist.storyboard; sourceTree = "<group>"; };
-		8EA33BA220052A4A00539A3F /* PlaylistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistViewController.swift; sourceTree = "<group>"; };
+		8EA33BA220052A4A00539A3F /* PlaylistListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistListViewController.swift; sourceTree = "<group>"; };
 		8EA33BA420052D0600539A3F /* recording.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = recording.storyboard; sourceTree = "<group>"; };
 		8EA33BA620052D2700539A3F /* RecordingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingViewController.swift; sourceTree = "<group>"; };
 		8EA9E7CA20429EE00019EFA5 /* feedback.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = feedback.storyboard; sourceTree = "<group>"; };
@@ -636,7 +636,7 @@
 				8EB9DB9A204DABFD00689C1D /* PlaylistViewModel.swift */,
 				8E84CA6620577F3500D2D1CB /* ImprovementViewModel.swift */,
 				8ECCAF942056EABE000E2B75 /* PlaylistDeliverModel.swift */,
-				8E35961F2049A61C00F2E6DF /* PlaylistDetailsViewModel.swift */,
+				8E35961F2049A61C00F2E6DF /* PlaylistContentsViewModel.swift */,
 				8EDA619720484580006D3208 /* PracticeItemViewModel.swift */,
 				8E64B7AD2056AA7C00900775 /* RecordingViewModel.swift */,
 				8E64B7A72056332300900775 /* HomeViewModel.swift */,
@@ -679,8 +679,8 @@
 			isa = PBXGroup;
 			children = (
 				8EA33BA020052A3300539A3F /* playlist.storyboard */,
-				8EA33BA220052A4A00539A3F /* PlaylistViewController.swift */,
-				8E455D102045A84F003FDB80 /* PlaylistDetailsViewController.swift */,
+				8EA33BA220052A4A00539A3F /* PlaylistListViewController.swift */,
+				8E455D102045A84F003FDB80 /* PlaylistContentsViewController.swift */,
 				8EAE1650204FE1050012450E /* PlaylistFinishViewController.swift */,
 				8E1EFEFB20500E7A000DE107 /* PlaylistPracticeDurationKeyboardViewController.swift */,
 				8EB81FCA2063D33E00EADDA5 /* SetReminderViewController.swift */,
@@ -1339,7 +1339,7 @@
 				E2806C3920ABCDEA0066959A /* PracticeItemSelectViewController.swift in Sources */,
 				8E58B43520445BC20022704B /* FeedbackSentViewController.swift in Sources */,
 				8E64B7AA2056A09F00900775 /* Recording.swift in Sources */,
-				8EA33BA320052A4A00539A3F /* PlaylistViewController.swift in Sources */,
+				8EA33BA320052A4A00539A3F /* PlaylistListViewController.swift in Sources */,
 				8EDEB718203DFAC200E8D48D /* SideMenuController.swift in Sources */,
 				8ED335E42048EBC700FB61C1 /* ViewModel.swift in Sources */,
 				8EAE1651204FE1050012450E /* PlaylistFinishViewController.swift in Sources */,
@@ -1365,7 +1365,7 @@
 				E2BA246320C8D1590048A5D5 /* MetrodronePlayer.swift in Sources */,
 				8EDA6194204827DE006D3208 /* PracticeItem.swift in Sources */,
 				E24DF50320987E9E00BAF0C7 /* Note.swift in Sources */,
-				8E3596202049A61C00F2E6DF /* PlaylistDetailsViewModel.swift in Sources */,
+				8E3596202049A61C00F2E6DF /* PlaylistContentsViewModel.swift in Sources */,
 				8E64B7A82056332300900775 /* HomeViewModel.swift in Sources */,
 				E24DF50C2098C1D400BAF0C7 /* MusicQuotesManager.swift in Sources */,
 				8EDEB6EE203DCD2200E8D48D /* CreateAccountViewController.swift in Sources */,
@@ -1375,7 +1375,7 @@
 				8EB81FCB2063D33E00EADDA5 /* SetReminderViewController.swift in Sources */,
 				8E0A51C5207E4663006BDDC6 /* ModacityAnalytics.swift in Sources */,
 				E245700120D00C6F00C9F720 /* SubdivisionSelectView.swift in Sources */,
-				8E455D112045A84F003FDB80 /* PlaylistDetailsViewController.swift in Sources */,
+				8E455D112045A84F003FDB80 /* PlaylistContentsViewController.swift in Sources */,
 				E2806C3F20ABD1290066959A /* PracticeItemListViewController.swift in Sources */,
 				E2D01BD6208A146B00F54B5D /* MessagesManager.swift in Sources */,
 				8E4551DF20030F7F002061AE /* AppDelegate.swift in Sources */,
@@ -1441,7 +1441,7 @@
 				E2806C3A20ABCDEA0066959A /* PracticeItemSelectViewController.swift in Sources */,
 				E21BE9B42091796A000D1877 /* FeedbackSentViewController.swift in Sources */,
 				E21BE9B52091796A000D1877 /* Recording.swift in Sources */,
-				E21BE9B62091796A000D1877 /* PlaylistViewController.swift in Sources */,
+				E21BE9B62091796A000D1877 /* PlaylistListViewController.swift in Sources */,
 				E21BE9B72091796A000D1877 /* SideMenuController.swift in Sources */,
 				E21BE9B82091796A000D1877 /* ViewModel.swift in Sources */,
 				E21BE9B92091796A000D1877 /* PlaylistFinishViewController.swift in Sources */,
@@ -1467,7 +1467,7 @@
 				E2BA246420C8D1590048A5D5 /* MetrodronePlayer.swift in Sources */,
 				E21BE9CC2091796A000D1877 /* PracticeItem.swift in Sources */,
 				E24DF50420987E9E00BAF0C7 /* Note.swift in Sources */,
-				E21BE9CD2091796A000D1877 /* PlaylistDetailsViewModel.swift in Sources */,
+				E21BE9CD2091796A000D1877 /* PlaylistContentsViewModel.swift in Sources */,
 				E21BE9CE2091796A000D1877 /* HomeViewModel.swift in Sources */,
 				E24DF50D2098C1D400BAF0C7 /* MusicQuotesManager.swift in Sources */,
 				E21BE9CF2091796A000D1877 /* CreateAccountViewController.swift in Sources */,
@@ -1477,7 +1477,7 @@
 				E21BE9D12091796A000D1877 /* SetReminderViewController.swift in Sources */,
 				E21BE9D22091796A000D1877 /* ModacityAnalytics.swift in Sources */,
 				E245700220D00C6F00C9F720 /* SubdivisionSelectView.swift in Sources */,
-				E21BE9D32091796A000D1877 /* PlaylistDetailsViewController.swift in Sources */,
+				E21BE9D32091796A000D1877 /* PlaylistContentsViewController.swift in Sources */,
 				E2806C4020ABD12A0066959A /* PracticeItemListViewController.swift in Sources */,
 				E21BE9D42091796A000D1877 /* MessagesManager.swift in Sources */,
 				E21BE9D52091796A000D1877 /* AppDelegate.swift in Sources */,

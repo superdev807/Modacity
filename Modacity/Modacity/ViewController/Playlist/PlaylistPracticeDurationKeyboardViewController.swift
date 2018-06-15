@@ -16,7 +16,7 @@ class PlaylistPracticeDurationKeyboardViewController: UIViewController, TimerInp
     @IBOutlet weak var ratingView: FloatRatingView!
     @IBOutlet weak var constraintForSubPanelHeight: NSLayoutConstraint!
     
-    var viewModel: PlaylistDetailsViewModel!
+    var viewModel: PlaylistContentsViewModel!
     
     var timerInputView: TimerInputView!
     
