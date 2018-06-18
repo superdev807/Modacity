@@ -80,6 +80,7 @@ class PracticeViewController: UIViewController {
     var metrodroneView: MetrodroneView? = nil
     var metrodroneViewTopConstraint: NSLayoutConstraint!
     var subdivisionView: SubdivisionSelectView? = nil
+    var heightOfMetrodroneView = (AppUtils.sizeModelOfiPhone() == .iphone5_4in || AppUtils.sizeModelOfiPhone() == .iphone4_35in) ? CGFloat(320) : CGFloat(360)
 
     @IBOutlet weak var viewBottomXBar: UIView!
 
@@ -117,6 +118,9 @@ class PracticeViewController: UIViewController {
         } else if AppUtils.sizeModelOfiPhone() == .iphone4_35in {
             constraintForImageHeaderViewHeight.constant = 320
         }
+        
+        self.labelTimerUp.isHidden = true
+        self.viewTimeAreaPausedPanel.isHidden = true
         
         self.viewBottomXBar.backgroundColor = Color(hexString:"#292a4a")
         self.initializeDroneUIs()
@@ -243,9 +247,17 @@ extension PracticeViewController: MetrodroneViewDelegate, SubdivisionSelectViewD
         self.view.addSubview(self.metrodroneView!)
         self.view.leadingAnchor.constraint(equalTo: self.metrodroneView!.leadingAnchor).isActive = true
         self.view.trailingAnchor.constraint(equalTo: self.metrodroneView!.trailingAnchor).isActive = true
-        self.metrodroneView!.heightAnchor.constraint(equalToConstant: 360).isActive = true
+        self.metrodroneView!.heightAnchor.constraint(equalToConstant: heightOfMetrodroneView).isActive = true
         self.metrodroneView!.delegate = self
-        self.metrodroneViewTopConstraint = self.view.bottomAnchor.constraint(equalTo: self.metrodroneView!.topAnchor)
+        if #available(iOS 11.0, *) {
+            if AppUtils.iphoneIsXModel() {
+                self.metrodroneViewTopConstraint = self.view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: self.metrodroneView!.topAnchor)
+            } else {
+                self.metrodroneViewTopConstraint = self.view.bottomAnchor.constraint(equalTo: self.metrodroneView!.topAnchor)
+            }
+        } else {
+            self.metrodroneViewTopConstraint = self.view.bottomAnchor.constraint(equalTo: self.metrodroneView!.topAnchor)
+        }
         self.metrodroneViewTopConstraint?.constant = 0
         self.metrodroneViewTopConstraint?.isActive = true
         self.metrodroneView!.initializeDroneUIs()
@@ -282,7 +294,7 @@ extension PracticeViewController: MetrodroneViewDelegate, SubdivisionSelectViewD
         if self.metrodroneView!.isHidden {
             ModacityAnalytics.LogEvent(.MetrodroneDrawerOpen)
             self.metrodroneView!.isHidden = false
-            self.metrodroneViewTopConstraint.constant = 360
+            self.metrodroneViewTopConstraint.constant = heightOfMetrodroneView
             UIView.animate(withDuration: 0.5, animations: {
                 self.view.layoutIfNeeded()
             }) { (finished) in
@@ -1040,8 +1052,14 @@ extension PracticeViewController: PlayPracticeWalkthroughViewDelegate {
         self.view.addSubview(walkThrough)
         walkThrough.commonInit()
         
-        self.view.topAnchor.constraint(equalTo: walkThrough.topAnchor).isActive = true
-        self.view.bottomAnchor.constraint(equalTo: walkThrough.bottomAnchor).isActive = true
+        
+        if #available(iOS 11.0, *) {
+            self.view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: walkThrough.bottomAnchor).isActive = true
+            self.view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: walkThrough.topAnchor).isActive = true
+        } else {
+            self.view.bottomAnchor.constraint(equalTo: walkThrough.bottomAnchor).isActive = true
+            self.view.topAnchor.constraint(equalTo: walkThrough.topAnchor).isActive = true
+        }
         self.view.leadingAnchor.constraint(equalTo: walkThrough.leadingAnchor).isActive = true
         self.view.trailingAnchor.constraint(equalTo: walkThrough.trailingAnchor).isActive = true
         self.view.bringSubview(toFront: walkThrough)
@@ -1076,7 +1094,15 @@ extension PracticeViewController: PlayPracticeTabBarViewDelegate {
         let tabBarView = PlayPracticeTabBarView()
         tabBarView.delegate = self
         self.view.insertSubview(tabBarView, at: self.view.subviews.count - 2)
-        tabBarView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        if #available(iOS 11.0, *) {
+            if AppUtils.iphoneIsXModel() {
+                tabBarView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+            } else {
+                tabBarView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+            }
+        } else {
+            tabBarView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        }
         tabBarView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
         tabBarView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
     }

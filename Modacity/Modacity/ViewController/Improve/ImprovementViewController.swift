@@ -50,6 +50,7 @@ class ImprovementViewController: UIViewController {
     var metrodroneView: MetrodroneView? = nil
     var metrodroneViewTopConstraint: NSLayoutConstraint!
     var subdivisionView: SubdivisionSelectView? = nil
+    var heightOfMetrodroneView = (AppUtils.sizeModelOfiPhone() == .iphone5_4in || AppUtils.sizeModelOfiPhone() == .iphone4_35in) ? CGFloat(320) : CGFloat(360)
     
     @IBOutlet weak var viewBottomXBar: UIView!
     
@@ -162,9 +163,13 @@ extension ImprovementViewController: MetrodroneViewDelegate, SubdivisionSelectVi
         self.view.addSubview(self.metrodroneView!)
         self.view.leadingAnchor.constraint(equalTo: self.metrodroneView!.leadingAnchor).isActive = true
         self.view.trailingAnchor.constraint(equalTo: self.metrodroneView!.trailingAnchor).isActive = true
-        self.metrodroneView!.heightAnchor.constraint(equalToConstant: 360).isActive = true
+        self.metrodroneView!.heightAnchor.constraint(equalToConstant: heightOfMetrodroneView).isActive = true
         self.metrodroneView!.delegate = self
-        self.metrodroneViewTopConstraint = self.view.bottomAnchor.constraint(equalTo: self.metrodroneView!.topAnchor)
+        if #available(iOS 11.0, *) {
+            self.metrodroneViewTopConstraint = self.view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: self.metrodroneView!.topAnchor)
+        } else {
+            self.metrodroneViewTopConstraint = self.view.bottomAnchor.constraint(equalTo: self.metrodroneView!.topAnchor)
+        }
         self.metrodroneViewTopConstraint?.constant = 44
         self.metrodroneViewTopConstraint?.isActive = true
         self.metrodroneView!.initializeDroneUIs()
@@ -202,7 +207,7 @@ extension ImprovementViewController: MetrodroneViewDelegate, SubdivisionSelectVi
             
             ModacityAnalytics.LogEvent(.MetrodroneDrawerOpen)
             self.metrodroneView!.isHidden = false
-            self.metrodroneViewTopConstraint.constant = 360
+            self.metrodroneViewTopConstraint.constant = heightOfMetrodroneView
             UIView.animate(withDuration: 0.5, animations: {
                 self.view.layoutIfNeeded()
             }) { (finished) in

@@ -971,6 +971,12 @@ note</string>
                                     <action selector="onTapTimer:" destination="1en-VP-nyb" eventType="touchUpInside" id="97d-a5-vaI"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TIME'S UP!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eSz-PD-RKR">
+                                <rect key="frame" x="87.5" y="84" width="227" height="39"/>
+                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="32"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nyk-Oz-WMh">
                                 <rect key="frame" x="150.5" y="137" width="74" height="74"/>
                                 <constraints>
@@ -1178,6 +1184,8 @@ note</string>
                             <constraint firstItem="zHc-GU-C4G" firstAttribute="top" secondItem="taY-Nz-ffy" secondAttribute="top" constant="16" id="BVR-Ce-2cb"/>
                             <constraint firstItem="kfc-CH-fe7" firstAttribute="trailing" secondItem="taY-Nz-ffy" secondAttribute="trailing" id="Bxv-sT-nBY"/>
                             <constraint firstItem="kfc-CH-fe7" firstAttribute="top" secondItem="Y3j-6C-PMU" secondAttribute="top" id="DcY-uo-cmt"/>
+                            <constraint firstItem="eSz-PD-RKR" firstAttribute="leading" secondItem="CSU-eF-w3v" secondAttribute="leading" id="Fma-oD-AjJ"/>
+                            <constraint firstItem="eSz-PD-RKR" firstAttribute="trailing" secondItem="Aa7-K8-Bf5" secondAttribute="trailing" id="GQG-mU-Da8"/>
                             <constraint firstItem="taY-Nz-ffy" firstAttribute="bottom" secondItem="iX4-0r-obp" secondAttribute="bottom" constant="64" id="JSo-8H-15H"/>
                             <constraint firstItem="3ih-li-oGR" firstAttribute="trailing" secondItem="taY-Nz-ffy" secondAttribute="trailing" id="JZZ-0n-lkl"/>
                             <constraint firstItem="iX4-0r-obp" firstAttribute="top" secondItem="BGa-nV-YWx" secondAttribute="bottom" id="LSk-fY-2O8"/>
@@ -1189,6 +1197,7 @@ note</string>
                             <constraint firstItem="umQ-0h-3Ts" firstAttribute="leading" secondItem="taY-Nz-ffy" secondAttribute="leading" id="OgQ-eQ-3Kg"/>
                             <constraint firstItem="nyk-Oz-WMh" firstAttribute="centerX" secondItem="taY-Nz-ffy" secondAttribute="centerX" id="UUc-rU-eVF"/>
                             <constraint firstItem="umQ-0h-3Ts" firstAttribute="top" secondItem="taY-Nz-ffy" secondAttribute="top" constant="-20" id="YXN-im-UHf"/>
+                            <constraint firstItem="eSz-PD-RKR" firstAttribute="centerY" secondItem="CSU-eF-w3v" secondAttribute="centerY" id="YYw-Ew-Xmo"/>
                             <constraint firstItem="taY-Nz-ffy" firstAttribute="trailing" secondItem="iX4-0r-obp" secondAttribute="trailing" id="ZIO-XG-h8C"/>
                             <constraint firstItem="BGa-nV-YWx" firstAttribute="leading" secondItem="taY-Nz-ffy" secondAttribute="leading" id="ah5-Dp-6hR"/>
                             <constraint firstItem="taY-Nz-ffy" firstAttribute="bottom" secondItem="wrJ-9b-CxG" secondAttribute="bottom" constant="-34" id="ctr-aj-mz9"/>
@@ -1224,6 +1233,7 @@ note</string>
                         <outlet property="labelPracticeItemName" destination="zHc-GU-C4G" id="Gdj-fy-JrM"/>
                         <outlet property="labelRateValue" destination="mmt-VE-VQi" id="yyp-eG-SZU"/>
                         <outlet property="labelSeconds" destination="cOa-Fl-zcr" id="YBF-K3-T62"/>
+                        <outlet property="labelTimerUp" destination="eSz-PD-RKR" id="Nqu-zp-Ety"/>
                         <outlet property="viewAudioPlayer" destination="3lV-ez-nyo" id="4EH-Qj-zHd"/>
                         <outlet property="viewBottomXBar" destination="wrJ-9b-CxG" id="vRw-Vz-EXG"/>
                         <outlet property="viewRatePanel" destination="eAk-pn-ntL" id="tV4-c1-UvQ"/>
@@ -1263,6 +1273,6 @@ note</string>
         <image name="walkthrough_rate_arrow_2" width="12" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="dLc-mu-N4Z"/>
+        <segue reference="Nwc-WJ-zdU"/>
     </inferredMetricsTieBreakers>
 </document>
