@@ -23,7 +23,7 @@ class PlaylistFinishViewController: UIViewController {
         // Do any additional setup after loading the view.
         self.labelPlaylistName.text = self.playlistDetailsViewModel.playlistName
         ModacityAnalytics.LogStringEvent("Congratulations Screen", extraParamName: "total seconds", extraParamValue:self.playlistDetailsViewModel.sessionDurationInSecond)
-        let sessionDuration = self.playlistDetailsViewModel.totalPracticedTime()
+        let sessionDuration = self.playlistDetailsViewModel.sessionDurationInSecond ?? 0
         if sessionDuration < 60 {
             self.labelSessionDuration.text = "\(sessionDuration)"
             self.labelDurationUnits.text = "SECONDS"
@@ -57,7 +57,6 @@ class PlaylistFinishViewController: UIViewController {
     }
     
     @IBAction func onSkip(_ sender: Any) {
-//        self.playlistDetailsViewModel.addPracticeTotalTime(inSec: self.playlistDetailsViewModel.totalPracticedTime())
         self.navigationController?.dismiss(animated: true, completion: nil)
         ModacityAnalytics.LogStringEvent("Congrats Screen Skip Button")
     }

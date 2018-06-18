@@ -28,13 +28,14 @@ class PlaylistContentsViewController: UIViewController {
     @IBOutlet weak var viewWalkThroughNaming: UIView!
     @IBOutlet weak var viewWalkThrough2: UIView!
     
-    
     var isNameEditing = false
     var parentViewModel: PlaylistAndPracticeDeliverModel? = nil
     var viewModel = PlaylistContentsViewModel()
     var isPlaying = false
     var playingStartedTime: Date? = nil
     var sessionTimer : Timer? = nil
+    var sessionStarted: Date? = nil
+    var sessionPlayedInPlaylistPage = 0
     var currentRow = 0
     var playlistPracticeTotalTimeInSec = 0
     
@@ -93,6 +94,27 @@ class PlaylistContentsViewController: UIViewController {
     
     func practiceItemsSelected() {
         self.waitingPracticeSelection = true
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if self.isPlaying {
+            self.sessionTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(onSessionTimer), userInfo: nil, repeats: true)
+            self.sessionStarted = Date()
+        }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        if self.isPlaying {
+            if let sessionStartedTime = self.sessionStarted {
+                self.sessionPlayedInPlaylistPage = self.sessionPlayedInPlaylistPage + Int(Date().timeIntervalSince1970 - sessionStartedTime.timeIntervalSince1970)
+            }
+            if let timer = self.sessionTimer {
+                timer.invalidate()
+                self.sessionTimer = nil
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -389,14 +411,26 @@ class PlaylistContentsViewController: UIViewController {
     }
     
     func showSessionTime() {
-        let timerInSec = self.viewModel.totalPracticedTime()
-        self.labelTimer.text = String(format: "%02d", timerInSec / 3600) + ":" +
-                                String(format:"%02d", (timerInSec % 3600) / 60) + ":" +
-                                 String(format:"%02d", timerInSec % 60)
+        if let sessionStartedTime = self.sessionStarted {
+            let now = Date().timeIntervalSince1970
+            let timerInSec = self.viewModel.totalPracticedTime() + self.sessionPlayedInPlaylistPage + Int(now - (sessionStartedTime.timeIntervalSince1970))
+            self.labelTimer.text = String(format: "%02d", timerInSec / 3600) + ":" +
+                String(format:"%02d", (timerInSec % 3600) / 60) + ":" +
+                String(format:"%02d", timerInSec % 60)
+        } else {
+            let timerInSec = self.viewModel.totalPracticedTime() + self.sessionPlayedInPlaylistPage
+            self.labelTimer.text = String(format: "%02d", timerInSec / 3600) + ":" +
+                String(format:"%02d", (timerInSec % 3600) / 60) + ":" +
+                String(format:"%02d", timerInSec % 60)
+        }
     }
     
+    @objc func onSessionTimer() {
+        self.showSessionTime()
+    }
     
     func startPractice(withItem: Int) {
+        self.sessionTimer = Timer(timeInterval: 0.2, target: self, selector: #selector(onSessionTimer), userInfo: nil, repeats: true)
         self.isPlaying = true
         self.currentRow = 0
         self.tableViewMain.reloadData()
@@ -404,7 +438,7 @@ class PlaylistContentsViewController: UIViewController {
         self.buttonStartPlaylist.setImage(UIImage(named:"btn_playlist_finish"), for: .normal)
         self.buttonBack.isHidden = true
         self.imgBack.isHidden = true
-        
+        self.sessionPlayedInPlaylistPage = 0
         self.viewModel.currentPracticeEntry = self.viewModel.playlistPracticeEntries[withItem]
         var controllerId = "PracticeViewController"
         if AppUtils.sizeModelOfiPhone() == .iphone4_35in || AppUtils.sizeModelOfiPhone() == .iphone5_4in {
@@ -432,23 +466,7 @@ class PlaylistContentsViewController: UIViewController {
             ModacityAnalytics.LogStringEvent("Pressed Start Practice")
             self.startPractice(withItem: 0)
         } else {
-            
-            ModacityAnalytics.LogStringEvent("Pressed Finish Practice", extraParamName: "Practice Time", extraParamValue: self.playlistPracticeTotalTimeInSec)
-            
-            if let sessionTimer = self.sessionTimer {
-                sessionTimer.invalidate()
-            }
-            
-            self.isPlaying = false
-            self.viewModel.sessionCompleted = true
-            self.buttonStartPlaylist.setImage(UIImage(named:"btn_playlist_start"), for: .normal)
-            self.buttonBack.isHidden =  false
-            self.imgBack.isHidden = false
-            self.playlistPracticeTotalTimeInSec = self.viewModel.totalPracticedTime()
-            self.viewModel.addPracticeTotalTime(inSec: self.playlistPracticeTotalTimeInSec)
-            self.viewModel.sessionDurationInSecond = Int(Date().timeIntervalSince1970 - self.playingStartedTime!.timeIntervalSince1970)
-            self.performSegue(withIdentifier: "sid_finish", sender: nil)
-            
+            self.finishPlaylist()
         }
     }
     
@@ -460,6 +478,32 @@ class PlaylistContentsViewController: UIViewController {
         let controller = UIStoryboard(name: "practice_item", bundle: nil).instantiateViewController(withIdentifier: "PracticeItemSelectViewController") as! PracticeItemSelectViewController
         controller.parentViewModel = self.viewModel
         self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    func finishPlaylist() {
+        ModacityAnalytics.LogStringEvent("Pressed Finish Practice", extraParamName: "Practice Time", extraParamValue: self.playlistPracticeTotalTimeInSec)
+        
+        if let sessionTimer = self.sessionTimer {
+            sessionTimer.invalidate()
+        }
+        
+        self.isPlaying = false
+        self.viewModel.sessionCompleted = true
+        self.buttonStartPlaylist.setImage(UIImage(named:"btn_playlist_start"), for: .normal)
+        self.buttonBack.isHidden =  false
+        self.imgBack.isHidden = false
+        self.playlistPracticeTotalTimeInSec = self.viewModel.totalPracticedTime()
+        self.viewModel.addPracticeTotalTime(inSec: self.playlistPracticeTotalTimeInSec)
+        self.viewModel.sessionDurationInSecond = Int(Date().timeIntervalSince1970 - self.playingStartedTime!.timeIntervalSince1970)
+        if let sessionStartedTime = self.sessionStarted {
+            self.sessionPlayedInPlaylistPage = self.sessionPlayedInPlaylistPage + Int(Date().timeIntervalSince1970 - sessionStartedTime.timeIntervalSince1970)
+        }
+        self.viewModel.sessionDurationInSecond = self.sessionPlayedInPlaylistPage + self.viewModel.totalPracticedTime()
+        if let timer = self.sessionTimer {
+            timer.invalidate()
+            self.sessionTimer = nil
+        }
+        self.performSegue(withIdentifier: "sid_finish", sender: nil)
     }
 }
 
@@ -486,7 +530,9 @@ extension PlaylistContentsViewController: UITableViewDelegate, UITableViewDataSo
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         tableView.deselectRow(at: indexPath, animated: true)
+        
         if self.viewModel.editingRow == indexPath.row {
             self.viewModel.editingRow = -1
         }
