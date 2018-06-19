@@ -11,6 +11,9 @@ import UIKit
 class PlaylistAndPracticeDeliverModel: ViewModel {
     
     var deliverPlaylist: Playlist!
-    
     var deliverPracticeItem: PracticeItem!
+    
+    var sessionTimeStarted: Date?
+    var sessionImproved =  [ImprovedRecord]()
+    var sessionTime: Int!
 }

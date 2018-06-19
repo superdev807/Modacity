@@ -12,6 +12,7 @@ class PracticeRateViewController: UIViewController {
     
     var playlistViewModel: PlaylistContentsViewModel!
     var practiceItem: PracticeItem!
+    var deliverModel: PlaylistAndPracticeDeliverModel!
     
     @IBOutlet weak var viewWalkThrough: UIView!
     @IBOutlet weak var rateView: FloatRatingView!
@@ -51,6 +52,7 @@ class PracticeRateViewController: UIViewController {
     
     @IBAction func onNext(_ sender: Any) {
         ModacityAnalytics.LogStringEvent("Pressed Rating Screen Next")
+        self.storePracticeData()
         if self.playlistViewModel != nil {
             if !self.playlistViewModel.next() {
                 if let controllers = self.navigationController?.viewControllers {
@@ -89,6 +91,7 @@ class PracticeRateViewController: UIViewController {
     
     @IBAction func onBack(_ sender: Any) {
         ModacityAnalytics.LogStringEvent("Pressed Rating Screen Back")
+        self.storePracticeData()
         if self.playlistViewModel != nil {
             if let controllers = self.navigationController?.viewControllers {
                 for controller in controllers {
@@ -101,6 +104,29 @@ class PracticeRateViewController: UIViewController {
             }
         } else {
             self.navigationController?.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    func storePracticeData() {
+        if self.playlistViewModel != nil {
+            let id = PracticingDailyLocalManager.manager.saveNewPracticing(practiceItemId: self.playlistViewModel.currentPracticeEntry.practiceItemId,
+                                                                  started: self.playlistViewModel.sessionTimeStarted ?? Date(),
+                                                                  duration: self.playlistViewModel.timePracticed[self.playlistViewModel.currentPracticeEntry.entryId] ?? 0,
+                                                                  rating: self.rateView.rating,
+                                                                  inPlaylist: self.playlistViewModel.playlist.id,
+                                                                  forPracticeEntry: self.playlistViewModel.currentPracticeEntry.entryId,
+                                                                  improvements: self.playlistViewModel.sessionImproved)
+            self.playlistViewModel.playlistPracticeData.practices.append(id)
+            self.playlistViewModel.sessionImproved = [ImprovedRecord]()
+        } else {
+            let _ = PracticingDailyLocalManager.manager.saveNewPracticing(practiceItemId: self.practiceItem.id,
+                                                                  started: self.deliverModel.sessionTimeStarted ?? Date(),
+                                                                  duration: self.deliverModel.sessionTime,
+                                                                  rating: self.rateView.rating,
+                                                                  inPlaylist: nil,
+                                                                  forPracticeEntry: nil,
+                                                                  improvements: self.deliverModel.sessionImproved)
+            self.deliverModel.sessionImproved = [ImprovedRecord]()
         }
     }
     
@@ -151,7 +177,6 @@ extension PracticeRateViewController: FloatRatingViewDelegate {
         if self.playlistViewModel != nil {
             if let practiceItem = self.playlistViewModel.currentPracticeEntry.practiceItem() {
                 self.playlistViewModel.setRating(for: practiceItem, rating: ratingView.rating)
-                //        self.playlistViewModel.setRating(forPracticeItem: self.playlistViewModel.currentPracticeItem.name, rating: ratingView.rating)
             }
         } else {
             PracticeItemLocalManager.manager.setRatingValue(forItemId: self.practiceItem.id, rating: rating)

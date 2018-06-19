@@ -254,18 +254,18 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iGP-Iw-poe">
-                                <rect key="frame" x="282.5" y="120" width="32" height="32"/>
+                                <rect key="frame" x="292.5" y="120" width="32" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="32" id="r7T-FM-olY"/>
                                     <constraint firstAttribute="height" constant="32" id="y1M-NQ-dCg"/>
                                 </constraints>
                                 <state key="normal" image="icon_arrow_updown"/>
                                 <connections>
-                                    <action selector="onTapTimer:" destination="ruu-CR-fPU" eventType="touchUpInside" id="AjN-ZV-EK4"/>
+                                    <action selector="onTapTimerArrow:" destination="ruu-CR-fPU" eventType="touchUpInside" id="qRZ-AH-OrX"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TIME'S UP!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ryZ-qd-P4v">
-                                <rect key="frame" x="87.5" y="124" width="227" height="39"/>
+                                <rect key="frame" x="87.5" y="124" width="200" height="39"/>
                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="32"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -482,7 +482,7 @@
                             <constraint firstItem="rFP-in-7sp" firstAttribute="top" secondItem="nOB-0N-33h" secondAttribute="bottom" constant="40" id="VzI-8s-UOD"/>
                             <constraint firstItem="nOB-0N-33h" firstAttribute="centerX" secondItem="klf-jy-ZRu" secondAttribute="centerX" id="Whu-fn-doK"/>
                             <constraint firstItem="ryZ-qd-P4v" firstAttribute="centerY" secondItem="nOB-0N-33h" secondAttribute="centerY" id="Wio-Vp-We7"/>
-                            <constraint firstItem="iGP-Iw-poe" firstAttribute="leading" secondItem="nOB-0N-33h" secondAttribute="trailing" constant="-5" id="ZKQ-6b-Xu2"/>
+                            <constraint firstItem="iGP-Iw-poe" firstAttribute="leading" secondItem="nOB-0N-33h" secondAttribute="trailing" constant="5" id="ZKQ-6b-Xu2"/>
                             <constraint firstItem="f6j-O8-RAm" firstAttribute="top" secondItem="klf-jy-ZRu" secondAttribute="top" constant="-20" id="bsg-g1-FJf"/>
                             <constraint firstItem="RLr-qK-k0M" firstAttribute="top" secondItem="klf-jy-ZRu" secondAttribute="top" constant="16" id="cg6-4Q-sSr"/>
                             <constraint firstItem="fvc-u8-dWp" firstAttribute="leading" secondItem="klf-jy-ZRu" secondAttribute="leading" id="d7F-rf-6Za"/>
@@ -495,7 +495,7 @@
                             <constraint firstItem="klf-jy-ZRu" firstAttribute="trailing" secondItem="WB3-aN-ciO" secondAttribute="trailing" id="hrG-ZV-djh"/>
                             <constraint firstItem="NsF-v0-8c8" firstAttribute="leading" secondItem="Mgx-Ny-ARF" secondAttribute="leading" id="jXF-Wa-c6j"/>
                             <constraint firstItem="fvc-u8-dWp" firstAttribute="trailing" secondItem="klf-jy-ZRu" secondAttribute="trailing" id="tpU-Od-Mtw"/>
-                            <constraint firstItem="ryZ-qd-P4v" firstAttribute="trailing" secondItem="iGP-Iw-poe" secondAttribute="trailing" id="u6T-Dq-Hka"/>
+                            <constraint firstItem="ryZ-qd-P4v" firstAttribute="trailing" secondItem="nOB-0N-33h" secondAttribute="trailing" id="u6H-eW-po9"/>
                             <constraint firstItem="CqK-vm-U6A" firstAttribute="trailing" secondItem="klf-jy-ZRu" secondAttribute="trailing" id="v9C-2X-FGh"/>
                             <constraint firstItem="Mgx-Ny-ARF" firstAttribute="leading" secondItem="klf-jy-ZRu" secondAttribute="leading" id="vCZ-PO-YK1"/>
                             <constraint firstItem="f6j-O8-RAm" firstAttribute="leading" secondItem="klf-jy-ZRu" secondAttribute="leading" id="vUG-NE-ful"/>
@@ -961,18 +961,18 @@ note</string>
                                 </constraints>
                             </view>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Aa7-K8-Bf5">
-                                <rect key="frame" x="282.5" y="80" width="32" height="32"/>
+                                <rect key="frame" x="292.5" y="80" width="32" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="32" id="5KS-zv-7bK"/>
                                     <constraint firstAttribute="height" constant="32" id="eyd-aN-IiA"/>
                                 </constraints>
                                 <state key="normal" image="icon_arrow_updown"/>
                                 <connections>
-                                    <action selector="onTapTimer:" destination="1en-VP-nyb" eventType="touchUpInside" id="97d-a5-vaI"/>
+                                    <action selector="onTapTimerArrow:" destination="1en-VP-nyb" eventType="touchUpInside" id="ufk-Ec-och"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TIME'S UP!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eSz-PD-RKR">
-                                <rect key="frame" x="87.5" y="84" width="227" height="39"/>
+                                <rect key="frame" x="87.5" y="84" width="200" height="39"/>
                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="32"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -1181,11 +1181,11 @@ note</string>
                             <constraint firstItem="wrJ-9b-CxG" firstAttribute="leading" secondItem="Y3j-6C-PMU" secondAttribute="leading" id="94q-If-bSM"/>
                             <constraint firstItem="CSU-eF-w3v" firstAttribute="top" secondItem="taY-Nz-ffy" secondAttribute="top" constant="60" id="9Kg-jz-7CJ"/>
                             <constraint firstItem="3lV-ez-nyo" firstAttribute="bottom" secondItem="VCZ-OU-sC1" secondAttribute="bottom" id="A3U-GQ-Y91"/>
+                            <constraint firstItem="eSz-PD-RKR" firstAttribute="trailing" secondItem="CSU-eF-w3v" secondAttribute="trailing" id="AP8-dE-O7a"/>
                             <constraint firstItem="zHc-GU-C4G" firstAttribute="top" secondItem="taY-Nz-ffy" secondAttribute="top" constant="16" id="BVR-Ce-2cb"/>
                             <constraint firstItem="kfc-CH-fe7" firstAttribute="trailing" secondItem="taY-Nz-ffy" secondAttribute="trailing" id="Bxv-sT-nBY"/>
                             <constraint firstItem="kfc-CH-fe7" firstAttribute="top" secondItem="Y3j-6C-PMU" secondAttribute="top" id="DcY-uo-cmt"/>
                             <constraint firstItem="eSz-PD-RKR" firstAttribute="leading" secondItem="CSU-eF-w3v" secondAttribute="leading" id="Fma-oD-AjJ"/>
-                            <constraint firstItem="eSz-PD-RKR" firstAttribute="trailing" secondItem="Aa7-K8-Bf5" secondAttribute="trailing" id="GQG-mU-Da8"/>
                             <constraint firstItem="taY-Nz-ffy" firstAttribute="bottom" secondItem="iX4-0r-obp" secondAttribute="bottom" constant="64" id="JSo-8H-15H"/>
                             <constraint firstItem="3ih-li-oGR" firstAttribute="trailing" secondItem="taY-Nz-ffy" secondAttribute="trailing" id="JZZ-0n-lkl"/>
                             <constraint firstItem="iX4-0r-obp" firstAttribute="top" secondItem="BGa-nV-YWx" secondAttribute="bottom" id="LSk-fY-2O8"/>
@@ -1208,7 +1208,7 @@ note</string>
                             <constraint firstItem="3lV-ez-nyo" firstAttribute="leading" secondItem="VCZ-OU-sC1" secondAttribute="leading" id="lLX-uW-8QD"/>
                             <constraint firstItem="VCZ-OU-sC1" firstAttribute="top" secondItem="nyk-Oz-WMh" secondAttribute="bottom" constant="5" id="lqo-iF-p8l"/>
                             <constraint firstItem="3lV-ez-nyo" firstAttribute="trailing" secondItem="VCZ-OU-sC1" secondAttribute="trailing" id="p8g-Ig-oUR"/>
-                            <constraint firstItem="Aa7-K8-Bf5" firstAttribute="leading" secondItem="CSU-eF-w3v" secondAttribute="trailing" constant="-5" id="qHX-F5-u1E"/>
+                            <constraint firstItem="Aa7-K8-Bf5" firstAttribute="leading" secondItem="CSU-eF-w3v" secondAttribute="trailing" constant="5" id="qHX-F5-u1E"/>
                             <constraint firstItem="3lV-ez-nyo" firstAttribute="top" secondItem="VCZ-OU-sC1" secondAttribute="top" id="qrW-Et-1eJ"/>
                             <constraint firstItem="VCZ-OU-sC1" firstAttribute="leading" secondItem="taY-Nz-ffy" secondAttribute="leading" id="uIT-at-Z6a"/>
                         </constraints>

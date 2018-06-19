@@ -16,6 +16,7 @@ class ImprovementViewController: UIViewController {
     var playlistViewModel: PlaylistContentsViewModel!
     var practiceItem: PracticeItem!
     var viewModel: ImprovementViewModel!
+    var deliverModel: PlaylistAndPracticeDeliverModel!
     
     @IBOutlet weak var labelPracticeItemName: UILabel!
     @IBOutlet weak var imageViewHeader: UIImageView!
@@ -490,9 +491,14 @@ extension ImprovementViewController {
     
     @IBAction func onImprovedYes(_ sender: Any) {
        ModacityAnalytics.LogStringEvent("Hypothesis Worked")
+        let improvedRecord = ImprovedRecord()
+        improvedRecord.suggestion = self.viewModel.selectedSuggestion
+        improvedRecord.hypothesis = self.viewModel.selectedHypothesis
         if self.playlistViewModel != nil {
+            self.playlistViewModel.sessionImproved.append(improvedRecord)
             self.playlistViewModel.addNewImprovement(self.viewModel.generateImprovement(with: self.playlistViewModel.playlist, practice: self.playlistViewModel.currentPracticeEntry))
         } else {
+            self.deliverModel.sessionImproved.append(improvedRecord)
             AppOveralDataManager.manager.addImprovementsCount()
         }
         self.viewImprovedAlert.isHidden = true

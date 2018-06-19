@@ -320,10 +320,14 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 let controller = UIStoryboard(name: "practice", bundle: nil).instantiateViewController(withIdentifier: sceneName) as! UINavigationController
                 let practiceViewController = controller.viewControllers[0] as! PracticeViewController
                 practiceViewController.practiceItem = practiceItem
+                let deliverModel = PlaylistAndPracticeDeliverModel()
+                deliverModel.deliverPracticeItem = practiceItem
+                deliverModel.sessionTimeStarted = Date()
+                deliverModel.sessionImproved = [ImprovedRecord]()
+                practiceViewController.deliverModel = deliverModel
                 self.tabBarController?.present(controller, animated: true, completion: nil)
                 
                 ModacityAnalytics.LogStringEvent("Selected Favorite Item", extraParamName: "Name", extraParamValue: practiceItem.name)
-                
             }
         }
         

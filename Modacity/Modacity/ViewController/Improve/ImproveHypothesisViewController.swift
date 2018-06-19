@@ -13,6 +13,7 @@ class ImproveHypothesisViewController: UIViewController {
     var viewModel: ImprovementViewModel!
     var playlistModel: PlaylistContentsViewModel!
     var practiceItem: PracticeItem!
+    var deliverModel: PlaylistAndPracticeDeliverModel!
     
     @IBOutlet weak var tableViewHypothesis: UITableView!
     @IBOutlet weak var labelPracticeName: UILabel!
@@ -58,6 +59,7 @@ class ImproveHypothesisViewController: UIViewController {
                 controller.playlistViewModel = self.playlistModel
             } else {
                 controller.practiceItem = self.practiceItem
+                controller.deliverModel = self.deliverModel
             }
         }
     }

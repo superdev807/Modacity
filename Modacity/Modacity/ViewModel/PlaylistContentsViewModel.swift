@@ -76,9 +76,15 @@ class PlaylistContentsViewModel: ViewModel {
             print("current practice entry changed")
         }
     }
+    
     var disableCallbackForRowEditing = false
     var sessionDurationInSecond: Int!
     var sessionCompleted = false
+    
+    var sessionTimeStarted: Date?
+    var sessionImproved =  [ImprovedRecord]()
+    
+    var playlistPracticeData = PlaylistDaily()
     
     var clockEditingPracticeItemId = "" {
         didSet {
@@ -258,6 +264,7 @@ class PlaylistContentsViewModel: ViewModel {
                 let oldCountDownDuration = self.playlistPracticeEntries[idx].countDownDuration ?? 0
                 if oldCountDownDuration != duration {
                     self.countdownReseted[entryId] = true
+                    self.countDownPlayed[entryId] = 0
                 }
                 self.playlistPracticeEntries[idx].countDownDuration = duration
                 break

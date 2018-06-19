@@ -14,6 +14,7 @@ class ImproveSuggestionViewController: UIViewController {
 
     var playlistModel: PlaylistContentsViewModel!
     var practiceItem: PracticeItem!
+    var deliverModel: PlaylistAndPracticeDeliverModel!
     
     @IBOutlet weak var labelPracticeName: UILabel!
     @IBOutlet weak var textfieldInputBox: UITextField!
@@ -54,6 +55,7 @@ class ImproveSuggestionViewController: UIViewController {
                 controller.playlistModel = self.playlistModel
             } else {
                 controller.practiceItem = self.practiceItem
+                controller.deliverModel = self.deliverModel
             }
         }
     }

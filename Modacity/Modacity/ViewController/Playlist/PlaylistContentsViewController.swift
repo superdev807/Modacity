@@ -430,6 +430,7 @@ class PlaylistContentsViewController: UIViewController {
     }
     
     func startPractice(withItem: Int) {
+        
         self.sessionTimer = Timer(timeInterval: 0.2, target: self, selector: #selector(onSessionTimer), userInfo: nil, repeats: true)
         self.isPlaying = true
         self.currentRow = 0
@@ -439,7 +440,18 @@ class PlaylistContentsViewController: UIViewController {
         self.buttonBack.isHidden = true
         self.imgBack.isHidden = true
         self.sessionPlayedInPlaylistPage = 0
+        
+        self.viewModel.playlistPracticeData.playlistId = self.viewModel.playlist.id
+        let now = Date()
+        self.viewModel.playlistPracticeData.entryDateString = now.toString(format: "yy-MM-dd")
+        self.viewModel.playlistPracticeData.fromTime = now.toString(format: "HH:mm:ss")
+        self.viewModel.playlistPracticeData.started = now.timeIntervalSince1970
+        self.viewModel.playlistPracticeData.practices = [String]()
+        
         self.viewModel.currentPracticeEntry = self.viewModel.playlistPracticeEntries[withItem]
+        self.viewModel.sessionImproved = [ImprovedRecord]()
+        self.viewModel.sessionTimeStarted = Date()
+        
         var controllerId = "PracticeViewController"
         if AppUtils.sizeModelOfiPhone() == .iphone4_35in || AppUtils.sizeModelOfiPhone() == .iphone5_4in {
             controllerId = "PracticeViewControllerSmallSizes"
@@ -503,6 +515,8 @@ class PlaylistContentsViewController: UIViewController {
             timer.invalidate()
             self.sessionTimer = nil
         }
+        self.viewModel.playlistPracticeData.practiceTimeInSeconds = self.viewModel.sessionDurationInSecond
+        PlaylistDailyLocalManager.manager.saveNewPlaylistPracticing(self.viewModel.playlistPracticeData)
         self.performSegue(withIdentifier: "sid_finish", sender: nil)
     }
 }
@@ -539,7 +553,11 @@ extension PlaylistContentsViewController: UITableViewDelegate, UITableViewDataSo
         if !self.isPlaying {
             self.startPractice(withItem: indexPath.row)
         } else {
+            
             self.viewModel.currentPracticeEntry = self.viewModel.playlistPracticeEntries[indexPath.row]
+            self.viewModel.sessionImproved = [ImprovedRecord]()
+            self.viewModel.sessionTimeStarted = Date()
+            
             var controllerId = "PracticeViewController"
             if AppUtils.sizeModelOfiPhone() == .iphone4_35in || AppUtils.sizeModelOfiPhone() == .iphone5_4in {
                 controllerId = "PracticeViewControllerSmallSizes"
