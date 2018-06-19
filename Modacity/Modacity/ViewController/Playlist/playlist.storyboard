@@ -47,7 +47,7 @@
         <!--Playlist List View Controller-->
         <scene sceneID="kwV-Nt-vQV">
             <objects>
-                <viewController id="vBF-aB-TFO" customClass="PlaylistListViewController" sceneMemberID="viewController">
+                <viewController id="vBF-aB-TFO" customClass="PlaylistListViewController" customModule="Modacity" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ZIi-Ka-Dbm">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -216,7 +216,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="c8e-Fn-ekD"/>
                     <connections>
-                        <outlet property="constraintForHeaderImageViewHeight" destination="fOh-vv-vcl" id="Qj8-wa-7H2"/>
+                        <outlet property="constraintForHeaderImageViewHeight" destination="fOh-vv-vcl" id="66z-9D-zM9"/>
                         <outlet property="tableViewMain" destination="0et-Ze-T4d" id="A8H-Kq-xBj"/>
                         <outlet property="viewNoPlaylist" destination="G6R-bo-DEt" id="jeW-mF-aUt"/>
                         <segue destination="ff7-Xa-xPO" kind="showDetail" identifier="sid_details" id="hPD-Mw-dCU"/>
@@ -288,16 +288,16 @@
                                                     </connections>
                                                 </button>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8p0-hg-ZXB">
-                                                    <rect key="frame" x="68" y="14" width="215" height="36.5"/>
+                                                    <rect key="frame" x="68" y="14.5" width="215" height="36"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Practice Item" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="hpB-E4-hN7">
-                                                            <rect key="frame" x="0.0" y="0.0" width="215" height="19.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="215" height="19"/>
                                                             <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="16"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="qfp-6T-gX7">
-                                                            <rect key="frame" x="0.0" y="24.5" width="26" height="12"/>
+                                                            <rect key="frame" x="0.0" y="24" width="25.5" height="12"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="12" id="gYq-f0-ClT"/>
                                                             </constraints>
@@ -306,7 +306,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Npi-xG-tGE" customClass="FloatRatingView" customModule="Modacity" customModuleProvider="target">
-                                                            <rect key="frame" x="31" y="24.5" width="60" height="12"/>
+                                                            <rect key="frame" x="30.5" y="24" width="60" height="12"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="60" id="kVV-HP-srp"/>
@@ -1047,16 +1047,16 @@ named to be saved.</string>
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IQt-GS-Ome">
-                                        <rect key="frame" x="60" y="14.5" width="267" height="36.5"/>
+                                        <rect key="frame" x="60" y="15" width="267" height="36"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Practice Item" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="42X-91-EEQ">
-                                                <rect key="frame" x="0.0" y="0.5" width="257" height="19.5"/>
+                                                <rect key="frame" x="0.0" y="0.5" width="257" height="19"/>
                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="16"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="uaJ-tA-Dym">
-                                                <rect key="frame" x="0.0" y="25" width="26" height="12"/>
+                                                <rect key="frame" x="0.0" y="24.5" width="25.5" height="12"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="12" id="fW7-5b-IpE"/>
                                                 </constraints>
@@ -1065,7 +1065,7 @@ named to be saved.</string>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NzC-Ds-dRP" customClass="FloatRatingView" customModule="Modacity" customModuleProvider="target">
-                                                <rect key="frame" x="31" y="25" width="60" height="12"/>
+                                                <rect key="frame" x="30.5" y="24.5" width="60" height="12"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="60" id="KUw-FG-50L"/>

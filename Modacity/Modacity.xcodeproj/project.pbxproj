@@ -871,6 +871,7 @@
 				DCDEB0B2CB38AC3F0D0F5BFE /* [CP] Embed Pods Frameworks */,
 				7355EF4588F3A844857D035D /* [CP] Copy Pods Resources */,
 				E2C3AC7520BC88AE00AA71AF /* Run Script */,
+				E2ADAAB520D90519004BAFED /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -930,6 +931,7 @@
 				E21BEA0B2091796A000D1877 /* [CP] Embed Pods Frameworks */,
 				E21BEA0C2091796A000D1877 /* [CP] Copy Pods Resources */,
 				E2E7C88520BD9D5E000E5530 /* ShellScript */,
+				E2ADAAB620D90594004BAFED /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1307,6 +1309,32 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Modacity-Dev/Pods-Modacity-Dev-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		E2ADAAB520D90519004BAFED /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "";
+		};
+		E2ADAAB620D90594004BAFED /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "SCRIPT=`/usr/bin/find \"${SRCROOT}\" -name splunkmint_postbuild_dsym_upload_script.sh | head -n 1`\n/bin/bash \"${SCRIPT}\" \"b2ee2ef2\" \"a15a00f2444998efe0296c9\"";
+		};
 		E2C3AC7520BC88AE00AA71AF /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1319,7 +1347,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Fabric/run\"";
+			shellScript = "SCRIPT=`/usr/bin/find \"${SRCROOT}\" -name splunkmint_postbuild_dsym_upload_script.sh | head -n 1`\n/bin/bash \"${SCRIPT}\" \"b2ee2ef2\" \"a15a00f2444998efe0296c9\"";
 		};
 		E2E7C88520BD9D5E000E5530 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1707,6 +1735,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = D226H33SCU;
 				INFOPLIST_FILE = Modacity/Info.plist;
@@ -1733,6 +1762,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = YES;
 				DEVELOPMENT_TEAM = D226H33SCU;
 				INFOPLIST_FILE = Modacity/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;

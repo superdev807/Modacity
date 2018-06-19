@@ -13,6 +13,7 @@ import GoogleSignIn
 import Amplitude_iOS
 import SwiftMessages
 import Intercom
+import SplunkMint
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -22,6 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         Intercom.setApiKey(AppConfig.appIntercomApiKey, forAppId:AppConfig.appIntercomAppId)
+        Mint.sharedInstance().disableNetworkMonitoring()
+        Mint.sharedInstance().initAndStartSession(withAPIKey: "b2ee2ef2")
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         FirebaseApp.configure()
         Fabric.sharedSDK().debug = true
