@@ -695,9 +695,13 @@ extension PracticeViewController {
         if self.countDownDuration > 0 {
             self.startCountUp(from: (self.countDownDuration - self.countDownPlayed))
         } else {
-            let date = Date()
-            let durationSeconds = Int(date.timeIntervalSince1970 - self.countupTimerStarted.timeIntervalSince1970) + self.secondsPrevCountUpPlayed
-            self.startCountDown(from: durationSeconds)
+            if self.timerRunning {
+                let date = Date()
+                let durationSeconds = Int(date.timeIntervalSince1970 - self.countupTimerStarted.timeIntervalSince1970) + self.secondsPrevCountUpPlayed
+                self.startCountDown(from: durationSeconds)
+            } else {
+                self.startCountDown(from: self.secondsPrevCountUpPlayed)
+            }
         }
     }
     
@@ -710,6 +714,7 @@ extension PracticeViewController {
             }
             if self.countdownTimerStarted != nil {
                 self.secondsPrevCountDownPlayed = Int(Date().timeIntervalSince1970 - self.countdownTimerStarted.timeIntervalSince1970) + self.secondsPrevCountDownPlayed
+                self.cancelCountDownNotification()
             }
             self.timer.invalidate()
             self.timerRunning = false
@@ -719,6 +724,9 @@ extension PracticeViewController {
             self.timerStarted = Date()
             self.countdownTimerStarted = Date()
             self.countupTimerStarted = Date()
+            if self.countDownDuration > 0 && self.countDownPlayed < self.countDownDuration {
+                self.generateCountdownLocalNotification(date: Date().addingTimeInterval(TimeInterval(self.countDownDuration - self.countDownPlayed)))
+            }
             self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(onTimer), userInfo: nil, repeats: true)
             self.timerRunning = true
             self.viewTimeAreaPausedPanel.isHidden = true
@@ -1113,7 +1121,7 @@ extension PracticeViewController: TimerInputViewDelegate {
         
         self.countDownDuration = from
         self.countDownPlayed = 0
-        
+        self.timerUpProcessed = false
         self.viewTimeArea.isHidden = false
         self.buttonTimerUpDownArrow.isHidden = false
         self.labelTimerUp.isHidden = true
