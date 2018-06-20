@@ -333,6 +333,7 @@ class TabBarViewController: UITabBarController {
     }
     
     func showWalkThrough() {
+        ModacityAnalytics.LogStringEvent("Walkthrough - Home - Showed")
         UIView.animate(withDuration: 0.5) {
             self.viewWalkThrough.alpha = 1
         }
@@ -345,6 +346,7 @@ class TabBarViewController: UITabBarController {
             }) { (finished) in
                 self.viewWalkThrough.removeFromSuperview()
                 AppOveralDataManager.manager.walkThroughFirstPage()
+                ModacityAnalytics.LogStringEvent("Walkthrough - Home - Closed")
             }
         }
     }
@@ -377,24 +379,43 @@ class TabBarViewController: UITabBarController {
                     self.viewWalkThrough.removeFromSuperview()
                     AppOveralDataManager.manager.walkThroughFirstPage()
                     
-                    let playlistCreateNew = UIStoryboard(name:"playlist", bundle: nil).instantiateViewController(withIdentifier: "playlist_control_scene") as! UINavigationController
+                    /*
+                     Leaving the duplicated code for your records
+                     
+                     let playlistCreateNew = UIStoryboard(name:"playlist", bundle: nil).instantiateViewController(withIdentifier: "playlist_control_scene") as! UINavigationController
                     let controller = playlistCreateNew.viewControllers[0] as! PlaylistContentsViewController
                     controller.shouldStartFromPracticeSelection = true
                     ModacityAnalytics.LogEvent(.NewPlaylist)
                     self.present(playlistCreateNew, animated: true, completion: nil)
+ */
+                    self.openNewPlaylist()
                 }
                 return
             }
         }
+        
+        /*
+         
+         Ben we should never have duplicate code like this, if you copy/paste code
+ and it's identical, make sure to paste it into a new function and just call the function twice
+ 
         
         let playlistCreateNew = UIStoryboard(name:"playlist", bundle: nil).instantiateViewController(withIdentifier: "playlist_control_scene") as! UINavigationController
         let controller = playlistCreateNew.viewControllers[0] as! PlaylistContentsViewController
         controller.shouldStartFromPracticeSelection = true
         ModacityAnalytics.LogEvent(.NewPlaylist)
         self.present(playlistCreateNew, animated: true, completion: nil)
-        
+       */
+        openNewPlaylist()
     }
     
+    func openNewPlaylist() {
+        let playlistCreateNew = UIStoryboard(name:"playlist", bundle: nil).instantiateViewController(withIdentifier: "playlist_control_scene") as! UINavigationController
+        let controller = playlistCreateNew.viewControllers[0] as! PlaylistContentsViewController
+        controller.shouldStartFromPracticeSelection = true
+        ModacityAnalytics.LogEvent(.NewPlaylist)
+        self.present(playlistCreateNew, animated: true, completion: nil)
+    }
     
 
 }

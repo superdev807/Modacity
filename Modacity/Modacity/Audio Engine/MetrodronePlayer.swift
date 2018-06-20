@@ -381,7 +381,7 @@ class MetrodronePlayer: DroneFrameDelegate {
         if (MetrodroneParameters.instance.isSustaining) {
             print("Stopping met because of sustain")
             metrodrone.stop()
-        }
+}
         disableSustain()
         
         updateMetrodroneNote()

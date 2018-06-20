@@ -68,6 +68,8 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var tableViewSettings: UITableView!
     @IBOutlet weak var constraintForHeaderImageViewHeight: NSLayoutConstraint!
     
+    var isBetaVersion: Bool = false // we will use this for beta-only experimental settings
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -78,6 +80,7 @@ class SettingsViewController: UIViewController {
         }
         NotificationCenter.default.addObserver(self, selector: #selector(refresh), name: AppConfig.appNotificationProfileUpdated, object: nil)
          ModacityAnalytics.LogStringEvent("Loaded Settings Screen")
+
     }
     
     deinit {
@@ -102,8 +105,11 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
+            //Top section
             return 5
         } else if section == 1 {
+            // "App Settings"
+            
             return 2
         }
         return 0
@@ -198,6 +204,7 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
                 self.shareModacityApp()
             }
         }
+        
         
     }
     
