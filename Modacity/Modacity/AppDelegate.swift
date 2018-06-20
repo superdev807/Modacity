@@ -77,7 +77,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, didReceive notification: UILocalNotification) {
-        self.showNotificationView(title:notification.alertTitle ?? "", body: notification.alertBody ?? "")
+        if "timesup" != notification.alertAction {
+            self.showNotificationView(title:notification.alertTitle ?? "", body: notification.alertBody ?? "")
+        }
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
@@ -85,6 +87,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func showNotificationView(title: String, body: String) {
+        
         let view = MessageView.viewFromNib(layout: .cardView)
         
         var config = SwiftMessages.Config()

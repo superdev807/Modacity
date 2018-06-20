@@ -692,15 +692,20 @@ extension PracticeViewController {
     }
     
     @IBAction func onTapTimerArrow(_ sender: Any) {
-        if self.countDownDuration > 0 {
-            self.startCountUp(from: (self.countDownDuration - self.countDownPlayed))
+        if self.timerUpProcessed {
+            self.timerUpProcessed = false
+            self.startCountUp(from: 0)
         } else {
-            if self.timerRunning {
-                let date = Date()
-                let durationSeconds = Int(date.timeIntervalSince1970 - self.countupTimerStarted.timeIntervalSince1970) + self.secondsPrevCountUpPlayed
-                self.startCountDown(from: durationSeconds)
+            if self.countDownDuration > 0 {
+                self.startCountUp(from: (self.countDownDuration - self.countDownPlayed))
             } else {
-                self.startCountDown(from: self.secondsPrevCountUpPlayed)
+                if self.timerRunning {
+                    let date = Date()
+                    let durationSeconds = Int(date.timeIntervalSince1970 - self.countupTimerStarted.timeIntervalSince1970) + self.secondsPrevCountUpPlayed
+                    self.startCountDown(from: durationSeconds)
+                } else {
+                    self.startCountDown(from: self.secondsPrevCountUpPlayed)
+                }
             }
         }
     }
@@ -784,7 +789,11 @@ extension PracticeViewController {
         self.labelMinute.text = String(format:"%02d", (durationSeconds % 3600) / 60)
         self.labelSeconds.text = String(format:"%02d", durationSeconds % 60)
         
-        self.buttonTimerUpDownArrow.setImage(UIImage(named:(timerDirection == 1 ? "icon_timer_arrow_count_down" : "icon_timer_arrow_count_up")), for: .normal)
+        if self.timerUpProcessed {
+            self.buttonTimerUpDownArrow.setImage(UIImage(named: "icon_arrow_updown"), for: .normal)
+        } else {
+            self.buttonTimerUpDownArrow.setImage(UIImage(named:(timerDirection == 1 ? "icon_timer_arrow_count_down" : "icon_timer_arrow_count_up")), for: .normal)
+        }
 
     }
     
@@ -792,8 +801,11 @@ extension PracticeViewController {
         self.playDingSound()
         self.viewTimeArea.isHidden = true
         self.labelTimerUp.isHidden = false
-        self.buttonTimerUpDownArrow.isHidden = true
+        self.buttonTimerUpDownArrow.setImage(UIImage(named: "icon_arrow_updown"), for: .normal)
         self.cancelCountDownNotification()
+        if !AppOveralDataManager.manager.walkThroughDoneForPracticeTimerUp() {
+            self.showTimerUpWalkThrough()
+        }
     }
     
     func playDingSound() {
@@ -954,7 +966,7 @@ extension PracticeViewController: UICollectionViewDelegate, UICollectionViewData
 
 // MARK: - Process walkthrough
 
-extension PracticeViewController: PlayPracticeWalkthroughViewDelegate {
+extension PracticeViewController: PlayPracticeWalkthroughViewDelegate, PracticeTimerUpWalkThroughViewDelegate {
     
     func showWalkthrough() {
         
@@ -965,11 +977,10 @@ extension PracticeViewController: PlayPracticeWalkthroughViewDelegate {
         
         if #available(iOS 11.0, *) {
             self.view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: walkThrough.bottomAnchor).isActive = true
-            self.view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: walkThrough.topAnchor).isActive = true
         } else {
             self.view.bottomAnchor.constraint(equalTo: walkThrough.bottomAnchor).isActive = true
-            self.view.topAnchor.constraint(equalTo: walkThrough.topAnchor).isActive = true
         }
+        self.view.topAnchor.constraint(equalTo: walkThrough.topAnchor).isActive = true
         self.view.leadingAnchor.constraint(equalTo: walkThrough.leadingAnchor).isActive = true
         self.view.trailingAnchor.constraint(equalTo: walkThrough.trailingAnchor).isActive = true
         self.view.bringSubview(toFront: walkThrough)
@@ -991,6 +1002,41 @@ extension PracticeViewController: PlayPracticeWalkthroughViewDelegate {
                     AppOveralDataManager.manager.walkThroughPracticePage()
                 }
                 self.startPracticeTimer()
+            }
+        }
+    }
+    
+    func showTimerUpWalkThrough() {
+        
+        let walkThrough: PracticeTimerUpWalkThroughView = PracticeTimerUpWalkThroughView()
+        self.view.addSubview(walkThrough)
+        
+        if #available(iOS 11.0, *) {
+            self.view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: walkThrough.bottomAnchor).isActive = true
+        } else {
+            self.view.bottomAnchor.constraint(equalTo: walkThrough.bottomAnchor).isActive = true
+        }
+        self.view.topAnchor.constraint(equalTo: walkThrough.topAnchor).isActive = true
+        self.view.leadingAnchor.constraint(equalTo: walkThrough.leadingAnchor).isActive = true
+        self.view.trailingAnchor.constraint(equalTo: walkThrough.trailingAnchor).isActive = true
+        self.view.bringSubview(toFront: walkThrough)
+        walkThrough.delegate = self
+        walkThrough.alpha = 0
+        UIView.animate(withDuration: 0.5) {
+            walkThrough.alpha = 1
+        }
+    }
+    
+    func dismiss(practiceTimerUpWalkThroughView: PracticeTimerUpWalkThroughView, storing: Bool) {
+        UIView.animate(withDuration: 0.5, animations: {
+            practiceTimerUpWalkThroughView.alpha = 0
+        }) { (finished) in
+            if finished {
+                practiceTimerUpWalkThroughView.removeConstraints(practiceTimerUpWalkThroughView.constraints)
+                practiceTimerUpWalkThroughView.removeFromSuperview()
+                if storing {
+                    AppOveralDataManager.manager.walkThroughPracticeTimerUp()
+                }
             }
         }
     }
@@ -1062,6 +1108,7 @@ extension PracticeViewController: PlayPracticeTabBarViewDelegate {
 }
 
 extension PracticeViewController: TimerInputViewDelegate {
+    
     func onTabTimer() {
         self.showTimer()
     }
@@ -1188,7 +1235,7 @@ extension PracticeViewController: TimerInputViewDelegate {
         let notification = UILocalNotification()
         notification.fireDate = date
         notification.alertBody = "TIME'S UP"
-        notification.alertAction = "open"
+        notification.alertAction = "timesup"
         notification.hasAction = true
         UIApplication.shared.scheduleLocalNotification(notification)
         

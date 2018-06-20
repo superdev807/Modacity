@@ -46,7 +46,24 @@ class PracticingDailyLocalManager: NSObject {
         }
         
         return data.entryId
+    }
+    
+    func storePracitingDataToLocal(_ data: PracticeDaily) {
+        var indecies = [String:[String]]()
+        if let old = UserDefaults.standard.object(forKey: "practicing-indecies-\(data.practiceItemId)") as? [String:[String]] {
+            indecies = old
+        }
         
+        var idsArrayPerDate = [String]()
+        
+        if let ids = indecies[data.entryDateString] {
+            idsArrayPerDate = ids
+        }
+        idsArrayPerDate.append(data.entryId)
+        indecies[data.entryDateString] = idsArrayPerDate
+        UserDefaults.standard.set(indecies, forKey: "practicing-indecies-\(data.practiceItemId)")
+        UserDefaults.standard.set(data.toJSON(), forKey: "practicing-data-\(data.entryId)")
+        UserDefaults.standard.synchronize()
     }
     
     func practicingData(forPracticeItemId: String) -> [String:[PracticeDaily]] {
@@ -68,12 +85,22 @@ class PracticingDailyLocalManager: NSObject {
         return data
     }
     
-    func syncFromServer() {
-        
+    func practicingData(forDataId: String) -> PracticeDaily? {
+        if let practiceData = UserDefaults.standard.object(forKey: "practicing-data-\(forDataId)") as? [String:Any] {
+            if let practice = PracticeDaily(JSON: practiceData) {
+                return practice
+            }
+        }
+        return nil
     }
     
     func signout() {
-        
+        for key in UserDefaults.standard.dictionaryRepresentation().keys {
+            if key.hasPrefix("practicing-indecies-") || key.hasPrefix("practicing-data-") {
+                UserDefaults.standard.removeObject(forKey: key)
+            }
+        }
+        UserDefaults.standard.synchronize()
     }
     
 }

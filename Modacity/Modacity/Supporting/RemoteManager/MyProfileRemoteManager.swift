@@ -38,6 +38,7 @@ class MyProfileRemoteManager {
             PlaylistRemoteManager.manager.syncFirst()
             OverallDataRemoteManager.manager.syncFirst()
             MusicQuotesManager.manager.loadQuotesFromServer()
+            DailyPracticingRemoteManager.manager.fetchPracticingDataFromServer()
         }
     }
     

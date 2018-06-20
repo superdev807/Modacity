@@ -72,6 +72,8 @@ class AppOveralDataManager {
         PracticeItemLocalManager.manager.signout()
         RecordingsLocalManager.manager.signout()
         PlaylistLocalManager.manager.signout()
+        PracticingDailyLocalManager.manager.signout()
+        PlaylistDailyLocalManager.manager.signout()
         
         GIDSignIn.sharedInstance().signOut()
         FBSDKLoginManager().logOut()
@@ -200,6 +202,15 @@ class AppOveralDataManager {
     
     func walkThroughPracticePage() {
         UserDefaults.standard.set(true, forKey: "walkthrough_practice_page")
+        UserDefaults.standard.synchronize()
+    }
+    
+    func walkThroughDoneForPracticeTimerUp() -> Bool {
+        return UserDefaults.standard.bool(forKey: "walkthrough_practice_timer_up")
+    }
+    
+    func walkThroughPracticeTimerUp() {
+        UserDefaults.standard.set(true, forKey: "walkthrough_practice_timer_up")
         UserDefaults.standard.synchronize()
     }
     
