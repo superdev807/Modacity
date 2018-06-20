@@ -389,8 +389,10 @@ extension PracticeViewController {
                                                                       improvements: self.playlistViewModel.sessionImproved)
                 self.playlistViewModel.playlistPracticeData.practices.append(id)
                 self.playlistViewModel.sessionImproved = [ImprovedRecord]()
+                self.navigationController?.popViewController(animated: true)
+            } else {
+                self.performSegue(withIdentifier: "sid_rate", sender: nil)
             }
-            self.navigationController?.popViewController(animated: true)
         }
     }
     
