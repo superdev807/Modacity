@@ -39,10 +39,10 @@ class PlaylistPracticeDurationKeyboardViewController: UIViewController, TimerInp
     }
     
     func onTimerSelected(timerInSec: Int) {
-        if timerInSec > 0 {
+//        if timerInSec > 0 {
             self.viewModel.editingRow = -1
             self.viewModel.changeCountDownDuration(for: self.viewModel.clockEditingPracticeItemId, duration: timerInSec)
-        }
+//        }
         self.dismiss(animated: true, completion: nil)
     }
     

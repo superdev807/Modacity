@@ -175,6 +175,14 @@
 		E245700220D00C6F00C9F720 /* SubdivisionSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E245700020D00C6F00C9F720 /* SubdivisionSelectView.swift */; };
 		E245700420D00C9C00C9F720 /* SubdivisionSelectView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E245700320D00C9C00C9F720 /* SubdivisionSelectView.xib */; };
 		E245700520D00C9C00C9F720 /* SubdivisionSelectView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E245700320D00C9C00C9F720 /* SubdivisionSelectView.xib */; };
+		E249E61920DAA66E00FBDA72 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E249E61820DAA66E00FBDA72 /* DetailsViewController.swift */; };
+		E249E61A20DAA66E00FBDA72 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E249E61820DAA66E00FBDA72 /* DetailsViewController.swift */; };
+		E249E61C20DAA68500FBDA72 /* details.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E249E61B20DAA68500FBDA72 /* details.storyboard */; };
+		E249E61D20DAA68500FBDA72 /* details.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E249E61B20DAA68500FBDA72 /* details.storyboard */; };
+		E249E62020DAB6C800FBDA72 /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E249E61E20DAB6C700FBDA72 /* StatisticsView.swift */; };
+		E249E62120DAB6C800FBDA72 /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E249E61E20DAB6C700FBDA72 /* StatisticsView.swift */; };
+		E249E62220DAB6C800FBDA72 /* StatisticsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E249E61F20DAB6C800FBDA72 /* StatisticsView.xib */; };
+		E249E62320DAB6C800FBDA72 /* StatisticsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E249E61F20DAB6C800FBDA72 /* StatisticsView.xib */; };
 		E24DF50320987E9E00BAF0C7 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24DF50220987E9E00BAF0C7 /* Note.swift */; };
 		E24DF50420987E9E00BAF0C7 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24DF50220987E9E00BAF0C7 /* Note.swift */; };
 		E24DF50C2098C1D400BAF0C7 /* MusicQuotesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24DF50B2098C1D400BAF0C7 /* MusicQuotesManager.swift */; };
@@ -376,6 +384,10 @@
 		E23D7A6F20A1EEB40052EE78 /* OverallDataRemoteManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverallDataRemoteManager.swift; sourceTree = "<group>"; };
 		E245700020D00C6F00C9F720 /* SubdivisionSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubdivisionSelectView.swift; sourceTree = "<group>"; };
 		E245700320D00C9C00C9F720 /* SubdivisionSelectView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SubdivisionSelectView.xib; sourceTree = "<group>"; };
+		E249E61820DAA66E00FBDA72 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
+		E249E61B20DAA68500FBDA72 /* details.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = details.storyboard; sourceTree = "<group>"; };
+		E249E61E20DAB6C700FBDA72 /* StatisticsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
+		E249E61F20DAB6C800FBDA72 /* StatisticsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StatisticsView.xib; sourceTree = "<group>"; };
 		E24DF50220987E9E00BAF0C7 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 		E24DF50B2098C1D400BAF0C7 /* MusicQuotesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicQuotesManager.swift; sourceTree = "<group>"; };
 		E25FD98320D7F233008C531A /* PracticeDaily.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PracticeDaily.swift; sourceTree = "<group>"; };
@@ -691,6 +703,7 @@
 				8EA9E7C920429EC10019EFA5 /* AskFeedbacks */,
 				8ED83FC5200325FC00052256 /* Recording */,
 				8ED001CB205766F200536122 /* Improve */,
+				E249E61720DAA63B00FBDA72 /* Details */,
 				8ED83FC62003262D00052256 /* TabBarViewController.swift */,
 			);
 			path = ViewController;
@@ -819,6 +832,17 @@
 				E21BEA1920917C46000D1877 /* GoogleService-Info.plist */,
 			);
 			path = Production;
+			sourceTree = "<group>";
+		};
+		E249E61720DAA63B00FBDA72 /* Details */ = {
+			isa = PBXGroup;
+			children = (
+				E249E61820DAA66E00FBDA72 /* DetailsViewController.swift */,
+				E249E61B20DAA68500FBDA72 /* details.storyboard */,
+				E249E61E20DAB6C700FBDA72 /* StatisticsView.swift */,
+				E249E61F20DAB6C800FBDA72 /* StatisticsView.xib */,
+			);
+			path = Details;
 			sourceTree = "<group>";
 		};
 		E2806C1820ABCD900066959A /* PlayPractice */ = {
@@ -1041,6 +1065,7 @@
 				E2BA252F20C8D3870048A5D5 /* waveforms in Resources */,
 				E2806C2520ABCD910066959A /* practice_note.storyboard in Resources */,
 				8EAC121320052668004232A2 /* home.storyboard in Resources */,
+				E249E62220DAB6C800FBDA72 /* StatisticsView.xib in Resources */,
 				E2C59FCB20CEAEDF000C3039 /* PlayPracticeTabBarView.xib in Resources */,
 				E2806C2320ABCD910066959A /* practice.storyboard in Resources */,
 				E21BEA1C20917C46000D1877 /* GoogleService-Info.plist in Resources */,
@@ -1050,6 +1075,7 @@
 				8EA33BA120052A3300539A3F /* playlist.storyboard in Resources */,
 				8EDEB708203DE38F00E8D48D /* lato-light.ttf in Resources */,
 				E264C09620CB01A20016CF8D /* metrodroneview.xib in Resources */,
+				E249E61C20DAA68500FBDA72 /* details.storyboard in Resources */,
 				E2806C2D20ABCD910066959A /* PracticeNoteCell.xib in Resources */,
 				8E58B43720445FEB0022704B /* lato-bolditalic.ttf in Resources */,
 			);
@@ -1083,6 +1109,7 @@
 				E21BE9FA2091796A000D1877 /* recording.storyboard in Resources */,
 				E2806C2420ABCD910066959A /* practice.storyboard in Resources */,
 				E21BE9FB2091796A000D1877 /* metrodone.storyboard in Resources */,
+				E249E61D20DAA68500FBDA72 /* details.storyboard in Resources */,
 				E2806C2E20ABCD910066959A /* PracticeNoteCell.xib in Resources */,
 				E21BE9FC2091796A000D1877 /* improve.storyboard in Resources */,
 				E264C09720CB01A20016CF8D /* metrodroneview.xib in Resources */,
@@ -1093,6 +1120,7 @@
 				E21BEA002091796A000D1877 /* ding.wav in Resources */,
 				E21BEA012091796A000D1877 /* Main.storyboard in Resources */,
 				E21BEA032091796A000D1877 /* lato-italic.ttf in Resources */,
+				E249E62320DAB6C800FBDA72 /* StatisticsView.xib in Resources */,
 				E2806C2620ABCD910066959A /* practice_note.storyboard in Resources */,
 				E21BEA042091796A000D1877 /* welcome.storyboard in Resources */,
 				E245700520D00C9C00C9F720 /* SubdivisionSelectView.xib in Resources */,
@@ -1432,6 +1460,7 @@
 				E25FD99320D7F7A9008C531A /* DailyPracticingRemoteManager.swift in Sources */,
 				E24DF50320987E9E00BAF0C7 /* Note.swift in Sources */,
 				E25FD98720D7F34A008C531A /* ImprovedRecord.swift in Sources */,
+				E249E61920DAA66E00FBDA72 /* DetailsViewController.swift in Sources */,
 				8E3596202049A61C00F2E6DF /* PlaylistContentsViewModel.swift in Sources */,
 				8E64B7A82056332300900775 /* HomeViewModel.swift in Sources */,
 				E24DF50C2098C1D400BAF0C7 /* MusicQuotesManager.swift in Sources */,
@@ -1481,6 +1510,7 @@
 				E2806C2B20ABCD910066959A /* PracticeNoteCell.swift in Sources */,
 				8ED83FC220031EF400052256 /* SplashViewController.swift in Sources */,
 				8EF559C9207E89FA006728E4 /* FloatRatingView.swift in Sources */,
+				E249E62020DAB6C800FBDA72 /* StatisticsView.swift in Sources */,
 				E2770DAE20B7BD4400E05E20 /* DefaultDataShipManager.swift in Sources */,
 				8E58B43C204469E20022704B /* SettingsViewController.swift in Sources */,
 			);
@@ -1541,6 +1571,7 @@
 				E25FD99420D7F7A9008C531A /* DailyPracticingRemoteManager.swift in Sources */,
 				E24DF50420987E9E00BAF0C7 /* Note.swift in Sources */,
 				E25FD98820D7F34A008C531A /* ImprovedRecord.swift in Sources */,
+				E249E61A20DAA66E00FBDA72 /* DetailsViewController.swift in Sources */,
 				E21BE9CD2091796A000D1877 /* PlaylistContentsViewModel.swift in Sources */,
 				E21BE9CE2091796A000D1877 /* HomeViewModel.swift in Sources */,
 				E24DF50D2098C1D400BAF0C7 /* MusicQuotesManager.swift in Sources */,
@@ -1590,6 +1621,7 @@
 				E2806C2C20ABCD910066959A /* PracticeNoteCell.swift in Sources */,
 				E21BE9ED2091796A000D1877 /* SplashViewController.swift in Sources */,
 				E21BE9EF2091796A000D1877 /* FloatRatingView.swift in Sources */,
+				E249E62120DAB6C800FBDA72 /* StatisticsView.swift in Sources */,
 				E2770DAF20B7BD4400E05E20 /* DefaultDataShipManager.swift in Sources */,
 				E21BE9F02091796A000D1877 /* SettingsViewController.swift in Sources */,
 			);

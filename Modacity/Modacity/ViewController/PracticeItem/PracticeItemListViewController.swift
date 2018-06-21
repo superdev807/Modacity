@@ -138,6 +138,10 @@ extension PracticeItemListViewController: UITableViewDataSource, UITableViewDele
         
         let practiceItem = self.practiceItems![indexPath.row]
         if let practice = PracticeItemLocalManager.manager.practiceItem(forId: practiceItem.id) {
+            
+//            let controller = UIStoryboard(name: "details", bundle: nil).instantiateViewController(withIdentifier: "DetailsScene")
+//            self.tabBarController!.present(controller, animated: true, completion: nil)
+            
             var sceneName = ""
             if AppUtils.sizeModelOfiPhone() == .iphone5_4in || AppUtils.sizeModelOfiPhone() == .iphone4_35in {
                 sceneName = "PracticeSceneForSmallSizes"
