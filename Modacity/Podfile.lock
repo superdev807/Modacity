@@ -7,6 +7,9 @@ PODS:
     - Bolts/Tasks
   - Bolts/Tasks (1.9.0)
   - BWHorizontalTableView (1.0.1)
+  - Charts (3.1.1):
+    - Charts/Core (= 3.1.1)
+  - Charts/Core (3.1.1)
   - Crashlytics (3.10.2):
     - Fabric (~> 1.7.7)
   - Fabric (1.7.7)
@@ -72,6 +75,7 @@ PODS:
   - GTMSessionFetcher/Full (1.1.14):
     - GTMSessionFetcher/Core (= 1.1.14)
   - Intercom (5.0.2)
+  - JTChartView (1.0.1)
   - leveldb-library (1.20)
   - LGSideMenuController (2.1.1)
   - MBProgressHUD (1.1.0)
@@ -90,6 +94,7 @@ PODS:
 DEPENDENCIES:
   - Amplitude-iOS (~> 4.0.4)
   - BWHorizontalTableView
+  - Charts
   - Crashlytics (~> 3.10.2)
   - Fabric (~> 1.7.7)
   - FBSDKCoreKit
@@ -102,6 +107,7 @@ DEPENDENCIES:
   - Firebase/Storage
   - GoogleSignIn
   - Intercom
+  - JTChartView
   - LGSideMenuController
   - MBProgressHUD
   - ObjectMapper
@@ -116,6 +122,7 @@ SPEC REPOS:
     - Amplitude-iOS
     - Bolts
     - BWHorizontalTableView
+    - Charts
     - Crashlytics
     - Fabric
     - FBSDKCoreKit
@@ -134,6 +141,7 @@ SPEC REPOS:
     - GTMOAuth2
     - GTMSessionFetcher
     - Intercom
+    - JTChartView
     - leveldb-library
     - LGSideMenuController
     - MBProgressHUD
@@ -149,6 +157,7 @@ SPEC CHECKSUMS:
   Amplitude-iOS: 2ad4d7270c99186236c1272a3a9425463b1ae1a7
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   BWHorizontalTableView: d9f34d06fb51cbbfb9b934f1c1f3a32727702647
+  Charts: 90a4d61da0f6e06684c591e3bcab11940fe61736
   Crashlytics: 0360624eea1c978a743feddb2fb1ef8b37fb7a0d
   Fabric: bda89e242bce1b7b8ab264248cf3407774ce0095
   FBSDKCoreKit: e08ccfcefa7bc1347a07c276dac9bf6c7fe57024
@@ -167,6 +176,7 @@ SPEC CHECKSUMS:
   GTMOAuth2: c77fe325e4acd453837e72d91e3b5f13116857b2
   GTMSessionFetcher: 390ea358e5a0d0133153806f744662dad933d06b
   Intercom: 0fcb000a9eea9a8fe889ac1466972771ef8919f2
+  JTChartView: cfe9c9cd95c04331df12d5d174d40cc3a9d39127
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   LGSideMenuController: ae40c80983ab8b8801c7cef0a6804d43aaa72d45
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
@@ -178,6 +188,6 @@ SPEC CHECKSUMS:
   TPKeyboardAvoiding: cb69d5ddbe90ce0170e4bc2db1e5e41d4a3ad9a4
   "UITextView+Placeholder": 77680995fcdd07c3f52ec92fe1150874a2ac89ff
 
-PODFILE CHECKSUM: 2dfdba35179214c6ec80efc2c02b9b37b90261fb
+PODFILE CHECKSUM: 263ed88ad1a16a3a3d89dd1261fcdb1b1a686915
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.5.2
