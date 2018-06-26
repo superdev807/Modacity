@@ -28,6 +28,8 @@ class PracticeRateViewController: UIViewController {
         } else {
             self.labelPracticeName.text = self.practiceItem.name ?? ""
         }
+        
+        
         self.rateView.editable = true
         self.rateView.maxRating = 5
         self.rateView.type = .halfRatings
@@ -35,10 +37,7 @@ class PracticeRateViewController: UIViewController {
         self.rateView.delegate = self
         
         if !AppOveralDataManager.manager.walkThroughDoneForPracticeRatePage() {
-            self.viewWalkThrough.alpha = 0
-            UIView.animate(withDuration: 0.5) {
-                self.viewWalkThrough.alpha = 1
-            }
+            self.showWalkThrough() // for Modacity coding style, put stuff like this in separate functions... especially viewDidLoad should always read easy and be short.
         } else {
             self.walkthroughIsDismissed = true
             self.viewWalkThrough.removeFromSuperview()
@@ -143,11 +142,18 @@ class PracticeRateViewController: UIViewController {
     }
     
     @IBAction func onCloseWalkThrough(_ sender: Any) {
-        ModacityAnalytics.LogStringEvent("Closed Rating Screen Walkthrough")
         self.dismissWalkThrough()
     }
     
+    func showWalkThrough() {
+        ModacityAnalytics.LogStringEvent("Rating Screen - Walkthrough - Displayed")
+        self.viewWalkThrough.alpha = 0
+        UIView.animate(withDuration: 0.5) {
+            self.viewWalkThrough.alpha = 1
+        }
+    }
     func dismissWalkThrough() {
+        ModacityAnalytics.LogStringEvent("Closed Rating Screen Walkthrough")
         if self.viewWalkThrough != nil && self.viewWalkThrough.superview != nil {
             UIView.animate(withDuration: 0.5, animations: {
                 self.viewWalkThrough.alpha = 0

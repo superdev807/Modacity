@@ -173,21 +173,26 @@ class PracticeItemSelectViewController: UIViewController {
     
     func processWalkthrough() {
         if !AppOveralDataManager.manager.walkThroughDoneForSecondPage() {
-            self.viewWalkthrough.alpha = 0
-            self.imageViewWalkThrough2.alpha = 0
-            self.labelWalkThrough2.alpha = 0
-            UIView.animate(withDuration: 0.5, animations: {
-                self.viewWalkthrough.alpha = 1
-            }) { (finished) in
-                if finished {
-                    if self.viewModel.sectionedSearchSectionCount() > 0 {
-                        self.imageViewWalkThrough2.alpha = 1
-                        self.labelWalkThrough2.alpha = 1
-                    }
-                }
-            }
+            showPracticeItemWalkThrough()
         } else {
             self.viewWalkthrough.isHidden = true
+        }
+    }
+    
+    func showPracticeItemWalkThrough() {
+        ModacityAnalytics.LogStringEvent("Walkthrough - PracticeItem - Displayed")
+        self.viewWalkthrough.alpha = 0
+        self.imageViewWalkThrough2.alpha = 0
+        self.labelWalkThrough2.alpha = 0
+        UIView.animate(withDuration: 0.5, animations: {
+            self.viewWalkthrough.alpha = 1
+        }) { (finished) in
+            if finished {
+                if self.viewModel.sectionedSearchSectionCount() > 0 {
+                    self.imageViewWalkThrough2.alpha = 1
+                    self.labelWalkThrough2.alpha = 1
+                }
+            }
         }
     }
     
@@ -196,12 +201,15 @@ class PracticeItemSelectViewController: UIViewController {
     }
     
     func dismissWalkThrough(withSetting: Bool) {
+        ModacityAnalytics.LogStringEvent("Walkthrough - PracticeItem - Dismissed")
         UIView.animate(withDuration: 0.5, animations: {
             self.viewWalkthrough.alpha = 0
         }) { (finished) in
             self.viewWalkthrough.isHidden = true
             if self.viewModel.practiceItems.count > 0 {
                 if withSetting {
+                    // this never happens, should we remove this code?
+                    // withSetting is always false in the current code
                     AppOveralDataManager.manager.walkThroughSecondPage()
                 }
             }
@@ -212,20 +220,7 @@ class PracticeItemSelectViewController: UIViewController {
 extension PracticeItemSelectViewController {
     
     @IBAction func onBack(_ sender: Any) {
-        /* let's just cut this for now... - Marc 5/30/2018
-        if self.shouldSelectPracticeItems {
-            if !AppOveralDataManager.manager.walkThroughDoneForPracticeItemSelection() {
-                AppOveralDataManager.manager.walkThroughPracticeItemFinish()
-                let alert = UIAlertController(title: nil, message: "Please select practice items to add to playlist!", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-                alert.addAction(UIAlertAction(title: "Continue", style: .cancel, handler: { (_) in
-                    self.navigationController?.dismiss(animated: true, completion: nil)
-                }))
-                self.present(alert, animated: true, completion: nil)
-                return
-            }
-        }
- */
+
         if let parentController = self.parentController {
             if parentController.shouldStartFromPracticeSelection {
                 self.navigationController?.dismiss(animated: true, completion: nil)
@@ -289,10 +284,13 @@ extension PracticeItemSelectViewController {
     
     @IBAction func onSelectItems(_ sender: Any) {
         ModacityAnalytics.LogStringEvent("Added Practice Item to Playlist", extraParamName: "Item Count", extraParamValue: self.viewModel.selectedPracticeItems.count)
+        
         AppOveralDataManager.manager.walkThroughSecondPage()
+        
         if !AppOveralDataManager.manager.firstPlaylistGenerated() {
             AppOveralDataManager.manager.generatedFirstPlaylist()
         }
+        
         self.parentViewModel.addPracticeItems(self.viewModel.selectedPracticeItems)
         if let parentController = self.parentController {
             parentController.practiceItemsSelected()

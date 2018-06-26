@@ -67,6 +67,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         FBSDKAppEvents.activateApp()
         ModacityAnalytics.LogEvent(.ResumeActive)
+//<<<<<<< HEAD
+//        let settings = UIUserNotificationSettings(types: [.badge, .sound, .alert], categories: nil)
+//        //application.registerUserNotificationSettings()
+//        application.registerForRemoteNotifications()
+//=======
         
         if #available(iOS 10.0, *) {
             UNUserNotificationCenter.current().delegate = self
@@ -86,6 +91,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             application.registerForRemoteNotifications()
         }
         
+//>>>>>>> 81e4f7cd10a18dbec4aa862faacecf361ce23703
     }
 
     func applicationWillTerminate(_ application: UIApplication) {

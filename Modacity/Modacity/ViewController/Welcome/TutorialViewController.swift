@@ -58,6 +58,7 @@ class TutorialViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "sid_get_started" {
             AppOveralDataManager.manager.didReadTutorial()
+            ModacityAnalytics.LogStringEvent("Welcome - Pressed 'Get Started'")
         }
     }
     
@@ -110,7 +111,9 @@ extension TutorialViewController: UITableViewDelegate, UITableViewDataSource {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if let visibleRows = self.horizontalTableViewTutorial.indexPathsForVisibleRows {
-             self.pageControl.currentPage = visibleRows[0].row
+            let pageNum = visibleRows[0].row
+            self.pageControl.currentPage = pageNum
+            ModacityAnalytics.LogStringEvent("Welcome Screen - Scrolled to Page \(pageNum)")
         }
     }
 }

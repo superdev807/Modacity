@@ -15,6 +15,8 @@ class DefaultDataShipManager {
     func produceDefaultData() {
         var practiceItems = [PracticeItem]()
         
+        
+        /*
         let playlist1 = Playlist()
         playlist1.id = UUID().uuidString
         playlist1.name = "This Week's Routine"
@@ -24,9 +26,12 @@ class DefaultDataShipManager {
         playlist2.id = UUID().uuidString
         playlist2.name = "Next Audition"
         playlist2.playlistPracticeEntries = [PlaylistPracticeEntry]()
-        
+        */
         var playlistPractice = PlaylistPracticeEntry()
         var practiceItem = PracticeItem()
+        
+        let playlist1 = AddNewPlaylist("This Week's Routine")
+        let playlist2 = AddNewPlaylist("Next Audition")
         
         /*
          deleted by marc
@@ -184,5 +189,43 @@ class DefaultDataShipManager {
         PlaylistLocalManager.manager.addPlaylist(playlist: playlist1)
         PlaylistLocalManager.manager.addPlaylist(playlist: playlist2)
         
+    }
+    
+    func AddNewPracticeItem(_ itemName: String, notes: [String] = [])
+    -> PracticeItem {
+        let practiceItem = PracticeItem()
+        practiceItem.name = itemName
+        practiceItem.id = UUID().uuidString
+       
+       
+        if (notes.count > 0) {
+            for note in notes {
+                practiceItem.addNote(text: note)
+            }
+        }
+        PracticeItemLocalManager.manager.addPracticeItem(practiceItem)
+        
+        return practiceItem
+    }
+    
+    func AddNewPlaylist(_ playlistName: String) -> Playlist {
+        let playlist = Playlist()
+        playlist.id = UUID().uuidString
+        playlist.name = playlistName
+        playlist.playlistPracticeEntries = [PlaylistPracticeEntry]()
+        
+        PlaylistLocalManager.manager.addPlaylist(playlist: playlist)
+        
+        return playlist
+    }
+    
+    func CreatePlaylistPracticeEntry(fromItem: PracticeItem, timerDuration: Int = 0) -> PlaylistPracticeEntry {
+        
+        let playlistPractice = PlaylistPracticeEntry()
+        playlistPractice.name = fromItem.name
+        playlistPractice.practiceItemId = fromItem.id
+        playlistPractice.countDownDuration = timerDuration
+        
+        return playlistPractice
     }
 }
