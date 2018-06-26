@@ -35,26 +35,33 @@ class PracticeViewController: UIViewController {
     var timerRunning = false
     var timerStarted: Date!
     var secondsPrevPlayed: Int!
+    
     var countdownTimerStarted: Date!
     var secondsPrevCountDownPlayed: Int!
-    var countupTimerStarted: Date!
-    var secondsPrevCountUpPlayed: Int!
+    
+    var overallPracticeTimeInSeconds: Int! = 0
+    var countDownDuration: Int! = 0
+    var countDownPlayed: Int! = 0
+    
     var timerUpProcessed = false
     var timerDirection = 0
+    
+    var dingSoundPlayer: AVAudioPlayer? = nil
+    var countDownNotification: UILocalNotification? = nil
+    
+    // unused
+    var countupTimerStarted: Date!
+    var secondsPrevCountUpPlayed: Int!
     
     var isCountDown = false
     var countDownTimerStart = 0
     var timerShouldStartFrom = 0
     var timerShouldDown = false
     var timerShouldFinish = 0
-    var dingSoundPlayer: AVAudioPlayer? = nil
     
-    var countDownNotification: UILocalNotification? = nil
+    // unused
     
-    // new machine
-    var overallPracticeTimeInSeconds: Int! = 0
-    var countDownDuration: Int! = 0
-    var countDownPlayed: Int! = 0
+    
     
     // MARK: - Properties for recording
     @IBOutlet weak var btnRecord: UIButton!
@@ -694,28 +701,63 @@ extension PracticeViewController {
     }
     
     @IBAction func onTapTimerArrow(_ sender: Any) {
+//<<<<<<< HEAD
         
-        var isCountDown: Bool = false
-        
-        if self.timerUpProcessed {
-            isCountDown = false
-            self.timerUpProcessed = false
-            self.startCountUp(from: 0)
+//        var isCountDown: Bool = false
+//
+//        if self.timerUpProcessed {
+//            isCountDown = false
+//            self.timerUpProcessed = false
+//            self.startCountUp(from: 0)
+//        } else {
+//            if self.countDownDuration > 0 {
+//                isCountDown = false
+//                self.startCountUp(from: (self.countDownDuration - self.countDownPlayed))
+//            } else {
+//                isCountDown = true
+//                if self.timerRunning {
+//                    let date = Date()
+//                    let durationSeconds = Int(date.timeIntervalSince1970 - self.countupTimerStarted.timeIntervalSince1970) + self.secondsPrevCountUpPlayed
+//                    self.startCountDown(from: durationSeconds)
+//
+//                } else {
+//                    self.startCountDown(from: self.secondsPrevCountUpPlayed)
+//                }
+//=======
+        if self.timerUpProcessed && self.timerDirection == 1 {
+//            self.timerUpProcessed = false
+            self.labelTimerUp.isHidden = true
+            self.viewTimeArea.isHidden = false
+            self.timerDirection = 0
+//            self.startCountUp(from: 0)
+        } else if self.timerUpProcessed && self.timerDirection == 0 {
+            self.labelTimerUp.isHidden = false
+            self.viewTimeArea.isHidden = true
+            self.timerDirection = 1
         } else {
-            if self.countDownDuration > 0 {
-                isCountDown = false
-                self.startCountUp(from: (self.countDownDuration - self.countDownPlayed))
+
+            if self.timerDirection == 0 && self.countDownDuration == 0 {
+                self.onTabTimer()
+            } else if self.timerDirection == 0 && self.countDownPlayed >= self.countDownDuration {
+//                self.labelTimerUp.isHidden = false
+//                self.viewTimeArea.isHidden = true
+                self.onTabTimer()
             } else {
-                isCountDown = true
-                if self.timerRunning {
-                    let date = Date()
-                    let durationSeconds = Int(date.timeIntervalSince1970 - self.countupTimerStarted.timeIntervalSince1970) + self.secondsPrevCountUpPlayed
-                    self.startCountDown(from: durationSeconds)
-                    
-                } else {
-                    self.startCountDown(from: self.secondsPrevCountUpPlayed)
-                }
+                self.timerDirection = (self.timerDirection == 0) ? 1 : 0
+//>>>>>>> 81e4f7cd10a18dbec4aa862faacecf361ce23703
             }
+            
+//            if self.countDownDuration > 0 {
+//                self.startCountUp(from: (self.countDownDuration - self.countDownPlayed))
+//            } else {
+//                if self.timerRunning {
+//                    let date = Date()
+//                    let durationSeconds = Int(date.timeIntervalSince1970 - self.countupTimerStarted.timeIntervalSince1970) + self.secondsPrevCountUpPlayed
+//                    self.startCountDown(from: durationSeconds)
+//                } else {
+//                    self.startCountDown(from: self.secondsPrevCountUpPlayed)
+//                }
+//            }
         }
         
         let modeName = (isCountDown) ? "Countdown" : "Countup"
@@ -752,10 +794,13 @@ extension PracticeViewController {
     
     @objc func onTimerStart() {
         self.timerStarted = Date()
-        self.countupTimerStarted = Date()
+        
         self.secondsPrevPlayed = 0
         self.secondsPrevCountDownPlayed = self.countDownPlayed ?? 0
+        
+        self.countupTimerStarted = Date()
         self.secondsPrevCountUpPlayed = 0
+        
         self.timerDirection = 0
         if self.countDownDuration > 0 {
             if self.countDownPlayed < self.countDownDuration {
@@ -772,7 +817,7 @@ extension PracticeViewController {
     @objc func onTimer() {
         let date = Date()
         self.overallPracticeTimeInSeconds = Int(date.timeIntervalSince1970 - self.timerStarted.timeIntervalSince1970) + self.secondsPrevPlayed
-        var durationSeconds = Int(date.timeIntervalSince1970 - self.countupTimerStarted.timeIntervalSince1970) + self.secondsPrevCountUpPlayed
+        var durationSeconds = self.overallPracticeTimeInSeconds ?? 0//Int(date.timeIntervalSince1970 - self.countupTimerStarted.timeIntervalSince1970) + self.secondsPrevCountUpPlayed
         
         var timerDirection = 0
 
@@ -801,7 +846,7 @@ extension PracticeViewController {
         self.labelMinute.text = String(format:"%02d", (durationSeconds % 3600) / 60)
         self.labelSeconds.text = String(format:"%02d", durationSeconds % 60)
         
-        if self.timerUpProcessed {
+        if self.timerUpProcessed && self.timerDirection == 1 {
             self.buttonTimerUpDownArrow.setImage(UIImage(named: "icon_arrow_updown"), for: .normal)
         } else {
             self.buttonTimerUpDownArrow.setImage(UIImage(named:(timerDirection == 1 ? "icon_timer_arrow_count_down" : "icon_timer_arrow_count_up")), for: .normal)
@@ -1141,6 +1186,10 @@ extension PracticeViewController: TimerInputViewDelegate {
             timerInputViewTopConstraint = self.timerInputView.topAnchor.constraint(equalTo: self.view.topAnchor, constant:  UIScreen.main.bounds.size.height)
             timerInputViewTopConstraint.isActive = true
             
+            if self.countDownDuration > 0 {
+                self.timerInputView.showValues(timer: self.countDownDuration)
+            }
+            
             let deadline = DispatchTime.now() + .milliseconds(200)
             DispatchQueue.main.asyncAfter(deadline: deadline) {
                 self.timerInputViewTopConstraint.constant = 80
@@ -1173,7 +1222,31 @@ extension PracticeViewController: TimerInputViewDelegate {
         ModacityAnalytics.LogStringEvent("Practice - Set Timer", extraParamName: "Duration", extraParamValue: timerInSec)
         if timerInSec != 0 {
             self.startCountDown(from: timerInSec)
+        } else {
+            if self.countDownDuration > 0 {
+                self.countDownDuration = 0
+                self.countDownPlayed = 0
+                
+                self.viewTimeArea.isHidden = false
+                self.buttonTimerUpDownArrow.isHidden = false
+                self.labelTimerUp.isHidden = true
+                self.viewTimeAreaPausedPanel.isHidden = true
+                
+                if self.playlistViewModel != nil {
+                    self.playlistViewModel.changeCountDownDuration(for: self.playlistViewModel.currentPracticeEntry.entryId, duration: 0)
+                    self.playlistViewModel.updateCountDownPlayedTime(forPracticeItem: self.playlistViewModel.currentPracticeEntry.entryId, time: 0)
+                }
+                
+                self.countupTimerStarted = Date()
+                self.timerDirection = 0
+                
+                self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(onTimer), userInfo: nil, repeats: true)
+                self.timerRunning = true
+                
+                self.cancelCountDownNotification()
+            }
         }
+        
         self.closeTimer()
     }
     

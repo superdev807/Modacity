@@ -122,4 +122,15 @@ extension Date {
         return Calendar.current.date(byAdding: components, to: self) ?? self
     }
     
+    func startOfDate() -> Date {
+        let calendar = Calendar.current
+        
+        var components = calendar.dateComponents([.year, .month, .weekOfMonth, .weekday], from: self)
+        
+        components.hour = 0
+        components.minute = 0
+        components.second = 0
+        return calendar.date(from: components) ?? self
+    }
+    
 }

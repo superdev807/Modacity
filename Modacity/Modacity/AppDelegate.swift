@@ -14,9 +14,10 @@ import Amplitude_iOS
 import SwiftMessages
 import Intercom
 import SplunkMint
+import UserNotifications
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     var window: UIWindow?
 
@@ -66,9 +67,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         FBSDKAppEvents.activateApp()
         ModacityAnalytics.LogEvent(.ResumeActive)
-        let settings = UIUserNotificationSettings(types: [.badge, .sound, .alert], categories: nil)
-        //application.registerUserNotificationSettings()
-        application.registerForRemoteNotifications()
+//<<<<<<< HEAD
+//        let settings = UIUserNotificationSettings(types: [.badge, .sound, .alert], categories: nil)
+//        //application.registerUserNotificationSettings()
+//        application.registerForRemoteNotifications()
+//=======
+        
+        if #available(iOS 10.0, *) {
+            UNUserNotificationCenter.current().delegate = self
+            UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.sound,.badge], completionHandler: {(granted,error) in
+                if granted {
+                    print("push notification access granted.")
+                    DispatchQueue.main.async {
+                        application.registerForRemoteNotifications()
+                    }
+                } else {
+                    print("push notification access grant failed.")
+                }
+            })
+        } else {
+            let settings = UIUserNotificationSettings(types: [.badge, .sound, .alert], categories: nil)
+            application.registerUserNotificationSettings(settings)
+            application.registerForRemoteNotifications()
+        }
+        
+//>>>>>>> 81e4f7cd10a18dbec4aa862faacecf361ce23703
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
@@ -111,6 +134,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         Intercom.setDeviceToken(deviceToken)
+    }
+    
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        print("did fail to register for remote notifications")
     }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
