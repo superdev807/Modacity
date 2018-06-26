@@ -10,6 +10,18 @@ import UIKit
 import Charts
 import AVFoundation
 
+class PracticeHistoryData {
+    let date: Date!
+    let practices: [PracticeDaily]!
+    let dailyPractice: Int
+    
+    init(date: Date, practices:[PracticeDaily], dailyPractice:Int) {
+        self.date = date
+        self.practices = practices
+        self.dailyPractice = dailyPractice
+    }
+}
+
 class HistoryListView: UIView {
 
     @IBOutlet var viewContent: UIView!
@@ -19,6 +31,8 @@ class HistoryListView: UIView {
     var practices = [[PracticeDaily]]()
     var dates = [Date]()
     var dailyPractices = [Int]()
+    
+    var practiceHistoryDataList = [PracticeHistoryData]()
     
     override init(frame: CGRect) {
         super.init(frame:frame)
@@ -46,20 +60,45 @@ class HistoryListView: UIView {
     }
     
     func showHistory(for practiceId: String) {
+        let data = PracticingDailyLocalManager.manager.practicingData(forPracticeItemId: practiceId)
+        self.practiceHistoryDataList = []
+        for date in data.keys {
+            let time = date.date(format: "yy-MM-dd")
+            var totalPracticesSeconds = 0
+            if let dailyDatas = data[date] {
+                for daily in dailyDatas {
+                    totalPracticesSeconds = totalPracticesSeconds + daily.practiceTimeInSeconds
+                }
+                self.practiceHistoryDataList.append(PracticeHistoryData(date: time!, practices: dailyDatas.sorted(by: { (daily1, daily2) -> Bool in
+                    return daily2.startedTime < daily1.startedTime
+                }), dailyPractice: totalPracticesSeconds))
+            }
+        }
         
+        self.practiceHistoryDataList.sort { (data1, data2) -> Bool in
+            return data2.date.timeIntervalSince1970 < data1.date.timeIntervalSince1970
+        }
+        
+        self.tableViewMain.reloadData()
     }
 }
 
 extension HistoryListView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return practicesCount
+        return self.practiceHistoryDataList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PracticeHistoryCell") as! PracticeHistoryCell
-        cell.configure(with: practices[indexPath.row], on: dates[indexPath.row], for: dailyPractices[indexPath.row])
+        cell.configure(with: practiceHistoryDataList[indexPath.row].practices,
+                       on: practiceHistoryDataList[indexPath.row].date,
+                       for: practiceHistoryDataList[indexPath.row].dailyPractice)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return PracticeHistoryCell.height(for: practiceHistoryDataList[indexPath.row].practices, with: tableView.frame.size.width)
     }
     
 }

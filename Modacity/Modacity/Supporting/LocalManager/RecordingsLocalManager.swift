@@ -12,7 +12,7 @@ class RecordingsLocalManager: NSObject {
     
     static let manager = RecordingsLocalManager()
     
-    func saveCurrentRecording(toFileName: String, playlistId: String, practiceName: String, practiceEntryId: String) {
+    func saveCurrentRecording(toFileName: String, playlistId: String, practiceName: String, practiceEntryId: String, practiceItemId:String) {
         let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
         let sourceUrl = URL(fileURLWithPath: dirPath[0] + "/recording.wav")
         let targetUrl = URL(fileURLWithPath: dirPath[0] + "/" + toFileName + ".wav")
@@ -30,7 +30,8 @@ class RecordingsLocalManager: NSObject {
                                          "file_name":toFileName,
                                          "playlist_id":playlistId,
                                          "practice_name":practiceName,
-                                         "practiceEntryId":practiceEntryId]) {
+                                         "practiceEntryId":practiceEntryId,
+                                         "practiceItemId":practiceItemId]) {
             self.addNewRecording(recording)
         }
     }
@@ -71,6 +72,31 @@ class RecordingsLocalManager: NSObject {
             for recordingId in recordingIds {
                 if let recording = self.recording(forId: recordingId) {
                     result.append(recording)
+                }
+            }
+            return result
+        } else {
+            return [Recording]()
+        }
+    }
+    
+    func loadRecordings(forPracticeId: String) -> [Recording] {
+        if let recordingIds = self.loadRecordingIds() {
+            var result = [Recording]()
+            for recordingId in recordingIds {
+                if let recording = self.recording(forId: recordingId) {
+                    if (recording.practiceEntryId == forPracticeId) {
+                        result.append(recording)
+                    } else if (recording.practiceItemId == forPracticeId) {
+                        result.append(recording)
+                    } else {
+                        let practiceName = recording.practiceName
+                        if let practice = PracticeItemLocalManager.manager.practiceItem(forId: forPracticeId) {
+                            if practiceName == practice.name {
+                                result.append(recording)
+                            }
+                        }
+                    }
                 }
             }
             return result

@@ -306,7 +306,7 @@ class PlaylistContentsViewModel: ViewModel {
     }
     
     func saveCurrentRecording(toFileName: String) {
-        RecordingsLocalManager.manager.saveCurrentRecording(toFileName: toFileName, playlistId: self.playlist.id, practiceName: self.currentPracticeEntry.practiceItem()?.name ?? "", practiceEntryId: self.currentPracticeEntry.entryId)
+        RecordingsLocalManager.manager.saveCurrentRecording(toFileName: toFileName, playlistId: self.playlist.id, practiceName: self.currentPracticeEntry.practiceItem()?.name ?? "", practiceEntryId: self.currentPracticeEntry.entryId, practiceItemId: self.currentPracticeEntry.practiceItemId)
     }
     
     func addNewImprovement(_ improvement: Improvement) {

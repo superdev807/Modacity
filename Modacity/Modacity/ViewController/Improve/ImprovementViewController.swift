@@ -368,7 +368,7 @@ extension ImprovementViewController: AVAudioPlayerDelegate, FDWaveformViewDelega
                     if self.playlistViewModel != nil {
                         self.playlistViewModel.saveCurrentRecording(toFileName: name)
                     } else {
-                        RecordingsLocalManager.manager.saveCurrentRecording(toFileName: name, playlistId: "practice-\(self.practiceItem.id)", practiceName: self.practiceItem.name ?? "", practiceEntryId: self.practiceItem.id)
+                        RecordingsLocalManager.manager.saveCurrentRecording(toFileName: name, playlistId: "practice-\(self.practiceItem.id)", practiceName: self.practiceItem.name ?? "", practiceEntryId: self.practiceItem.id, practiceItemId: self.practiceItem.id)
                     }
                 }
             }

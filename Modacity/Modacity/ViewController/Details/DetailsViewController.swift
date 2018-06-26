@@ -24,6 +24,7 @@ class DetailsViewController: UIViewController {
     var statisticsView:StatisticsView! = nil
     var recordingsView: RecordingsListView! = nil
     var notesView: NotesListView! = nil
+    var historyListView: HistoryListView! = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,7 +61,6 @@ extension DetailsViewController {
     }
     
     func detachStatisticsView(_ animated:Bool = false) {
-//        self.statisticsView.removeConstraints(self.statisticsView.constraints)
         self.statisticsView.removeFromSuperview()
     }
     
@@ -77,7 +77,7 @@ extension DetailsViewController {
         self.recordingsView.topAnchor.constraint(equalTo: self.imageViewHeader.bottomAnchor).isActive = true
         self.view.bringSubview(toFront: self.recordingsView)
         
-        self.recordingsView.showRecordings(RecordingsLocalManager.manager.loadRecordings())
+        self.recordingsView.showRecordings(RecordingsLocalManager.manager.loadRecordings(forPracticeId: self.practiceItemId))
     }
     
     func detachRecordingView(_ animated:Bool = false) {
@@ -102,6 +102,24 @@ extension DetailsViewController {
     
     func detachNotesView(_ animated:Bool = false) {
         self.notesView.removeFromSuperview()
+    }
+    
+    func attachHistoryView(_ animated:Bool = false) {
+        
+        if self.historyListView == nil {
+            self.historyListView = HistoryListView()
+        }
+        self.view.addSubview(self.historyListView)
+        self.historyListView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+        self.historyListView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+        self.historyListView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        self.historyListView.topAnchor.constraint(equalTo: self.imageViewHeader.bottomAnchor).isActive = true
+        self.view.bringSubview(toFront: self.historyListView)
+        self.historyListView.showHistory(for: self.practiceItemId)
+    }
+    
+    func detachHistoryView(_ animated:Bool = false) {
+        self.historyListView.removeFromSuperview()
     }
 }
 
@@ -142,6 +160,8 @@ extension DetailsViewController {
             self.detachRecordingView(true)
         case 2:
             self.detachNotesView()
+        case 3:
+            self.detachHistoryView()
         default:
             break
         }
@@ -159,6 +179,7 @@ extension DetailsViewController {
             self.viewIndicatorTab3.isHidden = false
         case 3:
             self.viewIndicatorTab4.isHidden = false
+            self.attachHistoryView()
         default:
             return
         }
@@ -179,15 +200,6 @@ extension DetailsViewController: NotesListViewDelegate {
     }
     
     func onAddNote(text: String) {
-//        if self.playlistViewModel != nil {
-//            if self.noteIsForPlaylist {
-//                self.playlistViewModel.addNoteToPlaylist(text)
-//            } else {
-//                self.playlistViewModel.addNote(to:self.practiceEntry, note:text)
-//            }
-//        } else {
-//            self.practiceItem.addNote(text: text)
-//        }
         
         if self.practiceItemId != nil {
             if let practiceItem = PracticeItemLocalManager.manager.practiceItem(forId: self.practiceItemId) {

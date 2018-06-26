@@ -16,6 +16,7 @@ class Recording: Mappable {
     var playlistId: String!
     var practiceName: String!
     var practiceEntryId: String!
+    var practiceItemId: String!
     
     required init?(map: Map) {
     }
@@ -27,6 +28,7 @@ class Recording: Mappable {
         playlistId      <- map["playlist_id"]
         practiceName    <- map["practice_name"]
         practiceEntryId <- map["practice_entry_id"]
+        practiceItemId  <- map["practice_item_id"]
     }
     
     static func currentRecordingURL() -> URL {

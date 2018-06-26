@@ -702,38 +702,21 @@ extension PracticeViewController {
     
     @IBAction func onTapTimerArrow(_ sender: Any) {
         if self.timerUpProcessed && self.timerDirection == 1 {
-//            self.timerUpProcessed = false
             self.labelTimerUp.isHidden = true
             self.viewTimeArea.isHidden = false
             self.timerDirection = 0
-//            self.startCountUp(from: 0)
         } else if self.timerUpProcessed && self.timerDirection == 0 {
             self.labelTimerUp.isHidden = false
             self.viewTimeArea.isHidden = true
             self.timerDirection = 1
         } else {
-            
             if self.timerDirection == 0 && self.countDownDuration == 0 {
                 self.onTabTimer()
             } else if self.timerDirection == 0 && self.countDownPlayed >= self.countDownDuration {
-//                self.labelTimerUp.isHidden = false
-//                self.viewTimeArea.isHidden = true
                 self.onTabTimer()
             } else {
                 self.timerDirection = (self.timerDirection == 0) ? 1 : 0
             }
-            
-//            if self.countDownDuration > 0 {
-//                self.startCountUp(from: (self.countDownDuration - self.countDownPlayed))
-//            } else {
-//                if self.timerRunning {
-//                    let date = Date()
-//                    let durationSeconds = Int(date.timeIntervalSince1970 - self.countupTimerStarted.timeIntervalSince1970) + self.secondsPrevCountUpPlayed
-//                    self.startCountDown(from: durationSeconds)
-//                } else {
-//                    self.startCountDown(from: self.secondsPrevCountUpPlayed)
-//                }
-//            }
         }
     }
     

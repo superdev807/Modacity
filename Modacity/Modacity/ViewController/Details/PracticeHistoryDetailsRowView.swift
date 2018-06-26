@@ -42,9 +42,16 @@ class PracticeHistoryDetailsRowView: UIView {
     }
     
     func configure(with data: PracticeDaily) {
-        let to = Date(timeIntervalSince1970: data.startedTime).addingTimeInterval(Double(data.practiceTimeInSeconds)).toString(format: "HH:mm")
-        self.labelTime.text = "\(data.fromTime) - \(to)"
-        self.labelStarRating.text = "\(data.rating)"
+        
+        let formatter = NumberFormatter()
+        formatter.minimumFractionDigits = 0
+        formatter.maximumFractionDigits = 2
+        
+        let from = data.fromTime!.date(format: "HH:mm:ss")?.toString(format: "h:mm a") ?? ""
+        let to = Date(timeIntervalSince1970: data.startedTime).addingTimeInterval(Double(data.practiceTimeInSeconds)).toString(format: "h:mm a")
+        self.labelTime.text = "\(from) - \(to)"
+        self.labelStarRating.text = formatter.string(from: data.rating as NSNumber) ?? "n/a"
         self.labelImprovements.text = "\(data.improvements?.count ?? 0)"
+        
     }
 }
