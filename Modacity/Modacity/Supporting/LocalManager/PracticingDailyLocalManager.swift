@@ -38,7 +38,7 @@ class PracticingDailyLocalManager: NSObject {
         idsArrayPerDate.append(data.entryId)
         indecies[data.entryDateString] = idsArrayPerDate
         UserDefaults.standard.set(indecies, forKey: "practicing-indecies-\(practiceItemId)")
-        UserDefaults.standard.set(data.toJSON(), forKey: "practicing-data-\(data.entryId)")
+        UserDefaults.standard.set(data.toJSON(), forKey: "practicing-data-\(data.entryId ?? "")")
         UserDefaults.standard.synchronize()
         
         DispatchQueue.global(qos: .background).async {
@@ -50,7 +50,7 @@ class PracticingDailyLocalManager: NSObject {
     
     func storePracitingDataToLocal(_ data: PracticeDaily) {
         var indecies = [String:[String]]()
-        if let old = UserDefaults.standard.object(forKey: "practicing-indecies-\(data.practiceItemId)") as? [String:[String]] {
+        if let old = UserDefaults.standard.object(forKey: "practicing-indecies-\(data.practiceItemId ?? "")") as? [String:[String]] {
             indecies = old
         }
         
@@ -61,23 +61,38 @@ class PracticingDailyLocalManager: NSObject {
         }
         idsArrayPerDate.append(data.entryId)
         indecies[data.entryDateString] = idsArrayPerDate
-        UserDefaults.standard.set(indecies, forKey: "practicing-indecies-\(data.practiceItemId)")
-        UserDefaults.standard.set(data.toJSON(), forKey: "practicing-data-\(data.entryId)")
+        UserDefaults.standard.set(indecies, forKey: "practicing-indecies-\(data.practiceItemId ?? "")")
+        UserDefaults.standard.set(data.toJSON(), forKey: "practicing-data-\(data.entryId ?? "")")
         UserDefaults.standard.synchronize()
     }
     
     func practicingData(forPracticeItemId: String) -> [String:[PracticeDaily]] {
         var data = [String:[PracticeDaily]]()
         if let ids = UserDefaults.standard.object(forKey: "practicing-indecies-\(forPracticeItemId)") as? [String:[String]] {
-            for id in ids {
-                if let practiceData = UserDefaults.standard.object(forKey: "practicing-data-\(id)") as? [String:Any] {
-                    if let practice = PracticeDaily(JSON: practiceData) {
-                        var entries = [PracticeDaily]()
-                        if let old = data[practice.entryDateString] {
-                            entries = old
+            for date in ids.keys {
+                if let idValues = ids[date] {
+                    for id in idValues {
+                        if let practiceData = UserDefaults.standard.object(forKey: "practicing-data-\(id)") as? [String:Any] {
+                            if let practice = PracticeDaily(JSON: practiceData) {
+                                var entries = [PracticeDaily]()
+                                if let old = data[practice.entryDateString] {
+                                    entries = old
+                                }
+                                entries.append(practice)
+                                data[practice.entryDateString] = entries
+                            }
                         }
-                        entries.append(practice)
-                        data[practice.entryDateString] = entries
+                        
+                        if let practiceData = UserDefaults.standard.object(forKey: "practicing-data-Optional(\"\(id))\"") as? [String:Any] {
+                            if let practice = PracticeDaily(JSON: practiceData) {
+                                var entries = [PracticeDaily]()
+                                if let old = data[practice.entryDateString] {
+                                    entries = old
+                                }
+                                entries.append(practice)
+                                data[practice.entryDateString] = entries
+                            }
+                        }
                     }
                 }
             }

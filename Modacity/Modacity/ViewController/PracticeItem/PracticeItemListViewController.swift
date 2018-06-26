@@ -139,19 +139,26 @@ extension PracticeItemListViewController: UITableViewDataSource, UITableViewDele
         let practiceItem = self.practiceItems![indexPath.row]
         if let practice = PracticeItemLocalManager.manager.practiceItem(forId: practiceItem.id) {
             
-//            let controller = UIStoryboard(name: "details", bundle: nil).instantiateViewController(withIdentifier: "DetailsScene")
-//            self.tabBarController!.present(controller, animated: true, completion: nil)
+            let controller = UIStoryboard(name: "details", bundle: nil).instantiateViewController(withIdentifier: "DetailsScene") as! UINavigationController
+            let detailsViewController = controller.viewControllers[0] as! DetailsViewController
+            detailsViewController.practiceItemId = practiceItem.id
+            self.tabBarController!.present(controller, animated: true, completion: nil)
             
-            var sceneName = ""
-            if AppUtils.sizeModelOfiPhone() == .iphone5_4in || AppUtils.sizeModelOfiPhone() == .iphone4_35in {
-                sceneName = "PracticeSceneForSmallSizes"
-            } else {
-                sceneName = "PracticeScene"
-            }
-            let controller = UIStoryboard(name: "practice", bundle: nil).instantiateViewController(withIdentifier: sceneName) as! UINavigationController
-            let practiceViewController = controller.viewControllers[0] as! PracticeViewController
-            practiceViewController.practiceItem = practice
-            self.tabBarController?.present(controller, animated: true, completion: nil)
+//            var sceneName = ""
+//            if AppUtils.sizeModelOfiPhone() == .iphone5_4in || AppUtils.sizeModelOfiPhone() == .iphone4_35in {
+//                sceneName = "PracticeSceneForSmallSizes"
+//            } else {
+//                sceneName = "PracticeScene"
+//            }
+//            let controller = UIStoryboard(name: "practice", bundle: nil).instantiateViewController(withIdentifier: sceneName) as! UINavigationController
+//            let practiceViewController = controller.viewControllers[0] as! PracticeViewController
+//            practiceViewController.practiceItem = practice
+//            let deliverModel = PlaylistAndPracticeDeliverModel()
+//            deliverModel.deliverPracticeItem = practiceItem
+//            deliverModel.sessionTimeStarted = Date()
+//            deliverModel.sessionImproved = [ImprovedRecord]()
+//            practiceViewController.deliverModel = deliverModel
+//            self.tabBarController?.present(controller, animated: true, completion: nil)
         }
         ModacityAnalytics.LogStringEvent("Selected Practice Item", extraParamName: "Name", extraParamValue: practiceItem.name)
     }

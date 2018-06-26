@@ -26,8 +26,8 @@ class PlaylistDailyLocalManager: NSObject {
         }
         idsArrayPerDate.append(data.entryId)
         indecies[data.entryDateString] = idsArrayPerDate
-        UserDefaults.standard.set(indecies, forKey: "playlist-indecies-\(data.playlistId)")
-        UserDefaults.standard.set(data.toJSON(), forKey: "playlist-data-\(data.entryId)")
+        UserDefaults.standard.set(indecies, forKey: "playlist-indecies-\(data.playlistId ?? "")")
+        UserDefaults.standard.set(data.toJSON(), forKey: "playlist-data-\(data.entryId ?? "")")
         UserDefaults.standard.synchronize()
         
         DispatchQueue.global(qos: .background).async {
@@ -37,7 +37,7 @@ class PlaylistDailyLocalManager: NSObject {
     
     func storePlaylistPracitingDataToLocal(_ data: PlaylistDaily) {
         var indecies = [String:[String]]()
-        if let old = UserDefaults.standard.object(forKey: "playlist-indecies-\(data.playlistId)") as? [String:[String]] {
+        if let old = UserDefaults.standard.object(forKey: "playlist-indecies-\(data.playlistId ?? "")") as? [String:[String]] {
             indecies = old
         }
         
@@ -48,8 +48,8 @@ class PlaylistDailyLocalManager: NSObject {
         }
         idsArrayPerDate.append(data.entryId)
         indecies[data.entryDateString] = idsArrayPerDate
-        UserDefaults.standard.set(indecies, forKey: "playlist-indecies-\(data.playlistId)")
-        UserDefaults.standard.set(data.toJSON(), forKey: "playlist-data-\(data.entryId)")
+        UserDefaults.standard.set(indecies, forKey: "playlist-indecies-\(data.playlistId ?? "")")
+        UserDefaults.standard.set(data.toJSON(), forKey: "playlist-data-\(data.entryId ?? "")")
         UserDefaults.standard.synchronize()
     }
     
