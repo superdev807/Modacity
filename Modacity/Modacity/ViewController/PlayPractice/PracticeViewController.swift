@@ -694,22 +694,32 @@ extension PracticeViewController {
     }
     
     @IBAction func onTapTimerArrow(_ sender: Any) {
+        
+        var isCountDown: Bool = false
+        
         if self.timerUpProcessed {
+            isCountDown = false
             self.timerUpProcessed = false
             self.startCountUp(from: 0)
         } else {
             if self.countDownDuration > 0 {
+                isCountDown = false
                 self.startCountUp(from: (self.countDownDuration - self.countDownPlayed))
             } else {
+                isCountDown = true
                 if self.timerRunning {
                     let date = Date()
                     let durationSeconds = Int(date.timeIntervalSince1970 - self.countupTimerStarted.timeIntervalSince1970) + self.secondsPrevCountUpPlayed
                     self.startCountDown(from: durationSeconds)
+                    
                 } else {
                     self.startCountDown(from: self.secondsPrevCountUpPlayed)
                 }
             }
         }
+        
+        let modeName = (isCountDown) ? "Countdown" : "Countup"
+        ModacityAnalytics.LogStringEvent("Changed Timer Mode to \(modeName)")
     }
     
     @IBAction func onTapTimer(_ sender: Any) {
@@ -800,6 +810,7 @@ extension PracticeViewController {
     }
     
     func processTimerUp() {
+        ModacityAnalytics.LogStringEvent("Practice Time's Up!")
         self.playDingSound()
         self.viewTimeArea.isHidden = true
         self.labelTimerUp.isHidden = false
@@ -971,7 +982,7 @@ extension PracticeViewController: UICollectionViewDelegate, UICollectionViewData
 extension PracticeViewController: PlayPracticeWalkthroughViewDelegate, PracticeTimerUpWalkThroughViewDelegate {
     
     func showWalkthrough() {
-        
+        ModacityAnalytics.LogStringEvent("Walkthrough - Practice - Displayed")
         let walkThrough: PlayPracticeWalkthroughView = PlayPracticeWalkthroughView()
         self.view.addSubview(walkThrough)
         walkThrough.commonInit()
@@ -994,6 +1005,7 @@ extension PracticeViewController: PlayPracticeWalkthroughViewDelegate, PracticeT
     }
     
     func dismiss(playpracticeWalkThroughView: PlayPracticeWalkthroughView, storing: Bool) {
+        ModacityAnalytics.LogStringEvent("Walkthrough - Practice - Dismissed")
         UIView.animate(withDuration: 0.5, animations: {
             playpracticeWalkThroughView.alpha = 0
         }) { (finished) in
@@ -1009,7 +1021,7 @@ extension PracticeViewController: PlayPracticeWalkthroughViewDelegate, PracticeT
     }
     
     func showTimerUpWalkThrough() {
-        
+        ModacityAnalytics.LogStringEvent("Walkthrough - Timer's Up - Displayed")
         let walkThrough: PracticeTimerUpWalkThroughView = PracticeTimerUpWalkThroughView()
         self.view.addSubview(walkThrough)
         
@@ -1030,6 +1042,7 @@ extension PracticeViewController: PlayPracticeWalkthroughViewDelegate, PracticeT
     }
     
     func dismiss(practiceTimerUpWalkThroughView: PracticeTimerUpWalkThroughView, storing: Bool) {
+        ModacityAnalytics.LogStringEvent("Walkthrough - Timer's Up - Dismissed")
         UIView.animate(withDuration: 0.5, animations: {
             practiceTimerUpWalkThroughView.alpha = 0
         }) { (finished) in
@@ -1112,6 +1125,7 @@ extension PracticeViewController: PlayPracticeTabBarViewDelegate {
 extension PracticeViewController: TimerInputViewDelegate {
     
     func onTabTimer() {
+        ModacityAnalytics.LogStringEvent("Pressed Timer Button")
         self.showTimer()
     }
     
@@ -1144,6 +1158,7 @@ extension PracticeViewController: TimerInputViewDelegate {
     }
     
     func closeTimer() {
+        ModacityAnalytics.LogStringEvent("Practice - Closed Timer")
         self.timerInputViewTopConstraint.constant = UIScreen.main.bounds.size.height
         UIView.animate(withDuration: 0.5, animations: {
             self.view.layoutIfNeeded()
@@ -1155,7 +1170,7 @@ extension PracticeViewController: TimerInputViewDelegate {
     }
     
     func onTimerSelected(timerInSec: Int) {
-        
+        ModacityAnalytics.LogStringEvent("Practice - Set Timer", extraParamName: "Duration", extraParamValue: timerInSec)
         if timerInSec != 0 {
             self.startCountDown(from: timerInSec)
         }

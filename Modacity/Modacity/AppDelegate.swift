@@ -67,7 +67,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FBSDKAppEvents.activateApp()
         ModacityAnalytics.LogEvent(.ResumeActive)
         let settings = UIUserNotificationSettings(types: [.badge, .sound, .alert], categories: nil)
-        application.registerUserNotificationSettings(settings)
+        //application.registerUserNotificationSettings()
         application.registerForRemoteNotifications()
     }
 

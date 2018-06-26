@@ -170,6 +170,7 @@ class PlaylistContentsViewController: UIViewController {
     }
     
     func showWalkThrough1() {
+        ModacityAnalytics.LogStringEvent("Walkthrough - Playlist Intro - Displayed")
         self.showingWalkThrough1 = true
         UIView.animate(withDuration: 0.5) {
             self.viewWalkThrough1.alpha = 1
@@ -177,6 +178,7 @@ class PlaylistContentsViewController: UIViewController {
     }
     
     func showWalkThrough2() {
+        ModacityAnalytics.LogStringEvent("Walkthrough - Playlist Finish - Displayed")
         self.viewWalkThrough2.isHidden = false
         self.viewWalkThrough2.alpha = 0
         UIView.animate(withDuration: 0.5) {
@@ -185,6 +187,7 @@ class PlaylistContentsViewController: UIViewController {
     }
     
     func dismissWalkThrough1(withSetting: Bool) {
+        ModacityAnalytics.LogStringEvent("Walkthrough - Playlist Intro - Dismissed")
         self.viewWalkThrough1.removeFromSuperview()
         if withSetting {
             AppOveralDataManager.manager.walkThroughFirstPlaylist()
@@ -193,6 +196,7 @@ class PlaylistContentsViewController: UIViewController {
     }
     
     func dismissWalkThrough2() {
+        ModacityAnalytics.LogStringEvent("Walkthrough - Playlist Finish - Dismissed")
         UIView.animate(withDuration: 0.5, animations: {
             self.viewWalkThrough2.alpha = 0
         }) { (finished) in
@@ -208,6 +212,7 @@ class PlaylistContentsViewController: UIViewController {
     }
     
     func showWalkThroughNaming() {
+        ModacityAnalytics.LogStringEvent("Walkthrough - Playlist Naming - Displayed")
         self.showingWalkThroughNaming = true
         UIView.animate(withDuration: 0.5) {
             self.viewWalkThroughNaming.alpha = 1
@@ -215,6 +220,7 @@ class PlaylistContentsViewController: UIViewController {
     }
     
     func dismissWalkThroughNaming() {
+        ModacityAnalytics.LogStringEvent("Walkthrough - Playlist Naming - Dismissed")
         UIView.animate(withDuration: 0.5, animations: {
             self.viewWalkThroughNaming.alpha = 0
         }) { (finished) in
