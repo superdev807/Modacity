@@ -161,11 +161,12 @@ extension PlaylistListViewController: PlaylistCellDelegate {
     func onMenu(_ playlist: Playlist, buttonMenu: UIButton, cell: PlaylistCell) {
         DropdownMenuView.instance.show(in: self.view,
                                        on: buttonMenu,
-                                       rows: [["icon":"icon_pen_white", "text": "Rename"],
+                                       rows: [["icon":"icon_notes", "text":"Details"],
+                                              ["icon":"icon_pen_white", "text": "Rename"],
                                               ["icon":"icon_row_delete", "text":"Delete"]]) { (row) in
-                                                if row == 1 {
+                                                if row == 2 {
                                                     self.viewModel.deletePlaylist(for: playlist)
-                                                } else  {
+                                                } else if row == 1 {
 
                                                     if self.editingCell != nil {
                                                         self.editingCell!.textfieldPlaylistName.resignFirstResponder()
@@ -177,7 +178,16 @@ extension PlaylistListViewController: PlaylistCellDelegate {
                                                     cell.textfieldPlaylistName.text = cell.playlist.name
                                                     self.editingCell = cell
                                                     cell.textfieldPlaylistName.becomeFirstResponder()
+                                                } else {
+                                                    self.openDetails(playlist)
                                                 }
         }
+    }
+    
+    func openDetails(_ playlist:Playlist) {
+        let controller = UIStoryboard(name: "details", bundle: nil).instantiateViewController(withIdentifier: "DetailsScene") as! UINavigationController
+        let detailsViewController = controller.viewControllers[0] as! DetailsViewController
+        detailsViewController.playlistItemId = playlist.id
+        self.tabBarController!.present(controller, animated: true, completion: nil)
     }
 }

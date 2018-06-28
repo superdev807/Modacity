@@ -9,7 +9,7 @@
 import UIKit
 import Charts
 
-class StatisticsView: UIView {
+class PlaylistStatsView: UIView {
 
     @IBOutlet var viewContent: UIView!
     
@@ -32,7 +32,6 @@ class StatisticsView: UIView {
     @IBOutlet weak var labelAverageSessionUnit: UILabel!
     
     @IBOutlet weak var chartViewBarGraph: BarChartView!
-    @IBOutlet weak var chartViewStarRatings: LineChartView!
     
     @IBOutlet weak var labelWeekDuration: UILabel!
     @IBOutlet weak var buttonPreviousWeek: UIButton!
@@ -41,8 +40,22 @@ class StatisticsView: UIView {
     @IBOutlet weak var labelTotalTime: UILabel!
     @IBOutlet weak var labelTotalTimeUnit: UILabel!
     
-    var practiceItemIdForStats: String!
-    var practiceData: [String: [PracticeDaily]]! = nil
+    @IBOutlet weak var buttonDetailsBack: UIButton!
+    @IBOutlet weak var labelDetailsTitle: UILabel!
+    @IBOutlet weak var buttonDetailsForward: UIButton!
+    @IBOutlet weak var viewDetailsList: UIView!
+    
+    
+    @IBOutlet weak var constraintForPracticeDetailsHistoryPanelHeight: NSLayoutConstraint!
+    @IBOutlet weak var viewForPracticeDetailsHistoryPanel: UIView!
+    
+    let detailsPeriodKeys = ["this_week", "last_week", "this_month", "last_month"]
+    var detailsPeriodKeyIndex = 0
+    
+    var playlistIdForStats: String!
+    var practiceData: [String: [PlaylistDaily]]! = nil
+    
+    var detailsData = [String:[String: [String:Int]]]()       // this_week: practice_item_id : [time:0, improvements:0]
     
     var date = Date()
     
@@ -57,7 +70,7 @@ class StatisticsView: UIView {
     }
     
     func commonInit() {
-        Bundle.main.loadNibNamed("StatisticsView", owner: self, options: nil)
+        Bundle.main.loadNibNamed("PlaylistStatsView", owner: self, options: nil)
         self.addSubview(self.viewContent)
         
         self.translatesAutoresizingMaskIntoConstraints = false
@@ -87,12 +100,15 @@ class StatisticsView: UIView {
         self.viewAverageSessionDurationPanel.layer.cornerRadius = 5
         self.viewAverageSessionDurationPanel.layer.borderColor = Color.white.alpha(0.1).cgColor
         
+        self.viewForPracticeDetailsHistoryPanel.layer.cornerRadius = 5
+        self.viewForPracticeDetailsHistoryPanel.layer.borderColor = Color.white.alpha(0.1).cgColor
+        self.constraintForPracticeDetailsHistoryPanelHeight.constant = 100
         initializeBarChart()
         
-        self.showValues()
+        self.showSelectedWeekValues()
     }
     
-    func showValues() {
+    func showSelectedWeekValues() {
         
         let monday = self.date.weekDay(for: .mon)
         let sunday = self.date.addingTimeInterval(7 * 24 * 3600).weekDay(for: .sun)
@@ -105,10 +121,8 @@ class StatisticsView: UIView {
         }
         
         if self.practiceData != nil {
-            var totalSeconds = 0
             var secondsData = [String:Int]()
-            var ratings = [Double:Double]()
-            
+            var totalSeconds = 0
             for date in self.practiceData.keys {
                 let time = date.date(format: "yy-MM-dd")
                 if let dailyDatas = self.practiceData[date] {
@@ -121,18 +135,10 @@ class StatisticsView: UIView {
                                 secondsData[date] = daily.practiceTimeInSeconds
                             }
                         }
-                        
                         totalSeconds = totalSeconds + daily.practiceTimeInSeconds
-                        
-                        if daily.rating > 0 {
-                            let ratingKey = (daily.entryDateString + " " + daily.fromTime).date(format: "yy-MM-dd HH:mm:ss")!.timeIntervalSince1970
-                            ratings[ratingKey] = daily.rating
-                        }
                     }
                 }
             }
-            
-            print("seconds data \(secondsData)")
             
             if totalSeconds > 0 && totalSeconds < 60 {
                 self.labelTotalTime.text = "\(totalSeconds)"
@@ -141,6 +147,8 @@ class StatisticsView: UIView {
                 self.labelTotalTime.text = "\(totalSeconds / 60)"
                 self.labelTotalTimeUnit.text = "TOTAL\nMINUTES"
             }
+            
+            print("seconds data \(secondsData)")
             
             var cal = monday
             var seconds = [Double]()
@@ -158,34 +166,36 @@ class StatisticsView: UIView {
             
             setBarChart(dataPoints: ["MON", "TUE", "WED", "THR", "FRI", "SAT", "SUN"], values: seconds)
             
-            print("ratings - \(ratings)")
-            let sorted = ratings.sorted {$0.key < $1.key}
-            var ratingsLine = [Double]()
-            for (_, value) in sorted {
-                ratingsLine.append(value)
-            }
-            print("ratings sorted - \(ratingsLine)")
-            setLineChart(values: ratingsLine)
-            
         } else {
-            setLineChart(values: [0,0,0,0,0,0,0,0,0,0])
+            
             setBarChart(dataPoints: ["MON", "TUE", "WED", "THR", "FRI", "SAT", "SUN"], values: [0,0,0,0,0,0,0])
         }
     }
     
     @IBAction func onPreviousWeek(_ sender: Any) {
         self.date = self.date.addingTimeInterval(-1 * 7 * 24 * 3600)
-        self.showValues()
+        self.showSelectedWeekValues()
     }
     
     @IBAction func onNextWeek(_ sender: Any) {
         self.date = self.date.addingTimeInterval(7 * 24 * 3600)
-        self.showValues()
+        self.showSelectedWeekValues()
     }
     
-    func showStats(practice: String) {
-        self.practiceItemIdForStats = practice
-        let data = PracticingDailyLocalManager.manager.practicingData(forPracticeItemId: practice)
+    @IBAction func onPrevPeriod(_ sender: Any) {
+        self.detailsPeriodKeyIndex = self.detailsPeriodKeyIndex - 1
+        self.showSelectedPeriodStats()
+    }
+    
+    @IBAction func onNextPeriod(_ sender: Any) {
+        self.detailsPeriodKeyIndex = self.detailsPeriodKeyIndex + 1
+        self.showSelectedPeriodStats()
+    }
+    
+    func showStats(playlistId: String) {
+        
+        self.playlistIdForStats = playlistId
+        let data = PlaylistDailyLocalManager.manager.playlistPracticingData(forPlaylistId: playlistId)
         print("Statistics data - \(data)")
         
         var totalMinutes = 0
@@ -204,22 +214,52 @@ class StatisticsView: UIView {
                     
                     if time!.isThisWeek() {
                         thisWeekTotal = thisWeekTotal + daily.practiceTimeInSeconds
+                        for practice in daily.practices {
+                            if let practiceDailyData = PracticingDailyLocalManager.manager.practicingData(forDataId: practice) {
+                                if let practiceItemId = practiceDailyData.practiceItemId {
+                                    self.configureDetails(key: "this_week", practiceItemId: practiceItemId, practiceDailyData: practiceDailyData)
+                                }
+                            }
+                        }
                     }
                  
                     if time!.isLastWeek() {
                         lastWeekTotal = lastWeekTotal + daily.practiceTimeInSeconds
+                        for practice in daily.practices {
+                            if let practiceDailyData = PracticingDailyLocalManager.manager.practicingData(forDataId: practice) {
+                                if let practiceItemId = practiceDailyData.practiceItemId {
+                                    self.configureDetails(key: "last_week", practiceItemId: practiceItemId, practiceDailyData: practiceDailyData)
+                                }
+                            }
+                        }
                     }
                     
                     if time!.isThisMonth() {
                         thisMonthTotal = thisMonthTotal + daily.practiceTimeInSeconds
+                        for practice in daily.practices {
+                            if let practiceDailyData = PracticingDailyLocalManager.manager.practicingData(forDataId: practice) {
+                                if let practiceItemId = practiceDailyData.practiceItemId {
+                                    self.configureDetails(key: "this_month", practiceItemId: practiceItemId, practiceDailyData: practiceDailyData)
+                                }
+                            }
+                        }
                     }
                     
                     if time!.isLastMonth() {
                         lastMonthTotal = lastMonthTotal + daily.practiceTimeInSeconds
+                        for practice in daily.practices {
+                            if let practiceDailyData = PracticingDailyLocalManager.manager.practicingData(forDataId: practice) {
+                                if let practiceItemId = practiceDailyData.practiceItemId {
+                                    self.configureDetails(key: "last_month", practiceItemId: practiceItemId, practiceDailyData: practiceDailyData)
+                                }
+                            }
+                        }
                     }
                 }
             }
         }
+        
+        print("details - \(detailsData)")
         
         if entryCount > 0  {
             let aver = Int(totalMinutes / entryCount)
@@ -267,67 +307,101 @@ class StatisticsView: UIView {
         }
         
         self.practiceData = data
-        self.showValues()
+        self.showSelectedWeekValues()
+        self.showSelectedPeriodStats()
     }
     
+    func configureDetails(key: String, practiceItemId:String, practiceDailyData:PracticeDaily) {
+        if detailsData[key] == nil {
+            detailsData[key] = [String:[String:Int]]()
+        }
+        
+        if let d = detailsData[key]![practiceItemId] {
+            
+            var newTime = 0
+            var newImprovements = 0
+            
+            if let time = d["time"] {
+                newTime = time + practiceDailyData.practiceTimeInSeconds
+            }
+            
+            if let improvements = d["improvements"] {
+                newImprovements = improvements + (practiceDailyData.improvements?.count ?? 0)
+            }
+            
+            detailsData[key]![practiceItemId] = ["time": newTime, "improvements": newImprovements]
+        } else {
+            detailsData[key]![practiceItemId] = ["time": practiceDailyData.practiceTimeInSeconds, "improvements": (practiceDailyData.improvements?.count ?? 0)]
+        }
+    }
+    
+    func showSelectedPeriodStats() {
+        self.viewDetailsList.subviews.forEach {$0.removeFromSuperview()}
+        
+        if self.detailsPeriodKeyIndex == 0 {
+            self.buttonDetailsBack.isHidden = true
+            self.buttonDetailsForward.isHidden = false
+        } else if self.detailsPeriodKeyIndex == 3 {
+            self.buttonDetailsBack.isHidden = false
+            self.buttonDetailsForward.isHidden = true
+        } else {
+            self.buttonDetailsBack.isHidden = false
+            self.buttonDetailsForward.isHidden = false
+        }
+        
+        switch self.detailsPeriodKeyIndex {
+        case 0:
+            self.labelDetailsTitle.text = "THIS WEEK"
+        case 1:
+            self.labelDetailsTitle.text = "LAST WEEK"
+        case 2:
+            self.labelDetailsTitle.text = "THIS MONTH"
+        case 3:
+            self.labelDetailsTitle.text = "LAST MONTH"
+        default:
+            break
+        }
+        
+        if let stats = detailsData[detailsPeriodKeys[detailsPeriodKeyIndex]] {
+            var lastView: UIView? = nil
+            for practiceItemId in stats.keys {
+                let rowView = PracticeHistoryDetailsRowView()
+                var practiceName = ""
+                if let practice = PracticeItemLocalManager.manager.practiceItem(forId: practiceItemId) {
+                    practiceName = practice.name
+                }
+                rowView.configure(title: practiceName, time: stats[practiceItemId]!["time"] ?? 0, improvements: stats[practiceItemId]!["improvements"] ?? 0)
+                self.viewDetailsList.addSubview(rowView)
+                
+                rowView.leadingAnchor.constraint(equalTo: self.viewDetailsList.leadingAnchor).isActive = true
+                rowView.trailingAnchor.constraint(equalTo: self.viewDetailsList.trailingAnchor).isActive = true
+                rowView.heightAnchor.constraint(equalToConstant: 36).isActive = true
+                if let lastView = lastView {
+                    rowView.topAnchor.constraint(equalTo: lastView.bottomAnchor).isActive = true
+                } else {
+                    rowView.topAnchor.constraint(equalTo: self.viewDetailsList.topAnchor).isActive = true
+                }
+                lastView = rowView
+            }
+            self.constraintForPracticeDetailsHistoryPanelHeight.constant = CGFloat(65.5 + Double(stats.keys.count) * 36.0)
+        } else {
+            let label = UILabel()
+            label.textColor = Color.white
+            label.text = "No data"
+            label.translatesAutoresizingMaskIntoConstraints = false
+            self.viewDetailsList.addSubview(label)
+            label.leadingAnchor.constraint(equalTo: self.viewDetailsList.leadingAnchor).isActive = true
+            label.trailingAnchor.constraint(equalTo: self.viewDetailsList.trailingAnchor).isActive = true
+            label.heightAnchor.constraint(equalToConstant: 36).isActive = true
+            label.topAnchor.constraint(equalTo: self.viewDetailsList.topAnchor).isActive = true
+            self.constraintForPracticeDetailsHistoryPanelHeight.constant = CGFloat(65.5 + 36.0)
+        }
+    }
 }
 
 
 // MARK: - Show charts
-extension StatisticsView {
-    func setLineChart(values: [Double]) {
-        
-        var dataEntries: [ChartDataEntry] = []
-        
-        for i in 0..<values.count {
-            let dataEntry = ChartDataEntry(x: Double(i), y: values[i])
-            dataEntries.append(dataEntry)
-        }
-        
-        let chartDataSet = LineChartDataSet(values: dataEntries, label: nil)
-        
-        let gradientColors = [Color(hexString: "#6815CE").cgColor, Color(hexString: "#2B67F5").cgColor] as CFArray
-        let colorLocations:[CGFloat] = [1.0, 0.0]
-        let gradient = CGGradient(colorsSpace: CGColorSpaceCreateDeviceRGB(), colors: gradientColors, locations: colorLocations)
-        
-        chartDataSet.fill = Fill.fillWithLinearGradient(gradient!, angle: 0)
-        chartDataSet.fillAlpha = 0.25
-        chartDataSet.drawFilledEnabled = true
-        chartDataSet.mode = .cubicBezier
-        chartDataSet.drawCirclesEnabled = false
-        chartDataSet.lineWidth = 5
-        chartDataSet.drawCircleHoleEnabled = false
-        chartDataSet.colors = [Color(hexString: "#2B67F5")]
-        chartDataSet.drawValuesEnabled = false
-        
-        let chartData = LineChartData(dataSet: chartDataSet)
-        chartViewStarRatings.data = chartData
-        
-        chartViewStarRatings.xAxis.labelPosition = .bottom
-        chartViewStarRatings.xAxis.drawGridLinesEnabled = false
-        chartViewStarRatings.xAxis.drawAxisLineEnabled = true
-        chartViewStarRatings.xAxis.drawLabelsEnabled = false
-        
-        chartViewStarRatings.chartDescription?.enabled = false
-        chartViewStarRatings.rightAxis.enabled = false
-        chartViewStarRatings.leftAxis.enabled = true
-        chartViewStarRatings.legend.enabled = false
-        
-        chartViewStarRatings.leftAxis.drawGridLinesEnabled = true
-        chartViewStarRatings.leftAxis.drawAxisLineEnabled = true
-        chartViewStarRatings.leftAxis.drawLabelsEnabled = true
-        chartViewStarRatings.leftAxis.labelTextColor = Color.white.alpha(0.5)
-        
-        chartViewStarRatings.leftAxis.granularityEnabled = true
-        chartViewStarRatings.leftAxis.granularity = 1.0
-        chartViewStarRatings.leftAxis.decimals = 0
-        chartViewStarRatings.leftAxis.valueFormatter = ChartAxisLineIntFormatter()
-        
-        chartViewStarRatings.leftAxis.axisMinimum = 0.5
-        chartViewStarRatings.leftAxis.axisMaximum = 5.5
-        
-        chartViewStarRatings.animate(yAxisDuration: 1.5)
-    }
+extension PlaylistStatsView {
     
     func initializeBarChart() {
         chartViewBarGraph.noDataText = "You need to provide data for the chart."
@@ -395,45 +469,5 @@ extension StatisticsView {
         chartViewBarGraph.data = chartData
         
         chartViewBarGraph.animate(yAxisDuration: 1.5)
-    }
-}
-
-@objc(BarChartFormatter)
-public class BarChartFormatter: NSObject, IAxisValueFormatter
-{
-    var names = [String]()
-    
-    public func stringForValue(_ value: Double, axis: AxisBase?) -> String
-    {
-        return names[Int(value)]
-    }
-    
-    public func setValues(values: [String])
-    {
-        self.names = values
-    }
-}
-
-@objc(BarChartFormatter)
-public class ChartAxisLineIntFormatter: NSObject, IAxisValueFormatter
-{
-    public func stringForValue(_ value: Double, axis: AxisBase?) -> String
-    {
-        return "\(Int(value)) ★"
-    }
-}
-
-
-class BarChartIntFormatter: NSObject, IValueFormatter{
-    public func stringForValue(_ value: Double, entry: ChartDataEntry, dataSetIndex: Int, viewPortHandler: ViewPortHandler?) -> String {
-        if value == 0 {
-            return ""
-        }
-        if value >= 1 {
-            let correctValue = Int(value)
-            return String(correctValue)
-        } else {
-            return String(format: "%.1f", value)
-        }
     }
 }

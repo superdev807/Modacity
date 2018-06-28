@@ -10,14 +10,15 @@ import UIKit
 import Charts
 import AVFoundation
 
-class PracticeHistoryDetailsRowView: UIView {
+class PlaylistHistoryDetailsRowView: UIView {
 
     @IBOutlet var viewContent: UIView!
     
-    @IBOutlet weak var labelTime: UILabel!
+    @IBOutlet weak var labelPracticeItemName: UILabel!
     @IBOutlet weak var labelStarRating: UILabel!
     @IBOutlet weak var labelImprovements: UILabel!
     @IBOutlet weak var imageViewStarIcon: UIImageView!
+    @IBOutlet weak var labelTime: UILabel!
     
     override init(frame: CGRect) {
         super.init(frame:frame)
@@ -30,7 +31,7 @@ class PracticeHistoryDetailsRowView: UIView {
     }
     
     func commonInit() {
-        Bundle.main.loadNibNamed("PracticeHistoryDetailsRowView", owner: self, options: nil)
+        Bundle.main.loadNibNamed("PlaylistHistoryDetailsRowView", owner: self, options: nil)
         self.addSubview(self.viewContent)
         
         self.translatesAutoresizingMaskIntoConstraints = false
@@ -42,28 +43,24 @@ class PracticeHistoryDetailsRowView: UIView {
         self.viewContent.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
     }
     
-    func configure(title: String, time: Int, improvements:Int) {
-        let formatter = NumberFormatter()
-        formatter.minimumFractionDigits = 0
-        formatter.maximumFractionDigits = 2
-        
-        self.imageViewStarIcon.image = UIImage(named: "icon_clock")
-        self.labelTime.text = title
-        self.labelStarRating.text = "\(time)"
-        self.labelImprovements.text = "\(improvements)"
-    }
-    
-    func configure(with data: PracticeDaily) {
+    func configure(with data: PlaylistPracticeHistoryData) {
         
         let formatter = NumberFormatter()
         formatter.minimumFractionDigits = 0
         formatter.maximumFractionDigits = 2
         
-        let from = data.fromTime!.date(format: "HH:mm:ss")?.toString(format: "h:mm a") ?? ""
-        let to = Date(timeIntervalSince1970: data.startedTime).addingTimeInterval(Double(data.practiceTimeInSeconds)).toString(format: "h:mm a")
-        self.labelTime.text = "\(from) - \(to)"
-        self.labelStarRating.text = formatter.string(from: data.rating as NSNumber) ?? "n/a"
-        self.labelImprovements.text = "\(data.improvements?.count ?? 0)"
+        self.labelPracticeItemName.text = ""
+        if let practice = PracticeItemLocalManager.manager.practiceItem(forId: data.practiceItemId) {
+            self.labelPracticeItemName.text = practice.name
+        }
+        let timeInSecond = data.time ?? 0
+        if timeInSecond > 0 && timeInSecond < 60 {
+            self.labelTime.text = "\(timeInSecond)s"
+        } else {
+            self.labelTime.text = "\(timeInSecond / 60)m"
+        }
+        self.labelStarRating.text = formatter.string(from: data.calculateAverageRatings() as NSNumber) ?? "n/a"
+        self.labelImprovements.text = "\(data.improvements.count)"
         
     }
 }

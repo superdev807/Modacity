@@ -701,7 +701,7 @@ extension PlaylistContentsViewController: PlaylistPracticeItemCellDelegate {
         DropdownMenuView.instance.show(in: self.view,
                                        on: buttonMenu,
                                        rows: [["icon":"icon_row_clock", "text":"Set Timer"],
-                                              ["icon":"icon_notes", "text":"Notes"],
+                                              ["icon":"icon_notes", "text":"Details"],
                                               ["icon":"icon_row_delete", "text":"Remove"]]) { (row) in
                                                 
                                                 if row == 2 {
@@ -710,10 +710,15 @@ extension PlaylistContentsViewController: PlaylistPracticeItemCellDelegate {
                                                 } else if row == 0 {
                                                     self.openClockEdit(for: item)
                                                 } else if row == 1 {
-                                                    self.openNotes(for: item)
+                                                    self.openDetails(for: item)
+//                                                    self.openNotes(for: item)
                                                 }
                                                 
                                         }
+    }
+    
+    func openDetails(for item:PlaylistPracticeEntry) {
+        
     }
     
     func openNotes(for item:PlaylistPracticeEntry) {

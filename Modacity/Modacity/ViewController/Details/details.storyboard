@@ -61,8 +61,8 @@
                                     <action selector="onBack:" destination="cJV-ma-hzf" eventType="touchUpInside" id="ztf-xu-R0P"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Warm Up" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hyC-gO-fyW">
-                                <rect key="frame" x="44" y="37" width="287" height="19.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hyC-gO-fyW">
+                                <rect key="frame" x="44" y="47" width="287" height="0.0"/>
                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -268,6 +268,7 @@
                     <navigationItem key="navigationItem" id="PmT-EC-dTj"/>
                     <connections>
                         <outlet property="imageViewHeader" destination="2LP-jm-Toe" id="NQk-zm-co5"/>
+                        <outlet property="labelTitle" destination="hyC-gO-fyW" id="KEm-zx-HvX"/>
                         <outlet property="viewIndicatorTab1" destination="AUw-r9-Jlv" id="JUX-2n-fRa"/>
                         <outlet property="viewIndicatorTab2" destination="4Kr-L7-fNJ" id="Pab-jo-ilc"/>
                         <outlet property="viewIndicatorTab3" destination="Jpu-fw-esm" id="baH-fz-Tw4"/>

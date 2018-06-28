@@ -11,12 +11,13 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PracticeHistoryDetailsRowView" customModule="Modacity" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PlaylistHistoryDetailsRowView" customModule="Modacity" customModuleProvider="target">
             <connections>
                 <outlet property="imageViewStarIcon" destination="eT6-Fj-eth" id="zTt-hr-mQj"/>
                 <outlet property="labelImprovements" destination="sg2-Jv-cgZ" id="gbJ-Yk-TIZ"/>
+                <outlet property="labelPracticeItemName" destination="r2y-sp-YeY" id="zaQ-Sn-LSg"/>
                 <outlet property="labelStarRating" destination="8EU-4y-bZJ" id="DRB-pT-Rhe"/>
-                <outlet property="labelTime" destination="r2y-sp-YeY" id="rd8-pi-1RA"/>
+                <outlet property="labelTime" destination="dHM-gS-c5R" id="Z37-P4-AwU"/>
                 <outlet property="viewContent" destination="mXc-6y-zp0" id="yO9-UA-euQ"/>
             </connections>
         </placeholder>
@@ -26,7 +27,23 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="11:02 AM ~ 11:02 AM" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r2y-sp-YeY">
-                    <rect key="frame" x="11" y="9.5" width="287" height="15"/>
+                    <rect key="frame" x="11" y="9.5" width="227" height="15"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_clock" translatesAutoresizingMaskIntoConstraints="NO" id="BKJ-z8-V1r">
+                    <rect key="frame" x="248" y="7" width="20" height="19"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="20" id="DLx-5f-GaO"/>
+                        <constraint firstAttribute="width" secondItem="BKJ-z8-V1r" secondAttribute="height" multiplier="20:19" id="r0N-VH-KGL"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="253" verticalHuggingPriority="251" text="4.5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dHM-gS-c5R">
+                    <rect key="frame" x="273" y="9" width="30" height="15"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="30" id="PMR-yO-3pj"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
@@ -62,7 +79,7 @@
                         <constraint firstAttribute="width" constant="20" id="SiC-ZO-j6y"/>
                     </constraints>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="253" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sg2-Jv-cgZ">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="253" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sg2-Jv-cgZ">
                     <rect key="frame" x="404" y="9.5" width="15" height="15"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="15" id="cCQ-XK-F2U"/>
@@ -77,16 +94,21 @@
                 <constraint firstItem="sg2-Jv-cgZ" firstAttribute="centerY" secondItem="9Df-qb-l5P" secondAttribute="centerY" id="A4v-32-fxA"/>
                 <constraint firstItem="8EU-4y-bZJ" firstAttribute="centerY" secondItem="9Df-qb-l5P" secondAttribute="centerY" id="FgV-L3-KaV"/>
                 <constraint firstItem="J2B-67-KuE" firstAttribute="centerY" secondItem="9Df-qb-l5P" secondAttribute="centerY" id="J1f-Po-eqO"/>
+                <constraint firstItem="BKJ-z8-V1r" firstAttribute="leading" secondItem="r2y-sp-YeY" secondAttribute="trailing" constant="10" id="MBY-wq-oOl"/>
                 <constraint firstItem="sg2-Jv-cgZ" firstAttribute="leading" secondItem="J2B-67-KuE" secondAttribute="trailing" constant="5" id="P8W-8D-DJj"/>
+                <constraint firstItem="dHM-gS-c5R" firstAttribute="leading" secondItem="BKJ-z8-V1r" secondAttribute="trailing" constant="5" id="Pbz-Je-xum"/>
                 <constraint firstItem="r2y-sp-YeY" firstAttribute="centerY" secondItem="9Df-qb-l5P" secondAttribute="centerY" id="Qfp-4A-mzh"/>
                 <constraint firstItem="r2y-sp-YeY" firstAttribute="leading" secondItem="9Df-qb-l5P" secondAttribute="leading" constant="11" id="Rje-yB-JnR"/>
                 <constraint firstItem="J2B-67-KuE" firstAttribute="leading" secondItem="Eeu-ey-y4V" secondAttribute="trailing" constant="10" id="T4s-B8-1Ea"/>
+                <constraint firstItem="BKJ-z8-V1r" firstAttribute="centerY" secondItem="9Df-qb-l5P" secondAttribute="centerY" id="Tq2-Re-EZt"/>
                 <constraint firstItem="8EU-4y-bZJ" firstAttribute="leading" secondItem="eT6-Fj-eth" secondAttribute="trailing" constant="5" id="U3U-BR-zJ9"/>
                 <constraint firstItem="eT6-Fj-eth" firstAttribute="centerY" secondItem="9Df-qb-l5P" secondAttribute="centerY" id="WRG-hm-YCr"/>
-                <constraint firstItem="eT6-Fj-eth" firstAttribute="leading" secondItem="r2y-sp-YeY" secondAttribute="trailing" constant="10" id="WUK-tV-TQa"/>
                 <constraint firstItem="Eeu-ey-y4V" firstAttribute="centerY" secondItem="9Df-qb-l5P" secondAttribute="centerY" id="Wbq-9T-Qt5"/>
                 <constraint firstItem="Eeu-ey-y4V" firstAttribute="leading" secondItem="8EU-4y-bZJ" secondAttribute="trailing" constant="5" id="Wjs-Z9-KhY"/>
+                <constraint firstItem="dHM-gS-c5R" firstAttribute="centerY" secondItem="9Df-qb-l5P" secondAttribute="centerY" id="gvC-Wf-nWv"/>
                 <constraint firstItem="9Df-qb-l5P" firstAttribute="trailing" secondItem="sg2-Jv-cgZ" secondAttribute="trailing" id="jlw-YH-xTO"/>
+                <constraint firstItem="BKJ-z8-V1r" firstAttribute="width" secondItem="BKJ-z8-V1r" secondAttribute="height" multiplier="20:19" id="pmJ-Zx-0dW"/>
+                <constraint firstItem="eT6-Fj-eth" firstAttribute="leading" secondItem="dHM-gS-c5R" secondAttribute="trailing" constant="5" id="yml-o9-Frz"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="9Df-qb-l5P"/>
@@ -94,6 +116,7 @@
         </view>
     </objects>
     <resources>
+        <image name="icon_clock" width="25" height="25"/>
         <image name="img_star_filled" width="40" height="38"/>
         <image name="practice_tab_improve" width="30" height="30"/>
     </resources>

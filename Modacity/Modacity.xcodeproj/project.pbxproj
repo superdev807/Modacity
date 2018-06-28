@@ -203,6 +203,18 @@
 		E21BEA1B20917C46000D1877 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E21BEA1720917C45000D1877 /* GoogleService-Info.plist */; };
 		E21BEA1C20917C46000D1877 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E21BEA1920917C46000D1877 /* GoogleService-Info.plist */; };
 		E21BEA1F2091807D000D1877 /* Info-dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = E21BEA1E2091807D000D1877 /* Info-dev.plist */; };
+		E23C337720E5172D000EED10 /* PlaylistHistoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E23C337520E5172D000EED10 /* PlaylistHistoryView.xib */; };
+		E23C337820E5172D000EED10 /* PlaylistHistoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E23C337520E5172D000EED10 /* PlaylistHistoryView.xib */; };
+		E23C337920E5172D000EED10 /* PlaylistHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23C337620E5172D000EED10 /* PlaylistHistoryView.swift */; };
+		E23C337A20E5172D000EED10 /* PlaylistHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23C337620E5172D000EED10 /* PlaylistHistoryView.swift */; };
+		E23C337D20E51CA4000EED10 /* PlaylistHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E23C337B20E51CA3000EED10 /* PlaylistHistoryCell.xib */; };
+		E23C337E20E51CA4000EED10 /* PlaylistHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E23C337B20E51CA3000EED10 /* PlaylistHistoryCell.xib */; };
+		E23C337F20E51CA4000EED10 /* PlaylistHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23C337C20E51CA3000EED10 /* PlaylistHistoryCell.swift */; };
+		E23C338020E51CA4000EED10 /* PlaylistHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23C337C20E51CA3000EED10 /* PlaylistHistoryCell.swift */; };
+		E23C338320E51DD3000EED10 /* PlaylistHistoryDetailsRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23C338120E51DD3000EED10 /* PlaylistHistoryDetailsRowView.swift */; };
+		E23C338420E51DD3000EED10 /* PlaylistHistoryDetailsRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23C338120E51DD3000EED10 /* PlaylistHistoryDetailsRowView.swift */; };
+		E23C338520E51DD3000EED10 /* PlaylistHistoryDetailsRowView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E23C338220E51DD3000EED10 /* PlaylistHistoryDetailsRowView.xib */; };
+		E23C338620E51DD3000EED10 /* PlaylistHistoryDetailsRowView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E23C338220E51DD3000EED10 /* PlaylistHistoryDetailsRowView.xib */; };
 		E23D7A7020A1EEB40052EE78 /* OverallDataRemoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23D7A6F20A1EEB40052EE78 /* OverallDataRemoteManager.swift */; };
 		E23D7A7120A1EEB40052EE78 /* OverallDataRemoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23D7A6F20A1EEB40052EE78 /* OverallDataRemoteManager.swift */; };
 		E245700120D00C6F00C9F720 /* SubdivisionSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E245700020D00C6F00C9F720 /* SubdivisionSelectView.swift */; };
@@ -271,6 +283,10 @@
 		E283C51C20D16953002651E0 /* TimerInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E283C51A20D16953002651E0 /* TimerInputView.xib */; };
 		E283C51E20D1696A002651E0 /* TimerInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E283C51D20D1696A002651E0 /* TimerInputView.swift */; };
 		E283C51F20D1696A002651E0 /* TimerInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E283C51D20D1696A002651E0 /* TimerInputView.swift */; };
+		E28B822720E484B6005CA660 /* PlaylistStatsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E28B822520E484B6005CA660 /* PlaylistStatsView.xib */; };
+		E28B822820E484B6005CA660 /* PlaylistStatsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E28B822520E484B6005CA660 /* PlaylistStatsView.xib */; };
+		E28B822920E484B6005CA660 /* PlaylistStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B822620E484B6005CA660 /* PlaylistStatsView.swift */; };
+		E28B822A20E484B6005CA660 /* PlaylistStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B822620E484B6005CA660 /* PlaylistStatsView.swift */; };
 		E29A30B020DA547D006125E2 /* PracticeTimerUpWalkThroughView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E29A30AE20DA547C006125E2 /* PracticeTimerUpWalkThroughView.xib */; };
 		E29A30B120DA547D006125E2 /* PracticeTimerUpWalkThroughView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E29A30AE20DA547C006125E2 /* PracticeTimerUpWalkThroughView.xib */; };
 		E29A30B220DA547D006125E2 /* PracticeTimerUpWalkThroughView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29A30AF20DA547C006125E2 /* PracticeTimerUpWalkThroughView.swift */; };
@@ -430,6 +446,12 @@
 		E21BEA1720917C45000D1877 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E21BEA1920917C46000D1877 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E21BEA1E2091807D000D1877 /* Info-dev.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-dev.plist"; sourceTree = "<group>"; };
+		E23C337520E5172D000EED10 /* PlaylistHistoryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlaylistHistoryView.xib; sourceTree = "<group>"; };
+		E23C337620E5172D000EED10 /* PlaylistHistoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistHistoryView.swift; sourceTree = "<group>"; };
+		E23C337B20E51CA3000EED10 /* PlaylistHistoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlaylistHistoryCell.xib; sourceTree = "<group>"; };
+		E23C337C20E51CA3000EED10 /* PlaylistHistoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistHistoryCell.swift; sourceTree = "<group>"; };
+		E23C338120E51DD3000EED10 /* PlaylistHistoryDetailsRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistHistoryDetailsRowView.swift; sourceTree = "<group>"; };
+		E23C338220E51DD3000EED10 /* PlaylistHistoryDetailsRowView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlaylistHistoryDetailsRowView.xib; sourceTree = "<group>"; };
 		E23D7A6F20A1EEB40052EE78 /* OverallDataRemoteManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverallDataRemoteManager.swift; sourceTree = "<group>"; };
 		E245700020D00C6F00C9F720 /* SubdivisionSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubdivisionSelectView.swift; sourceTree = "<group>"; };
 		E245700320D00C9C00C9F720 /* SubdivisionSelectView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SubdivisionSelectView.xib; sourceTree = "<group>"; };
@@ -464,6 +486,8 @@
 		E2806C3E20ABD1290066959A /* PracticeItemListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeItemListViewController.swift; sourceTree = "<group>"; };
 		E283C51A20D16953002651E0 /* TimerInputView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimerInputView.xib; sourceTree = "<group>"; };
 		E283C51D20D1696A002651E0 /* TimerInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerInputView.swift; sourceTree = "<group>"; };
+		E28B822520E484B6005CA660 /* PlaylistStatsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlaylistStatsView.xib; sourceTree = "<group>"; };
+		E28B822620E484B6005CA660 /* PlaylistStatsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistStatsView.swift; sourceTree = "<group>"; };
 		E29A30AE20DA547C006125E2 /* PracticeTimerUpWalkThroughView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PracticeTimerUpWalkThroughView.xib; sourceTree = "<group>"; };
 		E29A30AF20DA547C006125E2 /* PracticeTimerUpWalkThroughView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PracticeTimerUpWalkThroughView.swift; sourceTree = "<group>"; };
 		E2BA245B20C8D1590048A5D5 /* MetroDroneAudio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetroDroneAudio.swift; sourceTree = "<group>"; };
@@ -910,8 +934,16 @@
 		E249E61720DAA63B00FBDA72 /* Details */ = {
 			isa = PBXGroup;
 			children = (
-				E249E61820DAA66E00FBDA72 /* DetailsViewController.swift */,
 				E249E61B20DAA68500FBDA72 /* details.storyboard */,
+				E249E61820DAA66E00FBDA72 /* DetailsViewController.swift */,
+				E23C337620E5172D000EED10 /* PlaylistHistoryView.swift */,
+				E23C337520E5172D000EED10 /* PlaylistHistoryView.xib */,
+				E23C337C20E51CA3000EED10 /* PlaylistHistoryCell.swift */,
+				E23C337B20E51CA3000EED10 /* PlaylistHistoryCell.xib */,
+				E23C338120E51DD3000EED10 /* PlaylistHistoryDetailsRowView.swift */,
+				E23C338220E51DD3000EED10 /* PlaylistHistoryDetailsRowView.xib */,
+				E28B822620E484B6005CA660 /* PlaylistStatsView.swift */,
+				E28B822520E484B6005CA660 /* PlaylistStatsView.xib */,
 				E249E61E20DAB6C700FBDA72 /* StatisticsView.swift */,
 				E249E61F20DAB6C800FBDA72 /* StatisticsView.xib */,
 				E251C9C420E13C2600C8BC49 /* HistoryListView.swift */,
@@ -1117,7 +1149,9 @@
 			files = (
 				E2083FAC20DD3AE700BCE27F /* RecordingCell.xib in Resources */,
 				8EB479B920458B7100BE6461 /* about.storyboard in Resources */,
+				E28B822720E484B6005CA660 /* PlaylistStatsView.xib in Resources */,
 				E29A30B020DA547D006125E2 /* PracticeTimerUpWalkThroughView.xib in Resources */,
+				E23C337720E5172D000EED10 /* PlaylistHistoryView.xib in Resources */,
 				8EDEB706203DE38F00E8D48D /* Lato-Bold.ttf in Resources */,
 				8E4551E920030F7F002061AE /* LaunchScreen.storyboard in Resources */,
 				E251C9C820E13C2700C8BC49 /* HistoryListView.xib in Resources */,
@@ -1133,6 +1167,7 @@
 				8EDEB71A203DFB9A00E8D48D /* sidemenu.storyboard in Resources */,
 				8ECCAF972056F5B9000E2B75 /* ding.wav in Resources */,
 				8E4551E420030F7F002061AE /* Main.storyboard in Resources */,
+				E23C337D20E51CA4000EED10 /* PlaylistHistoryCell.xib in Resources */,
 				E283C51B20D16953002651E0 /* TimerInputView.xib in Resources */,
 				8EDEB707203DE38F00E8D48D /* lato-italic.ttf in Resources */,
 				8EE2BD22203DAEDA00D6D7A8 /* welcome.storyboard in Resources */,
@@ -1145,6 +1180,7 @@
 				E21BEA1C20917C46000D1877 /* GoogleService-Info.plist in Resources */,
 				E2083FCC20DD494100BCE27F /* NotesListView.xib in Resources */,
 				E251C9CE20E1418800C8BC49 /* PracticeHistoryCell.xib in Resources */,
+				E23C338520E51DD3000EED10 /* PlaylistHistoryDetailsRowView.xib in Resources */,
 				E2083FB620DD47C700BCE27F /* PracticeMusicQuoteCell.xib in Resources */,
 				E2083FB820DD47C700BCE27F /* practice_note.storyboard in Resources */,
 				8E58B44820446B180022704B /* settings.storyboard in Resources */,
@@ -1187,6 +1223,7 @@
 				E21BE9F82091796A000D1877 /* LaunchScreen.storyboard in Resources */,
 				E2083FA520DD376100BCE27F /* RecordingsListView.xib in Resources */,
 				E21BE9F92091796A000D1877 /* Assets.xcassets in Resources */,
+				E28B822820E484B6005CA660 /* PlaylistStatsView.xib in Resources */,
 				E251C9D520E14AA000C8BC49 /* PracticeHistoryDetailsRowView.xib in Resources */,
 				E21BE9FA2091796A000D1877 /* recording.storyboard in Resources */,
 				E2806C2420ABCD910066959A /* practice.storyboard in Resources */,
@@ -1207,6 +1244,8 @@
 				E251C9CF20E1418800C8BC49 /* PracticeHistoryCell.xib in Resources */,
 				E249E62320DAB6C800FBDA72 /* StatisticsView.xib in Resources */,
 				E21BEA042091796A000D1877 /* welcome.storyboard in Resources */,
+				E23C338620E51DD3000EED10 /* PlaylistHistoryDetailsRowView.xib in Resources */,
+				E23C337820E5172D000EED10 /* PlaylistHistoryView.xib in Resources */,
 				E245700520D00C9C00C9F720 /* SubdivisionSelectView.xib in Resources */,
 				E21BEA1F2091807D000D1877 /* Info-dev.plist in Resources */,
 				E2806C3D20ABCE0B0066959A /* practice_item.storyboard in Resources */,
@@ -1220,6 +1259,7 @@
 				E21BEA072091796A000D1877 /* Lato-Regular.ttf in Resources */,
 				E21BEA1B20917C46000D1877 /* GoogleService-Info.plist in Resources */,
 				E21BEA082091796A000D1877 /* playlist.storyboard in Resources */,
+				E23C337E20E51CA4000EED10 /* PlaylistHistoryCell.xib in Resources */,
 				E21BEA092091796A000D1877 /* lato-light.ttf in Resources */,
 				E21BEA0A2091796A000D1877 /* lato-bolditalic.ttf in Resources */,
 				E2083FB920DD47C700BCE27F /* practice_note.storyboard in Resources */,
@@ -1536,9 +1576,11 @@
 				8E58B44420446AE40022704B /* MyProfileRemoteManager.swift in Sources */,
 				8E1EFEFC20500E7A000DE107 /* PlaylistPracticeDurationKeyboardViewController.swift in Sources */,
 				8EDEB70E203DE38F00E8D48D /* DateUtility.swift in Sources */,
+				E23C337920E5172D000EED10 /* PlaylistHistoryView.swift in Sources */,
 				8EA33BA720052D2700539A3F /* RecordingViewController.swift in Sources */,
 				E2083FAA20DD3AE700BCE27F /* RecordingCell.swift in Sources */,
 				E25FD99020D7F778008C531A /* PlaylistDailyLocalManager.swift in Sources */,
+				E23C338320E51DD3000EED10 /* PlaylistHistoryDetailsRowView.swift in Sources */,
 				8EDEB6F2203DD7A800E8D48D /* AuthViewModel.swift in Sources */,
 				8E3596222049AA9500F2E6DF /* Playlist.swift in Sources */,
 				E25FD98D20D7F75A008C531A /* PracticingDailyLocalManager.swift in Sources */,
@@ -1558,6 +1600,7 @@
 				8E64B7AC2056A35200900775 /* RecordingsLocalManager.swift in Sources */,
 				E2BA246320C8D1590048A5D5 /* MetrodronePlayer.swift in Sources */,
 				8EDA6194204827DE006D3208 /* PracticeItem.swift in Sources */,
+				E23C337F20E51CA4000EED10 /* PlaylistHistoryCell.swift in Sources */,
 				E2083FA620DD376100BCE27F /* RecordingsListView.swift in Sources */,
 				E25FD99320D7F7A9008C531A /* DailyPracticingRemoteManager.swift in Sources */,
 				E24DF50320987E9E00BAF0C7 /* Note.swift in Sources */,
@@ -1586,6 +1629,7 @@
 				8EDA619820484580006D3208 /* PracticeItemViewModel.swift in Sources */,
 				E2083FBA20DD47C700BCE27F /* PracticeNoteCell.swift in Sources */,
 				8ED83FC72003262D00052256 /* TabBarViewController.swift in Sources */,
+				E28B822920E484B6005CA660 /* PlaylistStatsView.swift in Sources */,
 				E2083FCE20DD494100BCE27F /* NotesListView.swift in Sources */,
 				8E64B7AE2056AA7C00900775 /* RecordingViewModel.swift in Sources */,
 				8E84CA6720577F3500D2D1CB /* ImprovementViewModel.swift in Sources */,
@@ -1655,9 +1699,11 @@
 				E21BE9BB2091796A000D1877 /* MyProfileRemoteManager.swift in Sources */,
 				E21BE9BC2091796A000D1877 /* PlaylistPracticeDurationKeyboardViewController.swift in Sources */,
 				E21BE9BD2091796A000D1877 /* DateUtility.swift in Sources */,
+				E23C337A20E5172D000EED10 /* PlaylistHistoryView.swift in Sources */,
 				E21BE9BE2091796A000D1877 /* RecordingViewController.swift in Sources */,
 				E2083FAB20DD3AE700BCE27F /* RecordingCell.swift in Sources */,
 				E25FD99120D7F778008C531A /* PlaylistDailyLocalManager.swift in Sources */,
+				E23C338420E51DD3000EED10 /* PlaylistHistoryDetailsRowView.swift in Sources */,
 				E21BE9BF2091796A000D1877 /* AuthViewModel.swift in Sources */,
 				E21BE9C02091796A000D1877 /* Playlist.swift in Sources */,
 				E25FD98E20D7F75A008C531A /* PracticingDailyLocalManager.swift in Sources */,
@@ -1677,6 +1723,7 @@
 				E21BE9CA2091796A000D1877 /* RecordingsLocalManager.swift in Sources */,
 				E2BA246420C8D1590048A5D5 /* MetrodronePlayer.swift in Sources */,
 				E21BE9CC2091796A000D1877 /* PracticeItem.swift in Sources */,
+				E23C338020E51CA4000EED10 /* PlaylistHistoryCell.swift in Sources */,
 				E2083FA720DD376100BCE27F /* RecordingsListView.swift in Sources */,
 				E25FD99420D7F7A9008C531A /* DailyPracticingRemoteManager.swift in Sources */,
 				E24DF50420987E9E00BAF0C7 /* Note.swift in Sources */,
@@ -1705,6 +1752,7 @@
 				E21BE9D82091796A000D1877 /* PracticeItemViewModel.swift in Sources */,
 				E2083FBB20DD47C700BCE27F /* PracticeNoteCell.swift in Sources */,
 				E21BE9D92091796A000D1877 /* TabBarViewController.swift in Sources */,
+				E28B822A20E484B6005CA660 /* PlaylistStatsView.swift in Sources */,
 				E2083FCF20DD494100BCE27F /* NotesListView.swift in Sources */,
 				E21BE9DA2091796A000D1877 /* RecordingViewModel.swift in Sources */,
 				E21BE9DB2091796A000D1877 /* ImprovementViewModel.swift in Sources */,

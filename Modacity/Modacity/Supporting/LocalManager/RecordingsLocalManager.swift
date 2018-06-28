@@ -105,6 +105,22 @@ class RecordingsLocalManager: NSObject {
         }
     }
     
+    func loadRecordings(forPlaylistId: String) -> [Recording] {
+        if let recordingIds = self.loadRecordingIds() {
+            var result = [Recording]()
+            for recordingId in recordingIds {
+                if let recording = self.recording(forId: recordingId) {
+                    if (recording.playlistId == forPlaylistId) {
+                        result.append(recording)
+                    }
+                }
+            }
+            return result
+        } else {
+            return [Recording]()
+        }
+    }
+    
     func addNewRecording(_ recording:Recording) {
         if var recordingIds = self.loadRecordingIds() {
             recordingIds.append(recording.id)

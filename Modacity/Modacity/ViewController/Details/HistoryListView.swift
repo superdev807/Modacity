@@ -81,6 +81,10 @@ class HistoryListView: UIView {
         
         self.tableViewMain.reloadData()
     }
+    
+    func showHistory(forPlaylistId: String) {
+        
+    }
 }
 
 extension HistoryListView: UITableViewDelegate, UITableViewDataSource {

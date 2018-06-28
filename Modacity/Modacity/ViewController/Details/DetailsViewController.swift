@@ -18,6 +18,7 @@ class DetailsViewController: UIViewController {
     @IBOutlet weak var viewIndicatorTab3: UIView!
     @IBOutlet weak var viewIndicatorTab4: UIView!
     @IBOutlet weak var imageViewHeader: UIImageView!
+    @IBOutlet weak var labelTitle: UILabel!
     
     var selectedTabIdx = -1
     
@@ -26,9 +27,21 @@ class DetailsViewController: UIViewController {
     var notesView: NotesListView! = nil
     var historyListView: HistoryListView! = nil
     
+    var playlistStatsView: PlaylistStatsView! = nil
+    var playlistHistoryView: PlaylistHistoryView! = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        if self.practiceItemId != nil {
+            if let practiceItemData = PracticeItemLocalManager.manager.practiceItem(forId: self.practiceItemId) {
+                self.labelTitle.text = practiceItemData.name
+            }
+        } else {
+            if let playlist = PlaylistLocalManager.manager.loadPlaylist(forId: self.playlistItemId) {
+                self.labelTitle.text = playlist.name
+            }
+        }
         selectTab(0)
     }
 
@@ -43,6 +56,28 @@ class DetailsViewController: UIViewController {
 }
 
 extension DetailsViewController {
+    
+    func attachPlaylistStatsView(_ animated:Bool = false) {
+        
+        if self.playlistStatsView == nil {
+            self.playlistStatsView = PlaylistStatsView()
+        }
+        
+        self.view.addSubview(self.playlistStatsView)
+        self.playlistStatsView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+        self.playlistStatsView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+        self.playlistStatsView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        self.playlistStatsView.topAnchor.constraint(equalTo: self.imageViewHeader.bottomAnchor).isActive = true
+        self.view.bringSubview(toFront: self.playlistStatsView)
+        
+        self.playlistStatsView.showStats(playlistId: self.playlistItemId)
+        
+    }
+    
+    func detachPlaylistStatsView(_ animated:Bool = false) {
+        self.playlistStatsView.removeFromSuperview()
+    }
+    
     func attachStatisticsView(_ animated:Bool = false) {
         
         if self.statisticsView == nil {
@@ -77,7 +112,11 @@ extension DetailsViewController {
         self.recordingsView.topAnchor.constraint(equalTo: self.imageViewHeader.bottomAnchor).isActive = true
         self.view.bringSubview(toFront: self.recordingsView)
         
-        self.recordingsView.showRecordings(RecordingsLocalManager.manager.loadRecordings(forPracticeId: self.practiceItemId))
+        if self.practiceItemId != nil {
+            self.recordingsView.showRecordings(RecordingsLocalManager.manager.loadRecordings(forPracticeId: self.practiceItemId))
+        } else {
+            self.recordingsView.showRecordings(RecordingsLocalManager.manager.loadRecordings(forPlaylistId: self.playlistItemId))
+        }
     }
     
     func detachRecordingView(_ animated:Bool = false) {
@@ -106,20 +145,38 @@ extension DetailsViewController {
     
     func attachHistoryView(_ animated:Bool = false) {
         
-        if self.historyListView == nil {
-            self.historyListView = HistoryListView()
+        if self.practiceItemId != nil {
+            if self.historyListView == nil {
+                self.historyListView = HistoryListView()
+            }
+            self.view.addSubview(self.historyListView)
+            self.historyListView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+            self.historyListView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+            self.historyListView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+            self.historyListView.topAnchor.constraint(equalTo: self.imageViewHeader.bottomAnchor).isActive = true
+            self.view.bringSubview(toFront: self.historyListView)
+        
+            self.historyListView.showHistory(for: self.practiceItemId)
+        } else {
+            if self.playlistHistoryView == nil {
+                self.playlistHistoryView = PlaylistHistoryView()
+            }
+            self.view.addSubview(self.playlistHistoryView)
+            self.playlistHistoryView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+            self.playlistHistoryView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+            self.playlistHistoryView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+            self.playlistHistoryView.topAnchor.constraint(equalTo: self.imageViewHeader.bottomAnchor).isActive = true
+            self.view.bringSubview(toFront: self.playlistHistoryView)
+            self.playlistHistoryView.showHistory(for: self.playlistItemId)
         }
-        self.view.addSubview(self.historyListView)
-        self.historyListView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
-        self.historyListView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
-        self.historyListView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
-        self.historyListView.topAnchor.constraint(equalTo: self.imageViewHeader.bottomAnchor).isActive = true
-        self.view.bringSubview(toFront: self.historyListView)
-        self.historyListView.showHistory(for: self.practiceItemId)
     }
     
     func detachHistoryView(_ animated:Bool = false) {
-        self.historyListView.removeFromSuperview()
+        if self.practiceItemId != nil {
+            self.historyListView.removeFromSuperview()
+        } else {
+            self.playlistHistoryView.removeFromSuperview()
+        }
     }
 }
 
@@ -155,7 +212,11 @@ extension DetailsViewController {
         
         switch currentTabIdx {
         case 0:
-            self.detachStatisticsView(true)
+            if self.practiceItemId != nil {
+                self.detachStatisticsView(true)
+            } else {
+                self.detachPlaylistStatsView()
+            }
         case 1:
             self.detachRecordingView(true)
         case 2:
@@ -170,7 +231,11 @@ extension DetailsViewController {
         switch idx {
         case 0:
             self.viewIndicatorTab1.isHidden = false
-            self.attachStatisticsView()
+            if self.practiceItemId != nil {
+                self.attachStatisticsView()
+            } else {
+                self.attachPlaylistStatsView()
+            }
         case 1:
             self.viewIndicatorTab2.isHidden = false
             self.attachRecordingView()
@@ -195,7 +260,9 @@ extension DetailsViewController: NotesListViewDelegate {
                 self.notesView.showNotes(practiceItem.notes ?? [])
             }
         } else {
-            
+            if let playlist = PlaylistLocalManager.manager.loadPlaylist(forId: self.playlistItemId) {
+                self.notesView.showNotes(playlist.notes ?? [])
+            }
         }
     }
     
@@ -204,6 +271,10 @@ extension DetailsViewController: NotesListViewDelegate {
         if self.practiceItemId != nil {
             if let practiceItem = PracticeItemLocalManager.manager.practiceItem(forId: self.practiceItemId) {
                 practiceItem.addNote(text: text)
+            }
+        } else {
+            if let playlist = PlaylistLocalManager.manager.loadPlaylist(forId: self.playlistItemId) {
+                playlist.addNote(text: text)
             }
         }
         
@@ -216,6 +287,13 @@ extension DetailsViewController: NotesListViewDelegate {
                 let noteDetailsViewController = UIStoryboard(name: "practice_note", bundle: nil).instantiateViewController(withIdentifier: "PracticeNoteDetailsViewController") as! PracticeNoteDetailsViewController
                 noteDetailsViewController.note = note
                 noteDetailsViewController.practiceItem = practiceItem
+                self.navigationController?.pushViewController(noteDetailsViewController, animated: true)
+            }
+        } else {
+            if let playlist = PlaylistLocalManager.manager.loadPlaylist(forId: self.playlistItemId) {
+                let noteDetailsViewController = UIStoryboard(name: "practice_note", bundle: nil).instantiateViewController(withIdentifier: "PracticeNoteDetailsViewController") as! PracticeNoteDetailsViewController
+                noteDetailsViewController.note = note
+                noteDetailsViewController.noteIsForPlaylist = true
                 self.navigationController?.pushViewController(noteDetailsViewController, animated: true)
             }
         }

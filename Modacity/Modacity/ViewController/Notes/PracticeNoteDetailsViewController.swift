@@ -17,6 +17,7 @@ class PracticeNoteDetailsViewController: UIViewController {
     
     var playlistViewModel: PlaylistContentsViewModel!
     var playlistPracticeEntry: PlaylistPracticeEntry!
+    var playlist: Playlist!
     
     @IBOutlet weak var textfieldNoteTitleEdit: UITextField!
     
@@ -61,8 +62,15 @@ class PracticeNoteDetailsViewController: UIViewController {
                 self.playlistPracticeEntry.practiceItem()?.changeNoteSubTitle(for: self.note.id, subTitle: self.textViewInputBox.text)
             }
         } else {
-            self.practiceItem.changeNoteSubTitle(for: self.note.id, subTitle: self.textViewInputBox.text)
-            self.practiceItem.changeNoteTitle(for: self.note.id, title: self.textfieldNoteTitleEdit.text ?? "")
+            if self.practiceItem != nil {
+                self.practiceItem.changeNoteSubTitle(for: self.note.id, subTitle: self.textViewInputBox.text)
+                self.practiceItem.changeNoteTitle(for: self.note.id, title: self.textfieldNoteTitleEdit.text ?? "")
+            } else {
+                if self.playlist != nil {
+                    self.playlist.changeNoteSubTitle(for: self.note.id, subTitle: self.textViewInputBox.text)
+                    self.playlist.changeNoteTitle(for: self.note.id, title: self.textfieldNoteTitleEdit.text ?? "")
+                }
+            }
         }
         self.navigationController?.popViewController(animated: true)
     }
@@ -92,8 +100,10 @@ class PracticeNoteDetailsViewController: UIViewController {
                 } else {
                     self.playlistViewModel.deleteNote(self.note, for: self.playlistPracticeEntry)
                 }
-            } else {
+            } else if self.practiceItem != nil {
                 self.practiceItem.deleteNote(for: self.note.id)
+            } else if self.playlist != nil {
+                self.playlist.deleteNote(for: self.note.id)
             }
             self.navigationController?.popViewController(animated: true)
         }))
@@ -118,8 +128,10 @@ class PracticeNoteDetailsViewController: UIViewController {
                 } else {
                     self.playlistPracticeEntry.practiceItem()?.changeNoteTitle(for: self.note.id, title: self.textfieldNoteTitleEdit.text ?? "")
                 }
-            } else {
+            } else if self.practiceItem != nil {
                 self.practiceItem.changeNoteSubTitle(for: self.note.id, subTitle: self.textViewInputBox.text)
+            } else {
+                self.playlist.changeNoteSubTitle(for: self.note.id, subTitle: self.textViewInputBox.text)
             }
             self.textfieldNoteTitleEdit.isHidden = true
             self.labelNoteTitle.isHidden = false
