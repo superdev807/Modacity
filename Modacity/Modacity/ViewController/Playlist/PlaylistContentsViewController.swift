@@ -311,11 +311,12 @@ class PlaylistContentsViewController: UIViewController {
     }
     
     @IBAction func onNotes(_ sender: Any) {
-        let controller = UIStoryboard(name: "practice_note", bundle: nil).instantiateViewController(withIdentifier: "PracticeNotesViewController") as! PracticeNotesViewController
-        controller.playlistViewModel = self.viewModel
-        controller.noteIsForPlaylist = true
-        self.navigationController?.pushViewController(controller, animated: true)
-        ModacityAnalytics.LogStringEvent("Tapped Playlist Notes", extraParamName: "playlistName", extraParamValue: controller.playlistViewModel.playlistName)
+        let controller = UIStoryboard(name: "details", bundle: nil).instantiateViewController(withIdentifier: "DetailsScene") as! UINavigationController
+        let detailsViewController = controller.viewControllers[0] as! DetailsViewController
+        detailsViewController.playlistItemId = self.viewModel.playlist.id
+        detailsViewController.startTabIdx = 2
+        self.present(controller, animated: true, completion: nil)
+        ModacityAnalytics.LogStringEvent("Tapped Playlist Notes", extraParamName: "playlistName", extraParamValue: /*controller.playlistViewModel.playlistName*/self.viewModel.playlist.name)
     }
     
     
@@ -711,14 +712,20 @@ extension PlaylistContentsViewController: PlaylistPracticeItemCellDelegate {
                                                     self.openClockEdit(for: item)
                                                 } else if row == 1 {
                                                     self.openDetails(for: item)
-//                                                    self.openNotes(for: item)
                                                 }
                                                 
                                         }
     }
     
     func openDetails(for item:PlaylistPracticeEntry) {
-        
+        if let practice = PracticeItemLocalManager.manager.practiceItem(forId: item.practiceItemId) {
+            ModacityAnalytics.LogEvent(.OpenNotes, extraParamName: "item", extraParamValue: item.name)
+            let controller = UIStoryboard(name: "details", bundle: nil).instantiateViewController(withIdentifier: "DetailsScene") as! UINavigationController
+            let detailsViewController = controller.viewControllers[0] as! DetailsViewController
+            detailsViewController.practiceItemId = practice.id
+            detailsViewController.startTabIdx = 2
+            self.present(controller, animated: true, completion: nil)
+        }
     }
     
     func openNotes(for item:PlaylistPracticeEntry) {

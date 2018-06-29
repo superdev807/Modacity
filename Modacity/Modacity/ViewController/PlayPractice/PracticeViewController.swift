@@ -723,7 +723,7 @@ extension PracticeViewController {
         ModacityAnalytics.LogStringEvent("Changed Timer Mode to \(modeName)")
     }
     
-    @IBAction func onTapTimer(_ sender: Any) {
+    @IBAction func onTapTimer(_ sender:Any) {
         if self.timerRunning {
             ModacityAnalytics.LogStringEvent("Paused Practice Timer")
             self.secondsPrevPlayed = Int(Date().timeIntervalSince1970 - self.timerStarted.timeIntervalSince1970) + self.secondsPrevPlayed
@@ -842,18 +842,27 @@ extension PracticeViewController {
 extension PracticeViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, PracticeNoteCellDelegate {
     
     @IBAction func onTabNotes() {
+        
         ModacityAnalytics.LogStringEvent("Practicing - Pressed Notes")
-        if self.playlistViewModel != nil {
-            let controller = UIStoryboard(name: "practice_note", bundle: nil).instantiateViewController(withIdentifier: "PracticeNotesViewController") as! PracticeNotesViewController
-            controller.playlistViewModel = self.playlistViewModel
-            controller.practiceEntry = self.playlistViewModel.currentPracticeEntry
-            controller.practiceItem = self.practiceItem
-            self.navigationController?.pushViewController(controller, animated: true)
-        } else {
-            let controller = UIStoryboard(name: "practice_note", bundle: nil).instantiateViewController(withIdentifier: "PracticeNotesViewController") as! PracticeNotesViewController
-            controller.practiceItem = self.practiceItem
-            self.navigationController?.pushViewController(controller, animated: true)
+        
+        if AppOveralDataManager.manager.settingsTimerPauseDuringNote() {
+            if self.timerRunning {
+                self.onTapTimer(self.view)
+            }
         }
+        
+        let detailsViewController = UIStoryboard(name: "details", bundle: nil).instantiateViewController(withIdentifier: "DetailsViewController") as! DetailsViewController
+        
+        detailsViewController.startTabIdx = 2
+        
+        if self.playlistViewModel != nil {
+            detailsViewController.practiceItemId = self.playlistViewModel.currentPracticeEntry.practiceItemId
+        } else {
+            detailsViewController.practiceItemId = self.practiceItem.id
+        }
+        
+        self.navigationController?.pushViewController(detailsViewController, animated: true)
+        
     }
     
     func initializeForNotes() {
@@ -1104,6 +1113,12 @@ extension PracticeViewController: PlayPracticeTabBarViewDelegate {
         if self.recorder != nil && self.recorder.isRecording {
             AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Please stop recording before leaving the page.")
             return
+        }
+        
+        if AppOveralDataManager.manager.settingsTimerPauseDuringImprove() {
+            if self.timerRunning {
+                self.onTapTimer(self.view)
+            }
         }
         
         let controller = UIStoryboard(name: "improve", bundle: nil).instantiateViewController(withIdentifier: "improve_scene") as! UINavigationController

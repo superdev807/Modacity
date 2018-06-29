@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import StoreKit
 
 class PlaylistFinishViewController: UIViewController {
     
@@ -23,6 +24,9 @@ class PlaylistFinishViewController: UIViewController {
         // Do any additional setup after loading the view.
         self.labelPlaylistName.text = self.playlistDetailsViewModel.playlistName
         ModacityAnalytics.LogStringEvent("Congratulations Screen", extraParamName: "total seconds", extraParamValue:self.playlistDetailsViewModel.sessionDurationInSecond)
+        if #available(iOS 10.3, *) {
+            SKStoreReviewController.requestReview()
+        }
         let sessionDuration = self.playlistDetailsViewModel.sessionDurationInSecond ?? 0
         if sessionDuration < 60 {
             self.labelSessionDuration.text = "\(sessionDuration)"
@@ -62,10 +66,10 @@ class PlaylistFinishViewController: UIViewController {
     }
     
     @IBAction func onNotes(_ sender: Any) {
-        let controller = UIStoryboard(name: "practice_note", bundle: nil).instantiateViewController(withIdentifier: "PracticeNotesViewController") as! PracticeNotesViewController
-        controller.playlistViewModel = self.playlistDetailsViewModel
-        controller.noteIsForPlaylist = true
-        self.navigationController?.pushViewController(controller, animated: true)
+        let detailsViewController = UIStoryboard(name: "details", bundle: nil).instantiateViewController(withIdentifier: "DetailsViewController") as! DetailsViewController
+        detailsViewController.playlistItemId = self.playlistDetailsViewModel.playlist.id
+        detailsViewController.startTabIdx = 2
+        self.navigationController?.pushViewController(detailsViewController, animated: true)        
         ModacityAnalytics.LogStringEvent("Congrats Screen Notes Button")
     }
 }

@@ -100,16 +100,15 @@ class SettingsViewController: UIViewController {
 extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            //Top section
             return 5
         } else if section == 1 {
-            // "App Settings"
-            
+            return 2
+        } else if section == 2 {
             return 2
         }
         return 0
@@ -120,6 +119,8 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
             return ""
         } else if section == 1 {
             return "APP SETTINGS"
+        } else if section == 2 {
+            return "TIMER"
         }
         return ""
     }
@@ -178,9 +179,20 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
                 return cell
             }
         } else if indexPath.section == 2 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCellWithSwitch") as! SettingsCellWithSwitch
-            cell.configure(caption: ["Email Notifications", "Push Notifications", "Star Rating Notifications"][indexPath.row], isOn: [false, true, true][indexPath.row])
-            return cell
+            if indexPath.row == 0 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCellWithSwitch") as! SettingsCellWithSwitch
+                cell.delegate = self
+                cell.configure(caption: "Pause Timer During Note Taking", isOn: AppOveralDataManager.manager.settingsTimerPauseDuringNote())
+                return cell
+            } else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCellWithSwitch") as! SettingsCellWithSwitch
+                cell.delegate = self
+                cell.configure(caption: "Pause Timer During Deliberate Practice", isOn: AppOveralDataManager.manager.settingsTimerPauseDuringImprove())
+                return cell
+            }
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCellWithSwitch") as! SettingsCellWithSwitch
+//            cell.configure(caption: ["Email Notifications", "Push Notifications", "Star Rating Notifications"][indexPath.row], isOn: [false, true, true][indexPath.row])
+//            return cell
         }
         
         return UITableViewCell()
@@ -272,6 +284,12 @@ extension SettingsViewController: SettingsCellWithSwitchDelegate {
         } else if "Disable auto-playback" == forCaption {
             AppOveralDataManager.manager.changeDisableAutoPlayback()
             self.tableViewSettings.reloadRows(at: [IndexPath(row: 1, section: 1)], with: .none)
+        } else if "Pause Timer During Note Taking" == forCaption {
+            AppOveralDataManager.manager.changeSettingsTimerPauseDuringNote()
+            self.tableViewSettings.reloadRows(at: [IndexPath(row: 0, section: 2)], with: .none)
+        } else if "Pause Timer During Deliberate Practice" == forCaption {
+            AppOveralDataManager.manager.changeSettingsTimerPauseDuringImprove()
+            self.tableViewSettings.reloadRows(at: [IndexPath(row: 1, section: 2)], with: .none)
         }
     }
 }

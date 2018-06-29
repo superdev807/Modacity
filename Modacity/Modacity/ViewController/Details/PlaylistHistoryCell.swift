@@ -30,12 +30,19 @@ class PlaylistHistoryCell: UITableViewCell {
     
     func configure(with data:PlaylistHistoryData) {
         self.viewContainer.layer.cornerRadius = 5
-        self.labelDate.text = data.date.toString(format: "MMMM d")
+        self.viewContainer.layer.shadowColor = UIColor.black.cgColor
+        self.viewContainer.layer.shadowOffset = CGSize(width: 1, height: 1)
+        self.viewContainer.layer.shadowOpacity = 0.7
+        self.viewContainer.layer.shadowRadius = 4.0
+        self.viewContainer.backgroundColor = Color(hexString: "#2e2d4f")
+        
+        self.labelDate.text = data.date.toString(format: "MMMM d").uppercased()
+        let totalSeconds = data.practiceTotalSeconds ?? 0
         if data.practiceTotalSeconds > 60 {
-            self.totalPractice.text = "\(data.practiceTotalSeconds / 60)"
+            self.totalPractice.text = "\(totalSeconds / 60)"
             self.totalPracticeUnit.text = "MINUTES"
         } else {
-            self.totalPractice.text = "\(data.practiceTotalSeconds)"
+            self.totalPractice.text = "\(totalSeconds)"
             self.totalPracticeUnit.text = "SECONDS"
         }
         

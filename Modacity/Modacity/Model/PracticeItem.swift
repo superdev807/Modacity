@@ -102,7 +102,19 @@ class PracticeItem: Mappable {
                 return ""
             } else {
                 let last = Date(timeIntervalSince1970: timeInterval).toString(format: "M/d/yy")
-                return "Last practiced \(last) for \(self.lastPracticedDurationInSecond ?? 0) seconds"
+                let seconds = self.lastPracticedDurationInSecond ?? 0
+                var timeString = "\(seconds)"
+                var unit = "seconds"
+                
+                if seconds == 0 || (seconds > 60 && seconds < 3600) {
+                    timeString = "\(seconds / 60)"
+                    unit = "minutes"
+                } else if seconds >= 3600 {
+                    timeString = String(format: "%.1f", Double(seconds) / 3600.0)
+                    unit = "hours"
+                }
+                
+                return "Last practiced \(last) for \(timeString) \(unit)"
             }
         } else {
             return ""

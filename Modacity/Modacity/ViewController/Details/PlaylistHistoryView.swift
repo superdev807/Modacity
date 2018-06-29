@@ -165,15 +165,11 @@ extension PlaylistHistoryView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PlaylistHistoryCell") as! PlaylistHistoryCell
-//        cell.configure(with: practiceHistoryDataList[indexPath.row].practices,
-//                       on: practiceHistoryDataList[indexPath.row].date,
-//                       for: practiceHistoryDataList[indexPath.row].dailyPractice)
         cell.configure(with: self.practiceHistoryDataList[indexPath.row])
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return PracticeHistoryCell.height(for: practiceHistoryDataList[indexPath.row].practices, with: tableView.frame.size.width)
         return PlaylistHistoryCell.height(for: self.practiceHistoryDataList[indexPath.row], with: tableView.frame.size.width)
     }
     

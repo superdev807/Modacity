@@ -55,9 +55,9 @@ class PlaylistHistoryDetailsRowView: UIView {
         }
         let timeInSecond = data.time ?? 0
         if timeInSecond > 0 && timeInSecond < 60 {
-            self.labelTime.text = "\(timeInSecond)s"
+            self.labelTime.text = String(format: "%.1f", Double(timeInSecond) / 60.0)
         } else {
-            self.labelTime.text = "\(timeInSecond / 60)m"
+            self.labelTime.text = "\(timeInSecond / 60)"
         }
         self.labelStarRating.text = formatter.string(from: data.calculateAverageRatings() as NSNumber) ?? "n/a"
         self.labelImprovements.text = "\(data.improvements.count)"

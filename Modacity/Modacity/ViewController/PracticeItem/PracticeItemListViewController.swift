@@ -135,32 +135,19 @@ extension PracticeItemListViewController: UITableViewDataSource, UITableViewDele
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
         let practiceItem = self.practiceItems![indexPath.row]
-        if let practice = PracticeItemLocalManager.manager.practiceItem(forId: practiceItem.id) {
-            
-            let controller = UIStoryboard(name: "details", bundle: nil).instantiateViewController(withIdentifier: "DetailsScene") as! UINavigationController
-            let detailsViewController = controller.viewControllers[0] as! DetailsViewController
-            detailsViewController.practiceItemId = practiceItem.id
-            self.tabBarController!.present(controller, animated: true, completion: nil)
-            
-//            var sceneName = ""
-//            if AppUtils.sizeModelOfiPhone() == .iphone5_4in || AppUtils.sizeModelOfiPhone() == .iphone4_35in {
-//                sceneName = "PracticeSceneForSmallSizes"
-//            } else {
-//                sceneName = "PracticeScene"
-//            }
-//            let controller = UIStoryboard(name: "practice", bundle: nil).instantiateViewController(withIdentifier: sceneName) as! UINavigationController
-//            let practiceViewController = controller.viewControllers[0] as! PracticeViewController
-//            practiceViewController.practiceItem = practice
-//            let deliverModel = PlaylistAndPracticeDeliverModel()
-//            deliverModel.deliverPracticeItem = practiceItem
-//            deliverModel.sessionTimeStarted = Date()
-//            deliverModel.sessionImproved = [ImprovedRecord]()
-//            practiceViewController.deliverModel = deliverModel
-//            self.tabBarController?.present(controller, animated: true, completion: nil)
+        self.openDetails(practiceItem.id)
+    }
+    
+    func openDetails(_ practiceItemId:String) {
+        let controller = UIStoryboard(name: "details", bundle: nil).instantiateViewController(withIdentifier: "DetailsScene") as! UINavigationController
+        let detailsViewController = controller.viewControllers[0] as! DetailsViewController
+        detailsViewController.practiceItemId = practiceItemId
+        self.tabBarController!.present(controller, animated: true, completion: nil)
+        
+        if let practice = PracticeItemLocalManager.manager.practiceItem(forId: practiceItemId) {
+            ModacityAnalytics.LogStringEvent("Selected Practice Item", extraParamName: "Name", extraParamValue: practice.name)
         }
-        ModacityAnalytics.LogStringEvent("Selected Practice Item", extraParamName: "Name", extraParamValue: practiceItem.name)
     }
     
     func onCellMenu(cell: PracticeItemCell) {
@@ -171,7 +158,7 @@ extension PracticeItemListViewController: UITableViewDataSource, UITableViewDele
         DropdownMenuView.instance.show(in: self.view,
                                        on: cell.buttonMenu,
                                        rows: [["icon":"icon_pen_white", "text":"Rename"],
-                                              ["icon":"icon_notes", "text":"Notes"],
+                                              ["icon":"icon_notes", "text":"Details"],
                                               ["icon":"icon_row_delete", "text":"Delete"]]) { (row) in
                                                 self.processAction(row, cell)
         }
@@ -189,9 +176,7 @@ extension PracticeItemListViewController: UITableViewDataSource, UITableViewDele
             cell.textfieldNameEdit.text = cell.practiceItem.name
             self.practiceItemNameEditingCell = cell
         } else if row == 1 {
-            let controller = UIStoryboard(name: "practice_note", bundle: nil).instantiateViewController(withIdentifier: "PracticeNotesViewController") as! PracticeNotesViewController
-            controller.practiceItem = self.practiceItems?[row]
-            self.navigationController?.pushViewController(controller, animated: true)
+            self.openDetails(cell.practiceItem.id)
         } else if row == 2 {
             PracticeItemLocalManager.manager.removePracticeItem(for: cell.practiceItem)
             self.refreshList()

@@ -98,6 +98,8 @@ class AppOveralDataManager {
         UserDefaults.standard.removeObject(forKey: "streak_to")
         UserDefaults.standard.removeObject(forKey: "default_data_shiped")
         UserDefaults.standard.removeObject(forKey: "first_playlist_generated")
+        UserDefaults.standard.removeObject(forKey: "settings_timer_pause_during_note")
+        UserDefaults.standard.removeObject(forKey: "settings_timer_pause_during_improve")
         UserDefaults.standard.synchronize()
     }
     
@@ -108,7 +110,9 @@ class AppOveralDataManager {
                           streakFrom: String,
                           streakTo: String,
                           defaultDataShiped: Bool,
-                          firstPlaylistGenerated: Bool) {
+                          firstPlaylistGenerated: Bool,
+                          timerPauseDuringNote: Bool,
+                          timerPauseDuringImprove: Bool) {
         UserDefaults.standard.set(totalPracticeSeconds, forKey: "total_practice_seconds")
         UserDefaults.standard.set(totalImprovements, forKey: "total_improvements")
         UserDefaults.standard.set(notPreventPhoneSleep, forKey: "not_prevent_phone_sleep")
@@ -117,6 +121,8 @@ class AppOveralDataManager {
         UserDefaults.standard.set(streakTo, forKey: "streak_to")
         UserDefaults.standard.set(defaultDataShiped, forKey: "default_data_shiped")
         UserDefaults.standard.set(firstPlaylistGenerated, forKey: "first_playlist_generated")
+        UserDefaults.standard.set(timerPauseDuringNote, forKey: "settings_timer_pause_during_note")
+        UserDefaults.standard.set(timerPauseDuringImprove, forKey: "settings_timer_pause_during_improve")
         UserDefaults.standard.synchronize()
     }
     
@@ -162,6 +168,24 @@ class AppOveralDataManager {
         UserDefaults.standard.synchronize()
     }
     
+    func settingsTimerPauseDuringNote() -> Bool {
+        return UserDefaults.standard.bool(forKey: "settings_timer_pause_during_note")
+    }
+    
+    func changeSettingsTimerPauseDuringNote() {
+        UserDefaults.standard.set(!settingsTimerPauseDuringNote(), forKey: "settings_timer_pause_during_note")
+        UserDefaults.standard.synchronize()
+    }
+    
+    func settingsTimerPauseDuringImprove() -> Bool {
+        return UserDefaults.standard.bool(forKey: "settings_timer_pause_during_improve")
+    }
+    
+    func changeSettingsTimerPauseDuringImprove() {
+        UserDefaults.standard.set(!settingsTimerPauseDuringNote(), forKey: "settings_timer_pause_during_improve")
+        UserDefaults.standard.synchronize()
+    }
+    
     func fileNameAutoIncrementedNumber() -> Int {
         let key = "\(Date().toString(format: "yyyyMMdd"))-autoincrement"
         if UserDefaults.standard.object(forKey: key) == nil {
@@ -177,6 +201,9 @@ class AppOveralDataManager {
         UserDefaults.standard.set(value + 1, forKey: key)
         UserDefaults.standard.synchronize()
     }
+    
+    
+    // Walk through settings
     
     func walkThroughDoneForFirstPage() -> Bool {
         return UserDefaults.standard.bool(forKey: "walkthrough_first_page")

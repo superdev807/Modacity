@@ -18,6 +18,7 @@ class PracticeHistoryDetailsRowView: UIView {
     @IBOutlet weak var labelStarRating: UILabel!
     @IBOutlet weak var labelImprovements: UILabel!
     @IBOutlet weak var imageViewStarIcon: UIImageView!
+    @IBOutlet weak var imageViewImproveIcon: UIImageView!
     
     override init(frame: CGRect) {
         super.init(frame:frame)
@@ -47,10 +48,15 @@ class PracticeHistoryDetailsRowView: UIView {
         formatter.minimumFractionDigits = 0
         formatter.maximumFractionDigits = 2
         
-        self.imageViewStarIcon.image = UIImage(named: "icon_clock")
+        self.imageViewStarIcon.image = UIImage(named: "icon_details_small_clock")
         self.labelTime.text = title
-        self.labelStarRating.text = "\(time)"
+        if time > 0 && time < 60 {
+            self.labelStarRating.text = String(format:"%.1f", Double(time) / 60.0)
+        } else {
+            self.labelStarRating.text = "\(time / 60)"
+        }
         self.labelImprovements.text = "\(improvements)"
+        
     }
     
     func configure(with data: PracticeDaily) {
@@ -58,6 +64,8 @@ class PracticeHistoryDetailsRowView: UIView {
         let formatter = NumberFormatter()
         formatter.minimumFractionDigits = 0
         formatter.maximumFractionDigits = 2
+        
+        self.imageViewStarIcon.image = UIImage(named: "icon_details_small_star")
         
         let from = data.fromTime!.date(format: "HH:mm:ss")?.toString(format: "h:mm a") ?? ""
         let to = Date(timeIntervalSince1970: data.startedTime).addingTimeInterval(Double(data.practiceTimeInSeconds)).toString(format: "h:mm a")

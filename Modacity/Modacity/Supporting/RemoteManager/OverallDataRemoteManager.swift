@@ -29,7 +29,9 @@ class OverallDataRemoteManager {
                                                                       streakFrom: overallData["streak_from"] as? String ?? Date().toString(format: "yyyy-MM-dd"),
                                                                       streakTo: overallData["streak_to"] as? String ?? Date().toString(format: "yyyy-MM-dd"),
                                                                       defaultDataShiped: overallData["default_data_ship"] as? Bool ?? false,
-                                                                      firstPlaylistGenerated: overallData["first_playlist_generated"] as? Bool ?? false)
+                                                                      firstPlaylistGenerated: overallData["first_playlist_generated"] as? Bool ?? false,
+                                                                      timerPauseDuringNote: overallData["settings_timer_pause_during_note"] as? Bool ?? false,
+                                                                      timerPauseDuringImprove: overallData["settings_timer_pause_during_improve"] as? Bool ?? false)
                     }
                 }
             }
@@ -57,7 +59,9 @@ class OverallDataRemoteManager {
                                                                            "streak_from": UserDefaults.standard.string(forKey: "streak_from") ?? Date().toString(format: "yyyy-MM-dd"),
                                                                            "streak_to": UserDefaults.standard.string(forKey: "streak_to") ?? Date().toString(format: "yyyy-MM-dd"),
                                                                            "default_data_shiped": AppOveralDataManager.manager.defaultDataShiped(),
-                                                                           "first_playlist_generated": AppOveralDataManager.manager.firstPlaylistGenerated()])
+                                                                           "first_playlist_generated": AppOveralDataManager.manager.firstPlaylistGenerated(),
+                                                                           "settings_timer_pause_during_note": AppOveralDataManager.manager.settingsTimerPauseDuringNote(),
+                                                                           "settings_timer_pause_during_improve": AppOveralDataManager.manager.settingsTimerPauseDuringImprove()])
         }
     }
 

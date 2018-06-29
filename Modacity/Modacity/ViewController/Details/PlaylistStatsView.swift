@@ -101,7 +101,12 @@ class PlaylistStatsView: UIView {
         self.viewAverageSessionDurationPanel.layer.borderColor = Color.white.alpha(0.1).cgColor
         
         self.viewForPracticeDetailsHistoryPanel.layer.cornerRadius = 5
-        self.viewForPracticeDetailsHistoryPanel.layer.borderColor = Color.white.alpha(0.1).cgColor
+        self.viewForPracticeDetailsHistoryPanel.layer.shadowColor = UIColor.black.cgColor
+        self.viewForPracticeDetailsHistoryPanel.layer.shadowOffset = CGSize(width: 1, height: 1)
+        self.viewForPracticeDetailsHistoryPanel.layer.shadowOpacity = 0.7
+        self.viewForPracticeDetailsHistoryPanel.layer.shadowRadius = 4.0
+        self.viewForPracticeDetailsHistoryPanel.backgroundColor = Color(hexString: "#2e2d4f")
+        
         self.constraintForPracticeDetailsHistoryPanelHeight.constant = 100
         initializeBarChart()
         
@@ -383,7 +388,7 @@ class PlaylistStatsView: UIView {
                 }
                 lastView = rowView
             }
-            self.constraintForPracticeDetailsHistoryPanelHeight.constant = CGFloat(65.5 + Double(stats.keys.count) * 36.0)
+            self.constraintForPracticeDetailsHistoryPanelHeight.constant = CGFloat(70.5 + Double(stats.keys.count) * 36.0)
         } else {
             let label = UILabel()
             label.textColor = Color.white
@@ -394,7 +399,7 @@ class PlaylistStatsView: UIView {
             label.trailingAnchor.constraint(equalTo: self.viewDetailsList.trailingAnchor).isActive = true
             label.heightAnchor.constraint(equalToConstant: 36).isActive = true
             label.topAnchor.constraint(equalTo: self.viewDetailsList.topAnchor).isActive = true
-            self.constraintForPracticeDetailsHistoryPanelHeight.constant = CGFloat(65.5 + 36.0)
+            self.constraintForPracticeDetailsHistoryPanelHeight.constant = CGFloat(70.5 + 36.0)
         }
     }
 }

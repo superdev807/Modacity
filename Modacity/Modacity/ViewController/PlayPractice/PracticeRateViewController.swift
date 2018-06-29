@@ -131,14 +131,17 @@ class PracticeRateViewController: UIViewController {
     
     @IBAction func onNotes(_ sender: Any) {
         ModacityAnalytics.LogStringEvent("Pressed Rating Screen Item Notes")
-        let controller = UIStoryboard(name: "practice_note", bundle: nil).instantiateViewController(withIdentifier: "PracticeNotesViewController") as! PracticeNotesViewController
-        controller.playlistViewModel = self.playlistViewModel
-        controller.noteIsForPlaylist = false
-        controller.practiceItem = self.practiceItem
+        
+        let detailsViewController = UIStoryboard(name: "details", bundle: nil).instantiateViewController(withIdentifier: "DetailsViewController") as! DetailsViewController
+        
+        detailsViewController.startTabIdx = 2
+        
         if self.playlistViewModel != nil {
-            controller.practiceEntry = self.playlistViewModel.currentPracticeEntry
+            detailsViewController.practiceItemId = self.playlistViewModel.currentPracticeEntry.practiceItemId
+        } else {
+            detailsViewController.practiceItemId = self.practiceItem.id
         }
-        self.navigationController?.pushViewController(controller, animated: true)
+        self.navigationController?.pushViewController(detailsViewController, animated: true)
     }
     
     @IBAction func onCloseWalkThrough(_ sender: Any) {

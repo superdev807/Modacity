@@ -27,20 +27,20 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="11:02 AM ~ 11:02 AM" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r2y-sp-YeY">
-                    <rect key="frame" x="11" y="9.5" width="227" height="15"/>
+                    <rect key="frame" x="0.0" y="9.5" width="214" height="15"/>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_clock" translatesAutoresizingMaskIntoConstraints="NO" id="BKJ-z8-V1r">
-                    <rect key="frame" x="248" y="7" width="20" height="19"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_details_small_clock" translatesAutoresizingMaskIntoConstraints="NO" id="BKJ-z8-V1r">
+                    <rect key="frame" x="224" y="9" width="16" height="15"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="20" id="DLx-5f-GaO"/>
+                        <constraint firstAttribute="width" constant="16" id="DLx-5f-GaO"/>
                         <constraint firstAttribute="width" secondItem="BKJ-z8-V1r" secondAttribute="height" multiplier="20:19" id="r0N-VH-KGL"/>
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="253" verticalHuggingPriority="251" text="4.5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dHM-gS-c5R">
-                    <rect key="frame" x="273" y="9" width="30" height="15"/>
+                    <rect key="frame" x="245" y="9" width="30" height="15"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="30" id="PMR-yO-3pj"/>
                     </constraints>
@@ -48,15 +48,23 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_star_filled" translatesAutoresizingMaskIntoConstraints="NO" id="eT6-Fj-eth">
-                    <rect key="frame" x="308" y="7.5" width="20" height="19"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pZl-qZ-gmR">
+                    <rect key="frame" x="280" y="9" width="1" height="15"/>
+                    <color key="backgroundColor" red="0.30196078430000001" green="0.27058823529999998" blue="0.47058823529999999" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="20" id="7Va-T1-d7X"/>
+                        <constraint firstAttribute="height" constant="15" id="1zN-Ye-usl"/>
+                        <constraint firstAttribute="width" constant="1" id="krl-ma-V8G"/>
+                    </constraints>
+                </view>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_details_small_star" translatesAutoresizingMaskIntoConstraints="NO" id="eT6-Fj-eth">
+                    <rect key="frame" x="296" y="9.5" width="16" height="15"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="16" id="7Va-T1-d7X"/>
                         <constraint firstAttribute="width" secondItem="eT6-Fj-eth" secondAttribute="height" multiplier="20:19" id="gSk-cp-D77"/>
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="253" verticalHuggingPriority="251" text="4.5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8EU-4y-bZJ">
-                    <rect key="frame" x="333" y="9.5" width="30" height="15"/>
+                    <rect key="frame" x="317" y="9.5" width="30" height="15"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="30" id="zl6-2O-BEW"/>
                     </constraints>
@@ -65,24 +73,24 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Eeu-ey-y4V">
-                    <rect key="frame" x="368" y="9.5" width="1" height="15"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <rect key="frame" x="352" y="9.5" width="1" height="15"/>
+                    <color key="backgroundColor" red="0.30196078431372547" green="0.27058823529411763" blue="0.47058823529411764" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="15" id="5v4-Ld-MC8"/>
                         <constraint firstAttribute="width" constant="1" id="xK2-9n-8dA"/>
                     </constraints>
                 </view>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="practice_tab_improve" translatesAutoresizingMaskIntoConstraints="NO" id="J2B-67-KuE">
-                    <rect key="frame" x="379" y="7.5" width="20" height="20"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_details_small_improvement" translatesAutoresizingMaskIntoConstraints="NO" id="J2B-67-KuE">
+                    <rect key="frame" x="368" y="9.5" width="16" height="16"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="J2B-67-KuE" secondAttribute="height" multiplier="1:1" id="KFi-YC-k5k"/>
-                        <constraint firstAttribute="width" constant="20" id="SiC-ZO-j6y"/>
+                        <constraint firstAttribute="width" constant="16" id="SiC-ZO-j6y"/>
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="253" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sg2-Jv-cgZ">
-                    <rect key="frame" x="404" y="9.5" width="15" height="15"/>
+                    <rect key="frame" x="389" y="9.5" width="30" height="15"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="15" id="cCQ-XK-F2U"/>
+                        <constraint firstAttribute="width" constant="30" id="cCQ-XK-F2U"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -91,6 +99,8 @@
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
+                <constraint firstItem="eT6-Fj-eth" firstAttribute="leading" secondItem="pZl-qZ-gmR" secondAttribute="trailing" constant="15" id="5QJ-KT-qv0"/>
+                <constraint firstItem="pZl-qZ-gmR" firstAttribute="centerY" secondItem="9Df-qb-l5P" secondAttribute="centerY" id="8GL-m4-aqi"/>
                 <constraint firstItem="sg2-Jv-cgZ" firstAttribute="centerY" secondItem="9Df-qb-l5P" secondAttribute="centerY" id="A4v-32-fxA"/>
                 <constraint firstItem="8EU-4y-bZJ" firstAttribute="centerY" secondItem="9Df-qb-l5P" secondAttribute="centerY" id="FgV-L3-KaV"/>
                 <constraint firstItem="J2B-67-KuE" firstAttribute="centerY" secondItem="9Df-qb-l5P" secondAttribute="centerY" id="J1f-Po-eqO"/>
@@ -98,17 +108,17 @@
                 <constraint firstItem="sg2-Jv-cgZ" firstAttribute="leading" secondItem="J2B-67-KuE" secondAttribute="trailing" constant="5" id="P8W-8D-DJj"/>
                 <constraint firstItem="dHM-gS-c5R" firstAttribute="leading" secondItem="BKJ-z8-V1r" secondAttribute="trailing" constant="5" id="Pbz-Je-xum"/>
                 <constraint firstItem="r2y-sp-YeY" firstAttribute="centerY" secondItem="9Df-qb-l5P" secondAttribute="centerY" id="Qfp-4A-mzh"/>
-                <constraint firstItem="r2y-sp-YeY" firstAttribute="leading" secondItem="9Df-qb-l5P" secondAttribute="leading" constant="11" id="Rje-yB-JnR"/>
-                <constraint firstItem="J2B-67-KuE" firstAttribute="leading" secondItem="Eeu-ey-y4V" secondAttribute="trailing" constant="10" id="T4s-B8-1Ea"/>
+                <constraint firstItem="r2y-sp-YeY" firstAttribute="leading" secondItem="9Df-qb-l5P" secondAttribute="leading" id="Rje-yB-JnR"/>
+                <constraint firstItem="J2B-67-KuE" firstAttribute="leading" secondItem="Eeu-ey-y4V" secondAttribute="trailing" constant="15" id="T4s-B8-1Ea"/>
                 <constraint firstItem="BKJ-z8-V1r" firstAttribute="centerY" secondItem="9Df-qb-l5P" secondAttribute="centerY" id="Tq2-Re-EZt"/>
                 <constraint firstItem="8EU-4y-bZJ" firstAttribute="leading" secondItem="eT6-Fj-eth" secondAttribute="trailing" constant="5" id="U3U-BR-zJ9"/>
+                <constraint firstItem="pZl-qZ-gmR" firstAttribute="leading" secondItem="dHM-gS-c5R" secondAttribute="trailing" constant="5" id="V5F-XX-FhK"/>
                 <constraint firstItem="eT6-Fj-eth" firstAttribute="centerY" secondItem="9Df-qb-l5P" secondAttribute="centerY" id="WRG-hm-YCr"/>
                 <constraint firstItem="Eeu-ey-y4V" firstAttribute="centerY" secondItem="9Df-qb-l5P" secondAttribute="centerY" id="Wbq-9T-Qt5"/>
                 <constraint firstItem="Eeu-ey-y4V" firstAttribute="leading" secondItem="8EU-4y-bZJ" secondAttribute="trailing" constant="5" id="Wjs-Z9-KhY"/>
                 <constraint firstItem="dHM-gS-c5R" firstAttribute="centerY" secondItem="9Df-qb-l5P" secondAttribute="centerY" id="gvC-Wf-nWv"/>
                 <constraint firstItem="9Df-qb-l5P" firstAttribute="trailing" secondItem="sg2-Jv-cgZ" secondAttribute="trailing" id="jlw-YH-xTO"/>
                 <constraint firstItem="BKJ-z8-V1r" firstAttribute="width" secondItem="BKJ-z8-V1r" secondAttribute="height" multiplier="20:19" id="pmJ-Zx-0dW"/>
-                <constraint firstItem="eT6-Fj-eth" firstAttribute="leading" secondItem="dHM-gS-c5R" secondAttribute="trailing" constant="5" id="yml-o9-Frz"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="9Df-qb-l5P"/>
@@ -116,8 +126,8 @@
         </view>
     </objects>
     <resources>
-        <image name="icon_clock" width="25" height="25"/>
-        <image name="img_star_filled" width="40" height="38"/>
-        <image name="practice_tab_improve" width="30" height="30"/>
+        <image name="icon_details_small_clock" width="14" height="14"/>
+        <image name="icon_details_small_improvement" width="14" height="14"/>
+        <image name="icon_details_small_star" width="14" height="14"/>
     </resources>
 </document>

@@ -20,6 +20,11 @@ class DetailsViewController: UIViewController {
     @IBOutlet weak var imageViewHeader: UIImageView!
     @IBOutlet weak var labelTitle: UILabel!
     
+    @IBOutlet weak var labelTab1: UILabel!
+    @IBOutlet weak var labelTab2: UILabel!
+    @IBOutlet weak var labelTab3: UILabel!
+    @IBOutlet weak var labelTab4: UILabel!
+    
     var selectedTabIdx = -1
     
     var statisticsView:StatisticsView! = nil
@@ -29,6 +34,8 @@ class DetailsViewController: UIViewController {
     
     var playlistStatsView: PlaylistStatsView! = nil
     var playlistHistoryView: PlaylistHistoryView! = nil
+    
+    var startTabIdx = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,7 +49,7 @@ class DetailsViewController: UIViewController {
                 self.labelTitle.text = playlist.name
             }
         }
-        selectTab(0)
+        selectTab(startTabIdx)
     }
 
     override func didReceiveMemoryWarning() {
@@ -51,7 +58,11 @@ class DetailsViewController: UIViewController {
     }
 
     @IBAction func onBack(_ sender: Any) {
-        self.navigationController?.dismiss(animated: true, completion: nil)
+        if self.navigationController?.viewControllers.count == 1 {
+            self.navigationController?.dismiss(animated: true, completion: nil)
+        } else {
+            self.navigationController?.popViewController(animated: true)
+        }
     }
 }
 
@@ -183,6 +194,7 @@ extension DetailsViewController {
 extension DetailsViewController {
     
     @IBAction func onTab1(_ sender: Any) {
+        
         selectTab(0)
     }
     
@@ -198,6 +210,13 @@ extension DetailsViewController {
         selectTab(3)
     }
     
+    func deselectTabLabels() {
+        self.labelTab1.font = UIFont.systemFont(ofSize: 13)
+        self.labelTab2.font = UIFont.systemFont(ofSize: 13)
+        self.labelTab3.font = UIFont.systemFont(ofSize: 13)
+        self.labelTab4.font = UIFont.systemFont(ofSize: 13)
+    }
+    
     func selectTab(_ idx: Int) {
         if idx == self.selectedTabIdx {
             return
@@ -209,6 +228,8 @@ extension DetailsViewController {
         self.viewIndicatorTab2.isHidden = true
         self.viewIndicatorTab3.isHidden = true
         self.viewIndicatorTab4.isHidden = true
+        
+        deselectTabLabels()
         
         switch currentTabIdx {
         case 0:
@@ -230,6 +251,7 @@ extension DetailsViewController {
         self.selectedTabIdx = idx
         switch idx {
         case 0:
+            self.labelTab1.font = UIFont.boldSystemFont(ofSize: 13)
             self.viewIndicatorTab1.isHidden = false
             if self.practiceItemId != nil {
                 self.attachStatisticsView()
@@ -237,12 +259,15 @@ extension DetailsViewController {
                 self.attachPlaylistStatsView()
             }
         case 1:
+            self.labelTab2.font = UIFont.boldSystemFont(ofSize: 13)
             self.viewIndicatorTab2.isHidden = false
             self.attachRecordingView()
         case 2:
+            self.labelTab3.font = UIFont.boldSystemFont(ofSize: 13)
             self.attatchNotesView()
             self.viewIndicatorTab3.isHidden = false
         case 3:
+            self.labelTab4.font = UIFont.boldSystemFont(ofSize: 13)
             self.viewIndicatorTab4.isHidden = false
             self.attachHistoryView()
         default:
@@ -294,6 +319,7 @@ extension DetailsViewController: NotesListViewDelegate {
                 let noteDetailsViewController = UIStoryboard(name: "practice_note", bundle: nil).instantiateViewController(withIdentifier: "PracticeNoteDetailsViewController") as! PracticeNoteDetailsViewController
                 noteDetailsViewController.note = note
                 noteDetailsViewController.noteIsForPlaylist = true
+                noteDetailsViewController.playlist = playlist
                 self.navigationController?.pushViewController(noteDetailsViewController, animated: true)
             }
         }
@@ -307,16 +333,11 @@ extension DetailsViewController: NotesListViewDelegate {
                 if let practiceItem = PracticeItemLocalManager.manager.practiceItem(forId: self.practiceItemId) {
                     practiceItem.deleteNote(for: note.id)
                 }
+            } else {
+                if let playlist = PlaylistLocalManager.manager.loadPlaylist(forId: self.playlistItemId) {
+                    playlist.deleteNote(for: note.id)
+                }
             }
-//            if self.playlistViewModel != nil {
-//                if self.noteIsForPlaylist {
-//                    self.playlistViewModel.deletePlaylistNote(note)
-//                } else {
-//                    self.playlistViewModel.deleteNote(note, for: self.practiceEntry)
-//                }
-//            } else {
-//                self.practiceItem.deleteNote(for: note.id)
-//            }
             self.processNotes()
         }))
         alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
@@ -329,34 +350,23 @@ extension DetailsViewController: NotesListViewDelegate {
             if let practiceItem = PracticeItemLocalManager.manager.practiceItem(forId: self.practiceItemId) {
                 practiceItem.archiveNote(for: noteId)
             }
+        } else {
+            if let playlist = PlaylistLocalManager.manager.loadPlaylist(forId: self.playlistItemId) {
+                playlist.archiveNote(for: noteId)
+            }
         }
-//        if self.playlistViewModel != nil {
-//            if self.noteIsForPlaylist {
-//                self.playlistViewModel.changeArchiveStatusForPlaylistNote(noteId)
-//            } else {
-//                self.playlistViewModel.changeArchiveStatusForNote(noteId: noteId, for: self.practiceEntry)
-//            }
-//        } else {
-//            self.practiceItem.archiveNote(for: noteId)
-//        }
         self.processNotes()
     }
     
     func onChangeTitle(for note: Note, to title: String) {
         if title != "" {
-//            if self.playlistViewModel != nil {
-//                if self.noteIsForPlaylist {
-//                    self.playlistViewModel.changePlaylistNoteTitle(note: note, to: title)
-//                } else {
-//                    self.playlistViewModel.changeNoteTitle(entry: self.practiceEntry, note: note, to: title)
-//                }
-//            } else {
-//                self.practiceItem.changeNoteTitle(for: note.id, to: title)
-//            }
-            
             if self.practiceItemId != nil {
                 if let practiceItem = PracticeItemLocalManager.manager.practiceItem(forId: self.practiceItemId) {
                     practiceItem.changeNoteTitle(for: note.id, to: title)
+                }
+            } else {
+                if let playlist = PlaylistLocalManager.manager.loadPlaylist(forId: self.playlistItemId) {
+                    playlist.archiveNote(for: note.id)
                 }
             }
         }

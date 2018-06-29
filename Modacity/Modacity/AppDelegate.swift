@@ -15,6 +15,7 @@ import SwiftMessages
 import Intercom
 import SplunkMint
 import UserNotifications
+import StoreKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
