@@ -136,10 +136,10 @@ class StatisticsView: UIView {
             
             if totalSeconds > 0 && totalSeconds < 60 {
                 self.labelTotalTime.text = "\(totalSeconds)"
-                self.labelTotalTimeUnit.text = "TOTAL\nSECONDS"
+                self.labelTotalTimeUnit.text = "TOTAL SECONDS"
             } else {
                 self.labelTotalTime.text = "\(totalSeconds / 60)"
-                self.labelTotalTimeUnit.text = "TOTAL\nMINUTES"
+                self.labelTotalTimeUnit.text = "TOTAL MINUTES"
             }
             
             var cal = monday

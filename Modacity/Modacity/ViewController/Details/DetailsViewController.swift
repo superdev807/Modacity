@@ -49,6 +49,10 @@ class DetailsViewController: UIViewController {
                 self.labelTitle.text = playlist.name
             }
         }
+        self.viewIndicatorTab1.backgroundColor = Color(hexString: "#292947")
+        self.viewIndicatorTab2.backgroundColor = Color(hexString: "#292947")
+        self.viewIndicatorTab3.backgroundColor = Color(hexString: "#292947")
+        self.viewIndicatorTab4.backgroundColor = Color(hexString: "#292947")
         selectTab(startTabIdx)
     }
 
@@ -211,10 +215,10 @@ extension DetailsViewController {
     }
     
     func deselectTabLabels() {
-        self.labelTab1.font = UIFont.systemFont(ofSize: 13)
-        self.labelTab2.font = UIFont.systemFont(ofSize: 13)
-        self.labelTab3.font = UIFont.systemFont(ofSize: 13)
-        self.labelTab4.font = UIFont.systemFont(ofSize: 13)
+        self.labelTab1.font = UIFont.systemFont(ofSize: 11)
+        self.labelTab2.font = UIFont.systemFont(ofSize: 11)
+        self.labelTab3.font = UIFont.systemFont(ofSize: 11)
+        self.labelTab4.font = UIFont.systemFont(ofSize: 11)
     }
     
     func selectTab(_ idx: Int) {
@@ -251,7 +255,7 @@ extension DetailsViewController {
         self.selectedTabIdx = idx
         switch idx {
         case 0:
-            self.labelTab1.font = UIFont.boldSystemFont(ofSize: 13)
+            self.labelTab1.font = UIFont.boldSystemFont(ofSize: 11)
             self.viewIndicatorTab1.isHidden = false
             if self.practiceItemId != nil {
                 self.attachStatisticsView()
@@ -259,15 +263,15 @@ extension DetailsViewController {
                 self.attachPlaylistStatsView()
             }
         case 1:
-            self.labelTab2.font = UIFont.boldSystemFont(ofSize: 13)
+            self.labelTab2.font = UIFont.boldSystemFont(ofSize: 11)
             self.viewIndicatorTab2.isHidden = false
             self.attachRecordingView()
         case 2:
-            self.labelTab3.font = UIFont.boldSystemFont(ofSize: 13)
+            self.labelTab3.font = UIFont.boldSystemFont(ofSize: 11)
             self.attatchNotesView()
             self.viewIndicatorTab3.isHidden = false
         case 3:
-            self.labelTab4.font = UIFont.boldSystemFont(ofSize: 13)
+            self.labelTab4.font = UIFont.boldSystemFont(ofSize: 11)
             self.viewIndicatorTab4.isHidden = false
             self.attachHistoryView()
         default:

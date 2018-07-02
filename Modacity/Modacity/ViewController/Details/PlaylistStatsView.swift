@@ -102,8 +102,8 @@ class PlaylistStatsView: UIView {
         
         self.viewForPracticeDetailsHistoryPanel.layer.cornerRadius = 5
         self.viewForPracticeDetailsHistoryPanel.layer.shadowColor = UIColor.black.cgColor
-        self.viewForPracticeDetailsHistoryPanel.layer.shadowOffset = CGSize(width: 1, height: 1)
-        self.viewForPracticeDetailsHistoryPanel.layer.shadowOpacity = 0.7
+        self.viewForPracticeDetailsHistoryPanel.layer.shadowOffset = CGSize(width: 0, height: 0)
+        self.viewForPracticeDetailsHistoryPanel.layer.shadowOpacity = 0.4
         self.viewForPracticeDetailsHistoryPanel.layer.shadowRadius = 4.0
         self.viewForPracticeDetailsHistoryPanel.backgroundColor = Color(hexString: "#2e2d4f")
         
@@ -147,10 +147,10 @@ class PlaylistStatsView: UIView {
             
             if totalSeconds > 0 && totalSeconds < 60 {
                 self.labelTotalTime.text = "\(totalSeconds)"
-                self.labelTotalTimeUnit.text = "TOTAL\nSECONDS"
+                self.labelTotalTimeUnit.text = "TOTAL SECONDS"
             } else {
                 self.labelTotalTime.text = "\(totalSeconds / 60)"
-                self.labelTotalTimeUnit.text = "TOTAL\nMINUTES"
+                self.labelTotalTimeUnit.text = "TOTAL MINUTES"
             }
             
             print("seconds data \(secondsData)")

@@ -33,8 +33,8 @@ class PracticeHistoryCell: UITableViewCell {
         self.viewContainer.backgroundColor = Color(hexString: "#2e2d4f")
         
         self.viewContainer.layer.shadowColor = UIColor.black.cgColor
-        self.viewContainer.layer.shadowOffset = CGSize(width: 1, height: 1)
-        self.viewContainer.layer.shadowOpacity = 0.7
+        self.viewContainer.layer.shadowOffset = CGSize(width: 0, height: 0)
+        self.viewContainer.layer.shadowOpacity = 0.4
         self.viewContainer.layer.shadowRadius = 4.0
 
         self.labelDate.text = date.toString(format: "MMMM d").uppercased()
