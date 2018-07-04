@@ -41,7 +41,7 @@ class PracticeItemSelectCell: UITableViewCell {
         }
         
         if isSelected {
-            self.imageViewIcon.image = UIImage(named:"icon_selected_blue")
+            self.imageViewIcon.image = UIImage(named:"icon_selected_gradient")
         } else {
             self.imageViewIcon.image = UIImage(named:"icon_plus")
         }
@@ -86,7 +86,6 @@ class PracticeItemSelectViewController: UIViewController {
     @IBOutlet weak var constraintForHeaderImageViewConstant: NSLayoutConstraint!
     
     @IBOutlet weak var viewAddPracticeButtonContainer: UIView!
-    @IBOutlet weak var labelAddPracticeItemButton: UILabel!
     @IBOutlet weak var constraintForAddPracticeButtonHeight: NSLayoutConstraint!
     
     @IBOutlet weak var viewWalkthrough: UIView!
@@ -158,8 +157,7 @@ class PracticeItemSelectViewController: UIViewController {
         self.viewModel.subscribe(to: "selectedPracticeItems") { (event, _, _) in
             if self.viewModel.selectedPracticeItems.count > 0 {
                 self.viewAddPracticeButtonContainer.isHidden = false
-                self.constraintForAddPracticeButtonHeight.constant = 64
-                self.labelAddPracticeItemButton.text = "ADD TO PLAYLIST"
+                self.constraintForAddPracticeButtonHeight.constant = 64 / 375 * UIScreen.main.bounds.size.width
             } else {
                 self.viewAddPracticeButtonContainer.isHidden = true
                 self.constraintForAddPracticeButtonHeight.constant = 0

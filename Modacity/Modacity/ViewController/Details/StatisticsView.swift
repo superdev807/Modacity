@@ -94,8 +94,14 @@ class StatisticsView: UIView {
     
     func showValues() {
         
-        let monday = self.date.weekDay(for: .mon)
-        let sunday = self.date.addingTimeInterval(7 * 24 * 3600).weekDay(for: .sun)
+        var monday = self.date.weekDay(for: .mon)
+        var sunday = monday.addingTimeInterval(7 * 24 * 3600)
+        
+        if self.date.weekDay == 1 {
+            monday = self.date.weekDay(for: .mon).addingTimeInterval(-1 * 7 * 24 * 3600)
+            sunday = monday.addingTimeInterval(7 * 24 * 3600)
+        }
+        
         self.labelWeekDuration.text = "\(monday.toString(format: "MMM d yyyy")) - \(sunday.toString(format: "MMM d yyyy"))"
         
         if self.date.startOfDate().timeIntervalSince1970 == Date().startOfDate().timeIntervalSince1970 {
@@ -201,20 +207,25 @@ class StatisticsView: UIView {
                 for daily in dailyDatas {
                     totalMinutes = totalMinutes + daily.practiceTimeInSeconds
                     entryCount = entryCount + 1
-                    
+                 
+                    print("time \(time!)")
                     if time!.isThisWeek() {
+                        print("this week. + \(daily.practiceTimeInSeconds)")
                         thisWeekTotal = thisWeekTotal + daily.practiceTimeInSeconds
                     }
                  
                     if time!.isLastWeek() {
+                        print("last week. + \(daily.practiceTimeInSeconds)")
                         lastWeekTotal = lastWeekTotal + daily.practiceTimeInSeconds
                     }
                     
                     if time!.isThisMonth() {
+                        print("this month. + \(daily.practiceTimeInSeconds)")
                         thisMonthTotal = thisMonthTotal + daily.practiceTimeInSeconds
                     }
                     
                     if time!.isLastMonth() {
+                        print("last month. + \(daily.practiceTimeInSeconds)")
                         lastMonthTotal = lastMonthTotal + daily.practiceTimeInSeconds
                     }
                 }

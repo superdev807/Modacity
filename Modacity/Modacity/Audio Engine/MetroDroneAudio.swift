@@ -235,9 +235,6 @@ class MetroDroneAudio {
             self.dronePlayerNode.play()
         }
         
-    
-        
-        
         if clickPlayerNode.isPlaying {
             //clickPlayerNode.stop()
             clickPlayerNode.scheduleBuffer(bufferClick, at: nil, options: .interruptsAtLoop, completionHandler: nil)

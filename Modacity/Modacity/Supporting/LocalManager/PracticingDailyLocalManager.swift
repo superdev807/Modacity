@@ -33,7 +33,7 @@ class PracticingDailyLocalManager: NSObject {
         var idsArrayPerDate = [String]()
         
         if let ids = indecies[data.entryDateString] {
-            idsArrayPerDate = ids
+            idsArrayPerDate = AppUtils.cleanDuplicatedEntries(in: ids)
         }
         idsArrayPerDate.append(data.entryId)
         indecies[data.entryDateString] = idsArrayPerDate
@@ -78,8 +78,10 @@ class PracticingDailyLocalManager: NSObject {
                                 if let old = data[practice.entryDateString] {
                                     entries = old
                                 }
-                                entries.append(practice)
-                                data[practice.entryDateString] = entries
+                                if !entryContained(entries, practice) {
+                                    entries.append(practice)
+                                    data[practice.entryDateString] = entries
+                                }
                             }
                         }
                         
@@ -89,8 +91,10 @@ class PracticingDailyLocalManager: NSObject {
                                 if let old = data[practice.entryDateString] {
                                     entries = old
                                 }
-                                entries.append(practice)
-                                data[practice.entryDateString] = entries
+                                if !entryContained(entries, practice) {
+                                    entries.append(practice)
+                                    data[practice.entryDateString] = entries
+                                }
                             }
                         }
                     }
@@ -98,6 +102,16 @@ class PracticingDailyLocalManager: NSObject {
             }
         }
         return data
+    }
+    
+    func entryContained(_ entries:[PracticeDaily], _ data: PracticeDaily) -> Bool {
+        for entry in entries {
+            if entry.startedTime == data.startedTime {
+                return true
+            }
+        }
+        
+        return false
     }
     
     func practicingData(forDataId: String) -> PracticeDaily? {

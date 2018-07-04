@@ -157,15 +157,15 @@ extension PracticeItemListViewController: UITableViewDataSource, UITableViewDele
         }
         DropdownMenuView.instance.show(in: self.view,
                                        on: cell.buttonMenu,
-                                       rows: [["icon":"icon_pen_white", "text":"Rename"],
-                                              ["icon":"icon_notes", "text":"Details"],
+                                       rows: [["icon":"icon_notes", "text":"Details"],
+                                              ["icon":"icon_pen_white", "text":"Rename"],
                                               ["icon":"icon_row_delete", "text":"Delete"]]) { (row) in
                                                 self.processAction(row, cell)
         }
     }
     
     func processAction(_ row: Int, _ cell: PracticeItemCell) {
-        if row == 0 {
+        if row == 1 {
             if self.practiceItemNameEditingCell != nil {
                 self.practiceItemNameEditingCell!.textfieldNameEdit.resignFirstResponder()
                 self.practiceItemNameEditingCell = nil
@@ -175,7 +175,7 @@ extension PracticeItemListViewController: UITableViewDataSource, UITableViewDele
             cell.textfieldNameEdit.becomeFirstResponder()
             cell.textfieldNameEdit.text = cell.practiceItem.name
             self.practiceItemNameEditingCell = cell
-        } else if row == 1 {
+        } else if row == 0 {
             self.openDetails(cell.practiceItem.id)
         } else if row == 2 {
             PracticeItemLocalManager.manager.removePracticeItem(for: cell.practiceItem)

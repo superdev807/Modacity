@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseAuth
 import FirebaseDatabase
+import Crashlytics
 
 class MyProfileRemoteManager {
     
@@ -25,10 +26,14 @@ class MyProfileRemoteManager {
     func configureMyProfileListener() {
         if let userId = MyProfileLocalManager.manager.userId() {
             print("user id - \(userId)")
+            Crashlytics.sharedInstance().setUserIdentifier(userId)
+            
             self.profileListnerHandler = self.refUser.child(userId).child("profile").observe(.value) { (snapshot) in
                 if snapshot.exists() {
                     if let profile = snapshot.value as? [String:Any] {
                         MyProfileLocalManager.manager.me = Me(JSON: profile)
+                        Crashlytics.sharedInstance().setUserName(MyProfileLocalManager.manager.me?.name ?? "___")
+                        Crashlytics.sharedInstance().setUserEmail(MyProfileLocalManager.manager.me?.email ?? "__@__")
                         NotificationCenter.default.post(name: AppConfig.appNotificationProfileUpdated, object: nil)
                     }
                 }

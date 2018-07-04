@@ -470,6 +470,8 @@ class PlaylistContentsViewController: UIViewController {
     
     @IBAction func onStart(_ sender: Any) {
         
+        AppOveralDataManager.manager.walkThroughFirstPlaylist()
+        
         AppOveralDataManager.manager.storeFirstPlaylist()
         
         if self.showingWalkThrough1 {
@@ -701,16 +703,16 @@ extension PlaylistContentsViewController: PlaylistPracticeItemCellDelegate {
     func onMenu(item: PlaylistPracticeEntry, buttonMenu: UIButton) {
         DropdownMenuView.instance.show(in: self.view,
                                        on: buttonMenu,
-                                       rows: [["icon":"icon_row_clock", "text":"Set Timer"],
-                                              ["icon":"icon_notes", "text":"Details"],
+                                       rows: [["icon":"icon_notes", "text":"Details"],
+                                              ["icon":"icon_row_clock", "text":"Set Timer"],
                                               ["icon":"icon_row_delete", "text":"Remove"]]) { (row) in
                                                 
                                                 if row == 2 {
                                                     self.viewModel.editingRow = -1
                                                     self.viewModel.deletePracticeItem(for: item)
-                                                } else if row == 0 {
-                                                    self.openClockEdit(for: item)
                                                 } else if row == 1 {
+                                                    self.openClockEdit(for: item)
+                                                } else if row == 0 {
                                                     self.openDetails(for: item)
                                                 }
                                                 

@@ -16,7 +16,9 @@ class DailyPracticingRemoteManager: NSObject {
     
     func createPracticing(_ data: PracticeDaily) {
         if let userId = MyProfileLocalManager.manager.userId() {
-            self.refUser.child(userId).child("practice_data").child(data.practiceItemId).child(data.entryDateString).child(data.entryId).setValue(data.toJSON())
+            if data.practiceItemId != nil && data.practiceItemId != "" {
+                self.refUser.child(userId).child("practice_data").child(data.practiceItemId).child(data.entryDateString).child(data.entryId).setValue(data.toJSON())
+            }
         }
     }
     

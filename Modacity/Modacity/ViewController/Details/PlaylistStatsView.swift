@@ -115,8 +115,13 @@ class PlaylistStatsView: UIView {
     
     func showSelectedWeekValues() {
         
-        let monday = self.date.weekDay(for: .mon)
-        let sunday = self.date.addingTimeInterval(7 * 24 * 3600).weekDay(for: .sun)
+        var monday = self.date.weekDay(for: .mon)
+        var sunday = monday.addingTimeInterval(7 * 24 * 3600)
+        
+        if self.date.weekDay == 1 {
+            monday = self.date.weekDay(for: .mon).addingTimeInterval(-1 * 7 * 24 * 3600)
+            sunday = monday.addingTimeInterval(7 * 24 * 3600)
+        }
         self.labelWeekDuration.text = "\(monday.toString(format: "MMM d yyyy")) - \(sunday.toString(format: "MMM d yyyy"))"
         
         if self.date.startOfDate().timeIntervalSince1970 == Date().startOfDate().timeIntervalSince1970 {
@@ -388,7 +393,7 @@ class PlaylistStatsView: UIView {
                 }
                 lastView = rowView
             }
-            self.constraintForPracticeDetailsHistoryPanelHeight.constant = CGFloat(70.5 + Double(stats.keys.count) * 36.0)
+            self.constraintForPracticeDetailsHistoryPanelHeight.constant = CGFloat(78.5 + Double(stats.keys.count) * 36.0)
         } else {
             let label = UILabel()
             label.textColor = Color.white

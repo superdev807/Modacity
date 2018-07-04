@@ -278,10 +278,10 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
 
 extension SettingsViewController: SettingsCellWithSwitchDelegate {
     func onSwitchValueChanged(forCaption: String?) {
-        if "Prevent phone sleep during audio activity" == forCaption {
+        if "Prevent Phone Sleep During Audio Activity" == forCaption {
             AppOveralDataManager.manager.changePhoneSleepPrevent()
             self.tableViewSettings.reloadRows(at: [IndexPath(row: 0, section: 1)], with: .none)
-        } else if "Disable auto-playback" == forCaption {
+        } else if "Disable Auto-Playback" == forCaption {
             AppOveralDataManager.manager.changeDisableAutoPlayback()
             self.tableViewSettings.reloadRows(at: [IndexPath(row: 1, section: 1)], with: .none)
         } else if "Pause Timer During Note Taking" == forCaption {

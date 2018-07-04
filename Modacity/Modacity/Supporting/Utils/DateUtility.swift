@@ -136,8 +136,9 @@ extension Date {
     func isThisWeek() -> Bool {
         let now = Date()
         if now.weekDay != 1 {
-            return self.timeIntervalSince1970 >= now.weekDay(for: .mon).timeIntervalSince1970 && self.timeIntervalSince1970 <= now.weekDay(for: .mon).timeIntervalSince1970 + 7 * 24 * 3600
+            return self.timeIntervalSince1970 >= now.weekDay(for: .mon).timeIntervalSince1970 && self.timeIntervalSince1970 < now.weekDay(for: .mon).timeIntervalSince1970 + 7 * 24 * 3600
         } else {
+//            return self.isToday
             return self.timeIntervalSince1970 >= now.weekDay(for: .mon).timeIntervalSince1970 - 7 * 24 * 3600 && self.timeIntervalSince1970 <= now.weekDay(for: .sun).timeIntervalSince1970
         }
     }

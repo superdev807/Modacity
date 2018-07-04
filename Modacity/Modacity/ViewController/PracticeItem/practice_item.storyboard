@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina3_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -31,28 +31,28 @@
             <objects>
                 <viewController storyboardIdentifier="PracticeItemSelectViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ZH6-O4-ov3" customClass="PracticeItemSelectViewController" customModule="Modacity" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="XmC-Ht-H8K">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_common" translatesAutoresizingMaskIntoConstraints="NO" id="cYo-wq-GVW">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="707"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="520"/>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sCV-7F-Arj" customClass="TPKeyboardAvoidingTableView">
-                                <rect key="frame" x="0.0" y="165" width="375" height="438"/>
+                                <rect key="frame" x="0.0" y="165" width="320" height="260.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" red="0.23529411764705882" green="0.2196078431372549" blue="0.3529411764705882" alpha="1" colorSpace="calibratedRGB"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="86G-EK-gFY">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="10"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="10"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PracticeItemCell" rowHeight="64" id="Eaq-Gi-q4n" customClass="PracticeItemSelectCell" customModule="Modacity" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="38" width="375" height="64"/>
+                                        <rect key="frame" x="0.0" y="38" width="320" height="64"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Eaq-Gi-q4n" id="7ih-NM-JNE">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="63.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="63.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_plus" translatesAutoresizingMaskIntoConstraints="NO" id="vtg-Ll-gW3">
@@ -63,13 +63,13 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Practice Item" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="lCi-yX-bpm">
-                                                    <rect key="frame" x="50" y="23" width="207" height="19.5"/>
+                                                    <rect key="frame" x="50" y="23" width="152" height="19.5"/>
                                                     <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="16"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Test" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fyv-jT-Zfq">
-                                                    <rect key="frame" x="50" y="14" width="207" height="36"/>
+                                                    <rect key="frame" x="50" y="14" width="152" height="36"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
@@ -84,7 +84,7 @@
                                                     </connections>
                                                 </textField>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c6A-qa-vd6" customClass="FloatRatingView" customModule="Modacity" customModuleProvider="target">
-                                                    <rect key="frame" x="257" y="26.5" width="70" height="12"/>
+                                                    <rect key="frame" x="202" y="26.5" width="70" height="12"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="70" id="Ois-od-z3D"/>
@@ -106,7 +106,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jb8-lC-Zw1">
-                                                    <rect key="frame" x="327" y="11" width="48" height="40"/>
+                                                    <rect key="frame" x="272" y="11" width="48" height="40"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="48" id="8XA-2I-1Xv"/>
                                                         <constraint firstAttribute="height" constant="40" id="cBT-51-pZh"/>
@@ -148,7 +148,7 @@
                                 </connections>
                             </tableView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_header_small" translatesAutoresizingMaskIntoConstraints="NO" id="3Uv-vL-QBY">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="88"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="88"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="88" id="KRi-z2-jO3"/>
                                 </constraints>
@@ -167,10 +167,10 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pb2-97-ONL">
-                                <rect key="frame" x="50" y="25" width="295" height="40"/>
+                                <rect key="frame" x="50" y="25" width="240" height="40"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Type to add practice item" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dd4-zg-6s5">
-                                        <rect key="frame" x="10" y="0.0" width="245" height="40"/>
+                                        <rect key="frame" x="10" y="0.0" width="190" height="40"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
@@ -183,7 +183,7 @@
                                         </connections>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Guy-aT-OW9">
-                                        <rect key="frame" x="254" y="0.0" width="41" height="40"/>
+                                        <rect key="frame" x="199" y="0.0" width="41" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="Guy-aT-OW9" secondAttribute="height" multiplier="41:40" id="3ij-Ak-z5b"/>
                                         </constraints>
@@ -206,10 +206,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yzJ-7T-thW">
-                                <rect key="frame" x="20" y="96" width="335" height="50"/>
+                                <rect key="frame" x="20" y="96" width="280" height="50"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yQY-pG-Bo1">
-                                        <rect key="frame" x="0.0" y="0.0" width="335" height="50"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="280" height="50"/>
                                         <connections>
                                             <action selector="onAddtoStore:" destination="ZH6-O4-ov3" eventType="touchUpInside" id="ohr-Wq-5Xc"/>
                                         </connections>
@@ -218,7 +218,7 @@
                                         <rect key="frame" x="10" y="7" width="36" height="36"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&quot;Practice Item Name Only&quot;" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Myq-0p-5Gd">
-                                        <rect key="frame" x="56" y="17.5" width="269" height="16"/>
+                                        <rect key="frame" x="56" y="17.5" width="214" height="16"/>
                                         <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="13"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -239,40 +239,14 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ls5-j1-RPP">
-                                <rect key="frame" x="0.0" y="603" width="375" height="64"/>
+                                <rect key="frame" x="0.0" y="425.5" width="320" height="54.5"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btn_bg_gradient2" translatesAutoresizingMaskIntoConstraints="NO" id="F1E-ZR-cSL">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
-                                    </imageView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BfE-8g-uuH">
-                                        <rect key="frame" x="132.5" y="20" width="111" height="24"/>
-                                        <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_plus" translatesAutoresizingMaskIntoConstraints="NO" id="bmR-BA-vUj">
-                                                <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="24" id="a8a-CE-yVu"/>
-                                                    <constraint firstAttribute="width" secondItem="bmR-BA-vUj" secondAttribute="height" multiplier="1:1" id="p5d-VV-Zpc"/>
-                                                </constraints>
-                                            </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add 1 Practice" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vh3-JL-EGt">
-                                                <rect key="frame" x="34" y="4.5" width="77" height="14.5"/>
-                                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wix-cc-jgF">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="54.5"/>
                                         <constraints>
-                                            <constraint firstItem="Vh3-JL-EGt" firstAttribute="centerY" secondItem="bmR-BA-vUj" secondAttribute="centerY" id="QhH-kc-dyX"/>
-                                            <constraint firstItem="bmR-BA-vUj" firstAttribute="top" secondItem="BfE-8g-uuH" secondAttribute="top" id="ZnX-F9-z99"/>
-                                            <constraint firstItem="Vh3-JL-EGt" firstAttribute="leading" secondItem="bmR-BA-vUj" secondAttribute="trailing" constant="10" id="dom-nU-fN8"/>
-                                            <constraint firstAttribute="trailing" secondItem="Vh3-JL-EGt" secondAttribute="trailing" id="tBs-Nm-6PT"/>
-                                            <constraint firstAttribute="bottom" secondItem="bmR-BA-vUj" secondAttribute="bottom" id="wcn-RO-hg4"/>
-                                            <constraint firstItem="bmR-BA-vUj" firstAttribute="leading" secondItem="BfE-8g-uuH" secondAttribute="leading" id="ysA-X7-5Cw"/>
+                                            <constraint firstAttribute="width" secondItem="Wix-cc-jgF" secondAttribute="height" multiplier="375:64" id="nJF-AB-cmB"/>
                                         </constraints>
-                                    </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wix-cc-jgF">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
+                                        <state key="normal" backgroundImage="btn_add_to_playlist"/>
                                         <connections>
                                             <action selector="onSelectItems:" destination="ZH6-O4-ov3" eventType="touchUpInside" id="mX4-vB-PEI"/>
                                         </connections>
@@ -280,24 +254,18 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="64" id="DrW-mv-57J"/>
                                     <constraint firstItem="Wix-cc-jgF" firstAttribute="top" secondItem="Ls5-j1-RPP" secondAttribute="top" id="E7e-47-03m"/>
-                                    <constraint firstItem="F1E-ZR-cSL" firstAttribute="leading" secondItem="Ls5-j1-RPP" secondAttribute="leading" id="F5w-8d-Ya0"/>
-                                    <constraint firstItem="F1E-ZR-cSL" firstAttribute="top" secondItem="Ls5-j1-RPP" secondAttribute="top" id="LmZ-Pv-883"/>
-                                    <constraint firstItem="BfE-8g-uuH" firstAttribute="centerX" secondItem="Ls5-j1-RPP" secondAttribute="centerX" id="Qi3-nn-U1C"/>
-                                    <constraint firstAttribute="bottom" secondItem="F1E-ZR-cSL" secondAttribute="bottom" id="Wac-a5-mdf"/>
+                                    <constraint firstAttribute="height" constant="54.5" id="bCk-xq-37k"/>
                                     <constraint firstAttribute="bottom" secondItem="Wix-cc-jgF" secondAttribute="bottom" id="cDx-iO-hEI"/>
                                     <constraint firstAttribute="trailing" secondItem="Wix-cc-jgF" secondAttribute="trailing" id="dXT-Bt-twM"/>
-                                    <constraint firstItem="BfE-8g-uuH" firstAttribute="centerY" secondItem="Ls5-j1-RPP" secondAttribute="centerY" id="eVh-U4-CcF"/>
-                                    <constraint firstAttribute="trailing" secondItem="F1E-ZR-cSL" secondAttribute="trailing" id="hFN-g5-cqb"/>
                                     <constraint firstItem="Wix-cc-jgF" firstAttribute="leading" secondItem="Ls5-j1-RPP" secondAttribute="leading" id="tqm-kT-5c0"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OMd-fl-BQW">
-                                <rect key="frame" x="0.0" y="65" width="375" height="602"/>
+                                <rect key="frame" x="0.0" y="65" width="320" height="415"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GDh-Qj-fBS">
-                                        <rect key="frame" x="0.0" y="15" width="375" height="587"/>
+                                        <rect key="frame" x="0.0" y="15" width="320" height="400"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" verticalHuggingPriority="251" image="walkthrough_arrow_2" translatesAutoresizingMaskIntoConstraints="NO" id="ZIM-bu-mPO">
                                                 <rect key="frame" x="64" y="-11" width="55" height="97"/>
@@ -306,7 +274,7 @@
                                                 <rect key="frame" x="15" y="173" width="12" height="24"/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tc9-6H-PMZ">
-                                                <rect key="frame" x="124" y="67" width="231" height="38.5"/>
+                                                <rect key="frame" x="124" y="67" width="176" height="38.5"/>
                                                 <string key="text">What Are You Currently
 Working On?</string>
                                                 <fontDescription key="fontDescription" name="Lato-BoldItalic" family="Lato" pointSize="16"/>
@@ -314,7 +282,7 @@ Working On?</string>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add your practice items. (e.g. scales, song names, excerpts, techniques, etc.)" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rVn-pa-yA6">
-                                                <rect key="frame" x="124" y="113" width="236" height="34"/>
+                                                <rect key="frame" x="124" y="113" width="181" height="50.5"/>
                                                 <fontDescription key="fontDescription" name="Lato-Italic" family="Lato" pointSize="14"/>
                                                 <color key="textColor" red="0.75686274509803919" green="0.76078431372549016" blue="0.78823529411764703" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -346,7 +314,7 @@ Working On?</string>
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xWZ-2f-vES">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="602"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="415"/>
                                         <connections>
                                             <action selector="onDismissWalkThrough:" destination="ZH6-O4-ov3" eventType="touchUpInside" id="p0c-RG-vtC"/>
                                         </connections>
@@ -402,11 +370,10 @@ Working On?</string>
                     <connections>
                         <outlet property="buttonRemoveKeyword" destination="Guy-aT-OW9" id="N3w-Ay-R2u"/>
                         <outlet property="constraintForAddButtonBottomSpace" destination="CDk-TH-14o" id="PYV-3H-x0f"/>
-                        <outlet property="constraintForAddPracticeButtonHeight" destination="DrW-mv-57J" id="Rjq-R3-gcb"/>
+                        <outlet property="constraintForAddPracticeButtonHeight" destination="bCk-xq-37k" id="U2e-jC-52p"/>
                         <outlet property="constraintForHeaderImageViewConstant" destination="KRi-z2-jO3" id="E4Q-x4-76d"/>
                         <outlet property="constraintForTableViewTopSpace" destination="Ys1-VK-uff" id="l8I-3X-vIq"/>
                         <outlet property="imageViewWalkThrough2" destination="DCg-Fd-Z2M" id="NjS-um-qp7"/>
-                        <outlet property="labelAddPracticeItemButton" destination="Vh3-JL-EGt" id="W5U-K1-T1g"/>
                         <outlet property="labelStoreNewItem" destination="Myq-0p-5Gd" id="4Hj-Ng-ftv"/>
                         <outlet property="labelWalkThrough2" destination="jwf-u7-d2e" id="x7b-Cr-bTN"/>
                         <outlet property="tableViewMain" destination="sCV-7F-Arj" id="QhX-Bz-9VI"/>
@@ -456,28 +423,28 @@ Working On?</string>
             <objects>
                 <viewController storyboardIdentifier="PracticeItemListViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Nt4-pi-OvH" customClass="PracticeItemListViewController" customModule="Modacity" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Iy4-ki-6t3">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_common" translatesAutoresizingMaskIntoConstraints="NO" id="JJW-eE-bm7">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="707"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="520"/>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ASm-Ib-zd9" customClass="TPKeyboardAvoidingTableView">
-                                <rect key="frame" x="0.0" y="68" width="375" height="535"/>
+                                <rect key="frame" x="0.0" y="68" width="320" height="348"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" red="0.23529411764705882" green="0.2196078431372549" blue="0.3529411764705882" alpha="1" colorSpace="calibratedRGB"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="FkT-Zh-ryo">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="17"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="17"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PracticeItemCell" rowHeight="64" id="Z2w-PZ-Bhj" customClass="PracticeItemCell" customModule="Modacity" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="45" width="375" height="64"/>
+                                        <rect key="frame" x="0.0" y="45" width="320" height="64"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Z2w-PZ-Bhj" id="nAs-27-lU0">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="63.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="63.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JMf-ov-Fgz">
@@ -492,7 +459,7 @@ Working On?</string>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XWk-mB-iD9">
-                                                    <rect key="frame" x="327" y="11" width="48" height="40"/>
+                                                    <rect key="frame" x="272" y="11" width="48" height="40"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="40" id="EAk-ro-uqr"/>
                                                         <constraint firstAttribute="width" constant="48" id="okv-gQ-KIb"/>
@@ -503,16 +470,16 @@ Working On?</string>
                                                     </connections>
                                                 </button>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f9J-PF-irF">
-                                                    <rect key="frame" x="55" y="14" width="272" height="36.5"/>
+                                                    <rect key="frame" x="55" y="14" width="217" height="36.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Practice Item" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ydv-5K-KIc">
-                                                            <rect key="frame" x="0.0" y="0.0" width="272" height="19.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="217" height="19.5"/>
                                                             <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="16"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NVd-7g-6oQ">
-                                                            <rect key="frame" x="0.0" y="0.0" width="272" height="26"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="217" height="26"/>
                                                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="26" id="0ds-Ji-dyd"/>
@@ -548,7 +515,7 @@ Working On?</string>
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Practice Item" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="iyS-Dy-MID">
-                                                            <rect key="frame" x="65" y="25" width="207" height="12"/>
+                                                            <rect key="frame" x="65" y="25" width="152" height="12"/>
                                                             <fontDescription key="fontDescription" name="Lato-Italic" family="Lato" pointSize="10"/>
                                                             <color key="textColor" red="1" green="1" blue="1" alpha="0.69999999999999996" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -598,7 +565,7 @@ Working On?</string>
                                 </connections>
                             </tableView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_header_small" translatesAutoresizingMaskIntoConstraints="NO" id="wD5-Gi-p7s">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="88"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="88"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="88" id="b62-4u-fyW"/>
                                 </constraints>
@@ -617,7 +584,7 @@ Working On?</string>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Practice Items" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w5m-J7-DVT">
-                                <rect key="frame" x="137.5" y="32.5" width="101.5" height="19"/>
+                                <rect key="frame" x="109.5" y="32.5" width="101.5" height="19"/>
                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -659,7 +626,7 @@ Working On?</string>
     <resources>
         <image name="bg_common" width="375" height="667"/>
         <image name="bg_header_small" width="375" height="87"/>
-        <image name="btn_bg_gradient2" width="375" height="64"/>
+        <image name="btn_add_to_playlist" width="375" height="64"/>
         <image name="icon_arrow_left" width="10" height="15"/>
         <image name="icon_cell_menu" width="16" height="4"/>
         <image name="icon_heart" width="16" height="15"/>

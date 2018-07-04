@@ -44,7 +44,7 @@ class PlaylistDailyLocalManager: NSObject {
         var idsArrayPerDate = [String]()
         
         if let ids = indecies[data.entryDateString] {
-            idsArrayPerDate = ids
+            idsArrayPerDate = AppUtils.cleanDuplicatedEntries(in: ids)
         }
         idsArrayPerDate.append(data.entryId)
         indecies[data.entryDateString] = idsArrayPerDate
@@ -86,20 +86,6 @@ class PlaylistDailyLocalManager: NSObject {
             }
         }
         
-//        if let ids = UserDefaults.standard.object(forKey: "playlist-indecies-\(forPlaylistId)") as? [String:[String]] {
-//            for id in ids {
-//                if let practiceData = UserDefaults.standard.object(forKey: "playlist-data-\(id)") as? [String:Any] {
-//                    if let practice = PlaylistDaily(JSON: practiceData) {
-//                        var entries = [PlaylistDaily]()
-//                        if let old = data[practice.entryDateString] {
-//                            entries = old
-//                        }
-//                        entries.append(practice)
-//                        data[practice.entryDateString] = entries
-//                    }
-//                }
-//            }
-//        }
         return data
     }
 

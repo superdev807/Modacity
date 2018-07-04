@@ -93,6 +93,18 @@ class AppUtils: NSObject {
             }
         }
     }
+    
+    class func cleanDuplicatedEntries(in array:[String])->[String] {
+        var dicts = [String:Bool]()
+        var newArray = [String]()
+        for string in array {
+            if dicts[string] == nil {
+                dicts[string] = true
+                newArray.append(string)
+            }
+        }
+        return newArray
+    }
 }
 
 public extension Color {

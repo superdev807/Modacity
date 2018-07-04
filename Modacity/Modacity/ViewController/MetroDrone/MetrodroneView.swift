@@ -123,12 +123,6 @@ class MetrodroneView: UIView {
         }
     }
     
-//    func startMetrodrone() {
-//        if self.metrodonePlayer == nil {
-//            prepareMetrodrone()
-//        }
-//    }
-    
     @IBAction func onSustainButton(_ sender: Any) {
         if let mPlayer = self.metrodonePlayer {
             self.buttonSustain.isSelected = mPlayer.toggleSustain()

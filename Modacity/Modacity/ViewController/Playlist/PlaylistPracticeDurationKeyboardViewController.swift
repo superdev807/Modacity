@@ -46,6 +46,10 @@ class PlaylistPracticeDurationKeyboardViewController: UIViewController, TimerInp
         self.dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func onClose(_ sender:Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     func onTimerDismiss() {
         self.dismiss(animated: true, completion: nil)
     }
