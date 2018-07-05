@@ -25,6 +25,8 @@ class DetailsViewController: UIViewController {
     @IBOutlet weak var labelTab3: UILabel!
     @IBOutlet weak var labelTab4: UILabel!
     
+    @IBOutlet weak var buttonMenu: UIButton!
+    
     var selectedTabIdx = -1
     
     var statisticsView:StatisticsView! = nil
@@ -35,6 +37,7 @@ class DetailsViewController: UIViewController {
     var playlistStatsView: PlaylistStatsView! = nil
     var playlistHistoryView: PlaylistHistoryView! = nil
     
+    
     var startTabIdx = 0
     
     override func viewDidLoad() {
@@ -44,16 +47,31 @@ class DetailsViewController: UIViewController {
             if let practiceItemData = PracticeItemLocalManager.manager.practiceItem(forId: self.practiceItemId) {
                 self.labelTitle.text = practiceItemData.name
             }
-        } else {
+        } else if self.playlistItemId != nil {
             if let playlist = PlaylistLocalManager.manager.loadPlaylist(forId: self.playlistItemId) {
                 self.labelTitle.text = playlist.name
             }
+        } else {
+            self.labelTitle.text = "Overview"
+            self.labelTab3.text = "GOALS"
         }
         self.viewIndicatorTab1.backgroundColor = Color(hexString: "#292947")
         self.viewIndicatorTab2.backgroundColor = Color(hexString: "#292947")
         self.viewIndicatorTab3.backgroundColor = Color(hexString: "#292947")
         self.viewIndicatorTab4.backgroundColor = Color(hexString: "#292947")
         selectTab(startTabIdx)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if self.practiceItemId == nil && self.playlistItemId == nil {
+            self.buttonMenu.setImage(UIImage(named: "icon_menu"), for: .normal)
+            
+            if self.notesView != nil && self.selectedTabIdx == 2 {
+                self.processNotes()
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -62,10 +80,14 @@ class DetailsViewController: UIViewController {
     }
 
     @IBAction func onBack(_ sender: Any) {
-        if self.navigationController?.viewControllers.count == 1 {
-            self.navigationController?.dismiss(animated: true, completion: nil)
+        if self.practiceItemId == nil && self.playlistItemId == nil {
+            self.sideMenuController?.showLeftViewAnimated()
         } else {
-            self.navigationController?.popViewController(animated: true)
+            if self.navigationController?.viewControllers.count == 1 {
+                self.navigationController?.dismiss(animated: true, completion: nil)
+            } else {
+                self.navigationController?.popViewController(animated: true)
+            }
         }
     }
 }
@@ -85,7 +107,11 @@ extension DetailsViewController {
         self.playlistStatsView.topAnchor.constraint(equalTo: self.imageViewHeader.bottomAnchor).isActive = true
         self.view.bringSubview(toFront: self.playlistStatsView)
         
-        self.playlistStatsView.showStats(playlistId: self.playlistItemId)
+        if self.playlistItemId != nil {
+            self.playlistStatsView.showStats(playlistId: self.playlistItemId)
+        } else {
+            self.playlistStatsView.showOverallStats()
+        }
         
     }
     
@@ -129,8 +155,10 @@ extension DetailsViewController {
         
         if self.practiceItemId != nil {
             self.recordingsView.showRecordings(RecordingsLocalManager.manager.loadRecordings(forPracticeId: self.practiceItemId))
-        } else {
+        } else if self.playlistItemId != nil {
             self.recordingsView.showRecordings(RecordingsLocalManager.manager.loadRecordings(forPlaylistId: self.playlistItemId))
+        } else {
+            self.recordingsView.showRecordings(RecordingsLocalManager.manager.loadRecordings())
         }
     }
     
@@ -152,6 +180,9 @@ extension DetailsViewController {
         self.notesView.topAnchor.constraint(equalTo: self.imageViewHeader.bottomAnchor).isActive = true
         self.view.bringSubview(toFront: self.notesView)
         
+        if self.practiceItemId == nil && self.playlistItemId == nil {
+            self.notesView.textfieldAddNote.attributedPlaceholder = NSAttributedString(string: "Add a goal...", attributes: [.foregroundColor: Color.white.alpha(0.5)])
+        }
     }
     
     func detachNotesView(_ animated:Bool = false) {
@@ -161,18 +192,21 @@ extension DetailsViewController {
     func attachHistoryView(_ animated:Bool = false) {
         
         if self.practiceItemId != nil {
+            
             if self.historyListView == nil {
                 self.historyListView = HistoryListView()
             }
             self.view.addSubview(self.historyListView)
             self.historyListView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
             self.historyListView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
-            self.historyListView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+            self.historyListView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0).isActive = true
             self.historyListView.topAnchor.constraint(equalTo: self.imageViewHeader.bottomAnchor).isActive = true
             self.view.bringSubview(toFront: self.historyListView)
         
             self.historyListView.showHistory(for: self.practiceItemId)
+            
         } else {
+            
             if self.playlistHistoryView == nil {
                 self.playlistHistoryView = PlaylistHistoryView()
             }
@@ -183,14 +217,18 @@ extension DetailsViewController {
             self.playlistHistoryView.topAnchor.constraint(equalTo: self.imageViewHeader.bottomAnchor).isActive = true
             self.view.bringSubview(toFront: self.playlistHistoryView)
             self.playlistHistoryView.showHistory(for: self.playlistItemId)
+            
         }
+        
     }
     
     func detachHistoryView(_ animated:Bool = false) {
         if self.practiceItemId != nil {
             self.historyListView.removeFromSuperview()
-        } else {
+        } else if self.playlistItemId != nil {
             self.playlistHistoryView.removeFromSuperview()
+        } else {
+            
         }
     }
 }
@@ -198,7 +236,6 @@ extension DetailsViewController {
 extension DetailsViewController {
     
     @IBAction func onTab1(_ sender: Any) {
-        
         selectTab(0)
     }
     
@@ -239,6 +276,8 @@ extension DetailsViewController {
         case 0:
             if self.practiceItemId != nil {
                 self.detachStatisticsView(true)
+            } else if self.playlistItemId != nil {
+                self.detachPlaylistStatsView()
             } else {
                 self.detachPlaylistStatsView()
             }
@@ -259,6 +298,8 @@ extension DetailsViewController {
             self.viewIndicatorTab1.isHidden = false
             if self.practiceItemId != nil {
                 self.attachStatisticsView()
+            } else if self.playlistItemId != nil {
+                self.attachPlaylistStatsView()
             } else {
                 self.attachPlaylistStatsView()
             }
@@ -288,10 +329,12 @@ extension DetailsViewController: NotesListViewDelegate {
             if let practiceItem = PracticeItemLocalManager.manager.practiceItem(forId: self.practiceItemId) {
                 self.notesView.showNotes(practiceItem.notes ?? [])
             }
-        } else {
+        } else if self.playlistItemId != nil {
             if let playlist = PlaylistLocalManager.manager.loadPlaylist(forId: self.playlistItemId) {
                 self.notesView.showNotes(playlist.notes ?? [])
             }
+        } else {
+            self.notesView.showNotes(GoalsLocalManager.manager.loadGoals() ?? [])
         }
     }
     
@@ -301,10 +344,16 @@ extension DetailsViewController: NotesListViewDelegate {
             if let practiceItem = PracticeItemLocalManager.manager.practiceItem(forId: self.practiceItemId) {
                 practiceItem.addNote(text: text)
             }
-        } else {
+        } else if self.playlistItemId != nil {
             if let playlist = PlaylistLocalManager.manager.loadPlaylist(forId: self.playlistItemId) {
                 playlist.addNote(text: text)
             }
+        } else {
+            let note = Note()
+            note.id = UUID().uuidString
+            note.note = text
+            note.createdAt = "\(Date().timeIntervalSince1970)"
+            GoalsLocalManager.manager.addGoal(note)
         }
         
         self.processNotes()
@@ -318,7 +367,7 @@ extension DetailsViewController: NotesListViewDelegate {
                 noteDetailsViewController.practiceItem = practiceItem
                 self.navigationController?.pushViewController(noteDetailsViewController, animated: true)
             }
-        } else {
+        } else if self.playlistItemId != nil {
             if let playlist = PlaylistLocalManager.manager.loadPlaylist(forId: self.playlistItemId) {
                 let noteDetailsViewController = UIStoryboard(name: "practice_note", bundle: nil).instantiateViewController(withIdentifier: "PracticeNoteDetailsViewController") as! PracticeNoteDetailsViewController
                 noteDetailsViewController.note = note
@@ -326,6 +375,10 @@ extension DetailsViewController: NotesListViewDelegate {
                 noteDetailsViewController.playlist = playlist
                 self.navigationController?.pushViewController(noteDetailsViewController, animated: true)
             }
+        } else {
+            let noteDetailsViewController = UIStoryboard(name: "practice_note", bundle: nil).instantiateViewController(withIdentifier: "PracticeNoteDetailsViewController") as! PracticeNoteDetailsViewController
+            noteDetailsViewController.note = note
+            self.navigationController?.pushViewController(noteDetailsViewController, animated: true)
         }
     }
     
@@ -337,10 +390,12 @@ extension DetailsViewController: NotesListViewDelegate {
                 if let practiceItem = PracticeItemLocalManager.manager.practiceItem(forId: self.practiceItemId) {
                     practiceItem.deleteNote(for: note.id)
                 }
-            } else {
+            } else if self.playlistItemId != nil {
                 if let playlist = PlaylistLocalManager.manager.loadPlaylist(forId: self.playlistItemId) {
                     playlist.deleteNote(for: note.id)
                 }
+            } else {
+                GoalsLocalManager.manager.removeGoal(for: note.id)
             }
             self.processNotes()
         }))
@@ -354,10 +409,12 @@ extension DetailsViewController: NotesListViewDelegate {
             if let practiceItem = PracticeItemLocalManager.manager.practiceItem(forId: self.practiceItemId) {
                 practiceItem.archiveNote(for: noteId)
             }
-        } else {
+        } else if self.playlistItemId != nil {
             if let playlist = PlaylistLocalManager.manager.loadPlaylist(forId: self.playlistItemId) {
                 playlist.archiveNote(for: noteId)
             }
+        } else {
+            GoalsLocalManager.manager.changeGoalArchivedStatus(for: noteId)
         }
         self.processNotes()
     }
@@ -368,13 +425,15 @@ extension DetailsViewController: NotesListViewDelegate {
                 if let practiceItem = PracticeItemLocalManager.manager.practiceItem(forId: self.practiceItemId) {
                     practiceItem.changeNoteTitle(for: note.id, to: title)
                 }
-            } else {
+            } else if self.playlistItemId != nil {
                 if let playlist = PlaylistLocalManager.manager.loadPlaylist(forId: self.playlistItemId) {
-                    playlist.archiveNote(for: note.id)
+                    playlist.changeNoteTitle(for: note.id, to: title)
                 }
+            } else {
+                GoalsLocalManager.manager.changeGoalTitleAndSubTitle(goalId: note.id, title: title)
             }
+            self.processNotes()
         }
     }
-    
 }
 

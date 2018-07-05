@@ -202,6 +202,123 @@ class PlaylistStatsView: UIView {
         self.showSelectedPeriodStats()
     }
     
+    func showOverallStats() {
+        
+        let data = PlaylistDailyLocalManager.manager.overallPracticeData()
+        
+        var totalMinutes = 0
+        var entryCount = 0
+        var thisWeekTotal = 0
+        var lastWeekTotal = 0
+        var thisMonthTotal = 0
+        var lastMonthTotal = 0
+        
+        for date in data.keys {
+            let time = date.date(format: "yy-MM-dd")
+            if let dailyDatas = data[date] {
+                for daily in dailyDatas {
+                    totalMinutes = totalMinutes + daily.practiceTimeInSeconds
+                    entryCount = entryCount + 1
+                    
+                    if time!.isThisWeek() {
+                        thisWeekTotal = thisWeekTotal + daily.practiceTimeInSeconds
+                        for practice in daily.practices {
+                            if let practiceDailyData = PracticingDailyLocalManager.manager.practicingData(forDataId: practice) {
+                                if let practiceItemId = practiceDailyData.practiceItemId {
+                                    self.configureDetails(key: "this_week", practiceItemId: practiceItemId, practiceDailyData: practiceDailyData)
+                                }
+                            }
+                        }
+                    }
+                    
+                    if time!.isLastWeek() {
+                        lastWeekTotal = lastWeekTotal + daily.practiceTimeInSeconds
+                        for practice in daily.practices {
+                            if let practiceDailyData = PracticingDailyLocalManager.manager.practicingData(forDataId: practice) {
+                                if let practiceItemId = practiceDailyData.practiceItemId {
+                                    self.configureDetails(key: "last_week", practiceItemId: practiceItemId, practiceDailyData: practiceDailyData)
+                                }
+                            }
+                        }
+                    }
+                    
+                    if time!.isThisMonth() {
+                        thisMonthTotal = thisMonthTotal + daily.practiceTimeInSeconds
+                        for practice in daily.practices {
+                            if let practiceDailyData = PracticingDailyLocalManager.manager.practicingData(forDataId: practice) {
+                                if let practiceItemId = practiceDailyData.practiceItemId {
+                                    self.configureDetails(key: "this_month", practiceItemId: practiceItemId, practiceDailyData: practiceDailyData)
+                                }
+                            }
+                        }
+                    }
+                    
+                    if time!.isLastMonth() {
+                        lastMonthTotal = lastMonthTotal + daily.practiceTimeInSeconds
+                        for practice in daily.practices {
+                            if let practiceDailyData = PracticingDailyLocalManager.manager.practicingData(forDataId: practice) {
+                                if let practiceItemId = practiceDailyData.practiceItemId {
+                                    self.configureDetails(key: "last_month", practiceItemId: practiceItemId, practiceDailyData: practiceDailyData)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        print("details - \(detailsData)")
+        
+        if entryCount > 0  {
+            let aver = Int(totalMinutes / entryCount)
+            if aver < 60 {
+                self.labelAverageSessionDuration.text = "\(aver)"
+                self.labelAverageSessionUnit.text = "SECONDS"
+            } else {
+                self.labelAverageSessionDuration.text = "\(aver / 60)"
+                self.labelAverageSessionUnit.text = "MINUTES"
+            }
+        } else {
+            self.labelAverageSessionDuration.text = "0"
+        }
+        
+        if thisWeekTotal < 60 {
+            self.labelThisWeekTotal.text = "\(thisWeekTotal)"
+            self.labelThisWeekUnit.text = "SECONDS"
+        } else {
+            self.labelThisWeekTotal.text = "\(thisWeekTotal / 60)"
+            self.labelThisWeekUnit.text = "MINUTES"
+        }
+        
+        if lastWeekTotal < 60 {
+            self.labelLastWeekTotal.text = "\(lastWeekTotal)"
+            self.labelLastWeekUnit.text = "SECONDS"
+        } else {
+            self.labelLastWeekTotal.text = "\(lastWeekTotal / 60)"
+            self.labelLastWeekUnit.text = "MINUTES"
+        }
+        
+        if thisMonthTotal < 60 {
+            self.labelThisMonthTotal.text = "\(thisMonthTotal)"
+            self.labelThisMonthUnit.text = "SECONDS"
+        } else {
+            self.labelThisMonthTotal.text = "\(thisMonthTotal / 60)"
+            self.labelThisMonthUnit.text = "MINUTES"
+        }
+        
+        if lastMonthTotal < 60 {
+            self.labelLastMonthTotal.text = "\(lastMonthTotal)"
+            self.labelLastMonthUnit.text = "SECONDS"
+        } else {
+            self.labelLastMonthTotal.text = "\(lastMonthTotal / 60)"
+            self.labelLastMonthUnit.text = "MINUTES"
+        }
+        
+        self.practiceData = data
+        self.showSelectedWeekValues()
+        self.showSelectedPeriodStats()
+    }
+    
     func showStats(playlistId: String) {
         
         self.playlistIdForStats = playlistId
@@ -379,6 +496,8 @@ class PlaylistStatsView: UIView {
                 var practiceName = ""
                 if let practice = PracticeItemLocalManager.manager.practiceItem(forId: practiceItemId) {
                     practiceName = practice.name
+                } else {
+                    practiceName = "(Deleted)"
                 }
                 rowView.configure(title: practiceName, time: stats[practiceItemId]!["time"] ?? 0, improvements: stats[practiceItemId]!["improvements"] ?? 0)
                 self.viewDetailsList.addSubview(rowView)
@@ -393,7 +512,7 @@ class PlaylistStatsView: UIView {
                 }
                 lastView = rowView
             }
-            self.constraintForPracticeDetailsHistoryPanelHeight.constant = CGFloat(78.5 + Double(stats.keys.count) * 36.0)
+            self.constraintForPracticeDetailsHistoryPanelHeight.constant = CGFloat(73.5 + Double(stats.keys.count) * 36.0) + 20
         } else {
             let label = UILabel()
             label.textColor = Color.white
@@ -404,7 +523,7 @@ class PlaylistStatsView: UIView {
             label.trailingAnchor.constraint(equalTo: self.viewDetailsList.trailingAnchor).isActive = true
             label.heightAnchor.constraint(equalToConstant: 36).isActive = true
             label.topAnchor.constraint(equalTo: self.viewDetailsList.topAnchor).isActive = true
-            self.constraintForPracticeDetailsHistoryPanelHeight.constant = CGFloat(70.5 + 36.0)
+            self.constraintForPracticeDetailsHistoryPanelHeight.constant = CGFloat(73.5 + 36.0) + 20
         }
     }
 }

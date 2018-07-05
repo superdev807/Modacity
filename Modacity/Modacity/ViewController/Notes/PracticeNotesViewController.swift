@@ -18,14 +18,13 @@ class PracticeNotesViewController: UIViewController {
     var practiceEntry: PlaylistPracticeEntry!
     var practiceItem: PracticeItem!
     var noteIsForPlaylist = false
-
     var noteToDeliver: Note!
-    
     var noteListView:NotesListView!
   
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
         if self.playlistViewModel != nil {
             self.playlistViewModel.storePlaylist()
             if self.noteIsForPlaylist {
@@ -33,8 +32,10 @@ class PracticeNotesViewController: UIViewController {
             } else {
                 self.labelTitle.text = self.practiceEntry.practiceItem()?.name ?? ""
             }
-        } else {
+        } else if self.practiceItem != nil {
             self.labelTitle.text = self.practiceItem.name ?? ""
+        } else {
+            self.labelTitle.text = "Goals"
         }
 
         self.noteListView = NotesListView()
@@ -87,8 +88,10 @@ class PracticeNotesViewController: UIViewController {
                     notes = self.practiceEntry.practiceItem()?.notes
                 }
             }
-        } else {
+        } else if self.practiceItem != nil {
             notes = self.practiceItem.notes
+        } else {
+            notes = GoalsLocalManager.manager.loadGoals()
         }
         
         if let notes = notes {
@@ -106,8 +109,14 @@ extension PracticeNotesViewController: NotesListViewDelegate {
             } else {
                 self.playlistViewModel.addNote(to:self.practiceEntry, note:text)
             }
-        } else {
+        } else if self.practiceItem != nil {
             self.practiceItem.addNote(text: text)
+        } else {
+            let note = Note()
+            note.id = UUID().uuidString
+            note.note = text
+            note.createdAt = "\(Date().timeIntervalSince1970)"
+            GoalsLocalManager.manager.addGoal(note)
         }
         
         self.processNotes()
@@ -127,8 +136,10 @@ extension PracticeNotesViewController: NotesListViewDelegate {
                 } else {
                     self.playlistViewModel.deleteNote(note, for: self.practiceEntry)
                 }
-            } else {
+            } else if self.practiceItem != nil {
                 self.practiceItem.deleteNote(for: note.id)
+            } else {
+                GoalsLocalManager.manager.removeGoal(for: note.id)
             }
             self.processNotes()
         }))
@@ -144,8 +155,10 @@ extension PracticeNotesViewController: NotesListViewDelegate {
             } else {
                 self.playlistViewModel.changeArchiveStatusForNote(noteId: noteId, for: self.practiceEntry)
             }
-        } else {
+        } else if self.practiceItem != nil {
             self.practiceItem.archiveNote(for: noteId)
+        } else {
+            GoalsLocalManager.manager.changeGoalArchivedStatus(for: noteId)
         }
         self.processNotes()
     }
@@ -158,8 +171,10 @@ extension PracticeNotesViewController: NotesListViewDelegate {
                 } else {
                     self.playlistViewModel.changeNoteTitle(entry: self.practiceEntry, note: note, to: title)
                 }
-            } else {
+            } else if self.practiceItem != nil {
                 self.practiceItem.changeNoteTitle(for: note.id, to: title)
+            } else {
+                GoalsLocalManager.manager.changeGoalTitleAndSubTitle(goalId: note.id, title: title)
             }
         }
     }

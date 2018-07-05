@@ -123,6 +123,21 @@ class PracticingDailyLocalManager: NSObject {
         return nil
     }
     
+    func removePracticingData(forItemId: String) {
+//        if let ids = UserDefaults.standard.object(forKey: "practicing-indecies-\(forItemId)") as? [String:[String]] {
+//            for date in ids.keys {
+//                if let idValues = ids[date] {
+//                    for id in idValues {
+//                        UserDefaults.standard.removeObject(forKey: "practicing-data-\(id)")
+//                    }
+//                }
+//            }
+//            UserDefaults.standard.removeObject(forKey: "practicing-indecies-\(forItemId)")
+//            UserDefaults.standard.synchronize()
+//        }
+//        DailyPracticingRemoteManager.manager
+    }
+    
     func signout() {
         for key in UserDefaults.standard.dictionaryRepresentation().keys {
             if key.hasPrefix("practicing-indecies-") || key.hasPrefix("practicing-data-") {

@@ -39,7 +39,12 @@ class PracticeHistoryCell: UITableViewCell {
 
         self.labelDate.text = date.toString(format: "MMMM d").uppercased()
         if total > 60 {
-            self.totalPractice.text = "\(total / 60)"
+            if total < 600 {
+                self.totalPractice.text = String(format: "%.1f", Double(total) / 60.0)
+            } else {
+                self.totalPractice.text = "\(total / 60)"
+            }
+            
             self.totalPracticeUnit.text = "MINUTES"
         } else {
             self.totalPractice.text = "\(total)"
@@ -100,6 +105,6 @@ class PracticeHistoryCell: UITableViewCell {
                 }
             }
         }
-        return height + 20
+        return 5 + (height + 15) + 5
     }
 }

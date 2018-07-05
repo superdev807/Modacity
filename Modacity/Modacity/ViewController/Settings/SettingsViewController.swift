@@ -190,9 +190,6 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
                 cell.configure(caption: "Pause Timer During Deliberate Practice", isOn: AppOveralDataManager.manager.settingsTimerPauseDuringImprove())
                 return cell
             }
-//            let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCellWithSwitch") as! SettingsCellWithSwitch
-//            cell.configure(caption: ["Email Notifications", "Push Notifications", "Star Rating Notifications"][indexPath.row], isOn: [false, true, true][indexPath.row])
-//            return cell
         }
         
         return UITableViewCell()
@@ -216,7 +213,6 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
                 self.shareModacityApp()
             }
         }
-        
         
     }
     

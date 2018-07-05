@@ -39,7 +39,12 @@ class PlaylistHistoryCell: UITableViewCell {
         self.labelDate.text = data.date.toString(format: "MMMM d").uppercased()
         let totalSeconds = data.practiceTotalSeconds ?? 0
         if data.practiceTotalSeconds > 60 {
-            self.totalPractice.text = "\(totalSeconds / 60)"
+            if data.practiceTotalSeconds < 600 {
+                self.totalPractice.text = String(format: "%.1f", Double(totalSeconds) / 60.0)
+            } else {
+                self.totalPractice.text = "\(totalSeconds / 60)"
+            }
+            
             self.totalPracticeUnit.text = "MINUTES"
         } else {
             self.totalPractice.text = "\(totalSeconds)"
@@ -124,6 +129,6 @@ class PlaylistHistoryCell: UITableViewCell {
 //            }
             }
         }
-        return height + 20
+        return 5 + (height + 15) + 5
     }
 }

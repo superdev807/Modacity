@@ -52,9 +52,11 @@ class PlaylistHistoryDetailsRowView: UIView {
         self.labelPracticeItemName.text = ""
         if let practice = PracticeItemLocalManager.manager.practiceItem(forId: data.practiceItemId) {
             self.labelPracticeItemName.text = practice.name
+        } else {
+            self.labelPracticeItemName.text = "(Deleted)"
         }
         let timeInSecond = data.time ?? 0
-        if timeInSecond > 0 && timeInSecond < 60 {
+        if timeInSecond > 0 && timeInSecond < 600 {
             self.labelTime.text = String(format: "%.1f", Double(timeInSecond) / 60.0)
         } else {
             self.labelTime.text = "\(timeInSecond / 60)"

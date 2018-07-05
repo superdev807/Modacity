@@ -57,6 +57,14 @@ class HistoryListView: UIView {
         self.viewContent.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
         
         self.tableViewMain.register(UINib(nibName: "PracticeHistoryCell", bundle: nil), forCellReuseIdentifier: "PracticeHistoryCell")
+        
+        let topView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 10))
+        topView.backgroundColor = Color.clear
+        self.tableViewMain.tableHeaderView = topView
+        
+        let bottomView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 20))
+        bottomView.backgroundColor = Color.clear
+        self.tableViewMain.tableFooterView = bottomView
     }
     
     func showHistory(for practiceId: String) {
@@ -82,9 +90,6 @@ class HistoryListView: UIView {
         self.tableViewMain.reloadData()
     }
     
-    func showHistory(forPlaylistId: String) {
-        
-    }
 }
 
 extension HistoryListView: UITableViewDelegate, UITableViewDataSource {

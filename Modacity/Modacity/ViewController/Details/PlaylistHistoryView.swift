@@ -97,10 +97,25 @@ class PlaylistHistoryView: UIView {
         self.viewContent.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
         
         self.tableViewMain.register(UINib(nibName: "PlaylistHistoryCell", bundle: nil), forCellReuseIdentifier: "PlaylistHistoryCell")
+        
+        let topView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 10))
+        topView.backgroundColor = Color.clear
+        self.tableViewMain.tableHeaderView = topView
+        
+        let bottomView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 20))
+        bottomView.backgroundColor = Color.clear
+        self.tableViewMain.tableFooterView = bottomView
     }
     
-    func showHistory(for playlistId: String) {
-        let data = PlaylistDailyLocalManager.manager.playlistPracticingData(forPlaylistId: playlistId)
+    func showHistory(for playlistId: String? = nil) {
+        
+        var data = [String:[PlaylistDaily]]()
+        if playlistId == nil {
+            data = PlaylistDailyLocalManager.manager.overallPracticeData()
+        } else {
+            data = PlaylistDailyLocalManager.manager.playlistPracticingData(forPlaylistId: playlistId!)
+        }
+        
         self.practiceHistoryDataList = []
         for date in data.keys {
             let time = date.date(format: "yy-MM-dd")

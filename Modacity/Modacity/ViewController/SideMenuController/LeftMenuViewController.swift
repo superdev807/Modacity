@@ -11,11 +11,8 @@ import Intercom
 
 class LeftMenuViewController: UIViewController {
     
-//    let menuTitles = ["Home", "Metrodrone", "Playlists", "Recordings", "Pro Boost", "Settings", "Feedback", "About Us", "Sign Out"]
-//    let menuIcons = ["icon_menu_home", "icon_menu_metrodrone", "icon_menu_playlist", "icon_menu_recordings", "icon_menu_ask", "icon_menu_settings", "icon_menu_feedback", "icon_menu_about", "icon_menu_signout"]
-
-    let menuTitles = ["Home", "Metrodrone", "Recordings", "Settings", "Feedback", "About Us", "Sign Out"]
-    let menuIcons = ["icon_menu_home", "icon_menu_metrodrone", "icon_menu_mic", "icon_menu_settings", "icon_menu_feedbacks_new", "icon_menu_about", "icon_menu_signout"]
+    let menuTitles = ["Home", "Metrodrone", /*"Recordings",*/"Overview", "Settings", "Feedback", "About Us", "Sign Out"]
+    let menuIcons = ["icon_menu_home", "icon_menu_metrodrone", /*"icon_menu_mic",*/"icon_menu_overview", "icon_menu_settings", "icon_menu_feedbacks_new", "icon_menu_about", "icon_menu_signout"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,12 +77,14 @@ extension LeftMenuViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         tableView.deselectRow(at: indexPath, animated: true)
-//        let menuTitles = ["Home", "Metrodrone", "Recordings", "Settings", "Feedback", "About Us", "Sign Out"]
-//        let menuIcons = ["icon_menu_home", "icon_menu_metrodrone", "icon_menu_recordings", "icon_menu_settings", "icon_menu_feedback", "icon_menu_about", "icon_menu_signout"]
         if indexPath.row == 6 {
+            
             self.signout()
+            
         } else if indexPath.row == 0 {
+            
             if self.sideMenuController?.rootViewController is TabBarViewController {
                 let tabbarController = self.sideMenuController?.rootViewController as! TabBarViewController
                 if tabbarController.selectedIndex != 0 {
@@ -98,35 +97,32 @@ extension LeftMenuViewController: UITableViewDataSource, UITableViewDelegate {
             }
             
             self.sideMenuController?.hideLeftViewAnimated()
+            
         } else if indexPath.row == 1 {
+            
             if !(self.sideMenuController?.rootViewController is MetrodoneViewController) {
                 let controllerId = (AppUtils.sizeModelOfiPhone() == .iphone4_35in || AppUtils.sizeModelOfiPhone() == .iphone5_4in) ? "MetrodoneViewControllerSmallSizes" : "MetrodoneViewController"
                 let controller = UIStoryboard(name: "metrodone", bundle: nil).instantiateViewController(withIdentifier: controllerId) as! MetrodoneViewController
                 self.sideMenuController?.rootViewController = controller
             }
             self.sideMenuController?.hideLeftViewAnimated()
-//        } else if indexPath.row == 2 {
-//            if self.sideMenuController?.rootViewController is TabBarViewController {
-//                let tabbarController = self.sideMenuController?.rootViewController as! TabBarViewController
-//                if tabbarController.selectedIndex != 1 {
-//                    tabbarController.onTabPlaylist()
-//                }
-//            } else {
-//                let tabBarViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TabBarViewController") as! TabBarViewController
-//                tabBarViewController.startingTabIndex = 1
-//                self.sideMenuController?.rootViewController = tabBarViewController
-//            }
-//
-//            self.sideMenuController?.hideLeftViewAnimated()
-        } else if indexPath.row == 2 {
             
-            if !(self.sideMenuController?.rootViewController is RecordingViewController) {
-                let controller = UIStoryboard(name: "recording", bundle: nil).instantiateViewController(withIdentifier: "RecordingViewController") as! RecordingViewController
+        } else if indexPath.row == 2 {
+
+            if !(self.sideMenuController?.rootViewController is DetailsViewController) {
+                let controller = UIStoryboard(name: "details", bundle: nil).instantiateViewController(withIdentifier: "DetailsViewController") as! DetailsViewController
                 self.sideMenuController?.rootViewController = controller
             }
             self.sideMenuController?.hideLeftViewAnimated()
             
+//            if !(self.sideMenuController?.rootViewController is RecordingViewController) {
+//                let controller = UIStoryboard(name: "recording", bundle: nil).instantiateViewController(withIdentifier: "RecordingViewController") as! RecordingViewController
+//                self.sideMenuController?.rootViewController = controller
+//            }
+//            self.sideMenuController?.hideLeftViewAnimated()
+            
         } else if indexPath.row == 3 {
+            
             if (self.sideMenuController?.rootViewController is UINavigationController)
                 && (self.sideMenuController?.rootViewController as! UINavigationController).viewControllers[0] is SettingsViewController {
                 
@@ -135,29 +131,18 @@ extension LeftMenuViewController: UITableViewDataSource, UITableViewDelegate {
                 self.sideMenuController?.rootViewController = controller
             }
             self.sideMenuController?.hideLeftViewAnimated()
+            
         } else if indexPath.row == 4 {
-            /*
-            if (self.sideMenuController?.rootViewController is UINavigationController)
-                && (self.sideMenuController?.rootViewController as! UINavigationController).viewControllers[0] is FeedbackRootViewController {
-                let feedbackRootViewController = (self.sideMenuController?.rootViewController as! UINavigationController).viewControllers[0] as! FeedbackRootViewController
-                if feedbackRootViewController.pageUIMode == 0 {
-                    feedbackRootViewController.changePageUIMode(to: 1)
-                }
-            } else {
-                // open feedback
-                let controller = UIStoryboard(name:"feedback", bundle:nil).instantiateViewController(withIdentifier: "feedbackscene") as! UINavigationController
-                let feedbackRootViewController = controller.viewControllers[0] as! FeedbackRootViewController
-                feedbackRootViewController.pageUIMode = 1
-                self.sideMenuController?.rootViewController = controller
-            }
- */
+            
             let attr :ICMUserAttributes = ICMUserAttributes.init()
             attr.customAttributes = ["AppLocation" : "feedback"]
             Intercom.updateUser(attr)
             Intercom.presentMessageComposer()
             
             self.sideMenuController?.hideLeftViewAnimated()
+            
         } else if indexPath.row == 5 {
+            
             if (self.sideMenuController?.rootViewController is UINavigationController)
                 && (self.sideMenuController?.rootViewController as! UINavigationController).viewControllers[0] is AboutViewController {
             } else {
@@ -165,6 +150,7 @@ extension LeftMenuViewController: UITableViewDataSource, UITableViewDelegate {
                 self.sideMenuController?.rootViewController = controller
             }
             self.sideMenuController?.hideLeftViewAnimated()
+            
         }
     }
 }

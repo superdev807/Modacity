@@ -61,17 +61,16 @@ class PracticeNoteDetailsViewController: UIViewController {
                 self.playlistPracticeEntry.practiceItem()?.changeNoteTitle(for: self.note.id, title: self.textfieldNoteTitleEdit.text ?? "")
                 self.playlistPracticeEntry.practiceItem()?.changeNoteSubTitle(for: self.note.id, subTitle: self.textViewInputBox.text)
             }
+        } else if self.practiceItem != nil {
+            self.practiceItem.changeNoteSubTitle(for: self.note.id, subTitle: self.textViewInputBox.text)
+            self.practiceItem.changeNoteTitle(for: self.note.id, title: self.textfieldNoteTitleEdit.text ?? "")
+        } else if self.playlist != nil {
+            self.playlist.changeNoteSubTitle(for: self.note.id, subTitle: self.textViewInputBox.text)
+            self.playlist.changeNoteTitle(for: self.note.id, title: self.textfieldNoteTitleEdit.text ?? "")
         } else {
-            if self.practiceItem != nil {
-                self.practiceItem.changeNoteSubTitle(for: self.note.id, subTitle: self.textViewInputBox.text)
-                self.practiceItem.changeNoteTitle(for: self.note.id, title: self.textfieldNoteTitleEdit.text ?? "")
-            } else {
-                if self.playlist != nil {
-                    self.playlist.changeNoteSubTitle(for: self.note.id, subTitle: self.textViewInputBox.text)
-                    self.playlist.changeNoteTitle(for: self.note.id, title: self.textfieldNoteTitleEdit.text ?? "")
-                }
-            }
+            GoalsLocalManager.manager.changeGoalTitleAndSubTitle(goalId: self.note.id, title: self.textfieldNoteTitleEdit.text ?? "", subTitle: self.textViewInputBox.text)
         }
+        
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -104,6 +103,8 @@ class PracticeNoteDetailsViewController: UIViewController {
                 self.practiceItem.deleteNote(for: self.note.id)
             } else if self.playlist != nil {
                 self.playlist.deleteNote(for: self.note.id)
+            } else {
+                GoalsLocalManager.manager.removeGoal(for:self.note.id)
             }
             self.navigationController?.popViewController(animated: true)
         }))
@@ -130,8 +131,10 @@ class PracticeNoteDetailsViewController: UIViewController {
                 }
             } else if self.practiceItem != nil {
                 self.practiceItem.changeNoteSubTitle(for: self.note.id, subTitle: self.textViewInputBox.text)
-            } else {
+            } else if self.playlist != nil {
                 self.playlist.changeNoteSubTitle(for: self.note.id, subTitle: self.textViewInputBox.text)
+            } else {
+                GoalsLocalManager.manager.changeGoalTitleAndSubTitle(goalId: self.note.id, subTitle: self.textViewInputBox.text)
             }
             self.textfieldNoteTitleEdit.isHidden = true
             self.labelNoteTitle.isHidden = false

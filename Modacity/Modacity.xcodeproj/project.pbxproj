@@ -283,6 +283,10 @@
 		E283C51C20D16953002651E0 /* TimerInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E283C51A20D16953002651E0 /* TimerInputView.xib */; };
 		E283C51E20D1696A002651E0 /* TimerInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E283C51D20D1696A002651E0 /* TimerInputView.swift */; };
 		E283C51F20D1696A002651E0 /* TimerInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E283C51D20D1696A002651E0 /* TimerInputView.swift */; };
+		E28415E920EE7A2300DD7BBE /* GoalsLocalManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28415E820EE7A2300DD7BBE /* GoalsLocalManager.swift */; };
+		E28415EA20EE7A2300DD7BBE /* GoalsLocalManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28415E820EE7A2300DD7BBE /* GoalsLocalManager.swift */; };
+		E28415EC20EE7D3200DD7BBE /* GoalsRemoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28415EB20EE7D3200DD7BBE /* GoalsRemoteManager.swift */; };
+		E28415ED20EE7D3200DD7BBE /* GoalsRemoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28415EB20EE7D3200DD7BBE /* GoalsRemoteManager.swift */; };
 		E28B822720E484B6005CA660 /* PlaylistStatsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E28B822520E484B6005CA660 /* PlaylistStatsView.xib */; };
 		E28B822820E484B6005CA660 /* PlaylistStatsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E28B822520E484B6005CA660 /* PlaylistStatsView.xib */; };
 		E28B822920E484B6005CA660 /* PlaylistStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B822620E484B6005CA660 /* PlaylistStatsView.swift */; };
@@ -486,6 +490,8 @@
 		E2806C3E20ABD1290066959A /* PracticeItemListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeItemListViewController.swift; sourceTree = "<group>"; };
 		E283C51A20D16953002651E0 /* TimerInputView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimerInputView.xib; sourceTree = "<group>"; };
 		E283C51D20D1696A002651E0 /* TimerInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerInputView.swift; sourceTree = "<group>"; };
+		E28415E820EE7A2300DD7BBE /* GoalsLocalManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsLocalManager.swift; sourceTree = "<group>"; };
+		E28415EB20EE7D3200DD7BBE /* GoalsRemoteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsRemoteManager.swift; sourceTree = "<group>"; };
 		E28B822520E484B6005CA660 /* PlaylistStatsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlaylistStatsView.xib; sourceTree = "<group>"; };
 		E28B822620E484B6005CA660 /* PlaylistStatsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistStatsView.swift; sourceTree = "<group>"; };
 		E29A30AE20DA547C006125E2 /* PracticeTimerUpWalkThroughView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PracticeTimerUpWalkThroughView.xib; sourceTree = "<group>"; };
@@ -661,6 +667,7 @@
 				E2D01BD5208A146B00F54B5D /* MessagesManager.swift */,
 				E23D7A6F20A1EEB40052EE78 /* OverallDataRemoteManager.swift */,
 				E25FD99220D7F7A9008C531A /* DailyPracticingRemoteManager.swift */,
+				E28415EB20EE7D3200DD7BBE /* GoalsRemoteManager.swift */,
 			);
 			path = RemoteManager;
 			sourceTree = "<group>";
@@ -677,6 +684,7 @@
 				E2770DAD20B7BD4400E05E20 /* DefaultDataShipManager.swift */,
 				E25FD98C20D7F75A008C531A /* PracticingDailyLocalManager.swift */,
 				E25FD98F20D7F778008C531A /* PlaylistDailyLocalManager.swift */,
+				E28415E820EE7A2300DD7BBE /* GoalsLocalManager.swift */,
 			);
 			path = LocalManager;
 			sourceTree = "<group>";
@@ -1567,6 +1575,7 @@
 				E2806C3920ABCDEA0066959A /* PracticeItemSelectViewController.swift in Sources */,
 				8E58B43520445BC20022704B /* FeedbackSentViewController.swift in Sources */,
 				8E64B7AA2056A09F00900775 /* Recording.swift in Sources */,
+				E28415E920EE7A2300DD7BBE /* GoalsLocalManager.swift in Sources */,
 				8EA33BA320052A4A00539A3F /* PlaylistListViewController.swift in Sources */,
 				8EDEB718203DFAC200E8D48D /* SideMenuController.swift in Sources */,
 				8ED335E42048EBC700FB61C1 /* ViewModel.swift in Sources */,
@@ -1648,6 +1657,7 @@
 				E2BA246120C8D1590048A5D5 /* MetrodroneParameters.swift in Sources */,
 				8EDEB71C203DFC0200E8D48D /* LeftMenuViewController.swift in Sources */,
 				8EE2BD24203DB2AF00D6D7A8 /* TutorialViewController.swift in Sources */,
+				E28415EC20EE7D3200DD7BBE /* GoalsRemoteManager.swift in Sources */,
 				8EDEB713203DE4B300E8D48D /* Me.swift in Sources */,
 				8E16B46D2052ECDE00A9BF8A /* PlaylistPracticeEntry.swift in Sources */,
 				E25FD98A20D7F520008C531A /* PlaylistDaily.swift in Sources */,
@@ -1690,6 +1700,7 @@
 				E2806C3A20ABCDEA0066959A /* PracticeItemSelectViewController.swift in Sources */,
 				E21BE9B42091796A000D1877 /* FeedbackSentViewController.swift in Sources */,
 				E21BE9B52091796A000D1877 /* Recording.swift in Sources */,
+				E28415EA20EE7A2300DD7BBE /* GoalsLocalManager.swift in Sources */,
 				E21BE9B62091796A000D1877 /* PlaylistListViewController.swift in Sources */,
 				E21BE9B72091796A000D1877 /* SideMenuController.swift in Sources */,
 				E21BE9B82091796A000D1877 /* ViewModel.swift in Sources */,
@@ -1771,6 +1782,7 @@
 				E2BA246220C8D1590048A5D5 /* MetrodroneParameters.swift in Sources */,
 				E21BE9E62091796A000D1877 /* LeftMenuViewController.swift in Sources */,
 				E21BE9E72091796A000D1877 /* TutorialViewController.swift in Sources */,
+				E28415ED20EE7D3200DD7BBE /* GoalsRemoteManager.swift in Sources */,
 				E21BE9E82091796A000D1877 /* Me.swift in Sources */,
 				E21BE9E92091796A000D1877 /* PlaylistPracticeEntry.swift in Sources */,
 				E25FD98B20D7F520008C531A /* PlaylistDaily.swift in Sources */,

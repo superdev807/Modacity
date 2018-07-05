@@ -182,7 +182,7 @@ class AppOveralDataManager {
     }
     
     func changeSettingsTimerPauseDuringImprove() {
-        UserDefaults.standard.set(settingsTimerPauseDuringNote(), forKey: "settings_timer_pause_during_improve")
+        UserDefaults.standard.set(!settingsTimerPauseDuringImprove(), forKey: "settings_timer_pause_during_improve")
         UserDefaults.standard.synchronize()
     }
     
