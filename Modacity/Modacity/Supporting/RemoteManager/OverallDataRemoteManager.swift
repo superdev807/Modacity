@@ -39,7 +39,7 @@ class OverallDataRemoteManager {
     }
     
     func shipDefaultData() {
-        print("shipping default data")
+        ModacityDebugger.debug("shipping default data")
         AppOveralDataManager.manager.setDefaultDataShiped(shiped: true)
         DefaultDataShipManager.manager.produceDefaultData()
         if let userId = MyProfileLocalManager.manager.userId() {

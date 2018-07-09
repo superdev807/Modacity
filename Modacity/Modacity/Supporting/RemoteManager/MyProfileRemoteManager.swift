@@ -25,7 +25,7 @@ class MyProfileRemoteManager {
     
     func configureMyProfileListener() {
         if let userId = MyProfileLocalManager.manager.userId() {
-            print("user id - \(userId)")
+            ModacityDebugger.debug("user id - \(userId)")
             Crashlytics.sharedInstance().setUserIdentifier(userId)
             
             self.profileListnerHandler = self.refUser.child(userId).child("profile").observe(.value) { (snapshot) in
@@ -44,6 +44,7 @@ class MyProfileRemoteManager {
             OverallDataRemoteManager.manager.syncFirst()
             MusicQuotesManager.manager.loadQuotesFromServer()
             DailyPracticingRemoteManager.manager.fetchPracticingDataFromServer()
+            DailyPracticingRemoteManager.manager.fetchPlaylistPracticingDataFromServer()
         }
     }
     

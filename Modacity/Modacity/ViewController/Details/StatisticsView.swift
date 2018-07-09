@@ -138,8 +138,6 @@ class StatisticsView: UIView {
                 }
             }
             
-            print("seconds data \(secondsData)")
-            
             if totalSeconds > 0 && totalSeconds < 60 {
                 self.labelTotalTime.text = "\(totalSeconds)"
                 self.labelTotalTimeUnit.text = "TOTAL SECONDS"
@@ -160,17 +158,14 @@ class StatisticsView: UIView {
                 cal = cal.advanced(years: 0, months: 0, weeks: 0, days: 1, hours: 0, minutes: 0, seconds: 0)
             }
             
-            print("seconds practiced: \(seconds)")
-            
             setBarChart(dataPoints: ["MON", "TUE", "WED", "THR", "FRI", "SAT", "SUN"], values: seconds)
             
-            print("ratings - \(ratings)")
             let sorted = ratings.sorted {$0.key < $1.key}
             var ratingsLine = [Double]()
             for (_, value) in sorted {
                 ratingsLine.append(value)
             }
-            print("ratings sorted - \(ratingsLine)")
+            
             setLineChart(values: ratingsLine)
             
         } else {
@@ -192,7 +187,6 @@ class StatisticsView: UIView {
     func showStats(practice: String) {
         self.practiceItemIdForStats = practice
         let data = PracticingDailyLocalManager.manager.practicingData(forPracticeItemId: practice)
-        print("Statistics data - \(data)")
         
         var totalMinutes = 0
         var entryCount = 0
@@ -208,24 +202,19 @@ class StatisticsView: UIView {
                     totalMinutes = totalMinutes + daily.practiceTimeInSeconds
                     entryCount = entryCount + 1
                  
-                    print("time \(time!)")
                     if time!.isThisWeek() {
-                        print("this week. + \(daily.practiceTimeInSeconds)")
                         thisWeekTotal = thisWeekTotal + daily.practiceTimeInSeconds
                     }
                  
                     if time!.isLastWeek() {
-                        print("last week. + \(daily.practiceTimeInSeconds)")
                         lastWeekTotal = lastWeekTotal + daily.practiceTimeInSeconds
                     }
                     
                     if time!.isThisMonth() {
-                        print("this month. + \(daily.practiceTimeInSeconds)")
                         thisMonthTotal = thisMonthTotal + daily.practiceTimeInSeconds
                     }
                     
                     if time!.isLastMonth() {
-                        print("last month. + \(daily.practiceTimeInSeconds)")
                         lastMonthTotal = lastMonthTotal + daily.practiceTimeInSeconds
                     }
                 }

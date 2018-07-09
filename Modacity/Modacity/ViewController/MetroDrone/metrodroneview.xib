@@ -92,7 +92,7 @@
                             <rect key="frame" x="24.5" y="24.5" width="195" height="195"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r16-tn-bA3" userLabel="Octave Sustain">
-                                    <rect key="frame" x="10.5" y="52" width="175" height="91"/>
+                                    <rect key="frame" x="10.5" y="47.5" width="175" height="100"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OCTAVE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="in6-hb-5yD">
                                             <rect key="frame" x="68.5" y="0.0" width="39" height="12"/>
@@ -101,7 +101,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dtf-YH-xfe" userLabel="Sustain">
-                                            <rect key="frame" x="52.5" y="56" width="70" height="35"/>
+                                            <rect key="frame" x="52.5" y="65" width="70" height="35"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="70" id="9rW-0d-dHS"/>
                                                 <constraint firstAttribute="width" secondItem="dtf-YH-xfe" secondAttribute="height" multiplier="2:1" id="AfT-VJ-glg"/>
@@ -113,7 +113,7 @@
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4U1-JH-ddt" userLabel="Octave">
-                                            <rect key="frame" x="69.5" y="23" width="36" height="19"/>
+                                            <rect key="frame" x="69.5" y="27" width="36" height="19"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="36" id="m3H-bT-nlt"/>
                                             </constraints>
@@ -122,14 +122,14 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" alpha="0.75" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DGk-qj-mh1" userLabel="OctaveDown">
-                                            <rect key="frame" x="38.5" y="15" width="36" height="36"/>
+                                            <rect key="frame" x="38.5" y="19" width="36" height="36"/>
                                             <state key="normal" image="icon_minus"/>
                                             <connections>
                                                 <action selector="onOctaveDown:" destination="-1" eventType="touchUpInside" id="UMu-yM-rXi"/>
                                             </connections>
                                         </button>
                                         <button opaque="NO" alpha="0.75" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2PE-xa-yHF" userLabel="OctaveUp">
-                                            <rect key="frame" x="100.5" y="15" width="36" height="36"/>
+                                            <rect key="frame" x="100.5" y="19" width="36" height="36"/>
                                             <state key="normal" image="icon_plus"/>
                                             <connections>
                                                 <action selector="onOctaveUp:" destination="-1" eventType="touchUpInside" id="Y0n-at-szY"/>
@@ -139,7 +139,7 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="bottom" secondItem="dtf-YH-xfe" secondAttribute="bottom" id="69p-9e-wet"/>
-                                        <constraint firstItem="4U1-JH-ddt" firstAttribute="top" secondItem="in6-hb-5yD" secondAttribute="bottom" constant="11" id="7sn-kE-eFA"/>
+                                        <constraint firstItem="4U1-JH-ddt" firstAttribute="top" secondItem="in6-hb-5yD" secondAttribute="bottom" constant="15" id="7sn-kE-eFA"/>
                                         <constraint firstItem="in6-hb-5yD" firstAttribute="top" secondItem="r16-tn-bA3" secondAttribute="top" id="AhH-56-M6P"/>
                                         <constraint firstItem="4U1-JH-ddt" firstAttribute="centerX" secondItem="r16-tn-bA3" secondAttribute="centerX" id="FXP-2Z-oiR"/>
                                         <constraint firstItem="2PE-xa-yHF" firstAttribute="leading" secondItem="4U1-JH-ddt" secondAttribute="trailing" constant="-5" id="PpF-9E-bC6"/>
@@ -148,7 +148,7 @@
                                         <constraint firstItem="dtf-YH-xfe" firstAttribute="centerX" secondItem="r16-tn-bA3" secondAttribute="centerX" id="fdJ-sd-WLH"/>
                                         <constraint firstItem="in6-hb-5yD" firstAttribute="centerX" secondItem="r16-tn-bA3" secondAttribute="centerX" id="i06-Oh-Sgq"/>
                                         <constraint firstItem="2PE-xa-yHF" firstAttribute="centerY" secondItem="4U1-JH-ddt" secondAttribute="centerY" id="r8a-II-vFq"/>
-                                        <constraint firstItem="dtf-YH-xfe" firstAttribute="top" secondItem="DGk-qj-mh1" secondAttribute="bottom" constant="5" id="rtS-eX-bWt"/>
+                                        <constraint firstItem="dtf-YH-xfe" firstAttribute="top" secondItem="DGk-qj-mh1" secondAttribute="bottom" constant="10" id="rtS-eX-bWt"/>
                                     </constraints>
                                 </view>
                             </subviews>

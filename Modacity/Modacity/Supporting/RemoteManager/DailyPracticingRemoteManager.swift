@@ -31,6 +31,7 @@ class DailyPracticingRemoteManager: NSObject {
     }
     
     func fetchPlaylistPracticingDataFromServer() {
+        ModacityDebugger.debug("fetching...")
         if let userId = MyProfileLocalManager.manager.userId() {
             self.refUser.child(userId).child("playlist_data").observeSingleEvent(of: .value) { (snapshot) in
                 if snapshot.exists() {

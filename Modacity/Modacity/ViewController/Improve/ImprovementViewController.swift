@@ -10,6 +10,7 @@ import UIKit
 import AVFoundation
 import SCSiriWaveformView
 import FDWaveformView
+import MBProgressHUD
 
 class ImprovementViewController: UIViewController {
     
@@ -23,6 +24,7 @@ class ImprovementViewController: UIViewController {
     @IBOutlet weak var labelHypothesis: UILabel!
     @IBOutlet weak var labelSuggestion: UILabel!
     @IBOutlet weak var labelImprovementNote: UILabel!
+    @IBOutlet weak var buttonSaveRecord: UIButton!
     
     var recorder: AVAudioRecorder!
     var isRecording = false
@@ -73,11 +75,15 @@ class ImprovementViewController: UIViewController {
         if AppUtils.sizeModelOfiPhone() == .iphone6p_55in {
         }
         
+        self.buttonSaveRecord.alpha = 0.5
+        self.buttonSaveRecord.isEnabled = false
+        
         self.initializeDroneUIs()
         self.initializeAudioPlayerUI()
         self.viewAudioPlayer.isHidden = true
         
         self.initializeImproveActionViews()
+        NotificationCenter.default.addObserver(self, selector: #selector(resetMetrodroneEngine), name: Notification.Name.UIApplicationWillEnterForeground, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(processRouteChange), name: Notification.Name.AVAudioSessionRouteChange, object: nil)
     }
     
@@ -152,11 +158,29 @@ class ImprovementViewController: UIViewController {
 extension ImprovementViewController: MetrodroneViewDelegate, SubdivisionSelectViewDelegate {
 
     @objc func processRouteChange() {
-        if let player = self.metrodroneView?.metrodonePlayer {
-            player.stopPlayer()
-            self.self.metrodroneView?.metrodonePlayer = nil
-            self.self.metrodroneView?.prepareMetrodrone()
+        DispatchQueue.main.async {
+            if let player = self.metrodroneView?.metrodonePlayer {
+                player.stopPlayer()
+                self.metrodroneView?.metrodonePlayer = nil
+                self.metrodroneView?.prepareMetrodrone()
+            }
         }
+    }
+    
+    @objc func resetMetrodroneEngine() {
+        if let player = self.metrodroneView?.metrodonePlayer {
+            MBProgressHUD.showAdded(to: self.view, animated: true)
+            
+            player.stopPlayer()
+            self.metrodroneView?.metrodonePlayer = nil
+            self.metrodroneView?.prepareMetrodrone()
+            
+            self.perform(#selector(processAudioEnginePrepared), with: nil, afterDelay: 1.0)
+        }
+    }
+    
+    @objc func processAudioEnginePrepared() {
+        MBProgressHUD.hide(for: self.view, animated: true)
     }
     
     func initializeDroneUIs() {
@@ -282,7 +306,7 @@ extension ImprovementViewController: AVAudioPlayerDelegate, FDWaveformViewDelega
             player.delegate = self
             
         } catch let error {
-            print("Audio player error \(error)")
+            ModacityDebugger.debug("Audio player error \(error)")
         }
         
         self.isPlaying = false
@@ -367,9 +391,12 @@ extension ImprovementViewController: AVAudioPlayerDelegate, FDWaveformViewDelega
                     AppOveralDataManager.manager.increaseAutoIncrementedNumber()
                     if self.playlistViewModel != nil {
                         self.playlistViewModel.saveCurrentRecording(toFileName: name)
-                    } else {
+                    } else if self.practiceItem != nil {
                         RecordingsLocalManager.manager.saveCurrentRecording(toFileName: name, playlistId: "practice-\(self.practiceItem.id)", practiceName: self.practiceItem.name ?? "", practiceEntryId: self.practiceItem.id, practiceItemId: self.practiceItem.id)
                     }
+                    
+                    self.buttonSaveRecord.alpha = 0.5
+                    self.buttonSaveRecord.isEnabled = false
                 }
             }
         }))
@@ -421,6 +448,9 @@ extension ImprovementViewController {
             
         } else {
             
+            self.buttonSaveRecord.alpha = 1.0
+            self.buttonSaveRecord.isEnabled = true
+            
             self.viewImprovedAlert.isHidden = false
             self.imageViewHeader.image = UIImage(named:"bg_improvement_normal")
             self.btnRecord.setImage(UIImage(named:"img_record"), for: .normal)
@@ -458,7 +488,7 @@ extension ImprovementViewController {
             displayLink.add(to: RunLoop.current, forMode: .commonModes)
             
         } catch let error {
-            print("recorder error : \(error)")
+            ModacityDebugger.debug("recorder error : \(error)")
         }
         
     }

@@ -73,7 +73,7 @@ class PlaylistContentsViewModel: ViewModel {
     
     var currentPracticeEntry : PlaylistPracticeEntry! {
         didSet {
-            print("current practice entry changed")
+            ModacityDebugger.debug("current practice entry changed")
         }
     }
     

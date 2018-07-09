@@ -64,11 +64,10 @@ class MetrodronePlayer: DroneFrameDelegate {
     var metrodrone : MetroDroneAudio!
     
     init() {
-        metrodrone = MetroDroneAudio(mainClickFile: highClick, subClickFile: lowClick)
+        self.metrodrone = MetroDroneAudio(mainClickFile: highClick, subClickFile: lowClick)
     }
     
     func stopPlayer() {
-        
         if (self.isMetrodronePlaying) {
             stopMetrodrone()
         }
@@ -104,6 +103,12 @@ class MetrodronePlayer: DroneFrameDelegate {
         self._viewDurationSliderMinTrack = viewSliderMinTrack
         self._imageviewDurationSliderMaxTrack = imageViewSliderMaxTrack
         
+        self._playButtonImage = playButtonImage
+        self._pauseButtonImage = pauseButtonImage
+        
+        _viewDroneFrame.setDelegate(self) // establish bi-directional relationships
+        self.processDurationSliderEnabledStatus()
+        
         DispatchQueue.main.async {
             // Make sure the duration slider has the right range, and set it in the middle.
             self._sliderDuration.setThumbImage(UIImage(named: "img_slider_thumb_normal"), for: .normal)
@@ -112,47 +117,27 @@ class MetrodronePlayer: DroneFrameDelegate {
             self._sliderDuration.minimumValue = MetrodronePlayer.minDurationValue
             self._sliderDuration.value = MetrodroneParameters.instance.durationRatio * (MetrodronePlayer.minDurationValue + MetrodronePlayer.maxDurationValue)
             self.updateSubdivisionIcons()
+            self.updateMetrodroneOutlets()
         }
-        
-        self._playButtonImage = playButtonImage
-        self._pauseButtonImage = pauseButtonImage
-        
-        _viewDroneFrame.setDelegate(self) // establish bi-directional relationships
-        self.processDurationSliderEnabledStatus()
-        updateMetrodroneOutlets()
     }
     
     func updateMetrodroneOutlets() {
         // updates labels, sliders, etc.
-        DispatchQueue.main.async {
-            self._labelTempo.text = String(MetrodroneParameters.instance.tempo)
-            self._sliderDuration.value = MetrodroneParameters.instance.durationRatio
-            self._buttonSustain.isSelected = MetrodroneParameters.instance.sustain
-            self._viewDroneFrame.setSelectedNote(MetrodroneParameters.instance.currNote)
-            
-            self._labelOctaveNumber.text = String(MetrodroneParameters.instance.currOctave - MetrodronePlayer.minOctave + 1)
-            
-            self._buttonOctaveDown.isEnabled = true
-            self._buttonOctaveUp.isEnabled = true
-            
-            if (MetrodroneParameters.instance.currOctave == MetrodronePlayer.minOctave) {
-                self._buttonOctaveDown.isEnabled = false
-            }
-            if (MetrodroneParameters.instance.currOctave == MetrodronePlayer.maxOctave) {
-                self._buttonOctaveUp.isEnabled = false
-            }
-            
-            /*
-             The Duration slider should only be enabled when a note is selected, and metronome
-             portion is on. Otherwise it should be disabled.
-             Right now this code is commented out because of the complication of the slider graphics.
-            
-             if (self.currNote != "X") {
-                self._sliderDuration.isEnabled = false
-            } else {
-                self._sliderDuration.isEnabled = true
-            }
-            */
+        self._labelTempo.text = String(MetrodroneParameters.instance.tempo)
+        self._sliderDuration.value = MetrodroneParameters.instance.durationRatio
+        self._buttonSustain.isSelected = MetrodroneParameters.instance.sustain
+        self._viewDroneFrame.setSelectedNote(MetrodroneParameters.instance.currNote)
+        
+        self._labelOctaveNumber.text = String(MetrodroneParameters.instance.currOctave - MetrodronePlayer.minOctave + 1)
+        
+        self._buttonOctaveDown.isEnabled = true
+        self._buttonOctaveUp.isEnabled = true
+        
+        if (MetrodroneParameters.instance.currOctave == MetrodronePlayer.minOctave) {
+            self._buttonOctaveDown.isEnabled = false
+        }
+        if (MetrodroneParameters.instance.currOctave == MetrodronePlayer.maxOctave) {
+            self._buttonOctaveUp.isEnabled = false
         }
     }
     
@@ -245,8 +230,6 @@ class MetrodronePlayer: DroneFrameDelegate {
         singleFire(-10)
     }
     
- 
-    
     @objc func rapidFireUp() {
         singleFire(+10)
     }
@@ -328,7 +311,6 @@ class MetrodronePlayer: DroneFrameDelegate {
     }
     
     func enableDurationSlider() {
-        print("Enable duration slider")
         DispatchQueue.main.async {
             self._viewDurationSliderMinTrack.alpha = 1
             self._imageviewDurationSliderMaxTrack.alpha = 1
@@ -342,7 +324,6 @@ class MetrodronePlayer: DroneFrameDelegate {
     }
     
     func disableDurationSlider() {
-        print("Disable duration slider")
         DispatchQueue.main.async {
             self._viewDurationSliderMinTrack.alpha = 0
             self._imageviewDurationSliderMaxTrack.alpha = 0.5
@@ -352,7 +333,7 @@ class MetrodronePlayer: DroneFrameDelegate {
     }
     
     func toneWheelNoteDown(noteIndex: Int, currMode: TouchDownMode) {
-        print("Tone wheel down at \(noteIndex) with mode \(currMode)")
+        ModacityDebugger.debug("Tone wheel down at \(noteIndex) with mode \(currMode)")
         if (currMode == .Select) {
             toneWheelSelectNote(noteIndex: noteIndex)
         } else {
@@ -379,9 +360,9 @@ class MetrodronePlayer: DroneFrameDelegate {
     
     func startMetronome() { // will restart it if already going.
         if (MetrodroneParameters.instance.isSustaining) {
-            print("Stopping met because of sustain")
+            ModacityDebugger.debug("Stopping met because of sustain")
             metrodrone.stop()
-}
+        }
         disableSustain()
         
         updateMetrodroneNote()
@@ -390,8 +371,6 @@ class MetrodronePlayer: DroneFrameDelegate {
         isMetrodronePlaying = true
         self.processDurationSliderEnabledStatus()
         setPauseImage()
-        
-        
     }
     
     
@@ -410,8 +389,10 @@ class MetrodronePlayer: DroneFrameDelegate {
         self.processDurationSliderEnabledStatus()
         MetrodroneParameters.instance.isSustaining = false
         setPlayImage()
-        _buttonSustain.isEnabled = true
-        _buttonSustain.alpha = 1
+        DispatchQueue.main.async {
+            self._buttonSustain.isEnabled = true
+            self._buttonSustain.alpha = 1
+        }
     }
     
     func setPlayImage() {
@@ -462,7 +443,7 @@ class MetrodronePlayer: DroneFrameDelegate {
         
         if let bpm = MetrodroneParameters.instance.tempoDetective.addTap() {
             // if BPM is detected (after ~3 taps)
-            print("bpm = \(bpm) detected")
+            ModacityDebugger.debug("bpm = \(bpm) detected")
             setNewTempo(Int(bpm))
 
             startMetronome()

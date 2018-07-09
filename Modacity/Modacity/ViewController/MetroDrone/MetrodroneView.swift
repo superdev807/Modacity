@@ -107,7 +107,7 @@ class MetrodroneView: UIView {
     func prepareMetrodrone() {
         self.metrodonePlayer = MetrodronePlayer()
         self.metrodonePlayer!.metrodronePlayerDelegate = self
-        DispatchQueue.main.async {
+//        DispatchQueue.main.async {
             self.metrodonePlayer!.initializeOutlets(lblTempo: self.labelTempo,
                                                     droneFrame: self.viewDroneFrame,
                                                     playButton: self.buttonMetrodronePlay,
@@ -120,7 +120,10 @@ class MetrodroneView: UIView {
                                                     viewSliderMinTrack: self.viewMinTrack,
                                                     imageViewSliderMaxTrack: self.imageViewMaxTrack,
                                                     imageViewSubdivisionNote: self.buttonSubDivisionNoteOnButton)
-        }
+            
+            ModacityDebugger.debug("Metrodrone player prepared")
+            NotificationCenter.default.post(Notification(name: AppConfig.appNotificationMetrodroneAudioEnginePrepared))
+//        }
     }
     
     @IBAction func onSustainButton(_ sender: Any) {

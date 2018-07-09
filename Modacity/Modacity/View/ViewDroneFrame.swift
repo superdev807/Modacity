@@ -156,8 +156,8 @@ class ViewDroneFrame: UIView, MetrodroneUIDelegate {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-       let touchedIndex = detectDroneIndex(forEvent: event!)
-        print("Touch down at \(touchedIndex)")
+        let touchedIndex = detectDroneIndex(forEvent: event!)
+        ModacityDebugger.debug("Touch down at \(touchedIndex)")
         touchStartIndex = touchedIndex
         
         if ((delegate != nil) && (touchedIndex >= 0)) {
@@ -168,7 +168,7 @@ class ViewDroneFrame: UIView, MetrodroneUIDelegate {
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touchedIndex = detectDroneIndex(forEvent: event!)
-        print("Touch moved at \(touchedIndex)")
+        ModacityDebugger.debug("Touch moved at \(touchedIndex)")
         
         if (touchedIndex == self.selectedDronFrameIdx) { return } // not really a move
 
@@ -182,7 +182,7 @@ class ViewDroneFrame: UIView, MetrodroneUIDelegate {
     }
     
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        print("Touches cancel at \(selectedDronFrameIdx)")
+        ModacityDebugger.debug("Touches cancel at \(selectedDronFrameIdx)")
         
         if ((delegate != nil) && (touchMode == .Select))  {
             delegate?.toneWheelNoteUp()
@@ -190,7 +190,7 @@ class ViewDroneFrame: UIView, MetrodroneUIDelegate {
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        print("Touches up at \(selectedDronFrameIdx)")
+        ModacityDebugger.debug("Touches up at \(selectedDronFrameIdx)")
         
         if ((delegate != nil) && (touchMode == .Select))  {
             delegate?.toneWheelNoteUp()

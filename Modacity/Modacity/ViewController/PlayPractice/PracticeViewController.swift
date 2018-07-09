@@ -11,6 +11,7 @@ import AVFoundation
 import SCSiriWaveformView
 import FDWaveformView
 import Intercom
+import MBProgressHUD
 
 class PracticeViewController: UIViewController {
     
@@ -59,10 +60,6 @@ class PracticeViewController: UIViewController {
     var timerShouldDown = false
     var timerShouldFinish = 0
     
-    // unused
-    
-    
-    
     // MARK: - Properties for recording
     @IBOutlet weak var btnRecord: UIButton!
     @IBOutlet weak var waveformAudioPlay: FDWaveformView!
@@ -85,6 +82,7 @@ class PracticeViewController: UIViewController {
     @IBOutlet weak var viewRatePanel: UIView!
     @IBOutlet weak var imageViewRateDirection: UIImageView!
     @IBOutlet weak var labelRateValue: UILabel!
+    @IBOutlet weak var buttonSaveRecord: UIButton!
     
     // MARK: - Properties for drone
     
@@ -120,6 +118,9 @@ class PracticeViewController: UIViewController {
             self.labelPracticeItemName.text = self.practiceItem.name ?? ""
         }
         
+        self.buttonSaveRecord.alpha = 0.5
+        self.buttonSaveRecord.isEnabled = false
+        
         if AppUtils.sizeModelOfiPhone() == .iphone6p_55in {
             constraintForImageHeaderViewHeight.constant = 480
         } else if AppUtils.sizeModelOfiPhone() == .iphone6_47in {
@@ -143,6 +144,7 @@ class PracticeViewController: UIViewController {
         self.addTabBar()
         
         ModacityAnalytics.LogEvent(.StartPracticeItem, extraParamName: "ItemName", extraParamValue: self.labelPracticeItemName.text)
+        NotificationCenter.default.addObserver(self, selector: #selector(resetMetrodroneEngine), name: Notification.Name.UIApplicationWillEnterForeground, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(processRouteChange), name: Notification.Name.AVAudioSessionRouteChange, object: nil)
     }
     
@@ -247,15 +249,35 @@ class PracticeViewController: UIViewController {
 extension PracticeViewController: MetrodroneViewDelegate, SubdivisionSelectViewDelegate {
     
     @objc func processRouteChange() {
-        if let player = self.metrodroneView?.metrodonePlayer {
-            player.stopPlayer()
-            self.self.metrodroneView?.metrodonePlayer = nil
-            self.self.metrodroneView?.prepareMetrodrone()
+        DispatchQueue.main.async {
+            if let player = self.metrodroneView?.metrodonePlayer {
+                player.stopPlayer()
+                self.metrodroneView?.metrodonePlayer = nil
+                self.metrodroneView?.prepareMetrodrone()
+            }
         }
     }
     
+    @objc func resetMetrodroneEngine() {
+        if let player = self.metrodroneView?.metrodonePlayer {
+            MBProgressHUD.showAdded(to: self.view, animated: true)
+            
+            player.stopPlayer()
+            self.metrodroneView?.metrodonePlayer = nil
+            self.metrodroneView?.prepareMetrodrone()
+            
+            self.perform(#selector(processAudioEnginePrepared), with: nil, afterDelay: 1.0)
+        }
+    }
+    
+    @objc func processAudioEnginePrepared() {
+        MBProgressHUD.hide(for: self.view, animated: true)
+    }
+    
     func initializeDroneUIs() {
+        
         self.metrodroneView = MetrodroneView()
+        
         self.view.addSubview(self.metrodroneView!)
         self.view.leadingAnchor.constraint(equalTo: self.metrodroneView!.leadingAnchor).isActive = true
         self.view.trailingAnchor.constraint(equalTo: self.metrodroneView!.trailingAnchor).isActive = true
@@ -303,6 +325,7 @@ extension PracticeViewController: MetrodroneViewDelegate, SubdivisionSelectViewD
     }
     
     func showMetrodroneView() {
+        
         if self.metrodroneView!.isHidden {
             ModacityAnalytics.LogEvent(.MetrodroneDrawerOpen)
             self.metrodroneView!.isHidden = false
@@ -498,7 +521,7 @@ extension PracticeViewController: AVAudioPlayerDelegate, FDWaveformViewDelegate 
             player.prepareToPlay()
             player.delegate = self
         } catch let error {
-            print("Audio player error \(error)")
+            ModacityDebugger.debug("Audio player error \(error)")
         }
         
         self.isPlaying = false
@@ -557,6 +580,10 @@ extension PracticeViewController: AVAudioPlayerDelegate, FDWaveformViewDelegate 
                     let autoIncrementedNumber = AppOveralDataManager.manager.fileNameAutoIncrementedNumber()
                     textField.text = "\(practiceName)_\(Date().toString(format: "yyyyMMdd"))_\(String(format:"%02d", autoIncrementedNumber))"
                 }
+            } else if self.practiceItem != nil {
+                let practiceName = String(self.practiceItem.name.prefix(16))
+                let autoIncrementedNumber = AppOveralDataManager.manager.fileNameAutoIncrementedNumber()
+                textField.text = "\(practiceName)_\(Date().toString(format: "yyyyMMdd"))_\(String(format:"%02d", autoIncrementedNumber))"
             }
         }
         alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
@@ -565,6 +592,16 @@ extension PracticeViewController: AVAudioPlayerDelegate, FDWaveformViewDelegate 
                     if self.playlistViewModel != nil {
                         AppOveralDataManager.manager.increaseAutoIncrementedNumber()
                         self.playlistViewModel.saveCurrentRecording(toFileName: name)
+                        self.buttonSaveRecord.alpha = 0.5
+                        self.buttonSaveRecord.isEnabled = false
+                    } else if self.practiceItem != nil {
+                        RecordingsLocalManager.manager.saveCurrentRecording(toFileName: name,
+                                                                            playlistId: "practice-\(self.practiceItem.id)",
+                                                                            practiceName: self.practiceItem.name ?? "",
+                                                                            practiceEntryId: self.practiceItem.id,
+                                                                            practiceItemId: self.practiceItem.id)
+                        self.buttonSaveRecord.alpha = 0.5
+                        self.buttonSaveRecord.isEnabled = false
                     }
                     ModacityAnalytics.LogStringEvent("Saved Practice Recording",
                                                     extraParamName: "filename",
@@ -623,6 +660,10 @@ extension PracticeViewController {
             self.isRecording = true
             
         } else {
+            
+            self.buttonSaveRecord.alpha = 1.0
+            self.buttonSaveRecord.isEnabled = true
+            
             // Stop Recording
             self.imageViewHeader.image = UIImage(named:"bg_practice_header")
             self.btnRecord.setImage(UIImage(named:"img_record"), for: .normal)
@@ -667,7 +708,7 @@ extension PracticeViewController {
             displayLink.add(to: RunLoop.current, forMode: .commonModes)
             
         } catch let error {
-            print("recorder error : \(error)")
+            ModacityDebugger.debug("recorder error : \(error)")
         }
         
     }
@@ -834,7 +875,7 @@ extension PracticeViewController {
             self.dingSoundPlayer!.prepareToPlay()
             self.dingSoundPlayer!.play()
         } catch let error {
-            print("Audio player (ding sound) error \(error)")
+            ModacityDebugger.debug("Audio player (ding sound) error \(error)")
         }
     }
 }

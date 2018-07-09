@@ -36,6 +36,8 @@ class NotesListView: UIView {
     
     var noteEditingCell: NoteCell!
     
+    var isGoal = false
+    
     override init(frame: CGRect) {
         super.init(frame:frame)
         commonInit()
@@ -110,9 +112,9 @@ extension NotesListView : UITableViewDelegate, UITableViewDataSource {
         } else if indexPath.row == self.notes.count {
             let cell = tableView.dequeueReusableCell(withIdentifier: "ButtonCell", for: indexPath) as! ButtonCell
             if self.showArchived {
-                cell.labelStatus.text = "HIDE ARCHIVED NOTES"
+                cell.labelStatus.text = self.isGoal ? "HIDE ARCHIVED GOALS" : "HIDE ARCHIVED NOTES"
             } else {
-                cell.labelStatus.text = "SHOW ARCHIVED NOTES"
+                cell.labelStatus.text = self.isGoal ? "SHOW ARCHIVED GOALS" : "SHOW ARCHIVED NOTES"
             }
             cell.delegate = self
             return cell

@@ -241,9 +241,8 @@ extension RecordingsListView: RecordingCellDelegate {
                     player.stop()
                 }
                 self.audioPlayer = nil
-                self.deleteRecording(for: recording)
-                return
             }
+            self.deleteRecording(for: recording)
         } else {
             self.deleteRecording(for: recording)
         }
@@ -293,7 +292,7 @@ extension RecordingsListView: AVAudioPlayerDelegate {
                 player.prepareToPlay()
                 player.delegate = self
             } catch let error {
-                print("Audio player error \(error)")
+                ModacityDebugger.debug("Audio player error \(error)")
             }
         }
         
@@ -330,12 +329,12 @@ extension RecordingsListView {
             let url = URL(fileURLWithPath: dirPath[0] + "/" + recordingToRemove.fileName + ".wav")
             try FileManager.default.removeItem(at: url)
         } catch let error as NSError {
-            print("file removing error - \(error.localizedDescription)")
+            ModacityDebugger.debug("file removing error - \(error.localizedDescription)")
         }
         
         self.recordings.remove(at: row)
         RecordingsLocalManager.manager.removeRecording(forId: recordingToRemove.id)
-        RecordingsLocalManager.manager.saveAllRecordings(self.recordings)
+        self.tableViewMain.reloadData()
         
     }
     
@@ -345,7 +344,7 @@ extension RecordingsListView {
             let url = URL(fileURLWithPath: dirPath[0] + "/" + recording.fileName + ".wav")
             try FileManager.default.removeItem(at: url)
         } catch let error as NSError {
-            print("file removing error - \(error.localizedDescription)")
+            ModacityDebugger.debug("file removing error - \(error.localizedDescription)")
         }
         
         for idx in 0..<self.recordings.count {
@@ -356,6 +355,6 @@ extension RecordingsListView {
         }
         
         RecordingsLocalManager.manager.removeRecording(forId: recording.id)
-        RecordingsLocalManager.manager.saveAllRecordings(self.recordings)
+        self.tableViewMain.reloadData()
     }
 }

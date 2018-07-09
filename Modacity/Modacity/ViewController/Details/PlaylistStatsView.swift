@@ -158,8 +158,6 @@ class PlaylistStatsView: UIView {
                 self.labelTotalTimeUnit.text = "TOTAL MINUTES"
             }
             
-            print("seconds data \(secondsData)")
-            
             var cal = monday
             var seconds = [Double]()
             while cal.timeIntervalSince1970 <= sunday.timeIntervalSince1970 {
@@ -171,8 +169,6 @@ class PlaylistStatsView: UIView {
                 }
                 cal = cal.advanced(years: 0, months: 0, weeks: 0, days: 1, hours: 0, minutes: 0, seconds: 0)
             }
-            
-            print("seconds practiced: \(seconds)")
             
             setBarChart(dataPoints: ["MON", "TUE", "WED", "THR", "FRI", "SAT", "SUN"], values: seconds)
             
@@ -206,6 +202,8 @@ class PlaylistStatsView: UIView {
         
         let data = PlaylistDailyLocalManager.manager.overallPracticeData()
         
+        ModacityDebugger.debug("overall stats - \(data)")
+        
         var totalMinutes = 0
         var entryCount = 0
         var thisWeekTotal = 0
@@ -233,9 +231,11 @@ class PlaylistStatsView: UIView {
                     
                     if time!.isLastWeek() {
                         lastWeekTotal = lastWeekTotal + daily.practiceTimeInSeconds
+                        ModacityDebugger.debug("last week - playlist total time - \(daily.practiceTimeInSeconds)")
                         for practice in daily.practices {
                             if let practiceDailyData = PracticingDailyLocalManager.manager.practicingData(forDataId: practice) {
                                 if let practiceItemId = practiceDailyData.practiceItemId {
+                                    ModacityDebugger.debug("last week - playlist practice entry - \(practiceDailyData.practiceItemId) : \(practiceDailyData.practiceTimeInSeconds)")
                                     self.configureDetails(key: "last_week", practiceItemId: practiceItemId, practiceDailyData: practiceDailyData)
                                 }
                             }
@@ -266,8 +266,6 @@ class PlaylistStatsView: UIView {
                 }
             }
         }
-        
-        print("details - \(detailsData)")
         
         if entryCount > 0  {
             let aver = Int(totalMinutes / entryCount)
@@ -323,7 +321,7 @@ class PlaylistStatsView: UIView {
         
         self.playlistIdForStats = playlistId
         let data = PlaylistDailyLocalManager.manager.playlistPracticingData(forPlaylistId: playlistId)
-        print("Statistics data - \(data)")
+        ModacityDebugger.debug("Statistics data - \(data)")
         
         var totalMinutes = 0
         var entryCount = 0
@@ -352,9 +350,11 @@ class PlaylistStatsView: UIView {
                  
                     if time!.isLastWeek() {
                         lastWeekTotal = lastWeekTotal + daily.practiceTimeInSeconds
+                        ModacityDebugger.debug("last week - playlist total time - \(daily.practiceTimeInSeconds)")
                         for practice in daily.practices {
                             if let practiceDailyData = PracticingDailyLocalManager.manager.practicingData(forDataId: practice) {
                                 if let practiceItemId = practiceDailyData.practiceItemId {
+                                    ModacityDebugger.debug("last week - playlist practice entry - \(practiceDailyData.practiceItemId) : \(practiceDailyData.practiceTimeInSeconds)")
                                     self.configureDetails(key: "last_week", practiceItemId: practiceItemId, practiceDailyData: practiceDailyData)
                                 }
                             }
@@ -385,8 +385,6 @@ class PlaylistStatsView: UIView {
                 }
             }
         }
-        
-        print("details - \(detailsData)")
         
         if entryCount > 0  {
             let aver = Int(totalMinutes / entryCount)

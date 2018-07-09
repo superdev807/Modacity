@@ -48,6 +48,7 @@ class MetrodoneViewController: UIViewController {
         self.prepareMetrodronePlayer()
         self.configureLayout()
         NotificationCenter.default.addObserver(self, selector: #selector(processRouteChange), name: Notification.Name.AVAudioSessionRouteChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(processAudioEngineRefresh), name: Notification.Name.UIApplicationWillEnterForeground, object: nil)
     }
     
     deinit {
@@ -71,10 +72,19 @@ class MetrodoneViewController: UIViewController {
         }
         
         UIApplication.shared.isIdleTimerDisabled = false
-        
+    }
+    
+    @objc func processAudioEngineRefresh() {
+        ModacityDebugger.debug("application did enter foreground!")
+        if self.metrodronePlayer != nil {
+            self.metrodronePlayer!.stopPlayer()
+            self.metrodronePlayer = nil
+        }
+        self.prepareMetrodronePlayer()
     }
     
     @objc func processRouteChange() {
+        ModacityDebugger.debug("Audio route changed!")
         if self.metrodronePlayer != nil {
             self.metrodronePlayer!.stopPlayer()
             self.metrodronePlayer = nil

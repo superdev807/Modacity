@@ -38,7 +38,7 @@ class RecordingViewModel: ViewModel {
             let url = URL(fileURLWithPath: dirPath[0] + "/" + recordingToRemove.fileName + ".wav")
             try FileManager.default.removeItem(at: url)
         } catch let error as NSError {
-            print("file removing error - \(error.localizedDescription)")
+            ModacityDebugger.debug("file removing error - \(error.localizedDescription)")
         }
         
         self.recordings.remove(at: row)
@@ -53,7 +53,7 @@ class RecordingViewModel: ViewModel {
             let url = URL(fileURLWithPath: dirPath[0] + "/" + recording.fileName + ".wav")
             try FileManager.default.removeItem(at: url)
         } catch let error as NSError {
-            print("file removing error - \(error.localizedDescription)")
+            ModacityDebugger.debug("file removing error - \(error.localizedDescription)")
         }
         
         for idx in 0..<self.recordings.count {

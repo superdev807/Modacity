@@ -54,7 +54,7 @@ class PracticeItemRemoteManager {
         if let userId = MyProfileLocalManager.manager.userId() {
             if let practiceItems = PracticeItemLocalManager.manager.loadPracticeItems() {
                 
-                print("Uploading all local practice items to backend.")
+                ModacityDebugger.debug("Uploading all local practice items to backend.")
                 
                 for practiceItem in practiceItems {
                     refUser.child(userId).child("practices").child(practiceItem.id).setValue(practiceItem.toJSON())

@@ -160,6 +160,7 @@ extension DetailsViewController {
         } else {
             self.recordingsView.showRecordings(RecordingsLocalManager.manager.loadRecordings())
         }
+        self.recordingsView.delegate = self
     }
     
     func detachRecordingView(_ animated:Bool = false) {
@@ -228,7 +229,7 @@ extension DetailsViewController {
         } else if self.playlistItemId != nil {
             self.playlistHistoryView.removeFromSuperview()
         } else {
-            
+            self.playlistHistoryView.removeFromSuperview()
         }
     }
 }
@@ -322,7 +323,7 @@ extension DetailsViewController {
     
 }
 
-extension DetailsViewController: NotesListViewDelegate {
+extension DetailsViewController: NotesListViewDelegate, RecordingsListViewDelegate {
     
     func processNotes() {
         if self.practiceItemId != nil {
@@ -334,6 +335,7 @@ extension DetailsViewController: NotesListViewDelegate {
                 self.notesView.showNotes(playlist.notes ?? [])
             }
         } else {
+            self.notesView.isGoal = true
             self.notesView.showNotes(GoalsLocalManager.manager.loadGoals() ?? [])
         }
     }
@@ -434,6 +436,11 @@ extension DetailsViewController: NotesListViewDelegate {
             }
             self.processNotes()
         }
+    }
+    
+    func onShareRecording(text: String, url: URL) {
+        let activityViewController = UIActivityViewController(activityItems: [text, url], applicationActivities: nil)
+        self.present(activityViewController, animated: true, completion: nil)
     }
 }
 

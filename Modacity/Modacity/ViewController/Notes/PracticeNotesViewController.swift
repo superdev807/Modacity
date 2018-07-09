@@ -25,6 +25,14 @@ class PracticeNotesViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        self.noteListView = NotesListView()
+        self.noteListView.delegate = self
+        self.view.addSubview(self.noteListView)
+        self.noteListView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+        self.noteListView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+        self.noteListView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        self.noteListView.topAnchor.constraint(equalTo: self.imageViewHeader.bottomAnchor, constant: 10).isActive = true
+        
         if self.playlistViewModel != nil {
             self.playlistViewModel.storePlaylist()
             if self.noteIsForPlaylist {
@@ -36,15 +44,9 @@ class PracticeNotesViewController: UIViewController {
             self.labelTitle.text = self.practiceItem.name ?? ""
         } else {
             self.labelTitle.text = "Goals"
+            self.noteListView.isGoal = true
         }
-
-        self.noteListView = NotesListView()
-        self.noteListView.delegate = self
-        self.view.addSubview(self.noteListView)
-        self.noteListView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
-        self.noteListView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
-        self.noteListView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
-        self.noteListView.topAnchor.constraint(equalTo: self.imageViewHeader.bottomAnchor, constant: 10).isActive = true
+        
         self.processNotes()
     }
 

@@ -40,12 +40,13 @@ class MetroDroneAudio {
         ModacityAudioEngine.engine.connectAudio(node: dronePlayerNode, format: audioFileMainClick.processingFormat)
         
         ModacityAudioEngine.engine.startEngine()
+        ModacityDebugger.debug("Engine started")
     }
     
     private func generateSubdividedDrone(bpm: Double, subdivisions: Int, droneRatio: Float) -> AVAudioPCMBuffer {
         
         if (audioFileDrone == nil) {
-            print("error - called drone subdivide with no audio file")
+            ModacityDebugger.debug("error - called drone subdivide with no audio file")
             return AVAudioPCMBuffer()
         }
         

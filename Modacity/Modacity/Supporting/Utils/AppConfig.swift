@@ -47,8 +47,9 @@ class AppConfig: NSObject {
     static let appNotificationPlaylistUpdated = Notification.Name(rawValue: "appNotificationPlaylistUpdated")
     static let appNotificationProfileUpdated = Notification.Name(rawValue: "appNotificationProfileUpdated")
     
-    static let appMaxNumberForRecentPlaylists = 10
+    static let appNotificationMetrodroneAudioEnginePrepared = Notification.Name(rawValue: "appNotificationMetrodroneAudioEnginePrepared")
     
+    static let appMaxNumberForRecentPlaylists = 10
     static let appIdOnAppStore = "1351617981"
     
     static let appIntercomApiKey = "ios_sdk-f447e55f2c171cec792a026f22b81c2188765217"

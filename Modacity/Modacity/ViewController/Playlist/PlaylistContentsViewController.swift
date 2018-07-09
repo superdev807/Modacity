@@ -664,7 +664,7 @@ extension PlaylistContentsViewController: UITableViewDelegate, UITableViewDataSo
                     self.snapshot = nil
                 })
             } else {
-                print ("source cell is nil")
+                ModacityDebugger.debug ("source cell is nil")
                 self.sourceIndexPath = nil
                 self.snapshot?.removeFromSuperview()
                 self.snapshot = nil

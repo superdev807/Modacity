@@ -196,7 +196,7 @@ extension FeedbackRootViewController : MFMailComposeViewControllerDelegate {
     func sendMail(type: ModacityEmailType, body:String, includeAudio: Bool=false) {
         
         if( MFMailComposeViewController.canSendMail() ) {
-            print("Can send email.")
+            ModacityDebugger.debug("Can send email.")
             
             let mailComposer = MFMailComposeViewController()
             mailComposer.mailComposeDelegate = self
@@ -215,11 +215,11 @@ extension FeedbackRootViewController : MFMailComposeViewControllerDelegate {
                 
                 do  {
                     let fileData = try Data.init(contentsOf: fileURL)
-                    print("File data loaded.")
+                    ModacityDebugger.debug("File data loaded.")
                     mailComposer.addAttachmentData(fileData, mimeType: "audio/wav", fileName: "all_good_getting_better")
                     
                 } catch let error {
-                    print("\(error.localizedDescription)")
+                    ModacityDebugger.debug("\(error.localizedDescription)")
                 }
             }
             

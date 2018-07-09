@@ -22,7 +22,7 @@ class RecordingsLocalManager: NSObject {
         do {
             try fileManager.copyItem(at: sourceUrl, to: targetUrl)
         } catch let error as NSError {
-            print("File copy error: \(error)")
+            ModacityDebugger.debug("File copy error: \(error)")
         }
         
         if let recording = Recording(JSON: ["id":UUID().uuidString,
@@ -37,6 +37,17 @@ class RecordingsLocalManager: NSObject {
     }
     
     func removeRecording(forId: String) {
+        
+        if let oldRecordingIds = self.loadRecordingIds() {
+            var recordingIds = [String]()
+            for recordingId in oldRecordingIds {
+                if recordingId != forId {
+                    recordingIds.append(recordingId)
+                }
+            }
+            self.saveRecordingIds(recordingIds)
+        }
+        
         UserDefaults.standard.removeObject(forKey: "recording-" + forId)
         UserDefaults.standard.synchronize()
     }

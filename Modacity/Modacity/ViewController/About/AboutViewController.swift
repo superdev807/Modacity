@@ -28,7 +28,7 @@ class AboutViewController: UIViewController {
         }
         
         if let text = Bundle.main.infoDictionary?["CFBundleVersion"]  as? String {
-            print(text)
+            ModacityDebugger.debug(text)
         }
         self.labelVersion.text = self.version()
     }

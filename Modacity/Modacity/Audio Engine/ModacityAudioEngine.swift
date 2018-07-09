@@ -29,27 +29,31 @@ class ModacityAudio {
                     try audioSession.overrideOutputAudioPort(.speaker)
                 }
             }
-        } catch let error  {
-            print("audio session error \(error)")
+        } catch let error {
+            ModacityDebugger.debug("audio session error \(error)")
         }
     }
     
     func attachAudio(node: AVAudioPlayerNode) {
-        print("Audio node attached to engine.")
+        ModacityDebugger.debug("Audio node attached to engine.")
         audioEngine.attach(node)
     }
     
     func connectAudio(node: AVAudioPlayerNode, format: AVAudioFormat) {
-        print("Audio node connected to engine.")
+        ModacityDebugger.debug("Audio node connected to engine.")
         audioEngine.connect(node, to: audioEngine.mainMixerNode, format: format)
     }
     
+    func checkEngineStatus() {
+        
+    }
+    
     func startEngine() {
-        print("Audio engine started.")
+        ModacityDebugger.debug("Audio engine started.")
         do {
             try audioEngine.start()
         } catch let err {
-            print("start audio engine error - \(err)")
+            ModacityDebugger.debug("start audio engine error - \(err)")
         }
     }
     
@@ -58,14 +62,14 @@ class ModacityAudio {
     }
     
     @objc func processRouteChange() {
-        print("audio session route changed.")
+        ModacityDebugger.debug("audio session route changed.")
         let audioSession = AVAudioSession.sharedInstance()
         if let inputs = audioSession.availableInputs {
             if inputs.count == 1 {
                 do {
                     try audioSession.overrideOutputAudioPort(.speaker)
                 } catch let err {
-                    print("error in route change process with override speaker \(err)")
+                    ModacityDebugger.debug("error in route change process with override speaker \(err)")
                 }
             }
         }
