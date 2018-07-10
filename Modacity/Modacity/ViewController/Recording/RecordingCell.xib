@@ -43,13 +43,13 @@
                                 <rect key="frame" x="52" y="17.5" width="275" height="29"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sonata in C" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bdb-uJ-qUq">
-                                        <rect key="frame" x="0.0" y="0.0" width="70" height="17"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="275" height="17"/>
                                         <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12/24/17 @ 3:35 PM" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oHT-Mu-amm">
-                                        <rect key="frame" x="0.0" y="17" width="95.5" height="12"/>
+                                        <rect key="frame" x="0.0" y="17" width="275" height="12"/>
                                         <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="10"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -58,7 +58,9 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="bdb-uJ-qUq" firstAttribute="leading" secondItem="PGl-Hc-8zc" secondAttribute="leading" id="Ary-h3-uxc"/>
+                                    <constraint firstAttribute="trailing" secondItem="bdb-uJ-qUq" secondAttribute="trailing" id="ZhO-DA-v6f"/>
                                     <constraint firstAttribute="bottom" secondItem="oHT-Mu-amm" secondAttribute="bottom" id="bd2-id-lC6"/>
+                                    <constraint firstAttribute="trailing" secondItem="oHT-Mu-amm" secondAttribute="trailing" id="ea8-GU-RmD"/>
                                     <constraint firstItem="oHT-Mu-amm" firstAttribute="top" secondItem="bdb-uJ-qUq" secondAttribute="bottom" id="kA0-0W-Omh"/>
                                     <constraint firstItem="oHT-Mu-amm" firstAttribute="leading" secondItem="bdb-uJ-qUq" secondAttribute="leading" id="kyp-4w-n9b"/>
                                     <constraint firstItem="bdb-uJ-qUq" firstAttribute="top" secondItem="PGl-Hc-8zc" secondAttribute="top" id="lJh-mj-ZrQ"/>

@@ -169,8 +169,9 @@ class StatisticsView: UIView {
             setLineChart(values: ratingsLine)
             
         } else {
-            setLineChart(values: [0,0,0,0,0,0,0,0,0,0])
+            
             setBarChart(dataPoints: ["MON", "TUE", "WED", "THR", "FRI", "SAT", "SUN"], values: [0,0,0,0,0,0,0])
+            setLineChart(values: [])
         }
     }
     
@@ -321,6 +322,8 @@ extension StatisticsView {
         chartViewStarRatings.leftAxis.granularityEnabled = true
         chartViewStarRatings.leftAxis.granularity = 1.0
         chartViewStarRatings.leftAxis.decimals = 0
+        
+        
         chartViewStarRatings.leftAxis.valueFormatter = ChartAxisLineIntFormatter()
         
         chartViewStarRatings.leftAxis.axisMinimum = 0.5
@@ -414,7 +417,7 @@ public class BarChartFormatter: NSObject, IAxisValueFormatter
     }
 }
 
-@objc(BarChartFormatter)
+@objc(ChartAxisLineIntFormatter)
 public class ChartAxisLineIntFormatter: NSObject, IAxisValueFormatter
 {
     public func stringForValue(_ value: Double, axis: AxisBase?) -> String
