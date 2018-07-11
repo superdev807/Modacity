@@ -240,7 +240,7 @@ class PlaylistContentsViewController: UIViewController {
         if segue.identifier == "sid_select_practice_item" {
             let controller = segue.destination as! PracticeItemSelectViewController
             controller.parentViewModel = self.viewModel
-        } else if segue.identifier == "sid_finish" {
+        } else if segue.identifier == "sid_finish" || segue.identifier == "sid_finish_ipad_size" {
             let controller = segue.destination as! PlaylistFinishViewController
             controller.playlistDetailsViewModel = self.viewModel
         } else if segue.identifier == "sid_edit_duration" {
@@ -526,7 +526,12 @@ class PlaylistContentsViewController: UIViewController {
         }
         self.viewModel.playlistPracticeData.practiceTimeInSeconds = self.viewModel.sessionDurationInSecond
         PlaylistDailyLocalManager.manager.saveNewPlaylistPracticing(self.viewModel.playlistPracticeData)
-        self.performSegue(withIdentifier: "sid_finish", sender: nil)
+        
+        if AppUtils.sizeModelOfiPhone() == .iphone4_35in {
+            self.performSegue(withIdentifier: "sid_finish_ipad_size", sender: nil)
+        } else {
+            self.performSegue(withIdentifier: "sid_finish", sender: nil)
+        }
     }
 }
 

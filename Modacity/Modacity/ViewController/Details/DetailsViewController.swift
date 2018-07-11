@@ -37,6 +37,7 @@ class DetailsViewController: UIViewController {
     var playlistStatsView: PlaylistStatsView! = nil
     var playlistHistoryView: PlaylistHistoryView! = nil
     
+    @IBOutlet weak var constraintForHeaderViewHeight: NSLayoutConstraint!
     
     var startTabIdx = 0
     
@@ -60,6 +61,10 @@ class DetailsViewController: UIViewController {
         self.viewIndicatorTab3.backgroundColor = Color(hexString: "#292947")
         self.viewIndicatorTab4.backgroundColor = Color(hexString: "#292947")
         selectTab(startTabIdx)
+        
+        if AppUtils.iphoneIsXModel() {
+            self.constraintForHeaderViewHeight.constant = 140
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
