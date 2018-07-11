@@ -332,18 +332,26 @@ extension ImprovementViewController: AVAudioPlayerDelegate, FDWaveformViewDelega
     
     @IBAction func onPlayPauseAudio(_ sender: Any) {
         if self.isPlaying {
-            if let player = player {
-                player.pause()
-            }
-            self.isPlaying = false
-            self.buttonAudioPlay.setImage(UIImage(named: "icon_play"), for: .normal)
+            self.pauseAudio()
         } else {
-            if let player = player {
-                player.play()
-            }
-            self.isPlaying = true
-            self.buttonAudioPlay.setImage(UIImage(named: "icon_pause_white"), for: .normal)
+            self.startPlayAudio()
         }
+    }
+    
+    func pauseAudio() {
+        if let player = player {
+            player.pause()
+        }
+        self.isPlaying = false
+        self.buttonAudioPlay.setImage(UIImage(named: "icon_play"), for: .normal)
+    }
+    
+    func startPlayAudio() {
+        if let player = player {
+            player.play()
+        }
+        self.isPlaying = true
+        self.buttonAudioPlay.setImage(UIImage(named: "icon_pause_white"), for: .normal)
     }
     
     @IBAction func onAudioBackward(_ sender: Any) {
@@ -459,6 +467,13 @@ extension ImprovementViewController {
             self.isRecording = false
             self.btnRecord.isHidden = true
             self.prepareAudioPlay()
+            
+            if !AppOveralDataManager.manager.settingsDisableAutoPlayback() {
+                if let player = self.metrodroneView?.metrodonePlayer {
+                    player.stopMetrodrone()
+                }
+                self.startPlayAudio()
+            }
         }
     }
     
@@ -543,6 +558,20 @@ extension ImprovementViewController {
     @IBAction func onImproveAgain(_ sender: Any) {
         ModacityAnalytics.LogStringEvent("Practice Same Hypothesis Again")
         self.viewModel.alreadyTried = true
-        self.navigationController?.popViewController(animated: true)
+        self.btnRecord.isHidden = false
+        
+        if self.isPlaying {
+            self.onPlayPauseAudio(self)
+        }
+        
+        self.viewWaveformContainer.isHidden = true
+        self.viewAudioPlayer.isHidden = true
+        self.viewRatePanel.isHidden = true
+        self.labelImprovementNote.isHidden = true
+        self.viewAudioPlayer.isHidden = true
+        self.labelImprovementNote.isHidden = false
+        
+        self.viewImprovedAlert.isHidden = true
+        self.viewImprovedYesPanel.isHidden = true
     }
 }

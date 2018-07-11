@@ -71,49 +71,31 @@ class PlaylistHistoryCell: UITableViewCell {
                 
                 lastView = view
                 height = height + 36
+                
+                for improvement in row.improvements {
+                    let improvementText = "Improved: \(improvement.suggestion ?? "") - “\(improvement.hypothesis ?? "")“"
+                    let label = UILabel()
+                    label.translatesAutoresizingMaskIntoConstraints = false
+                    label.textColor = Color(hexString:"#908FE6")
+                    label.text = improvementText
+                    label.font = UIFont.systemFont(ofSize: 12)
+                    label.numberOfLines = 0
+                    self.viewDetailsListContainer.addSubview(label)
+                    label.leadingAnchor.constraint(equalTo: self.viewDetailsListContainer.leadingAnchor, constant:10).isActive = true
+                    label.trailingAnchor.constraint(equalTo: self.viewDetailsListContainer.trailingAnchor, constant:-10).isActive = true
+                    if let lastView = lastView {
+                        label.topAnchor.constraint(equalTo: lastView.bottomAnchor).isActive = true
+                    }
+                    lastView = label
+                    height = height + improvementText.measureSize(for: UIFont.systemFont(ofSize: 12),
+                                                                  constraindTo: CGSize(width:self.viewDetailsListContainer.frame.size.width - 20,
+                                                                                       height:CGFloat.greatestFiniteMagnitude)).height
+                }
             }
         }
         
         self.constraintForDetailsListHeight.constant = height
         
-//        for row in data {
-//            let view = PracticeHistoryDetailsRowView()
-//            view.configure(with: row)
-//            self.viewDetailsListContainer.addSubview(view)
-//            view.leadingAnchor.constraint(equalTo: self.viewDetailsListContainer.leadingAnchor).isActive = true
-//            view.trailingAnchor.constraint(equalTo: self.viewDetailsListContainer.trailingAnchor).isActive = true
-//            view.heightAnchor.constraint(equalToConstant: 36).isActive = true
-//            if let lastView = lastView {
-//                view.topAnchor.constraint(equalTo: lastView.bottomAnchor).isActive = true
-//            } else {
-//                view.topAnchor.constraint(equalTo: self.viewDetailsListContainer.topAnchor).isActive = true
-//            }
-//            lastView = view
-//            height = height + 36
-//
-//            if let improvements = row.improvements {
-//                for improvement in improvements {
-//                    let improvementText = "Improved: \(improvement.suggestion ?? "") - “\(improvement.hypothesis ?? "")“"
-//                    let label = UILabel()
-//                    label.translatesAutoresizingMaskIntoConstraints = false
-//                    label.textColor = Color(hexString:"#908FE6")
-//                    label.text = improvementText
-//                    label.font = UIFont.systemFont(ofSize: 12)
-//                    label.numberOfLines = 0
-//                    self.viewDetailsListContainer.addSubview(label)
-//                    label.leadingAnchor.constraint(equalTo: self.viewDetailsListContainer.leadingAnchor, constant:10).isActive = true
-//                    label.trailingAnchor.constraint(equalTo: self.viewDetailsListContainer.trailingAnchor, constant:-10).isActive = true
-//                    if let lastView = lastView {
-//                        label.topAnchor.constraint(equalTo: lastView.bottomAnchor).isActive = true
-//                    }
-//                    lastView = label
-//                    height = height + improvementText.measureSize(for: UIFont.systemFont(ofSize: 12),
-//                                                                  constraindTo: CGSize(width:self.viewDetailsListContainer.frame.size.width - 20,
-//                                                                                       height:CGFloat.greatestFiniteMagnitude)).height
-//                }
-//            }
-//        }
-//        self.constraintForDetailsListHeight.constant = height
     }
     
     class func height(for data:PlaylistHistoryData, with width: CGFloat) -> CGFloat {
@@ -121,12 +103,10 @@ class PlaylistHistoryCell: UITableViewCell {
         for key in data.practiceDataList.keys {
             if let row = data.practiceDataList[key] {
                 height = height + 36
-//            if let improvements = row.improvements {
-//                for improvement in improvements {
-//                    let improvementText = "Improved: \(improvement.hypothesis) - \(improvement.suggestion)"
-//                    height = height + improvementText.measureSize(for: UIFont.systemFont(ofSize: 12), constraindTo: CGSize(width:width - 66, height:CGFloat.greatestFiniteMagnitude)).height
-//                }
-//            }
+                for improvement in row.improvements {
+                    let improvementText = "Improved: \(improvement.suggestion ?? "") - “\(improvement.hypothesis ?? "")“"
+                    height = height + improvementText.measureSize(for: UIFont.systemFont(ofSize: 12), constraindTo: CGSize(width:width - 81, height:CGFloat.greatestFiniteMagnitude)).height
+                }
             }
         }
         return 5 + (height + 15) + 5

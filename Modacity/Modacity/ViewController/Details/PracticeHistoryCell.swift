@@ -101,7 +101,7 @@ class PracticeHistoryCell: UITableViewCell {
             if let improvements = row.improvements {
                 for improvement in improvements {
                     let improvementText = "Improved: \(improvement.hypothesis) - \(improvement.suggestion)"
-                    height = height + improvementText.measureSize(for: UIFont.systemFont(ofSize: 12), constraindTo: CGSize(width:width - 66, height:CGFloat.greatestFiniteMagnitude)).height
+                    height = height + improvementText.measureSize(for: UIFont.systemFont(ofSize: 12), constraindTo: CGSize(width:width - 81, height:CGFloat.greatestFiniteMagnitude)).height
                 }
             }
         }

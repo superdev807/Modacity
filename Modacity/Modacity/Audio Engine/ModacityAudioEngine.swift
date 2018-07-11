@@ -19,18 +19,12 @@ class ModacityAudio {
     var audioEngine:AVAudioEngine!
     
     func initEngine() {
-        printAudioOutputs()
+//        printAudioOutputs()
         NotificationCenter.default.addObserver(self, selector: #selector(processRouteChange), name: Notification.Name.AVAudioSessionRouteChange, object: nil)
         audioEngine = AVAudioEngine()
         let audioSession = AVAudioSession.sharedInstance()
         do {
             try audioSession.setCategory(AVAudioSessionCategoryMultiRoute)
-//
-//            if let inputs = audioSession.availableInputs {
-//                if inputs.count == 1 {
-//                    try audioSession.overrideOutputAudioPort(.speaker)
-//                }
-//            }
         } catch let error {
             ModacityDebugger.debug("audio session error \(error)")
         }
@@ -106,17 +100,7 @@ class ModacityAudio {
     }
     
     @objc func processRouteChange() {
-        self.printAudioOutputs()
+//        self.printAudioOutputs()
         ModacityDebugger.debug("audio session route changed.")
-//        let audioSession = AVAudioSession.sharedInstance()
-//        if let inputs = audioSession.availableInputs {
-//            if inputs.count == 1 {
-//                do {
-//                    try audioSession.overrideOutputAudioPort(.speaker)
-//                } catch let err {
-//                    ModacityDebugger.debug("error in route change process with override speaker \(err)")
-//                }
-//            }
-//        }
     }
 }

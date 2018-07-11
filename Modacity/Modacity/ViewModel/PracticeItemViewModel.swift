@@ -130,7 +130,7 @@ class PracticeItemViewModel: ViewModel {
         var finalResult = [String:[PracticeItem]]()
         
         totalResult = totalResult.sorted(by: { (item1, item2) -> Bool in
-            return item1.name > item2.name
+            return item1.name < item2.name
         })
         
         for item in totalResult {
