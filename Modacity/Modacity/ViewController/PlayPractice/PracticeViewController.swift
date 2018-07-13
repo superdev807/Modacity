@@ -32,6 +32,8 @@ class PracticeViewController: UIViewController {
     @IBOutlet weak var buttonTimerUpDownArrow: UIButton!
     @IBOutlet weak var labelTimerUp: UILabel!
     
+    var audioEngineRegreshing = false
+    
     var timer: Timer!
     var timerRunning = false
     var timerStarted: Date!
@@ -250,18 +252,18 @@ extension PracticeViewController: MetrodroneViewDelegate, SubdivisionSelectViewD
     
     @objc func processRouteChange() {
         DispatchQueue.main.async {
-            if let player = self.metrodroneView?.metrodonePlayer {
-                player.stopPlayer()
-                self.metrodroneView?.metrodonePlayer = nil
-                self.metrodroneView?.prepareMetrodrone()
-            }
+            self.resetMetrodroneEngine()
         }
     }
     
     @objc func resetMetrodroneEngine() {
+        print("metrodrone engine reset")
+        if self.audioEngineRegreshing {
+            return
+        }
         if let player = self.metrodroneView?.metrodonePlayer {
             MBProgressHUD.showAdded(to: self.view, animated: true)
-            
+            self.audioEngineRegreshing = true
             player.stopPlayer()
             self.metrodroneView?.metrodonePlayer = nil
             self.metrodroneView?.prepareMetrodrone()
@@ -272,6 +274,7 @@ extension PracticeViewController: MetrodroneViewDelegate, SubdivisionSelectViewD
     
     @objc func processAudioEnginePrepared() {
         MBProgressHUD.hide(for: self.view, animated: true)
+        self.audioEngineRegreshing = false
     }
     
     func initializeDroneUIs() {
@@ -934,6 +937,9 @@ extension PracticeViewController: UICollectionViewDelegate, UICollectionViewData
                 }
             }
         } else {
+            if let practiceItemId = self.practiceItem.id {
+                self.practiceItem = PracticeItemLocalManager.manager.practiceItem(forId: practiceItemId)
+            }
             if let notes = self.practiceItem.notes {
                 self.notesToShow = [Note]()
                 for note in notes {

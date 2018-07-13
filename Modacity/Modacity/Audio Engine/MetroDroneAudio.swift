@@ -226,7 +226,7 @@ class MetroDroneAudio {
        // let startTime: AVAudioTime = dronePlayerNode.lastRenderTime!
         
         let bufferClick = generateSubdividedClick(bpm: bpm, subdivisions: subdivision, droneRatio: ratio)
-
+        
         
         let bufferDrone = generateSubdividedDrone(bpm: bpm, subdivisions: subdivision, droneRatio: ratio)
         
@@ -244,7 +244,6 @@ class MetroDroneAudio {
         }
         
         self.clickPlayerNode.scheduleBuffer(bufferClick, at: nil, options: .loops, completionHandler: nil)
-
         self.dronePlayerNode.scheduleBuffer(bufferDrone, at: nil, options: .loops, completionHandler: nil)
 
     }

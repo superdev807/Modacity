@@ -107,23 +107,23 @@ class MetrodroneView: UIView {
     func prepareMetrodrone() {
         self.metrodonePlayer = MetrodronePlayer()
         self.metrodonePlayer!.metrodronePlayerDelegate = self
-//        DispatchQueue.main.async {
-            self.metrodonePlayer!.initializeOutlets(lblTempo: self.labelTempo,
-                                                    droneFrame: self.viewDroneFrame,
-                                                    playButton: self.buttonMetrodronePlay,
-                                                    durationSlider: self.sliderDuration,
-                                                    sustainButton: self.buttonSustain,
-                                                    buttonOctaveUp: self.buttonOctaveUp,
-                                                    buttonOctaveDown: self.buttonOctaveDown,
-                                                    labelOctaveNum: self.labelOctave,
-                                                    imageViewSubdivisionCircleStatus: self.buttonSubdivisionStatusOnButton,
-                                                    viewSliderMinTrack: self.viewMinTrack,
-                                                    imageViewSliderMaxTrack: self.imageViewMaxTrack,
-                                                    imageViewSubdivisionNote: self.buttonSubDivisionNoteOnButton)
-            
-            ModacityDebugger.debug("Metrodrone player prepared")
-            NotificationCenter.default.post(Notification(name: AppConfig.appNotificationMetrodroneAudioEnginePrepared))
-//        }
+        
+        self.metrodonePlayer!.initializeOutlets(lblTempo: self.labelTempo,
+                                                droneFrame: self.viewDroneFrame,
+                                                playButton: self.buttonMetrodronePlay,
+                                                durationSlider: self.sliderDuration,
+                                                sustainButton: self.buttonSustain,
+                                                buttonOctaveUp: self.buttonOctaveUp,
+                                                buttonOctaveDown: self.buttonOctaveDown,
+                                                labelOctaveNum: self.labelOctave,
+                                                imageViewSubdivisionCircleStatus: self.buttonSubdivisionStatusOnButton,
+                                                viewSliderMinTrack: self.viewMinTrack,
+                                                imageViewSliderMaxTrack: self.imageViewMaxTrack,
+                                                imageViewSubdivisionNote: self.buttonSubDivisionNoteOnButton)
+        
+        ModacityDebugger.debug("Metrodrone player prepared")
+        NotificationCenter.default.post(Notification(name: AppConfig.appNotificationMetrodroneAudioEnginePrepared))
+        
     }
     
     @IBAction func onSustainButton(_ sender: Any) {
@@ -192,11 +192,17 @@ class MetrodroneView: UIView {
     }
     
     func viewDidDisappear() {
-        if let mPlayer = self.metrodonePlayer {
-            mPlayer.stopPlayer()
-            mPlayer.stopMetrodrone()
-            self.metrodonePlayer = nil
-        }
+//        if let mPlayer = self.metrodonePlayer {
+//            mPlayer.stopPlayer()
+//            mPlayer.stopMetrodrone()
+//            self.metrodonePlayer = nil
+//        }
+    }
+    
+    func viewDidAppear() {
+//        if let mPlayer = self.metrodonePlayer {
+//
+//        }
     }
 }
 
