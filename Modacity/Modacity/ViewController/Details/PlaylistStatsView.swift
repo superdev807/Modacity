@@ -215,11 +215,11 @@ class PlaylistStatsView: UIView {
             let time = date.date(format: "yy-MM-dd")
             if let dailyDatas = data[date] {
                 for daily in dailyDatas {
-                    totalMinutes = totalMinutes + daily.practiceTimeInSeconds
+                    totalMinutes = totalMinutes + (daily.practiceTimeInSeconds ?? 0)
                     entryCount = entryCount + 1
                     
                     if time!.isThisWeek() {
-                        thisWeekTotal = thisWeekTotal + daily.practiceTimeInSeconds
+                        thisWeekTotal = thisWeekTotal + (daily.practiceTimeInSeconds ?? 0)
                         for practice in daily.practices {
                             if let practiceDailyData = PracticingDailyLocalManager.manager.practicingData(forDataId: practice) {
                                 if let practiceItemId = practiceDailyData.practiceItemId {
@@ -243,7 +243,7 @@ class PlaylistStatsView: UIView {
                     }
                     
                     if time!.isThisMonth() {
-                        thisMonthTotal = thisMonthTotal + daily.practiceTimeInSeconds
+                        thisMonthTotal = thisMonthTotal + (daily.practiceTimeInSeconds ?? 0)
                         for practice in daily.practices {
                             if let practiceDailyData = PracticingDailyLocalManager.manager.practicingData(forDataId: practice) {
                                 if let practiceItemId = practiceDailyData.practiceItemId {

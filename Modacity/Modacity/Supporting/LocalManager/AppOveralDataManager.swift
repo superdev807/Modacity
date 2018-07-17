@@ -100,6 +100,7 @@ class AppOveralDataManager {
         UserDefaults.standard.removeObject(forKey: "first_playlist_generated")
         UserDefaults.standard.removeObject(forKey: "settings_timer_pause_during_note")
         UserDefaults.standard.removeObject(forKey: "settings_timer_pause_during_improve")
+        UserDefaults.standard.removeObject(forKey: "practice_break_time")
         UserDefaults.standard.synchronize()
     }
     
@@ -112,7 +113,8 @@ class AppOveralDataManager {
                           defaultDataShiped: Bool,
                           firstPlaylistGenerated: Bool,
                           timerPauseDuringNote: Bool,
-                          timerPauseDuringImprove: Bool) {
+                          timerPauseDuringImprove: Bool,
+                          practiceBreakTime: Int) {
         UserDefaults.standard.set(totalPracticeSeconds, forKey: "total_practice_seconds")
         UserDefaults.standard.set(totalImprovements, forKey: "total_improvements")
         UserDefaults.standard.set(notPreventPhoneSleep, forKey: "not_prevent_phone_sleep")
@@ -123,6 +125,7 @@ class AppOveralDataManager {
         UserDefaults.standard.set(firstPlaylistGenerated, forKey: "first_playlist_generated")
         UserDefaults.standard.set(timerPauseDuringNote, forKey: "settings_timer_pause_during_note")
         UserDefaults.standard.set(timerPauseDuringImprove, forKey: "settings_timer_pause_during_improve")
+        UserDefaults.standard.set(practiceBreakTime, forKey: "practice_break_time")
         UserDefaults.standard.synchronize()
     }
     
@@ -313,5 +316,16 @@ class AppOveralDataManager {
         UserDefaults.standard.synchronize()
         
         OverallDataRemoteManager.manager.updateFirstplaylistGenerated(true)
+    }
+    
+    func storePracticeBreakTime(_ minutes:Int) {
+        UserDefaults.standard.set(minutes, forKey: "practice_break_time")
+        UserDefaults.standard.synchronize()
+        
+        OverallDataRemoteManager.manager.updatePracticeBreakTime(minutes)
+    }
+    
+    func practiceBreakTime() -> Int {
+        return UserDefaults.standard.integer(forKey: "practice_break_time")
     }
 }

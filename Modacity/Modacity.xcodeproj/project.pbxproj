@@ -203,6 +203,12 @@
 		E21BEA1B20917C46000D1877 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E21BEA1720917C45000D1877 /* GoogleService-Info.plist */; };
 		E21BEA1C20917C46000D1877 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E21BEA1920917C46000D1877 /* GoogleService-Info.plist */; };
 		E21BEA1F2091807D000D1877 /* Info-dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = E21BEA1E2091807D000D1877 /* Info-dev.plist */; };
+		E22A06ED20FCD1AD00184F78 /* BreakReminerSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22A06EC20FCD1AD00184F78 /* BreakReminerSettingsViewController.swift */; };
+		E22A06EE20FCD1AD00184F78 /* BreakReminerSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22A06EC20FCD1AD00184F78 /* BreakReminerSettingsViewController.swift */; };
+		E22A06F120FCEBAB00184F78 /* PracticeBreakPromptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22A06EF20FCEBAB00184F78 /* PracticeBreakPromptView.swift */; };
+		E22A06F220FCEBAB00184F78 /* PracticeBreakPromptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22A06EF20FCEBAB00184F78 /* PracticeBreakPromptView.swift */; };
+		E22A06F320FCEBAB00184F78 /* PracticeBreakPromptView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E22A06F020FCEBAB00184F78 /* PracticeBreakPromptView.xib */; };
+		E22A06F420FCEBAB00184F78 /* PracticeBreakPromptView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E22A06F020FCEBAB00184F78 /* PracticeBreakPromptView.xib */; };
 		E23C337720E5172D000EED10 /* PlaylistHistoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E23C337520E5172D000EED10 /* PlaylistHistoryView.xib */; };
 		E23C337820E5172D000EED10 /* PlaylistHistoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E23C337520E5172D000EED10 /* PlaylistHistoryView.xib */; };
 		E23C337920E5172D000EED10 /* PlaylistHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23C337620E5172D000EED10 /* PlaylistHistoryView.swift */; };
@@ -452,6 +458,9 @@
 		E21BEA1720917C45000D1877 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E21BEA1920917C46000D1877 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E21BEA1E2091807D000D1877 /* Info-dev.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-dev.plist"; sourceTree = "<group>"; };
+		E22A06EC20FCD1AD00184F78 /* BreakReminerSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BreakReminerSettingsViewController.swift; sourceTree = "<group>"; };
+		E22A06EF20FCEBAB00184F78 /* PracticeBreakPromptView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PracticeBreakPromptView.swift; sourceTree = "<group>"; };
+		E22A06F020FCEBAB00184F78 /* PracticeBreakPromptView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PracticeBreakPromptView.xib; sourceTree = "<group>"; };
 		E23C337520E5172D000EED10 /* PlaylistHistoryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlaylistHistoryView.xib; sourceTree = "<group>"; };
 		E23C337620E5172D000EED10 /* PlaylistHistoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistHistoryView.swift; sourceTree = "<group>"; };
 		E23C337B20E51CA3000EED10 /* PlaylistHistoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlaylistHistoryCell.xib; sourceTree = "<group>"; };
@@ -655,6 +664,7 @@
 			children = (
 				8E58B44720446B180022704B /* settings.storyboard */,
 				8E58B43B204469E20022704B /* SettingsViewController.swift */,
+				E22A06EC20FCD1AD00184F78 /* BreakReminerSettingsViewController.swift */,
 				8EFD2DAB207BC20900DC28C1 /* ChangePasswordViewController.swift */,
 			);
 			path = Settings;
@@ -978,6 +988,8 @@
 				E267CFAC20CE195C003D708B /* PlayPracticeWalkthroughView.swift */,
 				E2C59FCA20CEAEDF000C3039 /* PlayPracticeTabBarView.xib */,
 				E2C59FCD20CEB0CC000C3039 /* PlayPracticeTabBarView.swift */,
+				E22A06EF20FCEBAB00184F78 /* PracticeBreakPromptView.swift */,
+				E22A06F020FCEBAB00184F78 /* PracticeBreakPromptView.xib */,
 				E29A30AF20DA547C006125E2 /* PracticeTimerUpWalkThroughView.swift */,
 				E29A30AE20DA547C006125E2 /* PracticeTimerUpWalkThroughView.xib */,
 			);
@@ -1184,6 +1196,7 @@
 				8EDEB707203DE38F00E8D48D /* lato-italic.ttf in Resources */,
 				8EE2BD22203DAEDA00D6D7A8 /* welcome.storyboard in Resources */,
 				E2BA252F20C8D3870048A5D5 /* waveforms in Resources */,
+				E22A06F320FCEBAB00184F78 /* PracticeBreakPromptView.xib in Resources */,
 				8EAC121320052668004232A2 /* home.storyboard in Resources */,
 				E249E62220DAB6C800FBDA72 /* StatisticsView.xib in Resources */,
 				E2C59FCB20CEAEDF000C3039 /* PlayPracticeTabBarView.xib in Resources */,
@@ -1231,6 +1244,7 @@
 				E21BE9F62091796A000D1877 /* Lato-Bold.ttf in Resources */,
 				E2BA253020C8D3870048A5D5 /* waveforms in Resources */,
 				E2083FAD20DD3AE700BCE27F /* RecordingCell.xib in Resources */,
+				E22A06F420FCEBAB00184F78 /* PracticeBreakPromptView.xib in Resources */,
 				E29A30B120DA547D006125E2 /* PracticeTimerUpWalkThroughView.xib in Resources */,
 				E21BE9F82091796A000D1877 /* LaunchScreen.storyboard in Resources */,
 				E2083FA520DD376100BCE27F /* RecordingsListView.xib in Resources */,
@@ -1615,6 +1629,7 @@
 				E2BA246320C8D1590048A5D5 /* MetrodronePlayer.swift in Sources */,
 				8EDA6194204827DE006D3208 /* PracticeItem.swift in Sources */,
 				E23C337F20E51CA4000EED10 /* PlaylistHistoryCell.swift in Sources */,
+				E22A06ED20FCD1AD00184F78 /* BreakReminerSettingsViewController.swift in Sources */,
 				E2083FA620DD376100BCE27F /* RecordingsListView.swift in Sources */,
 				E25FD99320D7F7A9008C531A /* DailyPracticingRemoteManager.swift in Sources */,
 				E24DF50320987E9E00BAF0C7 /* Note.swift in Sources */,
@@ -1642,6 +1657,7 @@
 				E2806C3520ABCD910066959A /* PracticeViewController.swift in Sources */,
 				8EDA619820484580006D3208 /* PracticeItemViewModel.swift in Sources */,
 				E2083FBA20DD47C700BCE27F /* PracticeNoteCell.swift in Sources */,
+				E22A06F120FCEBAB00184F78 /* PracticeBreakPromptView.swift in Sources */,
 				8ED83FC72003262D00052256 /* TabBarViewController.swift in Sources */,
 				E28B822920E484B6005CA660 /* PlaylistStatsView.swift in Sources */,
 				E2083FCE20DD494100BCE27F /* NotesListView.swift in Sources */,
@@ -1741,6 +1757,7 @@
 				E2BA246420C8D1590048A5D5 /* MetrodronePlayer.swift in Sources */,
 				E21BE9CC2091796A000D1877 /* PracticeItem.swift in Sources */,
 				E23C338020E51CA4000EED10 /* PlaylistHistoryCell.swift in Sources */,
+				E22A06EE20FCD1AD00184F78 /* BreakReminerSettingsViewController.swift in Sources */,
 				E2083FA720DD376100BCE27F /* RecordingsListView.swift in Sources */,
 				E25FD99420D7F7A9008C531A /* DailyPracticingRemoteManager.swift in Sources */,
 				E24DF50420987E9E00BAF0C7 /* Note.swift in Sources */,
@@ -1768,6 +1785,7 @@
 				E2806C3620ABCD910066959A /* PracticeViewController.swift in Sources */,
 				E21BE9D82091796A000D1877 /* PracticeItemViewModel.swift in Sources */,
 				E2083FBB20DD47C700BCE27F /* PracticeNoteCell.swift in Sources */,
+				E22A06F220FCEBAB00184F78 /* PracticeBreakPromptView.swift in Sources */,
 				E21BE9D92091796A000D1877 /* TabBarViewController.swift in Sources */,
 				E28B822A20E484B6005CA660 /* PlaylistStatsView.swift in Sources */,
 				E2083FCF20DD494100BCE27F /* NotesListView.swift in Sources */,

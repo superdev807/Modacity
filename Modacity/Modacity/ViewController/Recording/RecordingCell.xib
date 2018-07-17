@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -253,13 +253,33 @@
                             <constraint firstItem="yek-ze-JaI" firstAttribute="leading" secondItem="J7Z-ae-8jd" secondAttribute="leading" id="sFg-7e-fec"/>
                         </constraints>
                     </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b0m-eE-xqo">
+                        <rect key="frame" x="0.0" y="64" width="375" height="200"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Audio file not exists." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EaK-zA-ND3">
+                                <rect key="frame" x="50" y="91" width="275" height="17"/>
+                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="EaK-zA-ND3" firstAttribute="centerY" secondItem="b0m-eE-xqo" secondAttribute="centerY" id="Gkc-MK-PM3"/>
+                            <constraint firstItem="EaK-zA-ND3" firstAttribute="centerX" secondItem="b0m-eE-xqo" secondAttribute="centerX" id="ogN-jN-1vA"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="TiG-ds-LWk" firstAttribute="top" secondItem="quc-a1-Rmh" secondAttribute="top" id="4IF-Nb-gfo"/>
                     <constraint firstItem="TiG-ds-LWk" firstAttribute="leading" secondItem="quc-a1-Rmh" secondAttribute="leading" id="HzL-1C-0wb"/>
+                    <constraint firstItem="b0m-eE-xqo" firstAttribute="trailing" secondItem="J7Z-ae-8jd" secondAttribute="trailing" id="MZ9-sW-U3F"/>
                     <constraint firstAttribute="trailing" secondItem="J7Z-ae-8jd" secondAttribute="trailing" id="cYH-34-AUu"/>
+                    <constraint firstItem="b0m-eE-xqo" firstAttribute="bottom" secondItem="J7Z-ae-8jd" secondAttribute="bottom" id="g8h-9y-9H9"/>
                     <constraint firstAttribute="trailing" secondItem="TiG-ds-LWk" secondAttribute="trailing" id="hjd-Gw-mFw"/>
                     <constraint firstItem="J7Z-ae-8jd" firstAttribute="leading" secondItem="quc-a1-Rmh" secondAttribute="leading" id="i3e-rc-81m"/>
+                    <constraint firstItem="b0m-eE-xqo" firstAttribute="leading" secondItem="J7Z-ae-8jd" secondAttribute="leading" id="iwn-yg-tKK"/>
+                    <constraint firstItem="b0m-eE-xqo" firstAttribute="top" secondItem="J7Z-ae-8jd" secondAttribute="top" id="sYh-If-f67"/>
                     <constraint firstItem="J7Z-ae-8jd" firstAttribute="top" secondItem="TiG-ds-LWk" secondAttribute="bottom" id="ua9-Qu-a3g"/>
                 </constraints>
             </tableViewCellContentView>
@@ -275,6 +295,7 @@
                 <outlet property="labelRecordedTime" destination="oHT-Mu-amm" id="5KC-41-5mb"/>
                 <outlet property="labelRemainingTime" destination="pWx-Vy-w5P" id="fzU-Y5-NSf"/>
                 <outlet property="viewAudioPlaybackRatePanel" destination="mdt-5i-BOa" id="zmi-n5-Yz5"/>
+                <outlet property="viewNoAudioFilePanel" destination="b0m-eE-xqo" id="B3C-uo-PRH"/>
                 <outlet property="viewPlayingPanel" destination="J7Z-ae-8jd" id="qJL-3k-DAn"/>
                 <outlet property="waveformAudio" destination="f9V-rF-JGS" id="m2c-Yg-yXt"/>
             </connections>

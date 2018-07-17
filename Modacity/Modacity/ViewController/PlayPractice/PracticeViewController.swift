@@ -12,6 +12,7 @@ import SCSiriWaveformView
 import FDWaveformView
 import Intercom
 import MBProgressHUD
+import Crashlytics
 
 class PracticeViewController: UIViewController {
     
@@ -19,9 +20,16 @@ class PracticeViewController: UIViewController {
     var practiceItem: PracticeItem!
     var deliverModel: PlaylistAndPracticeDeliverModel!
     
+    var parentContentViewController: PlaylistContentsViewController!
+    
     @IBOutlet weak var labelPracticeItemName: UILabel!
     @IBOutlet weak var buttonFavorite: UIButton!
     @IBOutlet weak var imageViewHeader: UIImageView!
+    
+    // MARK:- Process for practice break
+    var practiceBreakShown = false
+    var practiceBreakTime: Int! = 0
+    var viewPracticeBreakPrompt: PracticeBreakPromptView! = nil
     
     // MARK:- Property values for timer
     @IBOutlet weak var labelHour: UILabel!
@@ -543,7 +551,10 @@ extension PracticeViewController: AVAudioPlayerDelegate, FDWaveformViewDelegate 
     @objc func onAudioTimer() {
         if let player = self.player {
             if player.duration != 0 {
-                self.waveformAudioPlay.highlightedSamples = 0..<Int(Double(self.waveformAudioPlay.totalSamples) * (player.currentTime / player.duration))
+                let samples = Int(Double(self.waveformAudioPlay.totalSamples) * (player.currentTime / player.duration))
+                if samples > 0 {
+                    self.waveformAudioPlay.highlightedSamples = 0..<samples
+                }
             }
             self.labelPlayerCurrentTime.text = String(format:"%d:%02d", Int(player.currentTime) / 60, Int(player.currentTime) % 60)
             self.labelPlayerRemainsTime.text = String(format:"-%d:%02d", Int(player.duration - player.currentTime) / 60, Int(player.duration - player.currentTime) % 60)
@@ -629,7 +640,9 @@ extension PracticeViewController: AVAudioPlayerDelegate, FDWaveformViewDelegate 
     
     func waveformDidEndScrubbing(_ waveformView: FDWaveformView) {
         if let player = self.player {
-            player.currentTime = player.duration * (Double(self.waveformAudioPlay.highlightedSamples?.count ?? 0) / Double(self.waveformAudioPlay.totalSamples))
+            if self.waveformAudioPlay.totalSamples != 0 {
+                player.currentTime = player.duration * (Double(self.waveformAudioPlay.highlightedSamples?.count ?? 0) / Double(self.waveformAudioPlay.totalSamples))
+            }
         }
     }
 }
@@ -822,7 +835,8 @@ extension PracticeViewController {
     @objc func onTimer() {
         let date = Date()
         self.overallPracticeTimeInSeconds = Int(date.timeIntervalSince1970 - self.timerStarted.timeIntervalSince1970) + self.secondsPrevPlayed
-        var durationSeconds = self.overallPracticeTimeInSeconds ?? 0//Int(date.timeIntervalSince1970 - self.countupTimerStarted.timeIntervalSince1970) + self.secondsPrevCountUpPlayed
+        
+        var durationSeconds = self.overallPracticeTimeInSeconds ?? 0
         
         var timerDirection = 0
 
@@ -856,7 +870,47 @@ extension PracticeViewController {
         } else {
             self.buttonTimerUpDownArrow.setImage(UIImage(named:(timerDirection == 1 ? "icon_timer_arrow_count_down" : "icon_timer_arrow_count_up")), for: .normal)
         }
-
+        
+        if self.practiceBreakTime > 0 {
+            if self.overallPracticeTimeInSeconds >= self.practiceBreakTime {
+                if !self.practiceBreakShown {
+                    self.processPracticeBreak(with: durationSeconds)
+                    return
+                }
+            }
+        }
+    }
+    
+    func processPracticeBreak(with time:Int) {
+        self.onTapTimer(self.view)
+        self.showPracticeBreakPrompt(with: time)
+    }
+    
+    func showPracticeBreakPrompt(with time: Int) {
+        if self.viewPracticeBreakPrompt != nil {
+            self.viewPracticeBreakPrompt.removeFromSuperview()
+        }
+        self.viewPracticeBreakPrompt = PracticeBreakPromptView()
+        self.viewPracticeBreakPrompt.delegate = self
+        self.view.addSubview(self.viewPracticeBreakPrompt)
+        self.view.topAnchor.constraint(equalTo: self.viewPracticeBreakPrompt.topAnchor).isActive = true
+        self.view.leadingAnchor.constraint(equalTo: self.viewPracticeBreakPrompt.leadingAnchor).isActive = true
+        self.view.trailingAnchor.constraint(equalTo: self.viewPracticeBreakPrompt.trailingAnchor).isActive = true
+        self.practiceBreakShown = true
+        self.viewPracticeBreakPrompt.delegate = self
+        if #available(iOS 11.0, *) {
+            self.view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: self.viewPracticeBreakPrompt.bottomAnchor).isActive = true
+        } else {
+            self.view.bottomAnchor.constraint(equalTo: self.viewPracticeBreakPrompt.bottomAnchor).isActive = true
+        }
+        self.view.bringSubview(toFront: self.viewPracticeBreakPrompt)
+        self.viewPracticeBreakPrompt.labelHour.text = String(format:"%02d", time / 3600)
+        self.viewPracticeBreakPrompt.labelMinute.text = String(format:"%02d", (time % 3600) / 60)
+        self.viewPracticeBreakPrompt.labelSecond.text = String(format:"%02d", time % 60)
+        
+        if self.parentContentViewController != nil {
+            self.parentContentViewController.practiceBreakShown = true
+        }
     }
     
     func processTimerUp() {
@@ -1353,5 +1407,15 @@ extension PracticeViewController: TimerInputViewDelegate {
         UIApplication.shared.scheduleLocalNotification(notification)
         
         self.countDownNotification = notification
+    }
+}
+
+extension PracticeViewController: PracticeBreakPromptViewDelegate {
+    func dismiss(practiceBreakPromptView: PracticeBreakPromptView) {
+        if self.viewPracticeBreakPrompt != nil {
+            self.viewPracticeBreakPrompt.removeFromSuperview()
+            self.viewPracticeBreakPrompt = nil
+            self.onTapTimer(self.view)
+        }
     }
 }

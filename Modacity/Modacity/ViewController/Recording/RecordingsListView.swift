@@ -259,11 +259,11 @@ extension RecordingsListView: RecordingCellDelegate {
                                        rows: [["icon":"icon_share_white", "text": "Share"],
                                               ["icon":"icon_row_delete", "text":"Delete"]]) { (row) in
                                                 if row == 1 {
-                                                    if let currentPlaying = self.playingRecording {
-                                                        if currentPlaying.id == recording.id {
-                                                            return
-                                                        }
-                                                    }
+//                                                    if let currentPlaying = self.playingRecording {
+//                                                        if currentPlaying.id == recording.id {
+//                                                            return
+//                                                        }
+//                                                    }
                                                     self.onDelete(recording)
                                                 } else  {
                                                     self.onShare(recording)
@@ -302,7 +302,13 @@ extension RecordingsListView: AVAudioPlayerDelegate {
         if let _ = self.playingRecording {
             if let player = self.audioPlayer {
                 if let cell = self.playingCell() {
-                    cell.waveformAudio.highlightedSamples = 0..<Int(Double(cell.waveformAudio.totalSamples) * (player.currentTime / player.duration))
+                    if player.duration > 0 {
+                        let samples = Int(Double(cell.waveformAudio.totalSamples) * (player.currentTime / player.duration))
+                        ModacityDebugger.debug("samples - \(samples), total - \(cell.waveformAudio.totalSamples)")
+                        if samples > 0 {
+                            cell.waveformAudio.highlightedSamples = 0..<samples
+                        }
+                    }
                     cell.labelCurrentTime.text = String(format:"%d:%02d", Int(player.currentTime) / 60, Int(player.currentTime) % 60)
                     cell.labelRemainingTime.text = String(format:"-%d:%02d", Int(player.duration - player.currentTime) / 60, Int(player.duration - player.currentTime) % 60)
                 }
@@ -315,6 +321,7 @@ extension RecordingsListView: AVAudioPlayerDelegate {
         if let cell = self.playingCell() {
             cell.buttonAudioPlaying.setImage(UIImage(named: "icon_play"), for: .normal)
             cell.imageViewPlayIcon.image = UIImage(named:"icon_play")
+            cell.waveformAudio.highlightedSamples = 0..<cell.waveformAudio.totalSamples
         }
     }
 }

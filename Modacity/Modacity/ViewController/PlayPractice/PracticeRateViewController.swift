@@ -65,8 +65,10 @@ class PracticeRateViewController: UIViewController {
                 }
             } else {
                 if var controllers = self.navigationController?.viewControllers {
+                    var parentController: PlaylistContentsViewController! = nil
                     for idx in 0..<controllers.count {
                         if controllers[idx] is PracticeViewController {
+                            parentController = (controllers[idx] as! PracticeViewController).parentContentViewController
                             controllers.remove(at: idx)
                             break
                         }
@@ -78,6 +80,17 @@ class PracticeRateViewController: UIViewController {
                     }
                     let controller = UIStoryboard(name: "practice", bundle: nil).instantiateViewController(withIdentifier: controllerId) as! PracticeViewController
                     controller.playlistViewModel = self.playlistViewModel
+                    controller.parentContentViewController = parentController
+                    if parentController.practiceBreakTime > 0 {
+                        if !parentController.practiceBreakShown {
+                            let spentTime = self.playlistViewModel.totalPracticedTime() + parentController.sessionPlayedInPlaylistPage
+                            controller.practiceBreakTime = parentController.practiceBreakTime - spentTime
+                            ModacityDebugger.debug("Practice break time - \(controller.practiceBreakTime)")
+                        }
+                        
+                    } else {
+                        controller.practiceBreakTime = 0
+                    }
                     controllers.insert(controller, at: controllers.count - 1)
                     self.navigationController?.viewControllers = controllers
                     self.navigationController?.popToViewController(controller, animated: true)
@@ -118,13 +131,21 @@ class PracticeRateViewController: UIViewController {
             self.playlistViewModel.playlistPracticeData.practices.append(id)
             self.playlistViewModel.sessionImproved = [ImprovedRecord]()
         } else {
-            let _ = PracticingDailyLocalManager.manager.saveNewPracticing(practiceItemId: self.practiceItem.id,
+            let practiceId = PracticingDailyLocalManager.manager.saveNewPracticing(practiceItemId: self.practiceItem.id,
                                                                   started: self.deliverModel.sessionTimeStarted ?? Date(),
                                                                   duration: self.deliverModel.sessionTime,
                                                                   rating: self.rateView.rating,
                                                                   inPlaylist: nil,
                                                                   forPracticeEntry: nil,
                                                                   improvements: self.deliverModel.sessionImproved)
+            let playlistDaily = PlaylistDaily()
+            playlistDaily.playlistId = "tempplaylist"
+            playlistDaily.entryDateString = (self.deliverModel.sessionTimeStarted ?? Date()).toString(format: "yy-MM-dd")
+            playlistDaily.fromTime = (self.deliverModel.sessionTimeStarted ?? Date()).toString(format: "HH:mm:ss")
+            playlistDaily.started = (self.deliverModel.sessionTimeStarted ?? Date()).timeIntervalSince1970
+            playlistDaily.practices = [practiceId]
+            playlistDaily.practiceTimeInSeconds = self.deliverModel.sessionTime
+            PlaylistDailyLocalManager.manager.saveNewPlaylistPracticing(playlistDaily)
             self.deliverModel.sessionImproved = [ImprovedRecord]()
         }
     }

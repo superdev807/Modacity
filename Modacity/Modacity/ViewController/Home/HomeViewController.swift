@@ -48,16 +48,6 @@ class HomeViewController: UIViewController {
         self.configureUI()
         self.bindViewModel()
         ModacityAnalytics.LogStringEvent("Home Screen")
-        
-//        self.metrodroneView = MetrodroneView()
-//        self.view.addSubview(self.metrodroneView)
-//        self.view.topAnchor.constraint(equalTo: self.metrodroneView.topAnchor).isActive = true
-//        self.view.trailingAnchor.constraint(equalTo: self.metrodroneView.trailingAnchor).isActive = true
-//        self.view.leadingAnchor.constraint(equalTo: self.metrodroneView.leadingAnchor).isActive = true
-//        self.metrodroneView.heightAnchor.constraint(equalToConstant: 360).isActive = true
-//        self.metrodroneView.initializeDroneUIs()
-//        self.metrodroneView.delegate = self
-        
     }
     
     deinit {
@@ -127,8 +117,7 @@ class HomeViewController: UIViewController {
                 if (displayMode == .Minutes) {
                     self.textfieldTotalHours.text = String(format:"%.1f", Double(seconds) / 60.0)
                     self.labelTotalTimeCaption.text = "TOTAL MINUTES"
-                }
-                else {
+                } else {
                     self.textfieldTotalHours.text = String(format:"%.1f", Double(seconds) / 3600.0)
                     self.labelTotalTimeCaption.text = "TOTAL HOURS"
                 }
@@ -325,6 +314,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 deliverModel.sessionTimeStarted = Date()
                 deliverModel.sessionImproved = [ImprovedRecord]()
                 practiceViewController.deliverModel = deliverModel
+                practiceViewController.practiceBreakTime = AppOveralDataManager.manager.practiceBreakTime() * 60
                 self.tabBarController?.present(controller, animated: true, completion: nil)
                 
                 ModacityAnalytics.LogStringEvent("Selected Favorite Item", extraParamName: "Name", extraParamValue: practiceItem.name)

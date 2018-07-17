@@ -324,7 +324,12 @@ extension ImprovementViewController: AVAudioPlayerDelegate, FDWaveformViewDelega
     
     @objc func onAudioPlayerTimer() {
         if let player = self.player {
-            self.waveformAudioPlay.highlightedSamples = 0..<Int(Double(self.waveformAudioPlay.totalSamples) * (player.currentTime / player.duration))
+            if player.duration > 0 {
+                let samples = Int(Double(self.waveformAudioPlay.totalSamples) * (player.currentTime / player.duration))
+                if samples > 0 {
+                    self.waveformAudioPlay.highlightedSamples = 0..<samples
+                }
+            }
             self.labelPlayerCurrentTime.text = String(format:"%d:%02d", Int(player.currentTime) / 60, Int(player.currentTime) % 60)
             self.labelPlayerRemainsTime.text = String(format:"-%d:%02d", Int(player.duration - player.currentTime) / 60, Int(player.duration - player.currentTime) % 60)
         }
@@ -425,7 +430,9 @@ extension ImprovementViewController: AVAudioPlayerDelegate, FDWaveformViewDelega
     
     func waveformDidEndScrubbing(_ waveformView: FDWaveformView) {
         if let player = self.player {
-            player.currentTime = player.duration * (Double(self.waveformAudioPlay.highlightedSamples?.count ?? 0) / Double(self.waveformAudioPlay.totalSamples))
+            if self.waveformAudioPlay.totalSamples > 0 {
+                player.currentTime = player.duration * (Double(self.waveformAudioPlay.highlightedSamples?.count ?? 0) / Double(self.waveformAudioPlay.totalSamples))
+            }
         }
     }
 }

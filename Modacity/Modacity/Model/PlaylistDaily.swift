@@ -16,7 +16,7 @@ class PlaylistDaily: Mappable {
     var playlistId: String!
     var fromTime: String!               // HH:mm
     var started: TimeInterval!
-    var practiceTimeInSeconds: Int!
+    var practiceTimeInSeconds: Int! = 0
     var practices: [String]!            // practice daily data ids
     
     init() {

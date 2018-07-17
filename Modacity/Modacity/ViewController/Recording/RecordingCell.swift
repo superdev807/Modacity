@@ -40,6 +40,8 @@ class RecordingCell: UITableViewCell, FDWaveformViewDelegate {
     @IBOutlet weak var imageViewAudioPlaybackRate: UIImageView!
     @IBOutlet weak var buttonMenu: UIButton!
     
+    @IBOutlet weak var viewNoAudioFilePanel: UIView!
+    
     var recording: Recording!
     var delegate: RecordingCellDelegate? = nil
     
@@ -52,31 +54,47 @@ class RecordingCell: UITableViewCell, FDWaveformViewDelegate {
         
         if isPlaying {
             self.viewPlayingPanel.isHidden = false
+            self.viewNoAudioFilePanel.isHidden = true
             
             let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
             let soundFilePath = dirPath[0] + "/" + recording.fileName + ".wav"
+            
+            
+            let fileManager = FileManager.default
+            
             let url = URL(fileURLWithPath: soundFilePath)
             
-            self.waveformAudio.audioURL = url
-            self.waveformAudio.doesAllowStretch = false
-            self.waveformAudio.doesAllowScroll = false
-            self.waveformAudio.doesAllowScrubbing = true
-            self.waveformAudio.wavesColor = Color.white.alpha(0.5)
-            self.waveformAudio.progressColor = Color.white
-            self.waveformAudio.delegate = self
-            
-            if isAudioPlaying {
-                self.buttonAudioPlaying.setImage(UIImage(named:"icon_pause_white"), for: .normal)
-                self.imageViewPlayIcon.image = UIImage(named:"icon_pause_white")
+            if fileManager.fileExists(atPath: url.path)  {
+                self.waveformAudio.audioURL = url
+                self.waveformAudio.doesAllowStretch = false
+                self.waveformAudio.doesAllowScroll = false
+                self.waveformAudio.doesAllowScrubbing = true
+                self.waveformAudio.wavesColor = Color.white.alpha(0.5)
+                self.waveformAudio.progressColor = Color.white
+                self.waveformAudio.delegate = self
+                
+                if isAudioPlaying {
+                    self.buttonAudioPlaying.setImage(UIImage(named:"icon_pause_white"), for: .normal)
+                    self.imageViewPlayIcon.image = UIImage(named:"icon_pause_white")
+                } else {
+                    self.buttonAudioPlaying.setImage(UIImage(named:"icon_play"), for: .normal)
+                    self.imageViewPlayIcon.image = UIImage(named:"icon_play")
+                }
+                
+                if let player = withAudioPlayer {
+                    if player.duration > 0 {
+                        let samples = Int(Double(self.waveformAudio.totalSamples) * (player.currentTime / player.duration))
+                        ModacityDebugger.debug("samples - \(samples), total - \(self.waveformAudio.totalSamples)")
+                        if samples > 0 {
+                            self.waveformAudio.highlightedSamples = 0..<samples
+                        }
+                    }
+                    self.labelCurrentTime.text = String(format:"%d:%02d", Int(player.currentTime) / 60, Int(player.currentTime) % 60)
+                    self.labelRemainingTime.text = String(format:"-%d:%02d", Int(player.duration - player.currentTime) / 60, Int(player.duration - player.currentTime) % 60)
+                }
             } else {
-                self.buttonAudioPlaying.setImage(UIImage(named:"icon_play"), for: .normal)
-                self.imageViewPlayIcon.image = UIImage(named:"icon_play")
-            }
-            
-            if let player = withAudioPlayer {
-                self.waveformAudio.highlightedSamples = 0..<Int(Double(self.waveformAudio.totalSamples) * (player.currentTime / player.duration))
-                self.labelCurrentTime.text = String(format:"%d:%02d", Int(player.currentTime) / 60, Int(player.currentTime) % 60)
-                self.labelRemainingTime.text = String(format:"-%d:%02d", Int(player.duration - player.currentTime) / 60, Int(player.duration - player.currentTime) % 60)
+                self.viewPlayingPanel.isHidden = true
+                self.viewNoAudioFilePanel.isHidden = false
             }
             
         } else {
@@ -103,7 +121,9 @@ class RecordingCell: UITableViewCell, FDWaveformViewDelegate {
     
     func waveformDidEndScrubbing(_ waveformView: FDWaveformView) {
         if let delegate = self.delegate {
-            delegate.onAudioSeekTo(Double(self.waveformAudio.highlightedSamples?.count ?? 0) / Double(self.waveformAudio.totalSamples))
+            if self.waveformAudio.totalSamples > 0 {
+                delegate.onAudioSeekTo(Double(self.waveformAudio.highlightedSamples?.count ?? 0) / Double(self.waveformAudio.totalSamples))
+            }
         }
     }
     

@@ -22,6 +22,14 @@ class SettingsCellWithIconAndSubTitle: UITableViewCell {
     
 }
 
+class SettingsCellWithoutIcon: UITableViewCell {
+    @IBOutlet weak var labelCaption: UILabel!
+    
+    func configure(caption: String) {
+        self.labelCaption.text = caption
+    }
+}
+
 class SettingsCellWithIcon: UITableViewCell {
     
     @IBOutlet weak var imageViewIcon: UIImageView!
@@ -107,7 +115,7 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
         if section == 0 {
             return 5
         } else if section == 1 {
-            return 2
+            return 3
         } else if section == 2 {
             return 2
         }
@@ -157,7 +165,6 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
                 }
                 return cell
             } else {
-                
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCellWithIcon") as! SettingsCellWithIcon
                 if indexPath.row == 3 {
                     cell.configure(icon: "icon_settings_star", caption: "Rate the App")
@@ -172,10 +179,14 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
                 cell.delegate = self
                 cell.configure(caption: "Prevent Phone Sleep During Audio Activity", isOn: AppOveralDataManager.manager.settingsPhoneSleepPrevent())
                 return cell
-            } else {
+            } else if indexPath.row == 1 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCellWithSwitch") as! SettingsCellWithSwitch
                 cell.delegate = self
                 cell.configure(caption: "Disable Auto-Playback", isOn: AppOveralDataManager.manager.settingsDisableAutoPlayback())
+                return cell
+            } else if indexPath.row == 2 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCellWithoutIcon") as! SettingsCellWithoutIcon
+                cell.configure(caption: "“Take a Break” Reminder")
                 return cell
             }
         } else if indexPath.section == 2 {
@@ -211,6 +222,10 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
                 self.rateApp()
             } else if indexPath.row == 4 {
                 self.shareModacityApp()
+            }
+        } else if indexPath.section == 1 {
+            if indexPath.row == 2 {
+                self.openBreakReminderSettingsPage()
             }
         }
         
@@ -269,6 +284,10 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
             }
         }
         present(activityController, animated: true)
+    }
+    
+    func openBreakReminderSettingsPage() {
+        self.performSegue(withIdentifier: "sid_take_break", sender: nil)
     }
 }
 

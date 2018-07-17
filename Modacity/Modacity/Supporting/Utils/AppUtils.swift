@@ -208,6 +208,20 @@ public extension Color {
 
 public extension String {
     
+    func isValidDouble(maxDecimalPlaces: Int) -> Bool {
+        let formatter = NumberFormatter()
+        formatter.allowsFloats = true
+        let decimalSeparator = formatter.decimalSeparator ?? "."
+        
+        if formatter.number(from: self) != nil {
+            let split = self.components(separatedBy: decimalSeparator)
+            let digits = split.count == 2 ? split.last ?? "" : ""
+            return digits.count <= maxDecimalPlaces
+        }
+        
+        return false
+    }
+    
     func measureSize(for font: UIFont, constraindTo size: CGSize) -> CGSize {
         let attributedDictionary = [NSAttributedStringKey.font: font]
         let frame = self.boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: attributedDictionary, context: nil)

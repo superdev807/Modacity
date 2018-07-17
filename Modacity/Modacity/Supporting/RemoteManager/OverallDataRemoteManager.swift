@@ -31,7 +31,8 @@ class OverallDataRemoteManager {
                                                                       defaultDataShiped: overallData["default_data_ship"] as? Bool ?? false,
                                                                       firstPlaylistGenerated: overallData["first_playlist_generated"] as? Bool ?? false,
                                                                       timerPauseDuringNote: overallData["settings_timer_pause_during_note"] as? Bool ?? false,
-                                                                      timerPauseDuringImprove: overallData["settings_timer_pause_during_improve"] as? Bool ?? false)
+                                                                      timerPauseDuringImprove: overallData["settings_timer_pause_during_improve"] as? Bool ?? false,
+                                                                      practiceBreakTime: overallData["practice_break_time"] as? Int ?? 0)
                     }
                 }
             }
@@ -61,7 +62,8 @@ class OverallDataRemoteManager {
                                                                            "default_data_shiped": AppOveralDataManager.manager.defaultDataShiped(),
                                                                            "first_playlist_generated": AppOveralDataManager.manager.firstPlaylistGenerated(),
                                                                            "settings_timer_pause_during_note": AppOveralDataManager.manager.settingsTimerPauseDuringNote(),
-                                                                           "settings_timer_pause_during_improve": AppOveralDataManager.manager.settingsTimerPauseDuringImprove()])
+                                                                           "settings_timer_pause_during_improve": AppOveralDataManager.manager.settingsTimerPauseDuringImprove(),
+                                                                           "practice_break_time": AppOveralDataManager.manager.practiceBreakTime()])
         }
     }
 
@@ -92,6 +94,12 @@ class OverallDataRemoteManager {
     func updateFirstplaylistGenerated(_ generated: Bool) {
         if let userId = MyProfileLocalManager.manager.userId() {
             self.refUser.child(userId).child("overall").updateChildValues(["first_playlist_generated": generated])
+        }
+    }
+    
+    func updatePracticeBreakTime(_ time:Int) {
+        if let userId = MyProfileLocalManager.manager.userId() {
+            self.refUser.child(userId).child("overall").updateChildValues(["practice_break_time": time])
         }
     }
 }

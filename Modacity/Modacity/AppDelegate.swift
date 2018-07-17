@@ -87,7 +87,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             application.registerForRemoteNotifications()
         }
         
-
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
