@@ -314,14 +314,13 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 deliverModel.sessionTimeStarted = Date()
                 deliverModel.sessionImproved = [ImprovedRecord]()
                 practiceViewController.deliverModel = deliverModel
+                practiceViewController.lastPracticeBreakTime = 0
                 practiceViewController.practiceBreakTime = AppOveralDataManager.manager.practiceBreakTime() * 60
                 self.tabBarController?.present(controller, animated: true, completion: nil)
                 
                 ModacityAnalytics.LogStringEvent("Selected Favorite Item", extraParamName: "Name", extraParamValue: practiceItem.name)
             }
         }
-        
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

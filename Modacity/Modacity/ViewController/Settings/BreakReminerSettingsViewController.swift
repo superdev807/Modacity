@@ -40,7 +40,7 @@ class BreakReminerSettingsViewController: UIViewController {
         } else {
             self.buttonSwitch.isSelected = false
             self.viewReminderSettings.alpha = 0.5
-            self.viewReminderSettings.isUserInteractionEnabled = true
+            self.viewReminderSettings.isUserInteractionEnabled = false
             self.textfieldMinutes.text = "\(10)"
         }
     }

@@ -29,6 +29,7 @@ class PracticeViewController: UIViewController {
     // MARK:- Process for practice break
     var practiceBreakShown = false
     var practiceBreakTime: Int! = 0
+    var lastPracticeBreakTime: Int! = 0
     var viewPracticeBreakPrompt: PracticeBreakPromptView! = nil
     
     // MARK:- Property values for timer
@@ -872,44 +873,12 @@ extension PracticeViewController {
         }
         
         if self.practiceBreakTime > 0 {
-            if self.overallPracticeTimeInSeconds >= self.practiceBreakTime {
+            if self.overallPracticeTimeInSeconds >= self.practiceBreakTime + self.lastPracticeBreakTime {
                 if !self.practiceBreakShown {
                     self.processPracticeBreak(with: durationSeconds)
                     return
                 }
             }
-        }
-    }
-    
-    func processPracticeBreak(with time:Int) {
-        self.onTapTimer(self.view)
-        self.showPracticeBreakPrompt(with: time)
-    }
-    
-    func showPracticeBreakPrompt(with time: Int) {
-        if self.viewPracticeBreakPrompt != nil {
-            self.viewPracticeBreakPrompt.removeFromSuperview()
-        }
-        self.viewPracticeBreakPrompt = PracticeBreakPromptView()
-        self.viewPracticeBreakPrompt.delegate = self
-        self.view.addSubview(self.viewPracticeBreakPrompt)
-        self.view.topAnchor.constraint(equalTo: self.viewPracticeBreakPrompt.topAnchor).isActive = true
-        self.view.leadingAnchor.constraint(equalTo: self.viewPracticeBreakPrompt.leadingAnchor).isActive = true
-        self.view.trailingAnchor.constraint(equalTo: self.viewPracticeBreakPrompt.trailingAnchor).isActive = true
-        self.practiceBreakShown = true
-        self.viewPracticeBreakPrompt.delegate = self
-        if #available(iOS 11.0, *) {
-            self.view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: self.viewPracticeBreakPrompt.bottomAnchor).isActive = true
-        } else {
-            self.view.bottomAnchor.constraint(equalTo: self.viewPracticeBreakPrompt.bottomAnchor).isActive = true
-        }
-        self.view.bringSubview(toFront: self.viewPracticeBreakPrompt)
-        self.viewPracticeBreakPrompt.labelHour.text = String(format:"%02d", time / 3600)
-        self.viewPracticeBreakPrompt.labelMinute.text = String(format:"%02d", (time % 3600) / 60)
-        self.viewPracticeBreakPrompt.labelSecond.text = String(format:"%02d", time % 60)
-        
-        if self.parentContentViewController != nil {
-            self.parentContentViewController.practiceBreakShown = true
         }
     }
     
@@ -1415,7 +1384,40 @@ extension PracticeViewController: PracticeBreakPromptViewDelegate {
         if self.viewPracticeBreakPrompt != nil {
             self.viewPracticeBreakPrompt.removeFromSuperview()
             self.viewPracticeBreakPrompt = nil
+            self.lastPracticeBreakTime = self.overallPracticeTimeInSeconds
+            self.practiceBreakShown = false
             self.onTapTimer(self.view)
         }
+    }
+    
+    func processPracticeBreak(with time:Int) {
+        self.onTapTimer(self.view)
+        self.showPracticeBreakPrompt(with: time)
+    }
+    
+    func showPracticeBreakPrompt(with time: Int) {
+        if self.viewPracticeBreakPrompt != nil {
+            self.viewPracticeBreakPrompt.removeFromSuperview()
+        }
+        self.viewPracticeBreakPrompt = PracticeBreakPromptView()
+        self.viewPracticeBreakPrompt.delegate = self
+        self.view.addSubview(self.viewPracticeBreakPrompt)
+        self.view.topAnchor.constraint(equalTo: self.viewPracticeBreakPrompt.topAnchor).isActive = true
+        self.view.leadingAnchor.constraint(equalTo: self.viewPracticeBreakPrompt.leadingAnchor).isActive = true
+        self.view.trailingAnchor.constraint(equalTo: self.viewPracticeBreakPrompt.trailingAnchor).isActive = true
+        self.practiceBreakShown = true
+        self.viewPracticeBreakPrompt.delegate = self
+        if #available(iOS 11.0, *) {
+            self.view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: self.viewPracticeBreakPrompt.bottomAnchor).isActive = true
+        } else {
+            self.view.bottomAnchor.constraint(equalTo: self.viewPracticeBreakPrompt.bottomAnchor).isActive = true
+        }
+        self.view.bringSubview(toFront: self.viewPracticeBreakPrompt)
+        if self.playlistViewModel != nil && self.parentContentViewController != nil {
+            self.viewPracticeBreakPrompt.showPracticeTime(self.playlistViewModel.totalPracticedTime() + self.parentContentViewController.sessionPlayedInPlaylistPage + self.overallPracticeTimeInSeconds)
+        } else {
+            self.viewPracticeBreakPrompt.showPracticeTime(self.overallPracticeTimeInSeconds)
+        }
+        self.viewPracticeBreakPrompt.startCountUpTimer()
     }
 }

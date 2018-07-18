@@ -23,7 +23,11 @@ class PracticeBreakPromptView: UIView {
     @IBOutlet weak var labelMinute: UILabel!
     @IBOutlet weak var labelSecond: UILabel!
     
+    @IBOutlet weak var labelNote: UILabel!
     @IBOutlet weak var viewContentPanel: UIView!
+    
+    var timerStarted: Date!
+    var timer: Timer! = nil
     
     override init(frame: CGRect) {
         super.init(frame:frame)
@@ -51,7 +55,27 @@ class PracticeBreakPromptView: UIView {
         self.buttonReady.layer.cornerRadius = 22
     }
     
+    func showPracticeTime(_ second: Int) {
+        var timeString = ""
+        if second > 0 && second < 60 {
+            if second == 1 {
+                timeString = "1 second"
+            } else {
+                timeString = "\(second) seconds"
+            }
+        } else {
+            let minute = second / 60
+            if minute == 1 {
+                timeString = "1 minute"
+            } else {
+                timeString = "\(minute) minutes"
+            }
+        }
+        self.labelNote.text = "You’ve been practicing for \n\(timeString) minutes, don’t forget to take a moment to rest."
+    }
+    
     @IBAction func onCoverClick(_ sender: Any) {
+        self.stopCountUpTimer()
         if self.delegate != nil {
             self.delegate.dismiss(practiceBreakPromptView: self)
         }
@@ -59,5 +83,24 @@ class PracticeBreakPromptView: UIView {
     
     @IBAction func onReady(_ sender: Any) {
         self.onCoverClick(sender)
+    }
+    
+    func startCountUpTimer() {
+        self.timerStarted = Date()
+        self.timer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(onUpdateTimer), userInfo: nil, repeats: true)
+    }
+    
+    func stopCountUpTimer() {
+        if self.timer != nil {
+            self.timer.invalidate()
+            self.timer = nil
+        }
+    }
+    
+    @objc func onUpdateTimer() {
+        let time = Int(Date().timeIntervalSince1970 - self.timerStarted.timeIntervalSince1970)
+        self.labelHour.text = String(format:"%02d", time / 3600)
+        self.labelMinute.text = String(format:"%02d", (time % 3600) / 60)
+        self.labelSecond.text = String(format:"%02d", time % 60)
     }
 }

@@ -33,9 +33,6 @@ class PlaylistContentsViewController: UIViewController {
     var viewModel = PlaylistContentsViewModel()
     var isPlaying = false
     var playingStartedTime: Date? = nil
-    var sessionTimer : Timer? = nil
-    var sessionStarted: Date? = nil
-    var sessionPlayedInPlaylistPage = 0
     var currentRow = 0
     var playlistPracticeTotalTimeInSec = 0
     
@@ -52,7 +49,15 @@ class PlaylistContentsViewController: UIViewController {
     // MARK:- Process for practice break
     var practiceBreakShown = false
     var practiceBreakTime: Int! = 0
+    var lastPracticeBreakTimeShown: Int! = 0
     var viewPracticeBreakPrompt: PracticeBreakPromptView! = nil
+    
+    var sessionTimerPlaying = false
+    var sessionTimerPaused = false
+    var sessionTimerPreviousPlayedTime = 0
+    var sessionTimer : Timer? = nil
+    var sessionStarted: Date? = nil
+    var sessionPlayedInPlaylistPage = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,7 +85,7 @@ class PlaylistContentsViewController: UIViewController {
         } else {
             self.processWalkThrough()
         }
-        
+      
         self.practiceBreakTime = AppOveralDataManager.manager.practiceBreakTime() * 60
     }
     
@@ -105,29 +110,15 @@ class PlaylistContentsViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if self.isPlaying {
-            self.sessionTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(onSessionTimer), userInfo: nil, repeats: true)
-            self.sessionStarted = Date()
-        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        if self.isPlaying {
-            if let sessionStartedTime = self.sessionStarted {
-                self.sessionPlayedInPlaylistPage = self.sessionPlayedInPlaylistPage + Int(Date().timeIntervalSince1970 - sessionStartedTime.timeIntervalSince1970)
-            }
-            if let timer = self.sessionTimer {
-                timer.invalidate()
-                self.sessionTimer = nil
-            }
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tableViewMain.reloadData()
-//        self.showSessionTime()
         
         if self.waitingPracticeSelection {
             self.waitingPracticeSelection = false
@@ -139,6 +130,25 @@ class PlaylistContentsViewController: UIViewController {
                     self.showWalkThrough2()
                 }
             }
+        }
+        
+        if self.isPlaying {
+            self.startSessionTimer()
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if self.isPlaying {
+            if self.sessionTimerPaused {
+                self.sessionPlayedInPlaylistPage = self.sessionPlayedInPlaylistPage + self.sessionTimerPreviousPlayedTime
+            } else {
+                if let sessionStartedTime = self.sessionStarted {
+                    self.sessionPlayedInPlaylistPage = self.sessionPlayedInPlaylistPage + Int(Date().timeIntervalSince1970 - sessionStartedTime.timeIntervalSince1970) + self.sessionTimerPreviousPlayedTime
+                }
+            }
+            
+            self.stopSessionTimer()
         }
     }
     
@@ -323,7 +333,7 @@ class PlaylistContentsViewController: UIViewController {
         detailsViewController.playlistItemId = self.viewModel.playlist.id
         detailsViewController.startTabIdx = 2
         self.present(controller, animated: true, completion: nil)
-        ModacityAnalytics.LogStringEvent("Tapped Playlist Notes", extraParamName: "playlistName", extraParamValue: /*controller.playlistViewModel.playlistName*/self.viewModel.playlist.name)
+        ModacityAnalytics.LogStringEvent("Tapped Playlist Notes", extraParamName: "playlistName", extraParamValue: self.viewModel.playlist.name)
     }
     
     
@@ -417,40 +427,13 @@ class PlaylistContentsViewController: UIViewController {
                 self.buttonStartPlaylist.alpha = 1.0
                 
             } else if parent.deliverPracticeItem != nil {
-                
                 self.viewModel.addPracticeItems([parent.deliverPracticeItem])
-                
-            }
-        }
-    }
-    
-    func showSessionTime() {
-        var playedSessionTime: Int = 0
-        if let sessionStartedTime = self.sessionStarted {
-            let now = Date().timeIntervalSince1970
-            let timerInSec = self.viewModel.totalPracticedTime() + self.sessionPlayedInPlaylistPage + Int(now - (sessionStartedTime.timeIntervalSince1970))
-            self.labelTimer.text = String(format: "%02d", timerInSec / 3600) + ":" +
-                String(format:"%02d", (timerInSec % 3600) / 60) + ":" +
-                String(format:"%02d", timerInSec % 60)
-            playedSessionTime = timerInSec
-        } else {
-            let timerInSec = self.viewModel.totalPracticedTime() + self.sessionPlayedInPlaylistPage
-            self.labelTimer.text = String(format: "%02d", timerInSec / 3600) + ":" +
-                String(format:"%02d", (timerInSec % 3600) / 60) + ":" +
-                String(format:"%02d", timerInSec % 60)
-            playedSessionTime = timerInSec
-        }
-        
-        if !self.practiceBreakShown {
-            if self.practiceBreakTime > 0 {
-                if playedSessionTime >= self.practiceBreakTime {
-                    self.showPracticeBreakPrompt(with: playedSessionTime)
-                }
             }
         }
     }
     
     func showPracticeBreakPrompt(with time: Int) {
+        
         if self.viewPracticeBreakPrompt != nil {
             self.viewPracticeBreakPrompt.removeFromSuperview()
         }
@@ -467,19 +450,16 @@ class PlaylistContentsViewController: UIViewController {
             self.view.bottomAnchor.constraint(equalTo: self.viewPracticeBreakPrompt.bottomAnchor).isActive = true
         }
         self.view.bringSubview(toFront: self.viewPracticeBreakPrompt)
-        self.viewPracticeBreakPrompt.labelHour.text = String(format:"%02d", time / 3600)
-        self.viewPracticeBreakPrompt.labelMinute.text = String(format:"%02d", (time % 3600) / 60)
-        self.viewPracticeBreakPrompt.labelSecond.text = String(format:"%02d", time % 60)
-    }
-    
-    @objc func onSessionTimer() {
-        self.showSessionTime()
+        self.viewPracticeBreakPrompt.showPracticeTime(time)
+        self.viewPracticeBreakPrompt.startCountUpTimer()
+        self.onPauseResume()
+        self.lastPracticeBreakTimeShown = time
     }
     
     func startPractice(withItem: Int) {
         
-        self.sessionTimer = Timer(timeInterval: 0.2, target: self, selector: #selector(onSessionTimer), userInfo: nil, repeats: true)
         self.isPlaying = true
+        self.startSessionTimer()
         self.currentRow = 0
         self.playingStartedTime = Date()
         self.buttonStartPlaylist.setImage(UIImage(named:"btn_playlist_finish"), for: .normal)
@@ -497,32 +477,8 @@ class PlaylistContentsViewController: UIViewController {
         self.viewModel.currentPracticeEntry = self.viewModel.playlistPracticeEntries[withItem]
         self.viewModel.sessionImproved = [ImprovedRecord]()
         self.viewModel.sessionTimeStarted = Date()
-        
-        var controllerId = "PracticeViewController"
-        if AppUtils.sizeModelOfiPhone() == .iphone4_35in || AppUtils.sizeModelOfiPhone() == .iphone5_4in {
-            controllerId = "PracticeViewControllerSmallSizes"
-        }
-        let controller = UIStoryboard(name: "practice", bundle: nil).instantiateViewController(withIdentifier: controllerId) as! PracticeViewController
-        controller.parentContentViewController = self
-        controller.playlistViewModel = self.viewModel
-        
-        if self.practiceBreakTime > 0 {
-            if !self.practiceBreakShown {
-                var spentTime: Int = 0
-                if let sessionStartedTime = self.sessionStarted {
-                    let now = Date().timeIntervalSince1970
-                    spentTime = self.viewModel.totalPracticedTime() + self.sessionPlayedInPlaylistPage + Int(now - (sessionStartedTime.timeIntervalSince1970))
-                } else {
-                    spentTime = self.viewModel.totalPracticedTime() + self.sessionPlayedInPlaylistPage
-                }
-                controller.practiceBreakTime = self.practiceBreakTime - spentTime
-                ModacityDebugger.debug("Practice break time - \(controller.practiceBreakTime)")
-            }
-            
-        } else {
-            controller.practiceBreakTime = 0
-        }
-        self.navigationController?.pushViewController(controller, animated: true)
+
+        self.openPracticeViewController()
     }
     
     @IBAction func onStart(_ sender: Any) {
@@ -541,7 +497,6 @@ class PlaylistContentsViewController: UIViewController {
         
         if !self.isPlaying {
             ModacityAnalytics.LogStringEvent("Pressed Start Practice")
-            self.sessionStarted = Date()
             self.startPractice(withItem: 0)
         } else {
             self.finishPlaylist()
@@ -562,9 +517,7 @@ class PlaylistContentsViewController: UIViewController {
         self.practiceBreakShown = false
         ModacityAnalytics.LogStringEvent("Pressed Finish Practice", extraParamName: "Practice Time", extraParamValue: self.playlistPracticeTotalTimeInSec)
         
-        if let sessionTimer = self.sessionTimer {
-            sessionTimer.invalidate()
-        }
+        self.stopSessionTimer()
         
         self.isPlaying = false
         self.viewModel.sessionCompleted = true
@@ -575,7 +528,7 @@ class PlaylistContentsViewController: UIViewController {
         self.viewModel.addPracticeTotalTime(inSec: self.playlistPracticeTotalTimeInSec)
         self.viewModel.sessionDurationInSecond = Int(Date().timeIntervalSince1970 - self.playingStartedTime!.timeIntervalSince1970)
         if let sessionStartedTime = self.sessionStarted {
-            self.sessionPlayedInPlaylistPage = self.sessionPlayedInPlaylistPage + Int(Date().timeIntervalSince1970 - sessionStartedTime.timeIntervalSince1970)
+            self.sessionPlayedInPlaylistPage = self.sessionPlayedInPlaylistPage + Int(Date().timeIntervalSince1970 - sessionStartedTime.timeIntervalSince1970) + self.sessionTimerPreviousPlayedTime
         }
         self.viewModel.sessionDurationInSecond = self.sessionPlayedInPlaylistPage + self.viewModel.totalPracticedTime()
         if let timer = self.sessionTimer {
@@ -629,32 +582,8 @@ extension PlaylistContentsViewController: UITableViewDelegate, UITableViewDataSo
             self.viewModel.currentPracticeEntry = self.viewModel.playlistPracticeEntries[indexPath.row]
             self.viewModel.sessionImproved = [ImprovedRecord]()
             self.viewModel.sessionTimeStarted = Date()
-            
-            var controllerId = "PracticeViewController"
-            if AppUtils.sizeModelOfiPhone() == .iphone4_35in || AppUtils.sizeModelOfiPhone() == .iphone5_4in {
-                controllerId = "PracticeViewControllerSmallSizes"
-            }
-            let controller = UIStoryboard(name: "practice", bundle: nil).instantiateViewController(withIdentifier: controllerId) as! PracticeViewController
-            controller.playlistViewModel = self.viewModel
-            controller.parentContentViewController = self
-            if self.practiceBreakTime > 0 {
-                
-                if !self.practiceBreakShown {
-                    var spentTime: Int = 0
-                    if let sessionStartedTime = self.sessionStarted {
-                        let now = Date().timeIntervalSince1970
-                        spentTime = self.viewModel.totalPracticedTime() + self.sessionPlayedInPlaylistPage + Int(now - (sessionStartedTime.timeIntervalSince1970))
-                    } else {
-                        spentTime = self.viewModel.totalPracticedTime() + self.sessionPlayedInPlaylistPage
-                    }
-                    controller.practiceBreakTime = self.practiceBreakTime - spentTime
-                    ModacityDebugger.debug("Practice break time - \(controller.practiceBreakTime)")
-                }
-                
-            } else {
-                controller.practiceBreakTime = 0
-            }
-            self.navigationController?.pushViewController(controller, animated: true)
+
+            self.openPracticeViewController()
         }
     }
     
@@ -919,6 +848,115 @@ extension PlaylistContentsViewController: PracticeBreakPromptViewDelegate {
         if self.viewPracticeBreakPrompt != nil {
             self.viewPracticeBreakPrompt.removeFromSuperview()
             self.viewPracticeBreakPrompt = nil
+            self.practiceBreakShown = false
+            self.onPauseResume()
         }
     }
+}
+
+// MARK: - Session timer management
+extension PlaylistContentsViewController {
+    func startSessionTimer() {
+        self.sessionStarted = Date()
+        self.sessionTimerPreviousPlayedTime = 0
+        self.sessionTimerPlaying = true
+        self.sessionTimerPaused = false
+        let currentPlaylistTime = self.viewModel.totalPracticedTime() + self.sessionPlayedInPlaylistPage
+        while self.lastPracticeBreakTimeShown + self.practiceBreakTime < currentPlaylistTime {
+            self.lastPracticeBreakTimeShown = self.lastPracticeBreakTimeShown + self.practiceBreakTime
+        }
+        self.sessionTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(onSessionTimer), userInfo: nil, repeats: true)
+    }
+    
+    func stopSessionTimer() {
+        if let timer = self.sessionTimer {
+            timer.invalidate()
+            self.sessionTimerPlaying = false
+            self.sessionTimer = nil
+        }
+    }
+    
+    func onPauseResume() {
+        if !self.sessionTimerPaused {
+            self.sessionTimerPaused = true
+            self.pauseSessionTimer()
+        } else {
+            self.sessionTimerPaused = false
+            self.resumeSessionTimer()
+        }
+    }
+    
+    func pauseSessionTimer() {
+        
+        if self.sessionTimerPlaying {
+            if let sessionStartedTime = self.sessionStarted {
+                let now = Date().timeIntervalSince1970
+                let duration = Int(now - (sessionStartedTime.timeIntervalSince1970)) + self.sessionTimerPreviousPlayedTime
+                self.sessionTimerPreviousPlayedTime = duration
+            }
+            
+            if let timer = self.sessionTimer {
+                timer.invalidate()
+                self.sessionTimer = nil
+            }
+        }
+    }
+    
+    func resumeSessionTimer() {
+        if self.sessionTimerPlaying {
+            self.sessionStarted = Date()
+            self.sessionTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(onSessionTimer), userInfo: nil, repeats: true)
+        }
+    }
+    
+    @objc func onSessionTimer() {
+        var playedSessionTime: Int = 0
+        if let sessionStartedTime = self.sessionStarted {
+            let now = Date().timeIntervalSince1970
+            let duration = Int(now - (sessionStartedTime.timeIntervalSince1970))
+            let timerInSec = self.viewModel.totalPracticedTime() + self.sessionPlayedInPlaylistPage + duration + self.sessionTimerPreviousPlayedTime
+            playedSessionTime = timerInSec
+        }
+        
+        self.labelTimer.text = String(format: "%02d", playedSessionTime / 3600) + ":" + String(format:"%02d", (playedSessionTime % 3600) / 60) + ":" + String(format:"%02d", playedSessionTime % 60)
+        
+        if !self.practiceBreakShown {
+            if self.practiceBreakTime > 0 {
+                if playedSessionTime >= self.lastPracticeBreakTimeShown + self.practiceBreakTime {
+                    self.showPracticeBreakPrompt(with: playedSessionTime)
+                }
+            }
+        }
+    }
+    
+    func openPracticeViewController() {
+        var controllerId = "PracticeViewController"
+        if AppUtils.sizeModelOfiPhone() == .iphone4_35in || AppUtils.sizeModelOfiPhone() == .iphone5_4in {
+            controllerId = "PracticeViewControllerSmallSizes"
+        }
+        let controller = UIStoryboard(name: "practice", bundle: nil).instantiateViewController(withIdentifier: controllerId) as! PracticeViewController
+        controller.parentContentViewController = self
+        controller.playlistViewModel = self.viewModel
+        
+        if self.practiceBreakTime > 0 {
+
+            var playedSessionTime: Int = 0
+            if let sessionStartedTime = self.sessionStarted {
+                let now = Date().timeIntervalSince1970
+                let duration = Int(now - (sessionStartedTime.timeIntervalSince1970))
+                let timerInSec = self.viewModel.totalPracticedTime() + self.sessionPlayedInPlaylistPage + duration + self.sessionTimerPreviousPlayedTime
+                playedSessionTime = timerInSec
+            }
+            
+            controller.lastPracticeBreakTime = self.lastPracticeBreakTimeShown - playedSessionTime
+            controller.practiceBreakTime = self.practiceBreakTime
+            
+            ModacityDebugger.debug("last practice break time - \(controller.lastPracticeBreakTime)")
+            ModacityDebugger.debug("practice break time - \(self.practiceBreakTime)")
+            
+        } else {
+            controller.practiceBreakTime = 0
+        }
+        self.navigationController?.pushViewController(controller, animated: true)
+    }    
 }
