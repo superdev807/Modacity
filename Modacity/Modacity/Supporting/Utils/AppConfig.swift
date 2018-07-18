@@ -24,6 +24,7 @@ class AppConfig: NSObject {
     
     static let appFontLatoRegular = "Lato-Regular"
     static let appFontLatoBold = "Lato-Bold"
+    static let appFontLatoBlack = "Lato-Black"
     static let appFontLatoBoldItalic = "Lato-BoldItalic"
     static let appFontLatoItalic = "Lato-Italic"
     static let appFontLatoLight = "Lato-Light"

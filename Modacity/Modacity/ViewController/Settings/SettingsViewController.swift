@@ -38,6 +38,7 @@ class SettingsCellWithIcon: UITableViewCell {
     func configure(icon: String, caption: String) {
         self.imageViewIcon.image = UIImage(named: icon)
         self.labelCaption.text = caption
+        self.labelCaption.textColor = Color.white
     }
     
 }
@@ -168,8 +169,13 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCellWithIcon") as! SettingsCellWithIcon
                 if indexPath.row == 3 {
                     cell.configure(icon: "icon_settings_star", caption: "Rate the App")
+                    cell.labelCaption.textColor = Color(hexString: "#ffffff")
                 } else if indexPath.row == 4 {
                     cell.configure(icon: "icon_settings_share", caption: "Share the App")
+                    cell.labelCaption.textColor = Color(hexString: "#ffffff")
+                } else if indexPath.row == 5 {
+                    cell.configure(icon: "icon_settings_premium", caption: "Upgrade to Premium")
+                    cell.labelCaption.textColor = Color(hexString: "#908FE6")
                 }
                 return cell
             }

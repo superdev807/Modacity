@@ -26,6 +26,8 @@ class PracticeBreakPromptView: UIView {
     @IBOutlet weak var labelNote: UILabel!
     @IBOutlet weak var viewContentPanel: UIView!
     
+    @IBOutlet weak var labelTitle: UILabel!
+    
     var timerStarted: Date!
     var timer: Timer! = nil
     
@@ -71,7 +73,15 @@ class PracticeBreakPromptView: UIView {
                 timeString = "\(minute) minutes"
             }
         }
-        self.labelNote.text = "You’ve been practicing for \n\(timeString) minutes, don’t forget to take a moment to rest."
+        let attributedString = NSMutableAttributedString(string: "You've been practicing for \n", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoRegular, size: 12)!])
+        attributedString.append(NSAttributedString(string: timeString, attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoBold, size: 12)!]))
+        attributedString.append(NSAttributedString(string: ", don’t forget to take a moment to rest.", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoRegular, size: 12)!]))
+        self.labelNote.attributedText = attributedString
+        
+        let noteTitle = NSMutableAttributedString(string: "IT's TIME TO\n", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoLight, size: 21)!])
+        noteTitle.append(NSAttributedString(string: "TAKE A BREAK", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoBold, size: 21)!]))
+        self.labelTitle.attributedText = noteTitle
+
     }
     
     @IBAction func onCoverClick(_ sender: Any) {

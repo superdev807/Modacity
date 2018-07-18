@@ -9,6 +9,14 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Lato-Bold.ttf">
+            <string>Lato-Bold</string>
+        </array>
+        <array key="lato-light.ttf">
+            <string>Lato-Light</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PracticeBreakPromptView" customModule="Modacity" customModuleProvider="target">
             <connections>
@@ -17,6 +25,7 @@
                 <outlet property="labelMinute" destination="OAO-YI-h0r" id="Pvr-w6-ocF"/>
                 <outlet property="labelNote" destination="aoC-cS-u7c" id="2v2-LU-cFh"/>
                 <outlet property="labelSecond" destination="qKP-nA-Lq6" id="jYF-3o-3FI"/>
+                <outlet property="labelTitle" destination="cnb-UG-jBF" id="5gd-Lc-EE9"/>
                 <outlet property="viewContent" destination="mXc-6y-zp0" id="yO9-UA-euQ"/>
                 <outlet property="viewContentPanel" destination="aoG-nI-MIx" id="bHL-XF-vOv"/>
             </connections>
@@ -33,16 +42,34 @@
                     </connections>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aoG-nI-MIx">
-                    <rect key="frame" x="67" y="194" width="260" height="299"/>
+                    <rect key="frame" x="67" y="205.5" width="260" height="276"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="IT’S TIME TO TAKE A BREAK" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cnb-UG-jBF">
-                            <rect key="frame" x="61.5" y="30" width="137.5" height="50.5"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                            <nil key="textColor"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cnb-UG-jBF">
+                            <rect key="frame" x="58" y="30" width="145.5" height="50"/>
+                            <attributedString key="attributedText">
+                                <fragment content="IT’S TIME TO">
+                                    <attributes>
+                                        <font key="NSFont" size="21" name="Lato-Light"/>
+                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                    </attributes>
+                                </fragment>
+                                <fragment content=" ">
+                                    <attributes>
+                                        <font key="NSFont" metaFont="system" size="21"/>
+                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                    </attributes>
+                                </fragment>
+                                <fragment content="TAKE A BREAK">
+                                    <attributes>
+                                        <font key="NSFont" size="21" name="Lato-Black"/>
+                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                    </attributes>
+                                </fragment>
+                            </attributedString>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aoC-cS-u7c">
-                            <rect key="frame" x="30" y="101" width="200" height="43"/>
+                            <rect key="frame" x="30" y="90" width="200" height="43"/>
                             <string key="text">You’ve been practicing for 
 10 minutes, don’t forget to take a moment to rest.</string>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -50,14 +77,14 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZwR-si-7ni">
-                            <rect key="frame" x="64.5" y="164" width="131" height="49"/>
+                            <rect key="frame" x="64.5" y="143" width="131" height="49"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UiD-zj-cLd">
-                                    <rect key="frame" x="0.0" y="12.5" width="40" height="24"/>
+                                    <rect key="frame" x="0.0" y="13" width="40" height="24"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="40" id="71r-e5-pQ0"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                    <fontDescription key="fontDescription" name="Lato-Light" family="Lato" pointSize="20"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
@@ -68,11 +95,11 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OAO-YI-h0r">
-                                    <rect key="frame" x="45.5" y="12.5" width="40" height="24"/>
+                                    <rect key="frame" x="45.5" y="13" width="40" height="24"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="40" id="h28-SD-2TO"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                    <fontDescription key="fontDescription" name="Lato-Light" family="Lato" pointSize="20"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
@@ -83,11 +110,11 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qKP-nA-Lq6">
-                                    <rect key="frame" x="91" y="12.5" width="40" height="24"/>
+                                    <rect key="frame" x="91" y="13" width="40" height="24"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="40" id="ZgX-J0-uKP"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                    <fontDescription key="fontDescription" name="Lato-Light" family="Lato" pointSize="20"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
@@ -110,13 +137,13 @@
                             </constraints>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="066-DR-Ifr">
-                            <rect key="frame" x="59" y="233" width="142" height="44"/>
+                            <rect key="frame" x="59" y="202" width="142" height="44"/>
                             <color key="backgroundColor" red="0.40784313725490196" green="0.082352941176470587" blue="0.80784313725490198" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="44" id="Wo7-Ck-jOu"/>
                                 <constraint firstAttribute="width" constant="142" id="spk-sF-COE"/>
                             </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                            <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="10"/>
                             <state key="normal" title="OK, I’M READY">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
@@ -127,14 +154,14 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstItem="aoC-cS-u7c" firstAttribute="top" secondItem="cnb-UG-jBF" secondAttribute="bottom" constant="20" id="0fK-TC-8iz"/>
+                        <constraint firstItem="aoC-cS-u7c" firstAttribute="top" secondItem="cnb-UG-jBF" secondAttribute="bottom" constant="10" id="0fK-TC-8iz"/>
                         <constraint firstAttribute="trailing" secondItem="aoC-cS-u7c" secondAttribute="trailing" constant="30" id="CbM-Jc-MKD"/>
                         <constraint firstItem="066-DR-Ifr" firstAttribute="centerX" secondItem="aoG-nI-MIx" secondAttribute="centerX" id="Faw-1S-4Bp"/>
                         <constraint firstItem="aoC-cS-u7c" firstAttribute="centerX" secondItem="aoG-nI-MIx" secondAttribute="centerX" id="NO6-Ra-V8U"/>
-                        <constraint firstItem="066-DR-Ifr" firstAttribute="top" secondItem="ZwR-si-7ni" secondAttribute="bottom" constant="20" id="Uig-Ri-nzD"/>
+                        <constraint firstItem="066-DR-Ifr" firstAttribute="top" secondItem="ZwR-si-7ni" secondAttribute="bottom" constant="10" id="Uig-Ri-nzD"/>
                         <constraint firstItem="cnb-UG-jBF" firstAttribute="centerX" secondItem="aoG-nI-MIx" secondAttribute="centerX" id="Xcw-ph-0V8"/>
-                        <constraint firstAttribute="bottom" secondItem="066-DR-Ifr" secondAttribute="bottom" constant="22" id="fjd-8s-ZL0"/>
-                        <constraint firstItem="ZwR-si-7ni" firstAttribute="top" secondItem="aoC-cS-u7c" secondAttribute="bottom" constant="20" id="hSq-Ye-vkG"/>
+                        <constraint firstAttribute="bottom" secondItem="066-DR-Ifr" secondAttribute="bottom" constant="30" id="fjd-8s-ZL0"/>
+                        <constraint firstItem="ZwR-si-7ni" firstAttribute="top" secondItem="aoC-cS-u7c" secondAttribute="bottom" constant="10" id="hSq-Ye-vkG"/>
                         <constraint firstItem="aoC-cS-u7c" firstAttribute="leading" secondItem="aoG-nI-MIx" secondAttribute="leading" constant="30" id="qUQ-8c-SvS"/>
                         <constraint firstItem="ZwR-si-7ni" firstAttribute="centerX" secondItem="aoG-nI-MIx" secondAttribute="centerX" id="x0W-yR-itm"/>
                         <constraint firstItem="cnb-UG-jBF" firstAttribute="top" secondItem="aoG-nI-MIx" secondAttribute="top" constant="30" id="yzO-Kc-5us"/>
