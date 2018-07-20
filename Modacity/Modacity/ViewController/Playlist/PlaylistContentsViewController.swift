@@ -861,9 +861,11 @@ extension PlaylistContentsViewController {
         self.sessionTimerPreviousPlayedTime = 0
         self.sessionTimerPlaying = true
         self.sessionTimerPaused = false
-        let currentPlaylistTime = self.viewModel.totalPracticedTime() + self.sessionPlayedInPlaylistPage
-        while self.lastPracticeBreakTimeShown + self.practiceBreakTime < currentPlaylistTime {
-            self.lastPracticeBreakTimeShown = self.lastPracticeBreakTimeShown + self.practiceBreakTime
+        if self.practiceBreakTime > 0 {
+            let currentPlaylistTime = self.viewModel.totalPracticedTime() + self.sessionPlayedInPlaylistPage
+            while self.lastPracticeBreakTimeShown + self.practiceBreakTime < currentPlaylistTime {
+                self.lastPracticeBreakTimeShown = self.lastPracticeBreakTimeShown + self.practiceBreakTime
+            }
         }
         self.sessionTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(onSessionTimer), userInfo: nil, repeats: true)
     }

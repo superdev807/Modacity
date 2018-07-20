@@ -18,7 +18,8 @@ class PremiumUpgradeManager: NSObject {
     }
     
     func isPremiumUnlocked() -> Bool {
-        return UserDefaults.standard.bool(forKey: "premium_unlocked")
+        return true
+//        return UserDefaults.standard.bool(forKey: "premium_unlocked")
     }
     
     func cancelUpgrade() {

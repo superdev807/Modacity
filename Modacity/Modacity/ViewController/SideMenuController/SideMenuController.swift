@@ -40,6 +40,6 @@ class SideMenuController: LGSideMenuController {
     }
     
     @objc func updatePremiumBadge() {
-        self.imageViewPremiumBadge.isHidden = !(PremiumUpgradeManager.manager.isPremiumUnlocked())
+        self.imageViewPremiumBadge.isHidden = true//!(PremiumUpgradeManager.manager.isPremiumUnlocked())
     }
 }
