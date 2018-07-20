@@ -16,6 +16,8 @@ class BreakReminerSettingsViewController: UIViewController {
     @IBOutlet weak var labelMinutes: UILabel!
     @IBOutlet weak var textfieldMinutes: UITextField!
     private var formatter: NumberFormatter!
+    @IBOutlet weak var imageViewHeader: UIImageView!
+    var premiumLockView: PremiumUpgradeLockView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +45,14 @@ class BreakReminerSettingsViewController: UIViewController {
             self.viewReminderSettings.isUserInteractionEnabled = false
             self.textfieldMinutes.text = "\(10)"
         }
+        
+        self.updateLockView()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(updateLockView), name: AppConfig.appNotificationPremiumUpgraded, object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 
     override func didReceiveMemoryWarning() {
@@ -88,7 +98,7 @@ class BreakReminerSettingsViewController: UIViewController {
     }
 }
 
-extension BreakReminerSettingsViewController: UITextFieldDelegate {
+extension BreakReminerSettingsViewController: UITextFieldDelegate, PremiumUpgradeLockViewDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         if string.isEmpty { return true }
@@ -107,5 +117,37 @@ extension BreakReminerSettingsViewController: UITextFieldDelegate {
         }
 
         return false
+    }
+    
+    @objc func updateLockView() {
+        if PremiumUpgradeManager.manager.isPremiumUnlocked() {
+            if self.premiumLockView != nil {
+                self.premiumLockView.removeFromSuperview()
+                self.premiumLockView = nil
+            }
+        } else {
+            self.attachLockView()
+        }
+    }
+    
+    func attachLockView() {
+        if self.premiumLockView == nil {
+            self.premiumLockView = PremiumUpgradeLockView()
+            self.view.addSubview(self.premiumLockView)
+            self.premiumLockView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+            self.premiumLockView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+            self.premiumLockView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+            self.premiumLockView.topAnchor.constraint(equalTo: self.imageViewHeader.bottomAnchor).isActive = true
+            
+        }
+
+        self.view.bringSubview(toFront: self.premiumLockView)
+        self.premiumLockView.delegate = self
+        self.premiumLockView.configureForTakeBreak()
+    }
+    
+    func onFindOutMore() {
+        let controller = UIStoryboard(name: "premium", bundle: nil).instantiateViewController(withIdentifier: "PremiumUpgradeScene")
+        self.present(controller, animated: true, completion: nil)
     }
 }

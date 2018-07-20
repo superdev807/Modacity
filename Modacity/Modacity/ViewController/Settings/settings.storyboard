@@ -260,13 +260,13 @@
                                                     </constraints>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="64MB" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q9b-31-uUg">
-                                                    <rect key="frame" x="291.66666666666669" y="19" width="38.333333333333314" height="17"/>
+                                                    <rect key="frame" x="296.66666666666669" y="19" width="38.333333333333314" height="17"/>
                                                     <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_arrow_down" translatesAutoresizingMaskIntoConstraints="NO" id="xR5-tA-uWm">
-                                                    <rect key="frame" x="340" y="22.666666666666668" width="15" height="10.000000000000004"/>
+                                                    <rect key="frame" x="345" y="24.666666666666668" width="10" height="6"/>
                                                 </imageView>
                                             </subviews>
                                             <constraints>
@@ -602,7 +602,7 @@ take a break during my
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vKV-RE-8lb">
-                                                        <rect key="frame" x="56.666666666666671" y="100.33333333333331" width="160.66666666666663" height="37"/>
+                                                        <rect key="frame" x="59.333333333333329" y="100.33333333333331" width="155.66666666666669" height="37"/>
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="10" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gxM-H2-tHZ">
                                                                 <rect key="frame" x="0.0" y="0.0" width="35" height="34"/>
@@ -620,23 +620,23 @@ take a break during my
                                                                 </connections>
                                                             </textField>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JKe-xK-Oh2">
-                                                                <rect key="frame" x="24.999999999999986" y="4.6666666666666856" width="30" height="30"/>
+                                                                <rect key="frame" x="20.000000000000014" y="4.6666666666666856" width="30" height="30"/>
                                                                 <connections>
                                                                     <action selector="onNumber:" destination="ScZ-J8-9Kj" eventType="touchUpInside" id="fmI-qn-Oib"/>
                                                                 </connections>
                                                             </button>
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_arrow_down" translatesAutoresizingMaskIntoConstraints="NO" id="7R2-GF-yHI">
-                                                                <rect key="frame" x="39.999999999999986" y="11.666666666666686" width="15" height="10"/>
+                                                                <rect key="frame" x="40.000000000000014" y="13.666666666666686" width="10" height="6"/>
                                                             </imageView>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lQh-oh-91i">
-                                                                <rect key="frame" x="0.0" y="33.333333333333371" width="55" height="2"/>
+                                                                <rect key="frame" x="0.0" y="33.333333333333371" width="50" height="2"/>
                                                                 <color key="backgroundColor" red="0.40784313725490196" green="0.082352941176470587" blue="0.80784313725490198" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="2" id="7hH-G6-n2N"/>
                                                                 </constraints>
                                                             </view>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="minutes" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PiD-JI-e1t">
-                                                                <rect key="frame" x="64.999999999999972" y="1.6666666666666856" width="95.666666666666657" height="33.666666666666664"/>
+                                                                <rect key="frame" x="60.000000000000007" y="1.6666666666666856" width="95.666666666666686" height="33.666666666666664"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="28"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <nil key="highlightedColor"/>
@@ -728,6 +728,7 @@ take a break during my
                     <connections>
                         <outlet property="buttonSwitch" destination="qoY-3n-zbf" id="4Nf-en-5Vi"/>
                         <outlet property="constraintForHeaderImageViewHeight" destination="UaT-wg-Dvs" id="Lyz-sC-mHH"/>
+                        <outlet property="imageViewHeader" destination="bWX-tB-ERh" id="J4L-eu-oDA"/>
                         <outlet property="textfieldMinutes" destination="gxM-H2-tHZ" id="KVA-ZV-Atp"/>
                         <outlet property="viewReminderSettings" destination="Yj8-15-Pl8" id="5EM-ev-3gL"/>
                     </connections>
@@ -741,7 +742,7 @@ take a break during my
         <image name="bg_common" width="375" height="667"/>
         <image name="bg_header_small" width="375" height="87"/>
         <image name="btn_update_password" width="314" height="64"/>
-        <image name="icon_arrow_down" width="15" height="10"/>
+        <image name="icon_arrow_down" width="10" height="6"/>
         <image name="icon_arrow_left" width="10" height="15"/>
         <image name="icon_menu" width="20" height="14"/>
         <image name="icon_settings_star" width="24" height="24"/>

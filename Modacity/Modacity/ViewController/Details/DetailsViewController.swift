@@ -37,6 +37,8 @@ class DetailsViewController: UIViewController {
     var playlistStatsView: PlaylistStatsView! = nil
     var playlistHistoryView: PlaylistHistoryView! = nil
     
+    var premiumLockView: PremiumUpgradeLockView! = nil
+    
     @IBOutlet weak var constraintForHeaderViewHeight: NSLayoutConstraint!
     
     var startTabIdx = 0
@@ -62,9 +64,15 @@ class DetailsViewController: UIViewController {
         self.viewIndicatorTab4.backgroundColor = Color(hexString: "#292947")
         selectTab(startTabIdx)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(detachPremiumLockView), name: AppConfig.appNotificationPremiumUpgraded, object: nil)
+        
         if AppUtils.iphoneIsXModel() {
             self.constraintForHeaderViewHeight.constant = 140
         }
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -309,18 +317,35 @@ extension DetailsViewController {
             } else {
                 self.attachPlaylistStatsView()
             }
+            if !PremiumUpgradeManager.manager.isPremiumUnlocked() {
+                self.attachPremiumLockView()
+                self.premiumLockView.configureForPracticeStats()
+            }
         case 1:
             self.labelTab2.font = UIFont.boldSystemFont(ofSize: 11)
             self.viewIndicatorTab2.isHidden = false
             self.attachRecordingView()
+            self.detachPremiumLockView()
         case 2:
             self.labelTab3.font = UIFont.boldSystemFont(ofSize: 11)
             self.attatchNotesView()
             self.viewIndicatorTab3.isHidden = false
+            if !PremiumUpgradeManager.manager.isPremiumUnlocked() {
+                self.attachPremiumLockView()
+                self.premiumLockView.configureForNote()
+            }
         case 3:
             self.labelTab4.font = UIFont.boldSystemFont(ofSize: 11)
             self.viewIndicatorTab4.isHidden = false
             self.attachHistoryView()
+            if !PremiumUpgradeManager.manager.isPremiumUnlocked() {
+                self.attachPremiumLockView()
+                self.premiumLockView.configureForPracticeStats()
+            }
+            if !PremiumUpgradeManager.manager.isPremiumUnlocked() {
+                self.attachPremiumLockView()
+                self.premiumLockView.configureForHistory()
+            }
         default:
             return
         }
@@ -449,3 +474,33 @@ extension DetailsViewController: NotesListViewDelegate, RecordingsListViewDelega
     }
 }
 
+extension DetailsViewController: PremiumUpgradeLockViewDelegate {
+    
+    func attachPremiumLockView() {
+        if self.premiumLockView == nil {
+            self.premiumLockView = PremiumUpgradeLockView()
+            self.view.addSubview(self.premiumLockView)
+            self.premiumLockView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+            self.premiumLockView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+            self.premiumLockView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+            self.premiumLockView.topAnchor.constraint(equalTo: self.imageViewHeader.bottomAnchor).isActive = true
+            self.view.bringSubview(toFront: self.premiumLockView)
+            self.premiumLockView.delegate = self
+        } else {
+            self.view.bringSubview(toFront: self.premiumLockView)
+        }
+    }
+    
+    @objc func detachPremiumLockView() {
+        if self.premiumLockView != nil {
+            self.premiumLockView.removeFromSuperview()
+            self.premiumLockView = nil
+        }
+    }
+    
+    func onFindOutMore() {
+        let controller = UIStoryboard(name: "premium", bundle: nil).instantiateViewController(withIdentifier: "PremiumUpgradeScene")
+        self.present(controller, animated: true, completion: nil)
+    }
+    
+}

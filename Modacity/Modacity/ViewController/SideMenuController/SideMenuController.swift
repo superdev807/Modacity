@@ -11,6 +11,8 @@ import LGSideMenuController
 
 class SideMenuController: LGSideMenuController {
     
+    @IBOutlet weak var imageViewPremiumBadge: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         ModacityAnalytics.LogStringEvent("Opened Side Menu")
@@ -24,5 +26,20 @@ class SideMenuController: LGSideMenuController {
         
         let tabBarViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TabBarViewController")
         self.rootViewController = tabBarViewController
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(updatePremiumBadge), name: AppConfig.appNotificationPremiumUpgraded, object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.updatePremiumBadge()
+    }
+    
+    @objc func updatePremiumBadge() {
+        self.imageViewPremiumBadge.isHidden = !(PremiumUpgradeManager.manager.isPremiumUnlocked())
     }
 }

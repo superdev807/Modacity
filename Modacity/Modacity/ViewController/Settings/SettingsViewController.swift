@@ -114,7 +114,7 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            return 5
+            return 6
         } else if section == 1 {
             return 3
         } else if section == 2 {
@@ -228,6 +228,8 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
                 self.rateApp()
             } else if indexPath.row == 4 {
                 self.shareModacityApp()
+            } else if indexPath.row == 5 {
+                self.openPremiumUpgrade()
             }
         } else if indexPath.section == 1 {
             if indexPath.row == 2 {
@@ -280,7 +282,6 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
         
         let activityController = UIActivityViewController(activityItems: [textString, stringWithLink], applicationActivities:nil)
         
-        
         activityController.completionWithItemsHandler = { (nil, completed, _, error)
             in
             if completed {
@@ -314,5 +315,22 @@ extension SettingsViewController: SettingsCellWithSwitchDelegate {
         }
     }
 }
+
+
+// MARK:- Premium upgrade
+extension SettingsViewController {
+    func openPremiumUpgrade() {
+        if PremiumUpgradeManager.manager.isPremiumUnlocked() {
+            AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Premium feature locked again. (Temporarily for the test purpose)")
+            PremiumUpgradeManager.manager.cancelUpgrade()
+            NotificationCenter.default.post(name: AppConfig.appNotificationPremiumUpgraded, object: nil)
+        } else {
+            let controller = UIStoryboard(name: "premium", bundle: nil).instantiateViewController(withIdentifier: "PremiumUpgradeScene")
+            self.present(controller, animated: true, completion: nil)
+        }
+        
+    }
+}
+
 
 

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Lato-Black.ttf">
+            <string>Lato-Black</string>
+        </array>
+        <array key="lato-italic.ttf">
+            <string>Lato-Italic</string>
+        </array>
+        <array key="lato-light.ttf">
+            <string>Lato-Light</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PremiumUpgradeSlideView" customModule="Modacity" customModuleProvider="target">
+            <connections>
+                <outlet property="imageViewImage" destination="GmG-OY-4ht" id="Eco-Bo-8u6"/>
+                <outlet property="labelDescription" destination="09a-Fp-4bC" id="OyK-4m-dJ6"/>
+                <outlet property="labelTitlePart1" destination="h79-gz-mmw" id="nSY-YC-Srm"/>
+                <outlet property="labelTitlePart2" destination="d5g-8N-KYb" id="zkC-zS-K1w"/>
+                <outlet property="viewContent" destination="mXc-6y-zp0" id="yO9-UA-euQ"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="mXc-6y-zp0">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="09a-Fp-4bC">
+                    <rect key="frame" x="40" y="587" width="295" height="60"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="ITR-WT-ELN"/>
+                    </constraints>
+                    <string key="text">Premium musicians can track everything they’ve 
+done in the app, from improvements to
+time spent, it’s all available to you.</string>
+                    <fontDescription key="fontDescription" name="Lato-Italic" family="Lato" pointSize="14"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Mz-Z4-5av">
+                    <rect key="frame" x="72" y="536" width="231" height="41"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="YOUR" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h79-gz-mmw">
+                            <rect key="frame" x="0.0" y="8" width="57.5" height="25.5"/>
+                            <fontDescription key="fontDescription" name="Lato-Light" family="Lato" pointSize="21"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PRACTICE STATS" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d5g-8N-KYb">
+                            <rect key="frame" x="62.5" y="8" width="168.5" height="25.5"/>
+                            <fontDescription key="fontDescription" name="Lato-Black" family="Lato" pointSize="21"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="h79-gz-mmw" firstAttribute="leading" secondItem="2Mz-Z4-5av" secondAttribute="leading" id="DwI-7x-e7C"/>
+                        <constraint firstAttribute="trailing" secondItem="d5g-8N-KYb" secondAttribute="trailing" id="Met-SL-ziU"/>
+                        <constraint firstAttribute="height" constant="41" id="Ucn-N6-k1B"/>
+                        <constraint firstItem="d5g-8N-KYb" firstAttribute="centerY" secondItem="2Mz-Z4-5av" secondAttribute="centerY" id="fC7-L7-y6J"/>
+                        <constraint firstItem="h79-gz-mmw" firstAttribute="centerY" secondItem="2Mz-Z4-5av" secondAttribute="centerY" id="v9a-4X-zUQ"/>
+                        <constraint firstItem="d5g-8N-KYb" firstAttribute="leading" secondItem="h79-gz-mmw" secondAttribute="trailing" constant="5" id="yfe-Ku-fFd"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qaJ-eb-4hM">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="526"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="premium_slider_chart" translatesAutoresizingMaskIntoConstraints="NO" id="GmG-OY-4ht">
+                            <rect key="frame" x="55" y="175" width="264" height="176"/>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="GmG-OY-4ht" firstAttribute="centerX" secondItem="qaJ-eb-4hM" secondAttribute="centerX" id="N9o-JW-duN"/>
+                        <constraint firstItem="GmG-OY-4ht" firstAttribute="centerY" secondItem="qaJ-eb-4hM" secondAttribute="centerY" id="fzH-Bb-TAT"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="9Df-qb-l5P" firstAttribute="bottom" secondItem="09a-Fp-4bC" secondAttribute="bottom" constant="20" id="1aX-fO-ame"/>
+                <constraint firstItem="qaJ-eb-4hM" firstAttribute="trailing" secondItem="9Df-qb-l5P" secondAttribute="trailing" id="1ns-Uc-Q0f"/>
+                <constraint firstItem="09a-Fp-4bC" firstAttribute="leading" secondItem="9Df-qb-l5P" secondAttribute="leading" constant="40" id="8MO-xc-KWj"/>
+                <constraint firstItem="2Mz-Z4-5av" firstAttribute="top" secondItem="qaJ-eb-4hM" secondAttribute="bottom" constant="10" id="G5g-hi-bqb"/>
+                <constraint firstItem="9Df-qb-l5P" firstAttribute="trailing" secondItem="09a-Fp-4bC" secondAttribute="trailing" constant="40" id="I5a-yD-akj"/>
+                <constraint firstItem="2Mz-Z4-5av" firstAttribute="centerX" secondItem="9Df-qb-l5P" secondAttribute="centerX" id="KHw-up-wJo"/>
+                <constraint firstItem="qaJ-eb-4hM" firstAttribute="leading" secondItem="9Df-qb-l5P" secondAttribute="leading" id="M4t-4w-Ll6"/>
+                <constraint firstItem="qaJ-eb-4hM" firstAttribute="top" secondItem="mXc-6y-zp0" secondAttribute="top" id="j9e-2g-Old"/>
+                <constraint firstItem="09a-Fp-4bC" firstAttribute="top" secondItem="2Mz-Z4-5av" secondAttribute="bottom" constant="10" id="wqB-YH-KTU"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="9Df-qb-l5P"/>
+            <point key="canvasLocation" x="24.5" y="51.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="premium_slider_chart" width="264" height="176"/>
+    </resources>
+</document>

@@ -115,12 +115,6 @@ extension LeftMenuViewController: UITableViewDataSource, UITableViewDelegate {
             }
             self.sideMenuController?.hideLeftViewAnimated()
             
-//            if !(self.sideMenuController?.rootViewController is RecordingViewController) {
-//                let controller = UIStoryboard(name: "recording", bundle: nil).instantiateViewController(withIdentifier: "RecordingViewController") as! RecordingViewController
-//                self.sideMenuController?.rootViewController = controller
-//            }
-//            self.sideMenuController?.hideLeftViewAnimated()
-            
         } else if indexPath.row == 3 {
             
             if (self.sideMenuController?.rootViewController is UINavigationController)

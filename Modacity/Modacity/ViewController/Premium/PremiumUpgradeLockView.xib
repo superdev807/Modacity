@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Lato-Regular.ttf">
+            <string>Lato-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PremiumUpgradeLockView" customModule="Modacity" customModuleProvider="target">
+            <connections>
+                <outlet property="labelDescription" destination="IMf-St-wSo" id="Tqd-IX-qkF"/>
+                <outlet property="labelTitle" destination="mqf-nZ-VQu" id="cwy-Vp-GND"/>
+                <outlet property="viewContent" destination="mXc-6y-zp0" id="yO9-UA-euQ"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="mXc-6y-zp0">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ocR-MU-nDP">
+                    <rect key="frame" x="60" y="266.5" width="255" height="154.5"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Get time breakdowns, rating history &amp; more." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IMf-St-wSo">
+                            <rect key="frame" x="0.0" y="61" width="255" height="14.5"/>
+                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0co-hr-3Io">
+                            <rect key="frame" x="52" y="95.5" width="150" height="52"/>
+                            <state key="normal" image="btn_findout_more"/>
+                            <connections>
+                                <action selector="onFindOutMore:" destination="-1" eventType="touchUpInside" id="W8d-d7-00B"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mqf-nZ-VQu">
+                            <rect key="frame" x="61" y="0.0" width="133.5" height="41"/>
+                            <string key="text">UNLOCK YOUR
+PRACTICE STATS</string>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="mqf-nZ-VQu" firstAttribute="top" secondItem="ocR-MU-nDP" secondAttribute="top" id="2WB-hP-NYz"/>
+                        <constraint firstItem="IMf-St-wSo" firstAttribute="leading" secondItem="ocR-MU-nDP" secondAttribute="leading" id="4KH-zq-jGH"/>
+                        <constraint firstAttribute="trailing" secondItem="IMf-St-wSo" secondAttribute="trailing" id="5cL-jL-Mbh"/>
+                        <constraint firstAttribute="bottom" secondItem="0co-hr-3Io" secondAttribute="bottom" constant="7" id="HdT-yN-1C7"/>
+                        <constraint firstItem="0co-hr-3Io" firstAttribute="top" secondItem="IMf-St-wSo" secondAttribute="bottom" constant="20" id="RHk-Pm-Zaq"/>
+                        <constraint firstItem="IMf-St-wSo" firstAttribute="top" secondItem="mqf-nZ-VQu" secondAttribute="bottom" constant="20" id="UYM-Sm-z13"/>
+                        <constraint firstItem="0co-hr-3Io" firstAttribute="centerX" secondItem="ocR-MU-nDP" secondAttribute="centerX" id="gLj-PR-vT3"/>
+                        <constraint firstItem="mqf-nZ-VQu" firstAttribute="centerX" secondItem="ocR-MU-nDP" secondAttribute="centerX" id="wIE-ex-028"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.75" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="ocR-MU-nDP" firstAttribute="leading" secondItem="9Df-qb-l5P" secondAttribute="leading" constant="60" id="Vc0-V5-oHp"/>
+                <constraint firstItem="ocR-MU-nDP" firstAttribute="centerY" secondItem="9Df-qb-l5P" secondAttribute="centerY" id="XrX-E6-E2o"/>
+                <constraint firstItem="9Df-qb-l5P" firstAttribute="trailing" secondItem="ocR-MU-nDP" secondAttribute="trailing" constant="60" id="Y1I-oH-WKo"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="9Df-qb-l5P"/>
+            <point key="canvasLocation" x="24.5" y="51.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="btn_findout_more" width="150" height="52"/>
+    </resources>
+</document>

@@ -34,12 +34,16 @@ class MetrodoneViewController: UIViewController {
     @IBOutlet weak var imageViewNoteStatusOnButton: UIImageView!
     @IBOutlet weak var imageViewNoteOnButton: UIImageView!
     
+    @IBOutlet weak var imageViewHeader: UIImageView!
+    
     var selectedSubdivisionNote: Int = -1
     
     @IBOutlet weak var btnShowSubdivision: UIButton!
     var subdivisionView: SubdivisionSelectView? = nil
     
     var metrodronePlayer: MetrodronePlayer? = nil// MetrodronePlayer()//MetrodronePlayer.instance
+    
+    var premiumLockView: PremiumUpgradeLockView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,6 +53,8 @@ class MetrodoneViewController: UIViewController {
         self.configureLayout()
         NotificationCenter.default.addObserver(self, selector: #selector(processRouteChange), name: Notification.Name.AVAudioSessionRouteChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(processAudioEngineRefresh), name: Notification.Name.UIApplicationWillEnterForeground, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updatePremiumUpgradeLockView), name: AppConfig.appNotificationPremiumUpgraded, object: nil)
+        self.updatePremiumUpgradeLockView()
     }
     
     deinit {
@@ -228,8 +234,45 @@ extension MetrodoneViewController: SubdivisionSelectViewDelegate {
     }
 }
 
-extension MetrodoneViewController: MetrodronePlayerDelegate {
+extension MetrodoneViewController: MetrodronePlayerDelegate, PremiumUpgradeLockViewDelegate {
+    
     func onDurationSliderEnabled() {
         self.constraintForMinTrickViewWidth.constant = self.imageViewMaxTrick.frame.size.width * CGFloat((self.sliderDuration.value - self.sliderDuration.minimumValue) / (self.sliderDuration.maximumValue - self.sliderDuration.minimumValue))
     }
+    
+    func attachLockView() {
+        if self.premiumLockView == nil {
+            self.premiumLockView = PremiumUpgradeLockView()
+            self.view.addSubview(self.premiumLockView)
+            self.premiumLockView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+            self.premiumLockView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+            self.premiumLockView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+            self.premiumLockView.topAnchor.constraint(equalTo: self.imageViewHeader.bottomAnchor).isActive = true
+            self.premiumLockView.delegate = self
+            self.view.bringSubview(toFront: self.premiumLockView)
+        }
+        
+        self.premiumLockView.configureForMetrodrone()
+    }
+    
+    func detachLockView() {
+        if self.premiumLockView != nil {
+            self.premiumLockView.removeFromSuperview()
+            self.premiumLockView = nil
+        }
+    }
+    
+    func onFindOutMore() {
+        let controller = UIStoryboard(name: "premium", bundle: nil).instantiateViewController(withIdentifier: "PremiumUpgradeScene")
+        self.present(controller, animated: true, completion: nil)
+    }
+    
+    @objc func updatePremiumUpgradeLockView() {
+        if !PremiumUpgradeManager.manager.isPremiumUnlocked() {
+            self.attachLockView()
+        } else {
+            self.detachLockView()
+        }
+    }
+    
 }

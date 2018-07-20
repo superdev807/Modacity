@@ -326,6 +326,10 @@ class AppOveralDataManager {
     }
     
     func practiceBreakTime() -> Int {
-        return UserDefaults.standard.integer(forKey: "practice_break_time")
+        if PremiumUpgradeManager.manager.isPremiumUnlocked() {
+            return UserDefaults.standard.integer(forKey: "practice_break_time")
+        } else {
+            return 0
+        }
     }
 }
