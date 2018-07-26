@@ -64,7 +64,7 @@ class DetailsViewController: UIViewController {
         self.viewIndicatorTab4.backgroundColor = Color(hexString: "#292947")
         selectTab(startTabIdx)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(detachPremiumLockView), name: AppConfig.appNotificationPremiumUpgraded, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(processPremiumStatusChanged), name: AppConfig.appNotificationPremiumStatusChanged, object: nil)
         
         if AppUtils.iphoneIsXModel() {
             self.constraintForHeaderViewHeight.constant = 140
@@ -488,6 +488,16 @@ extension DetailsViewController: PremiumUpgradeLockViewDelegate {
             self.premiumLockView.delegate = self
         } else {
             self.view.bringSubview(toFront: self.premiumLockView)
+        }
+    }
+    
+    
+    @objc func processPremiumStatusChanged() {
+        if PremiumUpgradeManager.manager.isPremiumUnlocked() {
+            if self.premiumLockView != nil {
+                self.premiumLockView.removeFromSuperview()
+                self.premiumLockView = nil
+            }
         }
     }
     

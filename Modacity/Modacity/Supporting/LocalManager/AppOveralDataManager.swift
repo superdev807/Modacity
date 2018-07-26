@@ -74,6 +74,7 @@ class AppOveralDataManager {
         PlaylistLocalManager.manager.signout()
         PracticingDailyLocalManager.manager.signout()
         PlaylistDailyLocalManager.manager.signout()
+        PremiumUpgradeManager.manager.signout()
         
         GIDSignIn.sharedInstance().signOut()
         FBSDKLoginManager().logOut()
@@ -204,7 +205,6 @@ class AppOveralDataManager {
         UserDefaults.standard.set(value + 1, forKey: key)
         UserDefaults.standard.synchronize()
     }
-    
     
     // Walk through settings
     

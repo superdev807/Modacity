@@ -12,6 +12,7 @@ import LGSideMenuController
 class SideMenuController: LGSideMenuController {
     
     @IBOutlet weak var imageViewPremiumBadge: UIImageView!
+    @IBOutlet weak var constraintBadgeBottomSpace: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +28,13 @@ class SideMenuController: LGSideMenuController {
         let tabBarViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TabBarViewController")
         self.rootViewController = tabBarViewController
         
-        NotificationCenter.default.addObserver(self, selector: #selector(updatePremiumBadge), name: AppConfig.appNotificationPremiumUpgraded, object: nil)
+        if AppUtils.iphoneIsXModel() {
+            self.constraintBadgeBottomSpace.constant = -40
+        } else {
+            self.constraintBadgeBottomSpace.constant = 0
+        }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(updatePremiumBadge), name: AppConfig.appNotificationPremiumStatusChanged, object: nil)
     }
     
     deinit {
@@ -40,6 +47,6 @@ class SideMenuController: LGSideMenuController {
     }
     
     @objc func updatePremiumBadge() {
-        self.imageViewPremiumBadge.isHidden = true//!(PremiumUpgradeManager.manager.isPremiumUnlocked())
+        self.imageViewPremiumBadge.isHidden = !(PremiumUpgradeManager.manager.isPremiumUnlocked())
     }
 }

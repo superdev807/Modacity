@@ -47,7 +47,7 @@ class AppConfig: NSObject {
     static let appNotificationPlaylistLoadedFromServer = Notification.Name(rawValue: "appNotificationPlaylistLoadedFromServer")
     static let appNotificationPlaylistUpdated = Notification.Name(rawValue: "appNotificationPlaylistUpdated")
     static let appNotificationProfileUpdated = Notification.Name(rawValue: "appNotificationProfileUpdated")
-    static let appNotificationPremiumUpgraded = Notification.Name(rawValue: "appNotificationPremiumUpgraded")
+    static let appNotificationPremiumStatusChanged = Notification.Name(rawValue: "appNotificationPremiumStatusChanged")
     static let appNotificationMetrodroneAudioEnginePrepared = Notification.Name(rawValue: "appNotificationMetrodroneAudioEnginePrepared")
     
     static let appMaxNumberForRecentPlaylists = 10
@@ -55,4 +55,26 @@ class AppConfig: NSObject {
     
     static let appIntercomApiKey = "ios_sdk-f447e55f2c171cec792a026f22b81c2188765217"
     static let appIntercomAppId = "q5zl4zj8"
+    
+    static let appFreeTrialDays = 14
+    
+    static let devVersion: Bool = {
+        let appBundleId = Bundle.main.infoDictionary![kCFBundleIdentifierKey as String] as! String
+        if appBundleId.contains("dev") {
+            return true
+        } else {
+            return false
+        }
+    }()
+    
+    static let production : Bool = {
+        #if RELEASE
+        print("RELEASE")
+        return true
+        #else
+        print("DEBUG")
+        return false
+        #endif
+    }()
+
 }

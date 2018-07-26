@@ -49,7 +49,6 @@ class PlaylistLocalManager: NSObject {
                 self.savePlaylistIds([playlist.id])
             }
             
-            
             UserDefaults.standard.set(playlist.toJSON(), forKey: "playlist:id:" + playlist.id)
             UserDefaults.standard.synchronize()
             

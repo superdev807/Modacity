@@ -24,7 +24,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="hCB-VT-SQe">
-                                <rect key="frame" x="0.0" y="60" width="375" height="547"/>
+                                <rect key="frame" x="0.0" y="60" width="375" height="587"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MenuCell" rowHeight="54" id="mD1-I5-wkJ">
@@ -68,7 +68,7 @@
                         <constraints>
                             <constraint firstItem="BoR-fd-Qg3" firstAttribute="trailing" secondItem="hCB-VT-SQe" secondAttribute="trailing" id="0JW-r3-Cu5"/>
                             <constraint firstItem="hCB-VT-SQe" firstAttribute="top" secondItem="BoR-fd-Qg3" secondAttribute="top" constant="40" id="5TY-vS-ppK"/>
-                            <constraint firstItem="BoR-fd-Qg3" firstAttribute="bottom" secondItem="hCB-VT-SQe" secondAttribute="bottom" constant="60" id="ZNB-H3-IbV"/>
+                            <constraint firstItem="BoR-fd-Qg3" firstAttribute="bottom" secondItem="hCB-VT-SQe" secondAttribute="bottom" constant="20" id="ZNB-H3-IbV"/>
                             <constraint firstItem="hCB-VT-SQe" firstAttribute="leading" secondItem="BoR-fd-Qg3" secondAttribute="leading" id="cuZ-57-96j"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="BoR-fd-Qg3"/>
@@ -89,13 +89,13 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_simple_gradient" translatesAutoresizingMaskIntoConstraints="NO" id="l5d-dB-n5y">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="707"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_badge_premium" translatesAutoresizingMaskIntoConstraints="NO" id="EWs-hb-Hfy">
-                                <rect key="frame" x="0.0" y="0.0" width="159" height="66"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="badge_premium" translatesAutoresizingMaskIntoConstraints="NO" id="EWs-hb-Hfy">
+                                <rect key="frame" x="0.0" y="600" width="158" height="67"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="EWs-hb-Hfy" firstAttribute="top" secondItem="yeu-vo-0UB" secondAttribute="top" id="5jT-No-HEa"/>
+                            <constraint firstItem="8Ts-Hg-dKB" firstAttribute="bottom" secondItem="EWs-hb-Hfy" secondAttribute="bottom" id="2Mn-W8-lrJ"/>
                             <constraint firstItem="EWs-hb-Hfy" firstAttribute="leading" secondItem="8Ts-Hg-dKB" secondAttribute="leading" id="85L-da-m7S"/>
                             <constraint firstItem="l5d-dB-n5y" firstAttribute="leading" secondItem="8Ts-Hg-dKB" secondAttribute="leading" id="8t5-HK-cTm"/>
                             <constraint firstItem="l5d-dB-n5y" firstAttribute="trailing" secondItem="8Ts-Hg-dKB" secondAttribute="trailing" id="bPt-IP-jwh"/>
@@ -105,6 +105,7 @@
                         <viewLayoutGuide key="safeArea" id="8Ts-Hg-dKB"/>
                     </view>
                     <connections>
+                        <outlet property="constraintBadgeBottomSpace" destination="2Mn-W8-lrJ" id="l9c-nV-Yyd"/>
                         <outlet property="imageViewPremiumBadge" destination="EWs-hb-Hfy" id="Pr8-bn-97O"/>
                         <segue destination="S9d-7s-lc1" kind="custom" identifier="left" customClass="LGSideMenuSegue" id="AYs-9r-LFD"/>
                     </connections>
@@ -115,8 +116,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="badge_premium" width="158" height="67"/>
         <image name="bg_simple_gradient" width="375" height="667"/>
         <image name="icon_menu_home" width="19" height="19"/>
-        <image name="img_badge_premium" width="159" height="66"/>
     </resources>
 </document>

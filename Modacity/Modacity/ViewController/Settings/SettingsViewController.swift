@@ -43,6 +43,15 @@ class SettingsCellWithIcon: UITableViewCell {
     
 }
 
+class SettingsCellAccountType: UITableViewCell {
+    
+    @IBOutlet weak var labelAccountType: UILabel!
+    
+    func configure(type: String) {
+        self.labelAccountType.text = type
+    }
+}
+
 protocol SettingsCellWithSwitchDelegate {
     func onSwitchValueChanged(forCaption: String?)
 }
@@ -88,7 +97,8 @@ class SettingsViewController: UIViewController {
             self.constraintForHeaderImageViewHeight.constant = 88
         }
         NotificationCenter.default.addObserver(self, selector: #selector(refresh), name: AppConfig.appNotificationProfileUpdated, object: nil)
-         ModacityAnalytics.LogStringEvent("Loaded Settings Screen")
+        NotificationCenter.default.addObserver(self, selector: #selector(refresh), name: AppConfig.appNotificationPremiumStatusChanged, object: nil)
+        ModacityAnalytics.LogStringEvent("Loaded Settings Screen")
 
     }
     
@@ -109,15 +119,17 @@ class SettingsViewController: UIViewController {
 extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return 4
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            return 5
-        } else if section == 1 {
             return 3
+        } else if section == 1 {
+            return 5
         } else if section == 2 {
+            return 3
+        } else if section == 3 {
             return 2
         }
         return 0
@@ -127,8 +139,10 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
         if section == 0 {
             return ""
         } else if section == 1 {
-            return "APP SETTINGS"
+            return "MY ACCOUNT"
         } else if section == 2 {
+            return "APP SETTINGS"
+        } else if section == 3 {
             return "TIMER"
         }
         return ""
@@ -152,34 +166,58 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
-            if indexPath.row < 3 {
+            if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCellWithIconAndSubTitle") as! SettingsCellWithIconAndSubTitle
-                if indexPath.row == 0 {
-                    cell.configure(icon: "img_profile_placeholder", caption: "DISPLAY NAME", subTitle: MyProfileLocalManager.manager.me?.displayName() ?? "")
-                    cell.accessoryType = .disclosureIndicator
-                } else if indexPath.row == 1 {
-                    cell.configure(icon: "icon_settings_email", caption: "EMAIL", subTitle: MyProfileLocalManager.manager.me?.email ?? "")
-                    cell.accessoryType = .none
-                } else if indexPath.row == 2 {
-                    cell.configure(icon: "icon_settings_password", caption: "PASSWORD", subTitle: "Change Password")
-                    cell.accessoryType = .disclosureIndicator
-                }
+                cell.configure(icon: "img_profile_placeholder", caption: "DISPLAY NAME", subTitle: MyProfileLocalManager.manager.me?.displayName() ?? "")
+                cell.accessoryType = .disclosureIndicator
                 return cell
-            } else {
+            } else if indexPath.row == 1 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCellWithIcon") as! SettingsCellWithIcon
-                if indexPath.row == 3 {
-                    cell.configure(icon: "icon_settings_star", caption: "Rate the App")
-                    cell.labelCaption.textColor = Color(hexString: "#ffffff")
-                } else if indexPath.row == 4 {
-                    cell.configure(icon: "icon_settings_share", caption: "Share the App")
-                    cell.labelCaption.textColor = Color(hexString: "#ffffff")
-                } else if indexPath.row == 5 {
-                    cell.configure(icon: "icon_settings_premium", caption: "Upgrade to Premium")
-                    cell.labelCaption.textColor = Color(hexString: "#908FE6")
-                }
+                cell.configure(icon: "icon_settings_star", caption: "Rate the App")
+                cell.labelCaption.textColor = Color(hexString: "#ffffff")
+                return cell
+            } else if indexPath.row == 2 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCellWithIcon") as! SettingsCellWithIcon
+                cell.configure(icon: "icon_settings_share", caption: "Share the App")
+                cell.labelCaption.textColor = Color(hexString: "#ffffff")
                 return cell
             }
         } else if indexPath.section == 1 {
+            if indexPath.row == 0 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCellAccountType") as! SettingsCellAccountType
+                if PremiumDataManager.manager.isPremiumUnlocked() {
+                    cell.configure(type: "Premium")
+                } else {
+                    cell.configure(type: "Free")
+                }
+                return cell
+            } else if indexPath.row == 1 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCellWithIconAndSubTitle") as! SettingsCellWithIconAndSubTitle
+                cell.configure(icon: "icon_settings_email", caption: "EMAIL", subTitle: MyProfileLocalManager.manager.me?.email ?? "")
+                cell.accessoryType = .none
+                return cell
+            } else if indexPath.row == 2 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCellWithIconAndSubTitle") as! SettingsCellWithIconAndSubTitle
+                cell.configure(icon: "icon_settings_password", caption: "PASSWORD", subTitle: "Change Password")
+                cell.accessoryType = .disclosureIndicator
+                return cell
+            } else if indexPath.row == 3 {
+                if PremiumDataManager.manager.isPremiumUnlocked() {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCellWithoutIcon") as! SettingsCellWithoutIcon
+                    cell.configure(caption: "Manage Subscription")
+                    return cell
+                } else {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCellWithIcon") as! SettingsCellWithIcon
+                    cell.configure(icon: "icon_settings_premium", caption: "Upgrade to Premium")
+                    cell.labelCaption.textColor = Color(hexString: "#908FE6")
+                    return cell
+                }
+            } else if indexPath.row == 4 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCellWithoutIcon") as! SettingsCellWithoutIcon
+                cell.configure(caption: "Subscription Terms")
+                return cell
+            }
+        } else if indexPath.section == 2 {
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCellWithSwitch") as! SettingsCellWithSwitch
                 cell.delegate = self
@@ -195,7 +233,7 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
                 cell.configure(caption: "“Take a Break” Reminder")
                 return cell
             }
-        } else if indexPath.section == 2 {
+        } else if indexPath.section == 3 {
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCellWithSwitch") as! SettingsCellWithSwitch
                 cell.delegate = self
@@ -222,16 +260,20 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
         if indexPath.section == 0 {
             if indexPath.row == 0 {
                 self.changeDisplayName()
-            } else if indexPath.row == 2 {
-                self.changePassword()
-            } else if indexPath.row == 3 {
+            } else if indexPath.row == 1 {
                 self.rateApp()
-            } else if indexPath.row == 4 {
+            } else if indexPath.row == 2 {
                 self.shareModacityApp()
-            } else if indexPath.row == 5 {
-                self.openPremiumUpgrade()
             }
         } else if indexPath.section == 1 {
+            if indexPath.row == 2 {
+                self.changePassword()
+            } else if indexPath.row == 3 {
+                self.openPremiumUpgrade()
+            } else if indexPath.row == 4 {
+                self.performSegue(withIdentifier: "sid_subscription_terms", sender: nil)
+            }
+        } else if indexPath.section == 2 {
             if indexPath.row == 2 {
                 self.openBreakReminderSettingsPage()
             }
@@ -316,19 +358,29 @@ extension SettingsViewController: SettingsCellWithSwitchDelegate {
     }
 }
 
-
 // MARK:- Premium upgrade
 extension SettingsViewController {
     func openPremiumUpgrade() {
-        if PremiumUpgradeManager.manager.isPremiumUnlocked() {
-            AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Premium feature locked again. (Temporarily for the test purpose)")
-            PremiumUpgradeManager.manager.cancelUpgrade()
-            NotificationCenter.default.post(name: AppConfig.appNotificationPremiumUpgraded, object: nil)
+        if PremiumDataManager.manager.isPremiumUnlocked() {
+            if let url = URL(string:"itms-apps://buy.itunes.apple.com/WebObjects/MZFinance.woa/wa/manageSubscriptions") {
+                if #available(iOS 10.0, *) {
+                    if UIApplication.shared.canOpenURL(url) {
+                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                    } else {
+                        UIApplication.shared.open(URL(string: "https://buy.itunes.apple.com/WebObjects/MZFinance.woa/wa/manageSubscriptions")!, options: [:], completionHandler: nil)
+                    }
+                } else {
+                    if UIApplication.shared.canOpenURL(url) {
+                        UIApplication.shared.openURL(url)
+                    } else {
+                        UIApplication.shared.openURL(URL(string: "https://buy.itunes.apple.com/WebObjects/MZFinance.woa/wa/manageSubscriptions")!)
+                    }
+                }
+            }
         } else {
             let controller = UIStoryboard(name: "premium", bundle: nil).instantiateViewController(withIdentifier: "PremiumUpgradeScene")
             self.present(controller, animated: true, completion: nil)
         }
-        
     }
 }
 

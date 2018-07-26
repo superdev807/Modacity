@@ -73,7 +73,11 @@ extension LeftMenuViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return (tableView.frame.size.height - 20) / CGFloat(menuTitles.count)
+        if AppUtils.iphoneIsXModel() {
+            return (tableView.frame.size.height - 60) / CGFloat(menuTitles.count)
+        } else {
+            return (tableView.frame.size.height - 20) / CGFloat(menuTitles.count)
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
