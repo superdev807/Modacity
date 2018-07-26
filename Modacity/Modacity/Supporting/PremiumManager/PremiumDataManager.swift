@@ -71,7 +71,6 @@ class PremiumDataManager: NSObject {
                             if until!.timeIntervalSince1970 > oldUntil + 100 {
                                 ModacityDebugger.debug("Subscription UPDATED!!!")
                                 self.registerSubscription(key: key, until: until!, completion: { (error) in
-                                    NotificationCenter.default.post(name: AppConfig.appNotificationPremiumStatusChanged, object: nil)
                                 })
                             }
                         }
@@ -96,6 +95,7 @@ class PremiumDataManager: NSObject {
                 if let error = error {
                     completion(error.localizedDescription)
                 } else {
+                    NotificationCenter.default.post(name: AppConfig.appNotificationPremiumStatusChanged, object: nil)
                     completion(nil)
                 }
             }

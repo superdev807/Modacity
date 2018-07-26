@@ -120,7 +120,7 @@ extension BreakReminerSettingsViewController: UITextFieldDelegate, PremiumUpgrad
     }
     
     @objc func updateLockView() {
-        if PremiumUpgradeManager.manager.isPremiumUnlocked() {
+        if PremiumDataManager.manager.isPremiumUnlocked() {
             if self.premiumLockView != nil {
                 self.premiumLockView.removeFromSuperview()
                 self.premiumLockView = nil

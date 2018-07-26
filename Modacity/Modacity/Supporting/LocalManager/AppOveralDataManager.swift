@@ -74,7 +74,7 @@ class AppOveralDataManager {
         PlaylistLocalManager.manager.signout()
         PracticingDailyLocalManager.manager.signout()
         PlaylistDailyLocalManager.manager.signout()
-        PremiumUpgradeManager.manager.signout()
+        PremiumDataManager.manager.signout()
         
         GIDSignIn.sharedInstance().signOut()
         FBSDKLoginManager().logOut()
@@ -326,7 +326,7 @@ class AppOveralDataManager {
     }
     
     func practiceBreakTime() -> Int {
-        if PremiumUpgradeManager.manager.isPremiumUnlocked() {
+        if PremiumDataManager.manager.isPremiumUnlocked() {
             return UserDefaults.standard.integer(forKey: "practice_break_time")
         } else {
             return 0

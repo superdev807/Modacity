@@ -30,8 +30,6 @@ class PremiumUpgradeViewController: UIViewController {
                       ]
     
     @IBOutlet weak var constraintForHeaderViewHeight: NSLayoutConstraint!
-    @IBOutlet weak var viewUpgradeAction1: UIView!
-    @IBOutlet weak var viewUpgradeAction2: UIView!
     @IBOutlet weak var labelUnlockTitle: UILabel!
     
     @IBOutlet weak var imageViewBackground: UIImageView!
@@ -40,18 +38,6 @@ class PremiumUpgradeViewController: UIViewController {
     @IBOutlet weak var viewSlidingContentContainer: UIView!
     @IBOutlet weak var pageControlSlider: UIPageControl!
     @IBOutlet weak var buttonFreeTrialStart: UIButton!
-    
-    @IBOutlet weak var viewPurchaseButtonsPanel: UIView!
-    @IBOutlet weak var viewFreeTrialButtonsPanel: UIView!
-    
-    @IBOutlet weak var labelAccountStatus: UILabel!
-    
-    @IBOutlet weak var labelMonthlyPrice: UILabel!
-    @IBOutlet weak var labelYearlyPrice: UILabel!
-    
-    @IBOutlet weak var buttonUpgradeMonthly: UIButton!
-    @IBOutlet weak var buttonUpgradeYearly: UIButton!
-    
     
     var currentSlideContentView: UIView!
     
@@ -63,11 +49,6 @@ class PremiumUpgradeViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        self.viewUpgradeAction1.layer.borderWidth = 1
-        self.viewUpgradeAction1.layer.borderColor = Color(hexString: "#908FE6").cgColor
-        
-        self.viewUpgradeAction2.layer.borderWidth = 1
-        self.viewUpgradeAction2.layer.borderColor = Color(hexString: "#908FE6").cgColor
         
         let attributed = NSMutableAttributedString(string: "UNLOCK YOUR ", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoLight, size: 24)!])
         attributed.append(NSAttributedString(string: "FULL POTENTIAL", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoBold, size: 24)!]))
@@ -81,16 +62,6 @@ class PremiumUpgradeViewController: UIViewController {
         
         self.buttonFreeTrialStart.layer.borderColor = Color(hexString: "#908FE6").cgColor
         self.buttonFreeTrialStart.layer.borderWidth = 1
-        
-        if PremiumUpgradeManager.manager.accountType() != .none {
-            self.viewPurchaseButtonsPanel.isHidden = false
-            self.viewFreeTrialButtonsPanel.isHidden = true
-            processAccountStatus()
-            processPrices()
-        } else {
-            self.viewPurchaseButtonsPanel.isHidden = true
-            self.viewFreeTrialButtonsPanel.isHidden = false
-        }
         
         if AppUtils.iphoneIsXModel() {
             self.constraintForHeaderViewHeight.constant = 84
@@ -173,23 +144,39 @@ class PremiumUpgradeViewController: UIViewController {
     @IBAction func onStartFreeTrial(_ sender: Any) {
         self.buttonFreeTrialStart.setTitle("PROCESSING...", for: .normal)
         self.view.isUserInteractionEnabled = false
-        PremiumUpgradeManager.manager.startFreeTrial { (error) in
-            self.view.isUserInteractionEnabled = true
-            if let error = error {
-                self.buttonFreeTrialStart.setTitle("START MY FREE 2-WEEK TRIAL NOW", for: .normal)
-                AppUtils.showSimpleAlertMessage(for: self, title: nil, message: error)
-            } else {
-                self.performSegue(withIdentifier: "sid_done", sender: nil)
-            }
+        NotificationCenter.default.addObserver(self, selector: #selector(onUpgradedSucceeded), name: IAPHelper.appNotificationSubscriptionSucceeded, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onUpgradeFailed), name: IAPHelper.appNotificationSubscriptionFailed, object: nil)
+        PremiumDataManager.manager.upgrade()
+    }
+    
+    @IBAction func onRestorePayment(_ sender: Any) {
+        MBProgressHUD.showAdded(to: self.view, animated: true)
+        NotificationCenter.default.addObserver(self, selector: #selector(onUpgradedSucceeded), name: IAPHelper.appNotificationSubscriptionSucceeded, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onUpgradeFailed), name: IAPHelper.appNotificationSubscriptionFailed, object: nil)
+        IAPHelper.helper.restore()
+    }
+    
+    @objc func onUpgradedSucceeded(_ notification: Notification) {
+        MBProgressHUD.hide(for: self.view, animated: true)
+        NotificationCenter.default.removeObserver(self, name: IAPHelper.appNotificationSubscriptionSucceeded, object: nil)
+        NotificationCenter.default.removeObserver(self, name: IAPHelper.appNotificationSubscriptionFailed, object: nil)
+        
+        self.view.isUserInteractionEnabled = true
+        
+        self.performSegue(withIdentifier: "sid_done", sender: nil)
+    }
+    
+    @objc func onUpgradeFailed(_ notification:Notification) {
+        MBProgressHUD.hide(for: self.view, animated: true)
+        NotificationCenter.default.removeObserver(self, name: IAPHelper.appNotificationSubscriptionSucceeded, object: nil)
+        NotificationCenter.default.removeObserver(self, name: IAPHelper.appNotificationSubscriptionFailed, object: nil)
+        
+        self.view.isUserInteractionEnabled = true
+        self.buttonFreeTrialStart.setTitle("START MY FREE 2-WEEK TRIAL NOW", for: .normal)
+        if let userInfo = notification.userInfo,
+            let error = userInfo["error"] as? String {
+            AppUtils.showSimpleAlertMessage(for: self, title: nil, message: error)
         }
-    }
-    
-    @IBAction func onSubscribeMonthly(_ sender: Any) {
-//        IAPHelper.helper.subscribeMonthly()
-    }
-    
-    @IBAction func onSubscribeYearly(_ sender: Any) {
-//        IAPHelper.helper.subscribeYearly()
     }
 }
 
@@ -264,58 +251,5 @@ extension PremiumUpgradeViewController: PremiumUpgradeSlideViewDelegate {
             slideView.labelDescription.text = self.sliderData[idx]["desc"]
             return slideView
         }
-    }
-
-    func processAccountStatus() {
-        let status = PremiumUpgradeManager.manager.accountType()
-        if status  == .trial || status == .trial_expired{
-            self.labelAccountStatus.isHidden = false
-            if let premium = PremiumUpgradeManager.manager.premiumData() {
-                self.labelAccountStatus.text = premium.freeTrialStatus()
-            } else {
-                self.labelAccountStatus.text = ""
-            }
-        } else {
-            self.labelAccountStatus.isHidden = true
-        }
-    }
-    
-    func processPrices() {
-        self.viewUpgradeAction1.alpha = 0.5
-        self.buttonUpgradeMonthly.isEnabled = false
-        
-        self.viewUpgradeAction2.alpha = 0.5
-        self.buttonUpgradeYearly.isEnabled = false
-        
-        if IAPHelper.helper.productsArray.count == 0 {
-            IAPHelper.helper.requestProductInfo()
-            NotificationCenter.default.addObserver(self, selector: #selector(showPrices), name: IAPHelper.appNotificationProductInfoFetched, object: nil)
-        } else {
-            self.showPrices()
-        }
-    }
-    
-    @objc func showPrices() {
-//        NotificationCenter.default.removeObserver(self, name: IAPHelper.appNotificationProductInfoFetched, object: nil)
-//        let priceForMonthlySubscription = IAPHelper.helper.priceForMonthlySubscription()
-//        self.labelMonthlyPrice.text = priceForMonthlySubscription
-//        if priceForMonthlySubscription == "" {
-//            self.viewUpgradeAction1.alpha = 0.5
-//            self.buttonUpgradeMonthly.isEnabled = false
-//        } else {
-//            self.viewUpgradeAction1.alpha = 1.0
-//            self.buttonUpgradeMonthly.isEnabled = true
-//        }
-//        
-//        let priceForYearlySubscription = IAPHelper.helper.priceForYearlySubscription()
-//        self.labelYearlyPrice.text = priceForYearlySubscription
-//        
-//        if priceForYearlySubscription == "" {
-//            self.viewUpgradeAction2.alpha = 0.5
-//            self.buttonUpgradeYearly.isEnabled = false
-//        } else {
-//            self.viewUpgradeAction2.alpha = 1.0
-//            self.buttonUpgradeYearly.isEnabled = true
-//        }
     }
 }

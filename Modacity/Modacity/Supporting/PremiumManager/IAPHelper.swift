@@ -17,9 +17,9 @@ class IAPHelper: NSObject, SKProductsRequestDelegate {
     static let appNotificationSubscriptionSucceeded = Notification.Name(rawValue: "appNotificationMonthlySubscriptionSucceeded")
     static let appNotificationSubscriptionFailed = Notification.Name(rawValue: "appNotificationSubscriptionFailed")
     
-    let monthlySubscriptionId = AppConfig.devVersion ? "com.app.modacity.dev.premiumupgrade.monthly" : "com.app.modacity.premiumupgrade.monthly"
+    let monthlySubscriptionId = AppConfig.devVersion ? "com.app.modacity.dev.premiumupgrade" : "com.app.modacity.premiumupgrade.monthly"
     let verifyReceiptUrl = AppConfig.production ? "http://buy.itunes.apple.com/verifyReceipt" : "https://sandbox.itunes.apple.com/verifyReceipt"
-    let sharedSecret = AppConfig.devVersion ? "2ebbd4466faa4f2884c7a962f5d7435f" : ""
+    let sharedSecret = AppConfig.devVersion ? "2ebbd4466faa4f2884c7a962f5d7435f" : "036db65cbeee4ebea98c40ebc6b6cd0c"
     
     var productIDs = [String]()
     var productsArray = [SKProduct]()
@@ -27,7 +27,10 @@ class IAPHelper: NSObject, SKProductsRequestDelegate {
     var renewalStatus = false
     var validUntil: Date? = nil
     
+    var restoring = false
+    
     func requestProductInfo() {
+        ModacityDebugger.debug("Started subscribe - \(monthlySubscriptionId)")
         productIDs = [monthlySubscriptionId]
         if SKPaymentQueue.canMakePayments() {
             let productIdentifiers = NSSet(array: productIDs)
@@ -38,6 +41,7 @@ class IAPHelper: NSObject, SKProductsRequestDelegate {
         } else {
             ModacityDebugger.debug("We cannot make payment")
             NotificationCenter.default.post(Notification(name: IAPHelper.appNotificationProductInfoFetched))
+            NotificationCenter.default.post(name: IAPHelper.appNotificationSubscriptionFailed, object: nil, userInfo: ["error": "Payment cannot be made!"])
         }
     }
     
@@ -48,9 +52,18 @@ class IAPHelper: NSObject, SKProductsRequestDelegate {
                 productsArray.append(product)
             }
             NotificationCenter.default.post(Notification(name: IAPHelper.appNotificationProductInfoFetched))
+            
+            for product in productsArray {
+                if product.productIdentifier == monthlySubscriptionId {
+                    SKPaymentQueue.default().add(self)
+                    SKPaymentQueue.default().add(SKPayment(product: product))
+                    return
+                }
+            }
         } else {
             ModacityDebugger.debug("not get any product!")
             NotificationCenter.default.post(Notification(name: IAPHelper.appNotificationProductInfoFetched))
+            NotificationCenter.default.post(name: IAPHelper.appNotificationSubscriptionFailed, object: nil, userInfo: ["error": "Failed in fetching product info!"])
         }
     }
 }
@@ -58,13 +71,20 @@ class IAPHelper: NSObject, SKProductsRequestDelegate {
 extension IAPHelper: SKPaymentTransactionObserver {
     
     func subscribe() {
-        for product in productsArray {
-            if product.productIdentifier == monthlySubscriptionId {
-                SKPaymentQueue.default().add(self)
-                SKPaymentQueue.default().add(SKPayment(product: product))
-                return
-            }
+        restoring = false
+        self.requestProductInfo()
+    }
+    
+    func restore() {
+        if SKPaymentQueue.canMakePayments() {
+            SKPaymentQueue.default().add(self)
+            SKPaymentQueue.default().restoreCompletedTransactions()
+        } else {
+            ModacityDebugger.debug("We cannot restore payment")
+            NotificationCenter.default.post(name: IAPHelper.appNotificationSubscriptionFailed, object: nil, userInfo: ["error": "Cannot restore payment!"])
         }
+//        restoring = true
+//        self.requestProductInfo()
     }
     
     func paymentQueue(_ queue: SKPaymentQueue, removedTransactions transactions: [SKPaymentTransaction]) {
@@ -89,6 +109,7 @@ extension IAPHelper: SKPaymentTransactionObserver {
             case .restored:
                 ModacityDebugger.debug("Transaction restored.")
                 SKPaymentQueue.default().finishTransaction(transaction)
+                self.receiptValidation()
             default:
                 ModacityDebugger.debug("\(transaction.transactionState.rawValue)")
             }
@@ -156,9 +177,13 @@ extension IAPHelper {
                         httpResponse.statusCode == 200 {
                         do {
                             if let jsonResponse = try JSONSerialization.jsonObject(with: receivedData, options: JSONSerialization.ReadingOptions.mutableContainers) as? Dictionary<String, AnyObject> {
+                                
+                                print("receipt data =============================")
+                                print(String(data: receivedData, encoding: .utf8) ?? "")
                                 if let pendingRenewalInfo = jsonResponse["pending_renewal_info"] as? [[String:Any]] {
                                     if pendingRenewalInfo.count > 0 {
-                                        self.renewalStatus = pendingRenewalInfo[0]["auto_renew_status"] as? Bool ?? false
+                                        let autoRenewStatus = pendingRenewalInfo[0]["auto_renew_status"] as? String ?? "0"
+                                        self.renewalStatus = autoRenewStatus == "1"
                                     }
                                 }
                                 

@@ -268,7 +268,7 @@ extension MetrodoneViewController: MetrodronePlayerDelegate, PremiumUpgradeLockV
     }
     
     @objc func updatePremiumUpgradeLockView() {
-        if !PremiumUpgradeManager.manager.isPremiumUnlocked() {
+        if !PremiumDataManager.manager.isPremiumUnlocked() {
             self.attachLockView()
         } else {
             self.detachLockView()

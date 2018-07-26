@@ -317,7 +317,7 @@ extension DetailsViewController {
             } else {
                 self.attachPlaylistStatsView()
             }
-            if !PremiumUpgradeManager.manager.isPremiumUnlocked() {
+            if !PremiumDataManager.manager.isPremiumUnlocked() {
                 self.attachPremiumLockView()
                 self.premiumLockView.configureForPracticeStats()
             }
@@ -330,7 +330,7 @@ extension DetailsViewController {
             self.labelTab3.font = UIFont.boldSystemFont(ofSize: 11)
             self.attatchNotesView()
             self.viewIndicatorTab3.isHidden = false
-            if !PremiumUpgradeManager.manager.isPremiumUnlocked() {
+            if !PremiumDataManager.manager.isPremiumUnlocked() {
                 self.attachPremiumLockView()
                 self.premiumLockView.configureForNote()
             }
@@ -338,11 +338,11 @@ extension DetailsViewController {
             self.labelTab4.font = UIFont.boldSystemFont(ofSize: 11)
             self.viewIndicatorTab4.isHidden = false
             self.attachHistoryView()
-            if !PremiumUpgradeManager.manager.isPremiumUnlocked() {
+            if !PremiumDataManager.manager.isPremiumUnlocked() {
                 self.attachPremiumLockView()
                 self.premiumLockView.configureForPracticeStats()
             }
-            if !PremiumUpgradeManager.manager.isPremiumUnlocked() {
+            if !PremiumDataManager.manager.isPremiumUnlocked() {
                 self.attachPremiumLockView()
                 self.premiumLockView.configureForHistory()
             }
@@ -493,7 +493,7 @@ extension DetailsViewController: PremiumUpgradeLockViewDelegate {
     
     
     @objc func processPremiumStatusChanged() {
-        if PremiumUpgradeManager.manager.isPremiumUnlocked() {
+        if PremiumDataManager.manager.isPremiumUnlocked() {
             if self.premiumLockView != nil {
                 self.premiumLockView.removeFromSuperview()
                 self.premiumLockView = nil
