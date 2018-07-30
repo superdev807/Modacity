@@ -399,7 +399,14 @@ extension PracticeViewController {
             self.deliverModel.sessionTime = self.overallPracticeTimeInSeconds
             AppOveralDataManager.manager.addPracticeTime(inSec: self.overallPracticeTimeInSeconds)
         }
-
+        
+        if let metrodroneView = self.metrodroneView {
+            if let mPlayer = metrodroneView.metrodonePlayer {
+                mPlayer.stopPlayer()
+                mPlayer.stopMetrodrone()
+            }
+        }
+        
         if self.timer != nil {
             self.timer.invalidate()
         }

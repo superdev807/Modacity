@@ -39,6 +39,7 @@ class DetailsViewController: UIViewController {
     
     var premiumLockView: PremiumUpgradeLockView! = nil
     
+    var currentNotesCount = 0
     @IBOutlet weak var constraintForHeaderViewHeight: NSLayoutConstraint!
     
     var startTabIdx = 0
@@ -180,13 +181,14 @@ extension DetailsViewController {
         self.recordingsView.removeFromSuperview()
     }
     
-    func attatchNotesView(_ animated:Bool = false) {
+    @discardableResult
+    func attatchNotesView(_ animated:Bool = false)->Int {
         
         if self.notesView == nil {
             self.notesView = NotesListView()
             self.notesView.delegate = self
         }
-        self.processNotes()
+        let notesCount = self.processNotes()
         self.view.addSubview(self.notesView)
         self.notesView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
         self.notesView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
@@ -197,6 +199,8 @@ extension DetailsViewController {
         if self.practiceItemId == nil && self.playlistItemId == nil {
             self.notesView.textfieldAddNote.attributedPlaceholder = NSAttributedString(string: "Add a goal...", attributes: [.foregroundColor: Color.white.alpha(0.5)])
         }
+        
+        return notesCount
     }
     
     func detachNotesView(_ animated:Bool = false) {
@@ -320,6 +324,8 @@ extension DetailsViewController {
             if !PremiumDataManager.manager.isPremiumUnlocked() {
                 self.attachPremiumLockView()
                 self.premiumLockView.configureForPracticeStats()
+            } else {
+                self.detachPremiumLockView()
             }
         case 1:
             self.labelTab2.font = UIFont.boldSystemFont(ofSize: 11)
@@ -330,9 +336,12 @@ extension DetailsViewController {
             self.labelTab3.font = UIFont.boldSystemFont(ofSize: 11)
             self.attatchNotesView()
             self.viewIndicatorTab3.isHidden = false
-            if !PremiumDataManager.manager.isPremiumUnlocked() {
+            
+            if !PremiumDataManager.manager.isPremiumUnlocked() && self.currentNotesCount > 0 {
                 self.attachPremiumLockView()
                 self.premiumLockView.configureForNote()
+            } else {
+                self.detachPremiumLockView()
             }
         case 3:
             self.labelTab4.font = UIFont.boldSystemFont(ofSize: 11)
@@ -340,11 +349,9 @@ extension DetailsViewController {
             self.attachHistoryView()
             if !PremiumDataManager.manager.isPremiumUnlocked() {
                 self.attachPremiumLockView()
-                self.premiumLockView.configureForPracticeStats()
-            }
-            if !PremiumDataManager.manager.isPremiumUnlocked() {
-                self.attachPremiumLockView()
                 self.premiumLockView.configureForHistory()
+            } else {
+                self.detachPremiumLockView()
             }
         default:
             return
@@ -355,18 +362,32 @@ extension DetailsViewController {
 
 extension DetailsViewController: NotesListViewDelegate, RecordingsListViewDelegate {
     
-    func processNotes() {
+    @discardableResult
+    func processNotes() -> Int { // return the size of notes
         if self.practiceItemId != nil {
             if let practiceItem = PracticeItemLocalManager.manager.practiceItem(forId: self.practiceItemId) {
-                self.notesView.showNotes(practiceItem.notes ?? [])
+                let notes = practiceItem.notes ?? []
+                self.notesView.showNotes(notes)
+                self.currentNotesCount = notes.count
+                return notes.count
             }
+            self.currentNotesCount = 0
+            return 0
         } else if self.playlistItemId != nil {
             if let playlist = PlaylistLocalManager.manager.loadPlaylist(forId: self.playlistItemId) {
+                let notes = playlist.notes ?? []
                 self.notesView.showNotes(playlist.notes ?? [])
+                self.currentNotesCount = notes.count
+                return notes.count
             }
+            self.currentNotesCount = 0
+            return 0
         } else {
             self.notesView.isGoal = true
+            let notes = GoalsLocalManager.manager.loadGoals() ?? []
             self.notesView.showNotes(GoalsLocalManager.manager.loadGoals() ?? [])
+            self.currentNotesCount = notes.count
+            return notes.count
         }
     }
     
@@ -389,6 +410,12 @@ extension DetailsViewController: NotesListViewDelegate, RecordingsListViewDelega
         }
         
         self.processNotes()
+        if !PremiumDataManager.manager.isPremiumUnlocked() {
+            if self.currentNotesCount == 1 {
+                self.attachPremiumLockView()
+                self.premiumLockView.configureForNote()
+            }
+        }
     }
     
     func onOpenNoteDetails(_ note: Note) {
@@ -502,7 +529,7 @@ extension DetailsViewController: PremiumUpgradeLockViewDelegate {
     }
     
     @objc func detachPremiumLockView() {
-        if self.premiumLockView != nil {
+        if self.premiumLockView != nil && self.premiumLockView.superview != nil {
             self.premiumLockView.removeFromSuperview()
             self.premiumLockView = nil
         }

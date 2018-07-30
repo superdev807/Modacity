@@ -224,7 +224,6 @@ extension PremiumUpgradeViewController: PremiumUpgradeSlideViewDelegate {
     }
     
     func nextSlideNormalView(idx: Int) -> UIView {
-        
         if idx == 4 {
             let slideView = PremiumUpgradeSlideComingSoonView()
             slideView.alpha = 0

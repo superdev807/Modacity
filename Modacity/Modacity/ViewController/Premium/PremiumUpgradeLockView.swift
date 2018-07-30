@@ -16,8 +16,10 @@ class PremiumUpgradeLockView: UIView {
 
     @IBOutlet var viewContent: UIView!
     
+    @IBOutlet weak var constraintForTopSpace: NSLayoutConstraint!
     @IBOutlet weak var labelTitle: UILabel!
     @IBOutlet weak var labelDescription: UILabel!
+    
     var delegate: PremiumUpgradeLockViewDelegate!
     
     override init(frame: CGRect) {
@@ -55,7 +57,7 @@ class PremiumUpgradeLockView: UIView {
         let attributedString = NSMutableAttributedString(string: "WANT\n", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoLight, size: 16)!])
         attributedString.append(NSAttributedString(string: "UNLIMITED NOTES?", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoBlack, size: 16)!]))
         self.labelTitle.attributedText = attributedString
-        
+        self.constraintForTopSpace.constant = 180
         self.labelDescription.text = "Get unlimited notes per item & access your archive."
     }
     

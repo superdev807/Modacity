@@ -83,8 +83,6 @@ extension IAPHelper: SKPaymentTransactionObserver {
             ModacityDebugger.debug("We cannot restore payment")
             NotificationCenter.default.post(name: IAPHelper.appNotificationSubscriptionFailed, object: nil, userInfo: ["error": "Cannot restore payment!"])
         }
-//        restoring = true
-//        self.requestProductInfo()
     }
     
     func paymentQueue(_ queue: SKPaymentQueue, removedTransactions transactions: [SKPaymentTransaction]) {
@@ -164,8 +162,10 @@ extension IAPHelper {
         
         do {
             let jsonData = try JSONSerialization.data(withJSONObject: dict, options: .prettyPrinted)
-            
-            if let sandboxURL = Foundation.URL(string:verifyReceiptUrl) {
+            let receiptUrlLastPath = Bundle.main.appStoreReceiptURL?.lastPathComponent ?? ""
+            print("receipt url last path - \(receiptUrlLastPath)")
+            let receiptUrl = (receiptUrlLastPath != "sandboxReceipt") ? "http://buy.itunes.apple.com/verifyReceipt" : "https://sandbox.itunes.apple.com/verifyReceipt"
+            if let sandboxURL = Foundation.URL(string:receiptUrl) {
                 var request = URLRequest(url: sandboxURL)
                 request.httpMethod = "POST"
                 request.httpBody = jsonData
@@ -201,6 +201,8 @@ extension IAPHelper {
                         } catch {
                             completion("Couldn't serialize JSON with error: " + error.localizedDescription, false, nil)
                         }
+                    } else {
+                        completion("Failed to receive response from app store receipt.", false, nil)
                     }
                 }
                 task.resume()

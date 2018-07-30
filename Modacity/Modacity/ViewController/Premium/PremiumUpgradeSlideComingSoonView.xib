@@ -30,7 +30,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Coming Soon" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ceX-ry-g6Q">
-                    <rect key="frame" x="40" y="40" width="295" height="60"/>
+                    <rect key="frame" x="40" y="30" width="295" height="60"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="60" id="aIg-m4-gVS"/>
                     </constraints>
@@ -39,7 +39,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oP6-ji-eGU">
-                    <rect key="frame" x="0.0" y="583" width="375" height="64"/>
+                    <rect key="frame" x="0.0" y="563" width="375" height="64"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="seC-n0-b4s">
                             <rect key="frame" x="35" y="63" width="305" height="1"/>
@@ -71,7 +71,7 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I7z-ui-YGu">
-                    <rect key="frame" x="0.0" y="519" width="375" height="64"/>
+                    <rect key="frame" x="0.0" y="499" width="375" height="64"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sZH-hK-fkM">
                             <rect key="frame" x="35" y="63" width="305" height="1"/>
@@ -103,7 +103,7 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nv3-DQ-iDP">
-                    <rect key="frame" x="0.0" y="455" width="375" height="64"/>
+                    <rect key="frame" x="0.0" y="435" width="375" height="64"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JPr-6I-7pt">
                             <rect key="frame" x="35" y="63" width="305" height="1"/>
@@ -135,7 +135,7 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qow-Fa-wdz">
-                    <rect key="frame" x="0.0" y="391" width="375" height="64"/>
+                    <rect key="frame" x="0.0" y="371" width="375" height="64"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p5B-Ub-Jpl">
                             <rect key="frame" x="35" y="63" width="305" height="1"/>
@@ -153,24 +153,34 @@
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xmS-gY-eFR">
+                            <rect key="frame" x="35" y="0.0" width="305" height="1"/>
+                            <color key="backgroundColor" white="1" alpha="0.75" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="1" id="iW0-4b-eRx"/>
+                            </constraints>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="bWb-Fb-cMh" firstAttribute="leading" secondItem="p5B-Ub-Jpl" secondAttribute="leading" id="3Hq-Of-EUV"/>
+                        <constraint firstAttribute="trailing" secondItem="xmS-gY-eFR" secondAttribute="trailing" constant="35" id="AyR-6o-5xe"/>
                         <constraint firstAttribute="trailing" secondItem="p5B-Ub-Jpl" secondAttribute="trailing" constant="35" id="QN2-6e-Uqp"/>
                         <constraint firstItem="wgL-mX-skL" firstAttribute="leading" secondItem="bWb-Fb-cMh" secondAttribute="trailing" constant="20" id="QkA-8v-FnM"/>
                         <constraint firstAttribute="height" constant="64" id="WRr-Mo-GFt"/>
                         <constraint firstItem="bWb-Fb-cMh" firstAttribute="centerY" secondItem="Qow-Fa-wdz" secondAttribute="centerY" id="Ylp-OR-wUQ"/>
                         <constraint firstItem="wgL-mX-skL" firstAttribute="centerY" secondItem="Qow-Fa-wdz" secondAttribute="centerY" id="eeE-8X-M70"/>
+                        <constraint firstItem="xmS-gY-eFR" firstAttribute="top" secondItem="Qow-Fa-wdz" secondAttribute="top" id="oGr-P5-MPa"/>
                         <constraint firstAttribute="bottom" secondItem="p5B-Ub-Jpl" secondAttribute="bottom" id="pVR-D9-I0e"/>
                         <constraint firstItem="p5B-Ub-Jpl" firstAttribute="leading" secondItem="Qow-Fa-wdz" secondAttribute="leading" constant="35" id="rzg-8U-wjB"/>
+                        <constraint firstItem="xmS-gY-eFR" firstAttribute="leading" secondItem="Qow-Fa-wdz" secondAttribute="leading" constant="35" id="xF6-rc-jXL"/>
                     </constraints>
                 </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="I7z-ui-YGu" firstAttribute="top" secondItem="Nv3-DQ-iDP" secondAttribute="bottom" id="2PP-eD-vdu"/>
-                <constraint firstItem="oP6-ji-eGU" firstAttribute="bottom" secondItem="9Df-qb-l5P" secondAttribute="bottom" constant="-20" id="AtX-yr-4Qa"/>
+                <constraint firstItem="oP6-ji-eGU" firstAttribute="bottom" secondItem="9Df-qb-l5P" secondAttribute="bottom" constant="-40" id="AtX-yr-4Qa"/>
                 <constraint firstItem="oP6-ji-eGU" firstAttribute="leading" secondItem="9Df-qb-l5P" secondAttribute="leading" id="Bks-fz-tKH"/>
                 <constraint firstItem="Qow-Fa-wdz" firstAttribute="trailing" secondItem="9Df-qb-l5P" secondAttribute="trailing" id="CiI-ZG-x6M"/>
                 <constraint firstItem="9Df-qb-l5P" firstAttribute="trailing" secondItem="ceX-ry-g6Q" secondAttribute="trailing" constant="40" id="PmQ-bE-cnJ"/>
@@ -178,7 +188,7 @@
                 <constraint firstItem="Nv3-DQ-iDP" firstAttribute="trailing" secondItem="9Df-qb-l5P" secondAttribute="trailing" id="Pyd-wk-JmT"/>
                 <constraint firstItem="Nv3-DQ-iDP" firstAttribute="top" secondItem="Qow-Fa-wdz" secondAttribute="bottom" id="W2p-nI-V3a"/>
                 <constraint firstItem="I7z-ui-YGu" firstAttribute="leading" secondItem="9Df-qb-l5P" secondAttribute="leading" id="Y9Y-qC-RLw"/>
-                <constraint firstItem="ceX-ry-g6Q" firstAttribute="top" secondItem="9Df-qb-l5P" secondAttribute="top" constant="20" id="bSW-Gr-hmi"/>
+                <constraint firstItem="ceX-ry-g6Q" firstAttribute="top" secondItem="9Df-qb-l5P" secondAttribute="top" constant="10" id="bSW-Gr-hmi"/>
                 <constraint firstItem="Qow-Fa-wdz" firstAttribute="leading" secondItem="9Df-qb-l5P" secondAttribute="leading" id="eYd-Zf-CLJ"/>
                 <constraint firstItem="oP6-ji-eGU" firstAttribute="trailing" secondItem="9Df-qb-l5P" secondAttribute="trailing" id="hPG-ZW-ZY1"/>
                 <constraint firstItem="Nv3-DQ-iDP" firstAttribute="leading" secondItem="9Df-qb-l5P" secondAttribute="leading" id="iYn-2N-FhQ"/>
