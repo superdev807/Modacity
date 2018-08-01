@@ -24,9 +24,21 @@ class PlaylistDailyLocalManager: NSObject {
         if let ids = indecies[data.entryDateString] {
             idsArrayPerDate = ids
         }
-        idsArrayPerDate.append(data.entryId)
-        indecies[data.entryDateString] = idsArrayPerDate
-        UserDefaults.standard.set(indecies, forKey: "playlist-indecies-\(data.playlistId ?? "")")
+        
+        var alreadyIncluded = false
+        for id in idsArrayPerDate {
+            if id == data.entryId {
+                alreadyIncluded = true
+                break
+            }
+        }
+        
+        if !alreadyIncluded {
+            idsArrayPerDate.append(data.entryId)
+            indecies[data.entryDateString] = idsArrayPerDate
+            UserDefaults.standard.set(indecies, forKey: "playlist-indecies-\(data.playlistId ?? "")")
+        }
+        
         UserDefaults.standard.set(data.toJSON(), forKey: "playlist-data-\(data.entryId ?? "")")
         UserDefaults.standard.synchronize()
         

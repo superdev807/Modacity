@@ -39,7 +39,11 @@ class DetailsViewController: UIViewController {
     
     var premiumLockView: PremiumUpgradeLockView! = nil
     
+    var constraintForContentTopSpace: NSLayoutConstraint!
+    var constraintForPremiumUnlockTopSpace: NSLayoutConstraint!
+    
     var currentNotesCount = 0
+    
     @IBOutlet weak var constraintForHeaderViewHeight: NSLayoutConstraint!
     
     var startTabIdx = 0
@@ -73,6 +77,9 @@ class DetailsViewController: UIViewController {
     }
     
     deinit {
+        if self.recordingsView != nil {
+            self.recordingsView.cleanPlaying()
+        }
         NotificationCenter.default.removeObserver(self)
     }
     
@@ -85,6 +92,13 @@ class DetailsViewController: UIViewController {
             if self.notesView != nil && self.selectedTabIdx == 2 {
                 self.processNotes()
             }
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if self.recordingsView != nil {
+            self.recordingsView.stopPlaying()
         }
     }
 
@@ -118,7 +132,8 @@ extension DetailsViewController {
         self.playlistStatsView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
         self.playlistStatsView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
         self.playlistStatsView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
-        self.playlistStatsView.topAnchor.constraint(equalTo: self.imageViewHeader.bottomAnchor).isActive = true
+        self.constraintForContentTopSpace = self.playlistStatsView.topAnchor.constraint(equalTo: self.imageViewHeader.bottomAnchor)
+        self.constraintForContentTopSpace.isActive = true
         self.view.bringSubview(toFront: self.playlistStatsView)
         
         if self.playlistItemId != nil {
@@ -143,7 +158,8 @@ extension DetailsViewController {
         self.statisticsView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
         self.statisticsView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
         self.statisticsView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
-        self.statisticsView.topAnchor.constraint(equalTo: self.imageViewHeader.bottomAnchor).isActive = true
+        self.constraintForContentTopSpace = self.statisticsView.topAnchor.constraint(equalTo: self.imageViewHeader.bottomAnchor)
+        self.constraintForContentTopSpace.isActive = true
         self.view.bringSubview(toFront: self.statisticsView)
         
         self.statisticsView.showStats(practice: self.practiceItemId)
@@ -218,7 +234,8 @@ extension DetailsViewController {
             self.historyListView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
             self.historyListView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
             self.historyListView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0).isActive = true
-            self.historyListView.topAnchor.constraint(equalTo: self.imageViewHeader.bottomAnchor).isActive = true
+            self.constraintForContentTopSpace = self.historyListView.topAnchor.constraint(equalTo: self.imageViewHeader.bottomAnchor)
+            self.constraintForContentTopSpace.isActive = true
             self.view.bringSubview(toFront: self.historyListView)
         
             self.historyListView.showHistory(for: self.practiceItemId)
@@ -232,7 +249,8 @@ extension DetailsViewController {
             self.playlistHistoryView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
             self.playlistHistoryView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
             self.playlistHistoryView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
-            self.playlistHistoryView.topAnchor.constraint(equalTo: self.imageViewHeader.bottomAnchor).isActive = true
+            self.constraintForContentTopSpace = self.playlistHistoryView.topAnchor.constraint(equalTo: self.imageViewHeader.bottomAnchor)
+            self.constraintForContentTopSpace.isActive = true
             self.view.bringSubview(toFront: self.playlistHistoryView)
             self.playlistHistoryView.showHistory(for: self.playlistItemId)
             
@@ -324,7 +342,16 @@ extension DetailsViewController {
             if !PremiumDataManager.manager.isPremiumUnlocked() {
                 self.attachPremiumLockView()
                 self.premiumLockView.configureForPracticeStats()
+                if self.constraintForContentTopSpace != nil {
+                    self.constraintForContentTopSpace.constant = 160
+                }
+                if self.constraintForPremiumUnlockTopSpace != nil {
+                    self.constraintForPremiumUnlockTopSpace.constant = 0
+                }
             } else {
+                if self.constraintForContentTopSpace != nil {
+                    self.constraintForContentTopSpace.constant = 0
+                }
                 self.detachPremiumLockView()
             }
         case 1:
@@ -336,12 +363,16 @@ extension DetailsViewController {
             self.labelTab3.font = UIFont.boldSystemFont(ofSize: 11)
             self.attatchNotesView()
             self.viewIndicatorTab3.isHidden = false
+            self.detachPremiumLockView()
             
-            if !PremiumDataManager.manager.isPremiumUnlocked() && self.currentNotesCount > 0 {
-                self.attachPremiumLockView()
-                self.premiumLockView.configureForNote()
+            if !PremiumDataManager.manager.isPremiumUnlocked() {
+                if self.currentNotesCount == 0 {
+                    self.notesView.freeUserLock()
+                } else {
+                    self.notesView.lock()
+                }
             } else {
-                self.detachPremiumLockView()
+                self.notesView.unlock()
             }
         case 3:
             self.labelTab4.font = UIFont.boldSystemFont(ofSize: 11)
@@ -350,7 +381,16 @@ extension DetailsViewController {
             if !PremiumDataManager.manager.isPremiumUnlocked() {
                 self.attachPremiumLockView()
                 self.premiumLockView.configureForHistory()
+                if self.constraintForContentTopSpace != nil {
+                    self.constraintForContentTopSpace.constant = 160
+                }
+                if self.constraintForPremiumUnlockTopSpace != nil {
+                    self.constraintForPremiumUnlockTopSpace.constant = 0
+                }
             } else {
+                if self.constraintForContentTopSpace != nil {
+                    self.constraintForContentTopSpace.constant = 0
+                }
                 self.detachPremiumLockView()
             }
         default:
@@ -368,7 +408,12 @@ extension DetailsViewController: NotesListViewDelegate, RecordingsListViewDelega
             if let practiceItem = PracticeItemLocalManager.manager.practiceItem(forId: self.practiceItemId) {
                 let notes = practiceItem.notes ?? []
                 self.notesView.showNotes(notes)
-                self.currentNotesCount = notes.count
+                self.currentNotesCount = 0
+                for note in notes {
+                    if !note.archived {
+                        self.currentNotesCount = self.currentNotesCount + 1
+                    }
+                }
                 return notes.count
             }
             self.currentNotesCount = 0
@@ -377,7 +422,12 @@ extension DetailsViewController: NotesListViewDelegate, RecordingsListViewDelega
             if let playlist = PlaylistLocalManager.manager.loadPlaylist(forId: self.playlistItemId) {
                 let notes = playlist.notes ?? []
                 self.notesView.showNotes(playlist.notes ?? [])
-                self.currentNotesCount = notes.count
+                self.currentNotesCount = 0
+                for note in notes {
+                    if !note.archived {
+                        self.currentNotesCount = self.currentNotesCount + 1
+                    }
+                }
                 return notes.count
             }
             self.currentNotesCount = 0
@@ -386,7 +436,12 @@ extension DetailsViewController: NotesListViewDelegate, RecordingsListViewDelega
             self.notesView.isGoal = true
             let notes = GoalsLocalManager.manager.loadGoals() ?? []
             self.notesView.showNotes(GoalsLocalManager.manager.loadGoals() ?? [])
-            self.currentNotesCount = notes.count
+            self.currentNotesCount = 0
+            for note in notes {
+                if !note.archived {
+                    self.currentNotesCount = self.currentNotesCount + 1
+                }
+            }
             return notes.count
         }
     }
@@ -410,10 +465,12 @@ extension DetailsViewController: NotesListViewDelegate, RecordingsListViewDelega
         }
         
         self.processNotes()
+        
         if !PremiumDataManager.manager.isPremiumUnlocked() {
-            if self.currentNotesCount == 1 {
-                self.attachPremiumLockView()
-                self.premiumLockView.configureForNote()
+            if self.currentNotesCount == 0 {
+                self.notesView.freeUserLock()
+            } else if self.currentNotesCount == 1 {
+                self.notesView.lock()
             }
         }
     }
@@ -457,6 +514,13 @@ extension DetailsViewController: NotesListViewDelegate, RecordingsListViewDelega
                 GoalsLocalManager.manager.removeGoal(for: note.id)
             }
             self.processNotes()
+            if !PremiumDataManager.manager.isPremiumUnlocked() {
+                if self.currentNotesCount == 0 {
+                    if self.notesView != nil {
+                        self.notesView.freeUserLock()
+                    }
+                }
+            }
         }))
         alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
@@ -510,7 +574,8 @@ extension DetailsViewController: PremiumUpgradeLockViewDelegate {
             self.premiumLockView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
             self.premiumLockView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
             self.premiumLockView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
-            self.premiumLockView.topAnchor.constraint(equalTo: self.imageViewHeader.bottomAnchor).isActive = true
+            self.constraintForPremiumUnlockTopSpace = self.premiumLockView.topAnchor.constraint(equalTo: self.imageViewHeader.bottomAnchor)
+            self.constraintForPremiumUnlockTopSpace.isActive = true
             self.view.bringSubview(toFront: self.premiumLockView)
             self.premiumLockView.delegate = self
         } else {
@@ -518,12 +583,15 @@ extension DetailsViewController: PremiumUpgradeLockViewDelegate {
         }
     }
     
-    
     @objc func processPremiumStatusChanged() {
         if PremiumDataManager.manager.isPremiumUnlocked() {
             if self.premiumLockView != nil {
                 self.premiumLockView.removeFromSuperview()
                 self.premiumLockView = nil
+            }
+            
+            if self.notesView != nil {
+                self.notesView.unlock()
             }
         }
     }

@@ -102,6 +102,7 @@ class AppOveralDataManager {
         UserDefaults.standard.removeObject(forKey: "settings_timer_pause_during_note")
         UserDefaults.standard.removeObject(forKey: "settings_timer_pause_during_improve")
         UserDefaults.standard.removeObject(forKey: "practice_break_time")
+        UserDefaults.standard.removeObject(forKey: "go_after_rating")
         UserDefaults.standard.synchronize()
     }
     
@@ -109,6 +110,7 @@ class AppOveralDataManager {
                           totalImprovements: Int,
                           notPreventPhoneSleep: Bool,
                           disableAutoPlayback: Bool,
+                          goAfterRating: Bool,
                           streakFrom: String,
                           streakTo: String,
                           defaultDataShiped: Bool,
@@ -120,6 +122,7 @@ class AppOveralDataManager {
         UserDefaults.standard.set(totalImprovements, forKey: "total_improvements")
         UserDefaults.standard.set(notPreventPhoneSleep, forKey: "not_prevent_phone_sleep")
         UserDefaults.standard.set(disableAutoPlayback, forKey: "disable_auto_playback")
+        UserDefaults.standard.set(goAfterRating, forKey: "go_after_rating")
         UserDefaults.standard.set(streakFrom, forKey: "streak_from")
         UserDefaults.standard.set(streakTo, forKey: "streak_to")
         UserDefaults.standard.set(defaultDataShiped, forKey: "default_data_shiped")
@@ -169,6 +172,15 @@ class AppOveralDataManager {
     
     func changeDisableAutoPlayback() {
         UserDefaults.standard.set(!settingsDisableAutoPlayback(), forKey: "disable_auto_playback")
+        UserDefaults.standard.synchronize()
+    }
+    
+    func settingsGotoNextItemAfterRating() -> Bool {
+        return !(UserDefaults.standard.bool(forKey: "go_after_rating"))
+    }
+    
+    func changeGotoNextItemAfterRating() {
+        UserDefaults.standard.set(settingsGotoNextItemAfterRating(), forKey: "go_after_rating")
         UserDefaults.standard.synchronize()
     }
     

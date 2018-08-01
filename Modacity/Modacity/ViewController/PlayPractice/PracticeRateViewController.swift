@@ -64,35 +64,48 @@ class PracticeRateViewController: UIViewController {
                     }
                 }
             } else {
-                if var controllers = self.navigationController?.viewControllers {
-                    var parentController: PlaylistContentsViewController! = nil
-                    for idx in 0..<controllers.count {
-                        if controllers[idx] is PracticeViewController {
-                            parentController = (controllers[idx] as! PracticeViewController).parentContentViewController
-                            controllers.remove(at: idx)
-                            break
+                if AppOveralDataManager.manager.settingsGotoNextItemAfterRating() {
+                    if var controllers = self.navigationController?.viewControllers {
+                        var parentController: PlaylistContentsViewController! = nil
+                        for idx in 0..<controllers.count {
+                            if controllers[idx] is PracticeViewController {
+                                parentController = (controllers[idx] as! PracticeViewController).parentContentViewController
+                                controllers.remove(at: idx)
+                                break
+                            }
+                        }
+                        
+                        var controllerId = "PracticeViewController"
+                        if AppUtils.sizeModelOfiPhone() == .iphone4_35in || AppUtils.sizeModelOfiPhone() == .iphone5_4in {
+                            controllerId = "PracticeViewControllerSmallSizes"
+                        }
+                        let controller = UIStoryboard(name: "practice", bundle: nil).instantiateViewController(withIdentifier: controllerId) as! PracticeViewController
+                        controller.playlistViewModel = self.playlistViewModel
+                        controller.parentContentViewController = parentController
+                        if parentController.practiceBreakTime > 0 {
+                            let spentTime = self.playlistViewModel.totalPracticedTime() + self.playlistViewModel.sessionPlayedInPlaylistPage
+                            controller.lastPracticeBreakTime = -1 * (spentTime % parentController.practiceBreakTime)
+                            controller.practiceBreakTime = parentController.practiceBreakTime
+                            ModacityDebugger.debug("Last practice break time - \(controller.lastPracticeBreakTime)")
+                            ModacityDebugger.debug("Practice break time - \(controller.practiceBreakTime)")
+                        } else {
+                            controller.practiceBreakTime = 0
+                        }
+                        controllers.insert(controller, at: controllers.count - 1)
+                        self.navigationController?.viewControllers = controllers
+                        self.navigationController?.popToViewController(controller, animated: true)
+                    }
+                } else {
+                    self.storePracticeData()
+                    if let controllers = self.navigationController?.viewControllers {
+                        for controller in controllers {
+                            if controller is PlaylistContentsViewController {
+                                (controller as! PlaylistContentsViewController).justLastPracticeItemFinished = true
+                                self.navigationController?.popToViewController(controller, animated: true)
+                                return
+                            }
                         }
                     }
-                    
-                    var controllerId = "PracticeViewController"
-                    if AppUtils.sizeModelOfiPhone() == .iphone4_35in || AppUtils.sizeModelOfiPhone() == .iphone5_4in {
-                        controllerId = "PracticeViewControllerSmallSizes"
-                    }
-                    let controller = UIStoryboard(name: "practice", bundle: nil).instantiateViewController(withIdentifier: controllerId) as! PracticeViewController
-                    controller.playlistViewModel = self.playlistViewModel
-                    controller.parentContentViewController = parentController
-                    if parentController.practiceBreakTime > 0 {
-                        let spentTime = self.playlistViewModel.totalPracticedTime() + parentController.sessionPlayedInPlaylistPage
-                        controller.lastPracticeBreakTime = -1 * (spentTime % parentController.practiceBreakTime)
-                        controller.practiceBreakTime = parentController.practiceBreakTime
-                        ModacityDebugger.debug("Last practice break time - \(controller.lastPracticeBreakTime)")
-                        ModacityDebugger.debug("Practice break time - \(controller.practiceBreakTime)")
-                    } else {
-                        controller.practiceBreakTime = 0
-                    }
-                    controllers.insert(controller, at: controllers.count - 1)
-                    self.navigationController?.viewControllers = controllers
-                    self.navigationController?.popToViewController(controller, animated: true)
                 }
             }
         } else {
@@ -128,6 +141,8 @@ class PracticeRateViewController: UIViewController {
                                                                   forPracticeEntry: self.playlistViewModel.currentPracticeEntry.entryId,
                                                                   improvements: self.playlistViewModel.sessionImproved)
             self.playlistViewModel.playlistPracticeData.practices.append(id)
+            self.playlistViewModel.playlistPracticeData.practiceTimeInSeconds = self.playlistViewModel.totalPracticedTime() + self.playlistViewModel.sessionPlayedInPlaylistPage
+            PlaylistDailyLocalManager.manager.saveNewPlaylistPracticing(self.playlistViewModel.playlistPracticeData)
             self.playlistViewModel.sessionImproved = [ImprovedRecord]()
         } else {
             let practiceId = PracticingDailyLocalManager.manager.saveNewPracticing(practiceItemId: self.practiceItem.id,

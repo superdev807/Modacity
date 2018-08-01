@@ -149,6 +149,7 @@ class ImprovementViewController: UIViewController {
             return
         }
         ModacityAnalytics.LogStringEvent("Exited Hypothesis Test Screen")
+        self.stopMetrodronePlay()
         self.navigationController?.popViewController(animated: true)
         
     }
@@ -386,12 +387,14 @@ extension ImprovementViewController: AVAudioPlayerDelegate, FDWaveformViewDelega
         alertController.addTextField { (textField) in
             if self.playlistViewModel != nil {
                 if var practiceName = self.playlistViewModel.currentPracticeEntry.practiceItem()?.name {
+                    AppOveralDataManager.manager.increaseAutoIncrementedNumber()
                     practiceName = String(practiceName.prefix(16))
                     let autoIncrementedNumber = AppOveralDataManager.manager.fileNameAutoIncrementedNumber()
                     textField.text = "\(practiceName)_\(Date().toString(format: "yyyyMMdd"))_\(String(format:"%02d", autoIncrementedNumber))"
                 }
             } else {
                 if var practiceName = self.practiceItem.name {
+                    AppOveralDataManager.manager.increaseAutoIncrementedNumber()
                     practiceName = String(practiceName.prefix(16))
                     let autoIncrementedNumber = AppOveralDataManager.manager.fileNameAutoIncrementedNumber()
                     textField.text = "\(practiceName)_\(Date().toString(format: "yyyyMMdd"))_\(String(format:"%02d", autoIncrementedNumber))"
@@ -538,6 +541,7 @@ extension ImprovementViewController {
     @IBAction func onImprovedNo(_ sender: Any) {
         ModacityAnalytics.LogStringEvent("Hypothesis Didn't Work")
         self.viewModel.alreadyTried = true
+        self.stopMetrodronePlay()
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -559,6 +563,7 @@ extension ImprovementViewController {
     
     @IBAction func onImprovedNext(_ sender: Any) {
         ModacityAnalytics.LogStringEvent("Don't Practice Hypothesis Again")
+        self.stopMetrodronePlay()
         self.navigationController?.dismiss(animated: true, completion: nil)
     }
     
@@ -580,5 +585,14 @@ extension ImprovementViewController {
         
         self.viewImprovedAlert.isHidden = true
         self.viewImprovedYesPanel.isHidden = true
+    }
+    
+    func stopMetrodronePlay() {
+        if let metrodroneView = self.metrodroneView {
+            if let mPlayer = metrodroneView.metrodonePlayer {
+                mPlayer.stopPlayer()
+                mPlayer.stopMetrodrone()
+            }
+        }
     }
 }

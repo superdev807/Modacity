@@ -131,7 +131,10 @@ extension IAPHelper: SKPaymentTransactionObserver {
                     if let error = error {
                         NotificationCenter.default.post(name: IAPHelper.appNotificationSubscriptionFailed, object: nil, userInfo: ["error": error])
                     } else {
-                        if let validUntil = validUntil {
+                        if var validUntil = validUntil {
+                            if appStoreReceiptURL.lastPathComponent == "sandboxReceipt" {
+                                validUntil = validUntil.advanced(years: 0, months: 0, weeks: 0, days: 1, hours: 0, minutes: 0, seconds: 0)
+                            }
                             PremiumDataManager.manager.registerSubscription(key: receiptString, until: validUntil, completion: { (error) in
                                 if let _ = error {
                                     NotificationCenter.default.post(name: IAPHelper.appNotificationSubscriptionFailed, object: nil, userInfo: ["error": "Failed to synchronize to server."])
@@ -183,7 +186,7 @@ extension IAPHelper {
                                 if let pendingRenewalInfo = jsonResponse["pending_renewal_info"] as? [[String:Any]] {
                                     if pendingRenewalInfo.count > 0 {
                                         let autoRenewStatus = pendingRenewalInfo[0]["auto_renew_status"] as? String ?? "0"
-                                        self.renewalStatus = autoRenewStatus == "1"
+                                        self.renewalStatus = (autoRenewStatus == "1")
                                     }
                                 }
                                 
@@ -191,6 +194,12 @@ extension IAPHelper {
                                     if let last = lastReceiptInfo.last {
                                         if let expiresDateString = last["expires_date_ms"] as? String {
                                             self.validUntil = Date(timeIntervalSince1970: (Double(expiresDateString) ?? 0) / 1000)
+                                            
+                                            if let validUntil = self.validUntil {
+                                                if receiptUrlLastPath == "sandboxReceipt" {
+                                                    self.validUntil = validUntil.advanced(years: 0, months: 0, weeks: 0, days: 1, hours: 0, minutes: 0, seconds: 0)
+                                                }
+                                            }
                                         }
                                     }
                                 }

@@ -58,6 +58,22 @@ class RecordingsListView: UIView {
         self.recordings = recordings
         self.tableViewMain.reloadData()
     }
+    
+    func cleanPlaying() {
+        self.stopPlaying()
+        if let timer = self.audioPlayerTimer {
+            timer.invalidate()
+            self.audioPlayerTimer = nil
+        }
+    }
+    
+    func stopPlaying() {
+        if let player = self.audioPlayer {
+            player.stop()
+            self.audioPlayer = nil
+            self.playingRecording = nil
+        }
+    }
 }
 
 extension RecordingsListView: UITableViewDelegate, UITableViewDataSource {
@@ -259,11 +275,6 @@ extension RecordingsListView: RecordingCellDelegate {
                                        rows: [["icon":"icon_share_white", "text": "Share"],
                                               ["icon":"icon_row_delete", "text":"Delete"]]) { (row) in
                                                 if row == 1 {
-//                                                    if let currentPlaying = self.playingRecording {
-//                                                        if currentPlaying.id == recording.id {
-//                                                            return
-//                                                        }
-//                                                    }
                                                     self.onDelete(recording)
                                                 } else  {
                                                     self.onShare(recording)
@@ -284,8 +295,6 @@ extension RecordingsListView: AVAudioPlayerDelegate {
             let url = URL(fileURLWithPath: soundFilePath)
             
             do {
-                //try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
-                //asdasdasd
                 self.audioPlayer = try AVAudioPlayer(contentsOf: url)
                 guard let player = self.audioPlayer else { return }
                 player.enableRate = true

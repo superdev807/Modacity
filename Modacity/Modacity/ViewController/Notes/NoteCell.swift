@@ -22,6 +22,7 @@ class NoteCell: UITableViewCell {
     @IBOutlet weak var labelNoteSubTitle: UILabel!
     @IBOutlet weak var textfieldNoteTitle: UITextField!
     
+    @IBOutlet weak var constraintForCheckImageView: NSLayoutConstraint!
     var delegate: NoteCellDelegate!
     var note: Note!
     

@@ -400,12 +400,7 @@ extension PracticeViewController {
             AppOveralDataManager.manager.addPracticeTime(inSec: self.overallPracticeTimeInSeconds)
         }
         
-        if let metrodroneView = self.metrodroneView {
-            if let mPlayer = metrodroneView.metrodonePlayer {
-                mPlayer.stopPlayer()
-                mPlayer.stopMetrodrone()
-            }
-        }
+        self.stopMetrodronePlay()
         
         if self.timer != nil {
             self.timer.invalidate()
@@ -437,6 +432,8 @@ extension PracticeViewController {
                                                                       forPracticeEntry: self.playlistViewModel.currentPracticeEntry.entryId,
                                                                       improvements: self.playlistViewModel.sessionImproved)
                 self.playlistViewModel.playlistPracticeData.practices.append(id)
+                self.playlistViewModel.playlistPracticeData.practiceTimeInSeconds = self.playlistViewModel.totalPracticedTime() + self.playlistViewModel.sessionPlayedInPlaylistPage
+                PlaylistDailyLocalManager.manager.saveNewPlaylistPracticing(self.playlistViewModel.playlistPracticeData)
                 self.playlistViewModel.sessionImproved = [ImprovedRecord]()
                 self.navigationController?.popViewController(animated: true)
             } else {
@@ -598,11 +595,13 @@ extension PracticeViewController: AVAudioPlayerDelegate, FDWaveformViewDelegate 
         alertController.addTextField { (textField) in
             if self.playlistViewModel != nil {
                 if var practiceName = self.playlistViewModel.currentPracticeEntry.practiceItem()?.name {
+                    AppOveralDataManager.manager.increaseAutoIncrementedNumber()
                     practiceName = String(practiceName.prefix(16))
                     let autoIncrementedNumber = AppOveralDataManager.manager.fileNameAutoIncrementedNumber()
                     textField.text = "\(practiceName)_\(Date().toString(format: "yyyyMMdd"))_\(String(format:"%02d", autoIncrementedNumber))"
                 }
             } else if self.practiceItem != nil {
+                AppOveralDataManager.manager.increaseAutoIncrementedNumber()
                 let practiceName = String(self.practiceItem.name.prefix(16))
                 let autoIncrementedNumber = AppOveralDataManager.manager.fileNameAutoIncrementedNumber()
                 textField.text = "\(practiceName)_\(Date().toString(format: "yyyyMMdd"))_\(String(format:"%02d", autoIncrementedNumber))"
@@ -1200,6 +1199,8 @@ extension PracticeViewController: PlayPracticeTabBarViewDelegate {
             }
         }
         
+        self.stopMetrodronePlay()
+        
         let controller = UIStoryboard(name: "improve", bundle: nil).instantiateViewController(withIdentifier: "improve_scene") as! UINavigationController
         let root = controller.viewControllers[0] as! ImproveSuggestionViewController
         if self.playlistViewModel != nil {
@@ -1421,10 +1422,19 @@ extension PracticeViewController: PracticeBreakPromptViewDelegate {
         }
         self.view.bringSubview(toFront: self.viewPracticeBreakPrompt)
         if self.playlistViewModel != nil && self.parentContentViewController != nil {
-            self.viewPracticeBreakPrompt.showPracticeTime(self.playlistViewModel.totalPracticedTime() + self.parentContentViewController.sessionPlayedInPlaylistPage + self.overallPracticeTimeInSeconds)
+            self.viewPracticeBreakPrompt.showPracticeTime(self.playlistViewModel.totalPracticedTime() + self.playlistViewModel.sessionPlayedInPlaylistPage + self.overallPracticeTimeInSeconds)
         } else {
             self.viewPracticeBreakPrompt.showPracticeTime(self.overallPracticeTimeInSeconds)
         }
         self.viewPracticeBreakPrompt.startCountUpTimer()
+    }
+    
+    func stopMetrodronePlay() {
+        if let metrodroneView = self.metrodroneView {
+            if let mPlayer = metrodroneView.metrodonePlayer {
+                mPlayer.stopPlayer()
+                mPlayer.stopMetrodrone()
+            }
+        }
     }
 }

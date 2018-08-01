@@ -104,6 +104,10 @@ class PracticeNotesViewController: UIViewController {
 
 extension PracticeNotesViewController: NotesListViewDelegate {
     
+    func onFindOutMore() {
+        
+    }
+    
     func onAddNote(text: String) {
         if self.playlistViewModel != nil {
             if self.noteIsForPlaylist {

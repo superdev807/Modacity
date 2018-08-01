@@ -57,7 +57,7 @@ class PlaylistContentsViewController: UIViewController {
     var sessionTimerPreviousPlayedTime = 0
     var sessionTimer : Timer? = nil
     var sessionStarted: Date? = nil
-    var sessionPlayedInPlaylistPage = 0
+//    var sessionPlayedInPlaylistPage = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -141,10 +141,10 @@ class PlaylistContentsViewController: UIViewController {
         super.viewWillDisappear(animated)
         if self.isPlaying {
             if self.sessionTimerPaused {
-                self.sessionPlayedInPlaylistPage = self.sessionPlayedInPlaylistPage + self.sessionTimerPreviousPlayedTime
+                self.viewModel.sessionPlayedInPlaylistPage = self.viewModel.sessionPlayedInPlaylistPage + self.sessionTimerPreviousPlayedTime
             } else {
                 if let sessionStartedTime = self.sessionStarted {
-                    self.sessionPlayedInPlaylistPage = self.sessionPlayedInPlaylistPage + Int(Date().timeIntervalSince1970 - sessionStartedTime.timeIntervalSince1970) + self.sessionTimerPreviousPlayedTime
+                    self.viewModel.sessionPlayedInPlaylistPage = self.viewModel.sessionPlayedInPlaylistPage + Int(Date().timeIntervalSince1970 - sessionStartedTime.timeIntervalSince1970) + self.sessionTimerPreviousPlayedTime
                 }
             }
             
@@ -465,7 +465,7 @@ class PlaylistContentsViewController: UIViewController {
         self.buttonStartPlaylist.setImage(UIImage(named:"btn_playlist_finish"), for: .normal)
         self.buttonBack.isHidden = true
         self.imgBack.isHidden = true
-        self.sessionPlayedInPlaylistPage = 0
+        self.viewModel.sessionPlayedInPlaylistPage = 0
         
         self.viewModel.playlistPracticeData.playlistId = self.viewModel.playlist.id
         let now = Date()
@@ -473,6 +473,7 @@ class PlaylistContentsViewController: UIViewController {
         self.viewModel.playlistPracticeData.fromTime = now.toString(format: "HH:mm:ss")
         self.viewModel.playlistPracticeData.started = now.timeIntervalSince1970
         self.viewModel.playlistPracticeData.practices = [String]()
+        PlaylistDailyLocalManager.manager.saveNewPlaylistPracticing(self.viewModel.playlistPracticeData)
         
         self.viewModel.currentPracticeEntry = self.viewModel.playlistPracticeEntries[withItem]
         self.viewModel.sessionImproved = [ImprovedRecord]()
@@ -528,9 +529,9 @@ class PlaylistContentsViewController: UIViewController {
         self.viewModel.addPracticeTotalTime(inSec: self.playlistPracticeTotalTimeInSec)
         self.viewModel.sessionDurationInSecond = Int(Date().timeIntervalSince1970 - self.playingStartedTime!.timeIntervalSince1970)
         if let sessionStartedTime = self.sessionStarted {
-            self.sessionPlayedInPlaylistPage = self.sessionPlayedInPlaylistPage + Int(Date().timeIntervalSince1970 - sessionStartedTime.timeIntervalSince1970) + self.sessionTimerPreviousPlayedTime
+            self.viewModel.sessionPlayedInPlaylistPage = self.viewModel.sessionPlayedInPlaylistPage + Int(Date().timeIntervalSince1970 - sessionStartedTime.timeIntervalSince1970) + self.sessionTimerPreviousPlayedTime
         }
-        self.viewModel.sessionDurationInSecond = self.sessionPlayedInPlaylistPage + self.viewModel.totalPracticedTime()
+        self.viewModel.sessionDurationInSecond = self.viewModel.sessionPlayedInPlaylistPage + self.viewModel.totalPracticedTime()
         if let timer = self.sessionTimer {
             timer.invalidate()
             self.sessionTimer = nil
@@ -862,7 +863,7 @@ extension PlaylistContentsViewController {
         self.sessionTimerPlaying = true
         self.sessionTimerPaused = false
         if self.practiceBreakTime > 0 {
-            let currentPlaylistTime = self.viewModel.totalPracticedTime() + self.sessionPlayedInPlaylistPage
+            let currentPlaylistTime = self.viewModel.totalPracticedTime() + self.viewModel.sessionPlayedInPlaylistPage
             while self.lastPracticeBreakTimeShown + self.practiceBreakTime < currentPlaylistTime {
                 self.lastPracticeBreakTimeShown = self.lastPracticeBreakTimeShown + self.practiceBreakTime
             }
@@ -916,7 +917,7 @@ extension PlaylistContentsViewController {
         if let sessionStartedTime = self.sessionStarted {
             let now = Date().timeIntervalSince1970
             let duration = Int(now - (sessionStartedTime.timeIntervalSince1970))
-            let timerInSec = self.viewModel.totalPracticedTime() + self.sessionPlayedInPlaylistPage + duration + self.sessionTimerPreviousPlayedTime
+            let timerInSec = self.viewModel.totalPracticedTime() + self.viewModel.sessionPlayedInPlaylistPage + duration + self.sessionTimerPreviousPlayedTime
             playedSessionTime = timerInSec
         }
         
@@ -946,7 +947,7 @@ extension PlaylistContentsViewController {
             if let sessionStartedTime = self.sessionStarted {
                 let now = Date().timeIntervalSince1970
                 let duration = Int(now - (sessionStartedTime.timeIntervalSince1970))
-                let timerInSec = self.viewModel.totalPracticedTime() + self.sessionPlayedInPlaylistPage + duration + self.sessionTimerPreviousPlayedTime
+                let timerInSec = self.viewModel.totalPracticedTime() + self.viewModel.sessionPlayedInPlaylistPage + duration + self.sessionTimerPreviousPlayedTime
                 playedSessionTime = timerInSec
             }
             

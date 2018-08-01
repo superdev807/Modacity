@@ -16,6 +16,7 @@ protocol NotesListViewDelegate {
     func onDeleteNote(_ note: Note)
     func onChangeTitle(for note: Note, to title: String)
     func onAddNote(text: String)
+    func onFindOutMore()
 }
 
 class NotesListView: UIView {
@@ -25,7 +26,12 @@ class NotesListView: UIView {
     @IBOutlet weak var viewAddNoteContainer: UIView!
     @IBOutlet weak var textfieldAddNote: UITextField!
     @IBOutlet weak var tableViewMain: UITableView!
+    @IBOutlet weak var viewUnlockPanel: UIView!
+    @IBOutlet weak var labelUnlockTitle: UILabel!
+    @IBOutlet weak var labelUnlockDescription: UILabel!
+    @IBOutlet weak var viewUnlockCover: UIView!
     
+    var locked = false
     var totalNotes = [Note]()
     
     var notes = [Note]()
@@ -64,6 +70,8 @@ class NotesListView: UIView {
         self.tableViewMain.register(UINib(nibName: "ButtonCell", bundle: nil), forCellReuseIdentifier: "ButtonCell")
         self.viewAddNoteContainer.layer.cornerRadius = 10
         self.textfieldAddNote.attributedPlaceholder = NSAttributedString(string: "Type to add a note...", attributes: [.foregroundColor: Color.white.alpha(0.5)])
+        
+        self.viewUnlockPanel.isHidden = true
     }
     
     func showNotes(_ notes: [Note]) {
@@ -92,6 +100,44 @@ class NotesListView: UIView {
             self.tableViewMain.reloadData()
         }
     }
+    
+    @IBAction func onFindOutMore(_ sender: Any) {
+        if self.delegate != nil {
+            self.delegate.onFindOutMore()
+        }
+    }
+    
+    func unlock() {
+        self.viewUnlockPanel.isHidden = true
+        self.viewUnlockCover.isHidden = true
+        self.tableViewMain.bounces = true
+        self.locked = false
+        self.tableViewMain.reloadData()
+    }
+    
+    func lock() {
+        self.viewUnlockPanel.isHidden = false
+        self.viewUnlockCover.isHidden = false
+        self.viewUnlockCover.backgroundColor = Color.black.alpha(0.55)
+        
+        let attributedString = NSMutableAttributedString(string: "WANT\n", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoLight, size: 16)!])
+        attributedString.append(NSAttributedString(string: "UNLIMITED NOTES?", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoBlack, size: 16)!]))
+        self.labelUnlockTitle.attributedText = attributedString
+        self.labelUnlockDescription.text = "Get unlimited notes per item & access your archive."
+        
+        self.tableViewMain.bounces = false
+        self.locked = true
+        self.tableViewMain.reloadData()
+    }
+    
+    func freeUserLock() {
+        self.viewUnlockCover.backgroundColor = Color.clear
+        self.viewUnlockPanel.isHidden = true
+        self.viewUnlockCover.isHidden = false
+        self.locked = true
+        self.tableViewMain.bounces = false
+    }
+    
 }
 
 extension NotesListView : UITableViewDelegate, UITableViewDataSource {
@@ -108,6 +154,13 @@ extension NotesListView : UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "NoteCell", for: indexPath) as! NoteCell
             cell.configure(note: self.notes[indexPath.row])
             cell.delegate = self
+            if self.locked {
+                cell.constraintForCheckImageView.constant = 0
+                cell.imageViewChecked.isHidden = true
+            } else {
+                cell.constraintForCheckImageView.constant = 26
+                cell.imageViewChecked.isHidden = false
+            }
             return cell
         } else if indexPath.row == self.notes.count {
             let cell = tableView.dequeueReusableCell(withIdentifier: "ButtonCell", for: indexPath) as! ButtonCell
@@ -122,6 +175,13 @@ extension NotesListView : UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "NoteCell", for: indexPath) as! NoteCell
             cell.configure(note: self.archivedNotes[indexPath.row - self.notes.count - 1])
             cell.delegate = self
+            if self.locked {
+                cell.constraintForCheckImageView.constant = 0
+                cell.imageViewChecked.isHidden = true
+            } else {
+                cell.constraintForCheckImageView.constant = 26
+                cell.imageViewChecked.isHidden = false
+            }
             return cell
         }
     }
