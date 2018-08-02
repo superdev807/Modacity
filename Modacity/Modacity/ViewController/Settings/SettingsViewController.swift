@@ -370,6 +370,7 @@ extension SettingsViewController: SettingsCellWithSwitchDelegate {
 extension SettingsViewController {
     func openPremiumUpgrade() {
         if PremiumDataManager.manager.isPremiumUnlocked() {
+            ModacityAnalytics.LogStringEvent("Settings - Manage Subscription")
             if let url = URL(string:"itms-apps://buy.itunes.apple.com/WebObjects/MZFinance.woa/wa/manageSubscriptions") {
                 if #available(iOS 10.0, *) {
                     if UIApplication.shared.canOpenURL(url) {
@@ -386,6 +387,7 @@ extension SettingsViewController {
                 }
             }
         } else {
+            ModacityAnalytics.LogStringEvent("Settings - Pressed Upgrade")
             let controller = UIStoryboard(name: "premium", bundle: nil).instantiateViewController(withIdentifier: "PremiumUpgradeScene")
             self.present(controller, animated: true, completion: nil)
         }

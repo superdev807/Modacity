@@ -44,6 +44,7 @@ class PremiumUpgradeViewController: UIViewController {
     var sliding = false
     
     var currentIdx = 0
+    var indexNames: [String] = ["Stats", "History", "Breaks", "Notes", "Coming Soon"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -144,7 +145,7 @@ class PremiumUpgradeViewController: UIViewController {
     }
     
     @IBAction func onStartFreeTrial(_ sender: Any) {
-        ModacityAnalytics.LogStringEvent("$$ Initiated Free Trial", extraParamName: "currentView", extraParamValue: self.pageControlSlider.currentPage)
+        ModacityAnalytics.LogStringEvent("$$ Processing Free Trial", extraParamName: "currentView", extraParamValue: self.pageControlSlider.currentPage)
         
         self.buttonFreeTrialStart.setTitle("PROCESSING...", for: .normal)
         self.view.isUserInteractionEnabled = false
@@ -205,6 +206,7 @@ extension PremiumUpgradeViewController: PremiumUpgradeSlideViewDelegate {
     }
     
     func slide(next: Bool, idx : Int) {
+        ModacityAnalytics.LogStringEvent("Upgrade - Swiped Value Prop", extraParamName: "Slide", extraParamValue: indexNames[idx])
         
         let slideView = self.nextSlideNormalView(idx: idx)
         

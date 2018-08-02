@@ -70,7 +70,7 @@ class ModacityAnalytics: NSObject {
     
     static func LogStringEvent(_ eventString: String, extraParamName: String? = nil, extraParamValue: AnyHashable? = nil) {
 
-        let debugPrefix: String = "" // "::::: "
+        let debugPrefix: String = "::::: "
         
         if let paramName = extraParamName {
             var value : AnyHashable? = extraParamValue
