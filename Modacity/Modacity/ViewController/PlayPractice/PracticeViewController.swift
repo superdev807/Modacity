@@ -593,6 +593,7 @@ extension PracticeViewController: AVAudioPlayerDelegate, FDWaveformViewDelegate 
     @IBAction func onSaveRecord(_ sender: Any) {
         let alertController = UIAlertController(title: nil, message: "Name Your Recording!", preferredStyle: .alert)
         alertController.addTextField { (textField) in
+            textField.clearButtonMode = UITextFieldViewMode.always
             if self.playlistViewModel != nil {
                 if var practiceName = self.playlistViewModel.currentPracticeEntry.practiceItem()?.name {
                     AppOveralDataManager.manager.increaseAutoIncrementedNumber()
