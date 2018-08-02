@@ -30,6 +30,7 @@ class LeftMenuViewController: UIViewController {
     }
     
     func processSignout() {
+        ModacityAnalytics.LogStringEvent("Signed Out")
         AppOveralDataManager.manager.signout()
         
         if let nav = self.sideMenuController?.navigationController {

@@ -18,7 +18,7 @@ class PremiumUpgradeViewController: UIViewController {
                       ["image": "premium_slider_history",
                        "title1":"HISTORICAL",
                        "title2":"EXCELLENCE",
-                       "desc":"Unlock a full journal-style log of your practice acitivty, viewable by practice item, playlist, or overall activity. Includes time spent, improvements made, and star ratings."],
+                       "desc":"Unlock a full journal-style log of your practice activity, viewable by practice item, playlist, or overall activity. Includes time spent, improvements made, and star ratings."],
                       ["image": "premium_slider_take_break",
                        "title1":"EFFECTIVE",
                        "title2":"RELAXATION",
@@ -26,7 +26,7 @@ class PremiumUpgradeViewController: UIViewController {
                       ["image": "premium_slider_note",
                        "title1":"TAKE",
                        "title2":"UNLIMITED NOTES",
-                       "desc":"Unlock full note taking ability with unlimited notes per item. "],
+                       "desc":"Unlock full note taking ability with unlimited notes per item."],
                       ]
     
     @IBOutlet weak var constraintForHeaderViewHeight: NSLayoutConstraint!
@@ -77,8 +77,10 @@ class PremiumUpgradeViewController: UIViewController {
 
     @IBAction func onBack(_ sender: Any) {
         if self.sliding {
+            ModacityAnalytics.LogStringEvent("Premium - Back from Value Prop")
             self.stopSliding()
         } else {
+            ModacityAnalytics.LogStringEvent("Went Back to App")
             self.navigationController?.dismiss(animated: true, completion: nil)
         }
     }
@@ -142,6 +144,8 @@ class PremiumUpgradeViewController: UIViewController {
     }
     
     @IBAction func onStartFreeTrial(_ sender: Any) {
+        ModacityAnalytics.LogStringEvent("$$ Initiated Free Trial", extraParamName: "currentView", extraParamValue: self.pageControlSlider.currentPage)
+        
         self.buttonFreeTrialStart.setTitle("PROCESSING...", for: .normal)
         self.view.isUserInteractionEnabled = false
         NotificationCenter.default.addObserver(self, selector: #selector(onUpgradedSucceeded), name: IAPHelper.appNotificationSubscriptionSucceeded, object: nil)
@@ -150,6 +154,7 @@ class PremiumUpgradeViewController: UIViewController {
     }
     
     @IBAction func onRestorePayment(_ sender: Any) {
+        ModacityAnalytics.LogStringEvent("$$ Initiated Restore Subscription")
         MBProgressHUD.showAdded(to: self.view, animated: true)
         NotificationCenter.default.addObserver(self, selector: #selector(onUpgradedSucceeded), name: IAPHelper.appNotificationSubscriptionSucceeded, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(onUpgradeFailed), name: IAPHelper.appNotificationSubscriptionFailed, object: nil)
@@ -157,6 +162,7 @@ class PremiumUpgradeViewController: UIViewController {
     }
     
     @objc func onUpgradedSucceeded(_ notification: Notification) {
+        ModacityAnalytics.LogStringEvent("$$ Upgrade Succeeded")
         MBProgressHUD.hide(for: self.view, animated: true)
         NotificationCenter.default.removeObserver(self, name: IAPHelper.appNotificationSubscriptionSucceeded, object: nil)
         NotificationCenter.default.removeObserver(self, name: IAPHelper.appNotificationSubscriptionFailed, object: nil)
@@ -167,6 +173,7 @@ class PremiumUpgradeViewController: UIViewController {
     }
     
     @objc func onUpgradeFailed(_ notification:Notification) {
+        ModacityAnalytics.LogStringEvent("$$ Upgrade Failed")
         MBProgressHUD.hide(for: self.view, animated: true)
         NotificationCenter.default.removeObserver(self, name: IAPHelper.appNotificationSubscriptionSucceeded, object: nil)
         NotificationCenter.default.removeObserver(self, name: IAPHelper.appNotificationSubscriptionFailed, object: nil)

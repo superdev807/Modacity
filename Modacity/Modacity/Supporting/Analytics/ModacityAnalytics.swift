@@ -70,23 +70,36 @@ class ModacityAnalytics: NSObject {
     
     static func LogStringEvent(_ eventString: String, extraParamName: String? = nil, extraParamValue: AnyHashable? = nil) {
 
+        let debugPrefix: String = "" // "::::: "
         
         if let paramName = extraParamName {
             var value : AnyHashable? = extraParamValue
             if (value == nil) {
                 value = "error: nil"
             }
+            
+        
+            if (!debugPrefix.isEmpty) {
+                print(debugPrefix + "\(eventString), \(paramName) = \(value!)")
+            }
+        
+            
             Analytics.logEvent(eventString, parameters: [paramName: value!])
             FBSDKAppEvents.logEvent(eventString, parameters: [paramName: value!])
             Amplitude.instance().logEvent(eventString, withEventProperties: [paramName: value!])
             Intercom.logEvent(withName: eventString, metaData: [paramName : value!])
+ 
             
         } else {
+            if (!debugPrefix.isEmpty) {
+                print(debugPrefix + eventString)
+            }
             
             Analytics.logEvent(eventString, parameters: nil)
             FBSDKAppEvents.logEvent(eventString)
             Amplitude.instance().logEvent(eventString)
             Intercom.logEvent(withName: eventString)
+
         }
     }
     

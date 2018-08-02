@@ -44,6 +44,10 @@ class DetailsViewController: UIViewController {
     
     var currentNotesCount = 0
     
+    var analyticsName: String = "Item Details" // can be "Playlist Details" or "Overview"
+    var analyticsParam: String = "Put Item Name Here" // see initAnalytics
+    var tabNames: [String] = ["Stats", "Recordings", "Notes", "History"] // used for analytics
+    
     @IBOutlet weak var constraintForHeaderViewHeight: NSLayoutConstraint!
     
     var startTabIdx = 0
@@ -52,6 +56,8 @@ class DetailsViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         if self.practiceItemId != nil {
+            self.analyticsName = "Item Details"
+            self.tabNames = ["Stats", "Recordings", "Notes", "History"]
             if let practiceItemData = PracticeItemLocalManager.manager.practiceItem(forId: self.practiceItemId) {
                 self.labelTitle.text = practiceItemData.name
             }
@@ -60,9 +66,13 @@ class DetailsViewController: UIViewController {
                 self.labelTitle.text = playlist.name
             }
         } else {
+            ModacityAnalytics.LogStringEvent("Opened Overview")
             self.labelTitle.text = "Overview"
             self.labelTab3.text = "GOALS"
         }
+        
+        self.initAnalytics()
+        
         self.viewIndicatorTab1.backgroundColor = Color(hexString: "#292947")
         self.viewIndicatorTab2.backgroundColor = Color(hexString: "#292947")
         self.viewIndicatorTab3.backgroundColor = Color(hexString: "#292947")
@@ -73,6 +83,27 @@ class DetailsViewController: UIViewController {
         
         if AppUtils.iphoneIsXModel() {
             self.constraintForHeaderViewHeight.constant = 140
+        }
+    }
+    
+    func initAnalytics() {
+        self.tabNames = ["Stats", "Recordings", "Notes", "History"]
+        if self.practiceItemId != nil {
+            self.analyticsName = "Item Details"
+            
+            if let practiceItemData = PracticeItemLocalManager.manager.practiceItem(forId: self.practiceItemId) {
+                self.analyticsParam = practiceItemData.name
+            }
+            
+        } else if self.playlistItemId != nil {
+            self.analyticsName = "Playlist Details"
+            if let playlist = PlaylistLocalManager.manager.loadPlaylist(forId: self.playlistItemId) {
+                self.analyticsParam = playlist.name
+            }
+        } else {
+            self.tabNames[2] = "Goals"
+            self.analyticsName = "Overview"
+            self.analyticsParam = "Overview"
         }
     }
     
@@ -299,6 +330,10 @@ extension DetailsViewController {
             return
         }
         
+        let eventName = self.analyticsName + " - " + self.tabNames[idx]
+        
+        ModacityAnalytics.LogStringEvent(eventName, extraParamName: "Detail", extraParamValue: self.analyticsParam)
+        
         let currentTabIdx = self.selectedTabIdx
         
         self.viewIndicatorTab1.isHidden = true
@@ -358,10 +393,12 @@ extension DetailsViewController {
             self.labelTab2.font = UIFont.boldSystemFont(ofSize: 11)
             self.viewIndicatorTab2.isHidden = false
             self.attachRecordingView()
+            
             self.detachPremiumLockView()
         case 2:
             self.labelTab3.font = UIFont.boldSystemFont(ofSize: 11)
             self.attatchNotesView()
+            
             self.viewIndicatorTab3.isHidden = false
             self.detachPremiumLockView()
             
