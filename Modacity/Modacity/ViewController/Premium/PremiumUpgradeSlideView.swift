@@ -52,6 +52,12 @@ class PremiumUpgradeSlideView: UIView {
         swipePrevGesture.direction = .right
         self.viewContent.addGestureRecognizer(swipeNextGesture)
         self.viewContent.addGestureRecognizer(swipePrevGesture)
+        
+        if AppUtils.sizeModelOfiPhone() == .iphone4_35in {
+            self.labelTitlePart1.font = UIFont(name: AppConfig.appFontLatoLight, size: 15)
+            self.labelTitlePart2.font = UIFont(name: AppConfig.appFontLatoBlack, size: 15)
+            self.labelDescription.font = UIFont(name: AppConfig.appFontLatoItalic, size: 11)
+        }
     }
     
     @objc func onSwipeNext() {

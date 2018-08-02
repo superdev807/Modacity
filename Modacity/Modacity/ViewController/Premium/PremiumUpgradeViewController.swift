@@ -38,6 +38,7 @@ class PremiumUpgradeViewController: UIViewController {
     @IBOutlet weak var viewSlidingContentContainer: UIView!
     @IBOutlet weak var pageControlSlider: UIPageControl!
     @IBOutlet weak var buttonFreeTrialStart: UIButton!
+    @IBOutlet weak var constraintForPurchaseButtonHeight: NSLayoutConstraint!
     
     var currentSlideContentView: UIView!
     
@@ -68,6 +69,14 @@ class PremiumUpgradeViewController: UIViewController {
             self.constraintForHeaderViewHeight.constant = 84
         } else {
             self.constraintForHeaderViewHeight.constant = 64
+        }
+        
+        if AppUtils.sizeModelOfiPhone() == .iphone4_35in {
+            self.constraintForPurchaseButtonHeight.constant = 40
+        } else if AppUtils.sizeModelOfiPhone() == .iphone5_4in {
+            self.constraintForPurchaseButtonHeight.constant = 50
+        } else {
+            self.constraintForPurchaseButtonHeight.constant = 60
         }
     }
 

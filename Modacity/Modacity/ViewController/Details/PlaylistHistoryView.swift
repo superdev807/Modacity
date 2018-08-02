@@ -129,30 +129,32 @@ class PlaylistHistoryView: UIView {
                 for daily in dailyDatas {
                     totalPracticesSeconds = totalPracticesSeconds + daily.practiceTimeInSeconds
                     
-                    for practiceId in daily.practices {
-                        if let practicingData = PracticingDailyLocalManager.manager.practicingData(forDataId: practiceId) {
-                            if let practiceItemId = practicingData.practiceItemId {
-                                if let old = practiceData.practiceDataList[practiceItemId] {
-                                    if practicingData.rating > 0 {
-                                        old.ratings.append(practicingData.rating)
+                    if daily.practices != nil {
+                        for practiceId in daily.practices {
+                            if let practicingData = PracticingDailyLocalManager.manager.practicingData(forDataId: practiceId) {
+                                if let practiceItemId = practicingData.practiceItemId {
+                                    if let old = practiceData.practiceDataList[practiceItemId] {
+                                        if practicingData.rating > 0 {
+                                            old.ratings.append(practicingData.rating)
+                                        }
+                                        if let improvements = practicingData.improvements {
+                                            old.improvements.append(contentsOf: improvements)
+                                        }
+                                        old.time = old.time + practicingData.practiceTimeInSeconds
+                                        
+                                        practiceData.practiceDataList[practiceItemId] = old
+                                    } else {
+                                        let newData = PlaylistPracticeHistoryData()
+                                        newData.practiceItemId = practiceItemId
+                                        newData.time = practicingData.practiceTimeInSeconds
+                                        if practicingData.rating > 0 {
+                                            newData.ratings.append(practicingData.rating)
+                                        }
+                                        if let improvements = practicingData.improvements {
+                                            newData.improvements.append(contentsOf: improvements)
+                                        }
+                                        practiceData.practiceDataList[practiceItemId] = newData
                                     }
-                                    if let improvements = practicingData.improvements {
-                                        old.improvements.append(contentsOf: improvements)
-                                    }
-                                    old.time = old.time + practicingData.practiceTimeInSeconds
-                                    
-                                    practiceData.practiceDataList[practiceItemId] = old
-                                } else {
-                                    let newData = PlaylistPracticeHistoryData()
-                                    newData.practiceItemId = practiceItemId
-                                    newData.time = practicingData.practiceTimeInSeconds
-                                    if practicingData.rating > 0 {
-                                        newData.ratings.append(practicingData.rating)
-                                    }
-                                    if let improvements = practicingData.improvements {
-                                        newData.improvements.append(contentsOf: improvements)
-                                    }
-                                    practiceData.practiceDataList[practiceItemId] = newData
                                 }
                             }
                         }

@@ -15,6 +15,12 @@ class PremiumUpgradeSlideComingSoonView: UIView {
     
     @IBOutlet weak var labelTitleTopView: UILabel!
     
+    @IBOutlet weak var constraintForBottomViewBottomSpace: NSLayoutConstraint!
+    @IBOutlet weak var constraintForViewHeight1: NSLayoutConstraint!
+    @IBOutlet weak var constraintForViewHeight2: NSLayoutConstraint!
+    @IBOutlet weak var constraintForViewHeight3: NSLayoutConstraint!
+    @IBOutlet weak var constraintForViewHeight4: NSLayoutConstraint!
+    
     override init(frame: CGRect) {
         super.init(frame:frame)
         commonInit()
@@ -47,6 +53,14 @@ class PremiumUpgradeSlideComingSoonView: UIView {
         swipePrevGesture.direction = .right
         self.viewContent.addGestureRecognizer(swipeNextGesture)
         self.viewContent.addGestureRecognizer(swipePrevGesture)
+        
+        if AppUtils.sizeModelOfiPhone() == .iphone4_35in {
+            self.constraintForBottomViewBottomSpace.constant = -10
+            self.constraintForViewHeight1.constant = 36
+            self.constraintForViewHeight2.constant = 36
+            self.constraintForViewHeight3.constant = 36
+            self.constraintForViewHeight4.constant = 36
+        }
     }
     
     @objc func onSwipeNext() {

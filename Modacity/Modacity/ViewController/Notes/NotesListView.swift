@@ -31,6 +31,7 @@ class NotesListView: UIView {
     @IBOutlet weak var labelUnlockDescription: UILabel!
     @IBOutlet weak var viewUnlockCover: UIView!
     
+    @IBOutlet weak var constraintForTopUnlockPanelBottomSpace: NSLayoutConstraint!
     var locked = false
     var totalNotes = [Note]()
     
@@ -128,9 +129,19 @@ class NotesListView: UIView {
         self.tableViewMain.bounces = false
         self.locked = true
         self.tableViewMain.reloadData()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
+            self.constraintForTopUnlockPanelBottomSpace.constant = -1 * self.tableViewMain.rectForRow(at: IndexPath(row: 0, section: 0)).size.height
+        }
     }
     
     func freeUserLock() {
+        
+        let attributedString = NSMutableAttributedString(string: "WANT\n", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoLight, size: 16)!])
+        attributedString.append(NSAttributedString(string: "UNLIMITED NOTES?", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoBlack, size: 16)!]))
+        self.labelUnlockTitle.attributedText = attributedString
+        self.labelUnlockDescription.text = "Get unlimited notes per item & access your archive."
+        
         self.viewUnlockCover.backgroundColor = Color.clear
         self.viewUnlockPanel.isHidden = true
         self.viewUnlockCover.isHidden = false

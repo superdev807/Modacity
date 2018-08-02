@@ -119,9 +119,19 @@ class DetailsViewController: UIViewController {
         
         if self.practiceItemId == nil && self.playlistItemId == nil {
             self.buttonMenu.setImage(UIImage(named: "icon_menu"), for: .normal)
+        }
+        
+        if self.notesView != nil && self.selectedTabIdx == 2 {
+            self.processNotes()
             
-            if self.notesView != nil && self.selectedTabIdx == 2 {
-                self.processNotes()
+            if !PremiumUpgradeManager.manager.isPremiumUnlocked() {
+                if self.currentNotesCount == 0 {
+                    self.notesView.freeUserLock()
+                } else {
+                    self.notesView.lock()
+                }
+            } else {
+                self.notesView.unlock()
             }
         }
     }

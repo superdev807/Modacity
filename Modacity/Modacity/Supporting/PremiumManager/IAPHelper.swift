@@ -197,7 +197,7 @@ extension IAPHelper {
                                             
                                             if let validUntil = self.validUntil {
                                                 if receiptUrlLastPath == "sandboxReceipt" {
-                                                    self.validUntil = validUntil.advanced(years: 0, months: 0, weeks: 0, days: 1, hours: 0, minutes: 0, seconds: 0)
+                                                    self.validUntil = validUntil.advanced(years: 0, months: 0, weeks: 0, days: 2, hours: 0, minutes: 0, seconds: 0)
                                                 }
                                             }
                                         }

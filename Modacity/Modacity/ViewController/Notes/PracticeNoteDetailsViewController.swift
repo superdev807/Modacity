@@ -8,6 +8,7 @@
 
 import UIKit
 import UITextView_Placeholder
+import CHGInputAccessoryView
 
 class PracticeNoteDetailsViewController: UIViewController {
 
@@ -40,6 +41,7 @@ class PracticeNoteDetailsViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(onKeyboardWillShow), name: Notification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(onKeyboardWillChangeFrame), name: Notification.Name.UIKeyboardWillChangeFrame, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(onKeyboardWillHide), name: Notification.Name.UIKeyboardWillHide, object: nil)
+        self.attachInputAccessoryView()
     }
     
     deinit {
@@ -138,6 +140,26 @@ class PracticeNoteDetailsViewController: UIViewController {
             }
             self.textfieldNoteTitleEdit.isHidden = true
             self.labelNoteTitle.isHidden = false
+        }
+    }
+}
+
+extension PracticeNoteDetailsViewController: CHGInputAccessoryViewDelegate {
+    
+    func attachInputAccessoryView() {
+        let inputAccessoryView = CHGInputAccessoryView.inputAccessoryView() as! CHGInputAccessoryView
+        let flexible = CHGInputAccessoryViewItem.flexibleSpace()!
+        let close = CHGInputAccessoryViewItem.button(withTitle: "Close")!
+        close.tintColor = Color.black
+        close.tag = 100
+        inputAccessoryView.items = [flexible, close]
+        inputAccessoryView.inputAccessoryViewDelegate = self
+        self.textViewInputBox.inputAccessoryView = inputAccessoryView
+    }
+    
+    func didTap(_ item: CHGInputAccessoryViewItem!) {
+        if item.tag == 100 {
+            self.textViewInputBox.resignFirstResponder()
         }
     }
 }
