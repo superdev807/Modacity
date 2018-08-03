@@ -46,7 +46,6 @@ class MyProfileRemoteManager {
             DailyPracticingRemoteManager.manager.fetchPracticingDataFromServer()
             DailyPracticingRemoteManager.manager.fetchPlaylistPracticingDataFromServer()
             PremiumDataManager.manager.fetchPremiumUpgradeStatus()
-//            PremiumUpgradeRemoteManager.manager.fetchPremiumUpgradeStatus()
         }
     }
     

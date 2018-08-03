@@ -13,6 +13,7 @@ import FDWaveformView
 import Intercom
 import MBProgressHUD
 import Crashlytics
+import UserNotifications
 
 class PracticeViewController: UIViewController {
     
@@ -25,6 +26,9 @@ class PracticeViewController: UIViewController {
     @IBOutlet weak var labelPracticeItemName: UILabel!
     @IBOutlet weak var buttonFavorite: UIButton!
     @IBOutlet weak var imageViewHeader: UIImageView!
+    @IBOutlet weak var buttonDone: UIButton!
+    
+    var doneButtonChanged = false
     
     // MARK:- Process for practice break
     var practiceBreakShown = false
@@ -142,6 +146,7 @@ class PracticeViewController: UIViewController {
             constraintForImageHeaderViewHeight.constant = 320
         }
         
+        self.buttonDone.setTitle("Cancel", for: .normal)
         self.labelTimerUp.isHidden = true
         self.viewTimeAreaPausedPanel.isHidden = true
         
@@ -376,12 +381,33 @@ extension PracticeViewController: MetrodroneViewDelegate, SubdivisionSelectViewD
 // MARK: - Process navigations
 extension PracticeViewController {
     
+    func cancelPractice() {
+        self.stopMetrodronePlay()
+        
+        if self.timer != nil {
+            self.timer.invalidate()
+        }
+        
+        self.cancelCountDownNotification()
+        
+        if self.playlistViewModel != nil {
+            self.navigationController?.popViewController(animated: true)
+        } else {
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
     @IBAction func onEnd(_ sender: Any) {
 
         if self.playlistViewModel != nil {
             ModacityAnalytics.LogStringEvent("Pressed End Practice Item", extraParamName: "item", extraParamValue: self.playlistViewModel.currentPracticeEntry.name)
         } else {
             ModacityAnalytics.LogStringEvent("Pressed End Practice Item", extraParamName: "item", extraParamValue: self.practiceItem.name)
+        }
+        
+        if self.overallPracticeTimeInSeconds < 5 {
+            self.cancelPractice()
+            return
         }
         
         if self.recorder != nil && self.recorder.isRecording {
@@ -843,6 +869,13 @@ extension PracticeViewController {
     @objc func onTimer() {
         let date = Date()
         self.overallPracticeTimeInSeconds = Int(date.timeIntervalSince1970 - self.timerStarted.timeIntervalSince1970) + self.secondsPrevPlayed
+        
+        if !self.doneButtonChanged {
+            if self.overallPracticeTimeInSeconds >= 5 {
+                self.buttonDone.setTitle("Done", for: .normal)
+                self.doneButtonChanged = true
+            }
+        }
         
         var durationSeconds = self.overallPracticeTimeInSeconds ?? 0
         
@@ -1367,9 +1400,14 @@ extension PracticeViewController: TimerInputViewDelegate {
     }
     
     func cancelCountDownNotification() {
-        if let oldNotification = self.countDownNotification {
-            UIApplication.shared.cancelLocalNotification(oldNotification)
-            self.countDownNotification = nil
+        
+        if #available(iOS 10.0, *) {
+            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["time_up_notification"])
+        } else {
+            if let oldNotification = self.countDownNotification {
+                UIApplication.shared.cancelLocalNotification(oldNotification)
+                self.countDownNotification = nil
+            }
         }
     }
     
@@ -1377,14 +1415,32 @@ extension PracticeViewController: TimerInputViewDelegate {
         
         self.cancelCountDownNotification()
         
-        let notification = UILocalNotification()
-        notification.fireDate = date
-        notification.alertBody = "TIME'S UP"
-        notification.alertAction = "timesup"
-        notification.hasAction = true
-        UIApplication.shared.scheduleLocalNotification(notification)
-        
-        self.countDownNotification = notification
+        if #available(iOS 10.0, *) {
+            let notificationContent = UNMutableNotificationContent()
+            
+            notificationContent.title = "TIME'S UP"
+            notificationContent.subtitle = "Time is up for your practice."
+            notificationContent.categoryIdentifier = "message"
+            
+            let notificationTrigger = UNCalendarNotificationTrigger(dateMatching: NSCalendar.current.dateComponents([.day, .month, .year, .hour, .minute, .second], from: date), repeats: false)
+            
+            let notificationRequest = UNNotificationRequest(identifier: "time_up_notification", content: notificationContent, trigger: notificationTrigger)
+            
+            UNUserNotificationCenter.current().add(notificationRequest) { (error) in
+                if let error = error {
+                    print("Unable to Add Notification Request (\(error), \(error.localizedDescription))")
+                }
+            }
+        } else {
+            let notification = UILocalNotification()
+            notification.fireDate = date
+            notification.alertBody = "TIME'S UP"
+            notification.alertAction = "timesup"
+            notification.hasAction = true
+            UIApplication.shared.scheduleLocalNotification(notification)
+            
+            self.countDownNotification = notification
+        }
     }
 }
 

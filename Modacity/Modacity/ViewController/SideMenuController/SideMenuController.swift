@@ -24,6 +24,7 @@ class SideMenuController: LGSideMenuController {
         self.leftViewCoverColor = Color.clear
         self.leftViewPresentationStyle = .scaleFromBig
         self.isLeftViewSwipeGestureEnabled = false
+        self.rootViewShouldAutorotate = true
         
         let tabBarViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TabBarViewController")
         self.rootViewController = tabBarViewController
@@ -45,6 +46,8 @@ class SideMenuController: LGSideMenuController {
         super.viewWillAppear(animated)
         self.updatePremiumBadge()
     }
+    
+    
     
     @objc func updatePremiumBadge() {
         self.imageViewPremiumBadge.isHidden = !(PremiumDataManager.manager.isPremiumUnlocked())

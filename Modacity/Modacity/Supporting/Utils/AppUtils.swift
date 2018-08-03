@@ -361,3 +361,15 @@ extension UIView {
         return Bundle.main.loadNibNamed(nib, owner: nil, options: nil)![0] as! T
     }
 }
+
+extension UINavigationController {
+    override open var supportedInterfaceOrientations : UIInterfaceOrientationMask     {
+        return [.portrait, .portraitUpsideDown]
+    }
+}
+
+extension UITabBarController {
+    override open var supportedInterfaceOrientations : UIInterfaceOrientationMask     {
+        return [.portrait, .portraitUpsideDown]
+    }
+}

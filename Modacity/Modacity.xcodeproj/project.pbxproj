@@ -223,10 +223,6 @@
 		E23C338620E51DD3000EED10 /* PlaylistHistoryDetailsRowView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E23C338220E51DD3000EED10 /* PlaylistHistoryDetailsRowView.xib */; };
 		E23D7A7020A1EEB40052EE78 /* OverallDataRemoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23D7A6F20A1EEB40052EE78 /* OverallDataRemoteManager.swift */; };
 		E23D7A7120A1EEB40052EE78 /* OverallDataRemoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23D7A6F20A1EEB40052EE78 /* OverallDataRemoteManager.swift */; };
-		E23FFD8C21081037007713F0 /* PremiumUpgradeRemoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23FFD8A21081037007713F0 /* PremiumUpgradeRemoteManager.swift */; };
-		E23FFD8D21081037007713F0 /* PremiumUpgradeRemoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23FFD8A21081037007713F0 /* PremiumUpgradeRemoteManager.swift */; };
-		E23FFD8E21081037007713F0 /* PremiumUpgradeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23FFD8B21081037007713F0 /* PremiumUpgradeManager.swift */; };
-		E23FFD8F21081037007713F0 /* PremiumUpgradeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23FFD8B21081037007713F0 /* PremiumUpgradeManager.swift */; };
 		E23FFD9121081053007713F0 /* PremiumUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23FFD9021081053007713F0 /* PremiumUtils.swift */; };
 		E23FFD9221081053007713F0 /* PremiumUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23FFD9021081053007713F0 /* PremiumUtils.swift */; };
 		E23FFD9421081EBC007713F0 /* PremiumUpgradeDoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23FFD9321081EBC007713F0 /* PremiumUpgradeDoneViewController.swift */; };
@@ -500,8 +496,6 @@
 		E23C338120E51DD3000EED10 /* PlaylistHistoryDetailsRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistHistoryDetailsRowView.swift; sourceTree = "<group>"; };
 		E23C338220E51DD3000EED10 /* PlaylistHistoryDetailsRowView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlaylistHistoryDetailsRowView.xib; sourceTree = "<group>"; };
 		E23D7A6F20A1EEB40052EE78 /* OverallDataRemoteManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverallDataRemoteManager.swift; sourceTree = "<group>"; };
-		E23FFD8A21081037007713F0 /* PremiumUpgradeRemoteManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PremiumUpgradeRemoteManager.swift; sourceTree = "<group>"; };
-		E23FFD8B21081037007713F0 /* PremiumUpgradeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PremiumUpgradeManager.swift; sourceTree = "<group>"; };
 		E23FFD9021081053007713F0 /* PremiumUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumUtils.swift; sourceTree = "<group>"; };
 		E23FFD9321081EBC007713F0 /* PremiumUpgradeDoneViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PremiumUpgradeDoneViewController.swift; sourceTree = "<group>"; };
 		E23FFD9621087ED5007713F0 /* IAPHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPHelper.swift; sourceTree = "<group>"; };
@@ -1008,8 +1002,6 @@
 		E23FFD892108100D007713F0 /* PremiumManager */ = {
 			isa = PBXGroup;
 			children = (
-				E23FFD8B21081037007713F0 /* PremiumUpgradeManager.swift */,
-				E23FFD8A21081037007713F0 /* PremiumUpgradeRemoteManager.swift */,
 				E23FFD9021081053007713F0 /* PremiumUtils.swift */,
 				E23FFD9621087ED5007713F0 /* IAPHelper.swift */,
 				E298EF06210951CD007F90BD /* PremiumDataManager.swift */,
@@ -1699,7 +1691,6 @@
 				E2CDBEA62101098F00119D77 /* PremiumUpgradeSlideComingSoonView.swift in Sources */,
 				8E58B43520445BC20022704B /* FeedbackSentViewController.swift in Sources */,
 				8E64B7AA2056A09F00900775 /* Recording.swift in Sources */,
-				E23FFD8C21081037007713F0 /* PremiumUpgradeRemoteManager.swift in Sources */,
 				E28415E920EE7A2300DD7BBE /* GoalsLocalManager.swift in Sources */,
 				8EA33BA320052A4A00539A3F /* PlaylistListViewController.swift in Sources */,
 				8EDEB718203DFAC200E8D48D /* SideMenuController.swift in Sources */,
@@ -1766,7 +1757,6 @@
 				E25FD98420D7F234008C531A /* PracticeDaily.swift in Sources */,
 				8E58B44620446AE40022704B /* MyProfileLocalManager.swift in Sources */,
 				8EDEB70D203DE38F00E8D48D /* AppUtils.swift in Sources */,
-				E23FFD8E21081037007713F0 /* PremiumUpgradeManager.swift in Sources */,
 				E2806C3520ABCD910066959A /* PracticeViewController.swift in Sources */,
 				8EDA619820484580006D3208 /* PracticeItemViewModel.swift in Sources */,
 				E2083FBA20DD47C700BCE27F /* PracticeNoteCell.swift in Sources */,
@@ -1838,7 +1828,6 @@
 				E2CDBEA72101098F00119D77 /* PremiumUpgradeSlideComingSoonView.swift in Sources */,
 				E21BE9B42091796A000D1877 /* FeedbackSentViewController.swift in Sources */,
 				E21BE9B52091796A000D1877 /* Recording.swift in Sources */,
-				E23FFD8D21081037007713F0 /* PremiumUpgradeRemoteManager.swift in Sources */,
 				E28415EA20EE7A2300DD7BBE /* GoalsLocalManager.swift in Sources */,
 				E21BE9B62091796A000D1877 /* PlaylistListViewController.swift in Sources */,
 				E21BE9B72091796A000D1877 /* SideMenuController.swift in Sources */,
@@ -1905,7 +1894,6 @@
 				E25FD98520D7F234008C531A /* PracticeDaily.swift in Sources */,
 				E21BE9D62091796A000D1877 /* MyProfileLocalManager.swift in Sources */,
 				E21BE9D72091796A000D1877 /* AppUtils.swift in Sources */,
-				E23FFD8F21081037007713F0 /* PremiumUpgradeManager.swift in Sources */,
 				E2806C3620ABCD910066959A /* PracticeViewController.swift in Sources */,
 				E21BE9D82091796A000D1877 /* PracticeItemViewModel.swift in Sources */,
 				E2083FBB20DD47C700BCE27F /* PracticeNoteCell.swift in Sources */,

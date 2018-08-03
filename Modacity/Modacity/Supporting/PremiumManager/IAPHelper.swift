@@ -90,7 +90,8 @@ extension IAPHelper: SKPaymentTransactionObserver {
     }
     
     func paymentQueue(_ queue: SKPaymentQueue, restoreCompletedTransactionsFailedWithError error: Error) {
-        
+        ModacityDebugger.debug("Restore failed.")
+        NotificationCenter.default.post(name: IAPHelper.appNotificationSubscriptionFailed, object: nil, userInfo: ["error": "Restore failed."])
     }
     
     func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
@@ -115,7 +116,8 @@ extension IAPHelper: SKPaymentTransactionObserver {
     }
     
     func paymentQueueRestoreCompletedTransactionsFinished(_ queue: SKPaymentQueue) {
-        
+        ModacityDebugger.debug("Restore completed successfully.")
+        self.receiptValidation()
     }
     
     func receiptValidation() {
@@ -133,7 +135,7 @@ extension IAPHelper: SKPaymentTransactionObserver {
                     } else {
                         if var validUntil = validUntil {
                             if appStoreReceiptURL.lastPathComponent == "sandboxReceipt" {
-                                validUntil = validUntil.advanced(years: 0, months: 0, weeks: 0, days: 1, hours: 0, minutes: 0, seconds: 0)
+                                validUntil = validUntil.advanced(years: 0, months: 1, weeks: 0, days: 0, hours: 0, minutes: 0, seconds: 0)
                             }
                             PremiumDataManager.manager.registerSubscription(key: receiptString, until: validUntil, completion: { (error) in
                                 if let _ = error {
@@ -197,7 +199,7 @@ extension IAPHelper {
                                             
                                             if let validUntil = self.validUntil {
                                                 if receiptUrlLastPath == "sandboxReceipt" {
-                                                    self.validUntil = validUntil.advanced(years: 0, months: 0, weeks: 0, days: 2, hours: 0, minutes: 0, seconds: 0)
+                                                    self.validUntil = validUntil.advanced(years: 0, months: 1, weeks: 0, days: 0, hours: 0, minutes: 0, seconds: 0)
                                                 }
                                             }
                                         }

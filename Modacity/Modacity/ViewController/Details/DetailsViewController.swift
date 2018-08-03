@@ -124,7 +124,7 @@ class DetailsViewController: UIViewController {
         if self.notesView != nil && self.selectedTabIdx == 2 {
             self.processNotes()
             
-            if !PremiumUpgradeManager.manager.isPremiumUnlocked() {
+            if !PremiumDataManager.manager.isPremiumUnlocked() {
                 if self.currentNotesCount == 0 {
                     self.notesView.freeUserLock()
                 } else {
