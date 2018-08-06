@@ -24,7 +24,12 @@ class ModacityAudio {
         audioEngine = AVAudioEngine()
         let audioSession = AVAudioSession.sharedInstance()
         do {
-            try audioSession.setCategory(AVAudioSessionCategoryMultiRoute)
+            if #available(iOS 10.0, *) {
+                try audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord, with: [.defaultToSpeaker, .allowBluetooth, .allowAirPlay, .allowBluetoothA2DP])
+            } else {
+                try audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord, with: [.defaultToSpeaker, .allowBluetooth])
+            }
+            try audioSession.setActive(true)
         } catch let error {
             ModacityDebugger.debug("audio session error \(error)")
         }

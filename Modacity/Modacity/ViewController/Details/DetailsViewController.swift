@@ -637,6 +637,9 @@ extension DetailsViewController: PremiumUpgradeLockViewDelegate {
                 self.premiumLockView = nil
             }
             
+            if self.constraintForContentTopSpace != nil {
+                self.constraintForContentTopSpace.constant = 0
+            }
             if self.notesView != nil {
                 self.notesView.unlock()
             }

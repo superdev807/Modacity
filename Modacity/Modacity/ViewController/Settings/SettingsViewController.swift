@@ -128,7 +128,11 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
         } else if section == 1 {
             return 5
         } else if section == 2 {
-            return 4
+            if PremiumDataManager.manager.isPremiumUnlocked() {
+                return 4
+            } else {
+                return 3
+            }
         } else if section == 3 {
             return 2
         }
@@ -279,7 +283,7 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
                 self.performSegue(withIdentifier: "sid_subscription_terms", sender: nil)
             }
         } else if indexPath.section == 2 {
-            if indexPath.row == 2 {
+            if indexPath.row == 3 {
                 self.openBreakReminderSettingsPage()
             }
         }

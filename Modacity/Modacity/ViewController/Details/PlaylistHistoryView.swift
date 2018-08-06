@@ -16,16 +16,18 @@ class PlaylistPracticeHistoryData {
     var averageRating: Double!
     var improvements = [ImprovedRecord]()
     var ratings = [Double]()
+    var lastPracticeTime: TimeInterval!
     
     init() {
         
     }
     
-    init(practiceId: String, time: Int, rating: Double, improvements: [ImprovedRecord]) {
+    init(practiceId: String, time: Int, rating: Double, improvements: [ImprovedRecord], lastPracticeTime: TimeInterval) {
         self.practiceItemId = practiceId
         self.time = time
         self.averageRating = rating
         self.improvements = improvements
+        self.lastPracticeTime = lastPracticeTime
     }
     
     func calculateAverageRatings() -> Double {
@@ -59,6 +61,22 @@ class PlaylistHistoryData {
         self.date = date
         self.practiceTotalSeconds = totalSeconds
         self.practiceDataList = dataList
+    }
+    
+    func arrayOfData() -> [PlaylistPracticeHistoryData]? {
+        if self.practiceDataList == nil {
+            return nil
+        } else {
+            var array = [PlaylistPracticeHistoryData]()
+            for (_, value) in self.practiceDataList {
+                array.append(value)
+            }
+            
+            return array.sorted(by: { (data1, data2) -> Bool in
+                return data1.lastPracticeTime > data2.lastPracticeTime
+            })
+        }
+        
     }
 }
 
@@ -140,13 +158,16 @@ class PlaylistHistoryView: UIView {
                                         if let improvements = practicingData.improvements {
                                             old.improvements.append(contentsOf: improvements)
                                         }
+                                        if old.lastPracticeTime < practicingData.startedTime {
+                                            old.lastPracticeTime = practicingData.startedTime
+                                        }
                                         old.time = old.time + practicingData.practiceTimeInSeconds
-                                        
                                         practiceData.practiceDataList[practiceItemId] = old
                                     } else {
                                         let newData = PlaylistPracticeHistoryData()
                                         newData.practiceItemId = practiceItemId
                                         newData.time = practicingData.practiceTimeInSeconds
+                                        newData.lastPracticeTime = practicingData.startedTime
                                         if practicingData.rating > 0 {
                                             newData.ratings.append(practicingData.rating)
                                         }

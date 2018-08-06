@@ -539,11 +539,13 @@ class PlaylistContentsViewController: UIViewController {
         self.viewModel.playlistPracticeData.practiceTimeInSeconds = self.viewModel.sessionDurationInSecond
         PlaylistDailyLocalManager.manager.saveNewPlaylistPracticing(self.viewModel.playlistPracticeData)
         
-        if AppUtils.sizeModelOfiPhone() == .iphone4_35in {
-            self.performSegue(withIdentifier: "sid_finish_ipad_size", sender: nil)
-        } else {
-            self.performSegue(withIdentifier: "sid_finish", sender: nil)
-        }
+        self.performSegue(withIdentifier: "sid_finish", sender: nil)
+        
+//        if AppUtils.sizeModelOfiPhone() == .iphone4_35in {
+//            self.performSegue(withIdentifier: "sid_finish_ipad_size", sender: nil)
+//        } else {
+//            self.performSegue(withIdentifier: "sid_finish", sender: nil)
+//        }
     }
 }
 

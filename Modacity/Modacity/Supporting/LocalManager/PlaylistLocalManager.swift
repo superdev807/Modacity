@@ -80,7 +80,9 @@ class PlaylistLocalManager: NSObject {
                     playlists.append(playlist)
                 }
             }
-            return playlists
+            return playlists.sorted(by: { (playlist1, playlist2) -> Bool in
+                return playlist1.name.compare(playlist2.name) == .orderedAscending
+            })
         } else {
             return nil
         }

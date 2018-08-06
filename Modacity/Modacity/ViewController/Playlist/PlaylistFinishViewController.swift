@@ -19,6 +19,12 @@ class PlaylistFinishViewController: UIViewController {
     @IBOutlet weak var buttonNotes: UIButton!
     var playlistDetailsViewModel: PlaylistContentsViewModel!
     
+    @IBOutlet weak var labelQuote: UILabel!
+    
+    @IBOutlet weak var labelQuotePersonName: UILabel!
+    @IBOutlet weak var viewQuoteBox: UIView!
+    @IBOutlet weak var viewSeparator: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -42,6 +48,16 @@ class PlaylistFinishViewController: UIViewController {
         }
         
         self.labelSessionImprovements.text = "\(AppOveralDataManager.manager.calculateStreakDays())"
+        
+        if AppUtils.sizeModelOfiPhone() == .iphone4_35in {
+            self.viewQuoteBox.isHidden = true
+        } else if AppUtils.sizeModelOfiPhone() == .iphone5_4in {
+            self.viewSeparator.isHidden = true
+        }
+        
+        let quote = MusicQuotesManager.manager.randomeQuote()
+        self.labelQuote.text = quote["quote"]
+        self.labelQuotePersonName.text = quote["person"]
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -65,11 +81,19 @@ class PlaylistFinishViewController: UIViewController {
         ModacityAnalytics.LogStringEvent("Congrats Screen Skip Button")
     }
     
-    @IBAction func onNotes(_ sender: Any) {
+    func openNotes() {
         let detailsViewController = UIStoryboard(name: "details", bundle: nil).instantiateViewController(withIdentifier: "DetailsViewController") as! DetailsViewController
         detailsViewController.playlistItemId = self.playlistDetailsViewModel.playlist.id
         detailsViewController.startTabIdx = 2
-        self.navigationController?.pushViewController(detailsViewController, animated: true)        
+        self.navigationController?.pushViewController(detailsViewController, animated: true)
         ModacityAnalytics.LogStringEvent("Congrats Screen Notes Button")
+    }
+    
+    @IBAction func onNotes(_ sender: Any) {
+        DropdownMenuView.instance.show(in: self.view,
+                                       on: buttonNotes,
+                                       rows: [["icon":"icon_notes", "text":"Details"]]) { (row) in
+                                                self.openNotes()
+        }
     }
 }

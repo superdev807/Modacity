@@ -29,6 +29,7 @@ class PlaylistHistoryCell: UITableViewCell {
     }
     
     func configure(with data:PlaylistHistoryData) {
+        
         self.viewContainer.layer.cornerRadius = 5
         self.viewContainer.layer.shadowColor = UIColor.black.cgColor
         self.viewContainer.layer.shadowOffset = CGSize(width: 0, height: 0)
@@ -55,8 +56,8 @@ class PlaylistHistoryCell: UITableViewCell {
         var height: CGFloat = 0
         var lastView: UIView? = nil
         
-        for key in data.practiceDataList.keys {
-            if let row = data.practiceDataList[key] {
+        if let list = data.arrayOfData() {
+            for row in list {
                 let view = PlaylistHistoryDetailsRowView()
                 view.configure(with: row)
                 self.viewDetailsListContainer.addSubview(view)
@@ -100,8 +101,8 @@ class PlaylistHistoryCell: UITableViewCell {
     
     class func height(for data:PlaylistHistoryData, with width: CGFloat) -> CGFloat {
         var height: CGFloat = 49
-        for key in data.practiceDataList.keys {
-            if let row = data.practiceDataList[key] {
+        if let list = data.arrayOfData() {
+            for row in list {
                 height = height + 36
                 for improvement in row.improvements {
                     let improvementText = "Improved: \(improvement.suggestion ?? "") - “\(improvement.hypothesis ?? "")“"
