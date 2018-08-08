@@ -261,6 +261,10 @@ extension NotesListView: NoteCellDelegate {
 
         }
     }
+    
+    func openDetails(note: Note) {
+        self.delegate.onOpenNoteDetails(note)
+    }
 
     func onEditingEnd(cell: NoteCell, text: String) {
         self.delegate.onChangeTitle(for: cell.note, to: text)

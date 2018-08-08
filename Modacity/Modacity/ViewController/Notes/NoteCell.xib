@@ -29,12 +29,20 @@
                             <constraint firstAttribute="width" constant="26" id="huT-VH-XAT"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="A Lorem Ipsum  A Lorem Ipsum A Lorem Ipsum A Lorem Ipsum" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vj6-LZ-2Ym">
+                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="A Lorem Ipsum  A Lorem Ipsum A Lorem Ipsum A Lorem Ipsum" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vj6-LZ-2Ym">
                         <rect key="frame" x="51" y="10" width="263" height="34"/>
                         <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" editable="NO" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lXg-LH-wcc">
+                        <rect key="frame" x="51" y="-7" width="263" height="128"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                        <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES" shipmentTrackingNumber="YES" flightNumber="YES" lookupSuggestion="YES"/>
+                    </textView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="03/24/18" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eO3-td-JeQ">
                         <rect key="frame" x="51" y="90" width="53" height="14.5"/>
                         <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
@@ -75,6 +83,14 @@
                         <color key="textColor" white="1" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" editable="NO" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kks-md-CTz">
+                        <rect key="frame" x="51" y="67" width="263" height="21"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="textColor" white="1" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
+                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                        <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES" shipmentTrackingNumber="YES" flightNumber="YES" lookupSuggestion="YES"/>
+                    </textView>
                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="a4e-bn-oCI">
                         <rect key="frame" x="51" y="10" width="263" height="30"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -92,25 +108,37 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="Vj6-LZ-2Ym" firstAttribute="top" secondItem="dxa-y5-4uG" secondAttribute="top" constant="10" id="09K-sc-LxO"/>
+                    <constraint firstItem="lXg-LH-wcc" firstAttribute="trailing" secondItem="Vj6-LZ-2Ym" secondAttribute="trailing" id="10O-Tj-AsO"/>
                     <constraint firstItem="Ymt-UT-ul0" firstAttribute="top" secondItem="dxa-y5-4uG" secondAttribute="top" id="2wI-Qc-wxj"/>
                     <constraint firstItem="Ymt-UT-ul0" firstAttribute="leading" secondItem="dxa-y5-4uG" secondAttribute="leading" id="5IG-c2-gKa"/>
+                    <constraint firstItem="lXg-LH-wcc" firstAttribute="top" secondItem="Vj6-LZ-2Ym" secondAttribute="top" id="6dL-cT-XFx"/>
+                    <constraint firstItem="Kks-md-CTz" firstAttribute="leading" secondItem="7md-TD-5uy" secondAttribute="leading" id="6iw-23-VLm"/>
                     <constraint firstItem="a4e-bn-oCI" firstAttribute="leading" secondItem="Vj6-LZ-2Ym" secondAttribute="leading" id="7tG-ex-XC0"/>
+                    <constraint firstItem="Kks-md-CTz" firstAttribute="trailing" secondItem="7md-TD-5uy" secondAttribute="trailing" id="8hH-ev-pGZ"/>
+                    <constraint firstItem="Kks-md-CTz" firstAttribute="top" secondItem="Vj6-LZ-2Ym" secondAttribute="bottom" constant="3" id="99W-Bt-XTx"/>
+                    <constraint firstItem="Kks-md-CTz" firstAttribute="leading" secondItem="Vj6-LZ-2Ym" secondAttribute="leading" id="A5f-jI-qHs"/>
                     <constraint firstItem="Vj6-LZ-2Ym" firstAttribute="leading" secondItem="FcQ-cv-5W6" secondAttribute="trailing" constant="10" id="AnU-Ft-d3F"/>
                     <constraint firstAttribute="trailing" secondItem="2SV-Dl-yBz" secondAttribute="trailing" constant="5" id="Bx8-6p-V6J"/>
+                    <constraint firstItem="lXg-LH-wcc" firstAttribute="bottom" secondItem="Vj6-LZ-2Ym" secondAttribute="bottom" id="Dss-eI-2KB"/>
                     <constraint firstItem="eO3-td-JeQ" firstAttribute="leading" secondItem="Vj6-LZ-2Ym" secondAttribute="leading" id="Het-Xs-bwZ"/>
                     <constraint firstItem="a4e-bn-oCI" firstAttribute="trailing" secondItem="Vj6-LZ-2Ym" secondAttribute="trailing" id="KV1-Qf-Amc"/>
                     <constraint firstItem="2SV-Dl-yBz" firstAttribute="centerY" secondItem="dxa-y5-4uG" secondAttribute="centerY" id="MKs-II-zZx"/>
                     <constraint firstAttribute="trailing" secondItem="9fu-iF-wpg" secondAttribute="trailing" id="MRp-Sb-W3O"/>
+                    <constraint firstItem="Kks-md-CTz" firstAttribute="bottom" secondItem="7md-TD-5uy" secondAttribute="bottom" id="O2I-0v-vRx"/>
                     <constraint firstItem="eO3-td-JeQ" firstAttribute="top" secondItem="7md-TD-5uy" secondAttribute="bottom" constant="3" id="UBa-Ff-03Q"/>
                     <constraint firstItem="9fu-iF-wpg" firstAttribute="leading" secondItem="dxa-y5-4uG" secondAttribute="leading" id="X5S-XQ-aHl"/>
+                    <constraint firstItem="Kks-md-CTz" firstAttribute="top" secondItem="7md-TD-5uy" secondAttribute="top" id="YQn-lm-eIQ"/>
                     <constraint firstItem="7md-TD-5uy" firstAttribute="leading" secondItem="Vj6-LZ-2Ym" secondAttribute="leading" id="bzj-vb-y0X"/>
                     <constraint firstItem="FcQ-cv-5W6" firstAttribute="leading" secondItem="dxa-y5-4uG" secondAttribute="leading" constant="15" id="cUD-yt-a2z"/>
                     <constraint firstItem="FcQ-cv-5W6" firstAttribute="top" secondItem="dxa-y5-4uG" secondAttribute="top" constant="15" id="crX-aE-vpG"/>
+                    <constraint firstItem="Kks-md-CTz" firstAttribute="trailing" secondItem="Vj6-LZ-2Ym" secondAttribute="trailing" id="d6S-k9-Poa"/>
                     <constraint firstItem="7md-TD-5uy" firstAttribute="trailing" secondItem="Vj6-LZ-2Ym" secondAttribute="trailing" id="h0N-Pt-kcJ"/>
                     <constraint firstItem="7md-TD-5uy" firstAttribute="top" secondItem="Vj6-LZ-2Ym" secondAttribute="bottom" constant="3" id="j8D-OP-cha"/>
                     <constraint firstAttribute="bottom" secondItem="9fu-iF-wpg" secondAttribute="bottom" id="lJc-VE-z1t"/>
                     <constraint firstItem="2SV-Dl-yBz" firstAttribute="leading" secondItem="Vj6-LZ-2Ym" secondAttribute="trailing" constant="8" id="mTn-yL-ZBk"/>
                     <constraint firstAttribute="bottom" secondItem="eO3-td-JeQ" secondAttribute="bottom" constant="10" id="oAp-cc-gK0"/>
+                    <constraint firstItem="lXg-LH-wcc" firstAttribute="leading" secondItem="Vj6-LZ-2Ym" secondAttribute="leading" id="p5e-Xh-F9w"/>
+                    <constraint firstItem="eO3-td-JeQ" firstAttribute="top" secondItem="Kks-md-CTz" secondAttribute="bottom" constant="3" id="pzD-cN-rzg"/>
                     <constraint firstItem="a4e-bn-oCI" firstAttribute="top" secondItem="Vj6-LZ-2Ym" secondAttribute="top" id="yCs-K6-1qY"/>
                 </constraints>
             </tableViewCellContentView>
@@ -120,9 +148,12 @@
                 <outlet property="imageViewChecked" destination="FcQ-cv-5W6" id="uUd-zS-WkQ"/>
                 <outlet property="labelNote" destination="Vj6-LZ-2Ym" id="RQK-oP-weq"/>
                 <outlet property="labelNoteCreated" destination="eO3-td-JeQ" id="yQg-3l-gs3"/>
-                <outlet property="labelNoteSubTitle" destination="7md-TD-5uy" id="oc7-j9-Wfc"/>
+                <outlet property="labelNoteSubTitle" destination="7md-TD-5uy" id="AE7-HL-Uhh"/>
+                <outlet property="textViewNote" destination="lXg-LH-wcc" id="w1N-6Z-key"/>
+                <outlet property="textViewNoteSubTitle" destination="Kks-md-CTz" id="olL-pt-80O"/>
                 <outlet property="textfieldNoteTitle" destination="a4e-bn-oCI" id="HWo-xf-j4f"/>
             </connections>
+            <point key="canvasLocation" x="24.5" y="52"/>
         </tableViewCell>
     </objects>
     <resources>
