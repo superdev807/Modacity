@@ -8,71 +8,6 @@
 
 import UIKit
 
-protocol PracticeItemSelectCellDelegate {
-    func onCellMenu(menuButton: UIButton, indexPath: IndexPath)
-}
-
-class PracticeItemSelectCell: UITableViewCell {
-    
-    @IBOutlet weak var labelPracticeItemName: UILabel!
-    @IBOutlet weak var imageViewIcon: UIImageView!
-    @IBOutlet weak var textfieldInputPracticeItemName: UITextField!
-    @IBOutlet weak var ratingView: FloatRatingView!
-    @IBOutlet weak var buttonMenu: UIButton!
-    
-    var delegate: PracticeItemSelectCellDelegate? = nil
-    
-    var indexPath: IndexPath!
-    
-    func configure(with item: PracticeItem,
-                   rate: Double,
-                   keyword: String,
-                   isSelected:Bool,
-                   indexPath: IndexPath) {
-        
-        if keyword == "" {
-            self.labelPracticeItemName.attributedText = nil
-            self.labelPracticeItemName.text = item.name
-        } else {
-            let range = NSString(string:item.name.lowercased()).range(of: keyword.lowercased())
-            let attributed = NSMutableAttributedString(string: item.name)
-            attributed.addAttributes([NSAttributedStringKey.foregroundColor: AppConfig.appConfigTimerGreenColor], range: range)
-            self.labelPracticeItemName.attributedText = attributed
-        }
-        
-        if isSelected {
-            self.imageViewIcon.image = UIImage(named:"icon_selected_gradient")
-        } else {
-            self.imageViewIcon.image = UIImage(named:"icon_plus")
-        }
-        
-        self.textfieldInputPracticeItemName.text = item.name
-        self.textfieldInputPracticeItemName.isHidden = true
-        self.labelPracticeItemName.isHidden = false
-        
-        self.ratingView.contentMode = .scaleAspectFit
-        if rate > 0 {
-            self.ratingView.isHidden = false
-            self.ratingView.rating = rate
-        } else {
-            self.ratingView.isHidden = true
-        }
-        
-        self.indexPath = indexPath
-    }
-    
-    @IBAction func onEditingChangedOnPracticeItemNameField(_ sender: Any) {
-        self.labelPracticeItemName.text = self.textfieldInputPracticeItemName.text
-    }
-    
-    @IBAction func onCellMenu(_ sender: Any) {
-        if self.delegate != nil {
-            self.delegate!.onCellMenu(menuButton: self.buttonMenu, indexPath: self.indexPath)
-        }
-    }
-    
-}
-
 class PracticeItemSelectViewController: UIViewController {
 
     @IBOutlet weak var viewEditboxContainer: UIView!
@@ -100,6 +35,11 @@ class PracticeItemSelectViewController: UIViewController {
     
     var parentViewModel = PlaylistContentsViewModel()
     var shouldSelectPracticeItems = false
+    var animatedShowing = false
+    
+    var sortKey = SortKeyOption.name
+    var sortOption = SortOption.ascending
+    
     private let viewModel = PracticeItemViewModel()
     
     override func viewDidLoad() {
@@ -110,6 +50,8 @@ class PracticeItemSelectViewController: UIViewController {
         } else {
             self.constraintForHeaderImageViewConstant.constant = 88
         }
+        self.sortKey = AppOveralDataManager.manager.sortKey()
+        self.sortOption = AppOveralDataManager.manager.sortOption()
         self.configureGUI()
         self.bindViewModel()
         self.processWalkthrough()
@@ -120,13 +62,22 @@ class PracticeItemSelectViewController: UIViewController {
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "sid_sort" {
+            let controller = segue.destination as! SortOptionsViewController
+            controller.sortOption = self.sortOption
+            controller.sortKey = self.sortKey
+            controller.delegate = self
+        }
+    }
 
     func configureGUI() {
         self.viewEditboxContainer.layer.cornerRadius = 5
         self.viewStoreNewItemPanel.layer.cornerRadius = 25
         self.viewStoreNewItemPanel.isHidden = true
         self.tableViewMain.tableFooterView = UIView()
-        self.constraintForTableViewTopSpace.constant = 10
+        self.constraintForTableViewTopSpace.constant = 4
         self.viewAddPracticeButtonContainer.isHidden = true
         self.constraintForAddPracticeButtonHeight.constant = 0
         self.tableViewMain.sectionIndexBackgroundColor = Color.clear
@@ -150,6 +101,10 @@ class PracticeItemSelectViewController: UIViewController {
     }
     
     func bindViewModel() {
+        
+        self.viewModel.sortOption = self.sortOption
+        self.viewModel.sortKey = self.sortKey
+        
         self.viewModel.subscribe(to: "sectionedPracticeItems") { (event, _, _) in
             self.tableViewMain.reloadData()
         }
@@ -221,7 +176,7 @@ extension PracticeItemSelectViewController {
 
         if let parentController = self.parentController {
             if parentController.shouldStartFromPracticeSelection {
-                self.navigationController?.dismiss(animated: true, completion: nil)
+                self.navigationController?.dismiss(animated: self.animatedShowing, completion: nil)
                 return
             }
         }
@@ -233,7 +188,7 @@ extension PracticeItemSelectViewController {
         ModacityAnalytics.LogStringEvent("Created Practice Item", extraParamName: "name", extraParamValue: newName)
         self.viewModel.addItemtoStore(with: self.textfieldSearch.text!)
         self.viewStoreNewItemPanel.isHidden = true
-        self.constraintForTableViewTopSpace.constant = 10
+        self.constraintForTableViewTopSpace.constant = 4
         
         self.textfieldSearch.text = ""
         self.buttonRemoveKeyword.isHidden = true
@@ -304,11 +259,11 @@ extension PracticeItemSelectViewController: UITextFieldDelegate {
         if newKeyword != "" && !self.viewModel.practiceItemContains(itemName: newKeyword) {
             self.viewStoreNewItemPanel.isHidden = false
             self.labelStoreNewItem.text = "\(newKeyword)"
-            self.constraintForTableViewTopSpace.constant = 80
+            self.constraintForTableViewTopSpace.constant = 74
         } else {
             self.viewStoreNewItemPanel.isHidden = true
             self.labelStoreNewItem.text = ""
-            self.constraintForTableViewTopSpace.constant = 10
+            self.constraintForTableViewTopSpace.constant = 4
         }
         self.buttonRemoveKeyword.isHidden = (newKeyword == "")
         self.viewModel.changeKeyword(to: newKeyword)
@@ -339,7 +294,11 @@ extension PracticeItemSelectViewController: UITableViewDelegate, UITableViewData
     }
     
     func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-        return self.viewModel.sortedSectionedResult()
+        if self.viewModel.sortKey == .name {
+            return self.viewModel.sortedSectionedResult()
+        } else {
+            return nil
+        }
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -381,19 +340,18 @@ extension PracticeItemSelectViewController: UITableViewDelegate, UITableViewData
 extension PracticeItemSelectViewController: PracticeItemSelectCellDelegate {
     
     func onCellMenu(menuButton: UIButton, indexPath: IndexPath) {
-        
         DropdownMenuView.instance.show(in: self.view,
                                        on: menuButton,
-                                       rows: [["icon":"icon_pen_white", "text":"Edit"],
+                                       rows: [["icon":"icon_notes", "text":"Details"],
+                                              ["icon":"icon_pen_white", "text":"Rename"],
                                               ["icon":"icon_row_delete", "text":"Delete"]]) { (row) in
-                                                
                                                 self.processAction(row, indexPath)
         }
         
     }
     
     func processAction(_ row: Int, _ indexPath: IndexPath) {
-        if row == 0 {
+        if row == 1 {
             if let cell = self.tableViewMain.cellForRow(at: indexPath) as? PracticeItemSelectCell {
                 self.practiceItemNameEditingCell = cell
                 self.editingSection = indexPath.section
@@ -402,9 +360,32 @@ extension PracticeItemSelectViewController: PracticeItemSelectCellDelegate {
                 cell.labelPracticeItemName.isHidden = true
                 cell.textfieldInputPracticeItemName.becomeFirstResponder()
             }
-        } else if row == 1 {
+        } else if row == 2 {
             self.viewModel.removePracticeItem(for: self.viewModel.sectionResult(section: indexPath.section, row: indexPath.row))
             self.parentViewModel.checkPlaylistForPracticeItemRemoved()
+        } else {
+            self.openDetails(self.viewModel.sectionResult(section: indexPath.section, row: indexPath.row).id)
         }
+    }
+    
+    func openDetails(_ practiceItemId:String) {
+        let controller = UIStoryboard(name: "details", bundle: nil).instantiateViewController(withIdentifier: "DetailsScene") as! UINavigationController
+        let detailsViewController = controller.viewControllers[0] as! DetailsViewController
+        detailsViewController.practiceItemId = practiceItemId
+        self.present(controller, animated: true, completion: nil)
+        
+        if let practice = PracticeItemLocalManager.manager.practiceItem(forId: practiceItemId) {
+            ModacityAnalytics.LogStringEvent("Selected Practice Item", extraParamName: "Name", extraParamValue: practice.name)
+        }
+    }
+}
+
+extension PracticeItemSelectViewController: SortOptionsViewControllerDelegate {
+    func changeOptions(key: SortKeyOption, option: SortOption) {
+        self.sortKey = key
+        self.sortOption = option
+        AppOveralDataManager.manager.saveSortKey(self.sortKey)
+        AppOveralDataManager.manager.saveSortOption(self.sortOption)
+        self.viewModel.changeSort(key: key, option: option)
     }
 }

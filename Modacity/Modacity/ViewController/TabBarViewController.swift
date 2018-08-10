@@ -378,7 +378,6 @@ class TabBarViewController: UITabBarController {
                 }) { (finished) in
                     self.viewWalkThrough.removeFromSuperview()
                     AppOveralDataManager.manager.walkThroughFirstPage()
-                    
                     self.openNewPlaylist()
                 }
                 return
@@ -393,7 +392,14 @@ class TabBarViewController: UITabBarController {
         let controller = playlistCreateNew.viewControllers[0] as! PlaylistContentsViewController
         controller.shouldStartFromPracticeSelection = true
         ModacityAnalytics.LogEvent(.NewPlaylist)
-        self.present(playlistCreateNew, animated: true, completion: nil)
+        
+        if self.selectedIndex == 2 {
+            controller.animatedShowing = false
+            self.present(playlistCreateNew, animated: false, completion: nil)
+        } else {
+            controller.animatedShowing = true
+            self.present(playlistCreateNew, animated: true, completion: nil)
+        }
     }
     
 

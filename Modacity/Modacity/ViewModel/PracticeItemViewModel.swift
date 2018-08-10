@@ -67,6 +67,9 @@ class PracticeItemViewModel: ViewModel {
         }
     }
     
+    var sortKey = SortKeyOption.name
+    var sortOption = SortOption.descending
+    
     func loadItemNames() {
         if let items = PracticeItemLocalManager.manager.loadPracticeItems() {
             practiceItems = items
@@ -87,7 +90,6 @@ class PracticeItemViewModel: ViewModel {
         self.selectedPracticeItems.append(practiceItem)
         self.configureSectionedResult()
         
-        
         PracticeItemLocalManager.manager.storePracticeItems(practiceItems)
         PracticeItemRemoteManager.manager.add(item: practiceItem)
     }
@@ -103,7 +105,20 @@ class PracticeItemViewModel: ViewModel {
     }
     
     func sortedSectionedResult() -> [String] {
-        return self.sectionedPracticeItems.keys.sorted()
+        return self.sectionedPracticeItems.keys.sorted(by: { (key1, key2) -> Bool in
+            
+            if self.sortKey == .lastPracticedTime {
+                let date1 = key1.date(format: "M/d/yy") ?? Date(timeIntervalSince1970: 0)
+                let date2 = key2.date(format: "M/d/yy") ?? Date(timeIntervalSince1970: 0)
+                return (self.sortOption == .ascending) ? (date1 < date2) : (date1 > date2)
+            } else {
+                if self.sortOption == .ascending {
+                    return key1 < key2
+                } else {
+                    return key1 > key2
+                }
+            }
+        })
     }
     
     func sectionedSearchSectionCount() -> Int {
@@ -129,25 +144,47 @@ class PracticeItemViewModel: ViewModel {
         
         var finalResult = [String:[PracticeItem]]()
         
-        totalResult = totalResult.sorted(by: { (item1, item2) -> Bool in
-            return item1.name < item2.name
+        for item in totalResult {
+            
+            var keyString = ""
+            switch self.sortKey {
+            case .name:
+                keyString = item.firstCharacter()
+            case .favorites:
+                keyString = item.isFavorite == 0 ? "♡" : "♥"
+            case .lastPracticedTime:
+                keyString = item.lastPracticedDateString()
+            case .rating:
+                keyString = item.ratingString()
+            }
+            
+            if finalResult[keyString] != nil {
+                finalResult[keyString]!.append(item)
+            } else {
+                finalResult[keyString] = [item]
+            }
+        }
+        
+        let sectionNames = Array(finalResult.keys).sorted(by: { (ch1, ch2) -> Bool in
+            return (self.sortOption == .ascending) ? (ch1 < ch2) : (ch1 > ch2)
         })
         
-        for item in totalResult {
-            var firstCharacter: String!
-            
-            if let result = item.name {
-                if result.first == nil || result.lowercased().first! < "a" || result.lowercased().first! > "z" {
-                    firstCharacter = "#"
-                } else {
-                    firstCharacter = "\(result.first!)".uppercased()
-                }
-                
-                if finalResult[firstCharacter] != nil {
-                    finalResult[firstCharacter]!.append(item)
-                } else {
-                    finalResult[firstCharacter] = [item]
-                }
+        for key in sectionNames {
+            if let items = finalResult[key] {
+                finalResult[key] = items.sorted(by: { (item1, item2) -> Bool in
+                    switch self.sortKey {
+                    case .rating:
+                        fallthrough
+                    case .favorites:
+                        fallthrough
+                    case .name:
+                        return (self.sortOption == .ascending) ? (item1.name < item2.name) : (item1.name > item2.name)
+                    case .lastPracticedTime:
+                        let sortingKey1 = item1.lastPracticeTime().toString(format: "yyyyMMddHHmmss") + item1.name
+                        let sortingKey2 = item2.lastPracticeTime().toString(format: "yyyyMMddHHmmss") + item2.name
+                        return (self.sortOption == .ascending) ? (sortingKey1 < sortingKey2) : (sortingKey1 > sortingKey2)
+                    }
+                })
             }
         }
         
@@ -293,5 +330,11 @@ class PracticeItemViewModel: ViewModel {
     
     func ratingValue(forPracticeItem: PracticeItem) -> Double? {
         return PracticeItemLocalManager.manager.ratingValue(for: forPracticeItem.id)
+    }
+    
+    func changeSort(key:SortKeyOption, option: SortOption) {
+        self.sortKey = key
+        self.sortOption = option
+        self.configureSectionedResult()
     }
 }

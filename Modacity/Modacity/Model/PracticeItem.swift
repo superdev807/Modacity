@@ -95,6 +95,44 @@ class PracticeItem: Mappable {
         PracticeItemLocalManager.manager.updatePracticeItem(self)
     }
     
+    func firstCharacter() -> String {
+        let name = self.name
+        var firstCharacter = ""
+        if name == nil || name?.first == nil || (name!.lowercased().first! < "a" || name!.lowercased().first! > "z") {
+            firstCharacter = "#"
+        } else {
+            firstCharacter = "\(name!.uppercased().first!)"
+        }
+        return firstCharacter
+    }
+    
+    func ratingString() -> String {
+        return "\(Int(rating)) STARS"
+    }
+    
+    func lastPracticeTime() -> Date {
+        if let lastPracticed = lastPracticed {
+            let timeInterval = Double(lastPracticed) ?? 0
+            if timeInterval != 0 {
+                return Date(timeIntervalSince1970: timeInterval)
+            }
+        }
+        
+        return Date(timeIntervalSince1970: 0)
+    }
+    
+    func lastPracticedDateString() -> String {
+        var sectionString = "#"
+        if let lastPracticed = lastPracticed {
+            let timeInterval = Double(lastPracticed) ?? 0
+            if timeInterval != 0 {
+                sectionString = Date(timeIntervalSince1970: timeInterval).toString(format: "M/d/yy")
+            }
+        }
+        
+        return sectionString
+    }
+    
     func lastPracticedTimeString() -> String {
         if let lastPracticed = self.lastPracticed {
             let timeInterval = Double(lastPracticed) ?? 0

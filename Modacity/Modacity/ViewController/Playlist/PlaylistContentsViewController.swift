@@ -59,6 +59,10 @@ class PlaylistContentsViewController: UIViewController {
     var sessionStarted: Date? = nil
 //    var sessionPlayedInPlaylistPage = 0
     
+    var animatedShowing = false
+    var sortKey = SortKeyOption.name
+    var sortOption = SortOption.descending
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -101,6 +105,9 @@ class PlaylistContentsViewController: UIViewController {
         controller.shouldSelectPracticeItems = true
         controller.parentViewModel = self.viewModel
         controller.parentController = self
+        controller.animatedShowing = self.animatedShowing
+        controller.sortKey = self.sortKey
+        controller.sortOption = self.sortOption
         self.navigationController?.pushViewController(controller, animated: false)
     }
     

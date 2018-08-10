@@ -344,4 +344,30 @@ class AppOveralDataManager {
             return 0
         }
     }
+    
+    func saveSortKey(_ sortKey: SortKeyOption) {
+        UserDefaults.standard.set(sortKey.rawValue, forKey: "sort_key")
+        UserDefaults.standard.synchronize()
+    }
+    
+    func sortKey() -> SortKeyOption {
+        if let sortKey = UserDefaults.standard.string(forKey: "sort_key") {
+            return SortKeyOption(rawValue: sortKey) ?? .name
+        } else {
+            return .name
+        }
+    }
+    
+    func saveSortOption(_ sortOption: SortOption) {
+        UserDefaults.standard.set(sortOption.rawValue, forKey: "sort_option")
+        UserDefaults.standard.synchronize()
+    }
+    
+    func sortOption() -> SortOption {
+        if let sortKey = UserDefaults.standard.string(forKey: "sort_option") {
+            return SortOption(rawValue: sortKey) ?? .ascending
+        } else {
+            return .ascending
+        }
+    }
 }
