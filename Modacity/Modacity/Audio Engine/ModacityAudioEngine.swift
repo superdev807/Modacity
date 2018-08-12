@@ -17,7 +17,7 @@ class ModacityAudioEngine {
 class ModacityAudio {
     
     var audioEngine:AVAudioEngine!
-    
+
     func initEngine() {
 //        printAudioOutputs()
         NotificationCenter.default.addObserver(self, selector: #selector(processRouteChange), name: Notification.Name.AVAudioSessionRouteChange, object: nil)
@@ -35,14 +35,22 @@ class ModacityAudio {
         }
     }
     
-    func attachAudio(node: AVAudioPlayerNode) {
+
+    
+    func attachAudio(node: AVAudioNode) {
         ModacityDebugger.debug("Audio node attached to engine.")
         audioEngine.attach(node)
     }
     
-    func connectAudio(node: AVAudioPlayerNode, format: AVAudioFormat) {
+    func connectAudio(node: AVAudioNode, format: AVAudioFormat) {
         ModacityDebugger.debug("Audio node connected to engine.")
         audioEngine.connect(node, to: audioEngine.mainMixerNode, format: format)
+        
+    }
+    
+    func connectMultipleNodes(node1: AVAudioNode, node2: AVAudioNode, format: AVAudioFormat) {
+        ModacityDebugger.debug("Audio node connecting to other node.")
+        audioEngine.connect(node1, to: node2, format: format)
     }
     
     func checkEngineStatus() {

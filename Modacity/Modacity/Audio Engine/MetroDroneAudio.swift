@@ -10,9 +10,11 @@ class MetroDroneAudio {
     
     private var dronePlayerNode:AVAudioPlayerNode
     private var clickPlayerNode:AVAudioPlayerNode
+    private var dronePitchProcessor: AVAudioUnitTimePitch!
     private var audioFileDrone:AVAudioFile?
     private var audioFileMainClick:AVAudioFile
     private var audioFileSubClick:AVAudioFile
+    
     
     //var clickOnly: Bool = true
     
@@ -33,14 +35,30 @@ class MetroDroneAudio {
     }
     
     func connectWithEngine() {
+        let format = audioFileMainClick.processingFormat
         ModacityAudioEngine.engine.attachAudio(node: self.clickPlayerNode)
-        ModacityAudioEngine.engine.connectAudio(node: clickPlayerNode, format: audioFileMainClick.processingFormat)
+        ModacityAudioEngine.engine.connectAudio(node: clickPlayerNode, format: format)
         
+        self.dronePitchProcessor = AVAudioUnitTimePitch()
+        // For drone pitch processor, initialize its multiplier to current tuning standard
+        self.dronePitchProcessor.pitch = MetrodroneParameters.instance.tuningPitchMultiplier
+        
+        ModacityAudioEngine.engine.attachAudio(node: self.dronePitchProcessor)
         ModacityAudioEngine.engine.attachAudio(node: self.dronePlayerNode)
-        ModacityAudioEngine.engine.connectAudio(node: dronePlayerNode, format: audioFileMainClick.processingFormat)
+        
+        // connect audioplayer to pitch processor
+        ModacityAudioEngine.engine.connectMultipleNodes(node1: self.dronePlayerNode, node2: self.dronePitchProcessor, format: format)
+        
+        // connect pitch processor to main output node
+        ModacityAudioEngine.engine.connectAudio(node: dronePitchProcessor, format: format)
         
         ModacityAudioEngine.engine.startEngine()
         ModacityDebugger.debug("Engine started")
+    }
+    
+    // whenever the user updates the tuning standard, send the new pitch multiplier here.
+    func updatePitchMultiplier(_ newMult: Float) {
+            self.dronePitchProcessor.pitch = newMult
     }
     
     private func generateSubdividedDrone(bpm: Double, subdivisions: Int, droneRatio: Float) -> AVAudioPCMBuffer {
