@@ -31,7 +31,7 @@ class PlaylistFinishViewController: UIViewController {
         self.labelPlaylistName.text = self.playlistDetailsViewModel.playlistName
         ModacityAnalytics.LogStringEvent("Congratulations Screen", extraParamName: "total seconds", extraParamValue:self.playlistDetailsViewModel.sessionDurationInSecond)
         if #available(iOS 10.3, *) {
-            SKStoreReviewController.requestReview()
+//            SKStoreReviewController.requestReview()
         }
         let sessionDuration = self.playlistDetailsViewModel.sessionDurationInSecond ?? 0
         if sessionDuration < 60 {

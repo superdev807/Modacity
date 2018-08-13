@@ -400,14 +400,12 @@ class PlaylistContentsViewController: UIViewController {
         }
         
         self.viewModel.subscribe(to: "practiceItems") { (_, old, _) in
-            if let practiceItems = old as? [String] {
-                if practiceItems.count == 0 {
-                    self.buttonStartPlaylist.isEnabled = true
-                    self.buttonStartPlaylist.alpha = 1.0
-                }
-            } else {
+            if self.viewModel.playlistPracticeEntries.count > 0 {
                 self.buttonStartPlaylist.isEnabled = true
                 self.buttonStartPlaylist.alpha = 1.0
+            } else {
+                self.buttonStartPlaylist.isEnabled = false
+                self.buttonStartPlaylist.alpha = 0.5
             }
             self.tableViewMain.reloadData()
         }
@@ -430,8 +428,13 @@ class PlaylistContentsViewController: UIViewController {
                 self.viewModel.setPlaylist(parent.deliverPlaylist)
                 self.textfieldPlaylistName.text = self.viewModel.playlistName
                 
-                self.buttonStartPlaylist.isEnabled = true
-                self.buttonStartPlaylist.alpha = 1.0
+                if parent.deliverPlaylist.playlistPracticeEntries != nil && parent.deliverPlaylist.playlistPracticeEntries.count > 0 {
+                    self.buttonStartPlaylist.isEnabled = true
+                    self.buttonStartPlaylist.alpha = 1.0
+                } else {
+                    self.buttonStartPlaylist.isEnabled = false
+                    self.buttonStartPlaylist.alpha = 0.5
+                }
                 
             } else if parent.deliverPracticeItem != nil {
                 self.viewModel.addPracticeItems([parent.deliverPracticeItem])
