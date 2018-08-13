@@ -57,11 +57,14 @@ class PlaylistContentsViewController: UIViewController {
     var sessionTimerPreviousPlayedTime = 0
     var sessionTimer : Timer? = nil
     var sessionStarted: Date? = nil
-//    var sessionPlayedInPlaylistPage = 0
     
     var animatedShowing = false
+    
     var sortKey = SortKeyOption.name
     var sortOption = SortOption.descending
+    var deliveredPracticeItems = [PracticeItem]()
+    var deliveredSectionedPracticeItems = [String:[PracticeItem]]()
+    var dataDelivered = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -106,8 +109,14 @@ class PlaylistContentsViewController: UIViewController {
         controller.parentViewModel = self.viewModel
         controller.parentController = self
         controller.animatedShowing = self.animatedShowing
-        controller.sortKey = self.sortKey
-        controller.sortOption = self.sortOption
+        
+        if self.shouldStartFromPracticeSelection {
+            controller.sortKey = self.sortKey
+            controller.sortOption = self.sortOption
+            controller.dataDelivered = self.dataDelivered
+            controller.deliveredPracticeItems = self.deliveredPracticeItems
+            controller.deliveredSectionedPracticeItems = self.deliveredSectionedPracticeItems
+        }
         self.navigationController?.pushViewController(controller, animated: false)
     }
     
@@ -320,7 +329,6 @@ class PlaylistContentsViewController: UIViewController {
             alertController.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
             self.present(alertController, animated: true, completion: nil)
             return
-            
         }
         
         self.playlistPracticeTotalTimeInSec = self.viewModel.totalPracticedTime()

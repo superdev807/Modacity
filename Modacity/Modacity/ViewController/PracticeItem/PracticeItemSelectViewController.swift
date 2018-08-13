@@ -40,6 +40,10 @@ class PracticeItemSelectViewController: UIViewController {
     var sortKey = SortKeyOption.name
     var sortOption = SortOption.ascending
     
+    var deliveredPracticeItems = [PracticeItem]()
+    var deliveredSectionedPracticeItems = [String:[PracticeItem]]()
+    var dataDelivered = false
+    
     private let viewModel = PracticeItemViewModel()
     
     override func viewDidLoad() {
@@ -121,7 +125,11 @@ class PracticeItemSelectViewController: UIViewController {
             self.tableViewMain.reloadData()
         }
         
-        self.viewModel.loadItemNames()
+        if self.dataDelivered {
+            self.viewModel.initViewModelWithData(key: self.sortKey, option: self.sortOption, practiceItems: self.deliveredPracticeItems, sectionedPracticeItems: self.deliveredSectionedPracticeItems)
+        } else {
+            self.viewModel.loadItemNames()
+        }
     }
     
     func processWalkthrough() {

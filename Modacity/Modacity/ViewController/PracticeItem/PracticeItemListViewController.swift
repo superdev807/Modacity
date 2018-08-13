@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 class PracticeItemListViewController: UIViewController {
     
@@ -85,17 +86,23 @@ class PracticeItemListViewController: UIViewController {
     }
     
     func updateList() {
-        self.practiceItems = PracticeItemLocalManager.manager.loadPracticeItems()?.sorted(by: { (item1, item2) -> Bool in
-            return item1.name < item2.name
-        })
-        self.refreshList()
+        MBProgressHUD.showAdded(to: self.view, animated: true)
+        DispatchQueue.global().async {
+            self.practiceItems = PracticeItemLocalManager.manager.loadPracticeItems()?.sorted(by: { (item1, item2) -> Bool in
+                return item1.name < item2.name
+            })
+            self.refreshList()
+        }
     }
     
     func refreshList() {
         self.filter()
         self.categorize()
         self.sort()
-        self.tableViewMain.reloadData()
+        DispatchQueue.main.async {
+            MBProgressHUD.hide(for: self.view, animated: true)
+            self.tableViewMain.reloadData()
+        }
     }
     
     func filter() {
@@ -262,7 +269,6 @@ extension PracticeItemListViewController: UITableViewDataSource, UITableViewDele
             practiceViewController.lastPracticeBreakTime = 0
             practiceViewController.practiceBreakTime = AppOveralDataManager.manager.practiceBreakTime() * 60
             self.tabBarController?.present(controller, animated: true, completion: nil)
-            
         }
     }
     
@@ -422,4 +428,3 @@ extension PracticeItemListViewController: SortOptionsViewControllerDelegate {
         self.tableViewMain.reloadData()
     }
 }
-

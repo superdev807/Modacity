@@ -70,6 +70,17 @@ class PracticeItemViewModel: ViewModel {
     var sortKey = SortKeyOption.name
     var sortOption = SortOption.descending
     
+    func initViewModelWithData(key: SortKeyOption,
+                               option: SortOption,
+                               practiceItems: [PracticeItem],
+                               sectionedPracticeItems: [String:[PracticeItem]]) {
+        
+        self.practiceItems = practiceItems
+        self.searchedPracticeItems = practiceItems
+        self.sectionedPracticeItems = sectionedPracticeItems
+        
+    }
+    
     func loadItemNames() {
         if let items = PracticeItemLocalManager.manager.loadPracticeItems() {
             practiceItems = items
