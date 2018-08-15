@@ -399,6 +399,7 @@ class TabBarViewController: UITabBarController {
             if let listViewController = (self.viewControllers?[2] as? UINavigationController)?.viewControllers[0] as? PracticeItemListViewController {
                 if let practiceItems = listViewController.practiceItems {
                     controller.dataDelivered = true
+                    controller.deliveredSectionNames = listViewController.sectionNames
                     controller.deliveredPracticeItems = practiceItems
                     controller.deliveredSectionedPracticeItems = listViewController.sectionedPracticeItems
                 }

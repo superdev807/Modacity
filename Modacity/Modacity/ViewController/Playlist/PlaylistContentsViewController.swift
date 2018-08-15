@@ -62,6 +62,7 @@ class PlaylistContentsViewController: UIViewController {
     
     var sortKey = SortKeyOption.name
     var sortOption = SortOption.descending
+    var deliveredSectionNames = [String]()
     var deliveredPracticeItems = [PracticeItem]()
     var deliveredSectionedPracticeItems = [String:[PracticeItem]]()
     var dataDelivered = false
@@ -114,8 +115,10 @@ class PlaylistContentsViewController: UIViewController {
             controller.sortKey = self.sortKey
             controller.sortOption = self.sortOption
             controller.dataDelivered = self.dataDelivered
-            controller.deliveredPracticeItems = self.deliveredPracticeItems
-            controller.deliveredSectionedPracticeItems = self.deliveredSectionedPracticeItems
+            controller.sectionNames = self.deliveredSectionNames
+            controller.practiceItems = self.deliveredPracticeItems
+            controller.filteredPracticeItems = self.deliveredPracticeItems
+            controller.sectionedPracticeItems = self.deliveredSectionedPracticeItems
         }
         self.navigationController?.pushViewController(controller, animated: false)
     }

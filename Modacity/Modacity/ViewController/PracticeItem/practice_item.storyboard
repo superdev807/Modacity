@@ -60,59 +60,79 @@
                                                         <constraint firstAttribute="height" constant="30" id="h3q-qX-x4Y"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Practice Item" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="lCi-yX-bpm">
-                                                    <rect key="frame" x="55" y="13.5" width="262" height="19.5"/>
-                                                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="16"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Test" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fyv-jT-Zfq">
-                                                    <rect key="frame" x="55" y="5.5" width="262" height="36.5"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Oxp-2W-0fP">
+                                                    <rect key="frame" x="52.5" y="14" width="273.5" height="36.5"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Practice Item" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="lCi-yX-bpm">
+                                                            <rect key="frame" x="0.0" y="0.0" width="273.5" height="19.5"/>
+                                                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="16"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Test" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fyv-jT-Zfq">
+                                                            <rect key="frame" x="0.0" y="-8" width="273.5" height="36.5"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="36" id="8t5-Nq-njk"/>
+                                                            </constraints>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="16"/>
+                                                            <textInputTraits key="textInputTraits"/>
+                                                            <connections>
+                                                                <action selector="onDidEndOnExitOnPracticeItenNameField:" destination="Eaq-Gi-q4n" eventType="editingDidEndOnExit" id="LMS-v9-XY8"/>
+                                                                <action selector="onEditingChangedOnPracticeItemNameField:" destination="Eaq-Gi-q4n" eventType="editingChanged" id="hIs-BB-LwC"/>
+                                                            </connections>
+                                                        </textField>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c6A-qa-vd6" customClass="FloatRatingView" customModule="Modacity" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="24.5" width="70" height="12"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="70" id="Ois-od-z3D"/>
+                                                                <constraint firstAttribute="height" constant="12" id="gWq-o7-lCZ"/>
+                                                            </constraints>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="img_star_filled_gray"/>
+                                                                <userDefinedRuntimeAttribute type="image" keyPath="fullImage" value="img_star_filled_yellow"/>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="minRating">
+                                                                    <integer key="value" value="0"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="maxRating">
+                                                                    <integer key="value" value="5"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="rating">
+                                                                    <real key="value" value="0.0"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="boolean" keyPath="editable" value="NO"/>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </view>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Practice Item" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ahM-hY-Vzs">
+                                                            <rect key="frame" x="75" y="24.5" width="198.5" height="12"/>
+                                                            <fontDescription key="fontDescription" name="Lato-Italic" family="Lato" pointSize="10"/>
+                                                            <color key="textColor" red="1" green="1" blue="1" alpha="0.69999999999999996" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="36" id="8t5-Nq-njk"/>
+                                                        <constraint firstAttribute="trailing" secondItem="lCi-yX-bpm" secondAttribute="trailing" id="3cS-9z-KTV"/>
+                                                        <constraint firstItem="c6A-qa-vd6" firstAttribute="top" secondItem="lCi-yX-bpm" secondAttribute="bottom" constant="5" id="9Px-Ly-lA6"/>
+                                                        <constraint firstItem="c6A-qa-vd6" firstAttribute="leading" secondItem="lCi-yX-bpm" secondAttribute="leading" id="AM4-IX-DTl"/>
+                                                        <constraint firstItem="ahM-hY-Vzs" firstAttribute="centerY" secondItem="c6A-qa-vd6" secondAttribute="centerY" id="OfV-3b-F9d"/>
+                                                        <constraint firstItem="fyv-jT-Zfq" firstAttribute="centerY" secondItem="lCi-yX-bpm" secondAttribute="centerY" id="QZG-WF-wSX"/>
+                                                        <constraint firstItem="fyv-jT-Zfq" firstAttribute="leading" secondItem="lCi-yX-bpm" secondAttribute="leading" id="Wwl-0e-fkl"/>
+                                                        <constraint firstItem="fyv-jT-Zfq" firstAttribute="trailing" secondItem="lCi-yX-bpm" secondAttribute="trailing" id="XU5-Pg-bPY"/>
+                                                        <constraint firstAttribute="trailing" secondItem="ahM-hY-Vzs" secondAttribute="trailing" id="Y6u-aS-m4e"/>
+                                                        <constraint firstItem="ahM-hY-Vzs" firstAttribute="leading" secondItem="c6A-qa-vd6" secondAttribute="trailing" constant="5" id="eV8-Ea-cWG"/>
+                                                        <constraint firstItem="lCi-yX-bpm" firstAttribute="top" secondItem="Oxp-2W-0fP" secondAttribute="top" id="iHX-Wz-bXE"/>
+                                                        <constraint firstItem="lCi-yX-bpm" firstAttribute="leading" secondItem="Oxp-2W-0fP" secondAttribute="leading" id="o23-Ma-QJj"/>
+                                                        <constraint firstAttribute="bottom" secondItem="c6A-qa-vd6" secondAttribute="bottom" id="xJy-za-dzB"/>
                                                     </constraints>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="16"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                    <connections>
-                                                        <action selector="onDidEndOnExitOnPracticeItenNameField:" destination="Eaq-Gi-q4n" eventType="editingDidEndOnExit" id="LMS-v9-XY8"/>
-                                                        <action selector="onEditingChangedOnPracticeItemNameField:" destination="Eaq-Gi-q4n" eventType="editingChanged" id="hIs-BB-LwC"/>
-                                                    </connections>
-                                                </textField>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c6A-qa-vd6" customClass="FloatRatingView" customModule="Modacity" customModuleProvider="target">
-                                                    <rect key="frame" x="55" y="38" width="70" height="12"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="70" id="Ois-od-z3D"/>
-                                                        <constraint firstAttribute="height" constant="12" id="gWq-o7-lCZ"/>
-                                                    </constraints>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="img_star_filled_gray"/>
-                                                        <userDefinedRuntimeAttribute type="image" keyPath="fullImage" value="img_star_filled_yellow"/>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="minRating">
-                                                            <integer key="value" value="0"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="maxRating">
-                                                            <integer key="value" value="5"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="rating">
-                                                            <real key="value" value="0.0"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="editable" value="NO"/>
-                                                    </userDefinedRuntimeAttributes>
                                                 </view>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Practice Item" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ahM-hY-Vzs">
-                                                    <rect key="frame" x="130" y="38" width="197" height="12"/>
-                                                    <fontDescription key="fontDescription" name="Lato-Italic" family="Lato" pointSize="10"/>
-                                                    <color key="textColor" red="1" green="1" blue="1" alpha="0.69999999999999996" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jb8-lC-Zw1">
-                                                    <rect key="frame" x="327" y="11" width="48" height="40"/>
+                                                    <rect key="frame" x="331" y="11" width="44" height="40"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="48" id="8XA-2I-1Xv"/>
+                                                        <constraint firstAttribute="width" constant="44" id="8XA-2I-1Xv"/>
                                                         <constraint firstAttribute="height" constant="40" id="cBT-51-pZh"/>
                                                     </constraints>
                                                     <state key="normal" image="icon_cell_menu"/>
@@ -122,21 +142,13 @@
                                                 </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="fyv-jT-Zfq" firstAttribute="centerY" secondItem="lCi-yX-bpm" secondAttribute="centerY" id="4k2-hm-E5j"/>
+                                                <constraint firstItem="Oxp-2W-0fP" firstAttribute="leading" secondItem="vtg-Ll-gW3" secondAttribute="trailing" constant="10" id="3vw-cf-bQT"/>
                                                 <constraint firstItem="Jb8-lC-Zw1" firstAttribute="centerY" secondItem="7ih-NM-JNE" secondAttribute="centerY" id="9d7-Gm-l09"/>
-                                                <constraint firstItem="lCi-yX-bpm" firstAttribute="leading" secondItem="vtg-Ll-gW3" secondAttribute="trailing" constant="12.5" id="DS3-33-c26"/>
-                                                <constraint firstItem="ahM-hY-Vzs" firstAttribute="leading" secondItem="c6A-qa-vd6" secondAttribute="trailing" constant="5" id="Fp0-Mr-ylU"/>
-                                                <constraint firstItem="c6A-qa-vd6" firstAttribute="leading" secondItem="lCi-yX-bpm" secondAttribute="leading" id="I6a-pN-o9u"/>
-                                                <constraint firstItem="Jb8-lC-Zw1" firstAttribute="leading" secondItem="fyv-jT-Zfq" secondAttribute="trailing" constant="10" id="Iec-dS-XZG"/>
-                                                <constraint firstItem="Jb8-lC-Zw1" firstAttribute="leading" secondItem="ahM-hY-Vzs" secondAttribute="trailing" id="PAQ-Nu-Gyu"/>
-                                                <constraint firstItem="Jb8-lC-Zw1" firstAttribute="leading" secondItem="lCi-yX-bpm" secondAttribute="trailing" constant="10" id="Qj6-we-cEu"/>
+                                                <constraint firstItem="Jb8-lC-Zw1" firstAttribute="leading" secondItem="Oxp-2W-0fP" secondAttribute="trailing" constant="5" id="CFW-Rf-uVO"/>
+                                                <constraint firstItem="Oxp-2W-0fP" firstAttribute="centerY" secondItem="7ih-NM-JNE" secondAttribute="centerY" id="FKi-eU-Szy"/>
                                                 <constraint firstItem="vtg-Ll-gW3" firstAttribute="centerY" secondItem="7ih-NM-JNE" secondAttribute="centerY" id="THf-eu-Ry6"/>
                                                 <constraint firstAttribute="trailing" secondItem="Jb8-lC-Zw1" secondAttribute="trailing" id="VId-U2-TiK"/>
-                                                <constraint firstItem="fyv-jT-Zfq" firstAttribute="leading" secondItem="lCi-yX-bpm" secondAttribute="leading" id="VVd-8P-DlU"/>
                                                 <constraint firstItem="vtg-Ll-gW3" firstAttribute="leading" secondItem="7ih-NM-JNE" secondAttribute="leading" constant="12.5" id="e5q-Qd-FNr"/>
-                                                <constraint firstItem="ahM-hY-Vzs" firstAttribute="centerY" secondItem="c6A-qa-vd6" secondAttribute="centerY" id="g47-5w-M04"/>
-                                                <constraint firstItem="lCi-yX-bpm" firstAttribute="top" secondItem="7ih-NM-JNE" secondAttribute="top" constant="13.5" id="kzy-nB-iQn"/>
-                                                <constraint firstItem="c6A-qa-vd6" firstAttribute="top" secondItem="lCi-yX-bpm" secondAttribute="bottom" constant="5" id="utk-U7-Pft"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1156,6 +1168,6 @@ Working On?</string>
         <image name="walkthrough_arrow_3" width="12" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="sFc-qT-n1d"/>
+        <segue reference="22z-sW-tiL"/>
     </inferredMetricsTieBreakers>
 </document>

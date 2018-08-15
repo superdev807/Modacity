@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import MBProgressHUD
+
+typealias CompletedAction = () -> ()
 
 class PracticeItemSelectViewController: UIViewController {
 
@@ -40,11 +43,18 @@ class PracticeItemSelectViewController: UIViewController {
     var sortKey = SortKeyOption.name
     var sortOption = SortOption.ascending
     
-    var deliveredPracticeItems = [PracticeItem]()
-    var deliveredSectionedPracticeItems = [String:[PracticeItem]]()
     var dataDelivered = false
     
-    private let viewModel = PracticeItemViewModel()
+    var practiceItems: [PracticeItem]? = nil
+    var filteredPracticeItems: [PracticeItem]? = nil
+    var sectionNames = [String]()
+    var sectionedPracticeItems = [String:[PracticeItem]]()
+    
+    var selectedPracticeItems: [PracticeItem] = [PracticeItem]()
+    
+    var firstAppearing = true
+    
+    var searchKeyword = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,7 +67,12 @@ class PracticeItemSelectViewController: UIViewController {
         self.sortKey = AppOveralDataManager.manager.sortKey()
         self.sortOption = AppOveralDataManager.manager.sortOption()
         self.configureGUI()
-        self.bindViewModel()
+        if !dataDelivered {
+            MBProgressHUD.showAdded(to: self.view, animated: true)
+            self.updateList()
+        } else {
+            self.tableViewMain.reloadData()
+        }
         self.processWalkthrough()
         NotificationCenter.default.addObserver(self, selector: #selector(onKeyboardWillChangeFrame), name: Notification.Name.UIKeyboardWillChangeFrame, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(onKeyboardWillHide), name: Notification.Name.UIKeyboardWillHide, object: nil)
@@ -75,7 +90,18 @@ class PracticeItemSelectViewController: UIViewController {
             controller.delegate = self
         }
     }
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if !firstAppearing {
+            self.sortKey = AppOveralDataManager.manager.sortKey()
+            self.sortOption = AppOveralDataManager.manager.sortOption()
+            self.updateList()
+        } else {
+            firstAppearing = false
+        }
+    }
+    
     func configureGUI() {
         self.viewEditboxContainer.layer.cornerRadius = 5
         self.viewStoreNewItemPanel.layer.cornerRadius = 25
@@ -104,34 +130,6 @@ class PracticeItemSelectViewController: UIViewController {
         self.cancelCellEditingMode()
     }
     
-    func bindViewModel() {
-        
-        self.viewModel.sortOption = self.sortOption
-        self.viewModel.sortKey = self.sortKey
-        
-        self.viewModel.subscribe(to: "sectionedPracticeItems") { (event, _, _) in
-            self.tableViewMain.reloadData()
-        }
-        
-        self.viewModel.subscribe(to: "selectedPracticeItems") { (event, _, _) in
-            if self.viewModel.selectedPracticeItems.count > 0 {
-                self.viewAddPracticeButtonContainer.isHidden = false
-                self.constraintForAddPracticeButtonHeight.constant = 64 / 375 * UIScreen.main.bounds.size.width
-            } else {
-                self.viewAddPracticeButtonContainer.isHidden = true
-                self.constraintForAddPracticeButtonHeight.constant = 0
-            }
-            
-            self.tableViewMain.reloadData()
-        }
-        
-        if self.dataDelivered {
-            self.viewModel.initViewModelWithData(key: self.sortKey, option: self.sortOption, practiceItems: self.deliveredPracticeItems, sectionedPracticeItems: self.deliveredSectionedPracticeItems)
-        } else {
-            self.viewModel.loadItemNames()
-        }
-    }
-    
     func processWalkthrough() {
         if !AppOveralDataManager.manager.walkThroughDoneForSecondPage() {
             showPracticeItemWalkThrough()
@@ -149,7 +147,7 @@ class PracticeItemSelectViewController: UIViewController {
             self.viewWalkthrough.alpha = 1
         }) { (finished) in
             if finished {
-                if self.viewModel.sectionedSearchSectionCount() > 0 {
+                if (self.practiceItems?.count ?? 0) > 0 {
                     self.imageViewWalkThrough2.alpha = 1
                     self.labelWalkThrough2.alpha = 1
                 }
@@ -167,7 +165,7 @@ class PracticeItemSelectViewController: UIViewController {
             self.viewWalkthrough.alpha = 0
         }) { (finished) in
             self.viewWalkthrough.isHidden = true
-            if self.viewModel.practiceItems.count > 0 {
+            if (self.practiceItems?.count ?? 0) > 0 {
                 if withSetting {
                     // this never happens, should we remove this code?
                     // withSetting is always false in the current code
@@ -194,23 +192,43 @@ extension PracticeItemSelectViewController {
     @IBAction func onAddtoStore(_ sender: Any) {
         let newName = self.textfieldSearch.text!
         ModacityAnalytics.LogStringEvent("Created Practice Item", extraParamName: "name", extraParamValue: newName)
-        self.viewModel.addItemtoStore(with: self.textfieldSearch.text!)
-        self.viewStoreNewItemPanel.isHidden = true
-        self.constraintForTableViewTopSpace.constant = 4
-        
-        self.textfieldSearch.text = ""
-        self.buttonRemoveKeyword.isHidden = true
-        self.viewModel.changeKeyword(to: "")
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            self.scrollTableView(to:newName)
+        MBProgressHUD.showAdded(to: self.view, animated: true)
+        DispatchQueue.global().async {
+            self.addNewPracticeItem(newName)
+            self.searchKeyword = ""
+            self.updateList(completed: {
+                self.viewStoreNewItemPanel.isHidden = true
+                self.constraintForTableViewTopSpace.constant = 4
+                self.textfieldSearch.text = ""
+                self.buttonRemoveKeyword.isHidden = true
+                self.scrollTableView(to:newName)
+            })
         }
     }
     
+    func addNewPracticeItem(_ newName: String) {
+        
+        ModacityAnalytics.LogStringEvent("Created Practice Item", extraParamName: "name", extraParamValue: newName)
+        
+        let practiceItem = PracticeItem()
+        practiceItem.id = UUID().uuidString
+        practiceItem.name = newName
+        
+        if self.practiceItems == nil {
+            self.practiceItems = [PracticeItem]()
+        }
+        
+        self.practiceItems!.append(practiceItem)
+        
+        PracticeItemLocalManager.manager.storePracticeItems(self.practiceItems!)
+        PracticeItemRemoteManager.manager.add(item: practiceItem)
+        
+    }
+
     func scrollTableView(to name:String) {
-        for section in 0..<self.viewModel.sectionedSearchSectionCount() {
-            for row in 0..<self.viewModel.sectionedSearchResultCount(in: section) {
-                let item = self.viewModel.sectionResult(section: section, row: row)
+        for section in 0..<self.sectionNames.count {
+            for row in 0..<self.sectionedPracticeItems[self.sectionNames[section]]!.count {
+                let item = self.sectionedPracticeItems[self.sectionNames[section]]![row]
                 if item.name.lowercased() == name.lowercased() {
                     self.tableViewMain.scrollToRow(at: IndexPath(row: row, section: section), at: .top, animated: true)
                     return
@@ -218,24 +236,25 @@ extension PracticeItemSelectViewController {
             }
         }
     }
-    
+
     @IBAction func cancelCellEditingMode() {
         
         self.dismissWalkThrough(withSetting: false)
         
         if self.practiceItemNameEditingCell != nil {
             self.practiceItemNameEditingCell!.textfieldInputPracticeItemName.isHidden = true
-            let originalPracticeItemName = self.viewModel.sectionResult(section: self.editingSection, row: self.editingRow).name
-            let newPracticeItemName = self.practiceItemNameEditingCell!.textfieldInputPracticeItemName.text ?? ""
-            if newPracticeItemName != originalPracticeItemName {
-                if newPracticeItemName == "" {
-                    self.practiceItemNameEditingCell!.labelPracticeItemName.text = originalPracticeItemName
-                } else if self.viewModel.canChangeItemName(to: newPracticeItemName, forItem: self.viewModel.sectionResult(section: self.editingSection, row: self.editingRow)) {
-                    self.viewModel.changeItemName(to: newPracticeItemName, forItem: self.viewModel.sectionResult(section: self.editingSection, row: self.editingRow))
-                } else {
-                    self.practiceItemNameEditingCell!.labelPracticeItemName.text = originalPracticeItemName
-                    self.practiceItemNameEditingCell!.textfieldInputPracticeItemName.text = originalPracticeItemName
-                    AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "You've already same practice item name.")
+            if let originalPracticeItemName = self.sectionedPracticeItems[self.sectionNames[self.editingSection]]?[self.editingRow].name {
+                let newPracticeItemName = self.practiceItemNameEditingCell!.textfieldInputPracticeItemName.text ?? ""
+                if newPracticeItemName != originalPracticeItemName {
+                    if newPracticeItemName == "" {
+                        self.practiceItemNameEditingCell!.labelPracticeItemName.text = originalPracticeItemName
+                    } else if self.canChangeItemName(to: newPracticeItemName, forItem: self.sectionedPracticeItems[self.sectionNames[self.editingSection]]![self.editingRow]) {
+                        self.changeItemName(to: newPracticeItemName, forItem: self.sectionedPracticeItems[self.sectionNames[self.editingSection]]![self.editingRow])
+                    } else {
+                        self.practiceItemNameEditingCell!.labelPracticeItemName.text = originalPracticeItemName
+                        self.practiceItemNameEditingCell!.textfieldInputPracticeItemName.text = originalPracticeItemName
+                        AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "You've already same practice item name.")
+                    }
                 }
             }
             self.practiceItemNameEditingCell!.labelPracticeItemName.isHidden = false
@@ -243,8 +262,25 @@ extension PracticeItemSelectViewController {
         }
     }
     
+    func canChangeItemName(to: String, forItem: PracticeItem) -> Bool {
+        if let practiceItems = self.practiceItems {
+            for idx in 0..<practiceItems.count {
+                let selectedItem = practiceItems[idx]
+                if selectedItem.id != forItem.id && selectedItem.name == to {
+                    return false
+                }
+            }
+        }
+        return true
+    }
+    
+    func changeItemName(to: String, forItem: PracticeItem) {
+        forItem.name = to
+        forItem.updateMe()
+    }
+    
     @IBAction func onSelectItems(_ sender: Any) {
-        ModacityAnalytics.LogStringEvent("Added Practice Item to Playlist", extraParamName: "Item Count", extraParamValue: self.viewModel.selectedPracticeItems.count)
+        ModacityAnalytics.LogStringEvent("Added Practice Item to Playlist", extraParamName: "Item Count", extraParamValue: self.selectedPracticeItems.count)
         
         AppOveralDataManager.manager.walkThroughSecondPage()
         
@@ -252,7 +288,7 @@ extension PracticeItemSelectViewController {
             AppOveralDataManager.manager.generatedFirstPlaylist()
         }
         
-        self.parentViewModel.addPracticeItems(self.viewModel.selectedPracticeItems)
+        self.parentViewModel.addPracticeItems(self.selectedPracticeItems)
         if let parentController = self.parentController {
             parentController.practiceItemsSelected()
         }
@@ -264,7 +300,7 @@ extension PracticeItemSelectViewController: UITextFieldDelegate {
     
     @IBAction func onEditingChangedOnField(_ sender: Any) {
         let newKeyword = self.textfieldSearch.text ?? ""
-        if newKeyword != "" && !self.viewModel.practiceItemContains(itemName: newKeyword) {
+        if newKeyword != "" && !self.practiceItemContains(for: newKeyword) {
             self.viewStoreNewItemPanel.isHidden = false
             self.labelStoreNewItem.text = "\(newKeyword)"
             self.constraintForTableViewTopSpace.constant = 74
@@ -274,13 +310,26 @@ extension PracticeItemSelectViewController: UITextFieldDelegate {
             self.constraintForTableViewTopSpace.constant = 4
         }
         self.buttonRemoveKeyword.isHidden = (newKeyword == "")
-        self.viewModel.changeKeyword(to: newKeyword)
+        self.searchKeyword = newKeyword
+        self.refreshList()
+    }
+    
+    func practiceItemContains(for name: String) -> Bool {
+        if let practiceItems = self.practiceItems {
+            for practiceItem in practiceItems {
+                if practiceItem.name.lowercased() == name.lowercased() {
+                    return true
+                }
+            }
+        }
+        
+        return false
     }
     
     @IBAction func onRemoveKeyword(_ sender: Any) {
         self.textfieldSearch.text = ""
         self.buttonRemoveKeyword.isHidden = true
-        self.viewModel.changeKeyword(to: "")
+        self.refreshList()
     }
     
     @IBAction func onDidEndOnExitOnField(_ sender: Any) {
@@ -292,55 +341,68 @@ extension PracticeItemSelectViewController: UITextFieldDelegate {
 }
 
 extension PracticeItemSelectViewController: UITableViewDelegate, UITableViewDataSource {
-    
+
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.viewModel.sectionedSearchSectionCount()
+        return self.sectionNames.count
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.viewModel.sectionedSearchResultCount(in: section)
-    }
-    
-    func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-        if self.viewModel.sortKey == .name {
-            return self.viewModel.sortedSectionedResult()
-        } else {
-            return nil
-        }
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 28
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let returnedView = UIView(frame: CGRect(x:0, y:0, width:tableViewMain.frame.size.width, height:40))
         returnedView.backgroundColor = Color(hexString: "#3c385a")
-
+        
         let label = UILabel(frame: CGRect(x:10, y:0, width:tableViewMain.frame.size.width - 20, height:24))
-        label.text = self.viewModel.sortedSectionedResult()[section]
+        label.text = "\(self.sectionNames[section])"
         label.textColor = Color.white.alpha(0.8)
         label.font = UIFont(name: AppConfig.appFontLatoRegular, size: 14)
         returnedView.addSubview(label)
-
+        
         return returnedView
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.sectionedPracticeItems[self.sectionNames[section]]?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PracticeItemCell") as! PracticeItemSelectCell
-        let item = self.viewModel.sectionResult(section: indexPath.section, row: indexPath.row)
-        cell.configure(with: item,
-                       rate: self.viewModel.ratingValue(forPracticeItem: item) ?? 0,
-                       keyword: self.textfieldSearch.text ?? "",
-                       isSelected: self.viewModel.isSelected(for: item),
-                       indexPath: indexPath)
-        cell.delegate = self
+        if let item = self.sectionedPracticeItems[self.sectionNames[indexPath.section]]?[indexPath.row] {
+            cell.configure(with: item,
+                           rate: item.rating,
+                        keyword: self.textfieldSearch.text ?? "",
+                        isSelected: self.isSelected(for: item),
+                        indexPath: indexPath)
+            cell.delegate = self
+        }
         return cell
+
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 64
     }
     
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        view.tintColor = Color(hexString: "#D8D8D8").alpha(0.1)
+        if let header = view as? UITableViewHeaderFooterView {
+            header.textLabel?.textColor = Color.white
+        }
+    }
+    
+    func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+        if self.sortKey == .name {
+            return self.sectionNames
+        } else {
+            return nil
+        }
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        self.viewModel.selectItem(for: self.viewModel.sectionResult(section: indexPath.section, row: indexPath.row))
+        self.selectItem(for: self.sectionedPracticeItems[self.sectionNames[indexPath.section]]![indexPath.row])
     }
     
 }
@@ -369,10 +431,11 @@ extension PracticeItemSelectViewController: PracticeItemSelectCellDelegate {
                 cell.textfieldInputPracticeItemName.becomeFirstResponder()
             }
         } else if row == 2 {
-            self.viewModel.removePracticeItem(for: self.viewModel.sectionResult(section: indexPath.section, row: indexPath.row))
+            PracticeItemLocalManager.manager.removePracticeItem(for: self.sectionedPracticeItems[self.sectionNames[indexPath.section]]![indexPath.row])
+            self.updateList()
             self.parentViewModel.checkPlaylistForPracticeItemRemoved()
         } else {
-            self.openDetails(self.viewModel.sectionResult(section: indexPath.section, row: indexPath.row).id)
+            self.openDetails(self.sectionedPracticeItems[self.sectionNames[indexPath.section]]![indexPath.row].id)
         }
     }
     
@@ -390,10 +453,178 @@ extension PracticeItemSelectViewController: PracticeItemSelectCellDelegate {
 
 extension PracticeItemSelectViewController: SortOptionsViewControllerDelegate {
     func changeOptions(key: SortKeyOption, option: SortOption) {
-        self.sortKey = key
         self.sortOption = option
+        self.sortKey = key
         AppOveralDataManager.manager.saveSortKey(self.sortKey)
         AppOveralDataManager.manager.saveSortOption(self.sortOption)
-        self.viewModel.changeSort(key: key, option: option)
+        self.updateWithFilterList()
+    }
+    
+    func updateList(completed: CompletedAction? = nil) {
+        DispatchQueue.global().async {
+            self.practiceItems = PracticeItemLocalManager.manager.loadPracticeItems()?.sorted(by: { (item1, item2) -> Bool in
+                return item1.name < item2.name
+            })
+            self.refreshList(completed: completed)
+        }
+    }
+    
+    func updateWithFilterList() {
+        DispatchQueue.global().async {
+            self.categorize()
+            self.sort()
+            DispatchQueue.main.async {
+                MBProgressHUD.hide(for: self.view, animated: true)
+                self.tableViewMain.reloadData()
+                if self.selectedPracticeItems.count > 0 {
+                    self.viewAddPracticeButtonContainer.isHidden = false
+                    self.constraintForAddPracticeButtonHeight.constant = 64 / 375 * UIScreen.main.bounds.size.width
+                } else {
+                    self.viewAddPracticeButtonContainer.isHidden = true
+                    self.constraintForAddPracticeButtonHeight.constant = 0
+                }
+            }
+        }
+    }
+    
+    func refreshList(completed: CompletedAction? = nil) {
+        self.filter()
+        self.categorize()
+        self.sort()
+        DispatchQueue.main.async {
+            MBProgressHUD.hide(for: self.view, animated: true)
+            self.tableViewMain.reloadData()
+            if self.selectedPracticeItems.count > 0 {
+                self.viewAddPracticeButtonContainer.isHidden = false
+                self.constraintForAddPracticeButtonHeight.constant = 64 / 375 * UIScreen.main.bounds.size.width
+            } else {
+                self.viewAddPracticeButtonContainer.isHidden = true
+                self.constraintForAddPracticeButtonHeight.constant = 0
+            }
+            if let completed = completed {
+                completed()
+            }
+        }
+    }
+    
+    func filter() {
+        let tableHeaderKeyword = self.searchKeyword//self.textfieldSearch.text ?? ""
+        if tableHeaderKeyword == "" {
+            self.filteredPracticeItems = self.practiceItems
+        } else {
+            if let practiceItems = self.practiceItems {
+                self.filteredPracticeItems = [PracticeItem]()
+                for practiceItem in practiceItems {
+                    if practiceItem.name.lowercased().contains(tableHeaderKeyword.lowercased()) {
+                        self.filteredPracticeItems!.append(practiceItem)
+                    }
+                }
+            } else {
+                self.filteredPracticeItems = nil
+            }
+        }
+    }
+    
+    func sort() {
+        
+        self.sectionNames = Array(self.sectionedPracticeItems.keys).sorted(by: { (ch1, ch2) -> Bool in
+            if self.sortKey == .lastPracticedTime {
+                let date1 = ch1.date(format: "M/d/yy") ?? Date(timeIntervalSince1970: 0)
+                let date2 = ch2.date(format: "M/d/yy") ?? Date(timeIntervalSince1970: 0)
+                return (self.sortOption == .ascending) ? (date1 < date2) : (date1 > date2)
+            } else {
+                return (self.sortOption == .ascending) ? (ch1 < ch2) : (ch1 > ch2)
+            }
+        })
+        
+        for key in self.sectionedPracticeItems.keys {
+            if let items = self.sectionedPracticeItems[key] {
+                self.sectionedPracticeItems[key] = items.sorted(by: { (item1, item2) -> Bool in
+                    switch self.sortKey {
+                    case .rating:
+                        fallthrough
+                    case .favorites:
+                        fallthrough
+                    case .name:
+                        return (self.sortOption == .ascending) ? (item1.name < item2.name) : (item1.name > item2.name)
+                    case .lastPracticedTime:
+                        let sortingKey1 = item1.lastPracticeTime().toString(format: "yyyyMMddHHmmss") + item1.name
+                        let sortingKey2 = item2.lastPracticeTime().toString(format: "yyyyMMddHHmmss") + item2.name
+                        return (self.sortOption == .ascending) ? (sortingKey1 < sortingKey2) : (sortingKey1 > sortingKey2)
+                    }
+                })
+            }
+        }
+    }
+    
+    func categorize() {
+        
+        var showingPracticeItems = [PracticeItem]()
+        
+        var flags = [String:Bool]()
+        for item in self.selectedPracticeItems {
+            showingPracticeItems.append(item)
+            flags[item.id] = true
+        }
+        
+        if let practiceItems = self.filteredPracticeItems {
+            for practiceItem in practiceItems {
+                if !(flags[practiceItem.id] ?? false) {
+                    showingPracticeItems.append(practiceItem)
+                }
+            }
+        }
+        
+        self.sectionNames = [String]()
+        self.sectionedPracticeItems = [String:[PracticeItem]]()
+        
+        for practice in showingPracticeItems {
+            
+            var keyString = ""
+            
+            switch self.sortKey {
+            case .name:
+                keyString = practice.firstCharacter()
+            case .favorites:
+                keyString = practice.isFavorite == 0 ? "♡" : "♥"
+            case .lastPracticedTime:
+                keyString = practice.lastPracticedDateString()
+            case .rating:
+                keyString = "\(Int(practice.rating)) STARS"
+            }
+            
+            if self.sectionedPracticeItems[keyString] != nil {
+                self.sectionedPracticeItems[keyString]!.append(practice)
+            } else {
+                self.sectionedPracticeItems[keyString] = [practice]
+            }
+        }
+    }
+}
+
+extension PracticeItemSelectViewController {
+    func selectItem(for item:PracticeItem) {
+        for idx in 0..<self.selectedPracticeItems.count {
+            let selectedItem = self.selectedPracticeItems[idx]
+            if selectedItem.id == item.id {
+                self.selectedPracticeItems.remove(at: idx)
+                MBProgressHUD.showAdded(to: self.view, animated: true)
+                self.updateWithFilterList()
+                return
+            }
+        }
+        MBProgressHUD.showAdded(to: self.view, animated: true)
+        self.selectedPracticeItems.append(item)
+        self.updateWithFilterList()
+    }
+    
+    func isSelected(for item:PracticeItem) -> Bool {
+        for idx in 0..<self.selectedPracticeItems.count {
+            let selectedItem = self.selectedPracticeItems[idx]
+            if selectedItem.id == item.id {
+                return true
+            }
+        }
+        return false
     }
 }

@@ -146,6 +146,8 @@ class PracticeItemViewModel: ViewModel {
     
     func configureSectionedResult() {
         
+        let time = Date()
+        
         var totalResult = selectedPracticeItems
         for search in searchedPracticeItems {
             if !self.isSelected(for: search) {
@@ -200,6 +202,7 @@ class PracticeItemViewModel: ViewModel {
         }
         
         self.sectionedPracticeItems = finalResult
+        print("Sorted time - \(Date().timeIntervalSince1970 - time.timeIntervalSince1970)")
     }
     
     func searchResult(at row:Int) -> PracticeItem {

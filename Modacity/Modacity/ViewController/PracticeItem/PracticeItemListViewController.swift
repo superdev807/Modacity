@@ -50,6 +50,7 @@ class PracticeItemListViewController: UIViewController {
         self.tableViewMain.tableFooterView = UIView()
         self.tableViewMain.sectionIndexBackgroundColor = Color.clear
         self.tableViewMain.sectionIndexColor = Color.white
+        MBProgressHUD.showAdded(to: self.view, animated: true)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -86,7 +87,6 @@ class PracticeItemListViewController: UIViewController {
     }
     
     func updateList() {
-        MBProgressHUD.showAdded(to: self.view, animated: true)
         DispatchQueue.global().async {
             self.practiceItems = PracticeItemLocalManager.manager.loadPracticeItems()?.sorted(by: { (item1, item2) -> Bool in
                 return item1.name < item2.name

@@ -88,8 +88,7 @@ class NotesListView: UIView {
             
             self.delegate.onAddNote(text: self.textfieldAddNote.text!)
             self.textfieldAddNote.text = ""
-        }
-        else {
+        } else {
             // user tapped on plus button before they typed anything. direct to type.
             ModacityAnalytics.LogStringEvent("Notes - Tapped Plus Button No Text")
             self.textfieldAddNote.becomeFirstResponder()
@@ -231,6 +230,17 @@ extension NotesListView {
             }
         }
         
+        self.archivedNotes.sort { (note1, note2) -> Bool in
+            let time1 = Date(timeIntervalSince1970: Double(note1.createdAt) ?? 0)
+            let time2 = Date(timeIntervalSince1970: Double(note2.createdAt) ?? 0)
+            return time1 > time2
+        }
+        
+        self.notes.sort { (note1, note2) -> Bool in
+            let time1 = Date(timeIntervalSince1970: Double(note1.createdAt) ?? 0)
+            let time2 = Date(timeIntervalSince1970: Double(note2.createdAt) ?? 0)
+            return time1 > time2
+        }
         self.tableViewMain.reloadData()
     }
 }

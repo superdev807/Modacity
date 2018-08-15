@@ -44,7 +44,6 @@ class NoteCell: UITableViewCell {
         self.textViewNote.textContainerInset = .zero
         self.textViewNote.isHidden = false
         
-        
         if let recognizers = self.textViewNote.gestureRecognizers {
             
             for recognizer in recognizers {
