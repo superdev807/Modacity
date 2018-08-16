@@ -40,6 +40,18 @@ class PremiumUpgradeViewController: UIViewController {
     @IBOutlet weak var buttonFreeTrialStart: UIButton!
     @IBOutlet weak var constraintForPurchaseButtonHeight: NSLayoutConstraint!
     
+    @IBOutlet weak var viewSubscriptionTermsPanel: UIView!
+    @IBOutlet weak var constraintForSubscriptionTermsPanelTopSpace: NSLayoutConstraint!
+    @IBOutlet weak var viewContentPanel: UIView!
+    @IBOutlet weak var viewContentPanelTopSpace: NSLayoutConstraint!
+    
+    var resized = false
+    var constraintContentPanelHeight: NSLayoutConstraint!
+    var heightOfTermsPanel: CGFloat = 0
+    var termsPanelSlided = false
+    
+    @IBOutlet weak var viewContainerPanel: UIView!
+    
     var currentSlideContentView: UIView!
     
     var sliding = false
@@ -77,6 +89,24 @@ class PremiumUpgradeViewController: UIViewController {
             self.constraintForPurchaseButtonHeight.constant = 50
         } else {
             self.constraintForPurchaseButtonHeight.constant = 60
+        }
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if !self.resized {
+            let height = self.viewContentPanel.frame.size.height
+            if self.viewContentPanelTopSpace != nil {
+                self.viewContainerPanel.removeConstraint(self.viewContentPanelTopSpace)
+                self.constraintContentPanelHeight = self.viewContentPanel.heightAnchor.constraint(equalToConstant: height)
+                self.constraintContentPanelHeight.isActive = true
+                self.heightOfTermsPanel = self.viewSubscriptionTermsPanel.frame.size.height
+            }
+            self.resized = true
         }
     }
 
@@ -195,6 +225,22 @@ class PremiumUpgradeViewController: UIViewController {
             AppUtils.showSimpleAlertMessage(for: self, title: nil, message: error)
         }
     }
+    
+    @IBAction func onTerms(_ sender: Any) {
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(URL(string:AppConfig.appConfigTermsUrlLink)!, options: [:], completionHandler: nil)
+        } else {
+            UIApplication.shared.openURL(URL(string:AppConfig.appConfigTermsUrlLink)!)
+        }
+    }
+    
+    @IBAction func onPrivacy(_ sender: Any) {
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(URL(string:AppConfig.appConfigPrivacyUrlLink)!, options: [:], completionHandler: nil)
+        } else {
+            UIApplication.shared.openURL(URL(string:AppConfig.appConfigPrivacyUrlLink)!)
+        }
+    }
 }
 
 extension PremiumUpgradeViewController: PremiumUpgradeSlideViewDelegate {
@@ -268,5 +314,19 @@ extension PremiumUpgradeViewController: PremiumUpgradeSlideViewDelegate {
             slideView.labelDescription.text = self.sliderData[idx]["desc"]
             return slideView
         }
+    }
+}
+
+extension PremiumUpgradeViewController {
+    @IBAction func onSlideTermsPanel(_ sender: Any) {
+        if !self.termsPanelSlided {
+            self.constraintForSubscriptionTermsPanelTopSpace.constant = self.heightOfTermsPanel
+        } else {
+            self.constraintForSubscriptionTermsPanelTopSpace.constant = 70
+        }
+        UIView.animate(withDuration: 0.5) {
+            self.view.layoutIfNeeded()
+        }
+        self.termsPanelSlided = !self.termsPanelSlided
     }
 }

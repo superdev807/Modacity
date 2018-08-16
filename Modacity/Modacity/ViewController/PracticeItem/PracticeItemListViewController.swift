@@ -134,28 +134,43 @@ class PracticeItemListViewController: UIViewController {
             }
         })
         
-        for key in self.sectionedPracticeItems.keys {
-            if let items = self.sectionedPracticeItems[key] {
-                self.sectionedPracticeItems[key] = items.sorted(by: { (item1, item2) -> Bool in
-                    switch self.sortKey {
-                    case .rating:
-                        fallthrough
-                    case .favorites:
-                        fallthrough
-                    case .name:
-                        return (self.sortOption == .ascending) ? (item1.name < item2.name) : (item1.name > item2.name)
-                    case .lastPracticedTime:
-                        let sortingKey1 = item1.lastPracticeTime().toString(format: "yyyyMMddHHmmss") + item1.name
-                        let sortingKey2 = item2.lastPracticeTime().toString(format: "yyyyMMddHHmmss") + item2.name
-                        return (self.sortOption == .ascending) ? (sortingKey1 < sortingKey2) : (sortingKey1 > sortingKey2)
-                    }
-                })
-            }
-        }
+//        for key in self.sectionedPracticeItems.keys {
+//            if let items = self.sectionedPracticeItems[key] {
+//                self.sectionedPracticeItems[key] = items.sorted(by: { (item1, item2) -> Bool in
+//                    switch self.sortKey {
+//                    case .rating:
+//                        fallthrough
+//                    case .favorites:
+//                        fallthrough
+//                    case .name:
+//                        return (self.sortOption == .ascending) ? (item1.name < item2.name) : (item1.name > item2.name)
+//                    case .lastPracticedTime:
+//                        let sortingKey1 = item1.lastPracticeTime().toString(format: "yyyyMMddHHmmss") + item1.name
+//                        let sortingKey2 = item2.lastPracticeTime().toString(format: "yyyyMMddHHmmss") + item2.name
+//                        return (self.sortOption == .ascending) ? (sortingKey1 < sortingKey2) : (sortingKey1 > sortingKey2)
+//                    }
+//                })
+//            }
+//        }
     }
     
     func categorize() {
-        if let practiceItems = self.filteredPracticeItems {
+        if var practiceItems = self.filteredPracticeItems {
+            
+            practiceItems.sort { (item1, item2) -> Bool in
+                switch self.sortKey {
+                case .rating:
+                    fallthrough
+                case .favorites:
+                    fallthrough
+                case .name:
+                    return (self.sortOption == .ascending) ? (item1.name < item2.name) : (item1.name > item2.name)
+                case .lastPracticedTime:
+                    let sortingKey1 = item1.lastPracticeTime().toString(format: "yyyyMMddHHmmss") + item1.name
+                    let sortingKey2 = item2.lastPracticeTime().toString(format: "yyyyMMddHHmmss") + item2.name
+                    return (self.sortOption == .ascending) ? (sortingKey1 < sortingKey2) : (sortingKey1 > sortingKey2)
+                }
+            }
             
             self.sectionNames = [String]()
             self.sectionedPracticeItems = [String:[PracticeItem]]()

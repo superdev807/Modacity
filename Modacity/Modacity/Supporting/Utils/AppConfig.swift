@@ -35,8 +35,8 @@ class AppConfig: NSObject {
     static let appConfigWalkthroughOverlayColor = Color(hexString: "#252738").alpha(0.85)
     
     static let appConfigHomeUrlLink = "https://www.modacity.co/?utm_source=app&utm_medium=link&utm_campaign=about-us"
-    static let appConfigPrivacyUrlLink = "https://www.modacity.co/legal/#privacy/?utm_source=app&utm_medium=link&utm_campaign=about-us"
-    static let appConfigTermsUrlLink = "https://www.modacity.co/legal/#terms/?utm_source=app&utm_medium=link&utm_campaign=about-us"
+    static let appConfigPrivacyUrlLink = "https://www.modacity.co/legal/#privacy"
+    static let appConfigTermsUrlLink = "https://www.modacity.co/legal/#terms"
     static let appConfigShareTheAppUrlLink = "https://modacity.co/?utm_source=app&utm_medium=app&utm_campaign=share"
     static let appConfigTwitterLink = "https://twitter.com/ModacityApp"
     static let appConfigInstagramLink = "http://instagram.com/modacityapp"

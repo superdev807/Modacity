@@ -402,7 +402,7 @@ extension PracticeItemSelectViewController: UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        self.selectItem(for: self.sectionedPracticeItems[self.sectionNames[indexPath.section]]![indexPath.row])
+        self.selectItem(for: self.sectionedPracticeItems[self.sectionNames[indexPath.section]]![indexPath.row], indexPath: indexPath)
     }
     
 }
@@ -537,24 +537,24 @@ extension PracticeItemSelectViewController: SortOptionsViewControllerDelegate {
             }
         })
         
-        for key in self.sectionedPracticeItems.keys {
-            if let items = self.sectionedPracticeItems[key] {
-                self.sectionedPracticeItems[key] = items.sorted(by: { (item1, item2) -> Bool in
-                    switch self.sortKey {
-                    case .rating:
-                        fallthrough
-                    case .favorites:
-                        fallthrough
-                    case .name:
-                        return (self.sortOption == .ascending) ? (item1.name < item2.name) : (item1.name > item2.name)
-                    case .lastPracticedTime:
-                        let sortingKey1 = item1.lastPracticeTime().toString(format: "yyyyMMddHHmmss") + item1.name
-                        let sortingKey2 = item2.lastPracticeTime().toString(format: "yyyyMMddHHmmss") + item2.name
-                        return (self.sortOption == .ascending) ? (sortingKey1 < sortingKey2) : (sortingKey1 > sortingKey2)
-                    }
-                })
-            }
-        }
+//        for key in self.sectionedPracticeItems.keys {
+//            if let items = self.sectionedPracticeItems[key] {
+//                self.sectionedPracticeItems[key] = items.sorted(by: { (item1, item2) -> Bool in
+//                    switch self.sortKey {
+//                    case .rating:
+//                        fallthrough
+//                    case .favorites:
+//                        fallthrough
+//                    case .name:
+//                        return (self.sortOption == .ascending) ? (item1.name < item2.name) : (item1.name > item2.name)
+//                    case .lastPracticedTime:
+//                        let sortingKey1 = item1.lastPracticeTime().toString(format: "yyyyMMddHHmmss") + item1.name
+//                        let sortingKey2 = item2.lastPracticeTime().toString(format: "yyyyMMddHHmmss") + item2.name
+//                        return (self.sortOption == .ascending) ? (sortingKey1 < sortingKey2) : (sortingKey1 > sortingKey2)
+//                    }
+//                })
+//            }
+//        }
     }
     
     func categorize() {
@@ -577,6 +577,21 @@ extension PracticeItemSelectViewController: SortOptionsViewControllerDelegate {
         
         self.sectionNames = [String]()
         self.sectionedPracticeItems = [String:[PracticeItem]]()
+        
+        showingPracticeItems.sort { (item1, item2) -> Bool in
+            switch self.sortKey {
+            case .rating:
+                fallthrough
+            case .favorites:
+                fallthrough
+            case .name:
+                return (self.sortOption == .ascending) ? (item1.name < item2.name) : (item1.name > item2.name)
+            case .lastPracticedTime:
+                let sortingKey1 = item1.lastPracticeTime().toString(format: "yyyyMMddHHmmss") + item1.name
+                let sortingKey2 = item2.lastPracticeTime().toString(format: "yyyyMMddHHmmss") + item2.name
+                return (self.sortOption == .ascending) ? (sortingKey1 < sortingKey2) : (sortingKey1 > sortingKey2)
+            }
+        }
         
         for practice in showingPracticeItems {
             
@@ -603,17 +618,19 @@ extension PracticeItemSelectViewController: SortOptionsViewControllerDelegate {
 }
 
 extension PracticeItemSelectViewController {
-    func selectItem(for item:PracticeItem) {
+    
+    func selectItem(for item:PracticeItem, indexPath: IndexPath) {
         for idx in 0..<self.selectedPracticeItems.count {
             let selectedItem = self.selectedPracticeItems[idx]
             if selectedItem.id == item.id {
                 self.selectedPracticeItems.remove(at: idx)
-                MBProgressHUD.showAdded(to: self.view, animated: true)
+//                self.removeSelectedITem(for: item)
+//                MBProgressHUD.showAdded(to: self.view, animated: true)
                 self.updateWithFilterList()
                 return
             }
         }
-        MBProgressHUD.showAdded(to: self.view, animated: true)
+//        MBProgressHUD.showAdded(to: self.view, animated: true)
         self.selectedPracticeItems.append(item)
         self.updateWithFilterList()
     }
