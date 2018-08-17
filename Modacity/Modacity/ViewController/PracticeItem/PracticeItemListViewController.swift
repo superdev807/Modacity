@@ -126,6 +126,9 @@ class PracticeItemListViewController: UIViewController {
         
         self.sectionNames = Array(self.sectionedPracticeItems.keys).sorted(by: { (ch1, ch2) -> Bool in
             if self.sortKey == .lastPracticedTime {
+//                let key1 = ch1.lastPracticedSortKey ?? ""
+//                let key2 = ch2.lastPracticedSortKey ?? ""
+//                return (self.sortOption == .ascending) ? (key1 < key2) : (key1 > key2)
                 let date1 = ch1.date(format: "M/d/yy") ?? Date(timeIntervalSince1970: 0)
                 let date2 = ch2.date(format: "M/d/yy") ?? Date(timeIntervalSince1970: 0)
                 return (self.sortOption == .ascending) ? (date1 < date2) : (date1 > date2)
@@ -133,25 +136,6 @@ class PracticeItemListViewController: UIViewController {
                 return (self.sortOption == .ascending) ? (ch1 < ch2) : (ch1 > ch2)
             }
         })
-        
-//        for key in self.sectionedPracticeItems.keys {
-//            if let items = self.sectionedPracticeItems[key] {
-//                self.sectionedPracticeItems[key] = items.sorted(by: { (item1, item2) -> Bool in
-//                    switch self.sortKey {
-//                    case .rating:
-//                        fallthrough
-//                    case .favorites:
-//                        fallthrough
-//                    case .name:
-//                        return (self.sortOption == .ascending) ? (item1.name < item2.name) : (item1.name > item2.name)
-//                    case .lastPracticedTime:
-//                        let sortingKey1 = item1.lastPracticeTime().toString(format: "yyyyMMddHHmmss") + item1.name
-//                        let sortingKey2 = item2.lastPracticeTime().toString(format: "yyyyMMddHHmmss") + item2.name
-//                        return (self.sortOption == .ascending) ? (sortingKey1 < sortingKey2) : (sortingKey1 > sortingKey2)
-//                    }
-//                })
-//            }
-//        }
     }
     
     func categorize() {
@@ -166,9 +150,9 @@ class PracticeItemListViewController: UIViewController {
                 case .name:
                     return (self.sortOption == .ascending) ? (item1.name < item2.name) : (item1.name > item2.name)
                 case .lastPracticedTime:
-                    let sortingKey1 = item1.lastPracticeTime().toString(format: "yyyyMMddHHmmss") + item1.name
-                    let sortingKey2 = item2.lastPracticeTime().toString(format: "yyyyMMddHHmmss") + item2.name
-                    return (self.sortOption == .ascending) ? (sortingKey1 < sortingKey2) : (sortingKey1 > sortingKey2)
+                    let key1 = item1.lastPracticedSortKey ?? ""
+                    let key2 = item2.lastPracticedSortKey ?? ""
+                    return (self.sortOption == .ascending) ? (key1 < key2) : (key1 > key2)
                 }
             }
             
@@ -183,9 +167,9 @@ class PracticeItemListViewController: UIViewController {
                 case .name:
                     keyString = practice.firstCharacter()
                 case .favorites:
-                    keyString = practice.isFavorite == 0 ? "♡" : "♥"
+                    keyString = (practice.isFavorite == 0) ? "♡" : "♥"
                 case .lastPracticedTime:
-                    keyString = practice.lastPracticedDateString()
+                    keyString = practice.lastPracticedDateKeyString ?? ""//lastPracticedDateString()
                 case .rating:
                     keyString = "\(Int(practice.rating)) STARS"
                 }
@@ -196,6 +180,8 @@ class PracticeItemListViewController: UIViewController {
                     self.sectionedPracticeItems[keyString] = [practice]
                 }
             }
+            
+//            self.sectionNames = Array(self.sectionedPracticeItems.keys)
         }
     }
 }
@@ -438,8 +424,12 @@ extension PracticeItemListViewController: SortOptionsViewControllerDelegate {
         self.sortKey = key
         AppOveralDataManager.manager.saveSortKey(self.sortKey)
         AppOveralDataManager.manager.saveSortOption(self.sortOption)
-        self.categorize()
-        self.sort()
-        self.tableViewMain.reloadData()
+        DispatchQueue.global().async {
+            self.categorize()
+            self.sort()
+            DispatchQueue.main.async {
+                self.tableViewMain.reloadData()
+            }
+        }
     }
 }

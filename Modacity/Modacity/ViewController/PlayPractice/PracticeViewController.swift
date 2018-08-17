@@ -950,6 +950,19 @@ extension PracticeViewController {
 
 extension PracticeViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, PracticeNoteCellDelegate {
     
+    func openDetails(note: Note) {
+        let controller = UIStoryboard(name: "practice_note", bundle: nil).instantiateViewController(withIdentifier: "PracticeNoteDetailsViewController") as! PracticeNoteDetailsViewController
+        controller.note = note
+        controller.playlistViewModel = self.playlistViewModel
+        if self.playlistViewModel != nil {
+            controller.playlistPracticeEntry = self.playlistViewModel.currentPracticeEntry
+        }
+        
+        controller.practiceItem = self.practiceItem
+        ModacityAnalytics.LogStringEvent("Practicing - Opened Note", extraParamName: "Note", extraParamValue: note.note)
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
     @IBAction func onTabNotes() {
         
         ModacityAnalytics.LogStringEvent("Practicing - Pressed Notes")

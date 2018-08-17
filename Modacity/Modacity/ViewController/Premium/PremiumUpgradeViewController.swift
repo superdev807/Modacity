@@ -219,7 +219,7 @@ class PremiumUpgradeViewController: UIViewController {
         NotificationCenter.default.removeObserver(self, name: IAPHelper.appNotificationSubscriptionFailed, object: nil)
         
         self.view.isUserInteractionEnabled = true
-        self.buttonFreeTrialStart.setTitle("START MY FREE 2-WEEK TRIAL NOW", for: .normal)
+        self.buttonFreeTrialStart.setTitle("TRY 2 WEEKS FREE", for: .normal)
         if let userInfo = notification.userInfo,
             let error = userInfo["error"] as? String {
             AppUtils.showSimpleAlertMessage(for: self, title: nil, message: error)

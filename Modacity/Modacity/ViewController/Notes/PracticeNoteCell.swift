@@ -10,9 +10,10 @@ import UIKit
 
 protocol PracticeNoteCellDelegate {
     func onNoteSwipeUp(note:Note, cell: PracticeNoteCell, indexPath: IndexPath)
+    func openDetails(note: Note)
 }
 
-class PracticeNoteCell: UICollectionViewCell {
+class PracticeNoteCell: UICollectionViewCell, UIGestureRecognizerDelegate {
 
     @IBOutlet weak var imageViewBackground: UIImageView!
     @IBOutlet weak var labelTime: UILabel!
@@ -21,6 +22,7 @@ class PracticeNoteCell: UICollectionViewCell {
     var note: Note!
     var delegate: PracticeNoteCellDelegate!
     var indexPath: IndexPath!
+    var tapTerm: UITapGestureRecognizer!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -39,6 +41,20 @@ class PracticeNoteCell: UICollectionViewCell {
         let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(handleGesture))
         swipeUp.direction = .up
         self.addGestureRecognizer(swipeUp)
+        
+        if let recognizers = self.textViewNote.gestureRecognizers {
+            
+            for recognizer in recognizers {
+                if recognizer is UITapGestureRecognizer {
+                    self.textViewNote.removeGestureRecognizer(recognizer as UIGestureRecognizer)
+                }
+            }
+        }
+        
+        self.tapTerm = UITapGestureRecognizer(target: self, action: #selector(tapTextView))
+        
+        self.tapTerm.delegate = self
+        self.textViewNote.addGestureRecognizer(self.tapTerm)
     }
     
     @objc func handleGesture() {
@@ -56,5 +72,26 @@ class PracticeNoteCell: UICollectionViewCell {
         }
     }
     
+    @objc func tapTextView(gesture: UITapGestureRecognizer) {
+        if let textView = gesture.view as? UITextView {
+            let tapLocation = gesture.location(in: textView)
+            if let textPosition = textView.closestPosition(to: tapLocation) {
+                if let attributes = textView.textStyling(at: textPosition, in: .forward) {
+                    if let _ = attributes["NSLink"] {
+                        print("Link clicked clicked")
+                        return
+                    } else {
+                        print("Clicked outside of links.")
+                        if self.delegate != nil {
+                            self.delegate.openDetails(note: note)
+                        }
+                    }
+                }
+            }
+        }
+    }
     
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
 }

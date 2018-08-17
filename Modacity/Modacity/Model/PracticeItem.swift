@@ -12,12 +12,25 @@ import ObjectMapper
 class PracticeItem: Mappable {
     
     var id: String!
-    var name: String!
+    var name: String! {
+        didSet {
+            self.lastPracticedSortKey = self.lastPracticeTime().toString(format: "yyyyMMddHHmmss") + (self.name ?? "")
+        }
+    }
     var notes: [Note]?
-    var lastPracticed: String?
+    var lastPracticed: String? {
+        didSet {
+            self.lastPracticedSortKey = self.lastPracticeTime().toString(format: "yyyyMMddHHmmss") + (self.name ?? "")
+            self.lastPracticedDateKeyString = self.lastPracticedDateString()
+        }
+    }
     var lastPracticedDurationInSecond: Int?
     var rating: Double = 0
     var isFavorite: Int = 0
+    
+    var lastPracticedSortKey: String?
+    
+    var lastPracticedDateKeyString: String?
     
     init() {
         name = ""
