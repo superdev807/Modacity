@@ -208,7 +208,7 @@ class MetrodoneViewController: UIViewController {
     @IBAction func onSubdivision(_ sender: Any) {
         self.showSubdivision()
     }
-    
+
     func showSubdivision() {
         if self.subdivisionView == nil {
             self.subdivisionView = SubdivisionSelectView()

@@ -27,6 +27,7 @@ class SplashViewController: UIViewController {
                 self.openLogin()
             }
         }
+        MetrodroneParameters.instance.setTuningStandardA(432)
     }
 
     override func didReceiveMemoryWarning() {
