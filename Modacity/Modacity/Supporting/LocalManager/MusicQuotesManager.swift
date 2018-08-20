@@ -14,10 +14,10 @@ class MusicQuotesManager: NSObject {
     static let manager = MusicQuotesManager()
     
     var localQuotes = [["quote":"Mistakes are immensely useful. They show us where we are right now and what we need to do next.", "person": "William Westney"],
-                       ["quote":"The world must be filled with unsuccessful musical careers like mine, and it’s probably a good thing. We don’t need a lot of bad musicians filling the air with unnecessary sounds. Some of the professionals are bad enough.", "person": "Andy Rooney"],
-                       ["quote":"Life can’t be all bad when for ten dollars you can buy all the Beethoven sonatas and listen to them for ten years.", "person": "William F. Buckley, Jr"],
-                       ["quote":"I never had much interest in the piano until I realized that every time I played, a girl would appear on the piano bench to my left and another to my right.", "person": "Duke Ellington"],
-                       ["quote":"When I was a little boy, I told my dad, ‘When I grow up, I want to be a musician.’ My dad said: ‘You can’t do both, Son.", "person": "Chet Atkins"]]
+                       ["quote":"Adapt what is useful, reject what is useless, and add what is specifically your own.", "person": "Bruce Lee"],
+                       ["quote": "Let the path be open to talent.", "person":"Napoleon Bonaparte"],
+                       ["quote":"I have no special talent. I am only passionateyl curious", "person": "Albert Einstein"],
+                       ["quote":"Practice makes the master.", "person": "Patrick Rothfuss"]]
     
     func randomeQuote() -> [String:String] {
         return self.localQuotes[Int(arc4random_uniform(UInt32(self.localQuotes.count)))]
