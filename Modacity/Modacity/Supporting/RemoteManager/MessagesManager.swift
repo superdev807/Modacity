@@ -2,8 +2,8 @@
 //  MessagesManager.swift
 //  Modacity
 //
-//  Created by BC Engineer on 20/4/18.
-//  Copyright © 2018 crossover. All rights reserved.
+//  Created by Benjamin Chris on 20/4/18.
+//  Copyright © 2018 Modacity, Inc. All rights reserved.
 //
 
 import UIKit

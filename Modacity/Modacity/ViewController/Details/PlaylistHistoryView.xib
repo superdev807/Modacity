@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -9,11 +9,18 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Lato-Regular.ttf">
+            <string>Lato-Regular</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PlaylistHistoryView">
             <connections>
+                <outlet property="labelNoPracticeData" destination="5dC-RI-s6d" id="dQC-Zp-1vD"/>
                 <outlet property="tableViewMain" destination="kHd-FO-nNM" id="Bso-kV-jm3"/>
                 <outlet property="viewContent" destination="mXc-6y-zp0" id="yO9-UA-euQ"/>
+                <outlet property="viewLoaderPanel" destination="V3N-Ip-I2Y" id="43t-Ya-2Xr"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -29,13 +36,38 @@
                         <outlet property="delegate" destination="-1" id="azM-dN-bKm"/>
                     </connections>
                 </tableView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No practice data" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5dC-RI-s6d">
+                    <rect key="frame" x="166" y="290" width="87" height="15"/>
+                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V3N-Ip-I2Y">
+                    <rect key="frame" x="0.0" y="0.0" width="419" height="575"/>
+                    <subviews>
+                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="uAS-7B-hbM">
+                            <rect key="frame" x="199" y="277" width="20" height="20"/>
+                        </activityIndicatorView>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="uAS-7B-hbM" firstAttribute="centerX" secondItem="V3N-Ip-I2Y" secondAttribute="centerX" id="cMA-EJ-SIE"/>
+                        <constraint firstItem="uAS-7B-hbM" firstAttribute="centerY" secondItem="V3N-Ip-I2Y" secondAttribute="centerY" id="qIH-2M-rVE"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="kHd-FO-nNM" firstAttribute="top" secondItem="9Df-qb-l5P" secondAttribute="top" id="0Qv-jU-eOX"/>
+                <constraint firstItem="5dC-RI-s6d" firstAttribute="centerY" secondItem="9Df-qb-l5P" secondAttribute="centerY" id="0si-1I-Wgn"/>
                 <constraint firstItem="kHd-FO-nNM" firstAttribute="trailing" secondItem="9Df-qb-l5P" secondAttribute="trailing" id="JvD-Ec-HXa"/>
+                <constraint firstItem="5dC-RI-s6d" firstAttribute="centerX" secondItem="9Df-qb-l5P" secondAttribute="centerX" id="SZU-KM-xX8"/>
+                <constraint firstItem="V3N-Ip-I2Y" firstAttribute="trailing" secondItem="9Df-qb-l5P" secondAttribute="trailing" id="YQt-tF-fEr"/>
                 <constraint firstItem="kHd-FO-nNM" firstAttribute="leading" secondItem="9Df-qb-l5P" secondAttribute="leading" id="ZJq-hb-qmy"/>
                 <constraint firstItem="kHd-FO-nNM" firstAttribute="bottom" secondItem="9Df-qb-l5P" secondAttribute="bottom" id="nNF-B1-xFk"/>
+                <constraint firstItem="V3N-Ip-I2Y" firstAttribute="top" secondItem="mXc-6y-zp0" secondAttribute="top" id="v6J-mV-Dml"/>
+                <constraint firstItem="V3N-Ip-I2Y" firstAttribute="leading" secondItem="9Df-qb-l5P" secondAttribute="leading" id="w9h-RL-Hrn"/>
+                <constraint firstItem="V3N-Ip-I2Y" firstAttribute="bottom" secondItem="9Df-qb-l5P" secondAttribute="bottom" id="x1W-DI-RrQ"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="9Df-qb-l5P"/>

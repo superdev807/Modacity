@@ -2,8 +2,8 @@
 //  PracticeHistoryCell.swift
 //  Modacity
 //
-//  Created by BC Engineer on 26/6/18.
-//  Copyright © 2018 crossover. All rights reserved.
+//  Created by Benjamin Chris on 26/6/18.
+//  Copyright © 2018 Modacity, Inc. All rights reserved.
 //
 
 import UIKit
@@ -86,7 +86,7 @@ class PracticeHistoryCell: UITableViewCell {
                     }
                     lastView = label
                     height = height + improvementText.measureSize(for: UIFont.systemFont(ofSize: 12),
-                                                                  constraindTo: CGSize(width:self.viewDetailsListContainer.frame.size.width - 20,
+                                                                  constraindTo: CGSize(width:UIScreen.main.bounds.size.width - 81,
                                                                                        height:CGFloat.greatestFiniteMagnitude)).height
                 }
             }

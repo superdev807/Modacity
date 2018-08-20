@@ -2,8 +2,8 @@
 //  GoalsLocalManager.swift
 //  Modacity
 //
-//  Created by BC Engineer on 6/7/18.
-//  Copyright © 2018 crossover. All rights reserved.
+//  Created by Benjamin Chris on 6/7/18.
+//  Copyright © 2018 Modacity, Inc. All rights reserved.
 //
 
 import UIKit

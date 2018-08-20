@@ -3,7 +3,7 @@
 //  Modacity
 //
 //  Created by Marc Gelfo on 3/13/18.
-//  Copyright © 2018 crossover. All rights reserved.
+//  Copyright © 2018 Modacity, Inc. All rights reserved.
 //
 
 import Foundation

@@ -2,8 +2,8 @@
 //  PracticeHistoryCell.swift
 //  Modacity
 //
-//  Created by BC Engineer on 26/6/18.
-//  Copyright © 2018 crossover. All rights reserved.
+//  Created by Benjamin Chris on 26/6/18.
+//  Copyright © 2018 Modacity, Inc. All rights reserved.
 //
 
 import UIKit
@@ -17,6 +17,7 @@ class PlaylistHistoryCell: UITableViewCell {
     @IBOutlet weak var constraintForDetailsListHeight: NSLayoutConstraint!
     @IBOutlet weak var viewDetailsListContainer: UIView!
     @IBOutlet weak var viewContainer: UIView!
+    @IBOutlet weak var constraintForContainerHeight: NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -89,14 +90,15 @@ class PlaylistHistoryCell: UITableViewCell {
                     }
                     lastView = label
                     height = height + improvementText.measureSize(for: UIFont.systemFont(ofSize: 12),
-                                                                  constraindTo: CGSize(width:self.viewDetailsListContainer.frame.size.width - 20,
+                                                                  constraindTo: CGSize(width:UIScreen.main.bounds.size.width - 81,
                                                                                        height:CGFloat.greatestFiniteMagnitude)).height
                 }
             }
         }
         
         self.constraintForDetailsListHeight.constant = height
-        
+        self.constraintForContainerHeight.constant = height + 55
+        self.layoutIfNeeded()
     }
     
     class func height(for data:PlaylistHistoryData, with width: CGFloat) -> CGFloat {

@@ -2,8 +2,8 @@
 //  Note.swift
 //  Modacity
 //
-//  Created by BC Engineer on 1/5/18.
-//  Copyright © 2018 crossover. All rights reserved.
+//  Created by Benjmain Chris on 1/5/18.
+//  Copyright © 2018 Modacity, Inc. All rights reserved.
 //
 
 import UIKit

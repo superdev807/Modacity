@@ -73,15 +73,15 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.1803921568627451" green="0.1803921568627451" blue="0.30196078431372547" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.1803921568627451" green="0.1803921568627451" blue="0.30196078431372547" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="vbN-Mt-dHL" firstAttribute="leading" secondItem="MpL-fs-sDY" secondAttribute="leading" constant="15" id="0bJ-De-tnV"/>
-                            <constraint firstAttribute="bottom" secondItem="WeT-Pf-QF9" secondAttribute="bottom" constant="8" id="NjH-hJ-Zst"/>
                             <constraint firstAttribute="trailing" secondItem="vbN-Mt-dHL" secondAttribute="trailing" constant="15" id="QCk-m4-lGT"/>
                             <constraint firstItem="vbN-Mt-dHL" firstAttribute="top" secondItem="MpL-fs-sDY" secondAttribute="top" constant="5" id="R89-42-Pf4"/>
                             <constraint firstItem="WeT-Pf-QF9" firstAttribute="leading" secondItem="MpL-fs-sDY" secondAttribute="leading" constant="15" id="SMH-RA-rlz"/>
                             <constraint firstAttribute="trailing" secondItem="WeT-Pf-QF9" secondAttribute="trailing" constant="15" id="XuC-co-2tO"/>
                             <constraint firstItem="WeT-Pf-QF9" firstAttribute="top" secondItem="vbN-Mt-dHL" secondAttribute="bottom" constant="8" id="avZ-zY-DlH"/>
+                            <constraint firstAttribute="height" constant="262" id="gJG-Rt-wF1"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -95,6 +95,7 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="constraintForContainerHeight" destination="gJG-Rt-wF1" id="3QB-6y-0Yb"/>
                 <outlet property="constraintForDetailsListHeight" destination="rDq-lW-ZxN" id="3Ev-Mo-lN7"/>
                 <outlet property="labelDate" destination="ocy-7f-doV" id="gWU-KG-uR2"/>
                 <outlet property="totalPractice" destination="8iS-EC-vKq" id="z7a-er-Zz9"/>

@@ -2,7 +2,7 @@
 //  PremiumUpgradeSlideView.swift
 //  Modacity
 //
-//  Created by BC Engineer on 20/7/18.
+//  Created by Benjamin Chris on 20/7/18.
 //  Copyright © 2018 Modacity Inc. All rights reserved.
 //
 

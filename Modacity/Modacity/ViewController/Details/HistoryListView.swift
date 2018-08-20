@@ -2,8 +2,8 @@
 //  PlayPracticeWalkthroughView.swift
 //  Modacity
 //
-//  Created by BC Engineer on 11/6/18.
-//  Copyright © 2018 crossover. All rights reserved.
+//  Created by Benjamin Chris on 11/6/18.
+//  Copyright © 2018 Modacity, Inc. All rights reserved.
 //
 
 import UIKit
@@ -26,6 +26,7 @@ class HistoryListView: UIView {
 
     @IBOutlet var viewContent: UIView!
     @IBOutlet weak var tableViewMain: UITableView!
+    @IBOutlet weak var labelNoPracticeData: UILabel!
     
     var practicesCount = 0
     var practices = [[PracticeDaily]]()
@@ -33,6 +34,8 @@ class HistoryListView: UIView {
     var dailyPractices = [Int]()
     
     var practiceHistoryDataList = [PracticeHistoryData]()
+    
+    @IBOutlet weak var viewLoaderPanel: UIView!
     
     override init(frame: CGRect) {
         super.init(frame:frame)
@@ -68,6 +71,8 @@ class HistoryListView: UIView {
     }
     
     func showHistory(for practiceId: String) {
+        self.labelNoPracticeData.isHidden = true
+        self.viewLoaderPanel.isHidden = true
         let data = PracticingDailyLocalManager.manager.practicingData(forPracticeItemId: practiceId)
         self.practiceHistoryDataList = []
         for date in data.keys {
@@ -88,6 +93,12 @@ class HistoryListView: UIView {
         }
         
         self.tableViewMain.reloadData()
+        
+        if self.practiceHistoryDataList.isEmpty {
+            self.labelNoPracticeData.isHidden = false
+        } else {
+            self.labelNoPracticeData.isHidden = true
+        }
     }
     
 }
@@ -107,7 +118,7 @@ extension HistoryListView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return PracticeHistoryCell.height(for: practiceHistoryDataList[indexPath.row].practices, with: tableView.frame.size.width)
+        return PracticeHistoryCell.height(for: practiceHistoryDataList[indexPath.row].practices, with: UIScreen.main.bounds.size.width)
     }
     
 }

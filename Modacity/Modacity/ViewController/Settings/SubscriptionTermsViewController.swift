@@ -2,7 +2,7 @@
 //  SubscriptionTermsViewController.swift
 //  Modacity
 //
-//  Created by Perfect Engineer on 7/24/18.
+//  Created by Benjamin Chris on 7/24/18.
 //  Copyright © 2018 Modacity. All rights reserved.
 //
 

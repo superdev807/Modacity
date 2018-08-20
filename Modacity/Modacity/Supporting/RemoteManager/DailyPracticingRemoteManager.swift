@@ -2,8 +2,8 @@
 //  DailyPracticingRemoteManager.swift
 //  Modacity
 //
-//  Created by BC Engineer on 19/6/18.
-//  Copyright © 2018 crossover. All rights reserved.
+//  Created by Benjamin Chris on 19/6/18.
+//  Copyright © 2018 Modacity, Inc. All rights reserved.
 //
 
 import UIKit

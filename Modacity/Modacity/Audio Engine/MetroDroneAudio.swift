@@ -3,6 +3,7 @@
 //  MetronomeIdeaOnAVAudioEngine
 //
 //  By Marc Gelfo
+//  Copyright © 2018 Modacity, Inc. All rights reserved.
 
 import AVFoundation
 

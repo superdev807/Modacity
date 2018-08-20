@@ -2,8 +2,8 @@
 //  TutorialViewController.swift
 //  Modacity
 //
-//  Created by Perfect Engineer on 2/22/18.
-//  Copyright © 2018 crossover. All rights reserved.
+//  Created by Benjamin Chris on 2/22/18.
+//  Copyright © 2018 Modacity, Inc. All rights reserved.
 //
 
 import UIKit
