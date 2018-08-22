@@ -10,6 +10,14 @@ import UIKit
 import Charts
 import AVFoundation
 
+protocol HistoryListViewDelegate {
+    func onEditOnHistoryListView(_ historyListView:HistoryListView)
+    func onAddOnHistoryListView(_ historyListView:HistoryListView)
+    
+    func onEditPracticeData(_ data: PracticeDaily)
+    func onDeletePracticeData(_ data: PracticeDaily)
+}
+
 class PracticeHistoryData {
     let date: Date!
     let practices: [PracticeDaily]!
@@ -27,15 +35,17 @@ class HistoryListView: UIView {
     @IBOutlet var viewContent: UIView!
     @IBOutlet weak var tableViewMain: UITableView!
     @IBOutlet weak var labelNoPracticeData: UILabel!
+    @IBOutlet weak var buttonEdit: UIButton!
+    @IBOutlet weak var viewLoaderPanel: UIView!
     
+    var delegate: HistoryListViewDelegate!
     var practicesCount = 0
     var practices = [[PracticeDaily]]()
     var dates = [Date]()
     var dailyPractices = [Int]()
+    var editing = false
     
     var practiceHistoryDataList = [PracticeHistoryData]()
-    
-    @IBOutlet weak var viewLoaderPanel: UIView!
     
     override init(frame: CGRect) {
         super.init(frame:frame)
@@ -96,14 +106,34 @@ class HistoryListView: UIView {
         
         if self.practiceHistoryDataList.isEmpty {
             self.labelNoPracticeData.isHidden = false
+            self.buttonEdit.isHidden = true
         } else {
             self.labelNoPracticeData.isHidden = true
+            self.buttonEdit.isHidden = false
+        }
+    }
+    
+    @IBAction func onEdit(_ sender: Any) {
+        editing = !editing
+        if editing {
+            self.buttonEdit.setTitle("Done", for: .normal)
+            self.buttonEdit.setImage(nil, for: .normal)
+        } else {
+            self.buttonEdit.setTitle("", for: .normal)
+            self.buttonEdit.setImage(UIImage(named: "btn_edit"), for: .normal)
+        }
+        self.tableViewMain.reloadData()
+    }
+    
+    @IBAction func onAdd(_ sender: Any) {
+        if self.delegate != nil {
+            self.delegate.onAddOnHistoryListView(self)
         }
     }
     
 }
 
-extension HistoryListView: UITableViewDelegate, UITableViewDataSource {
+extension HistoryListView: UITableViewDelegate, UITableViewDataSource, PracticeHistoryCellDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.practiceHistoryDataList.count
@@ -113,12 +143,22 @@ extension HistoryListView: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PracticeHistoryCell") as! PracticeHistoryCell
         cell.configure(with: practiceHistoryDataList[indexPath.row].practices,
                        on: practiceHistoryDataList[indexPath.row].date,
-                       for: practiceHistoryDataList[indexPath.row].dailyPractice)
+                       for: practiceHistoryDataList[indexPath.row].dailyPractice,
+                       editing: self.editing)
+        cell.delegate = self
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return PracticeHistoryCell.height(for: practiceHistoryDataList[indexPath.row].practices, with: UIScreen.main.bounds.size.width)
+    }
+    
+    func practiceHistoryCell(_ cell: PracticeHistoryCell, editOnPractice: PracticeDaily) {
+        self.delegate.onEditPracticeData(editOnPractice)
+    }
+    
+    func practiceHistoryCell(_ cell: PracticeHistoryCell, deleteOnPractice: PracticeDaily) {
+        self.delegate.onDeletePracticeData(deleteOnPractice)
     }
     
 }

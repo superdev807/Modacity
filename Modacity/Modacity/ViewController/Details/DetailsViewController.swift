@@ -27,6 +27,8 @@ class DetailsViewController: UIViewController {
     
     @IBOutlet weak var buttonMenu: UIButton!
     
+    @IBOutlet weak var constraintForHeaderViewHeight: NSLayoutConstraint!
+    
     var selectedTabIdx = -1
     
     var statisticsView:StatisticsView! = nil
@@ -48,9 +50,8 @@ class DetailsViewController: UIViewController {
     var analyticsParam: String = "Put Item Name Here" // see initAnalytics
     var tabNames: [String] = ["Stats", "Recordings", "Notes", "History"] // used for analytics
     
-    @IBOutlet weak var constraintForHeaderViewHeight: NSLayoutConstraint!
-    
     var startTabIdx = 0
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,6 +84,13 @@ class DetailsViewController: UIViewController {
         
         if AppUtils.iphoneIsXModel() {
             self.constraintForHeaderViewHeight.constant = 140
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "sid_add_practice_history" {
+            let controller = segue.destination as! UpdatePracticeEntryViewController
+            controller.practiceItemId = self.practiceItemId
         }
     }
     
@@ -132,6 +140,12 @@ class DetailsViewController: UIViewController {
                 }
             } else {
                 self.notesView.unlock()
+            }
+        }
+        
+        if self.historyListView != nil && self.selectedTabIdx == 3 {
+            if self.practiceItemId != nil {
+                self.historyListView.showHistory(for: self.practiceItemId)
             }
         }
     }
@@ -272,6 +286,7 @@ extension DetailsViewController {
                 self.historyListView = HistoryListView()
             }
             self.view.addSubview(self.historyListView)
+            self.historyListView.delegate = self
             self.historyListView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
             self.historyListView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
             self.historyListView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0).isActive = true
@@ -658,4 +673,31 @@ extension DetailsViewController: PremiumUpgradeLockViewDelegate {
         self.present(controller, animated: true, completion: nil)
     }
     
+}
+
+extension DetailsViewController: HistoryListViewDelegate {
+    func onAddOnHistoryListView(_ historyListView: HistoryListView) {
+        self.performSegue(withIdentifier: "sid_add_practice_history", sender: nil)
+    }
+    
+    func onEditOnHistoryListView(_ historyListView: HistoryListView) {
+        self.performSegue(withIdentifier: "sid_add_practice_history", sender: nil)
+    }
+    
+    func onEditPracticeData(_ data: PracticeDaily) {
+        let controller = UIStoryboard(name: "details", bundle: nil).instantiateViewController(withIdentifier: "UpdatePracticeEntryViewController") as! UpdatePracticeEntryViewController
+        controller.isUpdating = true
+        controller.editingPracticeData = data
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    func onDeletePracticeData(_ data: PracticeDaily) {
+        let alertController = UIAlertController(title: nil, message: "Are you sure to delete this practice history?", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Yes", style: .default, handler: { _ in
+            PracticingDailyLocalManager.manager.removeData(data)
+            self.historyListView.showHistory(for: self.practiceItemId)
+        }))
+        alertController.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+        self.present(alertController, animated: true, completion: nil)
+    }
 }

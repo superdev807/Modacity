@@ -133,18 +133,12 @@ class TimerInputView: UIView {
     }
     
     @IBAction func onClose(_ sender: Any) {
-//        self.dismiss(animated: true, completion: nil)
         if self.delegate != nil {
             self.delegate.onTimerDismiss()
         }
     }
     
     @IBAction func onDone(_ sender: Any) {
-//        let seconds = self.calculateSeconds()
-//        self.viewModel.editingRow = -1
-//        ModacityAnalytics.LogStringEvent("Set Item Timer", extraParamName: "duration", extraParamValue: seconds)
-//        self.viewModel.changeCountDownDuration(for: self.viewModel.clockEditingPracticeItemId, duration: seconds)
-//        self.dismiss(animated: true, completion: nil)
         if self.delegate != nil {
             self.delegate.onTimerSelected(timerInSec: self.calculateSeconds())
         }

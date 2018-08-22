@@ -17,6 +17,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HistoryListView" customModule="Modacity" customModuleProvider="target">
             <connections>
+                <outlet property="buttonEdit" destination="ujP-pD-718" id="zX5-kd-u33"/>
                 <outlet property="labelNoPracticeData" destination="yND-j6-hMh" id="x7S-Lc-4XJ"/>
                 <outlet property="tableViewMain" destination="kHd-FO-nNM" id="Bso-kV-jm3"/>
                 <outlet property="viewContent" destination="mXc-6y-zp0" id="yO9-UA-euQ"/>
@@ -28,8 +29,38 @@
             <rect key="frame" x="0.0" y="0.0" width="419" height="575"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="kHd-FO-nNM" customClass="TPKeyboardAvoidingTableView">
-                    <rect key="frame" x="0.0" y="20" width="419" height="555"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gpm-qz-sG2">
+                    <rect key="frame" x="0.0" y="0.0" width="419" height="40"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ujP-pD-718">
+                            <rect key="frame" x="20" y="11.5" width="50" height="17"/>
+                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                            <state key="normal" image="btn_edit">
+                                <color key="titleColor" red="0.56470588235294117" green="0.5607843137254902" blue="0.90196078431372551" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="onEdit:" destination="-1" eventType="touchUpInside" id="idj-br-CpO"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ki3-QN-zU4">
+                            <rect key="frame" x="349" y="9" width="50" height="22"/>
+                            <state key="normal" image="btn_add"/>
+                            <connections>
+                                <action selector="onAdd:" destination="-1" eventType="touchUpInside" id="QsS-Hh-VrC"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="ujP-pD-718" firstAttribute="centerY" secondItem="Gpm-qz-sG2" secondAttribute="centerY" id="F0u-PZ-tgZ"/>
+                        <constraint firstItem="ki3-QN-zU4" firstAttribute="centerY" secondItem="Gpm-qz-sG2" secondAttribute="centerY" id="Gbt-ab-eEZ"/>
+                        <constraint firstItem="ujP-pD-718" firstAttribute="leading" secondItem="Gpm-qz-sG2" secondAttribute="leading" constant="20" id="f85-6U-w21"/>
+                        <constraint firstAttribute="height" constant="40" id="pci-c5-aHZ"/>
+                        <constraint firstAttribute="trailing" secondItem="ki3-QN-zU4" secondAttribute="trailing" constant="20" id="wZh-UZ-AOn"/>
+                    </constraints>
+                </view>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="kHd-FO-nNM" customClass="TPKeyboardAvoidingTableView">
+                    <rect key="frame" x="0.0" y="40" width="419" height="535"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="5ve-Kh-ZFE"/>
@@ -37,7 +68,7 @@
                     </connections>
                 </tableView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No practice data" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yND-j6-hMh">
-                    <rect key="frame" x="166" y="290" width="87" height="15"/>
+                    <rect key="frame" x="166" y="300" width="87" height="15"/>
                     <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
@@ -58,15 +89,18 @@
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="kHd-FO-nNM" firstAttribute="top" secondItem="9Df-qb-l5P" secondAttribute="top" id="0Qv-jU-eOX"/>
                 <constraint firstItem="yND-j6-hMh" firstAttribute="centerY" secondItem="kHd-FO-nNM" secondAttribute="centerY" id="1w7-eE-Xsk"/>
                 <constraint firstItem="yND-j6-hMh" firstAttribute="centerX" secondItem="kHd-FO-nNM" secondAttribute="centerX" id="4xK-YM-YvW"/>
+                <constraint firstItem="Gpm-qz-sG2" firstAttribute="leading" secondItem="9Df-qb-l5P" secondAttribute="leading" id="Cge-rw-x6Z"/>
                 <constraint firstItem="ppM-JD-Lax" firstAttribute="leading" secondItem="9Df-qb-l5P" secondAttribute="leading" id="D1n-QF-CxA"/>
                 <constraint firstItem="ppM-JD-Lax" firstAttribute="trailing" secondItem="9Df-qb-l5P" secondAttribute="trailing" id="EZQ-IG-e9O"/>
                 <constraint firstItem="ppM-JD-Lax" firstAttribute="bottom" secondItem="9Df-qb-l5P" secondAttribute="bottom" id="FoT-M0-eMR"/>
+                <constraint firstItem="Gpm-qz-sG2" firstAttribute="trailing" secondItem="9Df-qb-l5P" secondAttribute="trailing" id="JaQ-De-HNd"/>
                 <constraint firstItem="kHd-FO-nNM" firstAttribute="trailing" secondItem="9Df-qb-l5P" secondAttribute="trailing" id="JvD-Ec-HXa"/>
                 <constraint firstItem="kHd-FO-nNM" firstAttribute="leading" secondItem="9Df-qb-l5P" secondAttribute="leading" id="ZJq-hb-qmy"/>
+                <constraint firstItem="kHd-FO-nNM" firstAttribute="top" secondItem="Gpm-qz-sG2" secondAttribute="bottom" id="b4O-7z-XuC"/>
                 <constraint firstItem="kHd-FO-nNM" firstAttribute="bottom" secondItem="9Df-qb-l5P" secondAttribute="bottom" id="nNF-B1-xFk"/>
+                <constraint firstItem="Gpm-qz-sG2" firstAttribute="top" secondItem="mXc-6y-zp0" secondAttribute="top" id="uRQ-wL-6d5"/>
                 <constraint firstItem="ppM-JD-Lax" firstAttribute="top" secondItem="mXc-6y-zp0" secondAttribute="top" id="ymo-Qf-LmQ"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -74,4 +108,8 @@
             <point key="canvasLocation" x="46.5" y="5.5"/>
         </view>
     </objects>
+    <resources>
+        <image name="btn_add" width="50" height="16"/>
+        <image name="btn_edit" width="50" height="16"/>
+    </resources>
 </document>

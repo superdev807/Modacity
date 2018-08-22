@@ -8,7 +8,12 @@
 
 import UIKit
 
-class PracticeHistoryCell: UITableViewCell {
+protocol PracticeHistoryCellDelegate {
+    func practiceHistoryCell(_ cell: PracticeHistoryCell, editOnPractice: PracticeDaily)
+    func practiceHistoryCell(_ cell: PracticeHistoryCell, deleteOnPractice: PracticeDaily)
+}
+
+class PracticeHistoryCell: UITableViewCell, PracticeHistoryDetailsRowViewDelegate {
 
     @IBOutlet weak var labelDate: UILabel!
     @IBOutlet weak var totalPractice: UILabel!
@@ -17,6 +22,8 @@ class PracticeHistoryCell: UITableViewCell {
     @IBOutlet weak var constraintForDetailsListHeight: NSLayoutConstraint!
     @IBOutlet weak var viewDetailsListContainer: UIView!
     @IBOutlet weak var viewContainer: UIView!
+    
+    var delegate: PracticeHistoryCellDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -28,7 +35,7 @@ class PracticeHistoryCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func configure(with data:[PracticeDaily], on date:Date, for total:Int) {
+    func configure(with data:[PracticeDaily], on date:Date, for total:Int, editing: Bool = false) {
         self.viewContainer.layer.cornerRadius = 5
         self.viewContainer.backgroundColor = Color(hexString: "#2e2d4f")
         
@@ -56,7 +63,8 @@ class PracticeHistoryCell: UITableViewCell {
         var lastView: UIView? = nil
         for row in data {
             let view = PracticeHistoryDetailsRowView()
-            view.configure(with: row)
+            view.configure(with: row, editing: editing)
+            view.delegate = self
             self.viewDetailsListContainer.addSubview(view)
             view.leadingAnchor.constraint(equalTo: self.viewDetailsListContainer.leadingAnchor).isActive = true
             view.trailingAnchor.constraint(equalTo: self.viewDetailsListContainer.trailingAnchor).isActive = true
@@ -106,5 +114,17 @@ class PracticeHistoryCell: UITableViewCell {
             }
         }
         return 5 + (height + 15) + 5
+    }
+    
+    func practiceHistoryDetailsRow(_ view: PracticeHistoryDetailsRowView, editOnPractice: PracticeDaily) {
+        if let delegate = self.delegate {
+            delegate.practiceHistoryCell(self, editOnPractice: editOnPractice)
+        }
+    }
+    
+    func practiceHistoryDetailsRow(_ view: PracticeHistoryDetailsRowView, deleteOnPractice: PracticeDaily) {
+        if let delegate = self.delegate {
+            delegate.practiceHistoryCell(self, deleteOnPractice: deleteOnPractice)
+        }
     }
 }

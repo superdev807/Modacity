@@ -130,7 +130,7 @@ class StatisticsView: UIView {
                         
                         totalSeconds = totalSeconds + daily.practiceTimeInSeconds
                         
-                        if daily.rating > 0 {
+                        if daily.rating != nil && daily.rating > 0 {
                             let ratingKey = (daily.entryDateString + " " + daily.fromTime).date(format: "yy-MM-dd HH:mm:ss")!.timeIntervalSince1970
                             ratings[ratingKey] = daily.rating
                         }

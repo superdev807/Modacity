@@ -31,6 +31,11 @@ class GoalsLocalManager: NSObject {
         if let oldIds = UserDefaults.standard.object(forKey: "goal_ids") as? [String] {
             goalIds = oldIds
         }
+        for id in goalIds {
+            if id == goal.id {
+                return
+            }
+        }
         goalIds.append(goal.id)
         UserDefaults.standard.set(goalIds, forKey: "goal_ids")
         UserDefaults.standard.set(goal.toJSON(), forKey: "goal_\(goal.id ?? "")")

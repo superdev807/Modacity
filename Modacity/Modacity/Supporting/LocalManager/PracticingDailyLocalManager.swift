@@ -48,6 +48,78 @@ class PracticingDailyLocalManager: NSObject {
         return data.entryId
     }
     
+    func updatePracticingData(data: PracticeDaily, oldEntryDate: String, newEntryDate: String) {
+        
+        UserDefaults.standard.set(data.toJSON(), forKey: "practicing-data-\(data.entryId ?? "")")
+        UserDefaults.standard.synchronize()
+        
+        if oldEntryDate != newEntryDate {
+            if let practiceItemId = data.practiceItemId {
+                var indecies = [String:[String]]()
+                if let old = UserDefaults.standard.object(forKey: "practicing-indecies-\(practiceItemId)") as? [String:[String]] {
+                    indecies = old
+                }
+                
+                var idsArrayPerDate = [String]()
+                
+                if let ids = indecies[newEntryDate] {
+                    idsArrayPerDate = AppUtils.cleanDuplicatedEntries(in: ids)
+                }
+                idsArrayPerDate.append(data.entryId)
+                indecies[newEntryDate] = idsArrayPerDate
+                
+                if var idArrayForOldDate = indecies[oldEntryDate] {
+                    for idx in 0..<idArrayForOldDate.count {
+                        if idArrayForOldDate[idx] == data.entryId {
+                            idArrayForOldDate.remove(at: idx)
+                            break
+                        }
+                    }
+                    indecies[oldEntryDate] = idArrayForOldDate
+                }
+                
+                UserDefaults.standard.set(indecies, forKey: "practicing-indecies-\(practiceItemId)")
+                UserDefaults.standard.synchronize()
+            }
+        }
+        
+        DispatchQueue.global(qos: .background).async {
+            DailyPracticingRemoteManager.manager.createPracticing(data)
+        }
+    }
+    
+    func saveManualPracticing(duration: Int, practiceItemId: String, started: Date) {
+        let data = PracticeDaily()
+        data.startedTime = started.timeIntervalSince1970
+        data.playlistId = ""
+        data.playlistPracticeEntryId = ""
+        data.practiceItemId = practiceItemId
+        data.practiceTimeInSeconds = duration
+        data.entryDateString = started.toString(format: "yy-MM-dd")
+        data.fromTime = started.toString(format: "HH:mm:ss")
+        data.isManual = true
+        
+        var indecies = [String:[String]]()
+        if let old = UserDefaults.standard.object(forKey: "practicing-indecies-\(practiceItemId)") as? [String:[String]] {
+            indecies = old
+        }
+        
+        var idsArrayPerDate = [String]()
+        
+        if let ids = indecies[data.entryDateString] {
+            idsArrayPerDate = AppUtils.cleanDuplicatedEntries(in: ids)
+        }
+        idsArrayPerDate.append(data.entryId)
+        indecies[data.entryDateString] = idsArrayPerDate
+        UserDefaults.standard.set(indecies, forKey: "practicing-indecies-\(practiceItemId)")
+        UserDefaults.standard.set(data.toJSON(), forKey: "practicing-data-\(data.entryId ?? "")")
+        UserDefaults.standard.synchronize()
+        
+        DispatchQueue.global(qos: .background).async {
+            DailyPracticingRemoteManager.manager.createPracticing(data)
+        }
+    }
+    
     func storePracitingDataToLocal(_ data: PracticeDaily) {
         var indecies = [String:[String]]()
         if let old = UserDefaults.standard.object(forKey: "practicing-indecies-\(data.practiceItemId ?? "")") as? [String:[String]] {
@@ -121,6 +193,32 @@ class PracticingDailyLocalManager: NSObject {
             }
         }
         return nil
+    }
+    
+    func removeData(_ data: PracticeDaily) {
+        if let practiceItemId = data.practiceItemId {
+            var indecies = [String:[String]]()
+            if let old = UserDefaults.standard.object(forKey: "practicing-indecies-\(practiceItemId)") as? [String:[String]] {
+                indecies = old
+            }
+            
+            var idsArrayPerDate = [String]()
+            
+            if let ids = indecies[data.entryDateString] {
+                idsArrayPerDate = AppUtils.cleanDuplicatedEntries(in: ids)
+            }
+            
+            for idx in 0..<idsArrayPerDate.count {
+                if data.entryId == idsArrayPerDate[idx] {
+                    idsArrayPerDate.remove(at: idx)
+                    break
+                }
+            }
+            indecies[data.entryDateString] = idsArrayPerDate
+            UserDefaults.standard.set(indecies, forKey: "practicing-indecies-\(practiceItemId)")
+            UserDefaults.standard.removeObject(forKey: "practicing-data-\(data.entryId ?? "")")
+            UserDefaults.standard.synchronize()
+        }
     }
     
     func removePracticingData(forItemId: String) {

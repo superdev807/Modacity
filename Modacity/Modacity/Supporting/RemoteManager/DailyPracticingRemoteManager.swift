@@ -22,6 +22,14 @@ class DailyPracticingRemoteManager: NSObject {
         }
     }
     
+    func updatePracticing(_ data: PracticeDaily) {
+        if let userId = MyProfileLocalManager.manager.userId() {
+            if data.practiceItemId != nil && data.practiceItemId != "" {
+                self.refUser.child(userId).child("practice_data").child(data.practiceItemId).child(data.entryDateString).child(data.entryId).setValue(data.toJSON())
+            }
+        }
+    }
+    
     func createPlaylistPracticing(_ data: PlaylistDaily) {
         if let userId = MyProfileLocalManager.manager.userId() {
             if data.playlistId != nil && data.playlistId != "" {

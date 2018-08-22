@@ -33,4 +33,22 @@ class GoalsRemoteManager: NSObject {
         }
     }
     
+    func fetchGoalsFromServer() {
+        if let userId = MyProfileLocalManager.manager.userId() {
+            self.refUser.child(userId).child("goals").observeSingleEvent(of: .value) { (snapshot) in
+                if snapshot.exists() {
+                    if let dataSnapshots = snapshot.children.allObjects as? [DataSnapshot] {
+                        for dataSnapshot in  dataSnapshots {
+                            if let data = dataSnapshot.value as? [String:Any] {
+                                if let goal = Note(JSON: data) {
+                                    GoalsLocalManager.manager.addGoal(goal)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
 }

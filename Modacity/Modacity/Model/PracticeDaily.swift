@@ -22,6 +22,10 @@ class PracticeDaily: Mappable {
     var improvements: [ImprovedRecord]?
     var startedTime: TimeInterval!
     
+    var isManual = false
+    var isEdited = false
+    var isDeleted = false
+    
     init() {
         self.entryId = UUID().uuidString
     }
@@ -41,6 +45,9 @@ class PracticeDaily: Mappable {
         playlistId                  <- map["playlist_id"]
         improvements                <- map["improvements"]
         startedTime                 <- map["started_time"]
+        isManual                    <- map["is_manual"]
+        isEdited                    <- map["is_edited"]
+        isDeleted                   <- map["is_deleted"]
     }
     
     func practiceItem() -> PracticeItem? {

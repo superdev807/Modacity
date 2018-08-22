@@ -39,13 +39,16 @@ class MyProfileRemoteManager {
                 }
             }
             
-            PracticeItemRemoteManager.manager.syncFirst()
-            PlaylistRemoteManager.manager.syncFirst()
-            OverallDataRemoteManager.manager.syncFirst()
-            MusicQuotesManager.manager.loadQuotesFromServer()
-            DailyPracticingRemoteManager.manager.fetchPracticingDataFromServer()
-            DailyPracticingRemoteManager.manager.fetchPlaylistPracticingDataFromServer()
-            PremiumDataManager.manager.fetchPremiumUpgradeStatus()
+            DispatchQueue.global().async {
+                PracticeItemRemoteManager.manager.syncFirst()
+                PlaylistRemoteManager.manager.syncFirst()
+                OverallDataRemoteManager.manager.syncFirst()
+                MusicQuotesManager.manager.loadQuotesFromServer()
+                DailyPracticingRemoteManager.manager.fetchPracticingDataFromServer()
+                DailyPracticingRemoteManager.manager.fetchPlaylistPracticingDataFromServer()
+                PremiumDataManager.manager.fetchPremiumUpgradeStatus()
+                GoalsRemoteManager.manager.fetchGoalsFromServer()
+            }
         }
     }
     

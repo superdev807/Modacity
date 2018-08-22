@@ -128,6 +128,8 @@
 		E214FB28212A5F4300162A69 /* LoadMoreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E214FB25212A5F4300162A69 /* LoadMoreCell.swift */; };
 		E214FB29212A5F4300162A69 /* LoadMoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E214FB26212A5F4300162A69 /* LoadMoreCell.xib */; };
 		E214FB2A212A5F4300162A69 /* LoadMoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E214FB26212A5F4300162A69 /* LoadMoreCell.xib */; };
+		E214FB2C212AC5C200162A69 /* UpdatePracticeEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E214FB2B212AC5C200162A69 /* UpdatePracticeEntryViewController.swift */; };
+		E214FB2D212AC5C200162A69 /* UpdatePracticeEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E214FB2B212AC5C200162A69 /* UpdatePracticeEntryViewController.swift */; };
 		E21BE9B22091796A000D1877 /* SigninViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDEB6EF203DD3B900E8D48D /* SigninViewController.swift */; };
 		E21BE9B42091796A000D1877 /* FeedbackSentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E58B43420445BC10022704B /* FeedbackSentViewController.swift */; };
 		E21BE9B52091796A000D1877 /* Recording.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E64B7A92056A09E00900775 /* Recording.swift */; };
@@ -291,6 +293,10 @@
 		E2746B6C2100344700D2A47D /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E2746B6A2100344600D2A47D /* Lato-Black.ttf */; };
 		E2746B6E210042AB00D2A47D /* PremiumUpgradeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2746B6D210042AB00D2A47D /* PremiumUpgradeViewController.swift */; };
 		E2746B6F210042AB00D2A47D /* PremiumUpgradeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2746B6D210042AB00D2A47D /* PremiumUpgradeViewController.swift */; };
+		E274A2FD212BB780004C75AA /* DatePickerPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E274A2FC212BB780004C75AA /* DatePickerPopupView.swift */; };
+		E274A2FE212BB780004C75AA /* DatePickerPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E274A2FC212BB780004C75AA /* DatePickerPopupView.swift */; };
+		E274A300212BB7A2004C75AA /* DatePickerPopupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E274A2FF212BB7A1004C75AA /* DatePickerPopupView.xib */; };
+		E274A301212BB7A2004C75AA /* DatePickerPopupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E274A2FF212BB7A1004C75AA /* DatePickerPopupView.xib */; };
 		E276D9D3211B447500A28081 /* PracticeItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E276D9D2211B447500A28081 /* PracticeItemCell.swift */; };
 		E276D9D4211B447500A28081 /* PracticeItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E276D9D2211B447500A28081 /* PracticeItemCell.swift */; };
 		E2770DAE20B7BD4400E05E20 /* DefaultDataShipManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2770DAD20B7BD4400E05E20 /* DefaultDataShipManager.swift */; };
@@ -495,6 +501,7 @@
 		E20F0CAE211BF7D000374074 /* PracticeItemSelectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeItemSelectCell.swift; sourceTree = "<group>"; };
 		E214FB25212A5F4300162A69 /* LoadMoreCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadMoreCell.swift; sourceTree = "<group>"; };
 		E214FB26212A5F4300162A69 /* LoadMoreCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadMoreCell.xib; sourceTree = "<group>"; };
+		E214FB2B212AC5C200162A69 /* UpdatePracticeEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePracticeEntryViewController.swift; sourceTree = "<group>"; };
 		E21BEA102091796A000D1877 /* Modacity-Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Modacity-Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E21BEA1720917C45000D1877 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E21BEA1920917C46000D1877 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -540,6 +547,8 @@
 		E2746B67210028EB00D2A47D /* premium.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = premium.storyboard; sourceTree = "<group>"; };
 		E2746B6A2100344600D2A47D /* Lato-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Black.ttf"; sourceTree = "<group>"; };
 		E2746B6D210042AB00D2A47D /* PremiumUpgradeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumUpgradeViewController.swift; sourceTree = "<group>"; };
+		E274A2FC212BB780004C75AA /* DatePickerPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerPopupView.swift; sourceTree = "<group>"; };
+		E274A2FF212BB7A1004C75AA /* DatePickerPopupView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DatePickerPopupView.xib; sourceTree = "<group>"; };
 		E276D9D2211B447500A28081 /* PracticeItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeItemCell.swift; sourceTree = "<group>"; };
 		E2770DAD20B7BD4400E05E20 /* DefaultDataShipManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultDataShipManager.swift; sourceTree = "<group>"; };
 		E28036F42107705F00B9987E /* SubscriptionTermsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionTermsViewController.swift; sourceTree = "<group>"; };
@@ -963,8 +972,10 @@
 				8EF559C8207E89FA006728E4 /* FloatRatingView.swift */,
 				8EF559C6207E89D3006728E4 /* ViewDroneFrame.swift */,
 				8EF559CA207E8A35006728E4 /* DropdownMenuView.swift */,
-				E283C51A20D16953002651E0 /* TimerInputView.xib */,
 				E283C51D20D1696A002651E0 /* TimerInputView.swift */,
+				E283C51A20D16953002651E0 /* TimerInputView.xib */,
+				E274A2FC212BB780004C75AA /* DatePickerPopupView.swift */,
+				E274A2FF212BB7A1004C75AA /* DatePickerPopupView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1047,6 +1058,7 @@
 				E251C9D120E14AA000C8BC49 /* PracticeHistoryDetailsRowView.xib */,
 				E214FB25212A5F4300162A69 /* LoadMoreCell.swift */,
 				E214FB26212A5F4300162A69 /* LoadMoreCell.xib */,
+				E214FB2B212AC5C200162A69 /* UpdatePracticeEntryViewController.swift */,
 			);
 			path = Details;
 			sourceTree = "<group>";
@@ -1318,6 +1330,7 @@
 				8EA33BA120052A3300539A3F /* playlist.storyboard in Resources */,
 				E2746B68210028EB00D2A47D /* premium.storyboard in Resources */,
 				8EDEB708203DE38F00E8D48D /* lato-light.ttf in Resources */,
+				E274A300212BB7A2004C75AA /* DatePickerPopupView.xib in Resources */,
 				E264C09620CB01A20016CF8D /* metrodroneview.xib in Resources */,
 				E2083FC020DD47C700BCE27F /* PracticeNoteCell.xib in Resources */,
 				E249E61C20DAA68500FBDA72 /* details.storyboard in Resources */,
@@ -1371,6 +1384,7 @@
 				E21BE9FF2091796A000D1877 /* sidemenu.storyboard in Resources */,
 				E21BEA002091796A000D1877 /* ding.wav in Resources */,
 				E21BEA012091796A000D1877 /* Main.storyboard in Resources */,
+				E274A301212BB7A2004C75AA /* DatePickerPopupView.xib in Resources */,
 				E21BEA032091796A000D1877 /* lato-italic.ttf in Resources */,
 				E251C9CF20E1418800C8BC49 /* PracticeHistoryCell.xib in Resources */,
 				E2746B69210028EB00D2A47D /* premium.storyboard in Resources */,
@@ -1744,6 +1758,7 @@
 				101342632059020300A9734B /* TapTempo.swift in Sources */,
 				E23FFD9721087ED5007713F0 /* IAPHelper.swift in Sources */,
 				8E9DF9052057CF47003F5FE8 /* Improvement.swift in Sources */,
+				E274A2FD212BB780004C75AA /* DatePickerPopupView.swift in Sources */,
 				8E58B439204468100022704B /* ProfileViewModel.swift in Sources */,
 				8ED6218D207B09D600593EF2 /* PracticeItemRemoteManager.swift in Sources */,
 				E267CFAD20CE195C003D708B /* PlayPracticeWalkthroughView.swift in Sources */,
@@ -1763,6 +1778,7 @@
 				8E3596202049A61C00F2E6DF /* PlaylistContentsViewModel.swift in Sources */,
 				8E64B7A82056332300900775 /* HomeViewModel.swift in Sources */,
 				E24DF50C2098C1D400BAF0C7 /* MusicQuotesManager.swift in Sources */,
+				E214FB2C212AC5C200162A69 /* UpdatePracticeEntryViewController.swift in Sources */,
 				8EDEB6EE203DCD2200E8D48D /* CreateAccountViewController.swift in Sources */,
 				E2CDBEAC21011AE200119D77 /* PremiumUpgradeLockView.swift in Sources */,
 				E2C59FCE20CEB0CC000C3039 /* PlayPracticeTabBarView.swift in Sources */,
@@ -1885,6 +1901,7 @@
 				E21BE9C52091796A000D1877 /* TapTempo.swift in Sources */,
 				E23FFD9821087ED5007713F0 /* IAPHelper.swift in Sources */,
 				E21BE9C62091796A000D1877 /* Improvement.swift in Sources */,
+				E274A2FE212BB780004C75AA /* DatePickerPopupView.swift in Sources */,
 				E21BE9C72091796A000D1877 /* ProfileViewModel.swift in Sources */,
 				E21BE9C92091796A000D1877 /* PracticeItemRemoteManager.swift in Sources */,
 				E267CFAE20CE195C003D708B /* PlayPracticeWalkthroughView.swift in Sources */,
@@ -1904,6 +1921,7 @@
 				E21BE9CD2091796A000D1877 /* PlaylistContentsViewModel.swift in Sources */,
 				E21BE9CE2091796A000D1877 /* HomeViewModel.swift in Sources */,
 				E24DF50D2098C1D400BAF0C7 /* MusicQuotesManager.swift in Sources */,
+				E214FB2D212AC5C200162A69 /* UpdatePracticeEntryViewController.swift in Sources */,
 				E21BE9CF2091796A000D1877 /* CreateAccountViewController.swift in Sources */,
 				E2CDBEAD21011AE200119D77 /* PremiumUpgradeLockView.swift in Sources */,
 				E2C59FCF20CEB0CC000C3039 /* PlayPracticeTabBarView.swift in Sources */,
