@@ -55,6 +55,9 @@ enum ModacityEvent:String {
     
     // Notes
     case OpenNotes = "Opened Item Notes"
+    
+    // Debug for IAP
+    case PurchaseFailed = "Purchase Failed"
 }
 
 class ModacityAnalytics: NSObject {

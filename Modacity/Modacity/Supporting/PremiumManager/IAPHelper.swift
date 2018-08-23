@@ -8,6 +8,7 @@
 
 import UIKit
 import StoreKit
+import Amplitude_iOS
 
 class IAPHelper: NSObject, SKProductsRequestDelegate {
     
@@ -100,7 +101,8 @@ extension IAPHelper: SKPaymentTransactionObserver {
             case .purchased:
                 ModacityDebugger.debug("Transaction completed successfully.")
                 SKPaymentQueue.default().finishTransaction(transaction)
-                self.receiptValidation()
+                self.purchased()
+                self.startReceiptCheck(afterRestoring: false)
             case .failed:
                 ModacityDebugger.debug("Transaction failed.")
                 SKPaymentQueue.default().finishTransaction(transaction)
@@ -108,7 +110,8 @@ extension IAPHelper: SKPaymentTransactionObserver {
             case .restored:
                 ModacityDebugger.debug("Transaction restored.")
                 SKPaymentQueue.default().finishTransaction(transaction)
-                self.receiptValidation()
+                self.restored()
+                self.startReceiptCheck(afterRestoring: true)
             default:
                 ModacityDebugger.debug("\(transaction.transactionState.rawValue)")
             }
@@ -117,18 +120,48 @@ extension IAPHelper: SKPaymentTransactionObserver {
     
     func paymentQueueRestoreCompletedTransactionsFinished(_ queue: SKPaymentQueue) {
         ModacityDebugger.debug("Restore completed successfully.")
-        self.receiptValidation()
+        self.restored()
+        self.startReceiptCheck(afterRestoring: true)
     }
     
-    func receiptValidation() {
+}
+
+extension IAPHelper {
+    
+    func purchased() {
+        PremiumDataManager.manager.registerSubscription(key: "", until: Date().advanced(years: 0, months: 1, weeks: 0, days: 0, hours: 0, minutes: 0, seconds: 0), checked: false) { (error) in
+            if let _ = error {
+                NotificationCenter.default.post(name: IAPHelper.appNotificationSubscriptionFailed, object: nil, userInfo: ["error": "Failed to store to server."])
+            } else {
+                NotificationCenter.default.post(Notification(name: IAPHelper.appNotificationSubscriptionSucceeded))
+            }
+        }
+    }
+    
+    func restored() {
+        PremiumDataManager.manager.registerSubscription(key: "", until: Date().advanced(years: 0, months: 0, weeks: 2, days: 0, hours: 0, minutes: 0, seconds: 0), checked: false) { (error) in
+            if let _ = error {
+                NotificationCenter.default.post(name: IAPHelper.appNotificationSubscriptionFailed, object: nil, userInfo: ["error": "Restore done. Failed to store to server."])
+            } else {
+                NotificationCenter.default.post(Notification(name: IAPHelper.appNotificationSubscriptionSucceeded))
+            }
+        }
+    }
+    
+    func startReceiptCheck(afterRestoring: Bool) {
         
         if let appStoreReceiptURL = Bundle.main.appStoreReceiptURL,FileManager.default.fileExists(atPath: appStoreReceiptURL.path) {
-            
             do {
                 let receiptData = try Data(contentsOf: appStoreReceiptURL, options: .alwaysMapped)
-                
                 let receiptString = receiptData.base64EncodedString(options: [])
-                ModacityDebugger.debug("Receipt String - \(receiptString)")
+                let until = afterRestoring ? Date().advanced(years: 0, months: 0, weeks: 2, days: 0, hours: 0, minutes: 0, seconds: 0) : Date().advanced(years: 0, months: 1, weeks: 0, days: 0, hours: 0, minutes: 0, seconds: 0)
+                PremiumDataManager.manager.registerSubscription(key: receiptString, until: until, checked:false, completion: { (error) in
+                    if let _ = error {
+                        NotificationCenter.default.post(name: IAPHelper.appNotificationSubscriptionFailed, object: nil, userInfo: ["error": "Failed to synchronize to server."])
+                    } else {
+                        NotificationCenter.default.post(Notification(name: IAPHelper.appNotificationSubscriptionSucceeded))
+                    }
+                })
                 self.receiptValidation(receiptString: receiptString, completion: {(error, autorenewal, validUntil) in
                     if let error = error {
                         NotificationCenter.default.post(name: IAPHelper.appNotificationSubscriptionFailed, object: nil, userInfo: ["error": error])
@@ -150,16 +183,15 @@ extension IAPHelper: SKPaymentTransactionObserver {
                     }
                 })
             } catch {
+                Amplitude.instance().logEvent("Purchase Failed", withEventProperties: ["point":"con_fail",
+                                                                                       "urlPath":appStoreReceiptURL.path])
                 NotificationCenter.default.post(name: IAPHelper.appNotificationSubscriptionFailed, object: nil, userInfo: ["error": "Failed to parse receipt."])
             }
         } else {
+            Amplitude.instance().logEvent("Purchase Failed", withEventProperties: ["point":"start_fail"])
             NotificationCenter.default.post(name: IAPHelper.appNotificationSubscriptionFailed, object: nil, userInfo: ["error": "Failed to retrieve receipt."])
         }
-        
     }
-}
-
-extension IAPHelper {
     
     func receiptValidation(receiptString: String, completion: @escaping (String?, Bool, Date?)->()) {
         
@@ -207,23 +239,47 @@ extension IAPHelper {
                                 }
                                 completion(nil, self.renewalStatus, self.validUntil)
                             } else {
+                                Amplitude.instance().logEvent("Purchase Failed", withEventProperties: ["point":"json_resp_fail",
+                                                                                                       "receipt":receiptString])
                                 completion("Failed to cast serialized JSON to Dictionary<String, AnyObject>", false, nil)
                             }
                         } catch {
+                            Amplitude.instance().logEvent("Purchase Failed", withEventProperties: ["point":"json_fail",
+                                                                                                   "receipt":receiptString,
+                                                                                                   "error": error.localizedDescription])
                             completion("Couldn't serialize JSON with error: " + error.localizedDescription, false, nil)
                         }
                     } else {
+                        var responseCode = ""
+                        if let httpResponse = response as? HTTPURLResponse {
+                            responseCode = "\(httpResponse.statusCode)"
+                        }
+                        
+                        var receivedDataString = "no data received"
+                        if let receivedData = data {
+                            receivedDataString = String(data: receivedData, encoding: String.Encoding.utf8) ?? "no data received"
+                        }
+                        Amplitude.instance().logEvent("Purchase Failed", withEventProperties: ["point":"task_fail",
+                                                                                               "receipt":receiptString,
+                                                                                               "http_status_code": responseCode,
+                                                                                               "error":error?.localizedDescription ?? "",
+                                                                                               "url": receiptUrlLastPath,
+                                                                                               "data": receivedDataString])
                         completion("Failed to receive response from app store receipt.", false, nil)
                     }
                 }
                 task.resume()
             } else {
+                
+                Amplitude.instance().logEvent("Purchase Failed", withEventProperties: ["point":"url_fail",
+                                                                                       "receipt":receiptString])
                 completion("Couldn't convert string into URL. Check for special characters.", false, nil)
             }
         } catch {
+            Amplitude.instance().logEvent("Purchase Failed", withEventProperties: ["point":"overall_fail",
+                                                                                   "error": error.localizedDescription,
+                                                                                   "receipt":receiptString])
             completion("Couldn't create JSON with error: " + error.localizedDescription, false, nil)
         }
-        
     }
 }
-

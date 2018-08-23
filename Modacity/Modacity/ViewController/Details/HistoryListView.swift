@@ -37,6 +37,9 @@ class HistoryListView: UIView {
     @IBOutlet weak var labelNoPracticeData: UILabel!
     @IBOutlet weak var buttonEdit: UIButton!
     @IBOutlet weak var viewLoaderPanel: UIView!
+    @IBOutlet weak var constraintForHistoryViewTopActionsPanelHeight: NSLayoutConstraint!
+    
+    @IBOutlet weak var viewTopActionsPanel: UIView!
     
     var delegate: HistoryListViewDelegate!
     var practicesCount = 0
@@ -78,6 +81,9 @@ class HistoryListView: UIView {
         let bottomView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 20))
         bottomView.backgroundColor = Color.clear
         self.tableViewMain.tableFooterView = bottomView
+        
+        self.constraintForHistoryViewTopActionsPanelHeight.constant = 0
+        self.viewTopActionsPanel.isHidden = true
     }
     
     func showHistory(for practiceId: String) {

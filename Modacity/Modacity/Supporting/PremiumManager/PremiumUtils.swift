@@ -13,6 +13,7 @@ class PremiumData: Mappable {
     
     var validUntil: TimeInterval?
     var receiptData: String?
+    var appleReceiptChecked = false
     
     init() {
         
@@ -22,8 +23,9 @@ class PremiumData: Mappable {
     }
     
     func mapping(map: Map) {
-        validUntil        <- map["until"]
-        receiptData      <- map["key"]
+        validUntil          <- map["until"]
+        receiptData         <- map["key"]
+        appleReceiptChecked <- map["checked"]
     }
     
     func unlocked() -> Bool {

@@ -84,10 +84,11 @@ class PremiumDataManager: NSObject {
         IAPHelper.helper.subscribe()
     }
     
-    func registerSubscription(key: String, until: Date, completion: @escaping (String?)->()) {
+    func registerSubscription(key: String, until: Date, checked: Bool = true, completion: @escaping (String?)->()) {
         let premium = PremiumData()
         premium.receiptData = key
         premium.validUntil = until.timeIntervalSince1970
+        premium.appleReceiptChecked = checked
         UserDefaults.standard.set(premium.toJSON(), forKey: "premium")
         UserDefaults.standard.synchronize()
         if let userId = MyProfileLocalManager.manager.userId() {
