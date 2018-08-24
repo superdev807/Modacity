@@ -589,7 +589,7 @@ extension DetailsViewController: NotesListViewDelegate, RecordingsListViewDelega
     }
     
     func onArchive(_ noteId: String) {
-        ModacityAnalytics.LogStringEvent("Notes - Archived \(noteId)")
+        ModacityAnalytics.LogStringEvent("Notes - Archived")
         if self.practiceItemId != nil {
             if let practiceItem = PracticeItemLocalManager.manager.practiceItem(forId: self.practiceItemId) {
                 practiceItem.archiveNote(for: noteId)
