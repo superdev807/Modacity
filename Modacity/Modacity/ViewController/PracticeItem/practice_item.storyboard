@@ -449,14 +449,14 @@ Working On?</string>
                                                 <rect key="frame" x="0.0" y="0.0" width="186.5" height="46"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZV6-85-oBN">
-                                                        <rect key="frame" x="54" y="8" width="79" height="30"/>
+                                                        <rect key="frame" x="48" y="8" width="92" height="30"/>
                                                         <subviews>
                                                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_sort_checked" translatesAutoresizingMaskIntoConstraints="NO" id="6iS-Of-BmU">
                                                                 <rect key="frame" x="0.0" y="10.5" width="11" height="9"/>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DESCENDING" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iwH-dX-bbO">
-                                                                <rect key="frame" x="21" y="9" width="58" height="11"/>
-                                                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="9"/>
+                                                                <rect key="frame" x="21" y="8" width="71" height="13.5"/>
+                                                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="11"/>
                                                                 <color key="textColor" red="0.1450980392" green="0.1529411765" blue="0.21960784310000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
@@ -499,14 +499,14 @@ Working On?</string>
                                                 <rect key="frame" x="187.5" y="0.0" width="187.5" height="46"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xzG-uE-4oy">
-                                                        <rect key="frame" x="58" y="8" width="73" height="30"/>
+                                                        <rect key="frame" x="51.5" y="8" width="84.5" height="30"/>
                                                         <subviews>
                                                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_sort_checked" translatesAutoresizingMaskIntoConstraints="NO" id="F6y-Pc-hCh">
                                                                 <rect key="frame" x="0.0" y="10.5" width="11" height="9"/>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ASCENDING" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EDp-UC-M7R">
-                                                                <rect key="frame" x="21" y="9" width="52" height="11"/>
-                                                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="9"/>
+                                                                <rect key="frame" x="21" y="8" width="63.5" height="13.5"/>
+                                                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="11"/>
                                                                 <color key="textColor" red="0.1450980392" green="0.1529411765" blue="0.21960784310000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
@@ -814,6 +814,8 @@ Working On?</string>
                         <outlet property="imageViewCheckByName" destination="nb7-qZ-MzA" id="H07-Xm-YkR"/>
                         <outlet property="imageViewCheckByRating" destination="epU-6V-VQV" id="eZd-Sh-CbL"/>
                         <outlet property="imageViewCheckDescending" destination="6iS-Of-BmU" id="mfd-bR-A62"/>
+                        <outlet property="labelOption1" destination="iwH-dX-bbO" id="t4y-6i-aX9"/>
+                        <outlet property="labelOption2" destination="EDp-UC-M7R" id="bPS-L9-uhr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9TA-cg-vpn" userLabel="First Responder" sceneMemberID="firstResponder"/>

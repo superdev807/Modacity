@@ -43,6 +43,7 @@ class AppConfig: NSObject {
     static let appConfigFacebookLink = "https://www.facebook.com/ModacityApp/"
     static let appConfigWebsiteLink = "https://www.modacity.co"
     
+    static let appNotificationOverallAppDataLoadedFromServer = Notification.Name(rawValue: "appNotificationOverallAppDataLoadedFromServer")
     static let appNotificationPracticeLoadedFromServer = Notification.Name(rawValue: "appNotificationPracticeLoadedFromServer")
     static let appNotificationPlaylistLoadedFromServer = Notification.Name(rawValue: "appNotificationPlaylistLoadedFromServer")
     static let appNotificationPlaylistUpdated = Notification.Name(rawValue: "appNotificationPlaylistUpdated")

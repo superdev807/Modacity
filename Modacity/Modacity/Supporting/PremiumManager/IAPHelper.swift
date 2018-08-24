@@ -19,7 +19,7 @@ class IAPHelper: NSObject, SKProductsRequestDelegate {
     static let appNotificationSubscriptionFailed = Notification.Name(rawValue: "appNotificationSubscriptionFailed")
     
     let monthlySubscriptionId = AppConfig.devVersion ? "com.app.modacity.dev.premiumupgrade" : "com.app.modacity.premiumupgrade.monthly"
-    let verifyReceiptUrl = AppConfig.production ? "http://buy.itunes.apple.com/verifyReceipt" : "https://sandbox.itunes.apple.com/verifyReceipt"
+    let verifyReceiptUrl = AppConfig.production ? "https://buy.itunes.apple.com/verifyReceipt" : "https://sandbox.itunes.apple.com/verifyReceipt"
     let sharedSecret = AppConfig.devVersion ? "2ebbd4466faa4f2884c7a962f5d7435f" : "036db65cbeee4ebea98c40ebc6b6cd0c"
     
     var productIDs = [String]()
@@ -161,26 +161,27 @@ extension IAPHelper {
                     } else {
                         NotificationCenter.default.post(Notification(name: IAPHelper.appNotificationSubscriptionSucceeded))
                     }
-                })
-                self.receiptValidation(receiptString: receiptString, completion: {(error, autorenewal, validUntil) in
-                    if let error = error {
-                        NotificationCenter.default.post(name: IAPHelper.appNotificationSubscriptionFailed, object: nil, userInfo: ["error": error])
-                    } else {
-                        if var validUntil = validUntil {
-                            if appStoreReceiptURL.lastPathComponent == "sandboxReceipt" {
-                                validUntil = validUntil.advanced(years: 0, months: 1, weeks: 0, days: 0, hours: 0, minutes: 0, seconds: 0)
-                            }
-                            PremiumDataManager.manager.registerSubscription(key: receiptString, until: validUntil, completion: { (error) in
-                                if let _ = error {
-                                    NotificationCenter.default.post(name: IAPHelper.appNotificationSubscriptionFailed, object: nil, userInfo: ["error": "Failed to synchronize to server."])
-                                } else {
-                                    NotificationCenter.default.post(Notification(name: IAPHelper.appNotificationSubscriptionSucceeded))
-                                }
-                            })
+                    
+                    self.receiptValidation(receiptString: receiptString, completion: {(error, autorenewal, validUntil) in
+                        if let error = error {
+                            NotificationCenter.default.post(name: IAPHelper.appNotificationSubscriptionFailed, object: nil, userInfo: ["error": error])
                         } else {
-                            NotificationCenter.default.post(name: IAPHelper.appNotificationSubscriptionFailed, object: nil, userInfo: ["error": "Failed to retrieve receipt expire date."])
+                            if var validUntil = validUntil {
+                                if appStoreReceiptURL.lastPathComponent == "sandboxReceipt" {
+                                    validUntil = validUntil.advanced(years: 0, months: 1, weeks: 0, days: 0, hours: 0, minutes: 0, seconds: 0)
+                                }
+                                PremiumDataManager.manager.registerSubscription(key: receiptString, until: validUntil, completion: { (error) in
+                                    if let _ = error {
+                                        NotificationCenter.default.post(name: IAPHelper.appNotificationSubscriptionFailed, object: nil, userInfo: ["error": "Failed to synchronize to server."])
+                                    } else {
+                                        NotificationCenter.default.post(Notification(name: IAPHelper.appNotificationSubscriptionSucceeded))
+                                    }
+                                })
+                            } else {
+                                NotificationCenter.default.post(name: IAPHelper.appNotificationSubscriptionFailed, object: nil, userInfo: ["error": "Failed to retrieve receipt expire date."])
+                            }
                         }
-                    }
+                    })
                 })
             } catch {
                 Amplitude.instance().logEvent("Purchase Failed", withEventProperties: ["point":"con_fail",
@@ -201,11 +202,12 @@ extension IAPHelper {
             let jsonData = try JSONSerialization.data(withJSONObject: dict, options: .prettyPrinted)
             let receiptUrlLastPath = Bundle.main.appStoreReceiptURL?.lastPathComponent ?? ""
             print("receipt url last path - \(receiptUrlLastPath)")
-            let receiptUrl = (receiptUrlLastPath != "sandboxReceipt") ? "http://buy.itunes.apple.com/verifyReceipt" : "https://sandbox.itunes.apple.com/verifyReceipt"
+            let receiptUrl = (receiptUrlLastPath != "sandboxReceipt") ? "https://buy.itunes.apple.com/verifyReceipt" : "https://sandbox.itunes.apple.com/verifyReceipt"
             if let sandboxURL = Foundation.URL(string:receiptUrl) {
                 var request = URLRequest(url: sandboxURL)
                 request.httpMethod = "POST"
                 request.httpBody = jsonData
+                ModacityDebugger.debug("json data ===== \(String(data: jsonData, encoding: String.Encoding.utf8) ?? "JSONDATA")")
                 let session = URLSession(configuration: URLSessionConfiguration.default)
                 let task = session.dataTask(with: request) { data, response, error in
                     if let receivedData = data,
@@ -250,20 +252,24 @@ extension IAPHelper {
                             completion("Couldn't serialize JSON with error: " + error.localizedDescription, false, nil)
                         }
                     } else {
-                        var responseCode = ""
+                        var responseCode = "response invalid"
                         if let httpResponse = response as? HTTPURLResponse {
                             responseCode = "\(httpResponse.statusCode)"
                         }
                         
                         var receivedDataString = "no data received"
                         if let receivedData = data {
-                            receivedDataString = String(data: receivedData, encoding: String.Encoding.utf8) ?? "no data received"
+                            receivedDataString = String(data: receivedData, encoding: String.Encoding.utf8) ?? "data invalid"
                         }
+                        
+                        let requestJSONData = String(data: jsonData, encoding: String.Encoding.utf8) ?? "no request json data"
+                        
                         Amplitude.instance().logEvent("Purchase Failed", withEventProperties: ["point":"task_fail",
                                                                                                "receipt":receiptString,
                                                                                                "http_status_code": responseCode,
                                                                                                "error":error?.localizedDescription ?? "",
                                                                                                "url": receiptUrlLastPath,
+                                                                                               "request_json_data": requestJSONData,
                                                                                                "data": receivedDataString])
                         completion("Failed to receive response from app store receipt.", false, nil)
                     }

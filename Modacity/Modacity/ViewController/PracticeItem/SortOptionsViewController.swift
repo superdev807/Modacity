@@ -34,6 +34,9 @@ class SortOptionsViewController: UIViewController {
     @IBOutlet weak var imageViewCheckByRating: UIImageView!
     @IBOutlet weak var imageViewCheckByFavorites: UIImageView!
     
+    @IBOutlet weak var labelOption1: UILabel!
+    @IBOutlet weak var labelOption2: UILabel!
+    
     var sortKey = SortKeyOption.name
     var sortOption = SortOption.ascending
     var delegate: SortOptionsViewControllerDelegate?
@@ -95,14 +98,22 @@ class SortOptionsViewController: UIViewController {
     }
     
     @IBAction func onSelectOptionDescending(_ sender: Any) {
-        self.sortOption = .descending
+        if self.sortKey == .name {
+            self.sortOption = .ascending
+        } else {
+            self.sortOption = .descending
+        }
         self.callDelegate()
         self.configureOptions()
         self.close()
     }
     
     @IBAction func onSelectOptionAscending(_ sender: Any) {
-        self.sortOption = .ascending
+        if self.sortKey == .name {
+            self.sortOption = .descending
+        } else {
+            self.sortOption = .ascending
+        }
         self.callDelegate()
         self.configureOptions()
         self.close()
@@ -115,20 +126,47 @@ class SortOptionsViewController: UIViewController {
         switch sortKey {
         case .name:
             self.imageViewCheckByName.isHidden = false
+            self.labelOption1.text = "A-Z"
+            self.labelOption2.text = "Z-A"
+            switch sortOption {
+            case .descending:
+                self.imageViewCheckAscending.isHidden = false
+            case .ascending:
+                self.imageViewCheckDescending.isHidden = false
+            }
         case .favorites:
             self.imageViewCheckByFavorites.isHidden = false
+            self.labelOption1.text = "Favorite"
+            self.labelOption2.text = "Not Favorite"
+            switch sortOption {
+            case .ascending:
+                self.imageViewCheckAscending.isHidden = false
+            case .descending:
+                self.imageViewCheckDescending.isHidden = false
+            }
         case .lastPracticedTime:
             self.imageViewCheckByLastPracticeTime.isHidden = false
+            self.labelOption1.text = "Most Recent"
+            self.labelOption2.text = "Least Recent"
+            switch sortOption {
+            case .ascending:
+                self.imageViewCheckAscending.isHidden = false
+            case .descending:
+                self.imageViewCheckDescending.isHidden = false
+            }
         case .rating:
             self.imageViewCheckByRating.isHidden = false
+            self.labelOption1.text = "High to Low"
+            self.labelOption2.text = "Least Recent"
+            switch sortOption {
+            case .ascending:
+                self.imageViewCheckAscending.isHidden = false
+            case .descending:
+                self.imageViewCheckDescending.isHidden = false
+            }
         }
         
-        switch sortOption {
-        case .ascending:
-            self.imageViewCheckAscending.isHidden = false
-        case .descending:
-            self.imageViewCheckDescending.isHidden = false
-        }
+        
     }
     
     func deselectAllKeys() {

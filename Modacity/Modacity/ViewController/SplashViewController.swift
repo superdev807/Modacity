@@ -14,7 +14,6 @@ class SplashViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        AppOveralDataManager.manager.saveStreak()
         if !AppOveralDataManager.manager.beenTutorialRead() {
             self.openTutorial()
         } else {

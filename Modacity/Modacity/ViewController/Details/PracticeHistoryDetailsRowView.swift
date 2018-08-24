@@ -70,6 +70,7 @@ class PracticeHistoryDetailsRowView: UIView {
 
         self.labelManualEntry.isHidden = true
         self.viewNormalEntry.isHidden = false
+        self.viewEdit.isHidden = true
     }
     
     func configure(with data: PracticeDaily, editing: Bool = false) {

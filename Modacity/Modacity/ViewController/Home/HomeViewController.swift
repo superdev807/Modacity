@@ -44,6 +44,7 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         NotificationCenter.default.addObserver(self, selector: #selector(configureNameLabels), name: AppConfig.appNotificationProfileUpdated, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshList), name: AppConfig.appNotificationOverallAppDataLoadedFromServer, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(refreshList), name: AppConfig.appNotificationPlaylistLoadedFromServer, object: nil)
         self.configureUI()
         self.bindViewModel()
@@ -72,68 +73,80 @@ class HomeViewController: UIViewController {
     func bindViewModel() {
         
         self.viewModel.subscribe(to: "dashboardPlaylistsCount") { _, _, count in
-            if let count = count as? Int {
-                if count > 0 {
-                    self.viewEmptyPanel.isHidden = true
-                    self.labelRecentHeader.isHidden = false
-                    return
+            DispatchQueue.main.async {
+                if let count = count as? Int {
+                    if count > 0 {
+                        self.viewEmptyPanel.isHidden = true
+                        self.labelRecentHeader.isHidden = false
+                        return
+                    }
                 }
+                self.labelRecentHeader.isHidden = true
+                self.viewEmptyPanel.isHidden = false
             }
-            self.labelRecentHeader.isHidden = true
-            self.viewEmptyPanel.isHidden = false
         }
         
         self.viewModel.subscribe(to: "recentPlaylists") { (_, _, _) in
-            self.collectionViewRecentPlaylists.reloadData()
+            DispatchQueue.main.async {
+                self.collectionViewRecentPlaylists.reloadData()
+            }
         }
         
         self.viewModel.subscribe(to: "favoriteItems") { (_, _, favoriteItems) in
-            if let playlists = favoriteItems as? [[String:Any]] {
-                if playlists.count > 0 {
-                    self.labelFavoritesHeader.isHidden = false
-                } else {
-                    self.labelFavoritesHeader.isHidden = true
+            DispatchQueue.main.async {
+                if let playlists = favoriteItems as? [[String:Any]] {
+                    if playlists.count > 0 {
+                        self.labelFavoritesHeader.isHidden = false
+                    } else {
+                        self.labelFavoritesHeader.isHidden = true
+                    }
+                    self.collectionViewFavoritePlaylists.reloadData()
+                    return
                 }
-                self.collectionViewFavoritePlaylists.reloadData()
-                return
+                self.labelFavoritesHeader.isHidden = true
             }
-            self.labelFavoritesHeader.isHidden = true
         }
         
         self.viewModel.subscribe(to: "totalWorkingSeconds") { (_, _, totalWorkingSeconds) in
-            if let seconds = totalWorkingSeconds as? Int {
-                var displayMode: DashboardTime = .Default
-                if seconds < 30 * 60 {
-                    displayMode = .Minutes
-                } else {
-                    displayMode = .Hours
+            DispatchQueue.main.async {
+                if let seconds = totalWorkingSeconds as? Int {
+                    var displayMode: DashboardTime = .Default
+                    if seconds < 30 * 60 {
+                        displayMode = .Minutes
+                    } else {
+                        displayMode = .Hours
+                        
+                    }
                     
-                }
-                
-                if (self.timeDisplay == .Minutes) {
-                    displayMode = .Minutes
-                }
-                
-                if (displayMode == .Minutes) {
-                    self.textfieldTotalHours.text = String(format:"%.1f", Double(seconds) / 60.0)
-                    self.labelTotalTimeCaption.text = "TOTAL MINUTES"
+                    if (self.timeDisplay == .Minutes) {
+                        displayMode = .Minutes
+                    }
+                    
+                    if (displayMode == .Minutes) {
+                        self.textfieldTotalHours.text = String(format:"%.1f", Double(seconds) / 60.0)
+                        self.labelTotalTimeCaption.text = "TOTAL MINUTES"
+                    } else {
+                        self.textfieldTotalHours.text = String(format:"%.1f", Double(seconds) / 3600.0)
+                        self.labelTotalTimeCaption.text = "TOTAL HOURS"
+                    }
+                    
                 } else {
-                    self.textfieldTotalHours.text = String(format:"%.1f", Double(seconds) / 3600.0)
+                    self.textfieldTotalHours.text = "0"
                     self.labelTotalTimeCaption.text = "TOTAL HOURS"
                 }
-                
-            } else {
-                self.textfieldTotalHours.text = "0"
-                self.labelTotalTimeCaption.text = "TOTAL HOURS"
             }
         }
         
         self.viewModel.subscribe(to: "totalImprovements") { (_, _, totalImprovements) in
-            self.textfieldImprovements.text = "\(totalImprovements as? Int ?? 0)"
+            DispatchQueue.main.async {
+                self.textfieldImprovements.text = "\(totalImprovements as? Int ?? 0)"
+            }
         }
         
         self.viewModel.subscribe(to: "streakDays") { (_, _, streakDays) in
-            self.textfieldDayStreak.text = "\(streakDays as? Int ?? 0)"
+            DispatchQueue.main.async {
+                self.textfieldDayStreak.text = "\(streakDays as? Int ?? 0)"
+            }
         }
     }
     

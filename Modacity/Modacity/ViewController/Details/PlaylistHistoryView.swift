@@ -95,8 +95,8 @@ class PlaylistHistoryView: UIView {
     var firstTimeLoading = true
     
     @IBOutlet weak var labelNoPracticeData: UILabel!
-    let firstLoadingCount = 5
-    let nextLoadingCount = 10
+    let firstLoadingCount = 15
+    let nextLoadingCount = 30
     
     @IBOutlet weak var viewLoaderPanel: UIView!
     override init(frame: CGRect) {

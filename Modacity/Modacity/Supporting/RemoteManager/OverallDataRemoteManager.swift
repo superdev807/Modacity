@@ -34,6 +34,8 @@ class OverallDataRemoteManager {
                                                                       timerPauseDuringNote: overallData["settings_timer_pause_during_note"] as? Bool ?? false,
                                                                       timerPauseDuringImprove: overallData["settings_timer_pause_during_improve"] as? Bool ?? false,
                                                                       practiceBreakTime: overallData["practice_break_time"] as? Int ?? 0)
+                        NotificationCenter.default.post(Notification(name: AppConfig.appNotificationOverallAppDataLoadedFromServer))
+                        
                     }
                 }
             }
