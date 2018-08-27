@@ -33,7 +33,8 @@ class OverallDataRemoteManager {
                                                                       firstPlaylistGenerated: overallData["first_playlist_generated"] as? Bool ?? false,
                                                                       timerPauseDuringNote: overallData["settings_timer_pause_during_note"] as? Bool ?? false,
                                                                       timerPauseDuringImprove: overallData["settings_timer_pause_during_improve"] as? Bool ?? false,
-                                                                      practiceBreakTime: overallData["practice_break_time"] as? Int ?? 0)
+                                                                      practiceBreakTime: overallData["practice_break_time"] as? Int ?? 0,
+                                                                      tuningStandard: overallData["tuning_standard"] as? Double ?? 440)
                         NotificationCenter.default.post(Notification(name: AppConfig.appNotificationOverallAppDataLoadedFromServer))
                         
                     }
@@ -67,7 +68,8 @@ class OverallDataRemoteManager {
                                                                            "first_playlist_generated": AppOveralDataManager.manager.firstPlaylistGenerated(),
                                                                            "settings_timer_pause_during_note": AppOveralDataManager.manager.settingsTimerPauseDuringNote(),
                                                                            "settings_timer_pause_during_improve": AppOveralDataManager.manager.settingsTimerPauseDuringImprove(),
-                                                                           "practice_break_time": AppOveralDataManager.manager.practiceBreakTime()])
+                                                                           "practice_break_time": AppOveralDataManager.manager.practiceBreakTime(),
+                                                                           "tuning_standard": AppOveralDataManager.manager.tuningStandard()])
         }
     }
 

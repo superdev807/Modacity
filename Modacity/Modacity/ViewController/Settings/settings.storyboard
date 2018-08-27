@@ -42,10 +42,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_common" translatesAutoresizingMaskIntoConstraints="NO" id="q6T-mN-oxW">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="818"/>
-                            </imageView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6IV-Gd-t8H">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6IV-Gd-t8H" customClass="TPKeyboardAvoidingTableView">
                                 <rect key="frame" x="0.0" y="92" width="375" height="686"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="v3M-2N-SgF">
@@ -328,6 +325,54 @@
                                             <outlet property="labelAccountType" destination="Mfi-IU-Nqc" id="jcU-lR-VS9"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsCellTextField" rowHeight="55" id="bzE-Kh-hpG" customClass="SettingsCellTextField" customModule="Modacity" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="387" width="375" height="55"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bzE-Kh-hpG" id="Cjz-bw-7Bo">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="55"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tuning Standard" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="umK-rS-gYT">
+                                                    <rect key="frame" x="10" y="19" width="99" height="17"/>
+                                                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="440.25" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Aw5-gP-bed">
+                                                    <rect key="frame" x="263" y="12.333333333333336" width="80" height="30"/>
+                                                    <color key="backgroundColor" red="0.21568627450980393" green="0.22352941176470587" blue="0.28235294117647058" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="80" id="Kms-wE-CFd"/>
+                                                        <constraint firstAttribute="height" constant="30" id="dtF-UY-vaS"/>
+                                                    </constraints>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                                    <connections>
+                                                        <action selector="onEditingChanged:" destination="bzE-Kh-hpG" eventType="editingChanged" id="hyh-S3-Lii"/>
+                                                    </connections>
+                                                </textField>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hz" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ffs-IW-4o7">
+                                                    <rect key="frame" x="348" y="19" width="17" height="17"/>
+                                                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="umK-rS-gYT" firstAttribute="leading" secondItem="Cjz-bw-7Bo" secondAttribute="leading" constant="10" id="0IR-k1-fWf"/>
+                                                <constraint firstItem="umK-rS-gYT" firstAttribute="centerY" secondItem="Cjz-bw-7Bo" secondAttribute="centerY" id="HyK-zp-qp4"/>
+                                                <constraint firstAttribute="trailing" secondItem="Ffs-IW-4o7" secondAttribute="trailing" constant="10" id="KNY-h3-Roe"/>
+                                                <constraint firstItem="Ffs-IW-4o7" firstAttribute="leading" secondItem="Aw5-gP-bed" secondAttribute="trailing" constant="5" id="QhY-8I-iiH"/>
+                                                <constraint firstItem="Ffs-IW-4o7" firstAttribute="centerY" secondItem="Cjz-bw-7Bo" secondAttribute="centerY" id="hnB-z5-Niz"/>
+                                                <constraint firstItem="Aw5-gP-bed" firstAttribute="centerY" secondItem="Cjz-bw-7Bo" secondAttribute="centerY" id="rtA-hf-zE3"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <outlet property="textfieldInput" destination="Aw5-gP-bed" id="s2Z-Il-9Jt"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="HGc-JV-kn0" id="X9M-Sk-Fl4"/>
@@ -360,19 +405,15 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.14509803921568626" green="0.15294117647058825" blue="0.2196078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="RbY-FD-URo" firstAttribute="leading" secondItem="suT-Je-ytR" secondAttribute="leading" constant="16" id="AFd-kJ-bYm"/>
-                            <constraint firstItem="q6T-mN-oxW" firstAttribute="leading" secondItem="suT-Je-ytR" secondAttribute="leading" id="CyA-9r-bQl"/>
-                            <constraint firstItem="q6T-mN-oxW" firstAttribute="bottom" secondItem="suT-Je-ytR" secondAttribute="bottom" constant="40" id="DRw-0w-cwx"/>
                             <constraint firstItem="RbY-FD-URo" firstAttribute="top" secondItem="suT-Je-ytR" secondAttribute="top" constant="15" id="Esv-pP-e0z"/>
-                            <constraint firstItem="q6T-mN-oxW" firstAttribute="trailing" secondItem="suT-Je-ytR" secondAttribute="trailing" id="Is5-PF-S9U"/>
                             <constraint firstItem="Ivx-ss-Ty1" firstAttribute="centerY" secondItem="RbY-FD-URo" secondAttribute="centerY" id="JHm-aC-dnC"/>
                             <constraint firstItem="LQU-cY-mlo" firstAttribute="top" secondItem="suT-Je-ytR" secondAttribute="top" constant="-20" id="JRs-xW-k7N"/>
                             <constraint firstItem="6IV-Gd-t8H" firstAttribute="bottom" secondItem="suT-Je-ytR" secondAttribute="bottom" id="JeJ-jE-cpC"/>
                             <constraint firstItem="KOO-qU-460" firstAttribute="leading" secondItem="suT-Je-ytR" secondAttribute="leading" id="UMm-2E-h6T"/>
                             <constraint firstItem="KOO-qU-460" firstAttribute="trailing" secondItem="suT-Je-ytR" secondAttribute="trailing" id="W0I-uc-3Qn"/>
-                            <constraint firstItem="q6T-mN-oxW" firstAttribute="top" secondItem="zWb-MY-MpX" secondAttribute="top" id="YkO-xe-KQU"/>
                             <constraint firstItem="LQU-cY-mlo" firstAttribute="leading" secondItem="suT-Je-ytR" secondAttribute="leading" id="gPi-hc-jRA"/>
                             <constraint firstItem="6IV-Gd-t8H" firstAttribute="top" secondItem="LQU-cY-mlo" secondAttribute="bottom" constant="8" id="hah-AP-kpL"/>
                             <constraint firstItem="6IV-Gd-t8H" firstAttribute="trailing" secondItem="suT-Je-ytR" secondAttribute="trailing" id="hzq-xd-LQk"/>

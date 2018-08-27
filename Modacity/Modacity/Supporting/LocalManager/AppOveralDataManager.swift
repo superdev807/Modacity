@@ -118,7 +118,8 @@ class AppOveralDataManager {
                           firstPlaylistGenerated: Bool,
                           timerPauseDuringNote: Bool,
                           timerPauseDuringImprove: Bool,
-                          practiceBreakTime: Int) {
+                          practiceBreakTime: Int,
+                          tuningStandard: Double) {
         UserDefaults.standard.set(totalPracticeSeconds, forKey: "total_practice_seconds")
         UserDefaults.standard.set(totalImprovements, forKey: "total_improvements")
         UserDefaults.standard.set(notPreventPhoneSleep, forKey: "not_prevent_phone_sleep")
@@ -131,6 +132,7 @@ class AppOveralDataManager {
         UserDefaults.standard.set(timerPauseDuringNote, forKey: "settings_timer_pause_during_note")
         UserDefaults.standard.set(timerPauseDuringImprove, forKey: "settings_timer_pause_during_improve")
         UserDefaults.standard.set(practiceBreakTime, forKey: "practice_break_time")
+        UserDefaults.standard.set(tuningStandard, forKey: "tuning_standard")
         UserDefaults.standard.synchronize()
     }
     
@@ -369,6 +371,21 @@ class AppOveralDataManager {
             return SortOption(rawValue: sortKey) ?? .ascending
         } else {
             return .ascending
+        }
+    }
+    
+    func saveTuningStandard(_ value:Double) {
+        UserDefaults.standard.set(value, forKey: "tuning_standard")
+        UserDefaults.standard.synchronize()
+        
+        MetrodroneParameters.instance.setTuningStandardA(Float(AppOveralDataManager.manager.tuningStandard()))
+    }
+    
+    func tuningStandard() -> Double {
+        if let _ = UserDefaults.standard.object(forKey: "tuning_standard") {
+            return UserDefaults.standard.double(forKey: "tuning_standard")
+        } else {
+            return 440.0
         }
     }
 }

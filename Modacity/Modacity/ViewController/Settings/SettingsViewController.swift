@@ -52,6 +52,28 @@ class SettingsCellAccountType: UITableViewCell {
     }
 }
 
+protocol SettingsCellTextFieldDelegate {
+    func settingsCellTextField(_ cell: SettingsCellTextField, changedValue: String)
+}
+
+class SettingsCellTextField: UITableViewCell {
+    
+    @IBOutlet weak var textfieldInput: UITextField!
+    var delegate: SettingsCellTextFieldDelegate?
+    
+    func configure(value: String) {
+        self.textfieldInput.layer.cornerRadius = 5
+        self.textfieldInput.text = value
+    }
+    
+    @IBAction func onEditingChanged(_ sender: Any) {
+        if let delegate = delegate {
+            delegate.settingsCellTextField(self, changedValue: self.textfieldInput.text ?? "")
+        }
+    }
+    
+}
+
 protocol SettingsCellWithSwitchDelegate {
     func onSwitchValueChanged(forCaption: String?)
 }
@@ -129,9 +151,9 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
             return 5
         } else if section == 2 {
             if PremiumDataManager.manager.isPremiumUnlocked() {
-                return 4
+                return 5
             } else {
-                return 3
+                return 4
             }
         } else if section == 3 {
             return 2
@@ -223,21 +245,26 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
             }
         } else if indexPath.section == 2 {
             if indexPath.row == 0 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCellWithSwitch") as! SettingsCellWithSwitch
+                let cell = self.tableViewSettings.dequeueReusableCell(withIdentifier: "SettingsCellTextField") as! SettingsCellTextField
+                cell.configure(value: String(AppOveralDataManager.manager.tuningStandard()))
                 cell.delegate = self
-                cell.configure(caption: "Prevent Phone Sleep During Audio Activity", isOn: AppOveralDataManager.manager.settingsPhoneSleepPrevent())
                 return cell
             } else if indexPath.row == 1 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCellWithSwitch") as! SettingsCellWithSwitch
                 cell.delegate = self
+                cell.configure(caption: "Prevent Phone Sleep During Audio Activity", isOn: AppOveralDataManager.manager.settingsPhoneSleepPrevent())
+                return cell
+            } else if indexPath.row == 2 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCellWithSwitch") as! SettingsCellWithSwitch
+                cell.delegate = self
                 cell.configure(caption: "Disable Auto-Playback", isOn: AppOveralDataManager.manager.settingsDisableAutoPlayback())
                 return cell
-            }  else if indexPath.row == 2 {
+            }  else if indexPath.row == 3 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCellWithSwitch") as! SettingsCellWithSwitch
                 cell.delegate = self
                 cell.configure(caption: "After Rating Go to Next Item", isOn: AppOveralDataManager.manager.settingsGotoNextItemAfterRating())
                 return cell
-            } else if indexPath.row == 3 {
+            } else if indexPath.row == 4 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCellWithoutIcon") as! SettingsCellWithoutIcon
                 cell.configure(caption: "“Take a Break” Reminder")
                 return cell
@@ -283,7 +310,7 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
                 self.performSegue(withIdentifier: "sid_subscription_terms", sender: nil)
             }
         } else if indexPath.section == 2 {
-            if indexPath.row == 3 {
+            if indexPath.row == 4 {
                 self.openBreakReminderSettingsPage()
             }
         }
@@ -398,5 +425,10 @@ extension SettingsViewController {
     }
 }
 
-
-
+extension SettingsViewController: SettingsCellTextFieldDelegate {
+    func settingsCellTextField(_ cell: SettingsCellTextField, changedValue: String) {
+        if let value = Double(changedValue) {
+            AppOveralDataManager.manager.saveTuningStandard(value)
+        }
+    }
+}
