@@ -27,9 +27,9 @@ class AppOveralDataManager {
     func calculateStreakDays() -> Int {
         if let streakFrom = UserDefaults.standard.string(forKey: "streak_from") {
             if let streakTo = UserDefaults.standard.string(forKey: "streak_to") {
-                let from = streakFrom.date(format: "yyyy-MM-dd") ?? Date()
-                let to = streakTo.date(format: "yyyy-MM-dd") ?? Date()
-                return Int((to.timeIntervalSince1970 - from.timeIntervalSince1970) / 24 / 3600) + 1
+                let from = (streakFrom.count == 10) ? (streakFrom.date(format: "yyyy-MM-dd") ?? Date()) : (streakFrom.date(format: "yyyy-MM-ddHH:mm:ssZ") ?? Date())
+                let to = (streakTo.count == 10) ? (streakTo.date(format: "yyyy-MM-dd") ?? Date()) : (streakTo.date(format: "yyyy-MM-ddHH:mm:ssZ") ?? Date())
+                return from.differenceInDays(with: to)
             }
         }
         return 1
@@ -39,27 +39,47 @@ class AppOveralDataManager {
         let streakFrom = UserDefaults.standard.string(forKey: "streak_from")
         let streakTo = UserDefaults.standard.string(forKey: "streak_to")
         let today = Date().toString(format: "yyyy-MM-dd")
+        let todayFullFormat = Date().toString(format: "yyyy-MM-ddHH:mm:ssZ")
         
         if let _ = streakFrom {
             if let to = streakTo {
-                if to != today {
-                    let toDate = to.date(format: "yyyy-MM-dd") ?? Date()
-                    let todayDate = today.date(format: "yyyy-MM-dd") ?? Date()
-                    if todayDate.timeIntervalSince1970 - toDate.timeIntervalSince1970 > 24 * 3600 {
-                        UserDefaults.standard.set(today, forKey: "streak_from")
-                        UserDefaults.standard.set(today, forKey: "streak_to")
-                        UserDefaults.standard.synchronize()
-                        OverallDataRemoteManager.manager.updateStreakValues(from: today, to: today)
-                    } else {
-                        UserDefaults.standard.set(today, forKey: "streak_to")
-                        UserDefaults.standard.synchronize()
-                        OverallDataRemoteManager.manager.updateStreakValues(to: today)
+                if to.count == 10 {
+                    if to != today {
+                        let toDate = to.date(format: "yyyy-MM-dd") ?? Date()
+                        let todayDate = today.date(format: "yyyy-MM-dd") ?? Date()
+                        
+                        if todayDate.differenceInDays(with: toDate) > 1 {
+                            UserDefaults.standard.set(todayFullFormat, forKey: "streak_from")
+                            UserDefaults.standard.set(todayFullFormat, forKey: "streak_to")
+                            UserDefaults.standard.synchronize()
+                            OverallDataRemoteManager.manager.updateStreakValues(from: today, to: today)
+                        } else {
+                            UserDefaults.standard.set(todayFullFormat, forKey: "streak_to")
+                            UserDefaults.standard.synchronize()
+                            OverallDataRemoteManager.manager.updateStreakValues(to: today)
+                        }
+                    }
+                } else {
+                    if to != todayFullFormat {
+                        let toDate = to.date(format: "yyyy-MM-ddHH:mm:ssZ") ?? Date()
+                        let todayDate = Date()
+                        
+                        if todayDate.differenceInDays(with: toDate) > 1 {
+                            UserDefaults.standard.set(todayFullFormat, forKey: "streak_from")
+                            UserDefaults.standard.set(todayFullFormat, forKey: "streak_to")
+                            UserDefaults.standard.synchronize()
+                            OverallDataRemoteManager.manager.updateStreakValues(from: today, to: today)
+                        } else {
+                            UserDefaults.standard.set(todayFullFormat, forKey: "streak_to")
+                            UserDefaults.standard.synchronize()
+                            OverallDataRemoteManager.manager.updateStreakValues(to: today)
+                        }
                     }
                 }
             }
         } else {
-            UserDefaults.standard.set(today, forKey: "streak_from")
-            UserDefaults.standard.set(today, forKey: "streak_to")
+            UserDefaults.standard.set(todayFullFormat, forKey: "streak_from")
+            UserDefaults.standard.set(todayFullFormat, forKey: "streak_to")
             UserDefaults.standard.synchronize()
             OverallDataRemoteManager.manager.updateStreakValues(from: today, to: today)
         }
@@ -67,7 +87,6 @@ class AppOveralDataManager {
     }
     
     func signout() {
-        
         self.removeValues()
         PracticeItemLocalManager.manager.signout()
         RecordingsLocalManager.manager.signout()
@@ -104,6 +123,7 @@ class AppOveralDataManager {
         UserDefaults.standard.removeObject(forKey: "settings_timer_pause_during_improve")
         UserDefaults.standard.removeObject(forKey: "practice_break_time")
         UserDefaults.standard.removeObject(forKey: "go_after_rating")
+        
         UserDefaults.standard.synchronize()
     }
     
@@ -118,7 +138,8 @@ class AppOveralDataManager {
                           firstPlaylistGenerated: Bool,
                           timerPauseDuringNote: Bool,
                           timerPauseDuringImprove: Bool,
-                          practiceBreakTime: Int) {
+                          practiceBreakTime: Int,
+                          firstPlaylistStored: Bool) {
         UserDefaults.standard.set(totalPracticeSeconds, forKey: "total_practice_seconds")
         UserDefaults.standard.set(totalImprovements, forKey: "total_improvements")
         UserDefaults.standard.set(notPreventPhoneSleep, forKey: "not_prevent_phone_sleep")
@@ -131,6 +152,7 @@ class AppOveralDataManager {
         UserDefaults.standard.set(timerPauseDuringNote, forKey: "settings_timer_pause_during_note")
         UserDefaults.standard.set(timerPauseDuringImprove, forKey: "settings_timer_pause_during_improve")
         UserDefaults.standard.set(practiceBreakTime, forKey: "practice_break_time")
+        UserDefaults.standard.set(firstPlaylistStored, forKey: "first_playlist_stored")
         UserDefaults.standard.synchronize()
     }
     
