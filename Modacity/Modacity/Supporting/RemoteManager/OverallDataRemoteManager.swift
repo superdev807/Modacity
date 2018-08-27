@@ -34,9 +34,9 @@ class OverallDataRemoteManager {
                                                                       timerPauseDuringNote: overallData["settings_timer_pause_during_note"] as? Bool ?? false,
                                                                       timerPauseDuringImprove: overallData["settings_timer_pause_during_improve"] as? Bool ?? false,
                                                                       practiceBreakTime: overallData["practice_break_time"] as? Int ?? 0,
-                                                                      tuningStandard: overallData["tuning_standard"] as? Double ?? 440)
+                                                                      tuningStandard: overallData["tuning_standard"] as? Double ?? 440,
+                                                                      firstPlaylistStored: overallData["first_playlist_stored"] as? Bool ?? false)
                         NotificationCenter.default.post(Notification(name: AppConfig.appNotificationOverallAppDataLoadedFromServer))
-                        
                     }
                 }
             }
@@ -69,7 +69,8 @@ class OverallDataRemoteManager {
                                                                            "settings_timer_pause_during_note": AppOveralDataManager.manager.settingsTimerPauseDuringNote(),
                                                                            "settings_timer_pause_during_improve": AppOveralDataManager.manager.settingsTimerPauseDuringImprove(),
                                                                            "practice_break_time": AppOveralDataManager.manager.practiceBreakTime(),
-                                                                           "tuning_standard": AppOveralDataManager.manager.tuningStandard()])
+                                                                           "tuning_standard": AppOveralDataManager.manager.tuningStandard(),
+                                                                           "first_playlist_stored": AppOveralDataManager.manager.firstPlaylistStored()])
         }
     }
 

@@ -138,7 +138,6 @@ extension Date {
         if now.weekDay != 1 {
             return self.timeIntervalSince1970 >= now.weekDay(for: .mon).timeIntervalSince1970 && self.timeIntervalSince1970 < now.weekDay(for: .mon).timeIntervalSince1970 + 7 * 24 * 3600
         } else {
-//            return self.isToday
             return self.timeIntervalSince1970 >= now.weekDay(for: .mon).timeIntervalSince1970 - 7 * 24 * 3600 && self.timeIntervalSince1970 <= now.weekDay(for: .sun).timeIntervalSince1970
         }
     }
@@ -155,6 +154,14 @@ extension Date {
     func isLastMonth() -> Bool {
         let now = Date()
         return self.year * 12 + self.month == (now.year * 12 + now.month) - 1
+    }
+    
+    func differenceInDays(with date: Date) -> Int {
+        let startOfDate1 = (self.toString(format: "yyyy-MM-dd") + "00:00:00").date(format: "yyyy-MM-ddHH:mm:ss") ?? Date()
+        let startOfDate2 = (date.toString(format: "yyyy-MM-dd") + "00:00:00").date(format: "yyyy-MM-ddHH:mm:ss") ?? Date()
+        let diffInSec = (startOfDate2.timeIntervalSince1970 - startOfDate1.timeIntervalSince1970)
+        
+        return Int(((diffInSec >= 0 ? diffInSec : -(diffInSec)) / (3600 * 24)))
     }
     
 }

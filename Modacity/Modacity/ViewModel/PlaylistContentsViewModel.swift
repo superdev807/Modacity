@@ -303,10 +303,6 @@ class PlaylistContentsViewModel: ViewModel {
         UserDefaults.standard.synchronize()
     }
     
-    func addPracticeTotalTime(inSec sec:Int) {
-        AppOveralDataManager.manager.addPracticeTime(inSec: sec)
-    }
-    
     func saveCurrentRecording(toFileName: String) {
         RecordingsLocalManager.manager.saveCurrentRecording(toFileName: toFileName, playlistId: self.playlist.id, practiceName: self.currentPracticeEntry.practiceItem()?.name ?? "", practiceEntryId: self.currentPracticeEntry.entryId, practiceItemId: self.currentPracticeEntry.practiceItemId)
     }
