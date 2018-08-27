@@ -154,7 +154,7 @@ extension PracticeNotesViewController: NotesListViewDelegate {
     }
     
     func onArchive(_ noteId: String) {
-        ModacityAnalytics.LogStringEvent("Notes - Archived \(noteId)")
+        ModacityAnalytics.LogStringEvent("Notes - Archived")
         if self.playlistViewModel != nil {
             if self.noteIsForPlaylist {
                 self.playlistViewModel.changeArchiveStatusForPlaylistNote(noteId)
