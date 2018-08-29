@@ -380,10 +380,10 @@ extension SettingsViewController: SettingsCellWithSwitchDelegate {
     func onSwitchValueChanged(forCaption: String?) {
         if "Prevent Phone Sleep During Audio Activity" == forCaption {
             AppOveralDataManager.manager.changePhoneSleepPrevent()
-            self.tableViewSettings.reloadRows(at: [IndexPath(row: 0, section: 2)], with: .none)
+            self.tableViewSettings.reloadRows(at: [IndexPath(row: 1, section: 2)], with: .none)
         } else if "Disable Auto-Playback" == forCaption {
             AppOveralDataManager.manager.changeDisableAutoPlayback()
-            self.tableViewSettings.reloadRows(at: [IndexPath(row: 1, section: 2)], with: .none)
+            self.tableViewSettings.reloadRows(at: [IndexPath(row: 2, section: 2)], with: .none)
         } else if "Pause Timer During Note Taking" == forCaption {
             AppOveralDataManager.manager.changeSettingsTimerPauseDuringNote()
             self.tableViewSettings.reloadRows(at: [IndexPath(row: 0, section: 3)], with: .none)
@@ -392,7 +392,7 @@ extension SettingsViewController: SettingsCellWithSwitchDelegate {
             self.tableViewSettings.reloadRows(at: [IndexPath(row: 1, section: 3)], with: .none)
         } else if "After Rating Go to Next Item" == forCaption {
             AppOveralDataManager.manager.changeGotoNextItemAfterRating()
-            self.tableViewSettings.reloadRows(at: [IndexPath(row:2, section: 2)], with: .none)
+            self.tableViewSettings.reloadRows(at: [IndexPath(row:3, section: 2)], with: .none)
         }
     }
 }
@@ -428,6 +428,7 @@ extension SettingsViewController {
 extension SettingsViewController: SettingsCellTextFieldDelegate {
     func settingsCellTextField(_ cell: SettingsCellTextField, changedValue: String) {
         if let value = Double(changedValue) {
+            print("tuning standard value saved!")
             AppOveralDataManager.manager.saveTuningStandard(value)
         }
     }
