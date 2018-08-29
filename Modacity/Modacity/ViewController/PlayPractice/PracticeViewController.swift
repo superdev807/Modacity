@@ -725,7 +725,7 @@ extension PracticeViewController {
             
             if !AppOveralDataManager.manager.settingsDisableAutoPlayback() {
                 if let player = self.metrodroneView?.metrodonePlayer {
-                    player.stopMetrodrone()
+                    player.stopPlayer()
                 }
                 self.startPlayAudio()
             }
@@ -1503,7 +1503,7 @@ extension PracticeViewController: PracticeBreakPromptViewDelegate {
         if let metrodroneView = self.metrodroneView {
             if let mPlayer = metrodroneView.metrodonePlayer {
                 mPlayer.stopPlayer()
-                mPlayer.stopMetrodrone()
+                
             }
         }
     }

@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		101342632059020300A9734B /* TapTempo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101342622059020300A9734B /* TapTempo.swift */; };
+		10CEB2C12134BB36002B15F3 /* pitchshift.c in Sources */ = {isa = PBXBuildFile; fileRef = 10CEB2C02134BB36002B15F3 /* pitchshift.c */; };
+		10CEB2CC2135D867002B15F3 /* GenerateAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CEB2CA2135D866002B15F3 /* GenerateAudio.swift */; };
+		10CEB2CD2135D867002B15F3 /* MusicalFrequencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CEB2CB2135D867002B15F3 /* MusicalFrequencies.swift */; };
 		14A63A48B0FA29B0F7388A3B /* Pods_Modacity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C77FB2C0A58ED4E886E0F33 /* Pods_Modacity.framework */; };
 		16A5C4371F956B8B09E96F6D /* libPods-ModacityUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C7502E348716E20F4E0B7E5C /* libPods-ModacityUITests.a */; };
 		6318133EC6F4FF105A8ACB5A /* libPods-ModacityTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E91BAC853A8BF6F8434DAB14 /* libPods-ModacityTests.a */; };
@@ -387,6 +390,10 @@
 /* Begin PBXFileReference section */
 		0ED0F8A74BFAB54DDD3FAD0E /* Pods-Modacity-Dev.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Modacity-Dev.release.xcconfig"; path = "Pods/Target Support Files/Pods-Modacity-Dev/Pods-Modacity-Dev.release.xcconfig"; sourceTree = "<group>"; };
 		101342622059020300A9734B /* TapTempo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapTempo.swift; sourceTree = "<group>"; };
+		10CEB2BF2134BB36002B15F3 /* pitchshift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pitchshift.h; sourceTree = "<group>"; };
+		10CEB2C02134BB36002B15F3 /* pitchshift.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = pitchshift.c; sourceTree = "<group>"; };
+		10CEB2CA2135D866002B15F3 /* GenerateAudio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenerateAudio.swift; sourceTree = "<group>"; };
+		10CEB2CB2135D867002B15F3 /* MusicalFrequencies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicalFrequencies.swift; sourceTree = "<group>"; };
 		1C77FB2C0A58ED4E886E0F33 /* Pods_Modacity.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Modacity.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2FF7BD2AC6BB692D2CB30434 /* Pods-ModacityUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ModacityUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ModacityUITests/Pods-ModacityUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		3798BA6D596582574229E4BD /* Pods-Modacity.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Modacity.release.xcconfig"; path = "Pods/Target Support Files/Pods-Modacity/Pods-Modacity.release.xcconfig"; sourceTree = "<group>"; };
@@ -1113,10 +1120,14 @@
 		E2BA245A20C8D1590048A5D5 /* Audio Engine */ = {
 			isa = PBXGroup;
 			children = (
-				E2BA245B20C8D1590048A5D5 /* MetroDroneAudio.swift */,
 				E2BA245C20C8D1590048A5D5 /* MetrodroneParameters.swift */,
 				E2BA245D20C8D1590048A5D5 /* MetrodronePlayer.swift */,
+				E2BA245B20C8D1590048A5D5 /* MetroDroneAudio.swift */,
 				E2BA245E20C8D1590048A5D5 /* ModacityAudioEngine.swift */,
+				10CEB2CA2135D866002B15F3 /* GenerateAudio.swift */,
+				10CEB2CB2135D867002B15F3 /* MusicalFrequencies.swift */,
+				10CEB2BF2134BB36002B15F3 /* pitchshift.h */,
+				10CEB2C02134BB36002B15F3 /* pitchshift.c */,
 			);
 			path = "Audio Engine";
 			sourceTree = "<group>";
@@ -1749,6 +1760,7 @@
 				E25FD98D20D7F75A008C531A /* PracticingDailyLocalManager.swift in Sources */,
 				E283C51E20D1696A002651E0 /* TimerInputView.swift in Sources */,
 				E264C09920CB02F50016CF8D /* MetrodroneView.swift in Sources */,
+				10CEB2C12134BB36002B15F3 /* pitchshift.c in Sources */,
 				8EDEB70C203DE38F00E8D48D /* AppConfig.swift in Sources */,
 				8EB479BB20458B7C00BE6461 /* AboutViewController.swift in Sources */,
 				E29A30B220DA547D006125E2 /* PracticeTimerUpWalkThroughView.swift in Sources */,
@@ -1766,6 +1778,7 @@
 				8E64B7AC2056A35200900775 /* RecordingsLocalManager.swift in Sources */,
 				E2BA246320C8D1590048A5D5 /* MetrodronePlayer.swift in Sources */,
 				8EDA6194204827DE006D3208 /* PracticeItem.swift in Sources */,
+				10CEB2CD2135D867002B15F3 /* MusicalFrequencies.swift in Sources */,
 				E23C337F20E51CA4000EED10 /* PlaylistHistoryCell.swift in Sources */,
 				E22A06ED20FCD1AD00184F78 /* BreakReminerSettingsViewController.swift in Sources */,
 				E214FB27212A5F4300162A69 /* LoadMoreCell.swift in Sources */,
@@ -1831,6 +1844,7 @@
 				E2BA245F20C8D1590048A5D5 /* MetroDroneAudio.swift in Sources */,
 				8EB9DB9B204DABFD00689C1D /* PlaylistViewModel.swift in Sources */,
 				8EA9E7CD20429F140019EFA5 /* FeedbackRootViewController.swift in Sources */,
+				10CEB2CC2135D867002B15F3 /* GenerateAudio.swift in Sources */,
 				E23FFD9121081053007713F0 /* PremiumUtils.swift in Sources */,
 				8ED83FC220031EF400052256 /* SplashViewController.swift in Sources */,
 				8EF559C9207E89FA006728E4 /* FloatRatingView.swift in Sources */,

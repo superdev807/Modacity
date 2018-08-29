@@ -74,7 +74,7 @@ class MetrodoneViewController: UIViewController {
         super.viewWillDisappear(animated)
         
         if (self.metrodronePlayer != nil) {
-            self.metrodronePlayer!.stopMetrodrone()
+            self.metrodronePlayer!.stopPlayer()
         }
         
         UIApplication.shared.isIdleTimerDisabled = false
@@ -149,12 +149,14 @@ class MetrodoneViewController: UIViewController {
     
     @IBAction func onBtnPlay(_ sender: Any) {
         if let player = self.metrodronePlayer {
-            if (!player.isMetrodronePlaying) {
+            player.toggleMetroClickPlay()
+        }
+            /*if (!player.isMetrodronePlaying) {
                 player.startMetronome()
             } else {
                 player.stopMetrodrone()
-            }
-        }
+            }*/
+        
     }
     
     @IBAction func onTapDown(_ sender: Any) {
@@ -165,7 +167,7 @@ class MetrodoneViewController: UIViewController {
     
     @IBAction func onTapTouchup(_ sender: Any) {
         if let player = self.metrodronePlayer {
-            player.stopMetrodrone()
+            player.tapUp()
         }
     }
     
