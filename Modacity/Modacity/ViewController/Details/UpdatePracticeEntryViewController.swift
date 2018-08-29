@@ -66,23 +66,23 @@ class UpdatePracticeEntryViewController: UIViewController {
                 if seconds > 0 {
                     var string = ""
                     if seconds / 3600 > 0 {
-                        string = String(format: "%@%02d", string, seconds / 3600)
+                        string = String(format: "%@%d", string, seconds / 3600)
                     } else {
-                        string = "00"
+                        string = ""
                     }
                     
                     seconds = seconds % 3600
                     if seconds / 60 > 0 {
-                        string = String(format: "%@%02d", string, seconds / 60)
+                        string = String(format: "%@%d", string, seconds / 60)
                     } else {
-                        string = "\(string)00"
+                        string = "\(string)"
                     }
                     
                     seconds = seconds % 60
                     if seconds > 0 {
-                        string = String(format: "%@%02d", string, seconds)
+                        string = String(format: "%@%d", string, seconds)
                     } else {
-                        string = "\(string)00"
+                        string = "\(string)"
                     }
                     
                     self.textfieldTimeInput.text = string
@@ -181,10 +181,27 @@ extension UpdatePracticeEntryViewController: UITextFieldDelegate {
     @IBAction func onEditingDidEndOnField(_ sender: Any) {
     }
     
+    func reversedString(from text:String) -> String {
+        let length = text.count
+        var string = ""
+        for _ in 0..<(6 - length) {
+            string = string + "0"
+        }
+        string = string + text
+        return string
+    }
+    
     func validateInputText(_ text:String) -> Bool {
+        
+        if text.count > 6 {
+            return false
+        }
+        
+        let reversed = self.reversedString(from: text)
+        
         var idx = 0
-        while idx < text.count {
-            if let number = Int(text[idx..<(idx+1)]) {
+        while idx < reversed.count {
+            if let number = Int(reversed[idx..<(idx+1)]) {
                 if number > 5 {
                     return false
                 }
@@ -197,54 +214,42 @@ extension UpdatePracticeEntryViewController: UITextFieldDelegate {
     }
     
     func convertInputStringToTime(_ inputString: String) -> NSAttributedString {
-        if inputString.count > 0 {
-            var res = ""
-            
-            for idx in 0..<6 {
-                if inputString.count > idx {
-                    res = res + inputString[idx..<(idx + 1)]
-                } else {
-                    res = res + "0"
-                }
-                
-                if idx == 1 || idx == 3 {
-                    res = res + ":"
-                }
+        
+        let reversed = self.reversedString(from: inputString)
+        
+        var res = ""
+        for idx in 0..<6 {
+            res = res + reversed[idx..<(idx + 1)]
+            if idx == 1 || idx == 3 {
+                res = res + ":"
             }
-            
-            let attributedString = NSMutableAttributedString(string: res)
-            let length = [1,3,4,6,7,8][inputString.count - 1]
-            attributedString.addAttribute(NSAttributedStringKey.foregroundColor, value: Color(hexString:"#C8C9CD"), range: NSMakeRange(0, res.count))
-            attributedString.addAttribute(NSAttributedStringKey.foregroundColor, value: highlightedColor, range: NSMakeRange(0, length))
-            return attributedString
-        } else {
-            let string = "00:00:00"
-            let attributedString = NSMutableAttributedString(string: string)
-            attributedString.addAttribute(NSAttributedStringKey.foregroundColor, value: Color(hexString:"#C8C9CD"), range: NSMakeRange(0, string.count))
-            return attributedString
         }
+        
+        let attributedString = NSMutableAttributedString(string: res)
+        let length = [0,1,2,4,5,7,8][inputString.count]
+        attributedString.addAttribute(NSAttributedStringKey.foregroundColor, value: Color(hexString:"#C8C9CD"), range: NSMakeRange(0, res.count))
+        attributedString.addAttribute(NSAttributedStringKey.foregroundColor, value: highlightedColor, range: NSMakeRange(8 - length, length))
+        return attributedString
     }
     
     func convertToSeconds(_ text: String) -> Int? {
-        if text.count == 6 {
-            var idx = 0
-            var res = 0
-            while idx < 6 {
-                if let number = Int(text[idx..<(idx + 2)]) {
-                    if idx == 0 {
-                        res = res + number * 3600
-                    } else if idx == 2 {
-                        res = res + number * 60
-                    } else {
-                        res = res + number
-                    }
+        let reversed = self.reversedString(from: text)
+        
+        var idx = 0
+        var res = 0
+        while idx < 6 {
+            if let number = Int(reversed[idx..<(idx + 2)]) {
+                if idx == 0 {
+                    res = res + number * 3600
+                } else if idx == 2 {
+                    res = res + number * 60
+                } else {
+                    res = res + number
                 }
-                idx = idx + 2
             }
-            return res
-        } else {
-            return nil
+            idx = idx + 2
         }
+        return res
     }
 }
 
