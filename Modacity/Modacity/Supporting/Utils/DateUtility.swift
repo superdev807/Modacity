@@ -161,7 +161,7 @@ extension Date {
         let startOfDate2 = (date.toString(format: "yyyy-MM-dd") + "00:00:00").date(format: "yyyy-MM-ddHH:mm:ss") ?? Date()
         let diffInSec = (startOfDate2.timeIntervalSince1970 - startOfDate1.timeIntervalSince1970)
         
-        return Int(((diffInSec >= 0 ? diffInSec : -(diffInSec)) / (3600 * 24)))
+        return Int(((diffInSec >= 0 ? diffInSec : -(diffInSec)) / (3600 * 24))) + 1
     }
     
 }
