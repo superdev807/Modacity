@@ -37,6 +37,8 @@ class UpdatePracticeEntryViewController: UIViewController {
     var playlistItemId: String? = nil
     var practiceItemId: String!
     
+    var selectedPracticeItem: PracticeItem? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -99,7 +101,7 @@ class UpdatePracticeEntryViewController: UIViewController {
     }
     
     @IBAction func onItemName(_ sender: Any) {
-        
+        self.openPracticeItemSelect()
     }
     
     func showUpdatingValues() {
@@ -291,27 +293,55 @@ extension UpdatePracticeEntryViewController {
     }
     
     @IBAction func onAddEntry(_ sender: Any) {
-        
-        if self.isUpdating {
-            if let totalTime = self.convertToSeconds(self.textfieldTimeInput.text ?? "") {
-                if self.dateSelected {
-                    let oldEntryDate = self.editingPracticeData.entryDateString ?? ""
-                    let oldFromTime = self.editingPracticeData.fromTime ?? ""
-                    
-                    self.editingPracticeData.practiceTimeInSeconds = totalTime
-                    self.editingPracticeData.startedTime = (self.selectedDate.toString(format: "yyyyMMdd") + oldFromTime).date(format: "yyyyMMddHH:mm:ss")?.timeIntervalSince1970 ?? self.selectedDate.timeIntervalSince1970
-                    self.editingPracticeData.entryDateString = self.selectedDate.toString(format: "yy-MM-dd")
-                    PracticingDailyLocalManager.manager.updatePracticingData(data: self.editingPracticeData, oldEntryDate: oldEntryDate, newEntryDate: self.editingPracticeData.entryDateString ?? "")
-                    self.navigationController?.popViewController(animated: true)
+        if !self.fromPlaylist {
+            if self.isUpdating {
+                if let totalTime = self.convertToSeconds(self.textfieldTimeInput.text ?? "") {
+                    if self.dateSelected {
+                        let oldEntryDate = self.editingPracticeData.entryDateString ?? ""
+                        let oldFromTime = self.editingPracticeData.fromTime ?? ""
+                        
+                        self.editingPracticeData.practiceTimeInSeconds = totalTime
+                        self.editingPracticeData.startedTime = (self.selectedDate.toString(format: "yyyyMMdd") + oldFromTime).date(format: "yyyyMMddHH:mm:ss")?.timeIntervalSince1970 ?? self.selectedDate.timeIntervalSince1970
+                        self.editingPracticeData.entryDateString = self.selectedDate.toString(format: "yy-MM-dd")
+                        PracticingDailyLocalManager.manager.updatePracticingData(data: self.editingPracticeData, oldEntryDate: oldEntryDate, newEntryDate: self.editingPracticeData.entryDateString ?? "")
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                }
+            } else {
+                if let totalTime = self.convertToSeconds(self.textfieldTimeInput.text ?? "") {
+                    if self.dateSelected {
+                        PracticingDailyLocalManager.manager.saveManualPracticing(duration: totalTime, practiceItemId: self.practiceItemId, started: self.selectedDate)
+                        self.navigationController?.popViewController(animated: true)
+                    }
                 }
             }
         } else {
-            if let totalTime = self.convertToSeconds(self.textfieldTimeInput.text ?? "") {
-                if self.dateSelected {
-                    PracticingDailyLocalManager.manager.saveManualPracticing(duration: totalTime, practiceItemId: self.practiceItemId, started: self.selectedDate)
-                    self.navigationController?.popViewController(animated: true)
+            if let playlistId = self.playlistItemId {
+                if self.isUpdating {
+                    
+                } else {
+                    if let totalTime = self.convertToSeconds(self.textfieldTimeInput.text ?? "") {
+                        if self.dateSelected {
+                            PracticingDailyLocalManager.manager.saveManualPracticing(duration: totalTime, practiceItemId: self.practiceItemId, started: self.selectedDate)
+                            self.navigationController?.popViewController(animated: true)
+                        }
+                    }
                 }
             }
         }
+    }
+}
+
+extension UpdatePracticeEntryViewController: PracticeItemListViewControllerDelegate {
+    func openPracticeItemSelect() {
+        let controller = UIStoryboard(name: "practice_item", bundle: nil).instantiateViewController(withIdentifier: "PracticeItemListViewController") as! PracticeItemListViewController
+        controller.delegate = self
+        controller.singleSelectMode = true
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    func practiceItemListViewController(_ controller: PracticeItemListViewController, selectedPracticeItem: PracticeItem) {
+        self.selectedPracticeItem = selectedPracticeItem
+        self.labelItemName.text = selectedPracticeItem.name
     }
 }

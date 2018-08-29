@@ -47,6 +47,49 @@ class PlaylistDailyLocalManager: NSObject {
         }
     }
     
+    func saveManualPracticing(duration: Int, practiceItemId: String?, started: Date, playlistId: String) {
+        
+        let playlistData = PlaylistDaily()
+        playlistData.playlistId = playlistId
+        playlistData.started = started.timeIntervalSince1970
+        playlistData.practiceTimeInSeconds = duration
+        playlistData.entryId = UUID().uuidString
+        playlistData.entryDateString = started.toString(format: "yy-MM-dd")
+        playlistData.fromTime = started.toString(format: "HH:mm:ss")
+        
+        if let practiceItemId = practiceItemId {
+            let data = PracticeDaily()
+            data.startedTime = started.timeIntervalSince1970
+            data.playlistId = ""
+            data.playlistPracticeEntryId = ""
+            data.practiceItemId = practiceItemId
+            data.practiceTimeInSeconds = duration
+            data.entryDateString = started.toString(format: "yy-MM-dd")
+            data.fromTime = started.toString(format: "HH:mm:ss")
+            data.isManual = true
+        }
+        
+//        var indecies = [String:[String]]()
+//        if let old = UserDefaults.standard.object(forKey: "practicing-indecies-\(practiceItemId)") as? [String:[String]] {
+//            indecies = old
+//        }
+//
+//        var idsArrayPerDate = [String]()
+//
+//        if let ids = indecies[data.entryDateString] {
+//            idsArrayPerDate = AppUtils.cleanDuplicatedEntries(in: ids)
+//        }
+//        idsArrayPerDate.append(data.entryId)
+//        indecies[data.entryDateString] = idsArrayPerDate
+//        UserDefaults.standard.set(indecies, forKey: "practicing-indecies-\(practiceItemId)")
+//        UserDefaults.standard.set(data.toJSON(), forKey: "practicing-data-\(data.entryId ?? "")")
+//        UserDefaults.standard.synchronize()
+//
+//        DispatchQueue.global(qos: .background).async {
+//            DailyPracticingRemoteManager.manager.createPracticing(data)
+//        }
+    }
+    
     func storePlaylistPracitingDataToLocal(_ data: PlaylistDaily) {
         var indecies = [String:[String]]()
         if let old = UserDefaults.standard.object(forKey: "playlist-indecies-\(data.playlistId ?? "")") as? [String:[String]] {

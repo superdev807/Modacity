@@ -9,6 +9,10 @@
 import UIKit
 import MBProgressHUD
 
+protocol PracticeItemListViewControllerDelegate {
+    func practiceItemListViewController(_ controller: PracticeItemListViewController, selectedPracticeItem: PracticeItem)
+}
+
 class PracticeItemListViewController: UIViewController {
     
     @IBOutlet weak var tableViewMain: UITableView!
@@ -26,12 +30,17 @@ class PracticeItemListViewController: UIViewController {
     @IBOutlet weak var viewHeaderSearchBar: UIView!
     @IBOutlet weak var textfieldHeader: UITextField!
     @IBOutlet weak var buttonRemoveKeyboard: UIButton!
+    @IBOutlet weak var imageViewTopLeftIcon: UIImageView!
+    @IBOutlet weak var constraintForTableViewBottomSpace: NSLayoutConstraint!
     
     var tableHeaderShowing = false
     var tableHeaderKeyword = ""
     
     var sortKey = SortKeyOption.name
     var sortOption = SortOption.ascending
+    
+    var singleSelectMode = false
+    var delegate: PracticeItemListViewControllerDelegate? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,6 +59,14 @@ class PracticeItemListViewController: UIViewController {
         self.tableViewMain.tableFooterView = UIView()
         self.tableViewMain.sectionIndexBackgroundColor = Color.clear
         self.tableViewMain.sectionIndexColor = Color.white
+        
+        if self.singleSelectMode {
+            self.imageViewTopLeftIcon.image = UIImage(named: "icon_arrow_left")
+            self.constraintForTableViewBottomSpace.constant = 0
+        } else {
+            self.imageViewTopLeftIcon.image = UIImage(named: "icon_menu")
+        }
+        
         MBProgressHUD.showAdded(to: self.view, animated: true)
     }
 
@@ -63,11 +80,17 @@ class PracticeItemListViewController: UIViewController {
     }
     
     @IBAction func onMenu(_ sender: Any) {
+        
         if self.practiceItemNameEditingCell != nil {
             self.practiceItemNameEditingCell!.textfieldNameEdit.resignFirstResponder()
             self.practiceItemNameEditingCell = nil
         }
-        self.sideMenuController?.showLeftViewAnimated()
+        
+        if self.singleSelectMode {
+            self.navigationController?.popViewController(animated: true)
+        } else {
+            self.sideMenuController?.showLeftViewAnimated()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -126,9 +149,6 @@ class PracticeItemListViewController: UIViewController {
         
         self.sectionNames = Array(self.sectionedPracticeItems.keys).sorted(by: { (ch1, ch2) -> Bool in
             if self.sortKey == .lastPracticedTime {
-//                let key1 = ch1.lastPracticedSortKey ?? ""
-//                let key2 = ch2.lastPracticedSortKey ?? ""
-//                return (self.sortOption == .ascending) ? (key1 < key2) : (key1 > key2)
                 let date1 = ch1.date(format: "M/d/yy") ?? Date(timeIntervalSince1970: 0)
                 let date2 = ch2.date(format: "M/d/yy") ?? Date(timeIntervalSince1970: 0)
                 return (self.sortOption == .ascending) ? (date1 < date2) : (date1 > date2)
@@ -253,23 +273,31 @@ extension PracticeItemListViewController: UITableViewDataSource, UITableViewDele
         } else {
             
             let practiceItem = self.sectionedPracticeItems[self.sectionNames[indexPath.section - (tableHeaderShowing ? 1 : 0)]]![indexPath.row]
-            var sceneName = ""
-            if AppUtils.sizeModelOfiPhone() == .iphone5_4in || AppUtils.sizeModelOfiPhone() == .iphone4_35in {
-                sceneName = "PracticeSceneForSmallSizes"
+            
+            if self.singleSelectMode {
+                if let delegate = self.delegate {
+                    delegate.practiceItemListViewController(self, selectedPracticeItem: practiceItem)
+                    self.navigationController?.popViewController(animated: true)
+                }
             } else {
-                sceneName = "PracticeScene"
+                var sceneName = ""
+                if AppUtils.sizeModelOfiPhone() == .iphone5_4in || AppUtils.sizeModelOfiPhone() == .iphone4_35in {
+                    sceneName = "PracticeSceneForSmallSizes"
+                } else {
+                    sceneName = "PracticeScene"
+                }
+                let controller = UIStoryboard(name: "practice", bundle: nil).instantiateViewController(withIdentifier: sceneName) as! UINavigationController
+                let practiceViewController = controller.viewControllers[0] as! PracticeViewController
+                practiceViewController.practiceItem = practiceItem
+                let deliverModel = PlaylistAndPracticeDeliverModel()
+                deliverModel.deliverPracticeItem = practiceItem
+                deliverModel.sessionTimeStarted = Date()
+                deliverModel.sessionImproved = [ImprovedRecord]()
+                practiceViewController.deliverModel = deliverModel
+                practiceViewController.lastPracticeBreakTime = 0
+                practiceViewController.practiceBreakTime = AppOveralDataManager.manager.practiceBreakTime() * 60
+                self.tabBarController?.present(controller, animated: true, completion: nil)
             }
-            let controller = UIStoryboard(name: "practice", bundle: nil).instantiateViewController(withIdentifier: sceneName) as! UINavigationController
-            let practiceViewController = controller.viewControllers[0] as! PracticeViewController
-            practiceViewController.practiceItem = practiceItem
-            let deliverModel = PlaylistAndPracticeDeliverModel()
-            deliverModel.deliverPracticeItem = practiceItem
-            deliverModel.sessionTimeStarted = Date()
-            deliverModel.sessionImproved = [ImprovedRecord]()
-            practiceViewController.deliverModel = deliverModel
-            practiceViewController.lastPracticeBreakTime = 0
-            practiceViewController.practiceBreakTime = AppOveralDataManager.manager.practiceBreakTime() * 60
-            self.tabBarController?.present(controller, animated: true, completion: nil)
         }
     }
     
@@ -292,7 +320,12 @@ extension PracticeItemListViewController: UITableViewDataSource, UITableViewDele
         let controller = UIStoryboard(name: "details", bundle: nil).instantiateViewController(withIdentifier: "DetailsScene") as! UINavigationController
         let detailsViewController = controller.viewControllers[0] as! DetailsViewController
         detailsViewController.practiceItemId = practiceItemId
-        self.tabBarController!.present(controller, animated: true, completion: nil)
+        
+        if self.singleSelectMode {
+            self.present(controller, animated: true, completion: nil)
+        } else {
+            self.tabBarController!.present(controller, animated: true, completion: nil)
+        }
         
         if let practice = PracticeItemLocalManager.manager.practiceItem(forId: practiceItemId) {
             ModacityAnalytics.LogStringEvent("Selected Practice Item", extraParamName: "Name", extraParamValue: practice.name)
