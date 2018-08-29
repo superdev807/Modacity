@@ -75,23 +75,26 @@ class PlaylistHistoryCell: UITableViewCell {
                 height = height + 36
                 
                 for improvement in row.improvements {
-                    let improvementText = "Improved: \(improvement.suggestion ?? "") - “\(improvement.hypothesis ?? "")“"
+                    let improvementAttributedStringText = NSMutableAttributedString(string: "Improved: ", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoRegular, size: 12)!])
+                    let improvementSuggestion = improvement.suggestion ?? ""
+                    improvementAttributedStringText.append(NSAttributedString(string: improvementSuggestion, attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoBlack, size: 12)!]))
+                    improvementAttributedStringText.append(NSAttributedString(string: " - ", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoRegular, size: 12)!]))
+                    let hypothesisString = "“\(improvement.hypothesis ?? "")“"
+                    improvementAttributedStringText.append(NSAttributedString(string: hypothesisString, attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoItalic, size: 12)!]))
                     let label = UILabel()
                     label.translatesAutoresizingMaskIntoConstraints = false
                     label.textColor = Color(hexString:"#908FE6")
-                    label.text = improvementText
-                    label.font = UIFont.systemFont(ofSize: 12)
+                    label.attributedText = improvementAttributedStringText
                     label.numberOfLines = 0
                     self.viewDetailsListContainer.addSubview(label)
-                    label.leadingAnchor.constraint(equalTo: self.viewDetailsListContainer.leadingAnchor, constant:10).isActive = true
-                    label.trailingAnchor.constraint(equalTo: self.viewDetailsListContainer.trailingAnchor, constant:-10).isActive = true
+                    label.leadingAnchor.constraint(equalTo: self.viewDetailsListContainer.leadingAnchor, constant:0).isActive = true
+                    label.trailingAnchor.constraint(equalTo: self.viewDetailsListContainer.trailingAnchor, constant:0).isActive = true
                     if let lastView = lastView {
                         label.topAnchor.constraint(equalTo: lastView.bottomAnchor).isActive = true
                     }
                     lastView = label
-                    height = height + improvementText.measureSize(for: UIFont.systemFont(ofSize: 12),
-                                                                  constraindTo: CGSize(width:UIScreen.main.bounds.size.width - 81,
-                                                                                       height:CGFloat.greatestFiniteMagnitude)).height
+                    height = height + improvementAttributedStringText.boundingRect(with: CGSize(width:UIScreen.main.bounds.size.width - 61,
+                                                                                                height:CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, context: nil).size.height
                 }
             }
         }
@@ -107,8 +110,15 @@ class PlaylistHistoryCell: UITableViewCell {
             for row in list {
                 height = height + 36
                 for improvement in row.improvements {
-                    let improvementText = "Improved: \(improvement.suggestion ?? "") - “\(improvement.hypothesis ?? "")“"
-                    height = height + improvementText.measureSize(for: UIFont.systemFont(ofSize: 12), constraindTo: CGSize(width:width - 81, height:CGFloat.greatestFiniteMagnitude)).height
+                    
+                    let improvementAttributedStringText = NSMutableAttributedString(string: "Improved: ", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoRegular, size: 12)!])
+                    let improvementSuggestion = improvement.suggestion ?? ""
+                    improvementAttributedStringText.append(NSAttributedString(string: improvementSuggestion, attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoBlack, size: 12)!]))
+                    improvementAttributedStringText.append(NSAttributedString(string: " - ", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoRegular, size: 12)!]))
+                    let hypothesisString = "“\(improvement.hypothesis ?? "")“"
+                    improvementAttributedStringText.append(NSAttributedString(string: hypothesisString, attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoItalic, size: 12)!]))
+                    height = height + improvementAttributedStringText.boundingRect(with: CGSize(width:UIScreen.main.bounds.size.width - 61,
+                                                                                                height:CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, context: nil).size.height
                 }
             }
         }
