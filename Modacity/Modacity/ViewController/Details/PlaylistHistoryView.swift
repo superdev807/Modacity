@@ -10,6 +10,13 @@ import UIKit
 import Charts
 import AVFoundation
 
+protocol PlaylistHistoryListViewDelegate {
+    func onAddOnPlaylistHistoryListView(_ historyListView:PlaylistHistoryView, playlistId: String?)
+    
+    func onEditPlaylistPracticeData(_ data: PracticeDaily, playlistId: String?)
+    func onDeletePlaylistPracticeData(_ data: PracticeDaily, playlistId: String?)
+}
+
 class PlaylistPracticeHistoryData {
     var practiceItemId: String!
     var time: Int!
@@ -18,9 +25,7 @@ class PlaylistPracticeHistoryData {
     var ratings = [Double]()
     var lastPracticeTime: TimeInterval!
     
-    init() {
-        
-    }
+    init() {}
     
     init(practiceId: String, time: Int, rating: Double, improvements: [ImprovedRecord], lastPracticeTime: TimeInterval) {
         self.practiceItemId = practiceId
@@ -53,12 +58,11 @@ class PlaylistHistoryData {
     var practiceTotalSeconds: Int!
     var practiceDataList: [String:PlaylistPracticeHistoryData]!
     
-    init() {
-        
-    }
+    init() {}
     
     init(date: Date, totalSeconds: Int, dataList: [String:PlaylistPracticeHistoryData]) {
         self.date = date
+        
         self.practiceTotalSeconds = totalSeconds
         self.practiceDataList = dataList
     }
@@ -84,6 +88,11 @@ class PlaylistHistoryView: UIView {
 
     @IBOutlet var viewContent: UIView!
     @IBOutlet weak var tableViewMain: UITableView!
+    @IBOutlet weak var buttonEdit: UIButton!
+    @IBOutlet weak var constraintForHistoryViewTopActionsPanelHeight: NSLayoutConstraint!
+    @IBOutlet weak var viewTopActionsPanel: UIView!
+    @IBOutlet weak var labelNoPracticeData: UILabel!
+    @IBOutlet weak var viewLoaderPanel: UIView!
     
     var data = [String:[PlaylistDaily]]()
     var practicesCount = 0
@@ -93,12 +102,14 @@ class PlaylistHistoryView: UIView {
     var dailyPractices = [Int]()
     var practiceHistoryDataList = [PlaylistHistoryData]()
     var firstTimeLoading = true
+    var editing = false
     
-    @IBOutlet weak var labelNoPracticeData: UILabel!
+    var playlistId: String? = nil
+    
     let firstLoadingCount = 15
     let nextLoadingCount = 30
+    var delegate: PlaylistHistoryListViewDelegate? = nil
     
-    @IBOutlet weak var viewLoaderPanel: UIView!
     override init(frame: CGRect) {
         super.init(frame:frame)
         commonInit()
@@ -131,6 +142,9 @@ class PlaylistHistoryView: UIView {
         let bottomView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 20))
         bottomView.backgroundColor = Color.clear
         self.tableViewMain.tableFooterView = bottomView
+        
+//        self.constraintForHistoryViewTopActionsPanelHeight.constant = 0
+//        self.viewTopActionsPanel.isHidden = true
     }
     
     func loadPriData(for playlistId: String? = nil) {
@@ -155,8 +169,10 @@ class PlaylistHistoryView: UIView {
             if self.data.isEmpty {
                 self.labelNoPracticeData.text = "No practice data"
                 self.labelNoPracticeData.isHidden = false
+                self.buttonEdit.isHidden = true
             } else {
                 self.labelNoPracticeData.isHidden = true
+                self.buttonEdit.isHidden = false
             }
         }
     }
@@ -235,6 +251,8 @@ class PlaylistHistoryView: UIView {
     
     func showHistory(for playlistId: String? = nil) {
         
+        self.playlistId = playlistId
+        
         if self.firstTimeLoading {
             self.viewLoaderPanel.isHidden = true
             self.firstTimeLoading = false
@@ -269,6 +287,24 @@ class PlaylistHistoryView: UIView {
             }
         }
         
+    }
+    
+    @IBAction func onEdit(_ sender: Any) {
+        editing = !editing
+        if editing {
+            self.buttonEdit.setTitle("Done", for: .normal)
+            self.buttonEdit.setImage(nil, for: .normal)
+        } else {
+            self.buttonEdit.setTitle("", for: .normal)
+            self.buttonEdit.setImage(UIImage(named: "btn_edit"), for: .normal)
+        }
+        self.tableViewMain.reloadData()
+    }
+    
+    @IBAction func onAdd(_ sender: Any) {
+        if let delegate = self.delegate {
+            delegate.onAddOnPlaylistHistoryListView(self, playlistId: self.playlistId)
+        }
     }
 }
 

@@ -11,7 +11,6 @@ import Charts
 import AVFoundation
 
 protocol HistoryListViewDelegate {
-    func onEditOnHistoryListView(_ historyListView:HistoryListView)
     func onAddOnHistoryListView(_ historyListView:HistoryListView)
     
     func onEditPracticeData(_ data: PracticeDaily)
@@ -35,8 +34,10 @@ class HistoryListView: UIView {
     @IBOutlet var viewContent: UIView!
     @IBOutlet weak var tableViewMain: UITableView!
     @IBOutlet weak var labelNoPracticeData: UILabel!
-    @IBOutlet weak var buttonEdit: UIButton!
+    
     @IBOutlet weak var viewLoaderPanel: UIView!
+    
+    @IBOutlet weak var buttonEdit: UIButton!
     @IBOutlet weak var constraintForHistoryViewTopActionsPanelHeight: NSLayoutConstraint!
     
     @IBOutlet weak var viewTopActionsPanel: UIView!

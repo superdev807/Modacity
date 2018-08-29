@@ -305,6 +305,7 @@ extension DetailsViewController {
             self.playlistHistoryView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
             self.playlistHistoryView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
             self.playlistHistoryView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+            self.playlistHistoryView.delegate = self
             self.constraintForContentTopSpace = self.playlistHistoryView.topAnchor.constraint(equalTo: self.imageViewHeader.bottomAnchor)
             self.constraintForContentTopSpace.isActive = true
             self.view.bringSubview(toFront: self.playlistHistoryView)
@@ -675,12 +676,9 @@ extension DetailsViewController: PremiumUpgradeLockViewDelegate {
     
 }
 
-extension DetailsViewController: HistoryListViewDelegate {
-    func onAddOnHistoryListView(_ historyListView: HistoryListView) {
-        self.performSegue(withIdentifier: "sid_add_practice_history", sender: nil)
-    }
+extension DetailsViewController: HistoryListViewDelegate, PlaylistHistoryListViewDelegate {
     
-    func onEditOnHistoryListView(_ historyListView: HistoryListView) {
+    func onAddOnHistoryListView(_ historyListView: HistoryListView) {
         self.performSegue(withIdentifier: "sid_add_practice_history", sender: nil)
     }
     
@@ -699,5 +697,20 @@ extension DetailsViewController: HistoryListViewDelegate {
         }))
         alertController.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
         self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func onAddOnPlaylistHistoryListView(_ historyListView: PlaylistHistoryView, playlistId: String?) {
+        let controller = UIStoryboard(name: "details", bundle: nil).instantiateViewController(withIdentifier: "UpdatePracticeEntryViewController") as! UpdatePracticeEntryViewController
+        controller.fromPlaylist = true
+        controller.playlistItemId = playlistId
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    func onEditPlaylistPracticeData(_ data: PracticeDaily, playlistId: String?) {
+        
+    }
+    
+    func onDeletePlaylistPracticeData(_ data: PracticeDaily, playlistId: String?) {
+        
     }
 }

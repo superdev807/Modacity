@@ -375,6 +375,8 @@
 		E2CDBEAD21011AE200119D77 /* PremiumUpgradeLockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2CDBEAA21011AE200119D77 /* PremiumUpgradeLockView.swift */; };
 		E2CDBEAE21011AE200119D77 /* PremiumUpgradeLockView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2CDBEAB21011AE200119D77 /* PremiumUpgradeLockView.xib */; };
 		E2CDBEAF21011AE200119D77 /* PremiumUpgradeLockView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2CDBEAB21011AE200119D77 /* PremiumUpgradeLockView.xib */; };
+		E2CDDEBE2136E37E00BEB98B /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2CDDEBD2136E37C00BEB98B /* UIViewExtensions.swift */; };
+		E2CDDEBF2136E37E00BEB98B /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2CDDEBD2136E37C00BEB98B /* UIViewExtensions.swift */; };
 		E2D01BD6208A146B00F54B5D /* MessagesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D01BD5208A146B00F54B5D /* MessagesManager.swift */; };
 		E2D0FE8F2100E5450083DEA9 /* PremiumUpgradeSlideView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2D0FE8D2100E5450083DEA9 /* PremiumUpgradeSlideView.xib */; };
 		E2D0FE902100E5450083DEA9 /* PremiumUpgradeSlideView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2D0FE8D2100E5450083DEA9 /* PremiumUpgradeSlideView.xib */; };
@@ -607,6 +609,7 @@
 		E2CDBEA52101098F00119D77 /* PremiumUpgradeSlideComingSoonView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PremiumUpgradeSlideComingSoonView.xib; sourceTree = "<group>"; };
 		E2CDBEAA21011AE200119D77 /* PremiumUpgradeLockView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PremiumUpgradeLockView.swift; sourceTree = "<group>"; };
 		E2CDBEAB21011AE200119D77 /* PremiumUpgradeLockView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PremiumUpgradeLockView.xib; sourceTree = "<group>"; };
+		E2CDDEBD2136E37C00BEB98B /* UIViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 		E2D01BD5208A146B00F54B5D /* MessagesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesManager.swift; sourceTree = "<group>"; };
 		E2D0FE8D2100E5450083DEA9 /* PremiumUpgradeSlideView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PremiumUpgradeSlideView.xib; sourceTree = "<group>"; };
 		E2D0FE8E2100E5450083DEA9 /* PremiumUpgradeSlideView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PremiumUpgradeSlideView.swift; sourceTree = "<group>"; };
@@ -940,6 +943,7 @@
 				8E58B43D20446AE40022704B /* RemoteManager */,
 				8EDEB6FA203DE38F00E8D48D /* Fonts */,
 				8EDEB702203DE38F00E8D48D /* Utils */,
+				E2CDDEBC2136E35B00BEB98B /* Extensions */,
 				8E0A51C1207E45DD006BDDC6 /* Analytics */,
 				8E0A51BB207E4449006BDDC6 /* Modacity-Bridging-Header.h */,
 				8ECCAF962056F5B9000E2B75 /* ding.wav */,
@@ -1161,6 +1165,14 @@
 				E2BA245E20C8D1590048A5D5 /* ModacityAudioEngine.swift */,
 			);
 			path = "Audio Engine";
+			sourceTree = "<group>";
+		};
+		E2CDDEBC2136E35B00BEB98B /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E2CDDEBD2136E37C00BEB98B /* UIViewExtensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1840,6 +1852,7 @@
 				8ED6218B207B09A900593EF2 /* PlaylistRemoteManager.swift in Sources */,
 				8EB81FCB2063D33E00EADDA5 /* SetReminderViewController.swift in Sources */,
 				8E0A51C5207E4663006BDDC6 /* ModacityAnalytics.swift in Sources */,
+				E2CDDEBE2136E37E00BEB98B /* UIViewExtensions.swift in Sources */,
 				E245700120D00C6F00C9F720 /* SubdivisionSelectView.swift in Sources */,
 				E23FFD9421081EBC007713F0 /* PremiumUpgradeDoneViewController.swift in Sources */,
 				E20F0CAF211BF7D000374074 /* PracticeItemSelectCell.swift in Sources */,
@@ -1989,6 +2002,7 @@
 				E21BE9D02091796A000D1877 /* PlaylistRemoteManager.swift in Sources */,
 				E21BE9D12091796A000D1877 /* SetReminderViewController.swift in Sources */,
 				E21BE9D22091796A000D1877 /* ModacityAnalytics.swift in Sources */,
+				E2CDDEBF2136E37E00BEB98B /* UIViewExtensions.swift in Sources */,
 				E245700220D00C6F00C9F720 /* SubdivisionSelectView.swift in Sources */,
 				E23FFD9521081EBC007713F0 /* PremiumUpgradeDoneViewController.swift in Sources */,
 				E20F0CB0211BF7D000374074 /* PracticeItemSelectCell.swift in Sources */,

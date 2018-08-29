@@ -24,71 +24,40 @@ class UpdatePracticeEntryViewController: UIViewController {
     @IBOutlet weak var textfieldTimeInput: UITextField!
     @IBOutlet weak var labelTitle: UILabel!
     
+    @IBOutlet weak var viewItemNamePanel: UIView!
+    @IBOutlet weak var labelItemName: UILabel!
+    @IBOutlet weak var labelItemNameCaption: UILabel!
+    
     let highlightedColor = Color(hexString: "#92939B")
     var popupView: DatePickerPopupView!
     var selectedDate = Date()
     var dateSelected = false
     
+    var fromPlaylist = false
+    var playlistItemId: String? = nil
     var practiceItemId: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        self.makeViewsStyles()
+        
         if AppUtils.iphoneIsXModel() {
             self.constraintForHeaderViewHeight.constant = 104
         }
         
-        self.viewFirstPanel.layer.cornerRadius = 5
-        self.viewFirstPanel.layer.borderColor = Color(hexString: "#D6D6D7").cgColor
-        self.viewFirstPanel.layer.borderWidth = 1
-        
-        self.viewSecondPanel.layer.cornerRadius = 5
-        self.viewSecondPanel.layer.borderColor = Color(hexString: "#D6D6D7").cgColor
-        self.viewSecondPanel.layer.borderWidth = 1
-        
-        self.buttonAddEntry.layer.cornerRadius = 28
-        self.buttonAddEntry.isEnabled = false
-        self.buttonAddEntry.backgroundColor = Color(hexString: "#9B9B9B")
-        self.buttonCover.isHidden = true
-        
         if self.isUpdating {
             self.buttonAddEntry.setTitle("Update Entry", for: .normal)
             self.labelTitle.text = "Edit Entry"
-            
-            if self.editingPracticeData != nil {
-                self.selectedDate = self.editingPracticeData.entryDateString.date(format: "yy-MM-dd") ?? Date(timeIntervalSince1970: self.editingPracticeData.startedTime)
-                self.labelTotalDate.text = self.selectedDate.toString(format: "MMMM d, yyyy")
-                self.dateSelected = true
-                self.labelTotalDate.textColor = highlightedColor
-                
-                var seconds = self.editingPracticeData.practiceTimeInSeconds ?? 0
-                if seconds > 0 {
-                    var string = ""
-                    if seconds / 3600 > 0 {
-                        string = String(format: "%@%d", string, seconds / 3600)
-                    } else {
-                        string = ""
-                    }
-                    
-                    seconds = seconds % 3600
-                    if seconds / 60 > 0 {
-                        string = String(format: "%@%d", string, seconds / 60)
-                    } else {
-                        string = "\(string)"
-                    }
-                    
-                    seconds = seconds % 60
-                    if seconds > 0 {
-                        string = String(format: "%@%d", string, seconds)
-                    } else {
-                        string = "\(string)"
-                    }
-                    
-                    self.textfieldTimeInput.text = string
-                    self.labelTotalTime.attributedText = self.convertInputStringToTime(string)
-                }
-                self.processButtonEntry()
+            self.showUpdatingValues()
+        } else {
+            if self.fromPlaylist {
+                self.viewItemNamePanel.isHidden = false
+                self.labelItemNameCaption.isHidden = false
+            } else {
+                self.viewItemNamePanel.isHidden = true
+                self.labelItemNameCaption.isHidden = true
             }
         }
     }
@@ -96,6 +65,17 @@ class UpdatePracticeEntryViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func makeViewsStyles() {
+        self.viewFirstPanel.styling(cornerRadius: 5, borderColor: Color(hexString: "#D6D6D7"), borderWidth: 1)
+        self.viewSecondPanel.styling(cornerRadius: 5, borderColor: Color(hexString: "#D6D6D7"), borderWidth: 1)
+        self.viewItemNamePanel.styling(cornerRadius: 5, borderColor: Color(hexString: "#D6D6D7"), borderWidth: 1)
+        self.buttonAddEntry.styling(cornerRadius: 28)
+        
+        self.buttonAddEntry.isEnabled = false
+        self.buttonAddEntry.backgroundColor = Color(hexString: "#9B9B9B")
+        self.buttonCover.isHidden = true
     }
     
     @IBAction func onBack(_ sender: Any) {
@@ -117,6 +97,48 @@ class UpdatePracticeEntryViewController: UIViewController {
     @IBAction func onDateInput(_ sender: Any) {
         self.showDateInputPicker()
     }
+    
+    @IBAction func onItemName(_ sender: Any) {
+        
+    }
+    
+    func showUpdatingValues() {
+        if self.editingPracticeData != nil {
+            self.selectedDate = self.editingPracticeData.entryDateString.date(format: "yy-MM-dd") ?? Date(timeIntervalSince1970: self.editingPracticeData.startedTime)
+            self.labelTotalDate.text = self.selectedDate.toString(format: "MMMM d, yyyy")
+            self.dateSelected = true
+            self.labelTotalDate.textColor = highlightedColor
+            
+            var seconds = self.editingPracticeData.practiceTimeInSeconds ?? 0
+            if seconds > 0 {
+                var string = ""
+                if seconds / 3600 > 0 {
+                    string = String(format: "%@%d", string, seconds / 3600)
+                } else {
+                    string = ""
+                }
+                
+                seconds = seconds % 3600
+                if seconds / 60 > 0 {
+                    string = String(format: "%@%d", string, seconds / 60)
+                } else {
+                    string = "\(string)"
+                }
+                
+                seconds = seconds % 60
+                if seconds > 0 {
+                    string = String(format: "%@%d", string, seconds)
+                } else {
+                    string = "\(string)"
+                }
+                
+                self.textfieldTimeInput.text = string
+                self.labelTotalTime.attributedText = self.convertInputStringToTime(string)
+            }
+            self.processButtonEntry()
+        }
+    }
+    
 }
 
 extension UpdatePracticeEntryViewController: DatePickerPopupViewDelegate {

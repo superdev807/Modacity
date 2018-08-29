@@ -361,12 +361,6 @@ extension UITableViewRowAction {
     }
 }
 
-extension UIView {
-    class func fromNib<T: UIView>(_ nib:String) -> T {
-        return Bundle.main.loadNibNamed(nib, owner: nil, options: nil)![0] as! T
-    }
-}
-
 extension UINavigationController {
     override open var supportedInterfaceOrientations : UIInterfaceOrientationMask     {
         return [.portrait, .portraitUpsideDown]
