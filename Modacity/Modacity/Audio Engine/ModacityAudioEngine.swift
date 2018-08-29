@@ -35,8 +35,6 @@ class ModacityAudio {
         }
     }
     
-
-    
     func attachAudio(node: AVAudioNode) {
         ModacityDebugger.debug("Audio node attached to engine.")
         audioEngine.attach(node)

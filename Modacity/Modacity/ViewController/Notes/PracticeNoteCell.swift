@@ -33,7 +33,6 @@ class PracticeNoteCell: UICollectionViewCell, UIGestureRecognizerDelegate {
         self.textViewNote.text = note.note
         self.textViewNote.textContainer.lineFragmentPadding = 0
         self.textViewNote.textContainerInset = .zero
-        self.textViewNote.setContentOffset(.zero, animated: false)
         self.labelTime.text = Date(timeIntervalSince1970: Double(note.createdAt) ?? 0).toString(format: "MM/dd/yy")
         self.imageViewBackground.image = UIImage(named:"bg_note_box")?.stretchableImage(withLeftCapWidth: 24, topCapHeight: 24)
         self.indexPath = indexPath
