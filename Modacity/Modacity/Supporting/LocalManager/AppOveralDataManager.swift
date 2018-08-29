@@ -400,7 +400,6 @@ class AppOveralDataManager {
     func saveTuningStandard(_ value:Double) {
         UserDefaults.standard.set(value, forKey: "tuning_standard")
         UserDefaults.standard.synchronize()
-        
         MetrodroneParameters.instance.setTuningStandardA(Float(AppOveralDataManager.manager.tuningStandard()))
     }
     

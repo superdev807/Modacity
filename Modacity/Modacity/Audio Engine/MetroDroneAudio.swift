@@ -11,15 +11,13 @@ class MetroDroneAudio {
     
     private var dronePlayerNode:AVAudioPlayerNode
     private var clickPlayerNode:AVAudioPlayerNode
-    private var dronePitchProcessor: AVAudioUnitTimePitch!
-    private var audioFileDrone:AVAudioFile?
     private var audioFileMainClick:AVAudioFile
     private var audioFileSubClick:AVAudioFile
     
     
     //var clickOnly: Bool = true
-    
     var decay: Float = 0.5
+    var isDroning: Bool = false
     
     init (mainClickFile: URL, subClickFile: URL? = nil) {
         
@@ -30,60 +28,35 @@ class MetroDroneAudio {
         
         connectWithEngine()
     }
-    
-    func loadDrone(droneAudio: URL) {
-        audioFileDrone = try! AVAudioFile(forReading: droneAudio)
-    }
-    
+
+
     func connectWithEngine() {
         let format = audioFileMainClick.processingFormat
         ModacityAudioEngine.engine.attachAudio(node: self.clickPlayerNode)
         ModacityAudioEngine.engine.connectAudio(node: clickPlayerNode, format: format)
         
-        self.dronePitchProcessor = AVAudioUnitTimePitch()
-        // For drone pitch processor, initialize its multiplier to current tuning standard
-        self.dronePitchProcessor.pitch = MetrodroneParameters.instance.tuningPitchMultiplier
-        
-        ModacityAudioEngine.engine.attachAudio(node: self.dronePitchProcessor)
         ModacityAudioEngine.engine.attachAudio(node: self.dronePlayerNode)
-        
-        // connect audioplayer to pitch processor
-        ModacityAudioEngine.engine.connectMultipleNodes(node1: self.dronePlayerNode, node2: self.dronePitchProcessor, format: format)
-        
-        // connect pitch processor to main output node
-        ModacityAudioEngine.engine.connectAudio(node: dronePitchProcessor, format: format)
+        ModacityAudioEngine.engine.connectAudio(node: dronePlayerNode, format: format)
         
         ModacityAudioEngine.engine.startEngine()
         ModacityDebugger.debug("Engine started")
     }
     
-    // whenever the user updates the tuning standard, send the new pitch multiplier here.
-    func updatePitchMultiplier(_ newMult: Float) {
-            self.dronePitchProcessor.pitch = newMult
-    }
     
-    private func generateSubdividedDrone(bpm: Double, subdivisions: Int, droneRatio: Float) -> AVAudioPCMBuffer {
-        
-        if (audioFileDrone == nil) {
-            ModacityDebugger.debug("error - called drone subdivide with no audio file")
-            return AVAudioPCMBuffer()
-        }
-        
-        audioFileDrone!.framePosition = 0
+    private func generateDronePulse(frameLength: AVAudioFrameCount, decayPoint: Float) -> AVAudioPCMBuffer {
         let audioFormat = audioFileMainClick.processingFormat
+        let bufferDronePulse = AVAudioPCMBuffer(pcmFormat: audioFormat, frameCapacity: frameLength)
         
-        var beatLength = AVAudioFrameCount(audioFormat.sampleRate * 60 / bpm)
-        let subdivisionLength = beatLength / AVAudioFrameCount(subdivisions)
-        beatLength = subdivisionLength * AVAudioFrameCount(subdivisions) // just in case it wasn't evenly divided
+        let freq: Double = frequencyForNote(noteName: MetrodroneParameters.instance.currNote, octave: MetrodroneParameters.instance.currOctave, aRef: Double(MetrodroneParameters.instance.tuningStandardA))
+        let secduration: Double = Double(frameLength)/audioFormat.sampleRate
+        
+        fillBuffer(buffer: bufferDronePulse!, frequency: freq, seconds: secduration, sampleRate: audioFormat.sampleRate)
+        
+        bufferDronePulse?.frameLength = frameLength
         
         
-        let bufferDrone = AVAudioPCMBuffer(pcmFormat: audioFormat, frameCapacity: subdivisionLength)
-        try! audioFileDrone!.read(into: bufferDrone!)
-        bufferDrone?.frameLength = subdivisionLength
-        
-        
-        // apply decay & ratio to clicks
-        let silenceStartFrame = AVAudioFrameCount(droneRatio * Float(subdivisionLength)) // where silence starts
+        // apply decay & ratio to drone pulses
+        let silenceStartFrame = AVAudioFrameCount(decayPoint * Float(frameLength)) // where silence starts
         let droneDuration = silenceStartFrame
         let decayPercentage:Float = decay
         let decaySamples = AVAudioFrameCount(decayPercentage * Float(droneDuration))
@@ -94,37 +67,18 @@ class MetroDroneAudio {
         for i in 0..<decaySamples {
             let index = Int(startSample + i)
             let multiplier:Float = (lastNonZeroSample - Float(i)) / lastNonZeroSample
-            bufferDrone?.floatChannelData!.pointee[index] *= multiplier
+            bufferDronePulse?.floatChannelData!.pointee[index] *= multiplier
         }
         
         // zero the rest
-        for i in silenceStartFrame..<subdivisionLength {
-            bufferDrone?.floatChannelData!.pointee[Int(i)] = 0.0
+        for i in silenceStartFrame..<frameLength {
+            bufferDronePulse?.floatChannelData!.pointee[Int(i)] = 0.0
         }
         
-        let bufferBeat = AVAudioPCMBuffer(pcmFormat: audioFormat, frameCapacity: beatLength)
-        bufferBeat?.frameLength = beatLength
-        
-        // don't forget if we have two or more channels then we have to multiply memory pointee at channels count
-        let droneArray = Array(
-            UnsafeBufferPointer(start: bufferDrone?.floatChannelData?[0],
-                                count:Int(audioFormat.channelCount) * Int(subdivisionLength))
-        )
-        
-        var beatArray = Array<Float>()
-        
-        // works whether subdivisoins or not.
-        for _ in 0..<subdivisions {
-            beatArray.append(contentsOf: droneArray)
-        }
-        
-        bufferBeat?.floatChannelData?.pointee.assign(from: beatArray,
-                                                     count: Int(audioFormat.channelCount) * Int(bufferBeat!.frameLength))
-        
-        return bufferBeat!
+        return bufferDronePulse!
     }
     
-    private func generateSubdividedClick(bpm: Double, subdivisions: Int, droneRatio: Float) -> AVAudioPCMBuffer {
+    private func generateSubdividedClick(bpm: Double, subdivisions: Int, includeDrone: Bool, droneRatio: Float) -> AVAudioPCMBuffer {
         
         audioFileMainClick.framePosition = 0
         audioFileSubClick.framePosition = 0
@@ -144,34 +98,17 @@ class MetroDroneAudio {
             try! audioFileSubClick.read(into: bufferSubClick!)
             bufferSubClick?.frameLength = subdivisionLength
         }
+ 
+        if (includeDrone) {
+            let bufferDronePulse = generateDronePulse(frameLength: subdivisionLength, decayPoint: droneRatio)
+            
+            for index in 0..<Int(subdivisionLength) {
+                let droneData: Float = bufferDronePulse.floatChannelData!.pointee[index]
+                bufferMainClick?.floatChannelData!.pointee[index] += droneData
+                bufferSubClick?.floatChannelData!.pointee[index] += droneData
+            }
+        }
         
-        /*
-         // apply decay & ratio to clicks
-         let silenceStartFrame = AVAudioFrameCount(droneRatio * Float(subdivisionLength)) // where silence starts
-         let droneDuration = silenceStartFrame
-         let decayPercentage:Float = decay
-         let decaySamples = AVAudioFrameCount(decayPercentage * Float(droneDuration))
-         let startSample = silenceStartFrame - decaySamples
-         
-         // decay the samples
-         let lastNonZeroSample = Float(decaySamples - 1)
-         for i in 0..<decaySamples {
-         let index = Int(startSample + i)
-         let multiplier:Float = (lastNonZeroSample - Float(i)) / lastNonZeroSample
-         bufferMainClick?.floatChannelData!.pointee[index] *= multiplier
-         if (subdivisions > 1) {
-         bufferSubClick?.floatChannelData!.pointee[index] *= multiplier
-         }
-         }
-         
-         // zero the rest
-         for i in silenceStartFrame..<subdivisionLength {
-         bufferMainClick?.floatChannelData!.pointee[Int(i)] = 0.0
-         if (subdivisions > 1) {
-         bufferSubClick?.floatChannelData!.pointee[Int(i)] = 0.0
-         }
-         }
-         */
         let bufferBeat = AVAudioPCMBuffer(pcmFormat: audioFormat, frameCapacity: beatLength)
         bufferBeat?.frameLength = beatLength
         
@@ -201,81 +138,93 @@ class MetroDroneAudio {
         return bufferBeat!
     }
     
-    private func generateUntimed() -> AVAudioPCMBuffer {
-        audioFileDrone!.framePosition = 0
-        let audioFormat = audioFileDrone!.processingFormat
-        let duration = AVAudioFrameCount(audioFileDrone!.length)
+    private func generateSustaining() -> AVAudioPCMBuffer {
+
+        let audioFormat = audioFileMainClick.processingFormat
         
-        let bufferLoopWave = AVAudioPCMBuffer(pcmFormat: audioFormat, frameCapacity: duration)
-        try! audioFileDrone!.read(into: bufferLoopWave!)
-        bufferLoopWave?.frameLength = duration
+        let freq: Double = frequencyForNote(noteName: MetrodroneParameters.instance.currNote, octave: MetrodroneParameters.instance.currOctave, aRef: Double(MetrodroneParameters.instance.tuningStandardA))
+        let secduration = repeatableDuration(frequency: Double(freq), maxDuration: 0.10)
+        let frames: AVAudioFrameCount = AVAudioFrameCount(secduration * audioFormat.sampleRate)
+        let bufferLoopWave = AVAudioPCMBuffer(pcmFormat: audioFormat, frameCapacity: frames)
         
+        fillBuffer(buffer: bufferLoopWave!, frequency: freq, seconds: secduration, sampleRate: audioFormat.sampleRate)
+        
+        bufferLoopWave?.frameLength = AVAudioFrameCount(frames)
+
         return bufferLoopWave!
     }
     
-    func playUntimed(withLooping: Bool = true) {
-        let buffer = generateUntimed()
-        if dronePlayerNode.isPlaying {
-            dronePlayerNode.scheduleBuffer(buffer, at: nil, options: .interrupts, completionHandler: nil)
-        } else {
-            self.dronePlayerNode.play()
-        }
+    func playInfiniteDrone(withLooping: Bool = true) {
+        let buffer = generateSustaining()
         
         let option: AVAudioPlayerNodeBufferOptions = (withLooping) ? .loops : .interrupts
         
+        fadeAudioOut()
+        
+        if self.dronePlayerNode.isPlaying {
+            self.dronePlayerNode.scheduleBuffer(buffer, at: nil, options: .interrupts, completionHandler: nil)
+        } else {
+            self.dronePlayerNode.play()
+            
+        }
         self.dronePlayerNode.scheduleBuffer(buffer, at: nil, options: option, completionHandler: nil)
+        fadeAudioIn()
+        self.isDroning = true
     }
     
-    func playClick() {
-
-        if (!dronePlayerNode.isPlaying) {
-            self.dronePlayerNode.play()
+    func fadeAudioIn() {
+        let steps = 1000
+        for i in 0...steps {
+            self.dronePlayerNode.volume = Float(i)/Float(steps)
         }
-        dronePlayerNode.scheduleFile(audioFileMainClick, at: nil, completionHandler: nil)
+    }
+    func fadeAudioOut() {
+        let steps = 1000
+        for i in 0...steps {
+            self.dronePlayerNode.volume = Float(steps - i)/Float(steps)
+        }
+    }
+    
+    func stopInfiniteDrone() {
+        fadeAudioOut()
+        
+       // DispatchQueue.main.async {
+            self.dronePlayerNode.stop()
+         //   self.dronePlayerNode.volume = 1.0
+        //}
+        self.isDroning = false
+    }
+    
+    func playSingleClick() {
+
+        if (!clickPlayerNode.isPlaying) {
+            self.clickPlayerNode.play()
+        }
+        clickPlayerNode.scheduleFile(audioFileMainClick, at: nil, completionHandler: nil)
     }
     
     
     // play timed metrodrone
-    func play(bpm: Double, ratio: Float, subdivision: Int) {
-        /*
-         let frameCount: AVAudioFrameCount = AVAudioFrameCount(audioFile.length)
-         player.prepareWithFrameCount(frameCount)
-         */
-        
-       // let startTime: AVAudioTime = dronePlayerNode.lastRenderTime!
-        
-        let bufferClick = generateSubdividedClick(bpm: bpm, subdivisions: subdivision, droneRatio: ratio)
-        
-        
-        let bufferDrone = generateSubdividedDrone(bpm: bpm, subdivisions: subdivision, droneRatio: ratio)
-        
-        if dronePlayerNode.isPlaying {
-            dronePlayerNode.scheduleBuffer(bufferDrone, at: nil, options: .interruptsAtLoop, completionHandler: nil)
-        } else {
-            self.dronePlayerNode.play()
-        }
+    func playPulsing(bpm: Double, includeDrone: Bool, ratio: Float, subdivision: Int) {
+        let bufferClick = generateSubdividedClick(bpm: bpm, subdivisions: subdivision, includeDrone: includeDrone, droneRatio: ratio)
         
         if clickPlayerNode.isPlaying {
-            //clickPlayerNode.stop()
             clickPlayerNode.scheduleBuffer(bufferClick, at: nil, options: .interruptsAtLoop, completionHandler: nil)
         } else {
             self.clickPlayerNode.play()
         }
         
         self.clickPlayerNode.scheduleBuffer(bufferClick, at: nil, options: .loops, completionHandler: nil)
-        self.dronePlayerNode.scheduleBuffer(bufferDrone, at: nil, options: .loops, completionHandler: nil)
-
+        
+    }
+    
+    func stopPulsing() {
+        clickPlayerNode.stop()
     }
     
     func stop() {
-        
-        clickPlayerNode.stop()
-        
-        dronePlayerNode.stop()
-        
-        
-        
-        //        ModacityAudioEngine.engine.audioEngine.detach(audioPlayerNode)
+        stopPulsing()
+        stopInfiniteDrone()
     }
     
 }

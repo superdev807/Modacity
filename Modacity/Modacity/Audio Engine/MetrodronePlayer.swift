@@ -28,7 +28,7 @@ class MetrodronePlayer: DroneFrameDelegate {
     static let minBPM: Int = 30
     static let maxBPM: Int = 300
     static let maxOctave: Int = 6
-    static let minOctave: Int = 2
+    static let minOctave: Int = 0
     
     var isMetrodronePlaying : Bool = false
     
@@ -68,11 +68,13 @@ class MetrodronePlayer: DroneFrameDelegate {
     }
     
     func stopPlayer() {
-        if (self.isMetrodronePlaying) {
-            stopMetrodrone()
-        }
+        metrodrone.stop()
     }
-    
+
+    func waveformURL(wavename: String) -> URL? {
+        return Bundle.main.url(forResource: wavename, withExtension: "m4a", subdirectory: "_Comp")
+    }
+
     func initializeOutlets(lblTempo: UILabel!,
                            droneFrame: ViewDroneFrame!,
                            playButton: UIButton!,
@@ -144,26 +146,16 @@ class MetrodronePlayer: DroneFrameDelegate {
     func changeDuration(newValue: Float) {
         MetrodroneParameters.instance.durationRatio = newValue
         //ModacityAnalytics.LogStringEvent("Changed Metrodrone Duration", extraParamName: "duration", extraParamValue: newValue)
-        
-        startMetronome()
+        updateMetroClick()
     }
     
     func toggleSustain() -> Bool {
-        MetrodroneParameters.instance.sustain = !MetrodroneParameters.instance.sustain
-        ModacityAnalytics.LogStringEvent("Toggled Sustain")
-        if (!isMetrodronePlaying) {
-            if (MetrodroneParameters.instance.sustain) {
-                updateMetrodroneNote()
-                if (MetrodroneParameters.instance.currNote != "X") {
-                    MetrodroneParameters.instance.isSustaining = true
-                    metrodrone.playUntimed()
-                }
-            } else {
-                stopMetrodrone() //
-                MetrodroneParameters.instance.isSustaining = false
-            }
-        }
+        let isOn = !MetrodroneParameters.instance.sustain
+        MetrodroneParameters.instance.sustain = isOn
         
+        ModacityAnalytics.LogStringEvent("Toggled Sustain")
+        
+        updateAllMetrodrone()
         return MetrodroneParameters.instance.sustain
     }
     
@@ -174,13 +166,11 @@ class MetrodronePlayer: DroneFrameDelegate {
             MetrodroneParameters.instance.subdivisions = divisions
             
             updateSubdivisionIcons()
-            
-            if self.isMetrodronePlaying {
-                startMetronome()
-            }
+            updateMetroClick()
         }
         
     }
+    
     
     func updateSubdivisionIcons() {
         if _imageViewSubdivisionNote != nil {
@@ -244,66 +234,15 @@ class MetrodronePlayer: DroneFrameDelegate {
             MetrodroneParameters.instance.tempo = MetrodronePlayer.maxBPM
         }
         
-        
         _labelTempo.text = String(MetrodroneParameters.instance.tempo)
-        if (isMetrodronePlaying) {
-            startMetronome()
-        }
-    }
-    
-
-    func updateCurrNote(_ newIndex:Int) {
-        if (newIndex < 0) {
-            MetrodroneParameters.instance.currNote = "X"
-        } else {
-            MetrodroneParameters.instance.currNote = _viewDroneFrame.droneLetters[newIndex]
-        }
-        updateMetrodroneOutlets()
-    }
-    
-    func toneWheelDeselectNote(noteIndex: Int) {
-        // deselect the current note
-        // if metrodrone is going, turn it into click only
-        // if sustain is going, stop it and deselect any note
-        UIDelegate?.setSelectedIndex(-1)
-        wheelSelected = -1
-        MetrodroneParameters.instance.currNote = "X"
-        self.processDurationSliderEnabledStatus()
         
-        if (isMetrodronePlaying) {
-            startMetronome()
-        }
-        
-        if (MetrodroneParameters.instance.isSustaining) {
-            metrodrone.stop()
-            MetrodroneParameters.instance.isSustaining = false
-        }
-        
-        
-    }
-    
-    func toneWheelSelectNote(noteIndex: Int) {
-        // select the current note
-        // if metrodrone is going, make sure it starts using this note
-        // start playing this note. on toneWheelUp event, stop playing (unless sustain is on)
-        
-        UIDelegate?.setSelectedIndex(noteIndex)
-        wheelSelected = noteIndex
-        
-        
-        if (isMetrodronePlaying) {
-            startMetronome() // starts it playing again with correct note
-        } else {
-            // it's not playing so start doing untime play
-            updateMetrodroneNote() // required for untimed play
-            metrodrone.playUntimed(withLooping: true)
-            MetrodroneParameters.instance.isSustaining = true
-        }
-        self.processDurationSliderEnabledStatus()
+        updateMetroClick()
     }
     
     func processDurationSliderEnabledStatus() {
-        if MetrodroneParameters.instance.currNote != "X" && isMetrodronePlaying {
+        if (MetrodroneParameters.instance.currNote != "X"
+            && isMetrodronePlaying
+                && !MetrodroneParameters.instance.sustain) {
             self.enableDurationSlider()
         } else {
             self.disableDurationSlider()
@@ -332,68 +271,6 @@ class MetrodronePlayer: DroneFrameDelegate {
         }
     }
     
-    func toneWheelNoteDown(noteIndex: Int, currMode: TouchDownMode) {
-        ModacityDebugger.debug("Tone wheel down at \(noteIndex) with mode \(currMode)")
-        if (currMode == .Select) {
-            toneWheelSelectNote(noteIndex: noteIndex)
-        } else {
-            toneWheelDeselectNote(noteIndex: noteIndex)
-        }
-    }
-    
-    func toneWheelNoteUp() {
-        // only triggered when we were in "select mode", meaning:
-        // we were selecting (playing) a note
-        // if the metronome is going, don't worry, keep that note selected (no need to do anything)
-        // if the metronome isn't going, check if sustain is off - if so, stop playing the current untimed drone
-        // if sustain is on, also no need to do anything.
-        
-            if (!isMetrodronePlaying && !MetrodroneParameters.instance.sustain) {
-                // stop playing if not in sustain or metrodrone mode
-                metrodrone.stop()
-                MetrodroneParameters.instance.isSustaining = false
-            }
-  
-        
-//        lastUpIndex = UIDelegate!.getSelectedIndex()
-    }
-    
-    func startMetronome() { // will restart it if already going.
-        if (MetrodroneParameters.instance.isSustaining) {
-            ModacityDebugger.debug("Stopping met because of sustain")
-            metrodrone.stop()
-        }
-        disableSustain()
-        
-        updateMetrodroneNote()
-        
-        metrodrone.play(bpm: Double(MetrodroneParameters.instance.tempo), ratio: MetrodroneParameters.instance.durationRatio, subdivision: MetrodroneParameters.instance.subdivisions)
-        isMetrodronePlaying = true
-        self.processDurationSliderEnabledStatus()
-        setPauseImage()
-    }
-    
-    
-    func disableSustain() {
-        MetrodroneParameters.instance.sustain = false
-        MetrodroneParameters.instance.isSustaining = false // must be so!
-        _buttonSustain.isSelected = false
-        _buttonSustain.isEnabled = false
-        _buttonSustain.alpha = 0.50
-    }
-
-    
-    func stopMetrodrone() {
-        metrodrone.stop()
-        isMetrodronePlaying = false
-        self.processDurationSliderEnabledStatus()
-        MetrodroneParameters.instance.isSustaining = false
-        setPlayImage()
-        DispatchQueue.main.async {
-            self._buttonSustain.isEnabled = true
-            self._buttonSustain.alpha = 1
-        }
-    }
     
     func setPlayImage() {
         DispatchQueue.main.async {
@@ -413,18 +290,11 @@ class MetrodronePlayer: DroneFrameDelegate {
         }
     }
     
-    
     func changeOctave(direction: Int) {
         MetrodroneParameters.instance.currOctave -= direction
         updateMetrodroneOutlets()
         updateMetrodroneNote()
-        
-        if (MetrodroneParameters.instance.isSustaining) {
-            metrodrone.playUntimed()
-        }
-        if (isMetrodronePlaying) {
-            startMetronome()
-        }
+        updateAllMetrodrone()
     }
     
     func onOctaveDown() {
@@ -435,42 +305,136 @@ class MetrodronePlayer: DroneFrameDelegate {
         changeOctave(direction: -1)
     }
     
+    func updateCurrNote(_ newIndex:Int) {
+        if (newIndex < 0) {
+            MetrodroneParameters.instance.currNote = "X"
+        } else {
+            MetrodroneParameters.instance.currNote = _viewDroneFrame.droneLetters[newIndex]
+        }
+
+        updateMetrodroneOutlets()
+    }
+    
     func tapDown() {
-        
-        stopMetrodrone()
         updateMetrodroneNote()
-        metrodrone.playClick()
         
         if let bpm = MetrodroneParameters.instance.tempoDetective.addTap() {
             // if BPM is detected (after ~3 taps)
             ModacityDebugger.debug("bpm = \(bpm) detected")
-            setNewTempo(Int(bpm))
-
-            startMetronome()
+            self.setNewTempo(Int(bpm))
+            self.stopMetroClick()
+            self.playMetroClick()
+        } else {
+            stopMetroClick()
+            metrodrone.playSingleClick()
         }
-        
     }
     
     func tapUp() {
         
     }
     
-    func updateMetrodroneNote() {
-        updateCurrNote(UIDelegate!.getSelectedIndex())
-        
-        var fileDrone = "440-" + MetrodroneParameters.instance.currNote + String(MetrodroneParameters.instance.currOctave)
-        if (MetrodroneParameters.instance.currNote == "X") {
-            fileDrone = "silence"
+    func toneWheelNoteDown(noteIndex: Int, currMode: TouchDownMode) {
+        //ModacityDebugger.debug("Tone wheel down at \(noteIndex) with mode \(currMode)")
+        if (currMode == .Select) {
+            toneWheelSelectNote(noteIndex: noteIndex)
+        } else {
+            toneWheelDeselectNote(noteIndex: noteIndex)
         }
-        
-        metrodrone.loadDrone(droneAudio: waveformURL(wavename: fileDrone)!)
-        
     }
     
-    func waveformURL(wavename: String) -> URL? {
-        return Bundle.main.url(forResource: wavename, withExtension: "m4a", subdirectory: "_Comp")
+    func toneWheelNoteUp() {
+
+        if (!MetrodroneParameters.instance.sustain) {
+            metrodrone.stopInfiniteDrone()
+        }
+        if (isMetrodronePlaying) {
+            self.playMetroClick()
+        }
     }
     
 
+    func toneWheelDeselectNote(noteIndex: Int) {
+        // deselect the current note
+        // if metrodrone is going, turn it into click only
+        // if sustain is going, stop it and deselect any note
+        UIDelegate?.setSelectedIndex(-1)
+        wheelSelected = -1
+        MetrodroneParameters.instance.currNote = "X"
+        self.processDurationSliderEnabledStatus()
+        
+        updateAllMetrodrone()
+    }
     
+    func toneWheelSelectNote(noteIndex: Int) {
+        // select the current note
+        // if metrodrone is going, make sure it starts using this note
+        // start playing this note. on toneWheelUp event, stop playing (unless sustain is on)
+        
+        UIDelegate?.setSelectedIndex(noteIndex)
+
+        updateCurrNote(noteIndex)
+
+        updateAllMetrodrone()
+        if ((!MetrodroneParameters.instance.sustain) && (!isMetrodronePlaying)) {
+            self.metrodrone.playInfiniteDrone()
+        }
+        
+        
+        self.processDurationSliderEnabledStatus()
+    }
+
+    
+    func updateAllMetrodrone() {
+        updateMetrodroneNote()
+        updateDroneSustain()
+        updateMetroClick()
+    }
+    
+    func updateDroneSustain() {
+        if (MetrodroneParameters.instance.sustain && MetrodroneParameters.instance.isNoteSelected()) {
+            metrodrone.playInfiniteDrone()
+        } else {
+            metrodrone.stopInfiniteDrone()
+        }
+    }
+    
+    func toggleMetroClickPlay() {
+        if (self.isMetrodronePlaying) {
+            self.stopMetroClick()
+        } else {
+            self.playMetroClick()
+        }
+    }
+    
+    func updateMetroClick() {
+        if self.isMetrodronePlaying {
+            playMetroClick()
+        }
+    }
+    
+    func updateMetrodroneNote() {
+        updateCurrNote(UIDelegate!.getSelectedIndex())
+    }
+    
+    func playMetroClick() {
+        let includeDrone: Bool = (
+            (!MetrodroneParameters.instance.sustain) &&
+                (!metrodrone.isDroning) &&
+                (MetrodroneParameters.instance.isNoteSelected()))
+        
+        metrodrone.playPulsing(bpm: Double(MetrodroneParameters.instance.tempo), includeDrone: includeDrone, ratio: MetrodroneParameters.instance.durationRatio, subdivision: MetrodroneParameters.instance.subdivisions)
+        isMetrodronePlaying = true
+    
+        self.processDurationSliderEnabledStatus()
+        setPauseImage()
+        
+    }
+    
+    func stopMetroClick() {
+        metrodrone.stopPulsing()
+        isMetrodronePlaying = false
+        self.processDurationSliderEnabledStatus()
+        setPlayImage()
+    }
 }

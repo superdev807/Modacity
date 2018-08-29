@@ -141,11 +141,12 @@ class MetrodroneView: UIView {
     
     @IBAction func onBtnPlay(_ sender: Any) {
         if let mPlayer = self.metrodonePlayer {
-            if (!mPlayer.isMetrodronePlaying) {
-                mPlayer.startMetronome()
+            mPlayer.toggleMetroClickPlay()
+            /*if (!mPlayer.isMetrodronePlaying) {
+                mPlayer.upda
             } else {
                 mPlayer.stopMetrodrone()
-            }
+            }*/
         }
     }
     
