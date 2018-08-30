@@ -47,9 +47,11 @@ class AppConfig: NSObject {
     static let appNotificationPracticeLoadedFromServer = Notification.Name(rawValue: "appNotificationPracticeLoadedFromServer")
     static let appNotificationPlaylistLoadedFromServer = Notification.Name(rawValue: "appNotificationPlaylistLoadedFromServer")
     static let appNotificationPlaylistUpdated = Notification.Name(rawValue: "appNotificationPlaylistUpdated")
+    static let appNotificationPracticeDataFetched = Notification.Name(rawValue: "appNotificationPracticeDataFetched")
     static let appNotificationProfileUpdated = Notification.Name(rawValue: "appNotificationProfileUpdated")
     static let appNotificationPremiumStatusChanged = Notification.Name(rawValue: "appNotificationPremiumStatusChanged")
     static let appNotificationMetrodroneAudioEnginePrepared = Notification.Name(rawValue: "appNotificationMetrodroneAudioEnginePrepared")
+    static let appNotificationSyncStatusUpdated = Notification.Name(rawValue: "appNotificationSyncStatusUpdated")
     
     static let appMaxNumberForRecentPlaylists = 10
     static let appIdOnAppStore = "1351617981"

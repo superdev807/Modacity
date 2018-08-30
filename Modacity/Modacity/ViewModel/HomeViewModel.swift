@@ -60,6 +60,36 @@ class HomeViewModel: ViewModel {
         }
     }
     
+    func refreshDashboardValues() {
+        DispatchQueue.global().async {
+            // Buggy code, total working time storing module should be fixed
+            //          self.totalWorkingSeconds = AppOveralDataManager.manager.totalPracticeSeconds()
+            
+            self.totalImprovements = AppOveralDataManager.manager.totalImprovements()
+            
+            var streaks = AppOveralDataManager.manager.calculateStreakDays()
+            if streaks == 1 {
+                //                if !AppOveralDataManager.manager.firstPlaylistStored() {
+                //                    streaks = 0
+                //                }
+            }
+            self.streakDays = streaks
+            
+            let data = PlaylistDailyLocalManager.manager.overallPracticeData()
+            var totalMinutes = 0
+            
+            for date in data.keys {
+                if let dailyDatas = data[date] {
+                    for daily in dailyDatas {
+                        totalMinutes = totalMinutes + (daily.practiceTimeInSeconds ?? 0)
+                    }
+                }
+            }
+            
+            self.totalWorkingSeconds = totalMinutes
+        }
+    }
+    
     func loadRecentPlaylists() {
         
         DispatchQueue.global().async {
@@ -95,31 +125,7 @@ class HomeViewModel: ViewModel {
                 return itemName1 < itemName2
             })
             
-            // Buggy code, total working time storing module should be fixed
-//          self.totalWorkingSeconds = AppOveralDataManager.manager.totalPracticeSeconds()
             
-            self.totalImprovements = AppOveralDataManager.manager.totalImprovements()
-            
-            var streaks = AppOveralDataManager.manager.calculateStreakDays()
-            if streaks == 1 {
-//                if !AppOveralDataManager.manager.firstPlaylistStored() {
-//                    streaks = 0
-//                }
-            }
-            self.streakDays = streaks
-            
-            let data = PlaylistDailyLocalManager.manager.overallPracticeData()
-            var totalMinutes = 0
-            
-            for date in data.keys {
-                if let dailyDatas = data[date] {
-                    for daily in dailyDatas {
-                        totalMinutes = totalMinutes + (daily.practiceTimeInSeconds ?? 0)
-                    }
-                }
-            }
-            
-            self.totalWorkingSeconds = totalMinutes
         }
     }
 }

@@ -46,33 +46,31 @@ class AppOveralDataManager {
                 if to.count == 10 {
                     if to != today {
                         let toDate = to.date(format: "yyyy-MM-dd") ?? Date()
-                        let todayDate = today.date(format: "yyyy-MM-dd") ?? Date()
                         
-                        if todayDate.differenceInDays(with: toDate) > 1 {
+                        if Date().differenceInDays(with: toDate) > 1 {
                             UserDefaults.standard.set(todayFullFormat, forKey: "streak_from")
                             UserDefaults.standard.set(todayFullFormat, forKey: "streak_to")
                             UserDefaults.standard.synchronize()
-                            OverallDataRemoteManager.manager.updateStreakValues(from: today, to: today)
+                            OverallDataRemoteManager.manager.updateStreakValues(from: todayFullFormat, to: todayFullFormat)
                         } else {
                             UserDefaults.standard.set(todayFullFormat, forKey: "streak_to")
                             UserDefaults.standard.synchronize()
-                            OverallDataRemoteManager.manager.updateStreakValues(to: today)
+                            OverallDataRemoteManager.manager.updateStreakValues(to: todayFullFormat)
                         }
                     }
                 } else {
                     if to != todayFullFormat {
                         let toDate = to.date(format: "yyyy-MM-ddHH:mm:ssZ") ?? Date()
-                        let todayDate = Date()
                         
-                        if todayDate.differenceInDays(with: toDate) > 1 {
+                        if Date().differenceInDays(with: toDate) > 1 {
                             UserDefaults.standard.set(todayFullFormat, forKey: "streak_from")
                             UserDefaults.standard.set(todayFullFormat, forKey: "streak_to")
                             UserDefaults.standard.synchronize()
-                            OverallDataRemoteManager.manager.updateStreakValues(from: today, to: today)
+                            OverallDataRemoteManager.manager.updateStreakValues(from: todayFullFormat, to: todayFullFormat)
                         } else {
                             UserDefaults.standard.set(todayFullFormat, forKey: "streak_to")
                             UserDefaults.standard.synchronize()
-                            OverallDataRemoteManager.manager.updateStreakValues(to: today)
+                            OverallDataRemoteManager.manager.updateStreakValues(to: todayFullFormat)
                         }
                     }
                 }
@@ -81,7 +79,7 @@ class AppOveralDataManager {
             UserDefaults.standard.set(todayFullFormat, forKey: "streak_from")
             UserDefaults.standard.set(todayFullFormat, forKey: "streak_to")
             UserDefaults.standard.synchronize()
-            OverallDataRemoteManager.manager.updateStreakValues(from: today, to: today)
+            OverallDataRemoteManager.manager.updateStreakValues(from: todayFullFormat, to: todayFullFormat)
         }
         
     }
@@ -190,6 +188,7 @@ class AppOveralDataManager {
     func changePhoneSleepPrevent() {
         UserDefaults.standard.set(settingsPhoneSleepPrevent(), forKey: "not_prevent_phone_sleep")
         UserDefaults.standard.synchronize()
+        OverallDataRemoteManager.manager.postSettingsValueToServer(key: "not_prevent_phone_sleep", value: !settingsPhoneSleepPrevent())
     }
     
     func settingsDisableAutoPlayback() -> Bool {
@@ -199,6 +198,7 @@ class AppOveralDataManager {
     func changeDisableAutoPlayback() {
         UserDefaults.standard.set(!settingsDisableAutoPlayback(), forKey: "disable_auto_playback")
         UserDefaults.standard.synchronize()
+        OverallDataRemoteManager.manager.postSettingsValueToServer(key: "disable_auto_playback", value: settingsDisableAutoPlayback())
     }
     
     func settingsGotoNextItemAfterRating() -> Bool {
@@ -208,6 +208,7 @@ class AppOveralDataManager {
     func changeGotoNextItemAfterRating() {
         UserDefaults.standard.set(settingsGotoNextItemAfterRating(), forKey: "go_after_rating")
         UserDefaults.standard.synchronize()
+        OverallDataRemoteManager.manager.postSettingsValueToServer(key: "go_after_rating", value: !settingsGotoNextItemAfterRating())
     }
     
     func settingsTimerPauseDuringNote() -> Bool {
@@ -217,6 +218,7 @@ class AppOveralDataManager {
     func changeSettingsTimerPauseDuringNote() {
         UserDefaults.standard.set(!settingsTimerPauseDuringNote(), forKey: "settings_timer_pause_during_note")
         UserDefaults.standard.synchronize()
+        OverallDataRemoteManager.manager.postSettingsValueToServer(key: "settings_timer_pause_during_note", value: settingsTimerPauseDuringNote())
     }
     
     func settingsTimerPauseDuringImprove() -> Bool {
@@ -226,6 +228,7 @@ class AppOveralDataManager {
     func changeSettingsTimerPauseDuringImprove() {
         UserDefaults.standard.set(!settingsTimerPauseDuringImprove(), forKey: "settings_timer_pause_during_improve")
         UserDefaults.standard.synchronize()
+        OverallDataRemoteManager.manager.postSettingsValueToServer(key: "settings_timer_pause_during_improve", value: settingsTimerPauseDuringImprove())
     }
     
     func fileNameAutoIncrementedNumber() -> Int {
@@ -402,7 +405,7 @@ class AppOveralDataManager {
         UserDefaults.standard.set(value, forKey: "tuning_standard")
         UserDefaults.standard.synchronize()
         OverallDataRemoteManager.manager.updateTuningStandard(value)
-            MetrodroneParameters.instance.setTuningStandardA(Float(AppOveralDataManager.manager.tuningStandard()))
+        MetrodroneParameters.instance.setTuningStandardA(Float(AppOveralDataManager.manager.tuningStandard()))
     }
     
     func tuningStandard() -> Double {

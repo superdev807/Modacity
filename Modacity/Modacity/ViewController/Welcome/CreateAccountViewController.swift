@@ -21,6 +21,8 @@ class CreateAccountViewController: UIViewController {
     
     private let viewModel = AuthViewModel()
     
+    var loadingPanelView: LoadingPanelView? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -66,6 +68,7 @@ class CreateAccountViewController: UIViewController {
                 
                 if value == .succeeded {
                     self.openHome()
+//                    self.startSynchronize()
                 }
             }
         }
@@ -157,5 +160,24 @@ extension CreateAccountViewController: GIDSignInUIDelegate {
     
     func sign(_ signIn: GIDSignIn!, present viewController: UIViewController!) {
         
+    }
+}
+
+extension CreateAccountViewController {
+    func startSynchronize() {
+        let loadingView = LoadingPanelView()
+        self.view.addSubview(loadingView)
+        loadingView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+        loadingView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+        loadingView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        loadingView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+        self.loadingPanelView = loadingView
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshSyncStatus), name: AppConfig.appNotificationSyncStatusUpdated, object: nil)
+    }
+    
+    @objc func refreshSyncStatus() {
+        if let view = self.loadingPanelView {
+            view.show()
+        }
     }
 }

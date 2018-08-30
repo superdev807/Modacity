@@ -130,6 +130,16 @@
 		E2143CAC213784A900A204B8 /* MusicalFrequencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2143CA6213784A900A204B8 /* MusicalFrequencies.swift */; };
 		E2143CAD213784A900A204B8 /* GenerateAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2143CA8213784A900A204B8 /* GenerateAudio.swift */; };
 		E2143CAE213784A900A204B8 /* GenerateAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2143CA8213784A900A204B8 /* GenerateAudio.swift */; };
+		E2143CBA21379B5600A204B8 /* LoadingPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2143CB621379B5600A204B8 /* LoadingPanelView.swift */; };
+		E2143CBB21379B5600A204B8 /* LoadingPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2143CB621379B5600A204B8 /* LoadingPanelView.swift */; };
+		E2143CBC21379B5600A204B8 /* LoadingPanelView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2143CB721379B5600A204B8 /* LoadingPanelView.xib */; };
+		E2143CBD21379B5600A204B8 /* LoadingPanelView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2143CB721379B5600A204B8 /* LoadingPanelView.xib */; };
+		E2143CBE21379B5600A204B8 /* LoadingStatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2143CB821379B5600A204B8 /* LoadingStatusCell.swift */; };
+		E2143CBF21379B5600A204B8 /* LoadingStatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2143CB821379B5600A204B8 /* LoadingStatusCell.swift */; };
+		E2143CC021379B5600A204B8 /* LoadingStatusCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2143CB921379B5600A204B8 /* LoadingStatusCell.xib */; };
+		E2143CC121379B5600A204B8 /* LoadingStatusCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2143CB921379B5600A204B8 /* LoadingStatusCell.xib */; };
+		E2143CC321379F0F00A204B8 /* SyncStatusKeeper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2143CC221379F0F00A204B8 /* SyncStatusKeeper.swift */; };
+		E2143CC421379F0F00A204B8 /* SyncStatusKeeper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2143CC221379F0F00A204B8 /* SyncStatusKeeper.swift */; };
 		E214FB27212A5F4300162A69 /* LoadMoreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E214FB25212A5F4300162A69 /* LoadMoreCell.swift */; };
 		E214FB28212A5F4300162A69 /* LoadMoreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E214FB25212A5F4300162A69 /* LoadMoreCell.swift */; };
 		E214FB29212A5F4300162A69 /* LoadMoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E214FB26212A5F4300162A69 /* LoadMoreCell.xib */; };
@@ -509,6 +519,11 @@
 		E2143CA6213784A900A204B8 /* MusicalFrequencies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicalFrequencies.swift; sourceTree = "<group>"; };
 		E2143CA7213784A900A204B8 /* pitchshift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pitchshift.h; sourceTree = "<group>"; };
 		E2143CA8213784A900A204B8 /* GenerateAudio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenerateAudio.swift; sourceTree = "<group>"; };
+		E2143CB621379B5600A204B8 /* LoadingPanelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingPanelView.swift; sourceTree = "<group>"; };
+		E2143CB721379B5600A204B8 /* LoadingPanelView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingPanelView.xib; sourceTree = "<group>"; };
+		E2143CB821379B5600A204B8 /* LoadingStatusCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingStatusCell.swift; sourceTree = "<group>"; };
+		E2143CB921379B5600A204B8 /* LoadingStatusCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingStatusCell.xib; sourceTree = "<group>"; };
+		E2143CC221379F0F00A204B8 /* SyncStatusKeeper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncStatusKeeper.swift; sourceTree = "<group>"; };
 		E214FB25212A5F4300162A69 /* LoadMoreCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadMoreCell.swift; sourceTree = "<group>"; };
 		E214FB26212A5F4300162A69 /* LoadMoreCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadMoreCell.xib; sourceTree = "<group>"; };
 		E214FB2B212AC5C200162A69 /* UpdatePracticeEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePracticeEntryViewController.swift; sourceTree = "<group>"; };
@@ -775,6 +790,7 @@
 				E25FD98C20D7F75A008C531A /* PracticingDailyLocalManager.swift */,
 				E25FD98F20D7F778008C531A /* PlaylistDailyLocalManager.swift */,
 				E28415E820EE7A2300DD7BBE /* GoalsLocalManager.swift */,
+				E2143CC221379F0F00A204B8 /* SyncStatusKeeper.swift */,
 			);
 			path = LocalManager;
 			sourceTree = "<group>";
@@ -979,6 +995,7 @@
 		8EF559C5207E89A8006728E4 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				E2143CB521379B5600A204B8 /* LoadingPanel */,
 				8EF559C8207E89FA006728E4 /* FloatRatingView.swift */,
 				8EF559C6207E89D3006728E4 /* ViewDroneFrame.swift */,
 				8EF559CA207E8A35006728E4 /* DropdownMenuView.swift */,
@@ -1008,6 +1025,17 @@
 				E2083FD120DD5C6A00BCE27F /* ButtonCell.xib */,
 			);
 			path = Notes;
+			sourceTree = "<group>";
+		};
+		E2143CB521379B5600A204B8 /* LoadingPanel */ = {
+			isa = PBXGroup;
+			children = (
+				E2143CB621379B5600A204B8 /* LoadingPanelView.swift */,
+				E2143CB721379B5600A204B8 /* LoadingPanelView.xib */,
+				E2143CB821379B5600A204B8 /* LoadingStatusCell.swift */,
+				E2143CB921379B5600A204B8 /* LoadingStatusCell.xib */,
+			);
+			path = LoadingPanel;
 			sourceTree = "<group>";
 		};
 		E21BEA1520917C45000D1877 /* GoogleService-Info */ = {
@@ -1309,9 +1337,11 @@
 				8E4551E620030F7F002061AE /* Assets.xcassets in Resources */,
 				E214FB29212A5F4300162A69 /* LoadMoreCell.xib in Resources */,
 				8EA33BA520052D0600539A3F /* recording.storyboard in Resources */,
+				E2143CBC21379B5600A204B8 /* LoadingPanelView.xib in Resources */,
 				E2BA253120C8D3870048A5D5 /* _Comp in Resources */,
 				E2806C3C20ABCE0B0066959A /* practice_item.storyboard in Resources */,
 				8E99A069204072F900A9A9B8 /* metrodone.storyboard in Resources */,
+				E2143CC021379B5600A204B8 /* LoadingStatusCell.xib in Resources */,
 				8ED001CD2057671200536122 /* improve.storyboard in Resources */,
 				8EA9E7CB20429EE00019EFA5 /* feedback.storyboard in Resources */,
 				8EDEB71A203DFB9A00E8D48D /* sidemenu.storyboard in Resources */,
@@ -1423,8 +1453,10 @@
 				E21BEA1B20917C46000D1877 /* GoogleService-Info.plist in Resources */,
 				E21BEA082091796A000D1877 /* playlist.storyboard in Resources */,
 				E23C337E20E51CA4000EED10 /* PlaylistHistoryCell.xib in Resources */,
+				E2143CC121379B5600A204B8 /* LoadingStatusCell.xib in Resources */,
 				E21BEA092091796A000D1877 /* lato-light.ttf in Resources */,
 				E21BEA0A2091796A000D1877 /* lato-bolditalic.ttf in Resources */,
+				E2143CBD21379B5600A204B8 /* LoadingPanelView.xib in Resources */,
 				E2746B6C2100344700D2A47D /* Lato-Black.ttf in Resources */,
 				E2083FB920DD47C700BCE27F /* practice_note.storyboard in Resources */,
 			);
@@ -1740,6 +1772,7 @@
 				E2083FBE20DD47C700BCE27F /* PracticeNoteDetailsViewController.swift in Sources */,
 				E251C9C620E13C2700C8BC49 /* HistoryListView.swift in Sources */,
 				8EDEB6F0203DD3B900E8D48D /* SigninViewController.swift in Sources */,
+				E2143CBE21379B5600A204B8 /* LoadingStatusCell.swift in Sources */,
 				E2746B6E210042AB00D2A47D /* PremiumUpgradeViewController.swift in Sources */,
 				E2806C3920ABCDEA0066959A /* PracticeItemSelectViewController.swift in Sources */,
 				E2CDBEA62101098F00119D77 /* PremiumUpgradeSlideComingSoonView.swift in Sources */,
@@ -1788,9 +1821,11 @@
 				8EDA6194204827DE006D3208 /* PracticeItem.swift in Sources */,
 				E23C337F20E51CA4000EED10 /* PlaylistHistoryCell.swift in Sources */,
 				E22A06ED20FCD1AD00184F78 /* BreakReminerSettingsViewController.swift in Sources */,
+				E2143CC321379F0F00A204B8 /* SyncStatusKeeper.swift in Sources */,
 				E214FB27212A5F4300162A69 /* LoadMoreCell.swift in Sources */,
 				E2083FA620DD376100BCE27F /* RecordingsListView.swift in Sources */,
 				E25FD99320D7F7A9008C531A /* DailyPracticingRemoteManager.swift in Sources */,
+				E2143CBA21379B5600A204B8 /* LoadingPanelView.swift in Sources */,
 				E24DF50320987E9E00BAF0C7 /* Note.swift in Sources */,
 				E25FD98720D7F34A008C531A /* ImprovedRecord.swift in Sources */,
 				E249E61920DAA66E00FBDA72 /* DetailsViewController.swift in Sources */,
@@ -1886,6 +1921,7 @@
 				E2083FBF20DD47C700BCE27F /* PracticeNoteDetailsViewController.swift in Sources */,
 				E251C9C720E13C2700C8BC49 /* HistoryListView.swift in Sources */,
 				E21BE9B22091796A000D1877 /* SigninViewController.swift in Sources */,
+				E2143CBF21379B5600A204B8 /* LoadingStatusCell.swift in Sources */,
 				E2746B6F210042AB00D2A47D /* PremiumUpgradeViewController.swift in Sources */,
 				E2806C3A20ABCDEA0066959A /* PracticeItemSelectViewController.swift in Sources */,
 				E2CDBEA72101098F00119D77 /* PremiumUpgradeSlideComingSoonView.swift in Sources */,
@@ -1934,9 +1970,11 @@
 				E21BE9CC2091796A000D1877 /* PracticeItem.swift in Sources */,
 				E23C338020E51CA4000EED10 /* PlaylistHistoryCell.swift in Sources */,
 				E22A06EE20FCD1AD00184F78 /* BreakReminerSettingsViewController.swift in Sources */,
+				E2143CC421379F0F00A204B8 /* SyncStatusKeeper.swift in Sources */,
 				E214FB28212A5F4300162A69 /* LoadMoreCell.swift in Sources */,
 				E2083FA720DD376100BCE27F /* RecordingsListView.swift in Sources */,
 				E25FD99420D7F7A9008C531A /* DailyPracticingRemoteManager.swift in Sources */,
+				E2143CBB21379B5600A204B8 /* LoadingPanelView.swift in Sources */,
 				E24DF50420987E9E00BAF0C7 /* Note.swift in Sources */,
 				E25FD98820D7F34A008C531A /* ImprovedRecord.swift in Sources */,
 				E249E61A20DAA66E00FBDA72 /* DetailsViewController.swift in Sources */,

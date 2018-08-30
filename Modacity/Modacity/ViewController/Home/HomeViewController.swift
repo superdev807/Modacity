@@ -44,8 +44,9 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         NotificationCenter.default.addObserver(self, selector: #selector(configureNameLabels), name: AppConfig.appNotificationProfileUpdated, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(refreshList), name: AppConfig.appNotificationOverallAppDataLoadedFromServer, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshValues), name: AppConfig.appNotificationOverallAppDataLoadedFromServer, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(refreshList), name: AppConfig.appNotificationPlaylistLoadedFromServer, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshValues), name: AppConfig.appNotificationPracticeDataFetched, object: nil)
         self.configureUI()
         self.bindViewModel()
         ModacityAnalytics.LogStringEvent("Home Screen")
@@ -64,10 +65,15 @@ class HomeViewController: UIViewController {
         super.viewWillAppear(animated)
         self.navigationItem.title = "Home"
         self.viewModel.loadRecentPlaylists()
+        self.viewModel.refreshDashboardValues()
     }
     
     @objc func refreshList() {
         self.viewModel.loadRecentPlaylists()
+    }
+    
+    @objc func refreshValues() {
+        self.viewModel.refreshDashboardValues()
     }
     
     func bindViewModel() {
