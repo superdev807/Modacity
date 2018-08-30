@@ -21,6 +21,7 @@ class OverallDataRemoteManager {
                 if (!snapshot.exists()) {
                     self.startUpdatingOverallData()      // sync from local
                 } else {
+                    
                     if let overallData = snapshot.value as? [String:Any] {
                         AppOveralDataManager.manager.forcelySetValues(totalPracticeSeconds: overallData["total_practice_seconds"] as? Int ?? 0,
                                                                       totalImprovements: overallData["total_improvements"] as? Int ?? 0,
@@ -34,7 +35,7 @@ class OverallDataRemoteManager {
                                                                       timerPauseDuringNote: overallData["settings_timer_pause_during_note"] as? Bool ?? false,
                                                                       timerPauseDuringImprove: overallData["settings_timer_pause_during_improve"] as? Bool ?? false,
                                                                       practiceBreakTime: overallData["practice_break_time"] as? Int ?? 0,
-                                                                      tuningStandard: overallData["tuning_standard"] as? Double ?? 440,
+                                                                      tuningStandard: overallData["tuning_standard"] as? Double ?? AppOveralDataManager.manager.tuningStandard(),
                                                                       firstPlaylistStored: overallData["first_playlist_stored"] as? Bool ?? false)
                         NotificationCenter.default.post(Notification(name: AppConfig.appNotificationOverallAppDataLoadedFromServer))
                     }
@@ -107,6 +108,12 @@ class OverallDataRemoteManager {
     func updatePracticeBreakTime(_ time:Int) {
         if let userId = MyProfileLocalManager.manager.userId() {
             self.refUser.child(userId).child("overall").updateChildValues(["practice_break_time": time])
+        }
+    }
+    
+    func updateTuningStandard( _ value: Double) {
+        if let userId = MyProfileLocalManager.manager.userId() {
+            self.refUser.child(userId).child("overall").updateChildValues(["tuning_standard": value])
         }
     }
 }

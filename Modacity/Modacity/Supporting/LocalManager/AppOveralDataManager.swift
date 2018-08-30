@@ -398,14 +398,18 @@ class AppOveralDataManager {
     }
     
     func saveTuningStandard(_ value:Double) {
+        print("Saving tuning standard \(value)")
         UserDefaults.standard.set(value, forKey: "tuning_standard")
         UserDefaults.standard.synchronize()
-        MetrodroneParameters.instance.setTuningStandardA(Float(AppOveralDataManager.manager.tuningStandard()))
+        OverallDataRemoteManager.manager.updateTuningStandard(value)
+            MetrodroneParameters.instance.setTuningStandardA(Float(AppOveralDataManager.manager.tuningStandard()))
     }
     
     func tuningStandard() -> Double {
         if let _ = UserDefaults.standard.object(forKey: "tuning_standard") {
-            return UserDefaults.standard.double(forKey: "tuning_standard")
+            let standard = UserDefaults.standard.double(forKey: "tuning_standard") 
+            print("Retrieved tuning standard \(standard)")
+            return standard
         } else {
             return 440.0
         }

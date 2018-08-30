@@ -123,6 +123,11 @@ class SettingsViewController: UIViewController {
         ModacityAnalytics.LogStringEvent("Loaded Settings Screen")
 
     }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        OverallDataRemoteManager.manager.startUpdatingOverallData()
+    }
     
     deinit {
         NotificationCenter.default.removeObserver(self)
@@ -428,8 +433,10 @@ extension SettingsViewController {
 extension SettingsViewController: SettingsCellTextFieldDelegate {
     func settingsCellTextField(_ cell: SettingsCellTextField, changedValue: String) {
         if let value = Double(changedValue) {
-            print("tuning standard value saved!")
-            AppOveralDataManager.manager.saveTuningStandard(value)
+            if ((value > 400 && value < 600)) {
+                print("tuning standard value \(value) saved!")
+                AppOveralDataManager.manager.saveTuningStandard(value)
+            }
         }
     }
 }
