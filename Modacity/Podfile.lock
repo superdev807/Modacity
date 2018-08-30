@@ -11,71 +11,99 @@ PODS:
     - Charts/Core (= 3.1.1)
   - Charts/Core (3.1.1)
   - CHGInputAccessoryView (1.1.0)
-  - Crashlytics (3.10.2):
-    - Fabric (~> 1.7.7)
-  - Fabric (1.7.7)
-  - FBSDKCoreKit (4.31.1):
+  - Crashlytics (3.10.7):
+    - Fabric (~> 1.7.11)
+  - Fabric (1.7.11)
+  - FBSDKCoreKit (4.36.0):
     - Bolts (~> 1.7)
-  - FBSDKLoginKit (4.31.1):
+  - FBSDKLoginKit (4.36.0):
     - FBSDKCoreKit
-  - FBSDKShareKit (4.31.1):
-    - FBSDKCoreKit (~> 4.31.1)
+  - FBSDKShareKit (4.36.0):
+    - FBSDKCoreKit (~> 4.36.0)
   - FDWaveformView (3.0.1)
-  - Firebase/Auth (5.0.1):
+  - Firebase/Auth (5.7.0):
     - Firebase/CoreOnly
-    - FirebaseAuth (= 5.0.0)
-  - Firebase/Core (5.0.1):
+    - FirebaseAuth (= 5.0.3)
+  - Firebase/Core (5.7.0):
     - Firebase/CoreOnly
-    - FirebaseAnalytics (= 5.0.0)
-  - Firebase/CoreOnly (5.0.1):
-    - FirebaseCore (= 5.0.1)
-  - Firebase/Database (5.0.1):
+    - FirebaseAnalytics (= 5.1.1)
+  - Firebase/CoreOnly (5.7.0):
+    - FirebaseCore (= 5.1.2)
+  - Firebase/Database (5.7.0):
     - Firebase/CoreOnly
-    - FirebaseDatabase (= 5.0.0)
-  - Firebase/Storage (5.0.1):
+    - FirebaseDatabase (= 5.0.2)
+  - Firebase/Storage (5.7.0):
     - Firebase/CoreOnly
-    - FirebaseStorage (= 3.0.0)
-  - FirebaseAnalytics (5.0.0):
-    - FirebaseCore (~> 5.0)
-    - FirebaseInstanceID (~> 3.0)
-    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
+    - FirebaseStorage (= 3.0.1)
+  - FirebaseAnalytics (5.1.1):
+    - FirebaseCore (~> 5.1)
+    - FirebaseInstanceID (~> 3.2)
+    - GoogleAppMeasurement (~> 5.1)
+    - GoogleUtilities/AppDelegateSwizzler (~> 5.2.0)
+    - GoogleUtilities/MethodSwizzler (~> 5.2.0)
+    - GoogleUtilities/Network (~> 5.2)
+    - "GoogleUtilities/NSData+zlib (~> 5.2)"
     - nanopb (~> 0.3)
-  - FirebaseAuth (5.0.0):
+  - FirebaseAuth (5.0.3):
+    - FirebaseAuthInterop (~> 1.0)
     - FirebaseCore (~> 5.0)
+    - GoogleUtilities/Environment (~> 5.2)
     - GTMSessionFetcher/Core (~> 1.1)
-  - FirebaseCore (5.0.1):
-    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
-  - FirebaseDatabase (5.0.0):
+  - FirebaseAuthInterop (1.0.0)
+  - FirebaseCore (5.1.2):
+    - GoogleUtilities/Logger (~> 5.2)
+  - FirebaseDatabase (5.0.2):
     - FirebaseCore (~> 5.0)
     - leveldb-library (~> 1.18)
-  - FirebaseInstanceID (3.0.0):
-    - FirebaseCore (~> 5.0)
-  - FirebaseStorage (3.0.0):
+  - FirebaseInstanceID (3.2.1):
+    - FirebaseCore (~> 5.1)
+    - GoogleUtilities/Environment (~> 5.2)
+  - FirebaseStorage (3.0.1):
     - FirebaseCore (~> 5.0)
     - GTMSessionFetcher/Core (~> 1.1)
-  - GoogleSignIn (4.1.2):
+  - GoogleAppMeasurement (5.1.1):
+    - GoogleUtilities/AppDelegateSwizzler (~> 5.2.0)
+    - GoogleUtilities/MethodSwizzler (~> 5.2.0)
+    - GoogleUtilities/Network (~> 5.2)
+    - "GoogleUtilities/NSData+zlib (~> 5.2)"
+    - nanopb (~> 0.3)
+  - GoogleSignIn (4.2.0):
     - "GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)"
     - "GoogleToolboxForMac/NSString+URLArguments (~> 2.1)"
     - GTMOAuth2 (~> 1.0)
     - GTMSessionFetcher/Core (~> 1.1)
-  - GoogleToolboxForMac/DebugUtils (2.1.3):
-    - GoogleToolboxForMac/Defines (= 2.1.3)
-  - GoogleToolboxForMac/Defines (2.1.3)
-  - "GoogleToolboxForMac/NSData+zlib (2.1.3)":
-    - GoogleToolboxForMac/Defines (= 2.1.3)
-  - "GoogleToolboxForMac/NSDictionary+URLArguments (2.1.3)":
-    - GoogleToolboxForMac/DebugUtils (= 2.1.3)
-    - GoogleToolboxForMac/Defines (= 2.1.3)
-    - "GoogleToolboxForMac/NSString+URLArguments (= 2.1.3)"
-  - "GoogleToolboxForMac/NSString+URLArguments (2.1.3)"
+  - GoogleToolboxForMac/DebugUtils (2.1.4):
+    - GoogleToolboxForMac/Defines (= 2.1.4)
+  - GoogleToolboxForMac/Defines (2.1.4)
+  - "GoogleToolboxForMac/NSDictionary+URLArguments (2.1.4)":
+    - GoogleToolboxForMac/DebugUtils (= 2.1.4)
+    - GoogleToolboxForMac/Defines (= 2.1.4)
+    - "GoogleToolboxForMac/NSString+URLArguments (= 2.1.4)"
+  - "GoogleToolboxForMac/NSString+URLArguments (2.1.4)"
+  - GoogleUtilities/AppDelegateSwizzler (5.2.2):
+    - GoogleUtilities/Environment
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Network
+  - GoogleUtilities/Environment (5.2.2)
+  - GoogleUtilities/Logger (5.2.2):
+    - GoogleUtilities/Environment
+  - GoogleUtilities/MethodSwizzler (5.2.2):
+    - GoogleUtilities/Logger
+  - GoogleUtilities/Network (5.2.2):
+    - GoogleUtilities/Logger
+    - "GoogleUtilities/NSData+zlib"
+    - GoogleUtilities/Reachability
+  - "GoogleUtilities/NSData+zlib (5.2.2)"
+  - GoogleUtilities/Reachability (5.2.2):
+    - GoogleUtilities/Logger
   - GTMOAuth2 (1.1.6):
     - GTMSessionFetcher (~> 1.1)
-  - GTMSessionFetcher (1.1.14):
-    - GTMSessionFetcher/Full (= 1.1.14)
-  - GTMSessionFetcher/Core (1.1.14)
-  - GTMSessionFetcher/Full (1.1.14):
-    - GTMSessionFetcher/Core (= 1.1.14)
-  - Intercom (5.0.2)
+  - GTMSessionFetcher (1.2.0):
+    - GTMSessionFetcher/Full (= 1.2.0)
+  - GTMSessionFetcher/Core (1.2.0)
+  - GTMSessionFetcher/Full (1.2.0):
+    - GTMSessionFetcher/Core (= 1.2.0)
+  - Intercom (5.1.5)
   - JTChartView (1.0.1)
   - leveldb-library (1.20)
   - LGSideMenuController (2.1.1)
@@ -85,13 +113,15 @@ PODS:
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
-  - ObjectMapper (3.1.0)
+  - ObjectMapper (3.3.0)
   - SCSiriWaveformView (1.1.1)
-  - SplunkMint (5.2.3)
-  - SwiftMessages (4.1.0)
-  - SwiftyReceiptValidator (2.1.6)
+  - SplunkMint (5.2.4)
+  - SwiftMessages (5.0.0):
+    - SwiftMessages/App (= 5.0.0)
+  - SwiftMessages/App (5.0.0)
+  - SwiftyReceiptValidator (3.1.0)
   - TPKeyboardAvoiding (1.3.2)
-  - "UITextView+Placeholder (1.2.0)"
+  - "UITextView+Placeholder (1.2.1)"
 
 DEPENDENCIES:
   - Amplitude-iOS (~> 4.0.4)
@@ -137,12 +167,15 @@ SPEC REPOS:
     - Firebase
     - FirebaseAnalytics
     - FirebaseAuth
+    - FirebaseAuthInterop
     - FirebaseCore
     - FirebaseDatabase
     - FirebaseInstanceID
     - FirebaseStorage
+    - GoogleAppMeasurement
     - GoogleSignIn
     - GoogleToolboxForMac
+    - GoogleUtilities
     - GTMOAuth2
     - GTMSessionFetcher
     - Intercom
@@ -165,36 +198,39 @@ SPEC CHECKSUMS:
   BWHorizontalTableView: d9f34d06fb51cbbfb9b934f1c1f3a32727702647
   Charts: 90a4d61da0f6e06684c591e3bcab11940fe61736
   CHGInputAccessoryView: e8c7d798b94a55f5aa84b484f1ae9c6123042dd0
-  Crashlytics: 0360624eea1c978a743feddb2fb1ef8b37fb7a0d
-  Fabric: bda89e242bce1b7b8ab264248cf3407774ce0095
-  FBSDKCoreKit: e08ccfcefa7bc1347a07c276dac9bf6c7fe57024
-  FBSDKLoginKit: 99797ac39252fef6f72600b886f6ee60b4b29cab
-  FBSDKShareKit: e640c41c9fcd61929eeb3d0c21ad335103e7cb62
+  Crashlytics: ccaac42660eb9351b9960c0d66106b0bcf99f4fa
+  Fabric: f233c9492b3bbc1f04e3882986740f7988a58edb
+  FBSDKCoreKit: 3b8e6570eedb443f9fc4af196a7bf39f18e3a3d8
+  FBSDKLoginKit: 8bccb6064708ab2f4251a7fc4e3b6d8d00ad91ba
+  FBSDKShareKit: 7090fdd55c39b03941efddb64c83a64ff6b3949f
   FDWaveformView: 382333698e71680953f115e4c6faeb63a8cfde74
-  Firebase: d6861c2059d8c32d1e6dd8932e22ada346d90a3a
-  FirebaseAnalytics: 19812b49fa5f283dd6b23edf8a14b5d477029ab8
-  FirebaseAuth: acbeef02fe7c3a26624e309849f3fe30c84115af
-  FirebaseCore: cafc814b2d84fc8733f09e653041cc2165332ad7
-  FirebaseDatabase: 697eb53e5b4fe7cd4fa8756c1f82a9fca011345f
-  FirebaseInstanceID: 83e0040351565df711a5db3d8ebe5ea21aca998a
-  FirebaseStorage: 7ca4bb7b58a25fa647b04f524033fc7cb7eb272b
-  GoogleSignIn: d9ef55b10f0aa401a5de2747f59b725e4b9732ac
-  GoogleToolboxForMac: 2501e2ad72a52eb3dfe7bd9aee7dad11b858bd20
+  Firebase: 734a4f92957aa6c40e7ae3fda3d9359e1890aa87
+  FirebaseAnalytics: 993577e91157feb40945abedd6ab346d8a4b6ac8
+  FirebaseAuth: 657a25e4be044d2d333663ebf515a861c5a59cd7
+  FirebaseAuthInterop: 0ffa57668be100582bb7643d4fcb7615496c41fc
+  FirebaseCore: 3a97432acb324b439fbed338e642f9cbb516a63d
+  FirebaseDatabase: 27be5ac5bc75e0b17537b2bbfada8258addcc8cd
+  FirebaseInstanceID: ea5af6920d0a4a29b40459d055bebe4a6c1333c4
+  FirebaseStorage: 43f823b96b72a08539eba21a7de043348a69d4c6
+  GoogleAppMeasurement: f7507b39b70ad0bd80b3d81518b2f43868974307
+  GoogleSignIn: 591e46382014e591269f862ba6e7bc0fbd793532
+  GoogleToolboxForMac: 91c824d21e85b31c2aae9bb011c5027c9b4e738f
+  GoogleUtilities: 06b66f9567769a7958db20a92f0128b2843e49d5
   GTMOAuth2: c77fe325e4acd453837e72d91e3b5f13116857b2
-  GTMSessionFetcher: 390ea358e5a0d0133153806f744662dad933d06b
-  Intercom: 0fcb000a9eea9a8fe889ac1466972771ef8919f2
+  GTMSessionFetcher: 0c4baf0a73acd0041bf9f71ea018deedab5ea84e
+  Intercom: 0a0ec9a30a12802c56ff02bb98ddf6f047035c68
   JTChartView: cfe9c9cd95c04331df12d5d174d40cc3a9d39127
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   LGSideMenuController: ae40c80983ab8b8801c7cef0a6804d43aaa72d45
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
-  ObjectMapper: 20505058f54e5c3ca69e1d6de9897d152a5369a6
+  ObjectMapper: b612bf8c8e99c4dc0bb6013a51f7c27966ed5da9
   SCSiriWaveformView: 15b9dd6f94c7536e2032b34a35c6ff74d38c7411
-  SplunkMint: 943498419a777e4ac9a166ec3b55648977fefed9
-  SwiftMessages: 1bacc783c8f10bdfdc57c14860cae8a1f1fa6591
-  SwiftyReceiptValidator: a1f9bbc76eff5aed1739dd483ec0bf4edd2a002f
+  SplunkMint: 5f1c0e0b34568af22c811c5f3a8943d99a51aabf
+  SwiftMessages: 342d312bf8d5ac11141285c8fec6308380df7f72
+  SwiftyReceiptValidator: 080dae06aac6a1bad40582d9da553349ffaf0056
   TPKeyboardAvoiding: cb69d5ddbe90ce0170e4bc2db1e5e41d4a3ad9a4
-  "UITextView+Placeholder": 77680995fcdd07c3f52ec92fe1150874a2ac89ff
+  "UITextView+Placeholder": 0c3efd97f37ea64bde7f34cc6e90fe02e87b3909
 
 PODFILE CHECKSUM: 6c6f354ce70079c94850c54b2a30c9c60399f4c1
 

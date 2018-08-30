@@ -8,9 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		101342632059020300A9734B /* TapTempo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101342622059020300A9734B /* TapTempo.swift */; };
-		10CEB2C12134BB36002B15F3 /* pitchshift.c in Sources */ = {isa = PBXBuildFile; fileRef = 10CEB2C02134BB36002B15F3 /* pitchshift.c */; };
-		10CEB2CC2135D867002B15F3 /* GenerateAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CEB2CA2135D866002B15F3 /* GenerateAudio.swift */; };
-		10CEB2CD2135D867002B15F3 /* MusicalFrequencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CEB2CB2135D867002B15F3 /* MusicalFrequencies.swift */; };
 		14A63A48B0FA29B0F7388A3B /* Pods_Modacity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C77FB2C0A58ED4E886E0F33 /* Pods_Modacity.framework */; };
 		16A5C4371F956B8B09E96F6D /* libPods-ModacityUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C7502E348716E20F4E0B7E5C /* libPods-ModacityUITests.a */; };
 		6318133EC6F4FF105A8ACB5A /* libPods-ModacityTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E91BAC853A8BF6F8434DAB14 /* libPods-ModacityTests.a */; };
@@ -127,6 +124,12 @@
 		E2083FD520DD5C6A00BCE27F /* ButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2083FD120DD5C6A00BCE27F /* ButtonCell.xib */; };
 		E20F0CAF211BF7D000374074 /* PracticeItemSelectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20F0CAE211BF7D000374074 /* PracticeItemSelectCell.swift */; };
 		E20F0CB0211BF7D000374074 /* PracticeItemSelectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20F0CAE211BF7D000374074 /* PracticeItemSelectCell.swift */; };
+		E2143CA9213784A900A204B8 /* pitchshift.c in Sources */ = {isa = PBXBuildFile; fileRef = E2143CA5213784A900A204B8 /* pitchshift.c */; };
+		E2143CAA213784A900A204B8 /* pitchshift.c in Sources */ = {isa = PBXBuildFile; fileRef = E2143CA5213784A900A204B8 /* pitchshift.c */; };
+		E2143CAB213784A900A204B8 /* MusicalFrequencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2143CA6213784A900A204B8 /* MusicalFrequencies.swift */; };
+		E2143CAC213784A900A204B8 /* MusicalFrequencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2143CA6213784A900A204B8 /* MusicalFrequencies.swift */; };
+		E2143CAD213784A900A204B8 /* GenerateAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2143CA8213784A900A204B8 /* GenerateAudio.swift */; };
+		E2143CAE213784A900A204B8 /* GenerateAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2143CA8213784A900A204B8 /* GenerateAudio.swift */; };
 		E214FB27212A5F4300162A69 /* LoadMoreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E214FB25212A5F4300162A69 /* LoadMoreCell.swift */; };
 		E214FB28212A5F4300162A69 /* LoadMoreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E214FB25212A5F4300162A69 /* LoadMoreCell.swift */; };
 		E214FB29212A5F4300162A69 /* LoadMoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E214FB26212A5F4300162A69 /* LoadMoreCell.xib */; };
@@ -390,10 +393,6 @@
 /* Begin PBXFileReference section */
 		0ED0F8A74BFAB54DDD3FAD0E /* Pods-Modacity-Dev.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Modacity-Dev.release.xcconfig"; path = "Pods/Target Support Files/Pods-Modacity-Dev/Pods-Modacity-Dev.release.xcconfig"; sourceTree = "<group>"; };
 		101342622059020300A9734B /* TapTempo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapTempo.swift; sourceTree = "<group>"; };
-		10CEB2BF2134BB36002B15F3 /* pitchshift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pitchshift.h; sourceTree = "<group>"; };
-		10CEB2C02134BB36002B15F3 /* pitchshift.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = pitchshift.c; sourceTree = "<group>"; };
-		10CEB2CA2135D866002B15F3 /* GenerateAudio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenerateAudio.swift; sourceTree = "<group>"; };
-		10CEB2CB2135D867002B15F3 /* MusicalFrequencies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicalFrequencies.swift; sourceTree = "<group>"; };
 		1C77FB2C0A58ED4E886E0F33 /* Pods_Modacity.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Modacity.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2FF7BD2AC6BB692D2CB30434 /* Pods-ModacityUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ModacityUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ModacityUITests/Pods-ModacityUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		3798BA6D596582574229E4BD /* Pods-Modacity.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Modacity.release.xcconfig"; path = "Pods/Target Support Files/Pods-Modacity/Pods-Modacity.release.xcconfig"; sourceTree = "<group>"; };
@@ -506,6 +505,10 @@
 		E2083FD020DD5C6A00BCE27F /* ButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonCell.swift; sourceTree = "<group>"; };
 		E2083FD120DD5C6A00BCE27F /* ButtonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ButtonCell.xib; sourceTree = "<group>"; };
 		E20F0CAE211BF7D000374074 /* PracticeItemSelectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeItemSelectCell.swift; sourceTree = "<group>"; };
+		E2143CA5213784A900A204B8 /* pitchshift.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pitchshift.c; sourceTree = "<group>"; };
+		E2143CA6213784A900A204B8 /* MusicalFrequencies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicalFrequencies.swift; sourceTree = "<group>"; };
+		E2143CA7213784A900A204B8 /* pitchshift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pitchshift.h; sourceTree = "<group>"; };
+		E2143CA8213784A900A204B8 /* GenerateAudio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenerateAudio.swift; sourceTree = "<group>"; };
 		E214FB25212A5F4300162A69 /* LoadMoreCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadMoreCell.swift; sourceTree = "<group>"; };
 		E214FB26212A5F4300162A69 /* LoadMoreCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadMoreCell.xib; sourceTree = "<group>"; };
 		E214FB2B212AC5C200162A69 /* UpdatePracticeEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePracticeEntryViewController.swift; sourceTree = "<group>"; };
@@ -1120,14 +1123,14 @@
 		E2BA245A20C8D1590048A5D5 /* Audio Engine */ = {
 			isa = PBXGroup;
 			children = (
+				E2143CA8213784A900A204B8 /* GenerateAudio.swift */,
+				E2143CA6213784A900A204B8 /* MusicalFrequencies.swift */,
+				E2143CA5213784A900A204B8 /* pitchshift.c */,
+				E2143CA7213784A900A204B8 /* pitchshift.h */,
 				E2BA245C20C8D1590048A5D5 /* MetrodroneParameters.swift */,
 				E2BA245D20C8D1590048A5D5 /* MetrodronePlayer.swift */,
 				E2BA245B20C8D1590048A5D5 /* MetroDroneAudio.swift */,
 				E2BA245E20C8D1590048A5D5 /* ModacityAudioEngine.swift */,
-				10CEB2CA2135D866002B15F3 /* GenerateAudio.swift */,
-				10CEB2CB2135D867002B15F3 /* MusicalFrequencies.swift */,
-				10CEB2BF2134BB36002B15F3 /* pitchshift.h */,
-				10CEB2C02134BB36002B15F3 /* pitchshift.c */,
 			);
 			path = "Audio Engine";
 			sourceTree = "<group>";
@@ -1507,6 +1510,7 @@
 				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/JTChartView/JTChartView.framework",
 				"${BUILT_PRODUCTS_DIR}/LGSideMenuController/LGSideMenuController.framework",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
@@ -1533,6 +1537,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JTChartView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LGSideMenuController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
@@ -1587,6 +1592,7 @@
 				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/JTChartView/JTChartView.framework",
 				"${BUILT_PRODUCTS_DIR}/LGSideMenuController/LGSideMenuController.framework",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
@@ -1613,6 +1619,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JTChartView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LGSideMenuController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
@@ -1751,6 +1758,7 @@
 				E23C337920E5172D000EED10 /* PlaylistHistoryView.swift in Sources */,
 				8EA33BA720052D2700539A3F /* RecordingViewController.swift in Sources */,
 				E2083FAA20DD3AE700BCE27F /* RecordingCell.swift in Sources */,
+				E2143CAB213784A900A204B8 /* MusicalFrequencies.swift in Sources */,
 				E248879720F3A6020093B3CF /* ModacityDebugger.swift in Sources */,
 				E25FD99020D7F778008C531A /* PlaylistDailyLocalManager.swift in Sources */,
 				E23C338320E51DD3000EED10 /* PlaylistHistoryDetailsRowView.swift in Sources */,
@@ -1760,7 +1768,7 @@
 				E25FD98D20D7F75A008C531A /* PracticingDailyLocalManager.swift in Sources */,
 				E283C51E20D1696A002651E0 /* TimerInputView.swift in Sources */,
 				E264C09920CB02F50016CF8D /* MetrodroneView.swift in Sources */,
-				10CEB2C12134BB36002B15F3 /* pitchshift.c in Sources */,
+				E2143CA9213784A900A204B8 /* pitchshift.c in Sources */,
 				8EDEB70C203DE38F00E8D48D /* AppConfig.swift in Sources */,
 				8EB479BB20458B7C00BE6461 /* AboutViewController.swift in Sources */,
 				E29A30B220DA547D006125E2 /* PracticeTimerUpWalkThroughView.swift in Sources */,
@@ -1778,7 +1786,6 @@
 				8E64B7AC2056A35200900775 /* RecordingsLocalManager.swift in Sources */,
 				E2BA246320C8D1590048A5D5 /* MetrodronePlayer.swift in Sources */,
 				8EDA6194204827DE006D3208 /* PracticeItem.swift in Sources */,
-				10CEB2CD2135D867002B15F3 /* MusicalFrequencies.swift in Sources */,
 				E23C337F20E51CA4000EED10 /* PlaylistHistoryCell.swift in Sources */,
 				E22A06ED20FCD1AD00184F78 /* BreakReminerSettingsViewController.swift in Sources */,
 				E214FB27212A5F4300162A69 /* LoadMoreCell.swift in Sources */,
@@ -1821,6 +1828,7 @@
 				8E84CA6720577F3500D2D1CB /* ImprovementViewModel.swift in Sources */,
 				8EAC1215200526BB004232A2 /* HomeViewController.swift in Sources */,
 				E23D7A7020A1EEB40052EE78 /* OverallDataRemoteManager.swift in Sources */,
+				E2143CAD213784A900A204B8 /* GenerateAudio.swift in Sources */,
 				8EFD2DAC207BC20900DC28C1 /* ChangePasswordViewController.swift in Sources */,
 				8ECCAF952056EABE000E2B75 /* PlaylistAndPracticeDeliverModel.swift in Sources */,
 				8E58B44320446AE40022704B /* Authorizer.swift in Sources */,
@@ -1844,7 +1852,6 @@
 				E2BA245F20C8D1590048A5D5 /* MetroDroneAudio.swift in Sources */,
 				8EB9DB9B204DABFD00689C1D /* PlaylistViewModel.swift in Sources */,
 				8EA9E7CD20429F140019EFA5 /* FeedbackRootViewController.swift in Sources */,
-				10CEB2CC2135D867002B15F3 /* GenerateAudio.swift in Sources */,
 				E23FFD9121081053007713F0 /* PremiumUtils.swift in Sources */,
 				8ED83FC220031EF400052256 /* SplashViewController.swift in Sources */,
 				8EF559C9207E89FA006728E4 /* FloatRatingView.swift in Sources */,
@@ -1897,6 +1904,7 @@
 				E23C337A20E5172D000EED10 /* PlaylistHistoryView.swift in Sources */,
 				E21BE9BE2091796A000D1877 /* RecordingViewController.swift in Sources */,
 				E2083FAB20DD3AE700BCE27F /* RecordingCell.swift in Sources */,
+				E2143CAC213784A900A204B8 /* MusicalFrequencies.swift in Sources */,
 				E248879820F3A6020093B3CF /* ModacityDebugger.swift in Sources */,
 				E25FD99120D7F778008C531A /* PlaylistDailyLocalManager.swift in Sources */,
 				E23C338420E51DD3000EED10 /* PlaylistHistoryDetailsRowView.swift in Sources */,
@@ -1906,6 +1914,7 @@
 				E25FD98E20D7F75A008C531A /* PracticingDailyLocalManager.swift in Sources */,
 				E283C51F20D1696A002651E0 /* TimerInputView.swift in Sources */,
 				E264C09A20CB02F50016CF8D /* MetrodroneView.swift in Sources */,
+				E2143CAA213784A900A204B8 /* pitchshift.c in Sources */,
 				E21BE9C12091796A000D1877 /* AppConfig.swift in Sources */,
 				E21BE9C22091796A000D1877 /* AboutViewController.swift in Sources */,
 				E29A30B320DA547D006125E2 /* PracticeTimerUpWalkThroughView.swift in Sources */,
@@ -1965,6 +1974,7 @@
 				E21BE9DB2091796A000D1877 /* ImprovementViewModel.swift in Sources */,
 				E21BE9DC2091796A000D1877 /* HomeViewController.swift in Sources */,
 				E23D7A7120A1EEB40052EE78 /* OverallDataRemoteManager.swift in Sources */,
+				E2143CAE213784A900A204B8 /* GenerateAudio.swift in Sources */,
 				E21BE9DD2091796A000D1877 /* ChangePasswordViewController.swift in Sources */,
 				E21BE9DE2091796A000D1877 /* PlaylistAndPracticeDeliverModel.swift in Sources */,
 				E21BE9DF2091796A000D1877 /* Authorizer.swift in Sources */,
