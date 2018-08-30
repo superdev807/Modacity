@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Lato-Bold.ttf">
+            <string>Lato-Bold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoadingPanelView" customModule="Modacity" customModuleProvider="target">
+            <connections>
+                <outlet property="tableViewList" destination="Qcq-rq-OuW" id="nwB-zL-piT"/>
+                <outlet property="viewContent" destination="LvZ-Ql-04F" id="Chb-PO-iDg"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="LvZ-Ql-04F">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Qcq-rq-OuW">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="9aK-hU-sWe"/>
+                        <outlet property="delegate" destination="-1" id="Mm3-J3-Qd0"/>
+                    </connections>
+                </tableView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LMD-Yh-kP8">
+                    <rect key="frame" x="151" y="268" width="72" height="51"/>
+                    <subviews>
+                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="Nq7-Mo-ub6">
+                            <rect key="frame" x="26" y="0.0" width="20" height="20"/>
+                        </activityIndicatorView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qd6-4f-6lp">
+                            <rect key="frame" x="0.0" y="30" width="72" height="21"/>
+                            <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="17"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="Nq7-Mo-ub6" firstAttribute="centerX" secondItem="LMD-Yh-kP8" secondAttribute="centerX" id="4BZ-A7-bgb"/>
+                        <constraint firstAttribute="bottom" secondItem="Qd6-4f-6lp" secondAttribute="bottom" id="9wH-DP-VUI"/>
+                        <constraint firstItem="Nq7-Mo-ub6" firstAttribute="top" secondItem="LMD-Yh-kP8" secondAttribute="top" id="S0W-93-OSw"/>
+                        <constraint firstItem="Qd6-4f-6lp" firstAttribute="top" secondItem="Nq7-Mo-ub6" secondAttribute="bottom" constant="10" id="Wob-cF-Ak5"/>
+                        <constraint firstAttribute="trailing" secondItem="Qd6-4f-6lp" secondAttribute="trailing" id="cQQ-ns-Fid"/>
+                        <constraint firstItem="Qd6-4f-6lp" firstAttribute="leading" secondItem="LMD-Yh-kP8" secondAttribute="leading" id="d86-Br-xRS"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="0.1450980392" green="0.1529411765" blue="0.21960784310000001" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="Qcq-rq-OuW" firstAttribute="bottom" secondItem="uy0-Ul-4Ja" secondAttribute="bottom" id="1Kb-pM-xLJ"/>
+                <constraint firstItem="Qcq-rq-OuW" firstAttribute="trailing" secondItem="uy0-Ul-4Ja" secondAttribute="trailing" id="BRu-DB-fKu"/>
+                <constraint firstItem="LMD-Yh-kP8" firstAttribute="centerY" secondItem="uy0-Ul-4Ja" secondAttribute="centerY" constant="-50" id="EHM-1r-N2d"/>
+                <constraint firstItem="Qcq-rq-OuW" firstAttribute="top" secondItem="LvZ-Ql-04F" secondAttribute="top" id="Phl-2F-sLj"/>
+                <constraint firstItem="LMD-Yh-kP8" firstAttribute="centerX" secondItem="uy0-Ul-4Ja" secondAttribute="centerX" id="a7X-W0-Sdd"/>
+                <constraint firstItem="Qcq-rq-OuW" firstAttribute="leading" secondItem="uy0-Ul-4Ja" secondAttribute="leading" id="o1w-56-CCb"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="uy0-Ul-4Ja"/>
+            <point key="canvasLocation" x="24.5" y="51.5"/>
+        </view>
+    </objects>
+</document>

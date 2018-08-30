@@ -21,7 +21,6 @@ class OverallDataRemoteManager {
                 if (!snapshot.exists()) {
                     self.startUpdatingOverallData()      // sync from local
                 } else {
-                    
                     if let overallData = snapshot.value as? [String:Any] {
                         AppOveralDataManager.manager.forcelySetValues(totalPracticeSeconds: overallData["total_practice_seconds"] as? Int ?? 0,
                                                                       totalImprovements: overallData["total_improvements"] as? Int ?? 0,
@@ -35,9 +34,11 @@ class OverallDataRemoteManager {
                                                                       timerPauseDuringNote: overallData["settings_timer_pause_during_note"] as? Bool ?? false,
                                                                       timerPauseDuringImprove: overallData["settings_timer_pause_during_improve"] as? Bool ?? false,
                                                                       practiceBreakTime: overallData["practice_break_time"] as? Int ?? 0,
-                                                                      tuningStandard: overallData["tuning_standard"] as? Double ?? AppOveralDataManager.manager.tuningStandard(),
+                                                                      tuningStandard: overallData["tuning_standard"] as? Double ?? 440,
                                                                       firstPlaylistStored: overallData["first_playlist_stored"] as? Bool ?? false)
-                        NotificationCenter.default.post(Notification(name: AppConfig.appNotificationOverallAppDataLoadedFromServer))
+                        SyncStatusKeeper.keeper.statusOverallData = .succeeded
+                    } else {
+                        SyncStatusKeeper.keeper.statusOverallData = .failed
                     }
                 }
             }
@@ -72,48 +73,44 @@ class OverallDataRemoteManager {
                                                                            "practice_break_time": AppOveralDataManager.manager.practiceBreakTime(),
                                                                            "tuning_standard": AppOveralDataManager.manager.tuningStandard(),
                                                                            "first_playlist_stored": AppOveralDataManager.manager.firstPlaylistStored()])
+            SyncStatusKeeper.keeper.statusOverallData = .succeeded
+        } else {
+            SyncStatusKeeper.keeper.statusOverallData = .failed
+        }
+    }
+    
+    func postSettingsValueToServer(key: String, value: Any) {
+        if let userId = MyProfileLocalManager.manager.userId() {
+            self.refUser.child(userId).child("overall").updateChildValues([key:value])
         }
     }
 
     func updateStreakValues(from: String, to: String) {
-        if let userId = MyProfileLocalManager.manager.userId() {
-            self.refUser.child(userId).child("overall").updateChildValues(["streak_from": from, "streak_to": to])
-        }
+        self.postSettingsValueToServer(key: "streak_from", value: from)
+        self.postSettingsValueToServer(key: "streak_to", value: to)
     }
-    
+
     func updateStreakValues(to: String) {
-        if let userId = MyProfileLocalManager.manager.userId() {
-            self.refUser.child(userId).child("overall").updateChildValues(["streak_to": to])
-        }
+        self.postSettingsValueToServer(key: "streak_to", value: to)
     }
-    
+
     func updateTotalPracticeSeconds(_ seconds: Int) {
-        if let userId = MyProfileLocalManager.manager.userId() {
-            self.refUser.child(userId).child("overall").updateChildValues(["total_practice_seconds": seconds])
-        }
+        self.postSettingsValueToServer(key: "total_practice_seconds", value: seconds)
     }
-    
+
     func updateTotalImprovements(_ improvements: Int) {
-        if let userId = MyProfileLocalManager.manager.userId() {
-            self.refUser.child(userId).child("overall").updateChildValues(["total_improvements": improvements])
-        }
+        self.postSettingsValueToServer(key: "total_improvements", value: improvements)
     }
-    
+
     func updateFirstplaylistGenerated(_ generated: Bool) {
-        if let userId = MyProfileLocalManager.manager.userId() {
-            self.refUser.child(userId).child("overall").updateChildValues(["first_playlist_generated": generated])
-        }
+        self.postSettingsValueToServer(key: "first_playlist_generated", value: generated)
     }
-    
+
     func updatePracticeBreakTime(_ time:Int) {
-        if let userId = MyProfileLocalManager.manager.userId() {
-            self.refUser.child(userId).child("overall").updateChildValues(["practice_break_time": time])
-        }
+        self.postSettingsValueToServer(key: "practice_break_time", value: time)
     }
-    
+
     func updateTuningStandard( _ value: Double) {
-        if let userId = MyProfileLocalManager.manager.userId() {
-            self.refUser.child(userId).child("overall").updateChildValues(["tuning_standard": value])
-        }
+        self.postSettingsValueToServer(key: "tuning_standard", value: value)
     }
 }
