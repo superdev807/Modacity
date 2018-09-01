@@ -230,8 +230,13 @@ class MetrodoneViewController: UIViewController {
 
 extension MetrodoneViewController: SubdivisionSelectViewDelegate {
     func subdivisionSelectionChanged(idx: Int) {
+        let subdivision = idx + 1
         if let player = self.metrodronePlayer {
-            player.setSubdivision(idx + 1)
+            if (MetrodroneParameters.instance.subdivisions == subdivision) {
+                self.showSubdivision()
+            } else {
+                player.setSubdivision(subdivision)
+            }
         }
     }
 }

@@ -66,10 +66,6 @@ class MetrodronePlayer: DroneFrameDelegate {
     init() {
         self.metrodrone = MetroDroneAudio(mainClickFile: highClick, subClickFile: lowClick)
     }
-    
-    func stopPlayer() {
-        metrodrone.stop()
-    }
 
     func waveformURL(wavename: String) -> URL? {
         return Bundle.main.url(forResource: wavename, withExtension: "m4a", subdirectory: "_Comp")
@@ -436,5 +432,19 @@ class MetrodronePlayer: DroneFrameDelegate {
         isMetrodronePlaying = false
         self.processDurationSliderEnabledStatus()
         setPlayImage()
+    }
+    
+    func stopSustainDrone() {
+        metrodrone.stopInfiniteDrone()
+        MetrodroneParameters.instance.sustain = false
+        self._buttonSustain.isSelected = false
+    }
+    
+    func stopPlayer() {
+        
+        self.stopMetroClick()
+        if (metrodrone.isDroning && MetrodroneParameters.instance.sustain) {
+            self.stopSustainDrone()
+        }
     }
 }

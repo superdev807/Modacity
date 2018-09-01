@@ -223,7 +223,14 @@ extension ImprovementViewController: MetrodroneViewDelegate, SubdivisionSelectVi
     
     func subdivisionSelectionChanged(idx: Int) {
         if let player = self.metrodroneView?.metrodonePlayer {
-            player.setSubdivision(idx + 1)
+            let subdivision = idx + 1
+            if (MetrodroneParameters.instance.subdivisions == subdivision) {
+                if let subdivisionView = self.subdivisionView {
+                    subdivisionView.isHidden = true
+                }
+            } else {
+                player.setSubdivision(subdivision)
+            }
         }
     }
     
