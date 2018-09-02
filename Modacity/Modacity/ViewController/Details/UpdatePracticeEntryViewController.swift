@@ -322,8 +322,9 @@ extension UpdatePracticeEntryViewController {
                 } else {
                     if let totalTime = self.convertToSeconds(self.textfieldTimeInput.text ?? "") {
                         if self.dateSelected {
-                            PracticingDailyLocalManager.manager.saveManualPracticing(duration: totalTime, practiceItemId: self.practiceItemId, started: self.selectedDate)
-                            self.navigationController?.popViewController(animated: true)
+                            
+//                            PracticingDailyLocalManager.manager.saveManualPracticing(duration: totalTime, practiceItemId: self.practiceItemId, started: self.selectedDate)
+//                            self.navigationController?.popViewController(animated: true)
                         }
                     }
                 }

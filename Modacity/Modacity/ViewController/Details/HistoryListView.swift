@@ -83,8 +83,8 @@ class HistoryListView: UIView {
         bottomView.backgroundColor = Color.clear
         self.tableViewMain.tableFooterView = bottomView
         
-        self.constraintForHistoryViewTopActionsPanelHeight.constant = 0
-        self.viewTopActionsPanel.isHidden = true
+//        self.constraintForHistoryViewTopActionsPanelHeight.constant = 0
+//        self.viewTopActionsPanel.isHidden = true
     }
     
     func showHistory(for practiceId: String) {

@@ -68,26 +68,6 @@ class PlaylistDailyLocalManager: NSObject {
             data.fromTime = started.toString(format: "HH:mm:ss")
             data.isManual = true
         }
-        
-//        var indecies = [String:[String]]()
-//        if let old = UserDefaults.standard.object(forKey: "practicing-indecies-\(practiceItemId)") as? [String:[String]] {
-//            indecies = old
-//        }
-//
-//        var idsArrayPerDate = [String]()
-//
-//        if let ids = indecies[data.entryDateString] {
-//            idsArrayPerDate = AppUtils.cleanDuplicatedEntries(in: ids)
-//        }
-//        idsArrayPerDate.append(data.entryId)
-//        indecies[data.entryDateString] = idsArrayPerDate
-//        UserDefaults.standard.set(indecies, forKey: "practicing-indecies-\(practiceItemId)")
-//        UserDefaults.standard.set(data.toJSON(), forKey: "practicing-data-\(data.entryId ?? "")")
-//        UserDefaults.standard.synchronize()
-//
-//        DispatchQueue.global(qos: .background).async {
-//            DailyPracticingRemoteManager.manager.createPracticing(data)
-//        }
     }
     
     func storePlaylistPracitingDataToLocal(_ data: PlaylistDaily) {
