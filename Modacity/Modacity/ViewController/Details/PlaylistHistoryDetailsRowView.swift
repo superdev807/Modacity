@@ -19,6 +19,8 @@ class PlaylistHistoryDetailsRowView: UIView {
     @IBOutlet weak var labelImprovements: UILabel!
     @IBOutlet weak var imageViewStarIcon: UIImageView!
     @IBOutlet weak var labelTime: UILabel!
+    @IBOutlet weak var viewNormalEntry: UIView!
+    @IBOutlet weak var labelManualEntry: UILabel!
     
     override init(frame: CGRect) {
         super.init(frame:frame)
@@ -49,20 +51,37 @@ class PlaylistHistoryDetailsRowView: UIView {
         formatter.minimumFractionDigits = 0
         formatter.maximumFractionDigits = 2
         
-        self.labelPracticeItemName.text = ""
-        if let practice = PracticeItemLocalManager.manager.practiceItem(forId: data.practiceItemId) {
-            self.labelPracticeItemName.text = practice.name
+        
+        if data.isManualPracticeEntry {
+            self.labelManualEntry.isHidden = false
+            self.viewNormalEntry.isHidden = true
+            if data.practiceItemId.hasSuffix(":MANUAL") {
+                if let practice = PracticeItemLocalManager.manager.practiceItem(forId: data.practiceItemId[0..<(data.practiceItemId.count - ":MANUAL".count)]) {
+                    self.labelPracticeItemName.text = practice.name
+                } else {
+                    self.labelPracticeItemName.text = "(Deleted)"
+                }
+            } else if data.practiceItemId == PlaylistDailyLocalManager.manager.miscPracticeId {
+                self.labelPracticeItemName.text = PlaylistDailyLocalManager.manager.miscPracticeItemName
+            }
         } else {
-            self.labelPracticeItemName.text = "(Deleted)"
+            self.labelManualEntry.isHidden = true
+            self.viewNormalEntry.isHidden = false
+            self.labelPracticeItemName.text = ""
+            if let practice = PracticeItemLocalManager.manager.practiceItem(forId: data.practiceItemId) {
+                self.labelPracticeItemName.text = practice.name
+            } else {
+                self.labelPracticeItemName.text = "(Deleted)"
+            }
+            self.labelStarRating.text = formatter.string(from: data.calculateAverageRatings() as NSNumber) ?? "n/a"
+            self.labelImprovements.text = "\(data.improvements.count)"
         }
+        
         let timeInSecond = data.time ?? 0
         if timeInSecond > 0 && timeInSecond < 600 {
             self.labelTime.text = String(format: "%.1f", Double(timeInSecond) / 60.0)
         } else {
             self.labelTime.text = "\(timeInSecond / 60)"
         }
-        self.labelStarRating.text = formatter.string(from: data.calculateAverageRatings() as NSNumber) ?? "n/a"
-        self.labelImprovements.text = "\(data.improvements.count)"
-        
     }
 }

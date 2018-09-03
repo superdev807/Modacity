@@ -34,8 +34,8 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AQt-bJ-afO">
                     <rect key="frame" x="0.0" y="0.0" width="419" height="40"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MHc-OW-AL4">
-                            <rect key="frame" x="20" y="11.5" width="50" height="17"/>
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MHc-OW-AL4">
+                            <rect key="frame" x="20" y="0.0" width="50" height="40"/>
                             <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                             <state key="normal" image="btn_edit">
                                 <color key="titleColor" red="0.56470588239999997" green="0.56078431370000004" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -45,7 +45,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pJT-MJ-Bt8">
-                            <rect key="frame" x="349" y="9" width="50" height="22"/>
+                            <rect key="frame" x="349" y="0.0" width="50" height="40"/>
                             <state key="normal" image="btn_add"/>
                             <connections>
                                 <action selector="onAdd:" destination="-1" eventType="touchUpInside" id="xcf-K6-Ie8"/>
@@ -54,11 +54,13 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstItem="pJT-MJ-Bt8" firstAttribute="centerY" secondItem="AQt-bJ-afO" secondAttribute="centerY" id="14b-lc-I5I"/>
                         <constraint firstAttribute="height" constant="40" id="98R-qE-0Qh"/>
+                        <constraint firstAttribute="bottom" secondItem="pJT-MJ-Bt8" secondAttribute="bottom" id="BTA-hn-HDC"/>
                         <constraint firstAttribute="trailing" secondItem="pJT-MJ-Bt8" secondAttribute="trailing" constant="20" id="Rsp-fi-wwC"/>
-                        <constraint firstItem="MHc-OW-AL4" firstAttribute="centerY" secondItem="AQt-bJ-afO" secondAttribute="centerY" id="ahd-5s-Me9"/>
+                        <constraint firstItem="MHc-OW-AL4" firstAttribute="top" secondItem="AQt-bJ-afO" secondAttribute="top" id="d1F-yV-gc2"/>
                         <constraint firstItem="MHc-OW-AL4" firstAttribute="leading" secondItem="AQt-bJ-afO" secondAttribute="leading" constant="20" id="qBn-Nt-Jbx"/>
+                        <constraint firstItem="pJT-MJ-Bt8" firstAttribute="top" secondItem="AQt-bJ-afO" secondAttribute="top" id="vun-wj-PJ6"/>
+                        <constraint firstAttribute="bottom" secondItem="MHc-OW-AL4" secondAttribute="bottom" id="whn-d6-zjD"/>
                     </constraints>
                 </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="kHd-FO-nNM" customClass="TPKeyboardAvoidingTableView">

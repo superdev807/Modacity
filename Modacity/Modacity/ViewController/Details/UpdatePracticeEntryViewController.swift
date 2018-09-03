@@ -221,19 +221,19 @@ extension UpdatePracticeEntryViewController: UITextFieldDelegate {
             return false
         }
         
-        let reversed = self.reversedString(from: text)
-        
-        var idx = 0
-        while idx < reversed.count {
-            if let number = Int(reversed[idx..<(idx+1)]) {
-                if number > 5 {
-                    return false
-                }
-            } else {
-                return false
-            }
-            idx = idx + 2
-        }
+//        let reversed = self.reversedString(from: text)
+//
+//        var idx = 0
+//        while idx < reversed.count {
+//            if let number = Int(reversed[idx..<(idx+1)]) {
+//                if number > 5 {
+//                    return false
+//                }
+//            } else {
+//                return false
+//            }
+//            idx = idx + 2
+//        }
         return true
     }
     
@@ -322,9 +322,12 @@ extension UpdatePracticeEntryViewController {
                 } else {
                     if let totalTime = self.convertToSeconds(self.textfieldTimeInput.text ?? "") {
                         if self.dateSelected {
-                            
-//                            PracticingDailyLocalManager.manager.saveManualPracticing(duration: totalTime, practiceItemId: self.practiceItemId, started: self.selectedDate)
-//                            self.navigationController?.popViewController(animated: true)
+                            if let practiceItem = self.selectedPracticeItem {
+                                PlaylistDailyLocalManager.manager.saveManualPracticing(duration: totalTime, practiceItemId: practiceItem.id, started: self.selectedDate, playlistId: playlistId)
+                            } else {
+                                PlaylistDailyLocalManager.manager.saveManualPracticing(duration: totalTime, practiceItemId: nil, started: self.selectedDate, playlistId: playlistId)
+                            }
+                            self.navigationController?.popViewController(animated: true)
                         }
                     }
                 }

@@ -147,6 +147,9 @@ class DetailsViewController: UIViewController {
             if self.practiceItemId != nil {
                 self.historyListView.showHistory(for: self.practiceItemId)
             }
+        } else if self.playlistHistoryView != nil && self.selectedTabIdx == 3 {
+            self.playlistHistoryView.clear()
+            self.playlistHistoryView.showHistory(for: self.playlistItemId)
         }
     }
     
@@ -300,7 +303,9 @@ extension DetailsViewController {
             
             if self.playlistHistoryView == nil {
                 self.playlistHistoryView = PlaylistHistoryView()
+                self.playlistHistoryView.showHistory(for: self.playlistItemId)
             }
+            
             self.view.addSubview(self.playlistHistoryView)
             self.playlistHistoryView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
             self.playlistHistoryView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
@@ -309,7 +314,6 @@ extension DetailsViewController {
             self.constraintForContentTopSpace = self.playlistHistoryView.topAnchor.constraint(equalTo: self.imageViewHeader.bottomAnchor)
             self.constraintForContentTopSpace.isActive = true
             self.view.bringSubview(toFront: self.playlistHistoryView)
-            self.playlistHistoryView.showHistory(for: self.playlistItemId)
             
         }
         

@@ -18,12 +18,17 @@ protocol PlaylistHistoryListViewDelegate {
 }
 
 class PlaylistPracticeHistoryData {
+    
     var practiceItemId: String!
+    var practiceItemName: String!
     var time: Int!
     var averageRating: Double!
     var improvements = [ImprovedRecord]()
     var ratings = [Double]()
     var lastPracticeTime: TimeInterval!
+    
+    var isManualPracticeEntry = false
+    var isManualPlaylistEntry = false
     
     init() {}
     
@@ -147,6 +152,19 @@ class PlaylistHistoryView: UIView {
 //        self.viewTopActionsPanel.isHidden = true
     }
     
+    func clear() {
+        self.startIdx = 0
+        self.data = [String:[PlaylistDaily]]()
+        self.practices = [[PracticeDaily]]()
+        self.practicesCount = 0
+        self.dates = [Date]()
+        
+        self.dailyPractices = [Int]()
+        self.practiceHistoryDataList = [PlaylistHistoryData]()
+        self.firstTimeLoading = true
+        
+    }
+    
     func loadPriData(for playlistId: String? = nil) {
         self.data = [String:[PlaylistDaily]]()
         if playlistId == nil {
@@ -169,10 +187,10 @@ class PlaylistHistoryView: UIView {
             if self.data.isEmpty {
                 self.labelNoPracticeData.text = "No practice data"
                 self.labelNoPracticeData.isHidden = false
-                self.buttonEdit.isHidden = true
+//                self.buttonEdit.isHidden = true
             } else {
                 self.labelNoPracticeData.isHidden = true
-                self.buttonEdit.isHidden = false
+//                self.buttonEdit.isHidden = false
             }
         }
     }
@@ -197,11 +215,17 @@ class PlaylistHistoryView: UIView {
                     totalPracticesSeconds = totalPracticesSeconds + daily.practiceTimeInSeconds
                     
                     if daily.practices != nil {
+                        
                         for practiceId in daily.practices {
                             if let practicingData = PracticingDailyLocalManager.manager.practicingData(forDataId: practiceId) {
-                                if let practiceItemId = practicingData.practiceItemId {
+                                if var practiceItemId = practicingData.practiceItemId {
+                                    if practicingData.isManual {
+                                        if practiceItemId != PlaylistDailyLocalManager.manager.miscPracticeId {
+                                            practiceItemId = practiceItemId + ":MANUAL"
+                                        }
+                                    }
                                     if let old = practiceData.practiceDataList[practiceItemId] {
-                                        if practicingData.rating > 0 {
+                                        if practicingData.rating != nil && practicingData.rating > 0 {
                                             old.ratings.append(practicingData.rating)
                                         }
                                         if let improvements = practicingData.improvements {
@@ -211,23 +235,30 @@ class PlaylistHistoryView: UIView {
                                             old.lastPracticeTime = practicingData.startedTime
                                         }
                                         old.time = old.time + practicingData.practiceTimeInSeconds
+                                        if practicingData.isManual {
+                                            old.isManualPracticeEntry = true
+                                        }
                                         practiceData.practiceDataList[practiceItemId] = old
                                     } else {
                                         let newData = PlaylistPracticeHistoryData()
                                         newData.practiceItemId = practiceItemId
                                         newData.time = practicingData.practiceTimeInSeconds
                                         newData.lastPracticeTime = practicingData.startedTime
-                                        if practicingData.rating > 0 {
+                                        if practicingData.rating != nil && practicingData.rating > 0 {
                                             newData.ratings.append(practicingData.rating)
                                         }
                                         if let improvements = practicingData.improvements {
                                             newData.improvements.append(contentsOf: improvements)
+                                        }
+                                        if practicingData.isManual {
+                                            newData.isManualPracticeEntry = true
                                         }
                                         practiceData.practiceDataList[practiceItemId] = newData
                                     }
                                 }
                             }
                         }
+                        
                     }
                 }
             }
@@ -257,9 +288,9 @@ class PlaylistHistoryView: UIView {
             self.viewLoaderPanel.isHidden = true
             self.firstTimeLoading = false
         }
-        
+
         self.labelNoPracticeData.isHidden = true
-        
+
         DispatchQueue.global().async {
             let time = Date()
             

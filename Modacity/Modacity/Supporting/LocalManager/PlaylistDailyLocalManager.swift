@@ -12,6 +12,9 @@ class PlaylistDailyLocalManager: NSObject {
     
     static let manager = PlaylistDailyLocalManager()
     
+    let miscPracticeId = "MISC-PRACTICE"
+    let miscPracticeItemName = "Misc.Practice"
+    
     func saveNewPlaylistPracticing(_ data: PlaylistDaily) {
         
         var indecies = [String:[String]]()
@@ -55,19 +58,29 @@ class PlaylistDailyLocalManager: NSObject {
         playlistData.practiceTimeInSeconds = duration
         playlistData.entryId = UUID().uuidString
         playlistData.entryDateString = started.toString(format: "yy-MM-dd")
-        playlistData.fromTime = started.toString(format: "HH:mm:ss")
+        playlistData.fromTime = started.toString(format: "00:00:00")
+        
+        let data = PracticeDaily()
+        data.startedTime = started.timeIntervalSince1970
+        data.playlistId = playlistId
+        data.playlistPracticeEntryId = "MANUAL"
+        data.practiceTimeInSeconds = duration
+        data.entryDateString = started.toString(format: "yy-MM-dd")
+        data.fromTime = started.toString(format: "HH:mm:ss")
+        data.isManual = true
+        data.entryId = UUID().uuidString
         
         if let practiceItemId = practiceItemId {
-            let data = PracticeDaily()
-            data.startedTime = started.timeIntervalSince1970
-            data.playlistId = ""
-            data.playlistPracticeEntryId = ""
             data.practiceItemId = practiceItemId
-            data.practiceTimeInSeconds = duration
-            data.entryDateString = started.toString(format: "yy-MM-dd")
-            data.fromTime = started.toString(format: "HH:mm:ss")
-            data.isManual = true
+        } else {
+            data.practiceItemId = miscPracticeId
         }
+        
+        playlistData.practices = [String]()
+        playlistData.practices.append(data.entryId)
+        
+        PracticingDailyLocalManager.manager.storePracitingDataToLocal(data)
+        saveNewPlaylistPracticing(playlistData)
     }
     
     func storePlaylistPracitingDataToLocal(_ data: PlaylistDaily) {
