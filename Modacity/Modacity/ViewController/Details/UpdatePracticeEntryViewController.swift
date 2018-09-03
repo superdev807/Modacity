@@ -24,6 +24,10 @@ class UpdatePracticeEntryViewController: UIViewController {
     @IBOutlet weak var textfieldTimeInput: UITextField!
     @IBOutlet weak var labelTitle: UILabel!
     
+    @IBOutlet weak var labelPlaylistCaption: UILabel!
+    @IBOutlet weak var viewPlaylistPanel: UIView!
+    @IBOutlet weak var labelPlaylist: UILabel!
+    
     @IBOutlet weak var viewItemNamePanel: UIView!
     @IBOutlet weak var labelItemName: UILabel!
     @IBOutlet weak var labelItemNameCaption: UILabel!
@@ -39,6 +43,8 @@ class UpdatePracticeEntryViewController: UIViewController {
     
     var selectedPracticeItem: PracticeItem? = nil
     
+    var selectedPlaylist: Playlist? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -49,17 +55,25 @@ class UpdatePracticeEntryViewController: UIViewController {
             self.constraintForHeaderViewHeight.constant = 104
         }
         
+        self.viewItemNamePanel.isHidden = true
+        self.labelItemNameCaption.isHidden = true
+        self.viewPlaylistPanel.isHidden = true
+        self.labelPlaylistCaption.isHidden = true
+        
         if self.isUpdating {
             self.buttonAddEntry.setTitle("Update Entry", for: .normal)
             self.labelTitle.text = "Edit Entry"
             self.showUpdatingValues()
         } else {
+            
             if self.fromPlaylist {
                 self.viewItemNamePanel.isHidden = false
                 self.labelItemNameCaption.isHidden = false
-            } else {
-                self.viewItemNamePanel.isHidden = true
-                self.labelItemNameCaption.isHidden = true
+                
+                if self.playlistItemId == nil {
+                    self.viewPlaylistPanel.isHidden = false
+                    self.labelPlaylistCaption.isHidden = false
+                }
             }
         }
     }
@@ -73,6 +87,8 @@ class UpdatePracticeEntryViewController: UIViewController {
         self.viewFirstPanel.styling(cornerRadius: 5, borderColor: Color(hexString: "#D6D6D7"), borderWidth: 1)
         self.viewSecondPanel.styling(cornerRadius: 5, borderColor: Color(hexString: "#D6D6D7"), borderWidth: 1)
         self.viewItemNamePanel.styling(cornerRadius: 5, borderColor: Color(hexString: "#D6D6D7"), borderWidth: 1)
+        self.viewPlaylistPanel.styling(cornerRadius: 5, borderColor: Color(hexString: "#D6D6D7"), borderWidth: 1)
+        
         self.buttonAddEntry.styling(cornerRadius: 28)
         
         self.buttonAddEntry.isEnabled = false
@@ -104,7 +120,12 @@ class UpdatePracticeEntryViewController: UIViewController {
         self.openPracticeItemSelect()
     }
     
+    @IBAction func onPlaylist(_ sender: Any) {
+        self.openPlaylistItemSelect()
+    }
+    
     func showUpdatingValues() {
+        
         if self.editingPracticeData != nil {
             self.selectedDate = self.editingPracticeData.entryDateString.date(format: "yy-MM-dd") ?? Date(timeIntervalSince1970: self.editingPracticeData.startedTime)
             self.labelTotalDate.text = self.selectedDate.toString(format: "MMMM d, yyyy")
@@ -279,9 +300,17 @@ extension UpdatePracticeEntryViewController: UITextFieldDelegate {
 
 extension UpdatePracticeEntryViewController {
     func processButtonEntry() {
-        if let totalTime = self.convertToSeconds(self.textfieldTimeInput.text ?? "") {
+        if let _ = self.convertToSeconds(self.textfieldTimeInput.text ?? "") {
             if self.dateSelected {
-                print("total time - \(totalTime)")
+                
+                if self.fromPlaylist && self.playlistItemId == nil {
+                    if self.selectedPracticeItem == nil && self.selectedPlaylist == nil {
+                        self.buttonAddEntry.backgroundColor = Color(hexString: "#9B9B9B")
+                        self.buttonAddEntry.isEnabled = false
+                        return
+                    }
+                }
+                
                 self.buttonAddEntry.isEnabled = true
                 self.buttonAddEntry.backgroundColor = Color(hexString: "#5311CA")
                 return
@@ -331,6 +360,24 @@ extension UpdatePracticeEntryViewController {
                         }
                     }
                 }
+            } else {
+                if let totalTime = self.convertToSeconds(self.textfieldTimeInput.text ?? "") {
+                    if self.dateSelected {
+                        if let playlist = self.selectedPlaylist {
+                            if let practiceItem = self.selectedPracticeItem {
+                                PlaylistDailyLocalManager.manager.saveManualPracticing(duration: totalTime, practiceItemId: practiceItem.id, started: self.selectedDate, playlistId: playlist.id)
+                            } else {
+                                PlaylistDailyLocalManager.manager.saveManualPracticing(duration: totalTime, practiceItemId: nil, started: self.selectedDate, playlistId: playlist.id)
+                            }
+                        } else {
+                            if let practiceItem = self.selectedPracticeItem {
+                                PracticingDailyLocalManager.manager.saveManualPracticing(duration: totalTime, practiceItemId: practiceItem.id, started: self.selectedDate)
+                            }
+                        }
+                        
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                }
             }
         }
     }
@@ -347,5 +394,24 @@ extension UpdatePracticeEntryViewController: PracticeItemListViewControllerDeleg
     func practiceItemListViewController(_ controller: PracticeItemListViewController, selectedPracticeItem: PracticeItem) {
         self.selectedPracticeItem = selectedPracticeItem
         self.labelItemName.text = selectedPracticeItem.name
+        self.labelItemName.textColor = highlightedColor
+        self.processButtonEntry()
+    }
+}
+
+extension UpdatePracticeEntryViewController: PlaylistListViewControllerDelegate {
+    
+    func openPlaylistItemSelect() {
+        let controller = UIStoryboard(name: "playlist", bundle: nil).instantiateViewController(withIdentifier: "PlaylistListViewController") as! PlaylistListViewController
+        controller.singleSelectionMode = true
+        controller.delegate = self
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    func playlistViewController(_ controller: PlaylistListViewController, selectedPlaylist: Playlist) {
+        self.labelPlaylist.text = selectedPlaylist.name
+        self.labelPlaylist.textColor = highlightedColor
+        self.selectedPlaylist = selectedPlaylist
+        self.processButtonEntry()
     }
 }

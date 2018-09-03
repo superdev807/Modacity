@@ -59,14 +59,22 @@ class PlaylistCell: UITableViewCell {
     }
 }
 
+protocol PlaylistListViewControllerDelegate {
+    func playlistViewController(_ controller: PlaylistListViewController, selectedPlaylist: Playlist)
+}
+
 class PlaylistListViewController: UIViewController {
 
     @IBOutlet weak var constraintForHeaderImageViewHeight: NSLayoutConstraint!
     @IBOutlet weak var tableViewMain: UITableView!
     @IBOutlet weak var viewNoPlaylist: UIView!
+    @IBOutlet weak var imageViewIcon: UIImageView!
+    @IBOutlet weak var constraintTableViewBottomSpace: NSLayoutConstraint!
     
     var viewModel = PlaylistViewModel()
     var editingCell: PlaylistCell? = nil
+    var singleSelectionMode = false
+    var delegate: PlaylistListViewControllerDelegate? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,6 +86,11 @@ class PlaylistListViewController: UIViewController {
         }
         self.tableViewMain.tableFooterView = UIView()
         self.viewNoPlaylist.isHidden = false
+        
+        if self.singleSelectionMode {
+            self.imageViewIcon.image = UIImage(named: "icon_arrow_left")
+            self.constraintTableViewBottomSpace.constant = 0
+        }
         self.bindViewModel()
     }
 
@@ -105,7 +118,12 @@ class PlaylistListViewController: UIViewController {
             self.editingCell!.textfieldPlaylistName.resignFirstResponder()
             self.editingCell = nil
         }
-        self.sideMenuController?.showLeftViewAnimated()
+        
+        if self.singleSelectionMode {
+            self.navigationController?.popViewController(animated: true)
+        } else {
+            self.sideMenuController?.showLeftViewAnimated()
+        }
     }
     
     func bindViewModel() {
@@ -143,11 +161,17 @@ extension PlaylistListViewController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        self.viewModel.detailSelection = self.viewModel.playlist(at: indexPath.row)
         
-        ModacityAnalytics.LogEvent(.NewPlaylist, extraParamName: "Playlist", extraParamValue: self.viewModel.detailSelection!.name)
-        
-        self.performSegue(withIdentifier: "sid_details", sender: nil)
+        if self.singleSelectionMode {
+            if let delegate = self.delegate {
+                delegate.playlistViewController(self, selectedPlaylist: self.viewModel.playlist(at: indexPath.row))
+            }
+            self.navigationController?.popViewController(animated: true)
+        } else {
+            self.viewModel.detailSelection = self.viewModel.playlist(at: indexPath.row)
+            ModacityAnalytics.LogEvent(.NewPlaylist, extraParamName: "Playlist", extraParamValue: self.viewModel.detailSelection!.name)
+            self.performSegue(withIdentifier: "sid_details", sender: nil)
+        }
     }
 }
 
