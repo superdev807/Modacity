@@ -10,6 +10,11 @@ import UIKit
 import Charts
 import AVFoundation
 
+protocol PlaylistHistoryDetailsRowViewDelegate {
+    func playlistHistoryDetailsRow(_ view: PlaylistHistoryDetailsRowView, editOnItem: PlaylistPracticeHistoryData)
+    func playlistHistoryDetailsRow(_ view: PlaylistHistoryDetailsRowView, deleteOnItem: PlaylistPracticeHistoryData)
+}
+
 class PlaylistHistoryDetailsRowView: UIView {
 
     @IBOutlet var viewContent: UIView!
@@ -21,6 +26,10 @@ class PlaylistHistoryDetailsRowView: UIView {
     @IBOutlet weak var labelTime: UILabel!
     @IBOutlet weak var viewNormalEntry: UIView!
     @IBOutlet weak var labelManualEntry: UILabel!
+    @IBOutlet weak var viewActions: UIView!
+    
+    var rowData: PlaylistPracticeHistoryData? = nil
+    var delegate: PlaylistHistoryDetailsRowViewDelegate? = nil
     
     override init(frame: CGRect) {
         super.init(frame:frame)
@@ -45,16 +54,19 @@ class PlaylistHistoryDetailsRowView: UIView {
         self.viewContent.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
     }
     
-    func configure(with data: PlaylistPracticeHistoryData) {
+    func configure(with data: PlaylistPracticeHistoryData, editing: Bool) {
         
-        let formatter = NumberFormatter()
-        formatter.minimumFractionDigits = 0
-        formatter.maximumFractionDigits = 2
+        self.rowData = data
         
+        let timeInSecond = data.time ?? 0
+        if timeInSecond > 0 && timeInSecond < 600 {
+            self.labelTime.text = String(format: "%.1f", Double(timeInSecond) / 60.0)
+        } else {
+            self.labelTime.text = "\(timeInSecond / 60)"
+        }
         
+        self.labelPracticeItemName.text = ""
         if data.isManualPracticeEntry {
-            self.labelManualEntry.isHidden = false
-            self.viewNormalEntry.isHidden = true
             if data.practiceItemId.hasSuffix(":MANUAL") {
                 if let practice = PracticeItemLocalManager.manager.practiceItem(forId: data.practiceItemId[0..<(data.practiceItemId.count - ":MANUAL".count)]) {
                     self.labelPracticeItemName.text = practice.name
@@ -65,23 +77,49 @@ class PlaylistHistoryDetailsRowView: UIView {
                 self.labelPracticeItemName.text = PlaylistDailyLocalManager.manager.miscPracticeItemName
             }
         } else {
-            self.labelManualEntry.isHidden = true
-            self.viewNormalEntry.isHidden = false
             self.labelPracticeItemName.text = ""
             if let practice = PracticeItemLocalManager.manager.practiceItem(forId: data.practiceItemId) {
                 self.labelPracticeItemName.text = practice.name
             } else {
                 self.labelPracticeItemName.text = "(Deleted)"
             }
+        }
+        
+        if editing {
+            self.viewActions.isHidden = false
+            self.viewNormalEntry.isHidden = true
+            self.labelManualEntry.isHidden = true
+            return
+        } else {
+            self.viewActions.isHidden = true
+        }
+        
+        let formatter = NumberFormatter()
+        formatter.minimumFractionDigits = 0
+        formatter.maximumFractionDigits = 2
+        
+        if data.isManualPracticeEntry {
+            self.labelManualEntry.isHidden = false
+            self.viewNormalEntry.isHidden = true
+        } else {
+            self.labelManualEntry.isHidden = true
+            self.viewNormalEntry.isHidden = false
             self.labelStarRating.text = formatter.string(from: data.calculateAverageRatings() as NSNumber) ?? "n/a"
             self.labelImprovements.text = "\(data.improvements.count)"
         }
         
-        let timeInSecond = data.time ?? 0
-        if timeInSecond > 0 && timeInSecond < 600 {
-            self.labelTime.text = String(format: "%.1f", Double(timeInSecond) / 60.0)
-        } else {
-            self.labelTime.text = "\(timeInSecond / 60)"
+    }
+    
+    @IBAction func onEdit(_ sender: Any) {
+        if let delegate = self.delegate {
+            delegate.playlistHistoryDetailsRow(self, editOnItem: self.rowData!)
         }
     }
+    
+    @IBAction func onDelete(_ sender: Any) {
+        if let delegate = self.delegate {
+            delegate.playlistHistoryDetailsRow(self, deleteOnItem: self.rowData!)
+        }
+    }
+    
 }

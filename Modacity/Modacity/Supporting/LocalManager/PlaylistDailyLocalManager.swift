@@ -85,8 +85,11 @@ class PlaylistDailyLocalManager: NSObject {
     
     func storePlaylistPracitingDataToLocal(_ data: PlaylistDaily) {
         var indecies = [String:[String]]()
-        if let old = UserDefaults.standard.object(forKey: "playlist-indecies-\(data.playlistId ?? "")") as? [String:[String]] {
-            indecies = old
+        
+        if data.playlistId != nil {
+            if let old = UserDefaults.standard.object(forKey: "playlist-indecies-\(data.playlistId ?? "")") as? [String:[String]] {
+                indecies = old
+            }
         }
         
         var idsArrayPerDate = [String]()

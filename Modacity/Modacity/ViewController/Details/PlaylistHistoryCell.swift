@@ -29,7 +29,7 @@ class PlaylistHistoryCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func configure(with data:PlaylistHistoryData) {
+    func configure(with data:PlaylistHistoryData, editing: Bool) {
         
         self.viewContainer.layer.cornerRadius = 5
         self.viewContainer.layer.shadowColor = UIColor.black.cgColor
@@ -57,10 +57,10 @@ class PlaylistHistoryCell: UITableViewCell {
         var height: CGFloat = 0
         var lastView: UIView? = nil
         
-        if let list = data.arrayOfData() {
-            for row in list {
+//        if let list = data.practiceDataList {//arrayOfData() {
+            for row in data.practiceDataList {
                 let view = PlaylistHistoryDetailsRowView()
-                view.configure(with: row)
+                view.configure(with: row, editing: editing)
                 self.viewDetailsListContainer.addSubview(view)
                 view.leadingAnchor.constraint(equalTo: self.viewDetailsListContainer.leadingAnchor).isActive = true
                 view.trailingAnchor.constraint(equalTo: self.viewDetailsListContainer.trailingAnchor).isActive = true
@@ -96,7 +96,7 @@ class PlaylistHistoryCell: UITableViewCell {
                     height = height + improvementAttributedStringText.boundingRect(with: CGSize(width:UIScreen.main.bounds.size.width - 61,
                                                                                                 height:CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, context: nil).size.height
                 }
-            }
+//            }
         }
         
         self.constraintForDetailsListHeight.constant = height
@@ -106,8 +106,8 @@ class PlaylistHistoryCell: UITableViewCell {
     
     class func height(for data:PlaylistHistoryData, with width: CGFloat) -> CGFloat {
         var height: CGFloat = 49
-        if let list = data.arrayOfData() {
-            for row in list {
+//        if let list = data.arrayOfData() {
+            for row in data.practiceDataList {
                 height = height + 36
                 for improvement in row.improvements {
                     
@@ -121,7 +121,7 @@ class PlaylistHistoryCell: UITableViewCell {
                                                                                                 height:CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, context: nil).size.height
                 }
             }
-        }
+//        }
         return 5 + (height + 15) + 5
     }
 }

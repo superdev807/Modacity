@@ -24,6 +24,7 @@
                 <outlet property="labelPracticeItemName" destination="r2y-sp-YeY" id="zaQ-Sn-LSg"/>
                 <outlet property="labelStarRating" destination="8EU-4y-bZJ" id="DRB-pT-Rhe"/>
                 <outlet property="labelTime" destination="dHM-gS-c5R" id="Z37-P4-AwU"/>
+                <outlet property="viewActions" destination="z4f-nZ-H3D" id="LfN-0h-uTl"/>
                 <outlet property="viewContent" destination="mXc-6y-zp0" id="yO9-UA-euQ"/>
                 <outlet property="viewNormalEntry" destination="MzN-wX-7GG" id="iMK-75-VBn"/>
             </connections>
@@ -134,10 +135,16 @@
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mB7-u0-J4m">
                             <rect key="frame" x="70" y="6" width="67" height="22"/>
                             <state key="normal" image="btn_practice_row_delete"/>
+                            <connections>
+                                <action selector="onDelete:" destination="-1" eventType="touchUpInside" id="zGw-2h-yEt"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="01H-4Q-Ijr">
                             <rect key="frame" x="0.0" y="6" width="50" height="22"/>
                             <state key="normal" image="btn_edit"/>
+                            <connections>
+                                <action selector="onEdit:" destination="-1" eventType="touchUpInside" id="AhG-qL-Hw6"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

@@ -22,6 +22,7 @@ class PlaylistPracticeHistoryData {
     var practiceItemId: String!
     var practiceItemName: String!
     var time: Int!
+    var started = Date()
     var averageRating: Double!
     var improvements = [ImprovedRecord]()
     var ratings = [Double]()
@@ -61,32 +62,10 @@ class PlaylistPracticeHistoryData {
 class PlaylistHistoryData {
     var date: Date!
     var practiceTotalSeconds: Int!
-    var practiceDataList: [String:PlaylistPracticeHistoryData]!
+    var practiceDataList = [PlaylistPracticeHistoryData]()
+    var practiceDataIds = [String]()
     
     init() {}
-    
-    init(date: Date, totalSeconds: Int, dataList: [String:PlaylistPracticeHistoryData]) {
-        self.date = date
-        
-        self.practiceTotalSeconds = totalSeconds
-        self.practiceDataList = dataList
-    }
-    
-    func arrayOfData() -> [PlaylistPracticeHistoryData]? {
-        if self.practiceDataList == nil {
-            return nil
-        } else {
-            var array = [PlaylistPracticeHistoryData]()
-            for (_, value) in self.practiceDataList {
-                array.append(value)
-            }
-            
-            return array.sorted(by: { (data1, data2) -> Bool in
-                return data1.lastPracticeTime > data2.lastPracticeTime
-            })
-        }
-        
-    }
 }
 
 class PlaylistHistoryView: UIView {
@@ -187,10 +166,10 @@ class PlaylistHistoryView: UIView {
             if self.data.isEmpty {
                 self.labelNoPracticeData.text = "No practice data"
                 self.labelNoPracticeData.isHidden = false
-//                self.buttonEdit.isHidden = true
+                self.buttonEdit.isHidden = true
             } else {
                 self.labelNoPracticeData.isHidden = true
-//                self.buttonEdit.isHidden = false
+                self.buttonEdit.isHidden = false
             }
         }
     }
@@ -202,65 +181,56 @@ class PlaylistHistoryView: UIView {
         
         var idx = self.startIdx
         while idx < self.startIdx + ((self.startIdx == 0) ? firstLoadingCount : nextLoadingCount) && idx < self.dates.count {
+            
             let time = self.dates[idx]
             
             var totalPracticesSeconds = 0
             
             let practiceData = PlaylistHistoryData()
             practiceData.date = time
-            practiceData.practiceDataList = [String:PlaylistPracticeHistoryData]()
+            practiceData.practiceDataList = [PlaylistPracticeHistoryData]()//[String:PlaylistPracticeHistoryData]()
             
             if let dailyDatas = self.data[time.toString(format: "yy-MM-dd")] {
                 for daily in dailyDatas {
                     totalPracticesSeconds = totalPracticesSeconds + daily.practiceTimeInSeconds
-                    
+
                     if daily.practices != nil {
-                        
+
+                        practiceData.practiceDataIds = daily.practices
                         for practiceId in daily.practices {
                             if let practicingData = PracticingDailyLocalManager.manager.practicingData(forDataId: practiceId) {
+
                                 if var practiceItemId = practicingData.practiceItemId {
                                     if practicingData.isManual {
                                         if practiceItemId != PlaylistDailyLocalManager.manager.miscPracticeId {
                                             practiceItemId = practiceItemId + ":MANUAL"
                                         }
                                     }
-                                    if let old = practiceData.practiceDataList[practiceItemId] {
-                                        if practicingData.rating != nil && practicingData.rating > 0 {
-                                            old.ratings.append(practicingData.rating)
-                                        }
-                                        if let improvements = practicingData.improvements {
-                                            old.improvements.append(contentsOf: improvements)
-                                        }
-                                        if old.lastPracticeTime < practicingData.startedTime {
-                                            old.lastPracticeTime = practicingData.startedTime
-                                        }
-                                        old.time = old.time + practicingData.practiceTimeInSeconds
-                                        if practicingData.isManual {
-                                            old.isManualPracticeEntry = true
-                                        }
-                                        practiceData.practiceDataList[practiceItemId] = old
-                                    } else {
-                                        let newData = PlaylistPracticeHistoryData()
-                                        newData.practiceItemId = practiceItemId
-                                        newData.time = practicingData.practiceTimeInSeconds
-                                        newData.lastPracticeTime = practicingData.startedTime
-                                        if practicingData.rating != nil && practicingData.rating > 0 {
-                                            newData.ratings.append(practicingData.rating)
-                                        }
-                                        if let improvements = practicingData.improvements {
-                                            newData.improvements.append(contentsOf: improvements)
-                                        }
-                                        if practicingData.isManual {
-                                            newData.isManualPracticeEntry = true
-                                        }
-                                        practiceData.practiceDataList[practiceItemId] = newData
+                                    
+                                    let newData = PlaylistPracticeHistoryData()
+                                    newData.practiceItemId = practiceItemId
+                                    newData.time = practicingData.practiceTimeInSeconds
+                                    newData.lastPracticeTime = practicingData.startedTime
+                                    if practicingData.rating != nil && practicingData.rating > 0 {
+                                        newData.ratings.append(practicingData.rating)
                                     }
+                                    if let improvements = practicingData.improvements {
+                                        newData.improvements.append(contentsOf: improvements)
+                                    }
+                                    if practicingData.isManual {
+                                        newData.isManualPracticeEntry = true
+                                    }
+                                    newData.started = Date(timeIntervalSince1970: practicingData.startedTime)
+                                    practiceData.practiceDataList.append(newData)
                                 }
                             }
                         }
-                        
                     }
                 }
+            }
+            
+            practiceData.practiceDataList.sort { (data1, data2) -> Bool in
+                return data1.started.timeIntervalSince1970 > data2.started.timeIntervalSince1970
             }
             
             practiceData.practiceTotalSeconds = totalPracticesSeconds
@@ -348,7 +318,7 @@ extension PlaylistHistoryView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row < self.practiceHistoryDataList.count {
             let cell = tableView.dequeueReusableCell(withIdentifier: "PlaylistHistoryCell") as! PlaylistHistoryCell
-            cell.configure(with: self.practiceHistoryDataList[indexPath.row])
+            cell.configure(with: self.practiceHistoryDataList[indexPath.row], editing: self.editing)
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "LoadMoreCell") as! LoadMoreCell
