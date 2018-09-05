@@ -133,14 +133,14 @@
                     <rect key="frame" x="282" y="0.0" width="137" height="34"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mB7-u0-J4m">
-                            <rect key="frame" x="70" y="6" width="67" height="22"/>
+                            <rect key="frame" x="70" y="0.0" width="67" height="34"/>
                             <state key="normal" image="btn_practice_row_delete"/>
                             <connections>
                                 <action selector="onDelete:" destination="-1" eventType="touchUpInside" id="zGw-2h-yEt"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="01H-4Q-Ijr">
-                            <rect key="frame" x="0.0" y="6" width="50" height="22"/>
+                            <rect key="frame" x="0.0" y="0.0" width="50" height="34"/>
                             <state key="normal" image="btn_edit"/>
                             <connections>
                                 <action selector="onEdit:" destination="-1" eventType="touchUpInside" id="AhG-qL-Hw6"/>
@@ -149,11 +149,13 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
+                        <constraint firstAttribute="bottom" secondItem="01H-4Q-Ijr" secondAttribute="bottom" id="2j4-Zh-BEg"/>
                         <constraint firstAttribute="trailing" secondItem="mB7-u0-J4m" secondAttribute="trailing" id="3IM-Hf-Vkc"/>
+                        <constraint firstItem="01H-4Q-Ijr" firstAttribute="top" secondItem="z4f-nZ-H3D" secondAttribute="top" id="7mC-tc-SrB"/>
                         <constraint firstItem="mB7-u0-J4m" firstAttribute="leading" secondItem="01H-4Q-Ijr" secondAttribute="trailing" constant="20" id="8Yd-RZ-UAd"/>
-                        <constraint firstItem="01H-4Q-Ijr" firstAttribute="centerY" secondItem="z4f-nZ-H3D" secondAttribute="centerY" id="Ihd-b7-rPR"/>
+                        <constraint firstAttribute="bottom" secondItem="mB7-u0-J4m" secondAttribute="bottom" id="E72-8B-agc"/>
                         <constraint firstItem="01H-4Q-Ijr" firstAttribute="leading" secondItem="z4f-nZ-H3D" secondAttribute="leading" id="LfM-JX-PV0"/>
-                        <constraint firstItem="mB7-u0-J4m" firstAttribute="centerY" secondItem="z4f-nZ-H3D" secondAttribute="centerY" id="r6j-Wp-aYL"/>
+                        <constraint firstItem="mB7-u0-J4m" firstAttribute="top" secondItem="z4f-nZ-H3D" secondAttribute="top" id="gKw-K4-rh6"/>
                     </constraints>
                 </view>
             </subviews>

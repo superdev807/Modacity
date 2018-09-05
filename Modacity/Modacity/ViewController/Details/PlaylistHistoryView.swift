@@ -13,8 +13,8 @@ import AVFoundation
 protocol PlaylistHistoryListViewDelegate {
     func onAddOnPlaylistHistoryListView(_ historyListView:PlaylistHistoryView, playlistId: String?)
     
-    func onEditPlaylistPracticeData(_ data: PracticeDaily, playlistId: String?)
-    func onDeletePlaylistPracticeData(_ data: PracticeDaily, playlistId: String?)
+    func onEditPlaylistPracticeData(_ data: PlaylistPracticeHistoryData, playlistId: String?)
+    func onDeletePlaylistPracticeData(_ data: PlaylistPracticeHistoryData, playlistId: String?)
 }
 
 class PlaylistPracticeHistoryData {
@@ -319,6 +319,7 @@ extension PlaylistHistoryView: UITableViewDelegate, UITableViewDataSource {
         if indexPath.row < self.practiceHistoryDataList.count {
             let cell = tableView.dequeueReusableCell(withIdentifier: "PlaylistHistoryCell") as! PlaylistHistoryCell
             cell.configure(with: self.practiceHistoryDataList[indexPath.row], editing: self.editing)
+            cell.delegate = self
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "LoadMoreCell") as! LoadMoreCell
@@ -353,3 +354,18 @@ extension PlaylistHistoryView: UITableViewDelegate, UITableViewDataSource {
     
 }
 
+extension PlaylistHistoryView: PlaylistHistoryCellDelegate {
+    
+    func playlistHistoryCell(_ cell: PlaylistHistoryCell, editOnItem: PlaylistPracticeHistoryData) {
+        if let delegate = self.delegate {
+            delegate.onEditPlaylistPracticeData(editOnItem, playlistId: self.playlistId)
+        }
+    }
+    
+    func playlistHistoryCell(_ cell: PlaylistHistoryCell, deleteOnItem: PlaylistPracticeHistoryData) {
+        if let delegate = self.delegate {
+            delegate.onEditPlaylistPracticeData(deleteOnItem, playlistId: self.playlistId)
+        }
+    }
+    
+}

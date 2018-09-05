@@ -8,6 +8,11 @@
 
 import UIKit
 
+protocol PlaylistHistoryCellDelegate {
+    func playlistHistoryCell(_ cell: PlaylistHistoryCell, editOnItem: PlaylistPracticeHistoryData)
+    func playlistHistoryCell(_ cell: PlaylistHistoryCell, deleteOnItem: PlaylistPracticeHistoryData)
+}
+
 class PlaylistHistoryCell: UITableViewCell {
 
     @IBOutlet weak var labelDate: UILabel!
@@ -18,6 +23,8 @@ class PlaylistHistoryCell: UITableViewCell {
     @IBOutlet weak var viewDetailsListContainer: UIView!
     @IBOutlet weak var viewContainer: UIView!
     @IBOutlet weak var constraintForContainerHeight: NSLayoutConstraint!
+    
+    var delegate: PlaylistHistoryCellDelegate? = nil
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -57,46 +64,45 @@ class PlaylistHistoryCell: UITableViewCell {
         var height: CGFloat = 0
         var lastView: UIView? = nil
         
-//        if let list = data.practiceDataList {//arrayOfData() {
-            for row in data.practiceDataList {
-                let view = PlaylistHistoryDetailsRowView()
-                view.configure(with: row, editing: editing)
-                self.viewDetailsListContainer.addSubview(view)
-                view.leadingAnchor.constraint(equalTo: self.viewDetailsListContainer.leadingAnchor).isActive = true
-                view.trailingAnchor.constraint(equalTo: self.viewDetailsListContainer.trailingAnchor).isActive = true
-                view.heightAnchor.constraint(equalToConstant: 36).isActive = true
+        for row in data.practiceDataList {
+            let view = PlaylistHistoryDetailsRowView()
+            view.configure(with: row, editing: editing)
+            view.delegate = self
+            self.viewDetailsListContainer.addSubview(view)
+            view.leadingAnchor.constraint(equalTo: self.viewDetailsListContainer.leadingAnchor).isActive = true
+            view.trailingAnchor.constraint(equalTo: self.viewDetailsListContainer.trailingAnchor).isActive = true
+            view.heightAnchor.constraint(equalToConstant: 36).isActive = true
+            if let lastView = lastView {
+                view.topAnchor.constraint(equalTo: lastView.bottomAnchor).isActive = true
+            } else {
+                view.topAnchor.constraint(equalTo: self.viewDetailsListContainer.topAnchor).isActive = true
+            }
+            
+            lastView = view
+            height = height + 36
+            
+            for improvement in row.improvements {
+                let improvementAttributedStringText = NSMutableAttributedString(string: "Improved: ", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoRegular, size: 12)!])
+                let improvementSuggestion = improvement.suggestion ?? ""
+                improvementAttributedStringText.append(NSAttributedString(string: improvementSuggestion, attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoBlack, size: 12)!]))
+                improvementAttributedStringText.append(NSAttributedString(string: " - ", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoRegular, size: 12)!]))
+                let hypothesisString = "“\(improvement.hypothesis ?? "")“"
+                improvementAttributedStringText.append(NSAttributedString(string: hypothesisString, attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoItalic, size: 12)!]))
+                let label = UILabel()
+                label.translatesAutoresizingMaskIntoConstraints = false
+                label.textColor = Color(hexString:"#908FE6")
+                label.attributedText = improvementAttributedStringText
+                label.numberOfLines = 0
+                self.viewDetailsListContainer.addSubview(label)
+                label.leadingAnchor.constraint(equalTo: self.viewDetailsListContainer.leadingAnchor, constant:0).isActive = true
+                label.trailingAnchor.constraint(equalTo: self.viewDetailsListContainer.trailingAnchor, constant:0).isActive = true
                 if let lastView = lastView {
-                    view.topAnchor.constraint(equalTo: lastView.bottomAnchor).isActive = true
-                } else {
-                    view.topAnchor.constraint(equalTo: self.viewDetailsListContainer.topAnchor).isActive = true
+                    label.topAnchor.constraint(equalTo: lastView.bottomAnchor).isActive = true
                 }
-                
-                lastView = view
-                height = height + 36
-                
-                for improvement in row.improvements {
-                    let improvementAttributedStringText = NSMutableAttributedString(string: "Improved: ", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoRegular, size: 12)!])
-                    let improvementSuggestion = improvement.suggestion ?? ""
-                    improvementAttributedStringText.append(NSAttributedString(string: improvementSuggestion, attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoBlack, size: 12)!]))
-                    improvementAttributedStringText.append(NSAttributedString(string: " - ", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoRegular, size: 12)!]))
-                    let hypothesisString = "“\(improvement.hypothesis ?? "")“"
-                    improvementAttributedStringText.append(NSAttributedString(string: hypothesisString, attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoItalic, size: 12)!]))
-                    let label = UILabel()
-                    label.translatesAutoresizingMaskIntoConstraints = false
-                    label.textColor = Color(hexString:"#908FE6")
-                    label.attributedText = improvementAttributedStringText
-                    label.numberOfLines = 0
-                    self.viewDetailsListContainer.addSubview(label)
-                    label.leadingAnchor.constraint(equalTo: self.viewDetailsListContainer.leadingAnchor, constant:0).isActive = true
-                    label.trailingAnchor.constraint(equalTo: self.viewDetailsListContainer.trailingAnchor, constant:0).isActive = true
-                    if let lastView = lastView {
-                        label.topAnchor.constraint(equalTo: lastView.bottomAnchor).isActive = true
-                    }
-                    lastView = label
-                    height = height + improvementAttributedStringText.boundingRect(with: CGSize(width:UIScreen.main.bounds.size.width - 61,
-                                                                                                height:CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, context: nil).size.height
-                }
-//            }
+                lastView = label
+                height = height + improvementAttributedStringText.boundingRect(with: CGSize(width:UIScreen.main.bounds.size.width - 61,
+                                                                                            height:CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, context: nil).size.height
+            }
         }
         
         self.constraintForDetailsListHeight.constant = height
@@ -106,22 +112,38 @@ class PlaylistHistoryCell: UITableViewCell {
     
     class func height(for data:PlaylistHistoryData, with width: CGFloat) -> CGFloat {
         var height: CGFloat = 49
-//        if let list = data.arrayOfData() {
-            for row in data.practiceDataList {
-                height = height + 36
-                for improvement in row.improvements {
-                    
-                    let improvementAttributedStringText = NSMutableAttributedString(string: "Improved: ", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoRegular, size: 12)!])
-                    let improvementSuggestion = improvement.suggestion ?? ""
-                    improvementAttributedStringText.append(NSAttributedString(string: improvementSuggestion, attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoBlack, size: 12)!]))
-                    improvementAttributedStringText.append(NSAttributedString(string: " - ", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoRegular, size: 12)!]))
-                    let hypothesisString = "“\(improvement.hypothesis ?? "")“"
-                    improvementAttributedStringText.append(NSAttributedString(string: hypothesisString, attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoItalic, size: 12)!]))
-                    height = height + improvementAttributedStringText.boundingRect(with: CGSize(width:UIScreen.main.bounds.size.width - 61,
-                                                                                                height:CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, context: nil).size.height
-                }
+
+        for row in data.practiceDataList {
+            height = height + 36
+            for improvement in row.improvements {
+                
+                let improvementAttributedStringText = NSMutableAttributedString(string: "Improved: ", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoRegular, size: 12)!])
+                let improvementSuggestion = improvement.suggestion ?? ""
+                improvementAttributedStringText.append(NSAttributedString(string: improvementSuggestion, attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoBlack, size: 12)!]))
+                improvementAttributedStringText.append(NSAttributedString(string: " - ", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoRegular, size: 12)!]))
+                let hypothesisString = "“\(improvement.hypothesis ?? "")“"
+                improvementAttributedStringText.append(NSAttributedString(string: hypothesisString, attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoItalic, size: 12)!]))
+                height = height + improvementAttributedStringText.boundingRect(with: CGSize(width:UIScreen.main.bounds.size.width - 61,
+                                                                                            height:CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, context: nil).size.height
             }
-//        }
+        }
+        
         return 5 + (height + 15) + 5
     }
+}
+
+extension PlaylistHistoryCell: PlaylistHistoryDetailsRowViewDelegate {
+    
+    func playlistHistoryDetailsRow(_ view: PlaylistHistoryDetailsRowView, editOnItem: PlaylistPracticeHistoryData) {
+        if let delegate = self.delegate {
+            delegate.playlistHistoryCell(self, editOnItem: editOnItem)
+        }
+    }
+    
+    func playlistHistoryDetailsRow(_ view: PlaylistHistoryDetailsRowView, deleteOnItem: PlaylistPracticeHistoryData) {
+        if let delegate = self.delegate {
+            delegate.playlistHistoryCell(self, deleteOnItem: deleteOnItem)
+        }
+    }
+    
 }
