@@ -13,6 +13,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="Lato-Bold.ttf">
+            <string>Lato-Bold</string>
+        </array>
         <array key="Lato-Regular.ttf">
             <string>Lato-Regular</string>
         </array>
@@ -40,14 +43,9 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" red="0.23529411764705882" green="0.2196078431372549" blue="0.3529411764705882" alpha="1" colorSpace="calibratedRGB"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <view key="tableHeaderView" contentMode="scaleToFill" id="86G-EK-gFY">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="10"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PracticeItemCell" rowHeight="64" id="Eaq-Gi-q4n" customClass="PracticeItemSelectCell" customModule="Modacity" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="38" width="375" height="64"/>
+                                        <rect key="frame" x="0.0" y="28" width="375" height="64"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Eaq-Gi-q4n" id="7ih-NM-JNE">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="63.5"/>
@@ -273,12 +271,34 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ls5-j1-RPP">
                                 <rect key="frame" x="0.0" y="612.5" width="375" height="54.5"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wix-cc-jgF">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="54.5"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_btn_add_to_playlist" translatesAutoresizingMaskIntoConstraints="NO" id="58V-4r-ZLP">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="55"/>
+                                    </imageView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zLR-Sa-qsE">
+                                        <rect key="frame" x="127" y="15" width="120" height="25"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ADD TO PLAYLIST" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jhr-go-H6t">
+                                                <rect key="frame" x="0.0" y="5" width="102" height="15"/>
+                                                <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="12"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_arrow_right" translatesAutoresizingMaskIntoConstraints="NO" id="mKx-1H-i1c">
+                                                <rect key="frame" x="112" y="6.5" width="8" height="12"/>
+                                            </imageView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" secondItem="Wix-cc-jgF" secondAttribute="height" multiplier="375:64" id="nJF-AB-cmB"/>
+                                            <constraint firstAttribute="height" constant="25" id="dod-TB-3RJ"/>
+                                            <constraint firstItem="mKx-1H-i1c" firstAttribute="leading" secondItem="Jhr-go-H6t" secondAttribute="trailing" constant="10" id="drC-3l-otI"/>
+                                            <constraint firstItem="Jhr-go-H6t" firstAttribute="centerY" secondItem="zLR-Sa-qsE" secondAttribute="centerY" id="geN-gB-BIs"/>
+                                            <constraint firstItem="mKx-1H-i1c" firstAttribute="centerY" secondItem="zLR-Sa-qsE" secondAttribute="centerY" id="gjC-gm-r6C"/>
+                                            <constraint firstAttribute="trailing" secondItem="mKx-1H-i1c" secondAttribute="trailing" id="hdA-Vs-ulS"/>
+                                            <constraint firstItem="Jhr-go-H6t" firstAttribute="leading" secondItem="zLR-Sa-qsE" secondAttribute="leading" id="lL2-0y-Fgy"/>
                                         </constraints>
-                                        <state key="normal" backgroundImage="btn_add_to_playlist"/>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wix-cc-jgF">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="54.5"/>
                                         <connections>
                                             <action selector="onSelectItems:" destination="ZH6-O4-ov3" eventType="touchUpInside" id="mX4-vB-PEI"/>
                                         </connections>
@@ -286,10 +306,16 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="zLR-Sa-qsE" firstAttribute="centerY" secondItem="Ls5-j1-RPP" secondAttribute="centerY" id="3OA-dw-zC8"/>
+                                    <constraint firstAttribute="trailing" secondItem="58V-4r-ZLP" secondAttribute="trailing" id="6oB-iC-c6H"/>
+                                    <constraint firstItem="58V-4r-ZLP" firstAttribute="leading" secondItem="Ls5-j1-RPP" secondAttribute="leading" id="BEq-Gw-1tS"/>
                                     <constraint firstItem="Wix-cc-jgF" firstAttribute="top" secondItem="Ls5-j1-RPP" secondAttribute="top" id="E7e-47-03m"/>
+                                    <constraint firstAttribute="bottom" secondItem="58V-4r-ZLP" secondAttribute="bottom" id="ERf-i9-C33"/>
+                                    <constraint firstItem="58V-4r-ZLP" firstAttribute="top" secondItem="Ls5-j1-RPP" secondAttribute="top" id="Fk2-JG-mxu"/>
                                     <constraint firstAttribute="height" constant="54.5" id="bCk-xq-37k"/>
                                     <constraint firstAttribute="bottom" secondItem="Wix-cc-jgF" secondAttribute="bottom" id="cDx-iO-hEI"/>
                                     <constraint firstAttribute="trailing" secondItem="Wix-cc-jgF" secondAttribute="trailing" id="dXT-Bt-twM"/>
+                                    <constraint firstItem="zLR-Sa-qsE" firstAttribute="centerX" secondItem="Ls5-j1-RPP" secondAttribute="centerX" id="tXF-GE-KY9"/>
                                     <constraint firstItem="Wix-cc-jgF" firstAttribute="leading" secondItem="Ls5-j1-RPP" secondAttribute="leading" id="tqm-kT-5c0"/>
                                 </constraints>
                             </view>
@@ -1151,10 +1177,11 @@ Working On?</string>
         </scene>
     </scenes>
     <resources>
+        <image name="bg_btn_add_to_playlist" width="375" height="64"/>
         <image name="bg_common" width="375" height="667"/>
         <image name="bg_header_practice_items" width="375" height="89"/>
-        <image name="btn_add_to_playlist" width="375" height="64"/>
         <image name="icon_arrow_left" width="10" height="15"/>
+        <image name="icon_arrow_right" width="8" height="12"/>
         <image name="icon_cell_menu" width="16" height="4"/>
         <image name="icon_heart" width="16" height="15"/>
         <image name="icon_menu" width="20" height="14"/>
@@ -1172,6 +1199,6 @@ Working On?</string>
         <image name="walkthrough_arrow_3" width="12" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="22z-sW-tiL"/>
+        <segue reference="sFc-qT-n1d"/>
     </inferredMetricsTieBreakers>
 </document>

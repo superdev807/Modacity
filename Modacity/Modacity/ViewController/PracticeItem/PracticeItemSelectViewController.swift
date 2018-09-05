@@ -119,6 +119,8 @@ class PracticeItemSelectViewController: UIViewController {
     
     @objc func onKeyboardWillChangeFrame(notification: Notification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            print("keyboard height - \(keyboardSize.height)")
+            self.tableViewMain.backgroundColor = Color.blue
             if AppUtils.iphoneIsXModel() {
                 self.constraintForAddButtonBottomSpace.constant = keyboardSize.height - 34
             } else {
@@ -331,6 +333,7 @@ extension PracticeItemSelectViewController: UITextFieldDelegate {
     @IBAction func onRemoveKeyword(_ sender: Any) {
         self.textfieldSearch.text = ""
         self.buttonRemoveKeyword.isHidden = true
+        self.searchKeyword = ""
         self.refreshList()
     }
     
@@ -483,7 +486,7 @@ extension PracticeItemSelectViewController: SortOptionsViewControllerDelegate {
                 self.tableViewMain.reloadData()
                 if self.selectedPracticeItems.count > 0 {
                     self.viewAddPracticeButtonContainer.isHidden = false
-                    self.constraintForAddPracticeButtonHeight.constant = 64 / 375 * UIScreen.main.bounds.size.width
+                    self.constraintForAddPracticeButtonHeight.constant = 64// / 375 * UIScreen.main.bounds.size.width
                 } else {
                     self.viewAddPracticeButtonContainer.isHidden = true
                     self.constraintForAddPracticeButtonHeight.constant = 0
@@ -501,7 +504,7 @@ extension PracticeItemSelectViewController: SortOptionsViewControllerDelegate {
             self.tableViewMain.reloadData()
             if self.selectedPracticeItems.count > 0 {
                 self.viewAddPracticeButtonContainer.isHidden = false
-                self.constraintForAddPracticeButtonHeight.constant = 64 / 375 * UIScreen.main.bounds.size.width
+                self.constraintForAddPracticeButtonHeight.constant = 64// / 375 * UIScreen.main.bounds.size.width
             } else {
                 self.viewAddPracticeButtonContainer.isHidden = true
                 self.constraintForAddPracticeButtonHeight.constant = 0
@@ -513,7 +516,7 @@ extension PracticeItemSelectViewController: SortOptionsViewControllerDelegate {
     }
     
     func filter() {
-        let tableHeaderKeyword = self.searchKeyword//self.textfieldSearch.text ?? ""
+        let tableHeaderKeyword = self.searchKeyword
         if tableHeaderKeyword == "" {
             self.filteredPracticeItems = self.practiceItems
         } else {
