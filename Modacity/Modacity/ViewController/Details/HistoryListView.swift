@@ -133,6 +133,7 @@ class HistoryListView: UIView {
     }
     
     @IBAction func onAdd(_ sender: Any) {
+        ModacityAnalytics.LogEvent(.PressedAddEntry)
         if self.delegate != nil {
             self.delegate.onAddOnHistoryListView(self)
         }

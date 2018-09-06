@@ -696,10 +696,21 @@ extension DetailsViewController: HistoryListViewDelegate, PlaylistHistoryListVie
     func onDeletePracticeData(_ data: PracticeDaily) {
         let alertController = UIAlertController(title: nil, message: "Are you sure to delete this practice history?", preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "Yes", style: .default, handler: { _ in
+            if let practiceItem = data.practiceItem() {
+                ModacityAnalytics.LogEvent(.PressedDeleteItemConfirmed, params: ["Item Name": practiceItem.name])
+            } else {
+                ModacityAnalytics.LogEvent(.PressedDeleteItemConfirmed)
+            }
             PracticingDailyLocalManager.manager.removeData(data)
             self.historyListView.showHistory(for: self.practiceItemId)
         }))
-        alertController.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+        alertController.addAction(UIAlertAction(title: "No", style: .cancel, handler: { _ in
+            if let practiceItem = data.practiceItem() {
+                ModacityAnalytics.LogEvent(.PressedDeleteItemCanceled, params: ["Item Name": practiceItem.name])
+            } else {
+                ModacityAnalytics.LogEvent(.PressedDeleteItemCanceled)
+            }
+        }))
         self.present(alertController, animated: true, completion: nil)
     }
     
@@ -722,13 +733,24 @@ extension DetailsViewController: HistoryListViewDelegate, PlaylistHistoryListVie
     func onDeletePlaylistPracticeData(_ data: PracticeDaily, playlistId: String?) {
         let alertController = UIAlertController(title: nil, message: "Are you sure to delete this history?", preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "Yes", style: .default, handler: { _ in
+            if let practiceItem = data.practiceItem() {
+                ModacityAnalytics.LogEvent(.PressedDeleteItemConfirmed, params: ["Item Name": practiceItem.name])
+            } else {
+                ModacityAnalytics.LogEvent(.PressedDeleteItemConfirmed)
+            }
             PracticingDailyLocalManager.manager.removeData(data)
             if self.playlistHistoryView != nil {
                 self.playlistHistoryView.clear()
                 self.playlistHistoryView.showHistory(for: playlistId)
             }
         }))
-        alertController.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+        alertController.addAction(UIAlertAction(title: "No", style: .cancel, handler: { _ in
+            if let practiceItem = data.practiceItem() {
+                ModacityAnalytics.LogEvent(.PressedDeleteItemCanceled, params: ["Item Name": practiceItem.name])
+            } else {
+                ModacityAnalytics.LogEvent(.PressedDeleteItemCanceled)
+            }
+        }))
         self.present(alertController, animated: true, completion: nil)
     }
     

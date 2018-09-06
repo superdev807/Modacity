@@ -99,6 +99,11 @@ class UpdatePracticeEntryViewController: UIViewController {
     }
     
     @IBAction func onBack(_ sender: Any) {
+        if self.isUpdating {
+            ModacityAnalytics.LogEvent(.BackFromEditTime)
+        } else {
+            ModacityAnalytics.LogEvent(.BackFromAddTime)
+        }
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -355,6 +360,7 @@ extension UpdatePracticeEntryViewController {
         if self.isUpdating {
             if let totalTime = self.convertToSeconds(self.textfieldTimeInput.text ?? "") {
                 if self.dateSelected {
+                    ModacityAnalytics.LogEvent(.PressedUpdateTime)
                     let oldEntryDate = self.editingPracticeData.entryDateString ?? ""
                     let oldFromTime = self.editingPracticeData.fromTime ?? ""
                     let oldPracticeTime = self.editingPracticeData.practiceTimeInSeconds ?? 0
@@ -369,9 +375,11 @@ extension UpdatePracticeEntryViewController {
                 }
             }
         } else {
+            
             if !self.fromPlaylist {
                 if let totalTime = self.convertToSeconds(self.textfieldTimeInput.text ?? "") {
                     if self.dateSelected {
+                        ModacityAnalytics.LogEvent(.PressedAddTime, params: ["type":"is practice item"])
                         PracticingDailyLocalManager.manager.saveManualPracticing(duration: totalTime, practiceItemId: self.practiceItemId, started: self.selectedDate)
                         self.navigationController?.popViewController(animated: true)
                     }
@@ -380,6 +388,7 @@ extension UpdatePracticeEntryViewController {
                 if let playlistId = self.playlistItemId {
                     if let totalTime = self.convertToSeconds(self.textfieldTimeInput.text ?? "") {
                         if self.dateSelected {
+                            ModacityAnalytics.LogEvent(.PressedAddTime, params: ["type":"is playlist item"])
                             if let practiceItem = self.selectedPracticeItem {
                                 PlaylistDailyLocalManager.manager.saveManualPracticing(duration: totalTime, practiceItemId: practiceItem.id, started: self.selectedDate, playlistId: playlistId)
                             } else {
@@ -402,7 +411,7 @@ extension UpdatePracticeEntryViewController {
                                     PracticingDailyLocalManager.manager.saveManualPracticing(duration: totalTime, practiceItemId: practiceItem.id, started: self.selectedDate)
                                 }
                             }
-                            
+                            ModacityAnalytics.LogEvent(.PressedAddTime, params: ["type":"is overview"])
                             self.navigationController?.popViewController(animated: true)
                         }
                     }

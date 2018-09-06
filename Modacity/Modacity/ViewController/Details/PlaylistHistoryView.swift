@@ -236,6 +236,7 @@ class PlaylistHistoryView: UIView {
     }
     
     @IBAction func onAdd(_ sender: Any) {
+        ModacityAnalytics.LogEvent(.PressedAddEntry)
         if let delegate = self.delegate {
             delegate.onAddOnPlaylistHistoryListView(self, playlistId: self.playlistId)
         }

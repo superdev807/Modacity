@@ -112,12 +112,24 @@ class PlaylistHistoryDetailsRowView: UIView {
     
     @IBAction func onEdit(_ sender: Any) {
         if let delegate = self.delegate {
+            
+            if let practiceItem = self.rowData?.practiceItem() {
+                ModacityAnalytics.LogEvent(.PressedEditItemTime, params: ["Item Name": practiceItem.name])
+            } else {
+                ModacityAnalytics.LogEvent(.PressedEditItemTime)
+            }
+            
             delegate.playlistHistoryDetailsRow(self, editOnItem: self.rowData!)
         }
     }
     
     @IBAction func onDelete(_ sender: Any) {
         if let delegate = self.delegate {
+            if let practiceItem = self.rowData?.practiceItem() {
+                ModacityAnalytics.LogEvent(.PressedDeleteItemTime, params: ["Item Name": practiceItem.name])
+            } else {
+                ModacityAnalytics.LogEvent(.PressedDeleteItemTime)
+            }
             delegate.playlistHistoryDetailsRow(self, deleteOnItem: self.rowData!)
         }
     }
