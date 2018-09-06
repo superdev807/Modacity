@@ -22,6 +22,8 @@ class PracticeDaily: Mappable {
     var improvements: [ImprovedRecord]?
     var startedTime: TimeInterval!
     
+    var playlistPracticeDataEntryId: String?
+    
     var isManual = false
     var isEdited = false
     var isDeleted = false
@@ -48,6 +50,7 @@ class PracticeDaily: Mappable {
         isManual                    <- map["is_manual"]
         isEdited                    <- map["is_edited"]
         isDeleted                   <- map["is_deleted"]
+        playlistPracticeDataEntryId <- map["parent_id"]
     }
     
     func practiceItem() -> PracticeItem? {

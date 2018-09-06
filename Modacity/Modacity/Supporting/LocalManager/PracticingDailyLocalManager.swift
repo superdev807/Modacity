@@ -12,7 +12,7 @@ class PracticingDailyLocalManager: NSObject {
     
     static let manager = PracticingDailyLocalManager()
     
-    func saveNewPracticing(practiceItemId: String, started: Date, duration: Int, rating: Double, inPlaylist: String?, forPracticeEntry: String?, improvements: [ImprovedRecord]?) -> String {
+    func saveNewPracticing(practiceItemId: String, started: Date, duration: Int, rating: Double, inPlaylist: String?, forPracticeEntry: String?, improvements: [ImprovedRecord]?, parentId: String? = nil) -> String {
         
         let data = PracticeDaily()
         data.startedTime = started.timeIntervalSince1970
@@ -24,6 +24,7 @@ class PracticingDailyLocalManager: NSObject {
         data.improvements = improvements
         data.practiceItemId = practiceItemId
         data.rating = rating
+        data.playlistPracticeDataEntryId = parentId
         
         var indecies = [String:[String]]()
         if let old = UserDefaults.standard.object(forKey: "practicing-indecies-\(practiceItemId)") as? [String:[String]] {
@@ -48,7 +49,7 @@ class PracticingDailyLocalManager: NSObject {
         return data.entryId
     }
     
-    func updatePracticingData(data: PracticeDaily, oldEntryDate: String, newEntryDate: String) {
+    func updatePracticingData(data: PracticeDaily, oldEntryDate: String, newEntryDate: String, timeChange: Int) {
         
         UserDefaults.standard.set(data.toJSON(), forKey: "practicing-data-\(data.entryId ?? "")")
         UserDefaults.standard.synchronize()
@@ -81,6 +82,10 @@ class PracticingDailyLocalManager: NSObject {
                 UserDefaults.standard.set(indecies, forKey: "practicing-indecies-\(practiceItemId)")
                 UserDefaults.standard.synchronize()
             }
+        }
+        
+        if timeChange != 0 {
+            updateParentPlaylistData(data, timeChange)
         }
         
         DispatchQueue.global(qos: .background).async {
@@ -218,6 +223,60 @@ class PracticingDailyLocalManager: NSObject {
             UserDefaults.standard.set(indecies, forKey: "practicing-indecies-\(practiceItemId)")
             UserDefaults.standard.removeObject(forKey: "practicing-data-\(data.entryId ?? "")")
             UserDefaults.standard.synchronize()
+            
+            if data.playlistId != nil && data.playlistId != "" {
+                self.removeParentPlaylistData(data)
+            }
+            
+            DailyPracticingRemoteManager.manager.removePracticingDataOnServer(for: data)
+        }
+    }
+    
+    func updateParentPlaylistData(_ data:PracticeDaily, _ time:Int) {
+        if let entryId = data.playlistPracticeDataEntryId {
+            if let entry = PlaylistDailyLocalManager.manager.playlistData(for: entryId) {
+                entry.practiceTimeInSeconds = entry.practiceTimeInSeconds + time
+                PlaylistDailyLocalManager.manager.updateData(entry)
+                return
+            }
+        }
+        
+        if let entry = PlaylistDailyLocalManager.manager.findParentIdForPractice(for: data.entryId, playlistId: data.playlistId) {
+            entry.practiceTimeInSeconds = entry.practiceTimeInSeconds + time
+            PlaylistDailyLocalManager.manager.updateData(entry)
+            return
+        }
+    }
+    
+    func removeParentPlaylistData(_ data: PracticeDaily) {
+        if let entryId = data.playlistPracticeDataEntryId {
+            if let entry = PlaylistDailyLocalManager.manager.playlistData(for: entryId) {
+                if let practiceIds = entry.practices {
+                    for idx in (0..<practiceIds.count).reversed() {
+                        let practiceId = practiceIds[idx]
+                        if practiceId == data.entryId {
+                            entry.practices.remove(at: idx)
+                            entry.practiceTimeInSeconds = entry.practiceTimeInSeconds - data.practiceTimeInSeconds
+                            PlaylistDailyLocalManager.manager.updateData(entry)
+                            return
+                        }
+                    }
+                }
+            }
+        } else {
+            if let entry = PlaylistDailyLocalManager.manager.findParentIdForPractice(for: data.entryId, playlistId: data.playlistId) {
+                if let practiceIds = entry.practices {
+                    for idx in (0..<practiceIds.count).reversed() {
+                        let practiceId = practiceIds[idx]
+                        if practiceId == data.entryId {
+                            entry.practices.remove(at: idx)
+                            entry.practiceTimeInSeconds = entry.practiceTimeInSeconds - data.practiceTimeInSeconds
+                            PlaylistDailyLocalManager.manager.updateData(entry)
+                            return
+                        }
+                    }
+                }
+            }
         }
     }
     

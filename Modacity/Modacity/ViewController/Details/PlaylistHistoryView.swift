@@ -13,57 +13,14 @@ import AVFoundation
 protocol PlaylistHistoryListViewDelegate {
     func onAddOnPlaylistHistoryListView(_ historyListView:PlaylistHistoryView, playlistId: String?)
     
-    func onEditPlaylistPracticeData(_ data: PlaylistPracticeHistoryData, playlistId: String?)
-    func onDeletePlaylistPracticeData(_ data: PlaylistPracticeHistoryData, playlistId: String?)
-}
-
-class PlaylistPracticeHistoryData {
-    
-    var practiceItemId: String!
-    var practiceItemName: String!
-    var time: Int!
-    var started = Date()
-    var averageRating: Double!
-    var improvements = [ImprovedRecord]()
-    var ratings = [Double]()
-    var lastPracticeTime: TimeInterval!
-    
-    var isManualPracticeEntry = false
-    var isManualPlaylistEntry = false
-    
-    init() {}
-    
-    init(practiceId: String, time: Int, rating: Double, improvements: [ImprovedRecord], lastPracticeTime: TimeInterval) {
-        self.practiceItemId = practiceId
-        self.time = time
-        self.averageRating = rating
-        self.improvements = improvements
-        self.lastPracticeTime = lastPracticeTime
-    }
-    
-    func calculateAverageRatings() -> Double {
-        var total = 0.0
-        var count = 0
-        for rating in ratings {
-            if rating > 0 {
-                total = total + rating
-                count = count + 1
-            }
-        }
-        
-        if count > 0 {
-            return total / Double(count)
-        } else {
-            return 0
-        }
-    }
+    func onEditPlaylistPracticeData(_ data: PracticeDaily, playlistId: String?)
+    func onDeletePlaylistPracticeData(_ data: PracticeDaily, playlistId: String?)
 }
 
 class PlaylistHistoryData {
     var date: Date!
     var practiceTotalSeconds: Int!
-    var practiceDataList = [PlaylistPracticeHistoryData]()
-    var practiceDataIds = [String]()
+    var practiceDataList = [PracticeDaily]()
     
     init() {}
 }
@@ -188,41 +145,17 @@ class PlaylistHistoryView: UIView {
             
             let practiceData = PlaylistHistoryData()
             practiceData.date = time
-            practiceData.practiceDataList = [PlaylistPracticeHistoryData]()//[String:PlaylistPracticeHistoryData]()
+            practiceData.practiceDataList = [PracticeDaily]()
             
             if let dailyDatas = self.data[time.toString(format: "yy-MM-dd")] {
                 for daily in dailyDatas {
                     totalPracticesSeconds = totalPracticesSeconds + daily.practiceTimeInSeconds
 
                     if daily.practices != nil {
-
-                        practiceData.practiceDataIds = daily.practices
+                        
                         for practiceId in daily.practices {
                             if let practicingData = PracticingDailyLocalManager.manager.practicingData(forDataId: practiceId) {
-
-                                if var practiceItemId = practicingData.practiceItemId {
-                                    if practicingData.isManual {
-                                        if practiceItemId != PlaylistDailyLocalManager.manager.miscPracticeId {
-                                            practiceItemId = practiceItemId + ":MANUAL"
-                                        }
-                                    }
-                                    
-                                    let newData = PlaylistPracticeHistoryData()
-                                    newData.practiceItemId = practiceItemId
-                                    newData.time = practicingData.practiceTimeInSeconds
-                                    newData.lastPracticeTime = practicingData.startedTime
-                                    if practicingData.rating != nil && practicingData.rating > 0 {
-                                        newData.ratings.append(practicingData.rating)
-                                    }
-                                    if let improvements = practicingData.improvements {
-                                        newData.improvements.append(contentsOf: improvements)
-                                    }
-                                    if practicingData.isManual {
-                                        newData.isManualPracticeEntry = true
-                                    }
-                                    newData.started = Date(timeIntervalSince1970: practicingData.startedTime)
-                                    practiceData.practiceDataList.append(newData)
-                                }
+                                practiceData.practiceDataList.append(practicingData)
                             }
                         }
                     }
@@ -230,7 +163,7 @@ class PlaylistHistoryView: UIView {
             }
             
             practiceData.practiceDataList.sort { (data1, data2) -> Bool in
-                return data1.started.timeIntervalSince1970 > data2.started.timeIntervalSince1970
+                return data1.startedTime > data2.startedTime
             }
             
             practiceData.practiceTotalSeconds = totalPracticesSeconds
@@ -356,15 +289,15 @@ extension PlaylistHistoryView: UITableViewDelegate, UITableViewDataSource {
 
 extension PlaylistHistoryView: PlaylistHistoryCellDelegate {
     
-    func playlistHistoryCell(_ cell: PlaylistHistoryCell, editOnItem: PlaylistPracticeHistoryData) {
+    func playlistHistoryCell(_ cell: PlaylistHistoryCell, editOnItem: PracticeDaily) {
         if let delegate = self.delegate {
             delegate.onEditPlaylistPracticeData(editOnItem, playlistId: self.playlistId)
         }
     }
     
-    func playlistHistoryCell(_ cell: PlaylistHistoryCell, deleteOnItem: PlaylistPracticeHistoryData) {
+    func playlistHistoryCell(_ cell: PlaylistHistoryCell, deleteOnItem: PracticeDaily) {
         if let delegate = self.delegate {
-            delegate.onEditPlaylistPracticeData(deleteOnItem, playlistId: self.playlistId)
+            delegate.onDeletePlaylistPracticeData(deleteOnItem, playlistId: self.playlistId)
         }
     }
     

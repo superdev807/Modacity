@@ -11,8 +11,8 @@ import Charts
 import AVFoundation
 
 protocol PlaylistHistoryDetailsRowViewDelegate {
-    func playlistHistoryDetailsRow(_ view: PlaylistHistoryDetailsRowView, editOnItem: PlaylistPracticeHistoryData)
-    func playlistHistoryDetailsRow(_ view: PlaylistHistoryDetailsRowView, deleteOnItem: PlaylistPracticeHistoryData)
+    func playlistHistoryDetailsRow(_ view: PlaylistHistoryDetailsRowView, editOnItem: PracticeDaily)
+    func playlistHistoryDetailsRow(_ view: PlaylistHistoryDetailsRowView, deleteOnItem: PracticeDaily)
 }
 
 class PlaylistHistoryDetailsRowView: UIView {
@@ -28,7 +28,7 @@ class PlaylistHistoryDetailsRowView: UIView {
     @IBOutlet weak var labelManualEntry: UILabel!
     @IBOutlet weak var viewActions: UIView!
     
-    var rowData: PlaylistPracticeHistoryData? = nil
+    var rowData: PracticeDaily? = nil
     var delegate: PlaylistHistoryDetailsRowViewDelegate? = nil
     
     override init(frame: CGRect) {
@@ -54,11 +54,11 @@ class PlaylistHistoryDetailsRowView: UIView {
         self.viewContent.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
     }
     
-    func configure(with data: PlaylistPracticeHistoryData, editing: Bool) {
+    func configure(with data: PracticeDaily, editing: Bool) {
         
         self.rowData = data
         
-        let timeInSecond = data.time ?? 0
+        let timeInSecond = data.practiceTimeInSeconds ?? 0
         if timeInSecond > 0 && timeInSecond < 600 {
             self.labelTime.text = String(format: "%.1f", Double(timeInSecond) / 60.0)
         } else {
@@ -66,15 +66,15 @@ class PlaylistHistoryDetailsRowView: UIView {
         }
         
         self.labelPracticeItemName.text = ""
-        if data.isManualPracticeEntry {
-            if data.practiceItemId.hasSuffix(":MANUAL") {
-                if let practice = PracticeItemLocalManager.manager.practiceItem(forId: data.practiceItemId[0..<(data.practiceItemId.count - ":MANUAL".count)]) {
+        if data.isManual {
+            if data.practiceItemId == PlaylistDailyLocalManager.manager.miscPracticeId {
+                self.labelPracticeItemName.text = PlaylistDailyLocalManager.manager.miscPracticeItemName
+            } else {
+                if let practice = PracticeItemLocalManager.manager.practiceItem(forId: data.practiceItemId) {
                     self.labelPracticeItemName.text = practice.name
                 } else {
                     self.labelPracticeItemName.text = "(Deleted)"
                 }
-            } else if data.practiceItemId == PlaylistDailyLocalManager.manager.miscPracticeId {
-                self.labelPracticeItemName.text = PlaylistDailyLocalManager.manager.miscPracticeItemName
             }
         } else {
             self.labelPracticeItemName.text = ""
@@ -98,14 +98,14 @@ class PlaylistHistoryDetailsRowView: UIView {
         formatter.minimumFractionDigits = 0
         formatter.maximumFractionDigits = 2
         
-        if data.isManualPracticeEntry {
+        if data.isManual {
             self.labelManualEntry.isHidden = false
             self.viewNormalEntry.isHidden = true
         } else {
             self.labelManualEntry.isHidden = true
             self.viewNormalEntry.isHidden = false
-            self.labelStarRating.text = formatter.string(from: data.calculateAverageRatings() as NSNumber) ?? "n/a"
-            self.labelImprovements.text = "\(data.improvements.count)"
+            self.labelStarRating.text = formatter.string(from: (data.rating ?? 0) as NSNumber) ?? "n/a"
+            self.labelImprovements.text = "\(data.improvements?.count ?? 0)"
         }
         
     }

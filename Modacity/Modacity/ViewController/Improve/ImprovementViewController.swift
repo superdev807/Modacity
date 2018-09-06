@@ -556,22 +556,13 @@ extension ImprovementViewController {
     
     @IBAction func onImprovedYes(_ sender: Any) {
        ModacityAnalytics.LogStringEvent("Hypothesis Worked")
-        let improvedRecord = ImprovedRecord()
-        improvedRecord.suggestion = self.viewModel.selectedSuggestion
-        improvedRecord.hypothesis = self.viewModel.selectedHypothesis
-        if self.playlistViewModel != nil {
-            self.playlistViewModel.sessionImproved.append(improvedRecord)
-            self.playlistViewModel.addNewImprovement(self.viewModel.generateImprovement(with: self.playlistViewModel.playlist, practice: self.playlistViewModel.currentPracticeEntry))
-        } else {
-            self.deliverModel.sessionImproved.append(improvedRecord)
-            AppOveralDataManager.manager.addImprovementsCount()
-        }
         self.viewImprovedAlert.isHidden = true
         self.viewImprovedYesPanel.isHidden = false
     }
     
     @IBAction func onImprovedNext(_ sender: Any) {
         ModacityAnalytics.LogStringEvent("Don't Practice Hypothesis Again")
+        self.generateImprovedRecord()
         self.stopMetrodronePlay()
         self.navigationController?.dismiss(animated: true, completion: nil)
     }
@@ -594,6 +585,19 @@ extension ImprovementViewController {
         
         self.viewImprovedAlert.isHidden = true
         self.viewImprovedYesPanel.isHidden = true
+    }
+    
+    func generateImprovedRecord() {
+        let improvedRecord = ImprovedRecord()
+        improvedRecord.suggestion = self.viewModel.selectedSuggestion
+        improvedRecord.hypothesis = self.viewModel.selectedHypothesis
+        if self.playlistViewModel != nil {
+            self.playlistViewModel.sessionImproved.append(improvedRecord)
+            self.playlistViewModel.addNewImprovement(self.viewModel.generateImprovement(with: self.playlistViewModel.playlist, practice: self.playlistViewModel.currentPracticeEntry))
+        } else {
+            self.deliverModel.sessionImproved.append(improvedRecord)
+            AppOveralDataManager.manager.addImprovementsCount()
+        }
     }
     
     func stopMetrodronePlay() {

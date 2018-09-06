@@ -710,18 +710,23 @@ extension DetailsViewController: HistoryListViewDelegate, PlaylistHistoryListVie
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
-    func onEditPlaylistPracticeData(_ data: PlaylistPracticeHistoryData, playlistId: String?) {
+    func onEditPlaylistPracticeData(_ data: PracticeDaily, playlistId: String?) {
         let controller = UIStoryboard(name: "details", bundle: nil).instantiateViewController(withIdentifier: "UpdatePracticeEntryViewController") as! UpdatePracticeEntryViewController
         controller.isUpdating = true
         controller.fromPlaylist = true
         controller.playlistItemId = playlistId
+        controller.editingPracticeData = data
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
-    func onDeletePlaylistPracticeData(_ data: PlaylistPracticeHistoryData, playlistId: String?) {
-        let alertController = UIAlertController(title: nil, message: "Are you sure to delete this practice history?", preferredStyle: .alert)
+    func onDeletePlaylistPracticeData(_ data: PracticeDaily, playlistId: String?) {
+        let alertController = UIAlertController(title: nil, message: "Are you sure to delete this history?", preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "Yes", style: .default, handler: { _ in
-            
+            PracticingDailyLocalManager.manager.removeData(data)
+            if self.playlistHistoryView != nil {
+                self.playlistHistoryView.clear()
+                self.playlistHistoryView.showHistory(for: playlistId)
+            }
         }))
         alertController.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
         self.present(alertController, animated: true, completion: nil)

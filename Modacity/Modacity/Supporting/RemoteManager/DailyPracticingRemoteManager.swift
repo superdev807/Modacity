@@ -99,9 +99,9 @@ class DailyPracticingRemoteManager: NSObject {
         }
     }
     
-    func removePracticingDataOnServer(for practiceItemId: String) {
+    func removePracticingDataOnServer(for data: PracticeDaily) {
         if let userId = MyProfileLocalManager.manager.userId() {
-            self.refUser.child(userId).child("practice_data").child(practiceItemId).removeValue()
+            self.refUser.child(userId).child("practice_data").child(data.practiceItemId).child(data.entryDateString).child(data.entryId).removeValue()
         }
     }
 }
