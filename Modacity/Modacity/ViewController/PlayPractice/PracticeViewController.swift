@@ -1271,7 +1271,7 @@ extension PracticeViewController: PlayPracticeTabBarViewDelegate {
         let attr :ICMUserAttributes = ICMUserAttributes.init()
         attr.customAttributes = ["AppLocation" : "practice"]
         Intercom.updateUser(attr)
-        Intercom.presentMessageComposer()
+        Intercom.presentMessenger()
     }
 }
 

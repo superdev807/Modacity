@@ -136,7 +136,7 @@ extension LeftMenuViewController: UITableViewDataSource, UITableViewDelegate {
             let attr :ICMUserAttributes = ICMUserAttributes.init()
             attr.customAttributes = ["AppLocation" : "feedback"]
             Intercom.updateUser(attr)
-            Intercom.presentMessageComposer()
+            Intercom.presentMessenger()
             
             self.sideMenuController?.hideLeftViewAnimated()
             
