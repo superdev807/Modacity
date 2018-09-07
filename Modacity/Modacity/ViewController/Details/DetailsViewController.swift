@@ -147,6 +147,9 @@ class DetailsViewController: UIViewController {
             if self.practiceItemId != nil {
                 self.historyListView.showHistory(for: self.practiceItemId)
             }
+        } else if self.playlistHistoryView != nil && self.selectedTabIdx == 3 {
+            self.playlistHistoryView.clear()
+            self.playlistHistoryView.showHistory(for: self.playlistItemId)
         }
     }
     
@@ -300,15 +303,17 @@ extension DetailsViewController {
             
             if self.playlistHistoryView == nil {
                 self.playlistHistoryView = PlaylistHistoryView()
+                self.playlistHistoryView.showHistory(for: self.playlistItemId)
             }
+            
             self.view.addSubview(self.playlistHistoryView)
             self.playlistHistoryView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
             self.playlistHistoryView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
             self.playlistHistoryView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+            self.playlistHistoryView.delegate = self
             self.constraintForContentTopSpace = self.playlistHistoryView.topAnchor.constraint(equalTo: self.imageViewHeader.bottomAnchor)
             self.constraintForContentTopSpace.isActive = true
             self.view.bringSubview(toFront: self.playlistHistoryView)
-            self.playlistHistoryView.showHistory(for: self.playlistItemId)
             
         }
         
@@ -675,12 +680,9 @@ extension DetailsViewController: PremiumUpgradeLockViewDelegate {
     
 }
 
-extension DetailsViewController: HistoryListViewDelegate {
-    func onAddOnHistoryListView(_ historyListView: HistoryListView) {
-        self.performSegue(withIdentifier: "sid_add_practice_history", sender: nil)
-    }
+extension DetailsViewController: HistoryListViewDelegate, PlaylistHistoryListViewDelegate {
     
-    func onEditOnHistoryListView(_ historyListView: HistoryListView) {
+    func onAddOnHistoryListView(_ historyListView: HistoryListView) {
         self.performSegue(withIdentifier: "sid_add_practice_history", sender: nil)
     }
     
@@ -694,10 +696,62 @@ extension DetailsViewController: HistoryListViewDelegate {
     func onDeletePracticeData(_ data: PracticeDaily) {
         let alertController = UIAlertController(title: nil, message: "Are you sure to delete this practice history?", preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "Yes", style: .default, handler: { _ in
+            if let practiceItem = data.practiceItem() {
+                ModacityAnalytics.LogEvent(.PressedDeleteItemConfirmed, params: ["Item Name": practiceItem.name])
+            } else {
+                ModacityAnalytics.LogEvent(.PressedDeleteItemConfirmed)
+            }
             PracticingDailyLocalManager.manager.removeData(data)
             self.historyListView.showHistory(for: self.practiceItemId)
         }))
-        alertController.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+        alertController.addAction(UIAlertAction(title: "No", style: .cancel, handler: { _ in
+            if let practiceItem = data.practiceItem() {
+                ModacityAnalytics.LogEvent(.PressedDeleteItemCanceled, params: ["Item Name": practiceItem.name])
+            } else {
+                ModacityAnalytics.LogEvent(.PressedDeleteItemCanceled)
+            }
+        }))
         self.present(alertController, animated: true, completion: nil)
     }
+    
+    func onAddOnPlaylistHistoryListView(_ historyListView: PlaylistHistoryView, playlistId: String?) {
+        let controller = UIStoryboard(name: "details", bundle: nil).instantiateViewController(withIdentifier: "UpdatePracticeEntryViewController") as! UpdatePracticeEntryViewController
+        controller.fromPlaylist = true
+        controller.playlistItemId = playlistId
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    func onEditPlaylistPracticeData(_ data: PracticeDaily, playlistId: String?) {
+        let controller = UIStoryboard(name: "details", bundle: nil).instantiateViewController(withIdentifier: "UpdatePracticeEntryViewController") as! UpdatePracticeEntryViewController
+        controller.isUpdating = true
+        controller.fromPlaylist = true
+        controller.playlistItemId = playlistId
+        controller.editingPracticeData = data
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    func onDeletePlaylistPracticeData(_ data: PracticeDaily, playlistId: String?) {
+        let alertController = UIAlertController(title: nil, message: "Are you sure to delete this history?", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Yes", style: .default, handler: { _ in
+            if let practiceItem = data.practiceItem() {
+                ModacityAnalytics.LogEvent(.PressedDeleteItemConfirmed, params: ["Item Name": practiceItem.name])
+            } else {
+                ModacityAnalytics.LogEvent(.PressedDeleteItemConfirmed)
+            }
+            PracticingDailyLocalManager.manager.removeData(data)
+            if self.playlistHistoryView != nil {
+                self.playlistHistoryView.clear()
+                self.playlistHistoryView.showHistory(for: playlistId)
+            }
+        }))
+        alertController.addAction(UIAlertAction(title: "No", style: .cancel, handler: { _ in
+            if let practiceItem = data.practiceItem() {
+                ModacityAnalytics.LogEvent(.PressedDeleteItemCanceled, params: ["Item Name": practiceItem.name])
+            } else {
+                ModacityAnalytics.LogEvent(.PressedDeleteItemCanceled)
+            }
+        }))
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
 }

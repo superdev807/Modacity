@@ -47,7 +47,7 @@
         <!--Playlist List View Controller-->
         <scene sceneID="kwV-Nt-vQV">
             <objects>
-                <viewController id="vBF-aB-TFO" customClass="PlaylistListViewController" customModule="Modacity" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PlaylistListViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="vBF-aB-TFO" customClass="PlaylistListViewController" customModule="Modacity" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ZIi-Ka-Dbm">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -217,6 +217,8 @@
                     <navigationItem key="navigationItem" id="c8e-Fn-ekD"/>
                     <connections>
                         <outlet property="constraintForHeaderImageViewHeight" destination="fOh-vv-vcl" id="66z-9D-zM9"/>
+                        <outlet property="constraintTableViewBottomSpace" destination="dQu-ah-GnY" id="CLp-Yg-RNc"/>
+                        <outlet property="imageViewIcon" destination="e9A-h1-6VK" id="V28-HI-weQ"/>
                         <outlet property="tableViewMain" destination="0et-Ze-T4d" id="A8H-Kq-xBj"/>
                         <outlet property="viewNoPlaylist" destination="G6R-bo-DEt" id="jeW-mF-aUt"/>
                         <segue destination="ff7-Xa-xPO" kind="showDetail" identifier="sid_details" id="hPD-Mw-dCU"/>

@@ -35,7 +35,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="419" height="40"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ujP-pD-718">
-                            <rect key="frame" x="20" y="11.5" width="50" height="17"/>
+                            <rect key="frame" x="20" y="0.0" width="50" height="40"/>
                             <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                             <state key="normal" image="btn_edit">
                                 <color key="titleColor" red="0.56470588235294117" green="0.5607843137254902" blue="0.90196078431372551" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -45,7 +45,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ki3-QN-zU4">
-                            <rect key="frame" x="349" y="9" width="50" height="22"/>
+                            <rect key="frame" x="349" y="0.0" width="50" height="40"/>
                             <state key="normal" image="btn_add"/>
                             <connections>
                                 <action selector="onAdd:" destination="-1" eventType="touchUpInside" id="QsS-Hh-VrC"/>
@@ -54,10 +54,12 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstItem="ujP-pD-718" firstAttribute="centerY" secondItem="Gpm-qz-sG2" secondAttribute="centerY" id="F0u-PZ-tgZ"/>
-                        <constraint firstItem="ki3-QN-zU4" firstAttribute="centerY" secondItem="Gpm-qz-sG2" secondAttribute="centerY" id="Gbt-ab-eEZ"/>
+                        <constraint firstItem="ujP-pD-718" firstAttribute="top" secondItem="Gpm-qz-sG2" secondAttribute="top" id="Rm7-m2-pyZ"/>
+                        <constraint firstItem="ki3-QN-zU4" firstAttribute="top" secondItem="Gpm-qz-sG2" secondAttribute="top" id="d1A-Da-6Ze"/>
                         <constraint firstItem="ujP-pD-718" firstAttribute="leading" secondItem="Gpm-qz-sG2" secondAttribute="leading" constant="20" id="f85-6U-w21"/>
+                        <constraint firstAttribute="bottom" secondItem="ujP-pD-718" secondAttribute="bottom" id="fAm-a4-8rY"/>
                         <constraint firstAttribute="height" constant="40" id="pci-c5-aHZ"/>
+                        <constraint firstAttribute="bottom" secondItem="ki3-QN-zU4" secondAttribute="bottom" id="psS-Yf-eSJ"/>
                         <constraint firstAttribute="trailing" secondItem="ki3-QN-zU4" secondAttribute="trailing" constant="20" id="wZh-UZ-AOn"/>
                     </constraints>
                 </view>

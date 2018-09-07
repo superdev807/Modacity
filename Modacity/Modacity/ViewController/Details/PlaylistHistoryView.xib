@@ -17,10 +17,13 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PlaylistHistoryView">
             <connections>
+                <outlet property="buttonEdit" destination="MHc-OW-AL4" id="Z9h-qZ-Tdd"/>
+                <outlet property="constraintForHistoryViewTopActionsPanelHeight" destination="98R-qE-0Qh" id="MCi-aE-Tk4"/>
                 <outlet property="labelNoPracticeData" destination="5dC-RI-s6d" id="dQC-Zp-1vD"/>
                 <outlet property="tableViewMain" destination="kHd-FO-nNM" id="Bso-kV-jm3"/>
                 <outlet property="viewContent" destination="mXc-6y-zp0" id="yO9-UA-euQ"/>
                 <outlet property="viewLoaderPanel" destination="V3N-Ip-I2Y" id="43t-Ya-2Xr"/>
+                <outlet property="viewTopActionsPanel" destination="AQt-bJ-afO" id="h7z-Df-FIP"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -28,8 +31,40 @@
             <rect key="frame" x="0.0" y="0.0" width="419" height="575"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AQt-bJ-afO">
+                    <rect key="frame" x="0.0" y="0.0" width="419" height="40"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MHc-OW-AL4">
+                            <rect key="frame" x="20" y="0.0" width="50" height="40"/>
+                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                            <state key="normal" image="btn_edit">
+                                <color key="titleColor" red="0.56470588239999997" green="0.56078431370000004" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="onEdit:" destination="-1" eventType="touchUpInside" id="dK1-nu-99M"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pJT-MJ-Bt8">
+                            <rect key="frame" x="349" y="0.0" width="50" height="40"/>
+                            <state key="normal" image="btn_add"/>
+                            <connections>
+                                <action selector="onAdd:" destination="-1" eventType="touchUpInside" id="xcf-K6-Ie8"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="98R-qE-0Qh"/>
+                        <constraint firstAttribute="bottom" secondItem="pJT-MJ-Bt8" secondAttribute="bottom" id="BTA-hn-HDC"/>
+                        <constraint firstAttribute="trailing" secondItem="pJT-MJ-Bt8" secondAttribute="trailing" constant="20" id="Rsp-fi-wwC"/>
+                        <constraint firstItem="MHc-OW-AL4" firstAttribute="top" secondItem="AQt-bJ-afO" secondAttribute="top" id="d1F-yV-gc2"/>
+                        <constraint firstItem="MHc-OW-AL4" firstAttribute="leading" secondItem="AQt-bJ-afO" secondAttribute="leading" constant="20" id="qBn-Nt-Jbx"/>
+                        <constraint firstItem="pJT-MJ-Bt8" firstAttribute="top" secondItem="AQt-bJ-afO" secondAttribute="top" id="vun-wj-PJ6"/>
+                        <constraint firstAttribute="bottom" secondItem="MHc-OW-AL4" secondAttribute="bottom" id="whn-d6-zjD"/>
+                    </constraints>
+                </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="kHd-FO-nNM" customClass="TPKeyboardAvoidingTableView">
-                    <rect key="frame" x="0.0" y="20" width="419" height="555"/>
+                    <rect key="frame" x="0.0" y="40" width="419" height="535"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="5ve-Kh-ZFE"/>
@@ -58,20 +93,27 @@
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="kHd-FO-nNM" firstAttribute="top" secondItem="9Df-qb-l5P" secondAttribute="top" id="0Qv-jU-eOX"/>
                 <constraint firstItem="5dC-RI-s6d" firstAttribute="centerY" secondItem="9Df-qb-l5P" secondAttribute="centerY" id="0si-1I-Wgn"/>
                 <constraint firstItem="kHd-FO-nNM" firstAttribute="trailing" secondItem="9Df-qb-l5P" secondAttribute="trailing" id="JvD-Ec-HXa"/>
+                <constraint firstItem="AQt-bJ-afO" firstAttribute="trailing" secondItem="9Df-qb-l5P" secondAttribute="trailing" id="QUc-9Q-HFC"/>
                 <constraint firstItem="5dC-RI-s6d" firstAttribute="centerX" secondItem="9Df-qb-l5P" secondAttribute="centerX" id="SZU-KM-xX8"/>
                 <constraint firstItem="V3N-Ip-I2Y" firstAttribute="trailing" secondItem="9Df-qb-l5P" secondAttribute="trailing" id="YQt-tF-fEr"/>
                 <constraint firstItem="kHd-FO-nNM" firstAttribute="leading" secondItem="9Df-qb-l5P" secondAttribute="leading" id="ZJq-hb-qmy"/>
+                <constraint firstItem="AQt-bJ-afO" firstAttribute="leading" secondItem="9Df-qb-l5P" secondAttribute="leading" id="dS1-mH-2mh"/>
                 <constraint firstItem="kHd-FO-nNM" firstAttribute="bottom" secondItem="9Df-qb-l5P" secondAttribute="bottom" id="nNF-B1-xFk"/>
                 <constraint firstItem="V3N-Ip-I2Y" firstAttribute="top" secondItem="mXc-6y-zp0" secondAttribute="top" id="v6J-mV-Dml"/>
                 <constraint firstItem="V3N-Ip-I2Y" firstAttribute="leading" secondItem="9Df-qb-l5P" secondAttribute="leading" id="w9h-RL-Hrn"/>
+                <constraint firstItem="kHd-FO-nNM" firstAttribute="top" secondItem="AQt-bJ-afO" secondAttribute="bottom" id="wAr-CQ-bQS"/>
                 <constraint firstItem="V3N-Ip-I2Y" firstAttribute="bottom" secondItem="9Df-qb-l5P" secondAttribute="bottom" id="x1W-DI-RrQ"/>
+                <constraint firstItem="AQt-bJ-afO" firstAttribute="top" secondItem="mXc-6y-zp0" secondAttribute="top" id="yob-WT-NP4"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="9Df-qb-l5P"/>
             <point key="canvasLocation" x="46.5" y="5.5"/>
         </view>
     </objects>
+    <resources>
+        <image name="btn_add" width="50" height="16"/>
+        <image name="btn_edit" width="50" height="16"/>
+    </resources>
 </document>

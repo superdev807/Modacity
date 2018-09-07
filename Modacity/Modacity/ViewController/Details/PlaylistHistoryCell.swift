@@ -8,6 +8,11 @@
 
 import UIKit
 
+protocol PlaylistHistoryCellDelegate {
+    func playlistHistoryCell(_ cell: PlaylistHistoryCell, editOnItem: PracticeDaily)
+    func playlistHistoryCell(_ cell: PlaylistHistoryCell, deleteOnItem: PracticeDaily)
+}
+
 class PlaylistHistoryCell: UITableViewCell {
 
     @IBOutlet weak var labelDate: UILabel!
@@ -19,6 +24,8 @@ class PlaylistHistoryCell: UITableViewCell {
     @IBOutlet weak var viewContainer: UIView!
     @IBOutlet weak var constraintForContainerHeight: NSLayoutConstraint!
     
+    var delegate: PlaylistHistoryCellDelegate? = nil
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -29,7 +36,7 @@ class PlaylistHistoryCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func configure(with data:PlaylistHistoryData) {
+    func configure(with data:PlaylistHistoryData, editing: Bool) {
         
         self.viewContainer.layer.cornerRadius = 5
         self.viewContainer.layer.shadowColor = UIColor.black.cgColor
@@ -57,24 +64,26 @@ class PlaylistHistoryCell: UITableViewCell {
         var height: CGFloat = 0
         var lastView: UIView? = nil
         
-        if let list = data.arrayOfData() {
-            for row in list {
-                let view = PlaylistHistoryDetailsRowView()
-                view.configure(with: row)
-                self.viewDetailsListContainer.addSubview(view)
-                view.leadingAnchor.constraint(equalTo: self.viewDetailsListContainer.leadingAnchor).isActive = true
-                view.trailingAnchor.constraint(equalTo: self.viewDetailsListContainer.trailingAnchor).isActive = true
-                view.heightAnchor.constraint(equalToConstant: 36).isActive = true
-                if let lastView = lastView {
-                    view.topAnchor.constraint(equalTo: lastView.bottomAnchor).isActive = true
-                } else {
-                    view.topAnchor.constraint(equalTo: self.viewDetailsListContainer.topAnchor).isActive = true
-                }
-                
-                lastView = view
-                height = height + 36
-                
-                for improvement in row.improvements {
+        for row in data.practiceDataList {
+            
+            let view = PlaylistHistoryDetailsRowView()
+            view.configure(with: row, editing: editing)
+            view.delegate = self
+            self.viewDetailsListContainer.addSubview(view)
+            view.leadingAnchor.constraint(equalTo: self.viewDetailsListContainer.leadingAnchor).isActive = true
+            view.trailingAnchor.constraint(equalTo: self.viewDetailsListContainer.trailingAnchor).isActive = true
+            view.heightAnchor.constraint(equalToConstant: 36).isActive = true
+            if let lastView = lastView {
+                view.topAnchor.constraint(equalTo: lastView.bottomAnchor).isActive = true
+            } else {
+                view.topAnchor.constraint(equalTo: self.viewDetailsListContainer.topAnchor).isActive = true
+            }
+            
+            lastView = view
+            height = height + 36
+            
+            if let improvements = row.improvements {
+                for improvement in improvements {
                     let improvementAttributedStringText = NSMutableAttributedString(string: "Improved: ", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoRegular, size: 12)!])
                     let improvementSuggestion = improvement.suggestion ?? ""
                     improvementAttributedStringText.append(NSAttributedString(string: improvementSuggestion, attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoBlack, size: 12)!]))
@@ -106,10 +115,11 @@ class PlaylistHistoryCell: UITableViewCell {
     
     class func height(for data:PlaylistHistoryData, with width: CGFloat) -> CGFloat {
         var height: CGFloat = 49
-        if let list = data.arrayOfData() {
-            for row in list {
-                height = height + 36
-                for improvement in row.improvements {
+
+        for row in data.practiceDataList {
+            height = height + 36
+            if let improvements = row.improvements {
+                for improvement in improvements {
                     
                     let improvementAttributedStringText = NSMutableAttributedString(string: "Improved: ", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoRegular, size: 12)!])
                     let improvementSuggestion = improvement.suggestion ?? ""
@@ -122,6 +132,23 @@ class PlaylistHistoryCell: UITableViewCell {
                 }
             }
         }
+        
         return 5 + (height + 15) + 5
     }
+}
+
+extension PlaylistHistoryCell: PlaylistHistoryDetailsRowViewDelegate {
+    
+    func playlistHistoryDetailsRow(_ view: PlaylistHistoryDetailsRowView, editOnItem: PracticeDaily) {
+        if let delegate = self.delegate {
+            delegate.playlistHistoryCell(self, editOnItem: editOnItem)
+        }
+    }
+    
+    func playlistHistoryDetailsRow(_ view: PlaylistHistoryDetailsRowView, deleteOnItem: PracticeDaily) {
+        if let delegate = self.delegate {
+            delegate.playlistHistoryCell(self, deleteOnItem: deleteOnItem)
+        }
+    }
+    
 }

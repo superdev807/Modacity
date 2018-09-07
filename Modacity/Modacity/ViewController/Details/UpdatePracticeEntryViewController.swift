@@ -24,72 +24,59 @@ class UpdatePracticeEntryViewController: UIViewController {
     @IBOutlet weak var textfieldTimeInput: UITextField!
     @IBOutlet weak var labelTitle: UILabel!
     
+    @IBOutlet weak var labelPlaylistCaption: UILabel!
+    @IBOutlet weak var viewPlaylistPanel: UIView!
+    @IBOutlet weak var labelPlaylist: UILabel!
+    @IBOutlet weak var buttonPlaylistSelect: UIButton!
+    
+    @IBOutlet weak var viewItemNamePanel: UIView!
+    @IBOutlet weak var labelItemName: UILabel!
+    @IBOutlet weak var labelItemNameCaption: UILabel!
+    @IBOutlet weak var buttonItemSelect: UIButton!
+    
     let highlightedColor = Color(hexString: "#92939B")
     var popupView: DatePickerPopupView!
     var selectedDate = Date()
     var dateSelected = false
     
+    var fromPlaylist = false
+    var playlistItemId: String? = nil
     var practiceItemId: String!
+    
+    var selectedPracticeItem: PracticeItem? = nil
+    
+    var selectedPlaylist: Playlist? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        self.makeViewsStyles()
+        
         if AppUtils.iphoneIsXModel() {
             self.constraintForHeaderViewHeight.constant = 104
         }
         
-        self.viewFirstPanel.layer.cornerRadius = 5
-        self.viewFirstPanel.layer.borderColor = Color(hexString: "#D6D6D7").cgColor
-        self.viewFirstPanel.layer.borderWidth = 1
+        self.viewItemNamePanel.isHidden = true
+        self.labelItemNameCaption.isHidden = true
+        self.viewPlaylistPanel.isHidden = true
+        self.labelPlaylistCaption.isHidden = true
         
-        self.viewSecondPanel.layer.cornerRadius = 5
-        self.viewSecondPanel.layer.borderColor = Color(hexString: "#D6D6D7").cgColor
-        self.viewSecondPanel.layer.borderWidth = 1
-        
-        self.buttonAddEntry.layer.cornerRadius = 28
-        self.buttonAddEntry.isEnabled = false
-        self.buttonAddEntry.backgroundColor = Color(hexString: "#9B9B9B")
-        self.buttonCover.isHidden = true
+        if self.fromPlaylist {
+            self.viewItemNamePanel.isHidden = false
+            self.labelItemNameCaption.isHidden = false
+            
+            if self.playlistItemId == nil {
+                self.viewPlaylistPanel.isHidden = false
+                self.labelPlaylistCaption.isHidden = false
+            }
+        }
         
         if self.isUpdating {
             self.buttonAddEntry.setTitle("Update Entry", for: .normal)
             self.labelTitle.text = "Edit Entry"
             
-            if self.editingPracticeData != nil {
-                self.selectedDate = self.editingPracticeData.entryDateString.date(format: "yy-MM-dd") ?? Date(timeIntervalSince1970: self.editingPracticeData.startedTime)
-                self.labelTotalDate.text = self.selectedDate.toString(format: "MMMM d, yyyy")
-                self.dateSelected = true
-                self.labelTotalDate.textColor = highlightedColor
-                
-                var seconds = self.editingPracticeData.practiceTimeInSeconds ?? 0
-                if seconds > 0 {
-                    var string = ""
-                    if seconds / 3600 > 0 {
-                        string = String(format: "%@%d", string, seconds / 3600)
-                    } else {
-                        string = ""
-                    }
-                    
-                    seconds = seconds % 3600
-                    if seconds / 60 > 0 {
-                        string = String(format: "%@%d", string, seconds / 60)
-                    } else {
-                        string = "\(string)"
-                    }
-                    
-                    seconds = seconds % 60
-                    if seconds > 0 {
-                        string = String(format: "%@%d", string, seconds)
-                    } else {
-                        string = "\(string)"
-                    }
-                    
-                    self.textfieldTimeInput.text = string
-                    self.labelTotalTime.attributedText = self.convertInputStringToTime(string)
-                }
-                self.processButtonEntry()
-            }
+            self.showUpdatingValues()
         }
     }
 
@@ -98,7 +85,25 @@ class UpdatePracticeEntryViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func makeViewsStyles() {
+        self.viewFirstPanel.styling(cornerRadius: 5, borderColor: Color(hexString: "#D6D6D7"), borderWidth: 1)
+        self.viewSecondPanel.styling(cornerRadius: 5, borderColor: Color(hexString: "#D6D6D7"), borderWidth: 1)
+        self.viewItemNamePanel.styling(cornerRadius: 5, borderColor: Color(hexString: "#D6D6D7"), borderWidth: 1)
+        self.viewPlaylistPanel.styling(cornerRadius: 5, borderColor: Color(hexString: "#D6D6D7"), borderWidth: 1)
+        
+        self.buttonAddEntry.styling(cornerRadius: 28)
+        
+        self.buttonAddEntry.isEnabled = false
+        self.buttonAddEntry.backgroundColor = Color(hexString: "#9B9B9B")
+        self.buttonCover.isHidden = true
+    }
+    
     @IBAction func onBack(_ sender: Any) {
+        if self.isUpdating {
+            ModacityAnalytics.LogEvent(.BackFromEditTime)
+        } else {
+            ModacityAnalytics.LogEvent(.BackFromAddTime)
+        }
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -117,6 +122,92 @@ class UpdatePracticeEntryViewController: UIViewController {
     @IBAction func onDateInput(_ sender: Any) {
         self.showDateInputPicker()
     }
+    
+    @IBAction func onItemName(_ sender: Any) {
+        self.openPracticeItemSelect()
+    }
+    
+    @IBAction func onPlaylist(_ sender: Any) {
+        self.openPlaylistItemSelect()
+    }
+    
+    func showUpdatingValues() {
+        
+        if self.editingPracticeData != nil {
+            
+            self.selectedDate = self.editingPracticeData.entryDateString.date(format: "yy-MM-dd") ?? Date(timeIntervalSince1970: self.editingPracticeData.startedTime)
+            self.labelTotalDate.text = self.selectedDate.toString(format: "MMMM d, yyyy")
+            self.dateSelected = true
+            self.labelTotalDate.textColor = highlightedColor
+            
+            var seconds = self.editingPracticeData.practiceTimeInSeconds ?? 0
+            if seconds > 0 {
+                var string = ""
+                if seconds / 3600 > 0 {
+                    string = String(format: "%@%d", string, seconds / 3600)
+                } else {
+                    string = ""
+                }
+                
+                seconds = seconds % 3600
+                if seconds / 60 > 0 {
+                    string = String(format: "%@%d", string, seconds / 60)
+                } else {
+                    if string.count > 0 {
+                        string = "\(string)00"
+                    } else {
+                        string = "\(string)"
+                    }
+                }
+                
+                seconds = seconds % 60
+                if seconds > 0 {
+                    string = String(format: "%@%d", string, seconds)
+                } else {
+                    if string.count > 0 {
+                        string = "\(string)00"
+                    } else {
+                        string = "\(string)"
+                    }
+                }
+                
+                self.textfieldTimeInput.text = string
+                self.labelTotalTime.attributedText = self.convertInputStringToTime(string)
+            }
+            self.processButtonEntry()
+            
+        }
+        
+        if self.fromPlaylist {
+            if self.editingPracticeData != nil {
+                
+                if let practiceItemId = self.editingPracticeData.practiceItemId {
+                    
+                    if let practiceItem = PracticeItemLocalManager.manager.practiceItem(forId: practiceItemId) {
+                        self.selectedPracticeItem = practiceItem
+                        self.labelItemName.text = practiceItem.name
+                        self.labelItemName.textColor = highlightedColor
+                        
+                        self.viewItemNamePanel.backgroundColor = Color.black.alpha(0.1)
+                        self.buttonItemSelect.isEnabled = false
+                        
+                        if self.editingPracticeData.playlistId != nil {
+                            if let playlist = PlaylistLocalManager.manager.loadPlaylist(forId: self.editingPracticeData.playlistId) {
+                                self.selectedPlaylist = playlist
+                                self.labelPlaylist.text = playlist.name
+                                self.viewPlaylistPanel.backgroundColor = Color.black.alpha(0.1)
+                                self.buttonPlaylistSelect.isEnabled = false
+                            }
+                        }
+                        
+                        self.processButtonEntry()
+                    }
+                    
+                }
+            }
+        }
+    }
+    
 }
 
 extension UpdatePracticeEntryViewController: DatePickerPopupViewDelegate {
@@ -196,20 +287,7 @@ extension UpdatePracticeEntryViewController: UITextFieldDelegate {
         if text.count > 6 {
             return false
         }
-        
-        let reversed = self.reversedString(from: text)
-        
-        var idx = 0
-        while idx < reversed.count {
-            if let number = Int(reversed[idx..<(idx+1)]) {
-                if number > 5 {
-                    return false
-                }
-            } else {
-                return false
-            }
-            idx = idx + 2
-        }
+
         return true
     }
     
@@ -254,10 +332,19 @@ extension UpdatePracticeEntryViewController: UITextFieldDelegate {
 }
 
 extension UpdatePracticeEntryViewController {
+    
     func processButtonEntry() {
-        if let totalTime = self.convertToSeconds(self.textfieldTimeInput.text ?? "") {
+        if let _ = self.convertToSeconds(self.textfieldTimeInput.text ?? "") {
             if self.dateSelected {
-                print("total time - \(totalTime)")
+                
+                if self.fromPlaylist && self.playlistItemId == nil {
+                    if self.selectedPracticeItem == nil && self.selectedPlaylist == nil {
+                        self.buttonAddEntry.backgroundColor = Color(hexString: "#9B9B9B")
+                        self.buttonAddEntry.isEnabled = false
+                        return
+                    }
+                }
+                
                 self.buttonAddEntry.isEnabled = true
                 self.buttonAddEntry.backgroundColor = Color(hexString: "#5311CA")
                 return
@@ -273,23 +360,96 @@ extension UpdatePracticeEntryViewController {
         if self.isUpdating {
             if let totalTime = self.convertToSeconds(self.textfieldTimeInput.text ?? "") {
                 if self.dateSelected {
+                    ModacityAnalytics.LogEvent(.PressedUpdateTime)
                     let oldEntryDate = self.editingPracticeData.entryDateString ?? ""
                     let oldFromTime = self.editingPracticeData.fromTime ?? ""
-                    
+                    let oldPracticeTime = self.editingPracticeData.practiceTimeInSeconds ?? 0
                     self.editingPracticeData.practiceTimeInSeconds = totalTime
                     self.editingPracticeData.startedTime = (self.selectedDate.toString(format: "yyyyMMdd") + oldFromTime).date(format: "yyyyMMddHH:mm:ss")?.timeIntervalSince1970 ?? self.selectedDate.timeIntervalSince1970
                     self.editingPracticeData.entryDateString = self.selectedDate.toString(format: "yy-MM-dd")
-                    PracticingDailyLocalManager.manager.updatePracticingData(data: self.editingPracticeData, oldEntryDate: oldEntryDate, newEntryDate: self.editingPracticeData.entryDateString ?? "")
+                    PracticingDailyLocalManager.manager.updatePracticingData(data: self.editingPracticeData,
+                                                                             oldEntryDate: oldEntryDate,
+                                                                             newEntryDate: self.editingPracticeData.entryDateString ?? "",
+                                                                             timeChange: (totalTime - oldPracticeTime))
                     self.navigationController?.popViewController(animated: true)
                 }
             }
         } else {
-            if let totalTime = self.convertToSeconds(self.textfieldTimeInput.text ?? "") {
-                if self.dateSelected {
-                    PracticingDailyLocalManager.manager.saveManualPracticing(duration: totalTime, practiceItemId: self.practiceItemId, started: self.selectedDate)
-                    self.navigationController?.popViewController(animated: true)
+            
+            if !self.fromPlaylist {
+                if let totalTime = self.convertToSeconds(self.textfieldTimeInput.text ?? "") {
+                    if self.dateSelected {
+                        ModacityAnalytics.LogEvent(.PressedAddTime, params: ["type":"is practice item"])
+                        PracticingDailyLocalManager.manager.saveManualPracticing(duration: totalTime, practiceItemId: self.practiceItemId, started: self.selectedDate)
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                }
+            } else {
+                if let playlistId = self.playlistItemId {
+                    if let totalTime = self.convertToSeconds(self.textfieldTimeInput.text ?? "") {
+                        if self.dateSelected {
+                            ModacityAnalytics.LogEvent(.PressedAddTime, params: ["type":"is playlist item"])
+                            if let practiceItem = self.selectedPracticeItem {
+                                PlaylistDailyLocalManager.manager.saveManualPracticing(duration: totalTime, practiceItemId: practiceItem.id, started: self.selectedDate, playlistId: playlistId)
+                            } else {
+                                PlaylistDailyLocalManager.manager.saveManualPracticing(duration: totalTime, practiceItemId: nil, started: self.selectedDate, playlistId: playlistId)
+                            }
+                            self.navigationController?.popViewController(animated: true)
+                        }
+                    }
+                } else {
+                    if let totalTime = self.convertToSeconds(self.textfieldTimeInput.text ?? "") {
+                        if self.dateSelected {
+                            if let playlist = self.selectedPlaylist {
+                                if let practiceItem = self.selectedPracticeItem {
+                                    PlaylistDailyLocalManager.manager.saveManualPracticing(duration: totalTime, practiceItemId: practiceItem.id, started: self.selectedDate, playlistId: playlist.id)
+                                } else {
+                                    PlaylistDailyLocalManager.manager.saveManualPracticing(duration: totalTime, practiceItemId: nil, started: self.selectedDate, playlistId: playlist.id)
+                                }
+                            } else {
+                                if let practiceItem = self.selectedPracticeItem {
+                                    PracticingDailyLocalManager.manager.saveManualPracticing(duration: totalTime, practiceItemId: practiceItem.id, started: self.selectedDate)
+                                }
+                            }
+                            ModacityAnalytics.LogEvent(.PressedAddTime, params: ["type":"is overview"])
+                            self.navigationController?.popViewController(animated: true)
+                        }
+                    }
                 }
             }
         }
+    }
+}
+
+extension UpdatePracticeEntryViewController: PracticeItemListViewControllerDelegate {
+    func openPracticeItemSelect() {
+        let controller = UIStoryboard(name: "practice_item", bundle: nil).instantiateViewController(withIdentifier: "PracticeItemListViewController") as! PracticeItemListViewController
+        controller.delegate = self
+        controller.singleSelectMode = true
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    func practiceItemListViewController(_ controller: PracticeItemListViewController, selectedPracticeItem: PracticeItem) {
+        self.selectedPracticeItem = selectedPracticeItem
+        self.labelItemName.text = selectedPracticeItem.name
+        self.labelItemName.textColor = highlightedColor
+        self.processButtonEntry()
+    }
+}
+
+extension UpdatePracticeEntryViewController: PlaylistListViewControllerDelegate {
+    
+    func openPlaylistItemSelect() {
+        let controller = UIStoryboard(name: "playlist", bundle: nil).instantiateViewController(withIdentifier: "PlaylistListViewController") as! PlaylistListViewController
+        controller.singleSelectionMode = true
+        controller.delegate = self
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    func playlistViewController(_ controller: PlaylistListViewController, selectedPlaylist: Playlist) {
+        self.labelPlaylist.text = selectedPlaylist.name
+        self.labelPlaylist.textColor = highlightedColor
+        self.selectedPlaylist = selectedPlaylist
+        self.processButtonEntry()
     }
 }

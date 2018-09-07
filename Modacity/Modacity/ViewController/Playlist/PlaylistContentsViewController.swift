@@ -558,6 +558,21 @@ class PlaylistContentsViewController: UIViewController {
             self.sessionTimer = nil
         }
         self.viewModel.playlistPracticeData.practiceTimeInSeconds = self.viewModel.sessionDurationInSecond
+        
+        var practicesFound = [String:Bool]()
+        
+        for idx in (0..<self.viewModel.playlistPracticeData.practices.count).reversed() {
+            let practiceDataId = self.viewModel.playlistPracticeData.practices[idx]
+            if let found = practicesFound[practiceDataId] {
+                if found {
+                    ModacityDebugger.debug("FOUND DUPLICATED PRACTICE DATA ENTRY ID!")
+                    self.viewModel.playlistPracticeData.practices.remove(at: idx)
+                    continue
+                }
+            }
+            practicesFound[practiceDataId] = true
+        }
+        
         PlaylistDailyLocalManager.manager.saveNewPlaylistPracticing(self.viewModel.playlistPracticeData)
         
         self.performSegue(withIdentifier: "sid_finish", sender: nil)

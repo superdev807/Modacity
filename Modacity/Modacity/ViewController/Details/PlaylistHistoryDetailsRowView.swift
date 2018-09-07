@@ -10,6 +10,11 @@ import UIKit
 import Charts
 import AVFoundation
 
+protocol PlaylistHistoryDetailsRowViewDelegate {
+    func playlistHistoryDetailsRow(_ view: PlaylistHistoryDetailsRowView, editOnItem: PracticeDaily)
+    func playlistHistoryDetailsRow(_ view: PlaylistHistoryDetailsRowView, deleteOnItem: PracticeDaily)
+}
+
 class PlaylistHistoryDetailsRowView: UIView {
 
     @IBOutlet var viewContent: UIView!
@@ -19,6 +24,12 @@ class PlaylistHistoryDetailsRowView: UIView {
     @IBOutlet weak var labelImprovements: UILabel!
     @IBOutlet weak var imageViewStarIcon: UIImageView!
     @IBOutlet weak var labelTime: UILabel!
+    @IBOutlet weak var viewNormalEntry: UIView!
+    @IBOutlet weak var labelManualEntry: UILabel!
+    @IBOutlet weak var viewActions: UIView!
+    
+    var rowData: PracticeDaily? = nil
+    var delegate: PlaylistHistoryDetailsRowViewDelegate? = nil
     
     override init(frame: CGRect) {
         super.init(frame:frame)
@@ -43,26 +54,84 @@ class PlaylistHistoryDetailsRowView: UIView {
         self.viewContent.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
     }
     
-    func configure(with data: PlaylistPracticeHistoryData) {
+    func configure(with data: PracticeDaily, editing: Bool) {
         
-        let formatter = NumberFormatter()
-        formatter.minimumFractionDigits = 0
-        formatter.maximumFractionDigits = 2
+        self.rowData = data
         
-        self.labelPracticeItemName.text = ""
-        if let practice = PracticeItemLocalManager.manager.practiceItem(forId: data.practiceItemId) {
-            self.labelPracticeItemName.text = practice.name
-        } else {
-            self.labelPracticeItemName.text = "(Deleted)"
-        }
-        let timeInSecond = data.time ?? 0
+        let timeInSecond = data.practiceTimeInSeconds ?? 0
         if timeInSecond > 0 && timeInSecond < 600 {
             self.labelTime.text = String(format: "%.1f", Double(timeInSecond) / 60.0)
         } else {
             self.labelTime.text = "\(timeInSecond / 60)"
         }
-        self.labelStarRating.text = formatter.string(from: data.calculateAverageRatings() as NSNumber) ?? "n/a"
-        self.labelImprovements.text = "\(data.improvements.count)"
+        
+        self.labelPracticeItemName.text = ""
+        if data.isManual {
+            if data.practiceItemId == PlaylistDailyLocalManager.manager.miscPracticeId {
+                self.labelPracticeItemName.text = PlaylistDailyLocalManager.manager.miscPracticeItemName
+            } else {
+                if let practice = PracticeItemLocalManager.manager.practiceItem(forId: data.practiceItemId) {
+                    self.labelPracticeItemName.text = practice.name
+                } else {
+                    self.labelPracticeItemName.text = "(Deleted)"
+                }
+            }
+        } else {
+            self.labelPracticeItemName.text = ""
+            if let practice = PracticeItemLocalManager.manager.practiceItem(forId: data.practiceItemId) {
+                self.labelPracticeItemName.text = practice.name
+            } else {
+                self.labelPracticeItemName.text = "(Deleted)"
+            }
+        }
+        
+        if editing {
+            self.viewActions.isHidden = false
+            self.viewNormalEntry.isHidden = true
+            self.labelManualEntry.isHidden = true
+            return
+        } else {
+            self.viewActions.isHidden = true
+        }
+        
+        let formatter = NumberFormatter()
+        formatter.minimumFractionDigits = 0
+        formatter.maximumFractionDigits = 2
+        
+        if data.isManual {
+            self.labelManualEntry.isHidden = false
+            self.viewNormalEntry.isHidden = true
+        } else {
+            self.labelManualEntry.isHidden = true
+            self.viewNormalEntry.isHidden = false
+            self.labelStarRating.text = formatter.string(from: (data.rating ?? 0) as NSNumber) ?? "n/a"
+            self.labelImprovements.text = "\(data.improvements?.count ?? 0)"
+        }
         
     }
+    
+    @IBAction func onEdit(_ sender: Any) {
+        if let delegate = self.delegate {
+            
+            if let practiceItem = self.rowData?.practiceItem() {
+                ModacityAnalytics.LogEvent(.PressedEditItemTime, params: ["Item Name": practiceItem.name])
+            } else {
+                ModacityAnalytics.LogEvent(.PressedEditItemTime)
+            }
+            
+            delegate.playlistHistoryDetailsRow(self, editOnItem: self.rowData!)
+        }
+    }
+    
+    @IBAction func onDelete(_ sender: Any) {
+        if let delegate = self.delegate {
+            if let practiceItem = self.rowData?.practiceItem() {
+                ModacityAnalytics.LogEvent(.PressedDeleteItemTime, params: ["Item Name": practiceItem.name])
+            } else {
+                ModacityAnalytics.LogEvent(.PressedDeleteItemTime)
+            }
+            delegate.playlistHistoryDetailsRow(self, deleteOnItem: self.rowData!)
+        }
+    }
+    
 }

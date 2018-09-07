@@ -127,12 +127,26 @@ class PracticeHistoryDetailsRowView: UIView {
     
     @IBAction func onEdit(_ sender: Any) {
         if let delegate = self.delegate, let data = self.data {
+            
+            if let practiceItem = data.practiceItem() {
+                ModacityAnalytics.LogEvent(.PressedEditItemTime, params: ["Item Name": practiceItem.name])
+            } else {
+                ModacityAnalytics.LogEvent(.PressedEditItemTime)
+            }
+            
             delegate.practiceHistoryDetailsRow(self, editOnPractice: data)
         }
     }
     
     @IBAction func onDelete(_ sender: Any) {
         if let delegate = self.delegate, let data = self.data {
+            
+            if let practiceItem = data.practiceItem() {
+                ModacityAnalytics.LogEvent(.PressedDeleteItemTime, params: ["Item Name": practiceItem.name])
+            } else {
+                ModacityAnalytics.LogEvent(.PressedDeleteItemTime)
+            }
+            
             delegate.practiceHistoryDetailsRow(self, deleteOnPractice: data)
         }
     }

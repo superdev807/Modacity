@@ -58,6 +58,19 @@ enum ModacityEvent:String {
     
     // Debug for IAP
     case PurchaseFailed = "Purchase Failed"
+    
+    // Manual practices
+    case PressedAddTime = "Pressed Add Time"
+    case PressedAddEntry = "Pressed Add Entry"
+    case BackFromAddTime = "Back from Add Time"
+    
+    case PressedDeleteItemTime = "Pressed Delete Item Time"
+    case PressedDeleteItemCanceled = "Pressed Delete Item Canceled"
+    case PressedDeleteItemConfirmed = "Pressed Delete Item Confirmed"
+    
+    case PressedEditItemTime = "Pressed Edit Item Time"
+    case PressedUpdateTime = "Pressed Update Time"
+    case BackFromEditTime = "Back from Edit Time"
 }
 
 class ModacityAnalytics: NSObject {
@@ -112,5 +125,12 @@ class ModacityAnalytics: NSObject {
     
     static func LogEvent(_ event: ModacityEvent, extraParamName: String?, extraParamValue: AnyHashable?) {
         LogStringEvent(event.rawValue, extraParamName: extraParamName, extraParamValue: extraParamValue)
+    }
+    
+    static func LogEvent(_ event: ModacityEvent, params: [String:Any]?) {
+        Analytics.logEvent(event.rawValue, parameters: params)
+        FBSDKAppEvents.logEvent(event.rawValue, parameters: params)
+        Amplitude.instance().logEvent(event.rawValue, withEventProperties: params)
+        Intercom.logEvent(withName: event.rawValue, metaData: params ?? [String:Any]())
     }
 }

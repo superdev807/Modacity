@@ -463,7 +463,8 @@ extension PracticeViewController {
                                                                       rating: 0,
                                                                       inPlaylist: self.playlistViewModel.playlist.id,
                                                                       forPracticeEntry: self.playlistViewModel.currentPracticeEntry.entryId,
-                                                                      improvements: self.playlistViewModel.sessionImproved)
+                                                                      improvements: self.playlistViewModel.sessionImproved,
+                                                                      parentId: self.playlistViewModel.playlistPracticeData.entryId)
                 self.playlistViewModel.playlistPracticeData.practices.append(id)
                 self.playlistViewModel.playlistPracticeData.practiceTimeInSeconds = self.playlistViewModel.totalPracticedTime() + self.playlistViewModel.sessionPlayedInPlaylistPage
                 PlaylistDailyLocalManager.manager.saveNewPlaylistPracticing(self.playlistViewModel.playlistPracticeData)
