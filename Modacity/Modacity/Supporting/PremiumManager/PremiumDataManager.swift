@@ -40,6 +40,13 @@ class PremiumDataManager: NSObject {
     }
     
     func isPremiumUnlocked() -> Bool {
+        
+        if let appStoreReceiptURL = Bundle.main.appStoreReceiptURL {
+            if appStoreReceiptURL.lastPathComponent == "sandboxReceipt" {
+                return true
+            }
+        }
+        
         if let data = UserDefaults.standard.object(forKey: "premium") as? [String:Any] {
             if let premium = PremiumData(JSON: data) {
                 return premium.unlocked()
