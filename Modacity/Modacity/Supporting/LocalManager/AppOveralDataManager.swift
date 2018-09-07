@@ -47,7 +47,7 @@ class AppOveralDataManager {
                     if to != today {
                         let toDate = to.date(format: "yyyy-MM-dd") ?? Date()
                         
-                        if Date().differenceInDays(with: toDate) > 1 {
+                        if Date().differenceInDays(with: toDate) > 2 {
                             UserDefaults.standard.set(todayFullFormat, forKey: "streak_from")
                             UserDefaults.standard.set(todayFullFormat, forKey: "streak_to")
                             UserDefaults.standard.synchronize()
