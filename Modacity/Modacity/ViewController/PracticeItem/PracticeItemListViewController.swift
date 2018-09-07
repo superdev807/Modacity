@@ -387,7 +387,7 @@ extension PracticeItemListViewController: UITextFieldDelegate {
     @IBAction func onRemoveKeyword(_ sender: Any) {
         self.textfieldHeader.text = ""
         self.buttonRemoveKeyboard.isHidden = true
-        self.refreshList()
+        self.updateKeyword()
     }
     
     @IBAction func onDidEndOnExitOnField(_ sender: Any) {
