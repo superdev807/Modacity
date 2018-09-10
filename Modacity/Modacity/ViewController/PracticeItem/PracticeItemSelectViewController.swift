@@ -14,11 +14,12 @@ typealias CompletedAction = () -> ()
 class PracticeItemSelectViewController: UIViewController {
 
     @IBOutlet weak var viewEditboxContainer: UIView!
-    @IBOutlet weak var viewStoreNewItemPanel: UIView!
-    @IBOutlet weak var labelStoreNewItem: UILabel!
+//    @IBOutlet weak var viewStoreNewItemPanel: UIView!
+//    @IBOutlet weak var labelStoreNewItem: UILabel!
+    
     @IBOutlet weak var textfieldSearch: UITextField!
     @IBOutlet weak var tableViewMain: UITableView!
-    @IBOutlet weak var constraintForTableViewTopSpace: NSLayoutConstraint!
+//    @IBOutlet weak var constraintForTableViewTopSpace: NSLayoutConstraint!
     @IBOutlet weak var constraintForAddButtonBottomSpace: NSLayoutConstraint!
     @IBOutlet weak var buttonRemoveKeyword: UIButton!
     @IBOutlet weak var constraintForHeaderImageViewConstant: NSLayoutConstraint!
@@ -57,6 +58,9 @@ class PracticeItemSelectViewController: UIViewController {
     var searchKeyword = ""
     
     var processingSelectItems = false
+    
+    var tableHeaderShowing = false
+    var tableHeaderKeyword = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -105,22 +109,22 @@ class PracticeItemSelectViewController: UIViewController {
     }
     
     func configureGUI() {
-        self.viewEditboxContainer.layer.cornerRadius = 5
-        self.viewStoreNewItemPanel.layer.cornerRadius = 25
-        self.viewStoreNewItemPanel.isHidden = true
+//        self.viewEditboxContainer.layer.cornerRadius = 5
+//        self.viewStoreNewItemPanel.layer.cornerRadius = 25
+//        self.viewStoreNewItemPanel.isHidden = true
+//        self.constraintForTableViewTopSpace.constant = 4
         self.tableViewMain.tableFooterView = UIView()
-        self.constraintForTableViewTopSpace.constant = 4
         self.viewAddPracticeButtonContainer.isHidden = true
         self.constraintForAddPracticeButtonHeight.constant = 0
         self.tableViewMain.sectionIndexBackgroundColor = Color.clear
         self.tableViewMain.sectionIndexColor = Color.white
         self.buttonRemoveKeyword.isHidden = true
+        self.viewEditboxContainer.layer.cornerRadius = 5
     }
     
     @objc func onKeyboardWillChangeFrame(notification: Notification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             print("keyboard height - \(keyboardSize.height)")
-            self.tableViewMain.backgroundColor = Color.blue
             if AppUtils.iphoneIsXModel() {
                 self.constraintForAddButtonBottomSpace.constant = keyboardSize.height - 34
             } else {
@@ -193,30 +197,27 @@ extension PracticeItemSelectViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
-    @IBAction func onAddtoStore(_ sender: Any) {
-        let newName = self.textfieldSearch.text!
-        ModacityAnalytics.LogStringEvent("Created Practice Item", extraParamName: "name", extraParamValue: newName)
-        MBProgressHUD.showAdded(to: self.view, animated: true)
-        DispatchQueue.global().async {
-            self.addNewPracticeItem(newName)
-            self.searchKeyword = ""
-            self.updateList(completed: {
-                self.viewStoreNewItemPanel.isHidden = true
-                self.constraintForTableViewTopSpace.constant = 4
-                self.textfieldSearch.text = ""
-                self.buttonRemoveKeyword.isHidden = true
-                self.scrollTableView(to:newName)
-            })
+    func updateKeyword() {
+        let newKeyword = self.textfieldSearch.text ?? ""
+        tableHeaderKeyword = newKeyword
+        if newKeyword != "" && !self.practiceItemContains(for: newKeyword) {
+            tableHeaderShowing = true
+        } else {
+            tableHeaderShowing = false
         }
+        self.refreshList()
+        self.buttonRemoveKeyword.isHidden = (newKeyword == "")
     }
     
-    func addNewPracticeItem(_ newName: String) {
+    func addNewPracticeItem() {
+        
+        let newName = tableHeaderKeyword
         
         ModacityAnalytics.LogStringEvent("Created Practice Item", extraParamName: "name", extraParamValue: newName)
         
         let practiceItem = PracticeItem()
         practiceItem.id = UUID().uuidString
-        practiceItem.name = newName
+        practiceItem.name = tableHeaderKeyword
         
         if self.practiceItems == nil {
             self.practiceItems = [PracticeItem]()
@@ -227,7 +228,58 @@ extension PracticeItemSelectViewController {
         PracticeItemLocalManager.manager.storePracticeItems(self.practiceItems!)
         PracticeItemRemoteManager.manager.add(item: practiceItem)
         
+        tableHeaderShowing = false
+        tableHeaderKeyword = ""
+        
+        self.textfieldSearch.text = ""
+        self.buttonRemoveKeyword.isHidden = true
+        self.tableHeaderKeyword = ""
+        self.searchKeyword = ""
+        self.selectedPracticeItems.append(practiceItem)
+        
+        self.updateKeyword()
+        self.updateList()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            self.scrollTableView(to:newName)
+        }
     }
+    
+//    @IBAction func onAddtoStore(_ sender: Any) {
+//        let newName = self.textfieldSearch.text!
+//        ModacityAnalytics.LogStringEvent("Created Practice Item", extraParamName: "name", extraParamValue: newName)
+//        MBProgressHUD.showAdded(to: self.view, animated: true)
+//        DispatchQueue.global().async {
+//            self.addNewPracticeItem(newName)
+//            self.searchKeyword = ""
+//            self.updateList(completed: {
+////                self.viewStoreNewItemPanel.isHidden = true
+////                self.constraintForTableViewTopSpace.constant = 4
+//                self.textfieldSearch.text = ""
+//                self.buttonRemoveKeyword.isHidden = true
+//                self.scrollTableView(to:newName)
+//            })
+//        }
+//    }
+//
+//    func addNewPracticeItem(_ newName: String) {
+//
+//        ModacityAnalytics.LogStringEvent("Created Practice Item", extraParamName: "name", extraParamValue: newName)
+//
+//        let practiceItem = PracticeItem()
+//        practiceItem.id = UUID().uuidString
+//        practiceItem.name = newName
+//
+//        if self.practiceItems == nil {
+//            self.practiceItems = [PracticeItem]()
+//        }
+//
+//        self.practiceItems!.append(practiceItem)
+//
+//        PracticeItemLocalManager.manager.storePracticeItems(self.practiceItems!)
+//        PracticeItemRemoteManager.manager.add(item: practiceItem)
+//
+//    }
 
     func scrollTableView(to name:String) {
         for section in 0..<self.sectionNames.count {
@@ -303,19 +355,20 @@ extension PracticeItemSelectViewController {
 extension PracticeItemSelectViewController: UITextFieldDelegate {
     
     @IBAction func onEditingChangedOnField(_ sender: Any) {
-        let newKeyword = self.textfieldSearch.text ?? ""
-        if newKeyword != "" && !self.practiceItemContains(for: newKeyword) {
-            self.viewStoreNewItemPanel.isHidden = false
-            self.labelStoreNewItem.text = "\(newKeyword)"
-            self.constraintForTableViewTopSpace.constant = 74
-        } else {
-            self.viewStoreNewItemPanel.isHidden = true
-            self.labelStoreNewItem.text = ""
-            self.constraintForTableViewTopSpace.constant = 4
-        }
-        self.buttonRemoveKeyword.isHidden = (newKeyword == "")
-        self.searchKeyword = newKeyword
-        self.refreshList()
+        self.searchKeyword = self.textfieldSearch.text ?? ""
+        self.updateKeyword()
+//        let newKeyword = self.textfieldSearch.text ?? ""
+//        if newKeyword != "" && !self.practiceItemContains(for: newKeyword) {
+////            self.viewStoreNewItemPanel.isHidden = false
+////            self.labelStoreNewItem.text = "\(newKeyword)"
+////            self.constraintForTableViewTopSpace.constant = 74
+//        } else {
+////            self.viewStoreNewItemPanel.isHidden = true
+////            self.labelStoreNewItem.text = ""
+////            self.constraintForTableViewTopSpace.constant = 4
+//        }
+//        self.buttonRemoveKeyword.isHidden = (newKeyword == "")
+//        self.refreshList()
     }
     
     func practiceItemContains(for name: String) -> Bool {
@@ -332,62 +385,88 @@ extension PracticeItemSelectViewController: UITextFieldDelegate {
     
     @IBAction func onRemoveKeyword(_ sender: Any) {
         self.textfieldSearch.text = ""
-        self.buttonRemoveKeyword.isHidden = true
         self.searchKeyword = ""
-        self.refreshList()
+        self.buttonRemoveKeyword.isHidden = true
+        self.updateKeyword()
+//        self.textfieldSearch.text = ""
+//        self.buttonRemoveKeyword.isHidden = true
+//        self.searchKeyword = ""
+//        self.refreshList()
     }
     
     @IBAction func onDidEndOnExitOnField(_ sender: Any) {
         self.textfieldSearch.resignFirstResponder()
-        if !self.viewStoreNewItemPanel.isHidden {
-            self.onAddtoStore(sender)
-        }
+        self.updateKeyword()
+//        if !self.viewStoreNewItemPanel.isHidden {
+//            self.onAddtoStore(sender)
+//        }
     }
 }
 
 extension PracticeItemSelectViewController: UITableViewDelegate, UITableViewDataSource {
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.sectionNames.count
+        return self.sectionNames.count + (tableHeaderShowing ? 1 : 0)
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 28
+        if tableHeaderShowing && section == 0 {
+            return 0
+        } else {
+            return 28
+        }
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let returnedView = UIView(frame: CGRect(x:0, y:0, width:tableViewMain.frame.size.width, height:40))
-        returnedView.backgroundColor = Color(hexString: "#3c385a")
-        
-        let label = UILabel(frame: CGRect(x:10, y:0, width:tableViewMain.frame.size.width - 20, height:24))
-        label.text = "\(self.sectionNames[section])"
-        label.textColor = Color.white.alpha(0.8)
-        label.font = UIFont(name: AppConfig.appFontLatoRegular, size: 14)
-        returnedView.addSubview(label)
-        
-        return returnedView
+        if tableHeaderShowing && section == 0 {
+            return nil
+        } else {
+            let returnedView = UIView(frame: CGRect(x:0, y:0, width:tableViewMain.frame.size.width, height:40))
+            returnedView.backgroundColor = Color(hexString: "#3c385a")
+            
+            let label = UILabel(frame: CGRect(x:10, y:0, width:tableViewMain.frame.size.width - 20, height:24))
+            label.text = "\(self.sectionNames[section - (tableHeaderShowing ? 1: 0)])"
+            label.textColor = Color.white.alpha(0.8)
+            label.font = UIFont(name: AppConfig.appFontLatoRegular, size: 14)
+            returnedView.addSubview(label)
+            
+            return returnedView
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.sectionedPracticeItems[self.sectionNames[section]]?.count ?? 0
+        if tableHeaderShowing && section == 0 {
+            return 1
+        } else {
+            return self.sectionedPracticeItems[self.sectionNames[section - (tableHeaderShowing ? 1 : 0)]]?.count ?? 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "PracticeItemCell") as! PracticeItemSelectCell
-        if let item = self.sectionedPracticeItems[self.sectionNames[indexPath.section]]?[indexPath.row] {
-            cell.configure(with: item,
-                           rate: item.rating,
-                        keyword: self.textfieldSearch.text ?? "",
-                        isSelected: self.isSelected(for: item),
-                        indexPath: indexPath)
-            cell.delegate = self
+        if tableHeaderShowing && indexPath.section == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "PracticeItemHeaderCell") as! PracticeItemHeaderCell
+            cell.configure(with: tableHeaderKeyword)
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "PracticeItemCell") as! PracticeItemSelectCell
+            if let item = self.sectionedPracticeItems[self.sectionNames[indexPath.section - (tableHeaderShowing ? 1 : 0)]]?[indexPath.row] {
+                cell.configure(with: item,
+                               rate: item.rating,
+                               keyword: tableHeaderKeyword,
+                               isSelected: self.isSelected(for: item),
+                               indexPath: indexPath)
+                cell.delegate = self
+            }
+            return cell
         }
-        return cell
-
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 64
+        if tableHeaderShowing && indexPath.section == 0 {
+            return 70
+        } else {
+            return 64
+        }
     }
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
@@ -407,8 +486,13 @@ extension PracticeItemSelectViewController: UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        if !self.processingSelectItems {
-            self.selectItem(for: self.sectionedPracticeItems[self.sectionNames[indexPath.section]]![indexPath.row], indexPath: indexPath)
+        
+        if tableHeaderShowing && indexPath.section == 0 {
+            self.addNewPracticeItem()
+        } else {
+            if !self.processingSelectItems {
+                self.selectItem(for: self.sectionedPracticeItems[self.sectionNames[indexPath.section - (tableHeaderShowing ? 1 : 0)]]![indexPath.row], indexPath: indexPath)
+            }
         }
     }
     

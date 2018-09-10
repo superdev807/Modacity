@@ -33,6 +33,8 @@ class PracticeItemListViewController: UIViewController {
     @IBOutlet weak var imageViewTopLeftIcon: UIImageView!
     @IBOutlet weak var constraintForTableViewBottomSpace: NSLayoutConstraint!
     
+    var heightOfTableViewBottomSpaceStart = CGFloat(-64)
+    
     var tableHeaderShowing = false
     var tableHeaderKeyword = ""
     
@@ -63,11 +65,19 @@ class PracticeItemListViewController: UIViewController {
         if self.singleSelectMode {
             self.imageViewTopLeftIcon.image = UIImage(named: "icon_arrow_left")
             self.constraintForTableViewBottomSpace.constant = 0
+            heightOfTableViewBottomSpaceStart = 0
         } else {
             self.imageViewTopLeftIcon.image = UIImage(named: "icon_menu")
         }
         
+        NotificationCenter.default.addObserver(self, selector: #selector(onKeyboardWillChangeFrame), name: Notification.Name.UIKeyboardWillChangeFrame, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onKeyboardWillHide), name: Notification.Name.UIKeyboardWillHide, object: nil)
+        
         MBProgressHUD.showAdded(to: self.view, animated: true)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -77,6 +87,21 @@ class PracticeItemListViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @objc func onKeyboardWillChangeFrame(notification: Notification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            print("keyboard height - \(keyboardSize.height)")
+            if AppUtils.iphoneIsXModel() {
+                self.constraintForTableViewBottomSpace.constant = (-1) * (keyboardSize.height - 34)
+            } else {
+                self.constraintForTableViewBottomSpace.constant = keyboardSize.height * (-1)
+            }
+        }
+    }
+    
+    @objc func onKeyboardWillHide() {
+        self.constraintForTableViewBottomSpace.constant = heightOfTableViewBottomSpaceStart
     }
     
     @IBAction func onMenu(_ sender: Any) {
