@@ -157,7 +157,7 @@ class SortOptionsViewController: UIViewController {
         case .rating:
             self.imageViewCheckByRating.isHidden = false
             self.labelOption1.text = "High to Low"
-            self.labelOption2.text = "Least Recent"
+            self.labelOption2.text = "Low to High"
             switch sortOption {
             case .ascending:
                 self.imageViewCheckAscending.isHidden = false
