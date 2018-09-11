@@ -392,7 +392,7 @@ extension UpdatePracticeEntryViewController {
             if self.dateSelected {
                 
                 if self.fromPlaylist && self.playlistItemId == nil {
-                    if self.selectedPracticeItem == nil && self.selectedPlaylist == nil {
+                    if self.selectedPracticeItem == nil {
                         self.buttonAddEntry.backgroundColor = Color(hexString: "#9B9B9B")
                         self.buttonAddEntry.isEnabled = false
                         return
