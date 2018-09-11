@@ -46,25 +46,15 @@ class PlaylistHistoryCell: UITableViewCell {
         self.viewContainer.backgroundColor = Color(hexString: "#2e2d4f")
         
         self.labelDate.text = data.date.toString(format: "MMMM d").uppercased()
-        let totalSeconds = data.practiceTotalSeconds ?? 0
-        if data.practiceTotalSeconds > 60 {
-            if data.practiceTotalSeconds < 600 {
-                self.totalPractice.text = String(format: "%.1f", Double(totalSeconds) / 60.0)
-            } else {
-                self.totalPractice.text = "\(totalSeconds / 60)"
-            }
-            
-            self.totalPracticeUnit.text = "MINUTES"
-        } else {
-            self.totalPractice.text = "\(totalSeconds)"
-            self.totalPracticeUnit.text = "SECONDS"
-        }
+        var totalSeconds = 0
         
         self.viewDetailsListContainer.subviews.forEach {$0.removeFromSuperview()}
         var height: CGFloat = 0
         var lastView: UIView? = nil
         
         for row in data.practiceDataList {
+            
+            totalSeconds = totalSeconds + (row.practiceTimeInSeconds ?? 0)
             
             let view = PlaylistHistoryDetailsRowView()
             view.configure(with: row, editing: editing)
@@ -107,6 +97,20 @@ class PlaylistHistoryCell: UITableViewCell {
                 }
             }
         }
+        
+        if totalSeconds > 60 {
+            if totalSeconds < 600 {
+                self.totalPractice.text = String(format: "%.1f", Double(totalSeconds) / 60.0)
+            } else {
+                self.totalPractice.text = "\(totalSeconds / 60)"
+            }
+            
+            self.totalPracticeUnit.text = "MINUTES"
+        } else {
+            self.totalPractice.text = "\(totalSeconds)"
+            self.totalPracticeUnit.text = "SECONDS"
+        }
+
         
         self.constraintForDetailsListHeight.constant = height
         self.constraintForContainerHeight.constant = height + 55

@@ -215,58 +215,34 @@ class PlaylistStatsView: UIView {
             let time = date.date(format: "yy-MM-dd")
             if let dailyDatas = data[date] {
                 for daily in dailyDatas {
-                    totalMinutes = totalMinutes + (daily.practiceTimeInSeconds ?? 0)
                     entryCount = entryCount + 1
-                    
-                    if time!.isThisWeek() {
-                        thisWeekTotal = thisWeekTotal + (daily.practiceTimeInSeconds ?? 0)
-                        if daily.practices != nil {
-                            for practice in daily.practices {
-                                if let practiceDailyData = PracticingDailyLocalManager.manager.practicingData(forDataId: practice) {
-                                    if let practiceItemId = practiceDailyData.practiceItemId {
+                    if daily.practices != nil {
+                        for practice in daily.practices {
+                            if let practiceDailyData = PracticingDailyLocalManager.manager.practicingData(forDataId: practice) {
+                                if let practiceItemId = practiceDailyData.practiceItemId {
+                                    
+                                    totalMinutes = totalMinutes + (practiceDailyData.practiceTimeInSeconds ?? 0)
+                                    
+                                    if time!.isThisWeek() {
+                                        thisWeekTotal = thisWeekTotal + (practiceDailyData.practiceTimeInSeconds ?? 0)
                                         self.configureDetails(key: "this_week", practiceItemId: practiceItemId, practiceDailyData: practiceDailyData)
                                     }
-                                }
-                            }
-                        }
-                    }
-                    
-                    if time!.isLastWeek() {
-                        lastWeekTotal = lastWeekTotal + daily.practiceTimeInSeconds
-                        ModacityDebugger.debug("last week - playlist total time - \(daily.practiceTimeInSeconds)")
-                        if daily.practices != nil {
-                            for practice in daily.practices {
-                                if let practiceDailyData = PracticingDailyLocalManager.manager.practicingData(forDataId: practice) {
-                                    if let practiceItemId = practiceDailyData.practiceItemId {
-                                        ModacityDebugger.debug("last week - playlist practice entry - \(practiceDailyData.practiceItemId) : \(practiceDailyData.practiceTimeInSeconds)")
+                                    
+                                    if time!.isLastWeek() {
+                                        lastWeekTotal = lastWeekTotal + (practiceDailyData.practiceTimeInSeconds ?? 0)
                                         self.configureDetails(key: "last_week", practiceItemId: practiceItemId, practiceDailyData: practiceDailyData)
                                     }
-                                }
-                            }
-                        }
-                    }
-                    
-                    if time!.isThisMonth() {
-                        thisMonthTotal = thisMonthTotal + (daily.practiceTimeInSeconds ?? 0)
-                        if daily.practices != nil {
-                            for practice in daily.practices {
-                                if let practiceDailyData = PracticingDailyLocalManager.manager.practicingData(forDataId: practice) {
-                                    if let practiceItemId = practiceDailyData.practiceItemId {
+                                    
+                                    if time!.isThisMonth() {
+                                        thisMonthTotal = thisMonthTotal + (practiceDailyData.practiceTimeInSeconds ?? 0)
                                         self.configureDetails(key: "this_month", practiceItemId: practiceItemId, practiceDailyData: practiceDailyData)
                                     }
-                                }
-                            }
-                        }
-                    }
-                    
-                    if time!.isLastMonth() {
-                        lastMonthTotal = lastMonthTotal + daily.practiceTimeInSeconds
-                        if daily.practices != nil {
-                            for practice in daily.practices {
-                                if let practiceDailyData = PracticingDailyLocalManager.manager.practicingData(forDataId: practice) {
-                                    if let practiceItemId = practiceDailyData.practiceItemId {
+                                    
+                                    if time!.isLastMonth() {
+                                        lastMonthTotal = lastMonthTotal + (practiceDailyData.practiceTimeInSeconds ?? 0)
                                         self.configureDetails(key: "last_month", practiceItemId: practiceItemId, practiceDailyData: practiceDailyData)
                                     }
+                                    
                                 }
                             }
                         }
