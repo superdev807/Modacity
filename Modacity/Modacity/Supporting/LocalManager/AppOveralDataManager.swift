@@ -51,6 +51,7 @@ class AppOveralDataManager {
                             UserDefaults.standard.set(todayFullFormat, forKey: "streak_from")
                             UserDefaults.standard.set(todayFullFormat, forKey: "streak_to")
                             UserDefaults.standard.synchronize()
+                            ModacityDebugger.debug("Update streak values from, to both!")
                             OverallDataRemoteManager.manager.updateStreakValues(from: todayFullFormat, to: todayFullFormat)
                         } else {
                             UserDefaults.standard.set(todayFullFormat, forKey: "streak_to")
@@ -62,10 +63,11 @@ class AppOveralDataManager {
                     if to != todayFullFormat {
                         let toDate = to.date(format: "yyyy-MM-ddHH:mm:ssZ") ?? Date()
                         
-                        if Date().differenceInDays(with: toDate) > 1 {
+                        if Date().differenceInDays(with: toDate) > 2 {
                             UserDefaults.standard.set(todayFullFormat, forKey: "streak_from")
                             UserDefaults.standard.set(todayFullFormat, forKey: "streak_to")
                             UserDefaults.standard.synchronize()
+                            ModacityDebugger.debug("Update streak values from, to both!")
                             OverallDataRemoteManager.manager.updateStreakValues(from: todayFullFormat, to: todayFullFormat)
                         } else {
                             UserDefaults.standard.set(todayFullFormat, forKey: "streak_to")

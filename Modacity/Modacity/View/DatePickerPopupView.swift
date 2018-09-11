@@ -20,6 +20,7 @@ class DatePickerPopupView: UIView {
     
     @IBOutlet var viewContent: UIView!
     @IBOutlet weak var datePicker: UIDatePicker!
+    @IBOutlet weak var constraintForDateInputPickerHeight: NSLayoutConstraint!
     
     var delegate: DatePickerPopupViewDelegate!
     
@@ -43,6 +44,10 @@ class DatePickerPopupView: UIView {
         self.viewContent.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         self.viewContent.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
         self.viewContent.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        
+        if AppUtils.sizeModelOfiPhone() == .iphone4_35in {
+            self.constraintForDateInputPickerHeight.constant = 240
+        }
     }
 
     @IBAction func onDone(_ sender: Any) {

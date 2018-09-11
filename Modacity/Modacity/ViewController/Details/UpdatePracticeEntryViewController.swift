@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CHGInputAccessoryView
 
 class UpdatePracticeEntryViewController: UIViewController {
     
@@ -34,7 +35,15 @@ class UpdatePracticeEntryViewController: UIViewController {
     @IBOutlet weak var labelItemNameCaption: UILabel!
     @IBOutlet weak var buttonItemSelect: UIButton!
     
-    let highlightedColor = Color(hexString: "#92939B")
+    @IBOutlet weak var constraintVerticalSpace1: NSLayoutConstraint!
+    @IBOutlet weak var constraintVerticalSpace2: NSLayoutConstraint!
+    @IBOutlet weak var constraintVeriticalSpace3: NSLayoutConstraint!
+    
+    @IBOutlet weak var scrollViewMain: UIScrollView!
+    
+    @IBOutlet weak var buttonSubCover: UIButton!
+    
+    let highlightedColor = Color(hexString: "#5E5F6C")
     var popupView: DatePickerPopupView!
     var selectedDate = Date()
     var dateSelected = false
@@ -72,12 +81,23 @@ class UpdatePracticeEntryViewController: UIViewController {
             }
         }
         
+        self.attachInputAccessoryView()
+        
         if self.isUpdating {
             self.buttonAddEntry.setTitle("Update Entry", for: .normal)
             self.labelTitle.text = "Edit Entry"
             
             self.showUpdatingValues()
         }
+        
+        if AppUtils.sizeModelOfiPhone() == .iphone4_35in {
+            self.constraintVerticalSpace1.constant = 10
+            self.constraintVerticalSpace2.constant = 10
+            self.constraintVeriticalSpace3.constant = 10
+        }
+        
+        self.buttonSubCover.isHidden = true
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -117,9 +137,18 @@ class UpdatePracticeEntryViewController: UIViewController {
             popupView.removeFromSuperview()
         }
         self.textfieldTimeInput.resignFirstResponder()
+        self.viewContainer.bringSubview(toFront: self.buttonCover)
+        
+        if AppUtils.sizeModelOfiPhone() == .iphone4_35in {
+            self.scrollViewMain.setContentOffset(CGPoint(x:0, y:0), animated: true)
+            self.buttonSubCover.isHidden = true
+        }
     }
     
     @IBAction func onDateInput(_ sender: Any) {
+        if self.popupView != nil && self.popupView.superview != nil {
+            return
+        }
         self.showDateInputPicker()
     }
     
@@ -138,6 +167,7 @@ class UpdatePracticeEntryViewController: UIViewController {
             self.selectedDate = self.editingPracticeData.entryDateString.date(format: "yy-MM-dd") ?? Date(timeIntervalSince1970: self.editingPracticeData.startedTime)
             self.labelTotalDate.text = self.selectedDate.toString(format: "MMMM d, yyyy")
             self.dateSelected = true
+            self.labelTotalDate.font = UIFont(name: AppConfig.appFontLatoBold, size: 14)
             self.labelTotalDate.textColor = highlightedColor
             
             var seconds = self.editingPracticeData.practiceTimeInSeconds ?? 0
@@ -187,6 +217,7 @@ class UpdatePracticeEntryViewController: UIViewController {
                         self.selectedPracticeItem = practiceItem
                         self.labelItemName.text = practiceItem.name
                         self.labelItemName.textColor = highlightedColor
+                        self.labelItemName.font = UIFont(name: AppConfig.appFontLatoBold, size: 14)
                         
                         self.viewItemNamePanel.backgroundColor = Color.black.alpha(0.1)
                         self.buttonItemSelect.isEnabled = false
@@ -195,6 +226,8 @@ class UpdatePracticeEntryViewController: UIViewController {
                             if let playlist = PlaylistLocalManager.manager.loadPlaylist(forId: self.editingPracticeData.playlistId) {
                                 self.selectedPlaylist = playlist
                                 self.labelPlaylist.text = playlist.name
+                                self.labelPlaylist.textColor = highlightedColor
+                                self.labelPlaylist.font = UIFont(name: AppConfig.appFontLatoBold, size: 14)
                                 self.viewPlaylistPanel.backgroundColor = Color.black.alpha(0.1)
                                 self.buttonPlaylistSelect.isEnabled = false
                             }
@@ -221,9 +254,16 @@ extension UpdatePracticeEntryViewController: DatePickerPopupViewDelegate {
         popupView.widthAnchor.constraint(equalToConstant: DatePickerPopupView.PopupWidth).isActive = true
         popupView.widthAnchor.constraint(equalToConstant: DatePickerPopupView.PopupHeight).isActive = true
         popupView.centerXAnchor.constraint(equalTo: self.viewContainer.centerXAnchor).isActive = true
-        self.viewContainer.bringSubview(toFront: popupView)
         
         self.buttonCover.isHidden = false
+        self.viewContainer.bringSubview(toFront: self.buttonCover)
+        self.viewContainer.bringSubview(toFront: self.viewSecondPanel)
+        self.viewContainer.bringSubview(toFront: popupView)
+        
+        if AppUtils.sizeModelOfiPhone() == .iphone4_35in {
+            self.scrollViewMain.setContentOffset(CGPoint(x:0, y:100), animated: true)
+            self.buttonSubCover.isHidden = false
+        }
     }
     
     func selectedDateOnDatePickerPopupView(_ popupView: DatePickerPopupView, date: Date) {
@@ -231,14 +271,23 @@ extension UpdatePracticeEntryViewController: DatePickerPopupViewDelegate {
         self.dateSelected = true
         self.labelTotalDate.text = date.toString(format: "MMMM d, yyyy")
         self.labelTotalDate.textColor = highlightedColor
+        self.labelTotalDate.font = UIFont(name: AppConfig.appFontLatoBold, size: 14)
         popupView.removeFromSuperview()
         self.buttonCover.isHidden = true
         self.processButtonEntry()
+        if AppUtils.sizeModelOfiPhone() == .iphone4_35in {
+            self.scrollViewMain.setContentOffset(CGPoint(x:0, y:0), animated: true)
+            self.buttonSubCover.isHidden = true
+        }
     }
     
     func cancelDateOnDatePickerPopupView(_ popupView: DatePickerPopupView) {
         popupView.removeFromSuperview()
         self.buttonCover.isHidden = true
+        if AppUtils.sizeModelOfiPhone() == .iphone4_35in {
+            self.scrollViewMain.setContentOffset(CGPoint(x:0, y:0), animated: true)
+            self.buttonSubCover.isHidden = true
+        }
     }
 }
 
@@ -267,9 +316,13 @@ extension UpdatePracticeEntryViewController: UITextFieldDelegate {
     
     @IBAction func onEditingDidBeginOnField(_ sender: Any) {
         self.buttonCover.isHidden = false
+        self.viewContainer.bringSubview(toFront: self.buttonCover)
+        self.viewContainer.bringSubview(toFront: self.viewFirstPanel)
     }
     
     @IBAction func onEditingDidEndOnField(_ sender: Any) {
+        self.buttonCover.isHidden = true
+        self.viewContainer.bringSubview(toFront: self.buttonCover)
     }
     
     func reversedString(from text:String) -> String {
@@ -305,8 +358,9 @@ extension UpdatePracticeEntryViewController: UITextFieldDelegate {
         
         let attributedString = NSMutableAttributedString(string: res)
         let length = [0,1,2,4,5,7,8][inputString.count]
-        attributedString.addAttribute(NSAttributedStringKey.foregroundColor, value: Color(hexString:"#C8C9CD"), range: NSMakeRange(0, res.count))
+        attributedString.addAttribute(NSAttributedStringKey.foregroundColor, value: Color(hexString:"#92939B"), range: NSMakeRange(0, res.count))
         attributedString.addAttribute(NSAttributedStringKey.foregroundColor, value: highlightedColor, range: NSMakeRange(8 - length, length))
+        attributedString.addAttribute(NSAttributedStringKey.font, value: UIFont(name: AppConfig.appFontLatoBold, size: 14), range: NSMakeRange(8 - length, length))
         return attributedString
     }
     
@@ -433,6 +487,7 @@ extension UpdatePracticeEntryViewController: PracticeItemListViewControllerDeleg
         self.selectedPracticeItem = selectedPracticeItem
         self.labelItemName.text = selectedPracticeItem.name
         self.labelItemName.textColor = highlightedColor
+        self.labelItemName.font = UIFont(name: AppConfig.appFontLatoBold, size: 14)
         self.processButtonEntry()
     }
 }
@@ -449,7 +504,34 @@ extension UpdatePracticeEntryViewController: PlaylistListViewControllerDelegate 
     func playlistViewController(_ controller: PlaylistListViewController, selectedPlaylist: Playlist) {
         self.labelPlaylist.text = selectedPlaylist.name
         self.labelPlaylist.textColor = highlightedColor
+        self.labelPlaylist.font = UIFont(name: AppConfig.appFontLatoBold, size: 14)
         self.selectedPlaylist = selectedPlaylist
         self.processButtonEntry()
+    }
+}
+
+extension UpdatePracticeEntryViewController: CHGInputAccessoryViewDelegate {
+    
+    func attachInputAccessoryView() {
+        let inputAccessoryView = CHGInputAccessoryView.inputAccessoryView() as! CHGInputAccessoryView
+        let flexible = CHGInputAccessoryViewItem.flexibleSpace()!
+        let cancel = CHGInputAccessoryViewItem.button(withTitle: "Cancel")!
+        cancel.tintColor = Color.black
+        cancel.tag = 100
+        let done = CHGInputAccessoryViewItem.button(withTitle: "Next")!
+        done.tintColor = Color.black
+        done.tag = 101
+        inputAccessoryView.items = [cancel, flexible, done]
+        inputAccessoryView.inputAccessoryViewDelegate = self
+        self.textfieldTimeInput.inputAccessoryView = inputAccessoryView
+    }
+    
+    func didTap(_ item: CHGInputAccessoryViewItem!) {
+        if item.tag == 100 {
+            self.textfieldTimeInput.resignFirstResponder()
+        } else if item.tag == 101 {
+            self.textfieldTimeInput.resignFirstResponder()
+            self.showDateInputPicker()
+        }
     }
 }

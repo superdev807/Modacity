@@ -42,7 +42,7 @@ class PlaylistHistoryCell: UITableViewCell {
         self.viewContainer.layer.shadowColor = UIColor.black.cgColor
         self.viewContainer.layer.shadowOffset = CGSize(width: 0, height: 0)
         self.viewContainer.layer.shadowOpacity = 0.4
-        self.viewContainer.layer.shadowRadius = 4.0
+        self.viewContainer.layer.shadowRadius = 3.0
         self.viewContainer.backgroundColor = Color(hexString: "#2e2d4f")
         
         self.labelDate.text = data.date.toString(format: "MMMM d").uppercased()
@@ -133,7 +133,7 @@ class PlaylistHistoryCell: UITableViewCell {
             }
         }
         
-        return 5 + (height + 15) + 5
+        return (height + 15) + 5
     }
 }
 
