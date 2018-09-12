@@ -397,16 +397,7 @@ extension UpdatePracticeEntryViewController {
     
     func processButtonEntry() {
         if let _ = self.convertToSeconds(self.textfieldTimeInput.text ?? "") {
-            if self.dateSelected {
-                
-//                if self.fromPlaylist && self.playlistItemId == nil {
-//                    if self.selectedPracticeItem == nil && self.selectedPlaylist == nil {
-//                        self.buttonAddEntry.backgroundColor = Color(hexString: "#9B9B9B")
-//                        self.buttonAddEntry.isEnabled = false
-//                        return
-//                    }
-//                }
-                
+            if self.dateSelected {                
                 self.buttonAddEntry.isEnabled = true
                 self.buttonAddEntry.backgroundColor = Color(hexString: "#5311CA")
                 return
