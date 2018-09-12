@@ -13,10 +13,13 @@ class TutorialCell: UITableViewCell {
     @IBOutlet weak var imageViewImage: UIImageView!
     @IBOutlet weak var labelTitle: UILabel!
     @IBOutlet weak var labelDescription: UILabel!
+    @IBOutlet weak var labelTitlePart1: UILabel!
+    @IBOutlet weak var labelTitlePart2: UILabel!
     
-    func configure(imageName: String, title: String, desc: String) {
+    func configure(imageName: String, title1: String, title2: String, desc: String) {
         self.imageViewImage.image = UIImage(named: imageName)
-        self.labelTitle.text = title
+        self.labelTitlePart1.text = title1
+        self.labelTitlePart2.text = title2
         self.labelDescription.text = desc
     }
     
@@ -30,18 +33,22 @@ class TutorialViewController: UIViewController {
     @IBOutlet weak var constraintForContentViewTrailing: NSLayoutConstraint!
     @IBOutlet weak var pageControl: UIPageControl!
     
-    let tutorials = [["image":"img_tutorial_1",
-                      "title":"Practice Better",
-                      "desc":"Record your practice sessions, track your time spent, and use Modacity's scientific improvement process to achieve positive results, faster."],
-                     ["image":"img_tutorial_2",
-                      "title":"Learn Faster",
-                      "desc":"Organize, focus, and reflect on your practice - saving you time and increasing retention. We help you stay motivated & positive so your brain learns better."],
-                     ["image":"img_tutorial_3",
-                      "title":"Expert Assistance",
-                      "desc":"Get human help from Modacity’s team of music learning experts. Our expert help will propel you past any obstacles with feedback tailored just for you."],
-                     ["image":"img_tutorial_4",
-                      "title":"Get Results",
-                      "desc":"Track your improvements, time spent, and mastery for everything you practice. Compare recordings from different dates and you’ll be amazed with your results."]]
+    let tutorials = [["image":"img_carousel_1",
+                      "title1":"WELCOME",
+                      "title2":"TO MODACITY",
+                      "desc":"Modacity combines all the tools you need into one easy-to-use music practice app."],
+                     ["image":"img_carousel_2",
+                      "title1":"ORGANIZE",
+                      "title2":"YOUR PRACTICE",
+                      "desc":"Add the pieces you’re working on and create practice sessions - saving you time and increasing retention."],
+                     ["image":"img_carousel_3",
+                      "title1":"PRACTICE",
+                      "title2":"WELL",
+                      "desc":"Record yourself for instant feedback.\nSave notes on items and sessions.\nUse our unique “Improve” button."],
+                     ["image":"img_carousel_4",
+                      "title1":"TRACK",
+                      "title2":"YOUR PROGRESS",
+                      "desc":"Know exactly how much time you’ve spent, what improvements you’ve made, and even your level of mastery."]]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,6 +69,15 @@ class TutorialViewController: UIViewController {
         }
     }
     
+    @IBAction func onNext(_ sender: Any) {
+        if let visibleRows = self.horizontalTableViewTutorial.indexPathsForVisibleRows {
+            let currentPageNum = visibleRows[0].row
+            if currentPageNum < 3 {
+                self.horizontalTableViewTutorial.setContentOffset(CGPoint(x: UIScreen.main.bounds.size.width * CGFloat(currentPageNum + 1), y: 0), animated: true)
+            }
+        }
+    }
+    
     func configureTableViewToPageViewLooking() {
         self.horizontalTableViewTutorial.transform = CGAffineTransform(rotationAngle:(CGFloat(-1 * Double.pi / 2)))
         self.horizontalTableViewTutorial.isPagingEnabled = true
@@ -73,11 +89,11 @@ class TutorialViewController: UIViewController {
         case .iphone4_35in:
             self.constraintForContentViewLeading.constant = 30
             self.constraintForContentViewTrailing.constant = 30
-            self.constraintForStartButtonBottomSpace.constant = 10
+//            self.constraintForStartButtonBottomSpace.constant = 10
         default:
             self.constraintForContentViewLeading.constant = 0
             self.constraintForContentViewTrailing.constant = 0
-            self.constraintForStartButtonBottomSpace.constant = 30
+//            self.constraintForStartButtonBottomSpace.constant = 30
         }
     }
 
@@ -90,7 +106,7 @@ extension TutorialViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return tableView.frame.size.width
+        return tableView.frame.size.height
     }
     
     func tableView(_ tableView: UITableView!, widthForRowAt indexPath: IndexPath!) -> CGFloat {
@@ -101,7 +117,7 @@ extension TutorialViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TutorialCell") as! TutorialCell
         cell.transform = CGAffineTransform(rotationAngle:(CGFloat(Double.pi / 2)))
         let tutorial = self.tutorials[indexPath.row]
-        cell.configure(imageName: tutorial["image"] ?? "", title: tutorial["title"] ?? "", desc: tutorial["desc"] ?? "")
+        cell.configure(imageName: tutorial["image"] ?? "", title1: tutorial["title1"] ?? "", title2: tutorial["title2"] ?? "", desc: tutorial["desc"] ?? "")
         return cell
     }
     
