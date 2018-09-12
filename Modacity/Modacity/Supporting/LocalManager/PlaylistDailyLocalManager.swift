@@ -50,10 +50,14 @@ class PlaylistDailyLocalManager: NSObject {
         }
     }
     
-    func saveManualPracticing(duration: Int, practiceItemId: String?, started: Date, playlistId: String) {
+    func saveManualPracticing(duration: Int, practiceItemId: String?, started: Date, playlistId: String?) {
         
         let playlistData = PlaylistDaily()
-        playlistData.playlistId = playlistId
+        if let playlistId = playlistId {
+            playlistData.playlistId = playlistId
+        } else {
+            playlistData.playlistId = "tempplaylist"
+        }
         playlistData.started = started.timeIntervalSince1970
         playlistData.practiceTimeInSeconds = duration
         playlistData.entryId = UUID().uuidString

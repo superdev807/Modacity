@@ -391,13 +391,13 @@ extension UpdatePracticeEntryViewController {
         if let _ = self.convertToSeconds(self.textfieldTimeInput.text ?? "") {
             if self.dateSelected {
                 
-                if self.fromPlaylist && self.playlistItemId == nil {
-                    if self.selectedPracticeItem == nil && self.selectedPlaylist == nil {
-                        self.buttonAddEntry.backgroundColor = Color(hexString: "#9B9B9B")
-                        self.buttonAddEntry.isEnabled = false
-                        return
-                    }
-                }
+//                if self.fromPlaylist && self.playlistItemId == nil {
+//                    if self.selectedPracticeItem == nil && self.selectedPlaylist == nil {
+//                        self.buttonAddEntry.backgroundColor = Color(hexString: "#9B9B9B")
+//                        self.buttonAddEntry.isEnabled = false
+//                        return
+//                    }
+//                }
                 
                 self.buttonAddEntry.isEnabled = true
                 self.buttonAddEntry.backgroundColor = Color(hexString: "#5311CA")
@@ -463,6 +463,8 @@ extension UpdatePracticeEntryViewController {
                             } else {
                                 if let practiceItem = self.selectedPracticeItem {
                                     PracticingDailyLocalManager.manager.saveManualPracticing(duration: totalTime, practiceItemId: practiceItem.id, started: self.selectedDate)
+                                } else {
+                                    PlaylistDailyLocalManager.manager.saveManualPracticing(duration: totalTime, practiceItemId: nil, started: self.selectedDate, playlistId: nil)
                                 }
                             }
                             ModacityAnalytics.LogEvent(.PressedAddTime, params: ["type":"is overview"])
