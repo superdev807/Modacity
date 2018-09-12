@@ -61,6 +61,10 @@ class AppConfig: NSObject {
     
     static let appFreeTrialDays = 14
     
+    static let appConstantTempPlaylistId = "tempplaylist"
+    static let appConstantMiscPracticeItemId = "MISC-PRACTICE"
+    static let appConstantMiscPracticeItemName = "Misc.Practice"
+    
     static let devVersion: Bool = {
         let appBundleId = Bundle.main.infoDictionary![kCFBundleIdentifierKey as String] as! String
         if appBundleId.contains("dev") {

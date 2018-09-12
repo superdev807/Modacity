@@ -149,11 +149,11 @@ class PracticeRateViewController: UIViewController {
                                                                   started: self.deliverModel.sessionTimeStarted ?? Date(),
                                                                   duration: self.deliverModel.sessionTime,
                                                                   rating: self.rateView.rating,
-                                                                  inPlaylist: nil,
+                                                                  inPlaylist: AppConfig.appConstantTempPlaylistId,
                                                                   forPracticeEntry: nil,
                                                                   improvements: self.deliverModel.sessionImproved)
             let playlistDaily = PlaylistDaily()
-            playlistDaily.playlistId = "tempplaylist"
+            playlistDaily.playlistId = AppConfig.appConstantTempPlaylistId
             playlistDaily.entryDateString = (self.deliverModel.sessionTimeStarted ?? Date()).toString(format: "yy-MM-dd")
             playlistDaily.fromTime = (self.deliverModel.sessionTimeStarted ?? Date()).toString(format: "HH:mm:ss")
             playlistDaily.started = (self.deliverModel.sessionTimeStarted ?? Date()).timeIntervalSince1970

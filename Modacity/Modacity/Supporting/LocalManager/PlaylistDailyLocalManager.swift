@@ -12,8 +12,8 @@ class PlaylistDailyLocalManager: NSObject {
     
     static let manager = PlaylistDailyLocalManager()
     
-    let miscPracticeId = "MISC-PRACTICE"
-    let miscPracticeItemName = "Misc.Practice"
+    let miscPracticeId = AppConfig.appConstantMiscPracticeItemId
+    let miscPracticeItemName = AppConfig.appConstantMiscPracticeItemName
     
     func saveNewPlaylistPracticing(_ data: PlaylistDaily) {
         
@@ -56,7 +56,7 @@ class PlaylistDailyLocalManager: NSObject {
         if let playlistId = playlistId {
             playlistData.playlistId = playlistId
         } else {
-            playlistData.playlistId = "tempplaylist"
+            playlistData.playlistId = AppConfig.appConstantTempPlaylistId
         }
         playlistData.started = started.timeIntervalSince1970
         playlistData.practiceTimeInSeconds = duration
@@ -66,7 +66,7 @@ class PlaylistDailyLocalManager: NSObject {
         
         let data = PracticeDaily()
         data.startedTime = started.timeIntervalSince1970
-        data.playlistId = playlistId
+        data.playlistId = playlistData.playlistId
         data.playlistPracticeEntryId = "MANUAL"
         data.practiceTimeInSeconds = duration
         data.entryDateString = started.toString(format: "yy-MM-dd")
@@ -83,6 +83,10 @@ class PlaylistDailyLocalManager: NSObject {
         
         playlistData.practices = [String]()
         playlistData.practices.append(data.entryId)
+        
+        DispatchQueue.global(qos: .background).async {
+            DailyPracticingRemoteManager.manager.createPracticing(data)
+        }
         
         PracticingDailyLocalManager.manager.storePracitingDataToLocal(data)
         saveNewPlaylistPracticing(playlistData)
@@ -118,7 +122,7 @@ class PlaylistDailyLocalManager: NSObject {
             }
         }
         
-        playlistIds.append("tempplaylist")
+        playlistIds.append(AppConfig.appConstantTempPlaylistId)
         
         for playlistId in playlistIds {
             if let ids = UserDefaults.standard.object(forKey: "playlist-indecies-\(playlistId)") as? [String:[String]] {

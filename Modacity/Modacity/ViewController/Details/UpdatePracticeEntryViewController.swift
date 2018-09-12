@@ -211,32 +211,40 @@ class UpdatePracticeEntryViewController: UIViewController {
         if self.fromPlaylist {
             if self.editingPracticeData != nil {
                 
+                self.labelItemName.textColor = highlightedColor
+                self.labelItemName.font = UIFont(name: AppConfig.appFontLatoBold, size: 14)
+                
+                self.viewItemNamePanel.backgroundColor = Color.black.alpha(0.1)
+                self.buttonItemSelect.isEnabled = false
+                
+                self.labelPlaylist.textColor = highlightedColor
+                self.labelPlaylist.font = UIFont(name: AppConfig.appFontLatoBold, size: 14)
+                self.viewPlaylistPanel.backgroundColor = Color.black.alpha(0.1)
+                self.buttonPlaylistSelect.isEnabled = false
+                
                 if let practiceItemId = self.editingPracticeData.practiceItemId {
                     
                     if let practiceItem = PracticeItemLocalManager.manager.practiceItem(forId: practiceItemId) {
                         self.selectedPracticeItem = practiceItem
                         self.labelItemName.text = practiceItem.name
-                        self.labelItemName.textColor = highlightedColor
-                        self.labelItemName.font = UIFont(name: AppConfig.appFontLatoBold, size: 14)
-                        
-                        self.viewItemNamePanel.backgroundColor = Color.black.alpha(0.1)
-                        self.buttonItemSelect.isEnabled = false
-                        
-                        if self.editingPracticeData.playlistId != nil {
-                            if let playlist = PlaylistLocalManager.manager.loadPlaylist(forId: self.editingPracticeData.playlistId) {
-                                self.selectedPlaylist = playlist
-                                self.labelPlaylist.text = playlist.name
-                                self.labelPlaylist.textColor = highlightedColor
-                                self.labelPlaylist.font = UIFont(name: AppConfig.appFontLatoBold, size: 14)
-                                self.viewPlaylistPanel.backgroundColor = Color.black.alpha(0.1)
-                                self.buttonPlaylistSelect.isEnabled = false
-                            }
-                        }
-                        
-                        self.processButtonEntry()
+                    } else if practiceItemId == PlaylistDailyLocalManager.manager.miscPracticeId {
+                        self.labelItemName.text = PlaylistDailyLocalManager.manager.miscPracticeItemName
                     }
                     
                 }
+                
+                if let playlistId = self.editingPracticeData.playlistId {
+                    if let playlist = PlaylistLocalManager.manager.loadPlaylist(forId: playlistId) {
+                        self.selectedPlaylist = playlist
+                        self.labelPlaylist.text = playlist.name
+                    } else if playlistId == AppConfig.appConstantTempPlaylistId || playlistId == "" {
+                        self.labelPlaylist.text = "(Standalone practice)"
+                    }
+                } else {
+                    self.labelPlaylist.text = "(Standalone practice)"
+                }
+                
+                self.processButtonEntry()
             }
         }
     }
@@ -434,7 +442,7 @@ extension UpdatePracticeEntryViewController {
                 if let totalTime = self.convertToSeconds(self.textfieldTimeInput.text ?? "") {
                     if self.dateSelected {
                         ModacityAnalytics.LogEvent(.PressedAddTime, params: ["type":"is practice item"])
-                        PracticingDailyLocalManager.manager.saveManualPracticing(duration: totalTime, practiceItemId: self.practiceItemId, started: self.selectedDate)
+                        PlaylistDailyLocalManager.manager.saveManualPracticing(duration: totalTime, practiceItemId: self.practiceItemId, started: self.selectedDate, playlistId: nil)
                         self.navigationController?.popViewController(animated: true)
                     }
                 }
@@ -462,7 +470,7 @@ extension UpdatePracticeEntryViewController {
                                 }
                             } else {
                                 if let practiceItem = self.selectedPracticeItem {
-                                    PracticingDailyLocalManager.manager.saveManualPracticing(duration: totalTime, practiceItemId: practiceItem.id, started: self.selectedDate)
+                                    PlaylistDailyLocalManager.manager.saveManualPracticing(duration: totalTime, practiceItemId: practiceItem.id, started: self.selectedDate, playlistId: nil)
                                 } else {
                                     PlaylistDailyLocalManager.manager.saveManualPracticing(duration: totalTime, practiceItemId: nil, started: self.selectedDate, playlistId: nil)
                                 }

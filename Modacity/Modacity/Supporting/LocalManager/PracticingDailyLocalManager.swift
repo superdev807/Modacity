@@ -144,6 +144,7 @@ class PracticingDailyLocalManager: NSObject {
     }
     
     func practicingData(forPracticeItemId: String) -> [String:[PracticeDaily]] {
+        
         var data = [String:[PracticeDaily]]()
         if let ids = UserDefaults.standard.object(forKey: "practicing-indecies-\(forPracticeItemId)") as? [String:[String]] {
             for date in ids.keys {
