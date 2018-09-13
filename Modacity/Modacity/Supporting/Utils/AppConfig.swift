@@ -10,6 +10,25 @@ import UIKit
 
 class AppConfig: NSObject {
     
+    struct UI {
+        struct AppColors {
+            static let inputContainerBorderColor = Color(hexString: "#D4D4D4")
+            static let tabbarSelectedIconColor = Color(hexString: "#2b67f5")
+            static let tabbarNormalIconColor = Color(hexString: "#60637c")
+            static let timerGreenColor = Color(hexString: "#1bbcb6")
+            static let walkthroughOverlayColor = Color(hexString: "#252738").alpha(0.85)
+            
+            static let placeholderTextColorGray = Color(hexString: "#8F9098")
+            
+            static let placeholderIconColorGray = Color(hexString: "#AEAEB4")
+        }
+        
+        struct AppUIValues {
+            static let viewPanelCornerRadius:CGFloat = 4
+            static let viewPanelBorderWidth:CGFloat = 1
+        }
+    }
+    
     static var appAmplitudeApiKey: String! {
         get {
             let appBundleId = Bundle.main.infoDictionary![kCFBundleIdentifierKey as String] as! String
@@ -28,11 +47,6 @@ class AppConfig: NSObject {
     static let appFontLatoBoldItalic = "Lato-BoldItalic"
     static let appFontLatoItalic = "Lato-Italic"
     static let appFontLatoLight = "Lato-Light"
-    
-    static let appConfigTabbarSelectedIconColor = Color(hexString: "#2b67f5")
-    static let appConfigTabbarNormalIconColor = Color(hexString: "#60637c")
-    static let appConfigTimerGreenColor = Color(hexString: "#1bbcb6")
-    static let appConfigWalkthroughOverlayColor = Color(hexString: "#252738").alpha(0.85)
     
     static let appConfigHomeUrlLink = "https://www.modacity.co/?utm_source=app&utm_medium=link&utm_campaign=about-us"
     static let appConfigPrivacyUrlLink = "https://www.modacity.co/legal/#privacy"

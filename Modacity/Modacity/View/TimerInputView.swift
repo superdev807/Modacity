@@ -95,18 +95,18 @@ class TimerInputView: UIView {
         
         if self.inputIndicatorPoint > 3 {
             let attributedString = NSMutableAttributedString(string: "\(inputDigits[4])\(inputDigits[5])")
-            attributedString.setAttributes([NSAttributedStringKey.foregroundColor: AppConfig.appConfigTimerGreenColor], range: NSMakeRange(self.inputIndicatorPoint - 4, 6 - self.inputIndicatorPoint))
+            attributedString.setAttributes([NSAttributedStringKey.foregroundColor: AppConfig.UI.AppColors.timerGreenColor], range: NSMakeRange(self.inputIndicatorPoint - 4, 6 - self.inputIndicatorPoint))
             self.labelSeconds.attributedText = attributedString
         } else if self.inputIndicatorPoint > 1 {
-            self.labelSeconds.textColor = AppConfig.appConfigTimerGreenColor
+            self.labelSeconds.textColor = AppConfig.UI.AppColors.timerGreenColor
             let attributedString = NSMutableAttributedString(string: "\(inputDigits[2])\(inputDigits[3])")
-            attributedString.setAttributes([NSAttributedStringKey.foregroundColor: AppConfig.appConfigTimerGreenColor], range: NSMakeRange(self.inputIndicatorPoint - 2, 4 - self.inputIndicatorPoint))
+            attributedString.setAttributes([NSAttributedStringKey.foregroundColor: AppConfig.UI.AppColors.timerGreenColor], range: NSMakeRange(self.inputIndicatorPoint - 2, 4 - self.inputIndicatorPoint))
             self.labelMinutes.attributedText = attributedString
         } else {
-            self.labelSeconds.textColor = AppConfig.appConfigTimerGreenColor
-            self.labelMinutes.textColor = AppConfig.appConfigTimerGreenColor
+            self.labelSeconds.textColor = AppConfig.UI.AppColors.timerGreenColor
+            self.labelMinutes.textColor = AppConfig.UI.AppColors.timerGreenColor
             let attributedString = NSMutableAttributedString(string: "\(inputDigits[0])\(inputDigits[1])")
-            attributedString.setAttributes([NSAttributedStringKey.foregroundColor: AppConfig.appConfigTimerGreenColor], range: NSMakeRange(self.inputIndicatorPoint, 2 - self.inputIndicatorPoint))
+            attributedString.setAttributes([NSAttributedStringKey.foregroundColor: AppConfig.UI.AppColors.timerGreenColor], range: NSMakeRange(self.inputIndicatorPoint, 2 - self.inputIndicatorPoint))
             self.labelHours.attributedText = attributedString
         }
     }

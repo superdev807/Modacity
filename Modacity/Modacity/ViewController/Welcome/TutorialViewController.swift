@@ -15,12 +15,35 @@ class TutorialCell: UITableViewCell {
     @IBOutlet weak var labelDescription: UILabel!
     @IBOutlet weak var labelTitlePart1: UILabel!
     @IBOutlet weak var labelTitlePart2: UILabel!
+    @IBOutlet weak var constraintForImageWidth: NSLayoutConstraint!
+    
+    @IBOutlet weak var constraintSpace1: NSLayoutConstraint!
+    @IBOutlet weak var constraintSpace2: NSLayoutConstraint!
+    @IBOutlet weak var constraintForContainerViewCentering: NSLayoutConstraint!
     
     func configure(imageName: String, title1: String, title2: String, desc: String) {
         self.imageViewImage.image = UIImage(named: imageName)
         self.labelTitlePart1.text = title1
         self.labelTitlePart2.text = title2
         self.labelDescription.text = desc
+        
+        switch AppUtils.sizeModelOfiPhone() {
+        case .iphone4_35in:
+            self.constraintSpace1.constant = 10
+            self.constraintSpace2.constant = 10
+            self.constraintForImageWidth.constant = 200
+            self.constraintForContainerViewCentering.constant = -10
+        case .iphone5_4in:
+            self.constraintForImageWidth.constant = 300
+            self.constraintSpace1.constant = 15
+            self.constraintSpace2.constant = 15
+            self.constraintForContainerViewCentering.constant = 20
+        default:
+            self.constraintForImageWidth.constant = 375
+            self.constraintSpace1.constant = 15
+            self.constraintSpace2.constant = 15
+            self.constraintForContainerViewCentering.constant = 0
+        }
     }
     
 }
@@ -32,6 +55,8 @@ class TutorialViewController: UIViewController {
     @IBOutlet weak var constraintForContentViewLeading: NSLayoutConstraint!
     @IBOutlet weak var constraintForContentViewTrailing: NSLayoutConstraint!
     @IBOutlet weak var pageControl: UIPageControl!
+    
+    @IBOutlet weak var constraintForBottomBarHeight: NSLayoutConstraint!
     
     let tutorials = [["image":"img_carousel_1",
                       "title1":"WELCOME",
@@ -65,15 +90,18 @@ class TutorialViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "sid_get_started" {
             AppOveralDataManager.manager.didReadTutorial()
-            ModacityAnalytics.LogStringEvent("Welcome - Pressed 'Get Started'")
+            ModacityAnalytics.LogStringEvent("Welcome - Pressed 'SKIP'")
         }
     }
     
     @IBAction func onNext(_ sender: Any) {
+        ModacityAnalytics.LogStringEvent("Welcome - Pressed 'NEXT'")
         if let visibleRows = self.horizontalTableViewTutorial.indexPathsForVisibleRows {
             let currentPageNum = visibleRows[0].row
             if currentPageNum < 3 {
-                self.horizontalTableViewTutorial.setContentOffset(CGPoint(x: UIScreen.main.bounds.size.width * CGFloat(currentPageNum + 1), y: 0), animated: true)
+                self.horizontalTableViewTutorial.setContentOffset(CGPoint(x: 0, y: horizontalTableViewTutorial.frame.size.width * CGFloat(currentPageNum + 1)), animated: true)
+            } else {
+                self.performSegue(withIdentifier: "sid_get_started", sender: nil)
             }
         }
     }
@@ -89,11 +117,13 @@ class TutorialViewController: UIViewController {
         case .iphone4_35in:
             self.constraintForContentViewLeading.constant = 30
             self.constraintForContentViewTrailing.constant = 30
-//            self.constraintForStartButtonBottomSpace.constant = 10
+            self.constraintForBottomBarHeight.constant = 44
+        case .iphone5_4in:
+            self.constraintForBottomBarHeight.constant = 44
         default:
             self.constraintForContentViewLeading.constant = 0
             self.constraintForContentViewTrailing.constant = 0
-//            self.constraintForStartButtonBottomSpace.constant = 30
+            self.constraintForBottomBarHeight.constant = 74
         }
     }
 
@@ -106,11 +136,11 @@ extension TutorialViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return tableView.frame.size.height
+        return tableView.frame.size.width
     }
     
     func tableView(_ tableView: UITableView!, widthForRowAt indexPath: IndexPath!) -> CGFloat {
-        return tableView.frame.size.width
+        return tableView.frame.size.height
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

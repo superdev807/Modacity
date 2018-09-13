@@ -37,7 +37,7 @@ class PracticeItemSelectCell: UITableViewCell {
         } else {
             let range = NSString(string:item.name.lowercased()).range(of: keyword.lowercased())
             let attributed = NSMutableAttributedString(string: item.name)
-            attributed.addAttributes([NSAttributedStringKey.foregroundColor: AppConfig.appConfigTimerGreenColor], range: range)
+            attributed.addAttributes([NSAttributedStringKey.foregroundColor: AppConfig.UI.AppColors.timerGreenColor], range: range)
             self.labelPracticeItemName.attributedText = attributed
         }
         

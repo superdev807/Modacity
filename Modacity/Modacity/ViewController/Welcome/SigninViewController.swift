@@ -10,11 +10,18 @@ import UIKit
 
 class SigninViewController: UIViewController {
 
+    @IBOutlet weak var viewEmailAddressContainer: UIView!
     @IBOutlet weak var textfieldEmailAddress: UITextField!
-    @IBOutlet weak var viewIndicatorEmailAddress: UIView!
+    @IBOutlet weak var imageViewIconEmail: UIImageView!
+    
+    @IBOutlet weak var viewPasswordContainer: UIView!
     @IBOutlet weak var textfieldPassword: UITextField!
-    @IBOutlet weak var viewIndicatorPassword: UIView!
+    @IBOutlet weak var imageViewIconPassword: UIImageView!
+    
     @IBOutlet weak var spinerSignIn: UIActivityIndicatorView!
+    @IBOutlet weak var spinerCreateAccount: UIActivityIndicatorView!
+    
+    @IBOutlet weak var buttonCreateAnAccount: UIButton!
     
     private let viewModel = AuthViewModel()
     
@@ -31,10 +38,21 @@ class SigninViewController: UIViewController {
     }
     
     func initControls() {
-        self.viewIndicatorEmailAddress.backgroundColor = Color.white.alpha(0.5)
-        self.viewIndicatorPassword.backgroundColor = Color.white.alpha(0.5)
-        self.textfieldEmailAddress.attributedPlaceholder = NSAttributedString(string: "Email Address", attributes: [NSAttributedStringKey.foregroundColor: Color.white.alpha(0.5)])
-        self.textfieldPassword.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSAttributedStringKey.foregroundColor: Color.white.alpha(0.5)])
+        
+        self.viewEmailAddressContainer.styling(cornerRadius: AppConfig.UI.AppUIValues.viewPanelCornerRadius, borderColor: AppConfig.UI.AppColors.inputContainerBorderColor, borderWidth: AppConfig.UI.AppUIValues.viewPanelBorderWidth)
+        self.viewPasswordContainer.styling(cornerRadius: AppConfig.UI.AppUIValues.viewPanelCornerRadius, borderColor: AppConfig.UI.AppColors.inputContainerBorderColor, borderWidth: AppConfig.UI.AppUIValues.viewPanelBorderWidth)
+        
+        self.buttonCreateAnAccount.styling(cornerRadius: AppConfig.UI.AppUIValues.viewPanelCornerRadius)
+        
+        self.imageViewIconEmail.image = UIImage(named: "icon_email")?.withRenderingMode(.alwaysTemplate)
+        self.imageViewIconEmail.tintColor = AppConfig.UI.AppColors.placeholderIconColorGray
+        self.imageViewIconPassword.image = UIImage(named: "icon_password")?.withRenderingMode(.alwaysTemplate)
+        self.imageViewIconPassword.tintColor = AppConfig.UI.AppColors.placeholderIconColorGray
+        
+        self.textfieldEmailAddress.attributedPlaceholder = NSAttributedString(string: "Email Address", attributes: [NSAttributedStringKey.foregroundColor: AppConfig.UI.AppColors.placeholderTextColorGray])
+        self.textfieldPassword.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSAttributedStringKey.foregroundColor: AppConfig.UI.AppColors.placeholderTextColorGray])
+        
+        self.spinerCreateAccount.stopAnimating()
         self.spinerSignIn.stopAnimating()
     }
     
@@ -46,9 +64,13 @@ class SigninViewController: UIViewController {
                 case .signin:
                     self.view.isUserInteractionEnabled = false
                     self.spinerSignIn.startAnimating()
+                case .signup:
+                    self.view.isUserInteractionEnabled = false
+                    self.spinerCreateAccount.startAnimating()
                 default:
                     self.view.isUserInteractionEnabled = true
                     self.spinerSignIn.stopAnimating()
+                    self.spinerCreateAccount.stopAnimating()
                 }
                 
                 if value == .succeeded {
@@ -71,35 +93,37 @@ class SigninViewController: UIViewController {
         let home = UIStoryboard(name: "sidemenu", bundle: nil).instantiateViewController(withIdentifier: "SideMenuController") as! SideMenuController
         self.navigationController?.pushViewController(home, animated: true)
     }
+    
+    @IBAction func onBack(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
 }
 
 extension SigninViewController {     // actions
     
     @IBAction func onCreateAccount(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
+        if self.processInputValidation() {
+            self.view.endEditing(true)
+            self.viewModel.createAccount(email: self.textfieldEmailAddress.text ?? "", password: self.textfieldPassword.text ?? "")
+            ModacityAnalytics.LogStringEvent("Created Email Account", extraParamName: "address", extraParamValue: self.textfieldEmailAddress)
+        }
     }
     
     @IBAction func onSignin(_ sender: Any) {
         if self.processInputValidation() {
             self.view.endEditing(true)
             self.viewModel.signin(email: self.textfieldEmailAddress.text ?? "", password: self.textfieldPassword.text ?? "")
+            ModacityAnalytics.LogStringEvent("Login Email", extraParamName: "address", extraParamValue: self.textfieldEmailAddress)
         }
     }
     
     @IBAction func onEditingDidBeginOnFields(_ sender: UITextField) {
-        if sender == self.textfieldEmailAddress {
-            self.viewIndicatorEmailAddress.backgroundColor = Color.white
-        } else if sender == self.textfieldPassword {
-            self.viewIndicatorPassword.backgroundColor = Color.white
-        }
+        
     }
     
     @IBAction func onEditingDidEndOnFields(_ sender: UITextField) {
-        if sender == self.textfieldEmailAddress {
-            self.viewIndicatorEmailAddress.backgroundColor = Color.white.alpha(0.5)
-        } else if sender == self.textfieldPassword {
-            self.viewIndicatorPassword.backgroundColor = Color.white.alpha(0.5)
-        }
+        
     }
     
     func processInputValidation() -> Bool {

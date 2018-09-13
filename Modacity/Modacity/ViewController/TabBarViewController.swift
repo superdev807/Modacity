@@ -256,7 +256,7 @@ class TabBarViewController: UITabBarController {
     func processWalkThrough() {
         if !AppOveralDataManager.manager.walkThroughDoneForFirstPage() {
             self.viewWalkThrough = UIView()
-            self.viewWalkThrough.backgroundColor = AppConfig.appConfigWalkthroughOverlayColor
+            self.viewWalkThrough.backgroundColor = AppConfig.UI.AppColors.walkthroughOverlayColor
             self.viewWalkThrough.translatesAutoresizingMaskIntoConstraints = false
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(onCloseWalkThrough))
             self.viewWalkThrough.addGestureRecognizer(tapGesture)

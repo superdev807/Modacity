@@ -11,11 +11,6 @@ import GoogleSignIn
 
 class CreateAccountViewController: UIViewController {
 
-    @IBOutlet weak var textfieldEmailAddress: UITextField!
-    @IBOutlet weak var viewIndicatorEmailAddress: UIView!
-    @IBOutlet weak var textfieldPassword: UITextField!
-    @IBOutlet weak var viewIndicatorPassword: UIView!
-    @IBOutlet weak var spinnerCreateAccount: UIActivityIndicatorView!
     @IBOutlet weak var spinnerFacebook: UIActivityIndicatorView!
     @IBOutlet weak var spinnerGoogle: UIActivityIndicatorView!
     
@@ -37,13 +32,8 @@ class CreateAccountViewController: UIViewController {
     }
     
     func initControls() {
-        self.spinnerCreateAccount.stopAnimating()
         self.spinnerFacebook.stopAnimating()
         self.spinnerGoogle.stopAnimating()
-        self.viewIndicatorEmailAddress.backgroundColor = Color.white.alpha(0.5)
-        self.viewIndicatorPassword.backgroundColor = Color.white.alpha(0.5)
-        self.textfieldEmailAddress.attributedPlaceholder = NSAttributedString(string: "Email Address", attributes: [NSAttributedStringKey.foregroundColor: Color.white.alpha(0.5)])
-        self.textfieldPassword.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSAttributedStringKey.foregroundColor: Color.white.alpha(0.5)])
     }
     
     func bindViewModel() {
@@ -52,7 +42,6 @@ class CreateAccountViewController: UIViewController {
                 switch value {
                 case .signup:
                     self.view.isUserInteractionEnabled = false
-                    self.spinnerCreateAccount.startAnimating()
                 case .google:
                     self.view.isUserInteractionEnabled = false
                     self.spinnerGoogle.startAnimating()
@@ -61,14 +50,12 @@ class CreateAccountViewController: UIViewController {
                     self.spinnerFacebook.startAnimating()
                 default:
                     self.view.isUserInteractionEnabled = true
-                    self.spinnerCreateAccount.stopAnimating()
                     self.spinnerGoogle.stopAnimating()
                     self.spinnerFacebook.stopAnimating()
                 }
                 
                 if value == .succeeded {
                     self.openHome()
-//                    self.startSynchronize()
                 }
             }
         }
@@ -81,8 +68,6 @@ class CreateAccountViewController: UIViewController {
     }
     
     func openHome() {
-        self.textfieldEmailAddress.text = ""
-        self.textfieldPassword.text = ""
         let home = UIStoryboard(name: "sidemenu", bundle: nil).instantiateViewController(withIdentifier: "SideMenuController") as! SideMenuController
         self.navigationController?.pushViewController(home, animated: true)
     }
@@ -95,8 +80,6 @@ extension CreateAccountViewController {     // actions
         
         if self.processInputValidation() {
             self.view.endEditing(true)
-            self.viewModel.createAccount(email: self.textfieldEmailAddress.text ?? "", password: self.textfieldPassword.text ?? "")
-            ModacityAnalytics.LogStringEvent("Created Email Account", extraParamName: "address", extraParamValue: self.textfieldEmailAddress)
         }
     }
     
@@ -118,37 +101,12 @@ extension CreateAccountViewController {     // actions
     }
     
     @IBAction func onEditingDidBeginOnFields(_ sender: UITextField) {
-        if sender == self.textfieldEmailAddress {
-            self.viewIndicatorEmailAddress.backgroundColor = Color.white
-        } else if sender == self.textfieldPassword {
-            self.viewIndicatorPassword.backgroundColor = Color.white
-        }
     }
     
     @IBAction func onEditingDidEndOnFields(_ sender: UITextField) {
-        if sender == self.textfieldEmailAddress {
-            self.viewIndicatorEmailAddress.backgroundColor = Color.white.alpha(0.5)
-        } else if sender == self.textfieldPassword {
-            self.viewIndicatorPassword.backgroundColor = Color.white.alpha(0.5)
-        }
     }
     
     func processInputValidation() -> Bool {
-        if "" == self.textfieldEmailAddress.text {
-            AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Please enter email address.")
-            return false
-        }
-        
-        if !self.textfieldEmailAddress.text!.isValidEmail() {
-            AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Please enter a valid email address.")
-            return false
-        }
-        
-        if "" == self.textfieldPassword.text {
-            AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Please enter a password.")
-            return false
-        }
-        
         return true
     }
 }
