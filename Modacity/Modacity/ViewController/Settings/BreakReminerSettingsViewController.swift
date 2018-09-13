@@ -14,7 +14,7 @@ class BreakReminerSettingsViewController: UIViewController {
     @IBOutlet weak var viewReminderSettings: UIView!
     @IBOutlet weak var buttonSwitch: UIButton!
     @IBOutlet weak var labelMinutes: UILabel!
-    @IBOutlet weak var textfieldMinutes: UITextField!
+    @IBOutlet weak var textfieldMinutes: UINumberPadWithDoneCancel!
     private var formatter: NumberFormatter!
     @IBOutlet weak var imageViewHeader: UIImageView!
     var premiumLockView: PremiumUpgradeLockView!

@@ -43,14 +43,16 @@ class MetroDroneAudio {
     }
     
     
-    private func generateDronePulse(frameLength: AVAudioFrameCount, decayPoint: Float) -> AVAudioPCMBuffer {
+    private func generateDronePulse(frameLength: AVAudioFrameCount, decayPoint: Float, droneType: WaveType = .Triangle) -> AVAudioPCMBuffer {
         let audioFormat = audioFileMainClick.processingFormat
         let bufferDronePulse = AVAudioPCMBuffer(pcmFormat: audioFormat, frameCapacity: frameLength)
         
         let freq: Double = frequencyForNote(noteName: MetrodroneParameters.instance.currNote, octave: MetrodroneParameters.instance.currOctave, aRef: Double(MetrodroneParameters.instance.tuningStandardA))
         let secduration: Double = Double(frameLength)/audioFormat.sampleRate
         
-        fillBuffer(buffer: bufferDronePulse!, frequency: freq, seconds: secduration, sampleRate: audioFormat.sampleRate)
+        fillBuffer(buffer: bufferDronePulse!, frequency: freq, seconds: secduration, sampleRate: audioFormat.sampleRate, waveType: droneType)
+        
+        //mixBuffer(buffer: bufferDronePulse!, frequency: freq * 1.5, seconds: secduration, sampleRate: audioFormat.sampleRate, waveType: droneType)
         
         bufferDronePulse?.frameLength = frameLength
         
@@ -100,12 +102,19 @@ class MetroDroneAudio {
         }
  
         if (includeDrone) {
-            let bufferDronePulse = generateDronePulse(frameLength: subdivisionLength, decayPoint: droneRatio)
-            
+            let bufferDroneMain = generateDronePulse(frameLength: subdivisionLength, decayPoint: droneRatio, droneType: .Triangle)
+            var bufferDroneSub: AVAudioPCMBuffer?
+            if (subdivisions > 1) {
+                bufferDroneSub = generateDronePulse(frameLength: subdivisionLength, decayPoint: droneRatio, droneType: .Triangle)
+            }
             for index in 0..<Int(subdivisionLength) {
-                let droneData: Float = bufferDronePulse.floatChannelData!.pointee[index]
+                let droneData: Float = bufferDroneMain.floatChannelData!.pointee[index]
                 bufferMainClick?.floatChannelData!.pointee[index] += droneData
-                bufferSubClick?.floatChannelData!.pointee[index] += droneData
+                if (subdivisions > 1) {
+                    let droneSubData: Float = bufferDroneSub!.floatChannelData!.pointee[index]
+                bufferSubClick?.floatChannelData!.pointee[index] += droneSubData
+                }
+                
             }
         }
         
@@ -148,7 +157,10 @@ class MetroDroneAudio {
         let bufferLoopWave = AVAudioPCMBuffer(pcmFormat: audioFormat, frameCapacity: frames)
         
         fillBuffer(buffer: bufferLoopWave!, frequency: freq, seconds: secduration, sampleRate: audioFormat.sampleRate)
-        
+/*        for i in 0...4 {
+        mixBuffer(buffer: bufferLoopWave!, frequency: freq * (1.5 * Double(i)), seconds: secduration, sampleRate: audioFormat.sampleRate)
+        }
+ */
         bufferLoopWave?.frameLength = AVAudioFrameCount(frames)
 
         return bufferLoopWave!

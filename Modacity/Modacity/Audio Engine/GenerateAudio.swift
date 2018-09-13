@@ -56,6 +56,40 @@ func fillBuffer(buffer: AVAudioPCMBuffer, frequency: Double, seconds: Double, sa
     }
 }
 
+
+func mixBuffer(buffer: AVAudioPCMBuffer, frequency: Double, seconds: Double, sampleRate: Double, waveType: WaveType = .Triangle) {
+    let samples:Int = Int(seconds * sampleRate)
+    var waveFunc: ((Double) -> Double)
+    switch(waveType) {
+    case .Sine:
+        waveFunc = sine
+        break
+    case .Square:
+        waveFunc = square
+        break
+    case .Triangle:
+        waveFunc = triangle
+        break
+    case .Sawtooth:
+        waveFunc = sawtooth
+        break
+    }
+    
+    var theta: Double = 0;
+    let theta_increment:Double =
+        2.0 * Double.pi * frequency / sampleRate;
+    
+    for i in 0..<samples {
+        theta += theta_increment;
+        if (theta > 2.0 * Double.pi)
+        {
+            theta -= 2.0 * Double.pi;
+        }
+        buffer.floatChannelData!.pointee[i] *= 0.5
+        buffer.floatChannelData!.pointee[i] += (Float(waveFunc(theta)) * 0.5)
+    }
+}
+
 func repeatableDuration(frequency: Double, maxDuration: Double) -> Double {
     // 440 cycles per second = 0.002272 seconds per cycle (1/ frequency)
     let singleCycle:Double = 1.0/frequency

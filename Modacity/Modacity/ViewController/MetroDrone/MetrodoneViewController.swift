@@ -170,13 +170,7 @@ class MetrodoneViewController: UIViewController {
             player.tapUp()
         }
     }
-    
-    @IBAction func onIncreaseBPMTouch(_ sender: Any) {
-        if let player = self.metrodronePlayer {
-            player.increaseBPMTouch()
-        }
-    }
-    
+
     @IBAction func onButtonOctaveDown(_ sender: Any) {
         if let player = self.metrodronePlayer {
             player.onOctaveDown()
@@ -195,9 +189,25 @@ class MetrodoneViewController: UIViewController {
         }
     }
     
+    @IBAction func onIncreaseBPMTouchUp(_ sender: Any) {
+        if let player = self.metrodronePlayer {
+            player.increaseBPMTouchUp()
+        }
+    }
+    @IBAction func onDecreaseBPMTouchUp(_ sender: Any) {
+        if let player = self.metrodronePlayer {
+            player.decreaseBPMTouchUp()
+        }
+    }
     @IBAction func onDecreaseBPMTouch(_ sender: Any) {
         if let player = self.metrodronePlayer {
-            player.decreaseBPMTouch()
+            player.decreaseBPMTouchDown()
+        }
+    }
+    
+    @IBAction func onIncreaseBPMTouch(_ sender: Any) {
+        if let player = self.metrodronePlayer {
+            player.increaseBPMTouchDown()
         }
     }
     
