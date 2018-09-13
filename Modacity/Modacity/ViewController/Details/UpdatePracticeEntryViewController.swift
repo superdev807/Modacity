@@ -22,7 +22,7 @@ class UpdatePracticeEntryViewController: UIViewController {
     @IBOutlet weak var buttonAddEntry: UIButton!
     @IBOutlet weak var viewContainer: UIView!
     @IBOutlet weak var buttonCover: UIButton!
-    @IBOutlet weak var textfieldTimeInput: UITextField!
+    @IBOutlet weak var textfieldTimeInput: UINumberPadWithDoneCancel!
     @IBOutlet weak var labelTitle: UILabel!
     
     @IBOutlet weak var labelPlaylistCaption: UILabel!
@@ -514,25 +514,11 @@ extension UpdatePracticeEntryViewController: PlaylistListViewControllerDelegate 
 extension UpdatePracticeEntryViewController: CHGInputAccessoryViewDelegate {
     
     func attachInputAccessoryView() {
-        let inputAccessoryView = CHGInputAccessoryView.inputAccessoryView() as! CHGInputAccessoryView
-        let flexible = CHGInputAccessoryViewItem.flexibleSpace()!
-        let cancel = CHGInputAccessoryViewItem.button(withTitle: "Cancel")!
-        cancel.tintColor = Color.black
-        cancel.tag = 100
-        let done = CHGInputAccessoryViewItem.button(withTitle: "Next")!
-        done.tintColor = Color.black
-        done.tag = 101
-        inputAccessoryView.items = [cancel, flexible, done]
-        inputAccessoryView.inputAccessoryViewDelegate = self
-        self.textfieldTimeInput.inputAccessoryView = inputAccessoryView
+        self.textfieldTimeInput.updateDoneCancelToolbar(onDone: (target:self, action: #selector(onTimeFieldNext)), onCancel: nil)
     }
     
-    func didTap(_ item: CHGInputAccessoryViewItem!) {
-        if item.tag == 100 {
-            self.textfieldTimeInput.resignFirstResponder()
-        } else if item.tag == 101 {
-            self.textfieldTimeInput.resignFirstResponder()
-            self.showDateInputPicker()
-        }
+    @objc func onTimeFieldNext() {
+        self.textfieldTimeInput.resignFirstResponder()
+        self.showDateInputPicker()
     }
 }

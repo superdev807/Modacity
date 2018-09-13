@@ -18,10 +18,10 @@ class UINumberPadWithDoneCancel : UITextField {
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
-        addDoneCancelToolbar()
+        updateDoneCancelToolbar()
     }
     
-    func addDoneCancelToolbar(onDone: (target: Any, action: Selector)? = nil, onCancel: (target: Any, action: Selector)? = nil) {
+    func updateDoneCancelToolbar(onDone: (target: Any, action: Selector)? = nil, onCancel: (target: Any, action: Selector)? = nil) {
         let onCancel = onCancel ?? (target: self, action: #selector(cancelButtonTapped))
         let onDone = onDone ?? (target: self, action: #selector(doneButtonTapped))
         

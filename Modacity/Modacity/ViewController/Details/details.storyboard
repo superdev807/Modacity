@@ -329,7 +329,7 @@
                                                         <color key="tintColor" red="0.058823529409999999" green="0.87843137250000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     </imageView>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rlL-5r-PZo" customClass="UINumberPadWithDoneCancel" customModule="Modacity" customModuleProvider="target">
-                                                        <rect key="frame" x="151.5" y="9" width="0.0" height="30"/>
+                                                        <rect key="frame" x="124" y="9" width="0.0" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" id="eK1-DR-eaz"/>
                                                             <constraint firstAttribute="height" constant="30" id="syI-cc-V7A"/>
@@ -337,6 +337,11 @@
                                                         <nil key="textColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="includeCancel" value="YES"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="cancelButtonTitle" value="Cancel"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="doneButtonTitle" value="Next"/>
+                                                        </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="onDidEndOnExitOnTimeInputField:" destination="l7a-BO-1br" eventType="editingDidEndOnExit" id="YsZ-9q-WfX"/>
                                                             <action selector="onEditingChangedOnTimeInputField:" destination="l7a-BO-1br" eventType="editingChanged" id="44f-jq-8Cj"/>
