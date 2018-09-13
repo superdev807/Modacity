@@ -70,7 +70,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         FBSDKAppEvents.activateApp()
         ModacityAnalytics.LogEvent(.ResumeActive)
         AppOveralDataManager.manager.saveStreak()
+    }
 
+    func applicationWillTerminate(_ application: UIApplication) {
+        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        ModacityAnalytics.LogEvent(.Terminate)
+    }
+    
+    func application(_ application: UIApplication, didReceive notification: UILocalNotification) {
+        if "timesup" != notification.alertAction {
+            self.showNotificationView(title:notification.alertTitle ?? "", body: notification.alertBody ?? "")
+        }
+    }
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        return FBSDKApplicationDelegate.sharedInstance().application(app, open: url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String ?? "", annotation: options[UIApplicationOpenURLOptionsKey.annotation]) || GIDSignIn.sharedInstance().handle(url,                                                                                                                                                                                                                                                                                         sourceApplication:options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String,                                                                                                                                          annotation: [:])
+    }
+    
+    func registerNotifications(_ application: UIApplication) {
         if #available(iOS 10.0, *) {
             UNUserNotificationCenter.current().delegate = self
             UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.sound,.badge], completionHandler: {(granted,error) in
@@ -88,22 +105,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             application.registerUserNotificationSettings(settings)
             application.registerForRemoteNotifications()
         }
-        
-    }
-
-    func applicationWillTerminate(_ application: UIApplication) {
-        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-        ModacityAnalytics.LogEvent(.Terminate)
-    }
-    
-    func application(_ application: UIApplication, didReceive notification: UILocalNotification) {
-        if "timesup" != notification.alertAction {
-            self.showNotificationView(title:notification.alertTitle ?? "", body: notification.alertBody ?? "")
-        }
-    }
-    
-    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-        return FBSDKApplicationDelegate.sharedInstance().application(app, open: url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String ?? "", annotation: options[UIApplicationOpenURLOptionsKey.annotation]) || GIDSignIn.sharedInstance().handle(url,                                                                                                                                                                                                                                                                                         sourceApplication:options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String,                                                                                                                                          annotation: [:])
     }
     
     func showNotificationView(title: String, body: String) {
