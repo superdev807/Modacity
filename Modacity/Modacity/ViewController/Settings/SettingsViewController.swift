@@ -59,6 +59,7 @@ protocol SettingsCellTextFieldDelegate {
 class SettingsCellTextField: UITableViewCell {
     
     @IBOutlet weak var textfieldInput: UITextField!
+    
     var delegate: SettingsCellTextFieldDelegate?
     
     func configure(value: String) {

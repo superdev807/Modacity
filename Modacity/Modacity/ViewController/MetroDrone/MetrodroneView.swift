@@ -174,15 +174,25 @@ class MetrodroneView: UIView {
         }
     }
     
+    @IBAction func onIncreaseBPMTouchUp(_ sender: Any) {
+        if let mPlayer = self.metrodonePlayer {
+            mPlayer.increaseBPMTouchUp()
+        }
+    }
+    @IBAction func onDecreaseBPMTouchUp(_ sender: Any) {
+        if let mPlayer = self.metrodonePlayer {
+            mPlayer.decreaseBPMTouchUp()
+        }
+    }
     @IBAction func onIncreaseBPMTouch(_ sender: Any) {
         if let mPlayer = self.metrodonePlayer {
-            mPlayer.increaseBPMTouch()
+            mPlayer.increaseBPMTouchDown()
         }
     }
     
     @IBAction func onDecreaseBPMTouch(_ sender: Any) {
         if let mPlayer = self.metrodonePlayer {
-            mPlayer.decreaseBPMTouch()
+            mPlayer.decreaseBPMTouchDown()
         }
     }
     

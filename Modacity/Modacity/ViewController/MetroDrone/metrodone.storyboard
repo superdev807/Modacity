@@ -247,6 +247,7 @@
                                                             <action selector="onChangeBPMStop:" destination="U5I-Ap-dmF" eventType="touchUpInside" id="CgB-5A-a2l"/>
                                                             <action selector="onChangeBPMStop:" destination="U5I-Ap-dmF" eventType="touchUpOutside" id="iTj-XD-Ue1"/>
                                                             <action selector="onIncreaseBPMTouch:" destination="U5I-Ap-dmF" eventType="touchDown" id="Iwd-BD-7vc"/>
+                                                            <action selector="onIncreaseBPMTouchUp:" destination="U5I-Ap-dmF" eventType="touchUpInside" id="HJV-DU-fzD"/>
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="18" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nA9-Kq-9EG">
@@ -262,6 +263,7 @@
                                                             <action selector="onChangeBPMStop:" destination="U5I-Ap-dmF" eventType="touchUpInside" id="aDK-hk-t78"/>
                                                             <action selector="onChangeBPMStop:" destination="U5I-Ap-dmF" eventType="touchUpOutside" id="ng9-bx-px3"/>
                                                             <action selector="onDecreaseBPMTouch:" destination="U5I-Ap-dmF" eventType="touchDown" id="39j-i9-LmC"/>
+                                                            <action selector="onDecreaseBPMTouchUp:" destination="U5I-Ap-dmF" eventType="touchUpInside" id="2cN-Im-CE6"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -627,6 +629,7 @@
                                                             <action selector="onChangeBPMStop:" destination="vJt-GF-6rn" eventType="touchUpOutside" id="IcM-Ns-WT6"/>
                                                             <action selector="onChangeBPMStop:" destination="vJt-GF-6rn" eventType="touchUpInside" id="QCI-Ac-uq2"/>
                                                             <action selector="onIncreaseBPMTouch:" destination="vJt-GF-6rn" eventType="touchDown" id="6aw-VJ-zDN"/>
+                                                            <action selector="onIncreaseBPMTouchUp:" destination="vJt-GF-6rn" eventType="touchUpInside" id="28x-s2-gpa"/>
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="18" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wis-m0-xSH">
@@ -642,6 +645,7 @@
                                                             <action selector="onChangeBPMStop:" destination="vJt-GF-6rn" eventType="touchUpOutside" id="GtK-26-N4q"/>
                                                             <action selector="onChangeBPMStop:" destination="vJt-GF-6rn" eventType="touchUpInside" id="Ut5-TX-sj5"/>
                                                             <action selector="onDecreaseBPMTouch:" destination="vJt-GF-6rn" eventType="touchDown" id="nTj-s1-EpW"/>
+                                                            <action selector="onDecreaseBPMTouchUp:" destination="vJt-GF-6rn" eventType="touchUpInside" id="cg7-ai-n2F"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>

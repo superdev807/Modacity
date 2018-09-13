@@ -25,12 +25,13 @@ class MetrodronePlayer: DroneFrameDelegate {
     
     static let minDurationValue: Float = 0.01
     static let maxDurationValue: Float = 0.99
-    static let minBPM: Int = 30
+    static let minBPM: Int = 10
     static let maxBPM: Int = 300
     static let maxOctave: Int = 6
     static let minOctave: Int = 0
     
     var isMetrodronePlaying : Bool = false
+    var bpmRapidSpeed: Bool = false
     
     var _viewDroneFrame: ViewDroneFrame!
     var _labelTempo: UILabel!
@@ -191,8 +192,21 @@ class MetrodronePlayer: DroneFrameDelegate {
         timerBPMAdjust.invalidate()
     }
     
-    func increaseBPMTouch() {
-        singleFire(+1)
+    func increaseBPMTouchUp() {
+        if (!self.bpmRapidSpeed) {
+            singleFire(+1)
+        }
+        
+    }
+    func decreaseBPMTouchUp() {
+        if (!self.bpmRapidSpeed) {
+            singleFire(-1)
+        }
+    }
+    
+    func increaseBPMTouchDown() {
+        self.bpmRapidSpeed = false
+        
         if (timerBPMAdjust != nil) {
             timerBPMAdjust.invalidate()
         }
@@ -200,8 +214,9 @@ class MetrodronePlayer: DroneFrameDelegate {
     }
     
     
-    func decreaseBPMTouch() {
-        singleFire(-1)
+    func decreaseBPMTouchDown() {
+        self.bpmRapidSpeed = false
+        
         if (timerBPMAdjust != nil) {
             timerBPMAdjust.invalidate()
         }
@@ -213,10 +228,12 @@ class MetrodronePlayer: DroneFrameDelegate {
     }
     
     @objc func rapidFireDown() {
+        self.bpmRapidSpeed = true
         singleFire(-10)
     }
     
     @objc func rapidFireUp() {
+        self.bpmRapidSpeed = true
         singleFire(+10)
     }
     

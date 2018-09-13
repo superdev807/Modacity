@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -54,7 +54,7 @@
                     </constraints>
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LvR-aM-JVq" userLabel="Metrodrone Title">
-                    <rect key="frame" x="140" y="8" width="95" height="36"/>
+                    <rect key="frame" x="142.5" y="8" width="90" height="36"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="METRODRONE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O1j-Y0-mV6">
                             <rect key="frame" x="0.0" y="12" width="70" height="12"/>
@@ -63,7 +63,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <imageView userInteractionEnabled="NO" alpha="0.60000002384185791" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_arrow_down" translatesAutoresizingMaskIntoConstraints="NO" id="MPx-fc-AU7">
-                            <rect key="frame" x="80.5" y="13" width="15" height="10"/>
+                            <rect key="frame" x="80.5" y="15" width="10" height="6"/>
                         </imageView>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -276,6 +276,7 @@
                                                 <action selector="onChangeBPMStop:" destination="-1" eventType="touchUpInside" id="c09-FU-sAd"/>
                                                 <action selector="onChangeBPMStop:" destination="-1" eventType="touchUpOutside" id="vrB-aY-rHQ"/>
                                                 <action selector="onDecreaseBPMTouch:" destination="-1" eventType="touchDown" id="G0j-Tj-b4N"/>
+                                                <action selector="onDecreaseBPMTouchUp:" destination="-1" eventType="touchUpInside" id="gOp-TL-YHI"/>
                                             </connections>
                                         </button>
                                         <button opaque="NO" alpha="0.75" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7ZF-9y-2BR" userLabel="IncreaseBPM">
@@ -285,6 +286,7 @@
                                                 <action selector="onChangeBPMStop:" destination="-1" eventType="touchUpOutside" id="AhE-41-Q1v"/>
                                                 <action selector="onChangeBPMStop:" destination="-1" eventType="touchUpInside" id="QEZ-ih-DD7"/>
                                                 <action selector="onIncreaseBPMTouch:" destination="-1" eventType="touchDown" id="rbH-Js-xLT"/>
+                                                <action selector="onIncreaseBPMTouchUp:" destination="-1" eventType="touchUpInside" id="d83-kC-QDY"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -412,7 +414,7 @@
         <image name="btn_sustain" width="72" height="40"/>
         <image name="btn_sustain_grey" width="72" height="40"/>
         <image name="btn_tap" width="112" height="65"/>
-        <image name="icon_arrow_down" width="15" height="10"/>
+        <image name="icon_arrow_down" width="10" height="6"/>
         <image name="icon_minus" width="36" height="36"/>
         <image name="icon_note_1" width="9" height="22"/>
         <image name="icon_plus" width="36" height="36"/>
