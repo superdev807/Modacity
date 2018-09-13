@@ -35,7 +35,7 @@ class PracticeNoteDetailsViewController: UIViewController {
         self.textViewInputBox.text = note.subTitle
         self.labelNoteTitle.text = note.note
         self.textViewNoteTitleEdit.text = note.note
-        self.textViewNoteTitleEdit.isHidden = true
+        self.labelNoteTitle.isHidden = true
         self.textViewInputBox.becomeFirstResponder()
         self.textViewInputBox.placeholderColor = Color.white.alpha(0.7)
         self.textViewInputBox.tintColor = Color.white
@@ -120,8 +120,8 @@ class PracticeNoteDetailsViewController: UIViewController {
     
     @IBAction func onStartEdit(_ sender: Any) {
         if self.textViewNoteTitleEdit.isHidden {
-            self.textViewNoteTitleEdit.isHidden = false
-            self.labelNoteTitle.isHidden = true
+//            self.textViewNoteTitleEdit.isHidden = false
+//            self.labelNoteTitle.isHidden = true
             self.textViewNoteTitleEdit.becomeFirstResponder()
         }
     }
@@ -143,8 +143,8 @@ class PracticeNoteDetailsViewController: UIViewController {
             } else {
                 GoalsLocalManager.manager.changeGoalTitleAndSubTitle(goalId: self.note.id, subTitle: self.textViewInputBox.text)
             }
-            self.textViewNoteTitleEdit.isHidden = true
-            self.labelNoteTitle.isHidden = false
+//            self.textViewNoteTitleEdit.isHidden = true
+//            self.labelNoteTitle.isHidden = false
         }
     }
 }
@@ -189,6 +189,15 @@ extension PracticeNoteDetailsViewController: CHGInputAccessoryViewDelegate {
         } else {
             self.labelNoteTitle.textAlignment = .center
             self.textViewNoteTitleEdit.textAlignment = .center
+        }
+    }
+}
+
+extension PracticeNoteDetailsViewController: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        if textView == self.textViewNoteTitleEdit {
+            self.labelNoteTitle.text = self.textViewNoteTitleEdit.text
+            self.processLabelAlignments()
         }
     }
 }
