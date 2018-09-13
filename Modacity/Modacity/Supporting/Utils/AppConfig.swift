@@ -77,7 +77,7 @@ class AppConfig: NSObject {
     
     static let appConstantTempPlaylistId = "tempplaylist"
     static let appConstantMiscPracticeItemId = "MISC-PRACTICE"
-    static let appConstantMiscPracticeItemName = "Misc.Practice"
+    static let appConstantMiscPracticeItemName = "Misc. Practice"
     
     static let devVersion: Bool = {
         let appBundleId = Bundle.main.infoDictionary![kCFBundleIdentifierKey as String] as! String

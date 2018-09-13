@@ -84,7 +84,7 @@ class UpdatePracticeEntryViewController: UIViewController {
         self.attachInputAccessoryView()
         
         if self.isUpdating {
-            self.buttonAddEntry.setTitle("Update Entry", for: .normal)
+            self.buttonAddEntry.setTitle("UPDATE ENTRY", for: .normal)
             self.labelTitle.text = "Edit Entry"
             
             self.showUpdatingValues()
