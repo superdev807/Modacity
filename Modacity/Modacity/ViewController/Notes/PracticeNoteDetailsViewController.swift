@@ -120,8 +120,6 @@ class PracticeNoteDetailsViewController: UIViewController {
     
     @IBAction func onStartEdit(_ sender: Any) {
         if self.textViewNoteTitleEdit.isHidden {
-//            self.textViewNoteTitleEdit.isHidden = false
-//            self.labelNoteTitle.isHidden = true
             self.textViewNoteTitleEdit.becomeFirstResponder()
         }
     }
@@ -143,8 +141,6 @@ class PracticeNoteDetailsViewController: UIViewController {
             } else {
                 GoalsLocalManager.manager.changeGoalTitleAndSubTitle(goalId: self.note.id, subTitle: self.textViewInputBox.text)
             }
-//            self.textViewNoteTitleEdit.isHidden = true
-//            self.labelNoteTitle.isHidden = false
         }
     }
 }

@@ -279,7 +279,7 @@ extension NotesListView: NoteCellDelegate {
     func onEditingEnd(cell: NoteCell, text: String) {
         self.delegate.onChangeTitle(for: cell.note, to: text)
         cell.textfieldNoteTitle.isHidden = true
-        cell.labelNote.isHidden = false
+        cell.textViewNote.isHidden = false
         self.tableViewMain.reloadData()
         self.noteEditingCell = nil
     }
