@@ -166,8 +166,11 @@
                                     <outlet property="delegate" destination="sUY-cM-9k1" id="Wi5-en-QZ8"/>
                                 </connections>
                             </tableView>
-                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="5" translatesAutoresizingMaskIntoConstraints="NO" id="70T-l7-Mrn">
-                                <rect key="frame" x="152" y="576" width="71" height="37"/>
+                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="4" translatesAutoresizingMaskIntoConstraints="NO" id="70T-l7-Mrn">
+                                <rect key="frame" x="160" y="576" width="55" height="37"/>
+                                <connections>
+                                    <action selector="onValueChangedOnPageControl:" destination="sUY-cM-9k1" eventType="valueChanged" id="WBc-oI-Hv6"/>
+                                </connections>
                             </pageControl>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EHa-b0-C02">
                                 <rect key="frame" x="0.0" y="623" width="375" height="44"/>
@@ -259,7 +262,7 @@
                                 </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MNa-a2-MCF">
-                                <rect key="frame" x="0.0" y="188.5" width="375" height="310"/>
+                                <rect key="frame" x="0.0" y="189.5" width="375" height="308"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="YOUR DATA IS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="70j-OD-Qq2">
                                         <rect key="frame" x="119.5" y="0.0" width="136" height="26"/>
@@ -282,11 +285,11 @@ To get started, create an account.</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MVV-v0-JHJ">
-                                        <rect key="frame" x="30" y="146" width="315" height="62.5"/>
+                                        <rect key="frame" x="35" y="146" width="305" height="60.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="MVV-v0-JHJ" secondAttribute="height" multiplier="156:31" id="78p-FF-EoW"/>
                                         </constraints>
-                                        <state key="normal" image="btn_facebook">
+                                        <state key="normal" backgroundImage="btn_facebook">
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
@@ -294,11 +297,11 @@ To get started, create an account.</string>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="twH-w9-GgW">
-                                        <rect key="frame" x="35" y="213" width="305" height="60.5"/>
+                                        <rect key="frame" x="35" y="211" width="305" height="60.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="twH-w9-GgW" secondAttribute="height" multiplier="156:31" id="AB9-V3-nvh"/>
                                         </constraints>
-                                        <state key="normal" image="btn_google">
+                                        <state key="normal" backgroundImage="btn_google">
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
@@ -306,13 +309,13 @@ To get started, create an account.</string>
                                         </connections>
                                     </button>
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="Vea-OK-UcC">
-                                        <rect key="frame" x="295" y="165.5" width="20" height="20"/>
+                                        <rect key="frame" x="290" y="164.5" width="20" height="20"/>
                                     </activityIndicatorView>
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="g5w-cm-SQP">
-                                        <rect key="frame" x="290" y="232" width="20" height="20"/>
+                                        <rect key="frame" x="290" y="230" width="20" height="20"/>
                                     </activityIndicatorView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d77-5O-tBZ">
-                                        <rect key="frame" x="132" y="281" width="111" height="29"/>
+                                        <rect key="frame" x="132" y="279" width="111" height="29"/>
                                         <fontDescription key="fontDescription" name="Lato-Black" family="Lato" pointSize="14"/>
                                         <state key="normal" title="Sign in with email">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -331,12 +334,12 @@ To get started, create an account.</string>
                                     <constraint firstItem="twH-w9-GgW" firstAttribute="leading" secondItem="MNa-a2-MCF" secondAttribute="leading" constant="35" id="F1s-7k-Ib9"/>
                                     <constraint firstItem="MVV-v0-JHJ" firstAttribute="top" secondItem="vkz-QK-bRg" secondAttribute="bottom" constant="30" id="FFq-HG-ica"/>
                                     <constraint firstItem="twH-w9-GgW" firstAttribute="trailing" secondItem="g5w-cm-SQP" secondAttribute="trailing" constant="30" id="IJB-Hp-sUx"/>
-                                    <constraint firstAttribute="trailing" secondItem="MVV-v0-JHJ" secondAttribute="trailing" constant="30" id="WqZ-X3-MmH"/>
+                                    <constraint firstAttribute="trailing" secondItem="MVV-v0-JHJ" secondAttribute="trailing" constant="35" id="WqZ-X3-MmH"/>
                                     <constraint firstItem="lln-yy-QtG" firstAttribute="top" secondItem="70j-OD-Qq2" secondAttribute="bottom" id="d34-mm-Yk7"/>
                                     <constraint firstItem="MVV-v0-JHJ" firstAttribute="trailing" secondItem="Vea-OK-UcC" secondAttribute="trailing" constant="30" id="feI-vU-O2C"/>
                                     <constraint firstAttribute="bottom" secondItem="d77-5O-tBZ" secondAttribute="bottom" id="hIL-lZ-Q5H"/>
                                     <constraint firstItem="Vea-OK-UcC" firstAttribute="centerY" secondItem="MVV-v0-JHJ" secondAttribute="centerY" constant="-2" id="jhn-9d-UsT"/>
-                                    <constraint firstItem="MVV-v0-JHJ" firstAttribute="leading" secondItem="MNa-a2-MCF" secondAttribute="leading" constant="30" id="jq8-WH-77j"/>
+                                    <constraint firstItem="MVV-v0-JHJ" firstAttribute="leading" secondItem="MNa-a2-MCF" secondAttribute="leading" constant="35" id="jq8-WH-77j"/>
                                     <constraint firstItem="70j-OD-Qq2" firstAttribute="centerX" secondItem="MNa-a2-MCF" secondAttribute="centerX" id="lQA-NH-bQj"/>
                                     <constraint firstItem="g5w-cm-SQP" firstAttribute="centerY" secondItem="twH-w9-GgW" secondAttribute="centerY" constant="-2" id="qjk-cf-hgq"/>
                                     <constraint firstItem="twH-w9-GgW" firstAttribute="top" secondItem="MVV-v0-JHJ" secondAttribute="bottom" constant="5" id="uhy-uW-cEF"/>

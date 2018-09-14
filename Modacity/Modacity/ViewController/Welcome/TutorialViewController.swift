@@ -100,6 +100,7 @@ class TutorialViewController: UIViewController {
             let currentPageNum = visibleRows[0].row
             if currentPageNum < 3 {
                 self.horizontalTableViewTutorial.setContentOffset(CGPoint(x: 0, y: horizontalTableViewTutorial.frame.size.width * CGFloat(currentPageNum + 1)), animated: true)
+                self.pageControl.currentPage = currentPageNum + 1
             } else {
                 self.performSegue(withIdentifier: "sid_get_started", sender: nil)
             }
@@ -126,7 +127,15 @@ class TutorialViewController: UIViewController {
             self.constraintForBottomBarHeight.constant = 74
         }
     }
-
+    
+    @IBAction func onValueChangedOnPageControl(_ sender: Any) {
+        self.horizontalTableViewTutorial.setContentOffset(CGPoint(x: 0, y: horizontalTableViewTutorial.frame.size.width * CGFloat(self.pageControl.currentPage)), animated: true)
+    }
+    
+    @objc func scrollViewRestore() {
+        self.horizontalTableViewTutorial.delegate = self
+    }
+    
 }
 
 extension TutorialViewController: UITableViewDelegate, UITableViewDataSource {
@@ -155,11 +164,13 @@ extension TutorialViewController: UITableViewDelegate, UITableViewDataSource {
         cell.transform = CGAffineTransform(rotationAngle:(CGFloat(Double.pi / 2)))
     }
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         if let visibleRows = self.horizontalTableViewTutorial.indexPathsForVisibleRows {
             let pageNum = visibleRows[0].row
             self.pageControl.currentPage = pageNum
-            ModacityAnalytics.LogStringEvent("Welcome Screen - Scrolled to Page \(pageNum)")
         }
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
     }
 }
