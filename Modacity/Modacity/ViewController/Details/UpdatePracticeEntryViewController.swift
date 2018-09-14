@@ -43,6 +43,9 @@ class UpdatePracticeEntryViewController: UIViewController {
     
     @IBOutlet weak var buttonSubCover: UIButton!
     
+    @IBOutlet weak var labelPracticeItemOptional: UILabel!
+    @IBOutlet weak var labelPlaylistItemOptional: UILabel!
+    
     let highlightedColor = Color(hexString: "#5E5F6C")
     var popupView: DatePickerPopupView!
     var selectedDate = Date()
@@ -213,14 +216,17 @@ class UpdatePracticeEntryViewController: UIViewController {
                 
                 self.labelItemName.textColor = highlightedColor
                 self.labelItemName.font = UIFont(name: AppConfig.appFontLatoBold, size: 14)
+                self.labelPracticeItemOptional.isHidden = true
                 
                 self.viewItemNamePanel.backgroundColor = Color.black.alpha(0.1)
                 self.buttonItemSelect.isEnabled = false
+                self.labelPlaylistItemOptional.isHidden = true
                 
                 self.labelPlaylist.textColor = highlightedColor
                 self.labelPlaylist.font = UIFont(name: AppConfig.appFontLatoBold, size: 14)
                 self.viewPlaylistPanel.backgroundColor = Color.black.alpha(0.1)
                 self.buttonPlaylistSelect.isEnabled = false
+                
                 
                 if let practiceItemId = self.editingPracticeData.practiceItemId {
                     
