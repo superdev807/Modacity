@@ -20,7 +20,8 @@ class PracticeNoteDetailsViewController: UIViewController {
     var playlistPracticeEntry: PlaylistPracticeEntry!
     var playlist: Playlist!
     
-    @IBOutlet weak var textfieldNoteTitleEdit: UITextField!
+    @IBOutlet weak var textViewNoteTitleEdit: UITextView!
+    //    @IBOutlet weak var textfieldNoteTitleEdit: UITextField!
     
     var practiceItem : PracticeItem!
     
@@ -33,15 +34,18 @@ class PracticeNoteDetailsViewController: UIViewController {
         self.textViewInputBox.placeholder = "Add a note..."
         self.textViewInputBox.text = note.subTitle
         self.labelNoteTitle.text = note.note
-        self.textfieldNoteTitleEdit.text = note.note
-        self.textfieldNoteTitleEdit.isHidden = true
+        self.textViewNoteTitleEdit.text = note.note
+        self.labelNoteTitle.isHidden = true
         self.textViewInputBox.becomeFirstResponder()
         self.textViewInputBox.placeholderColor = Color.white.alpha(0.7)
         self.textViewInputBox.tintColor = Color.white
         NotificationCenter.default.addObserver(self, selector: #selector(onKeyboardWillShow), name: Notification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(onKeyboardWillChangeFrame), name: Notification.Name.UIKeyboardWillChangeFrame, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(onKeyboardWillHide), name: Notification.Name.UIKeyboardWillHide, object: nil)
+        self.textViewNoteTitleEdit.textContainerInset = .zero
         self.attachInputAccessoryView()
+        self.processLabelAlignments()
+        
     }
     
     deinit {
@@ -57,20 +61,20 @@ class PracticeNoteDetailsViewController: UIViewController {
         
         if self.playlistViewModel != nil {
             if self.noteIsForPlaylist {
-                self.playlistViewModel.changeNoteTitle(noteId: self.note.id, title: self.textfieldNoteTitleEdit.text ?? "")
+                self.playlistViewModel.changeNoteTitle(noteId: self.note.id, title: self.textViewNoteTitleEdit.text ?? "")
                 self.playlistViewModel.changeNoteSubTitle(noteId: self.note.id, subTitle: self.textViewInputBox.text)
             } else {
-                self.playlistPracticeEntry.practiceItem()?.changeNoteTitle(for: self.note.id, title: self.textfieldNoteTitleEdit.text ?? "")
+                self.playlistPracticeEntry.practiceItem()?.changeNoteTitle(for: self.note.id, title: self.textViewNoteTitleEdit.text ?? "")
                 self.playlistPracticeEntry.practiceItem()?.changeNoteSubTitle(for: self.note.id, subTitle: self.textViewInputBox.text)
             }
         } else if self.practiceItem != nil {
             self.practiceItem.changeNoteSubTitle(for: self.note.id, subTitle: self.textViewInputBox.text)
-            self.practiceItem.changeNoteTitle(for: self.note.id, title: self.textfieldNoteTitleEdit.text ?? "")
+            self.practiceItem.changeNoteTitle(for: self.note.id, title: self.textViewNoteTitleEdit.text ?? "")
         } else if self.playlist != nil {
             self.playlist.changeNoteSubTitle(for: self.note.id, subTitle: self.textViewInputBox.text)
-            self.playlist.changeNoteTitle(for: self.note.id, title: self.textfieldNoteTitleEdit.text ?? "")
+            self.playlist.changeNoteTitle(for: self.note.id, title: self.textViewNoteTitleEdit.text ?? "")
         } else {
-            GoalsLocalManager.manager.changeGoalTitleAndSubTitle(goalId: self.note.id, title: self.textfieldNoteTitleEdit.text ?? "", subTitle: self.textViewInputBox.text)
+            GoalsLocalManager.manager.changeGoalTitleAndSubTitle(goalId: self.note.id, title: self.textViewNoteTitleEdit.text ?? "", subTitle: self.textViewInputBox.text)
         }
         
         self.navigationController?.popViewController(animated: true)
@@ -115,21 +119,20 @@ class PracticeNoteDetailsViewController: UIViewController {
     }
     
     @IBAction func onStartEdit(_ sender: Any) {
-        if self.textfieldNoteTitleEdit.isHidden {
-            self.textfieldNoteTitleEdit.isHidden = false
-            self.labelNoteTitle.isHidden = true
-            self.textfieldNoteTitleEdit.becomeFirstResponder()
+        if self.textViewNoteTitleEdit.isHidden {
+            self.textViewNoteTitleEdit.becomeFirstResponder()
         }
     }
     
     @IBAction func onDidEndOnExitOnField(_ sender: Any) {
-        if "" != self.textfieldNoteTitleEdit.text {
-            self.labelNoteTitle.text = self.textfieldNoteTitleEdit.text
+        if "" != self.textViewNoteTitleEdit.text {
+            self.labelNoteTitle.text = self.textViewNoteTitleEdit.text
+            self.processLabelAlignments()
             if self.playlistViewModel != nil {
                 if self.noteIsForPlaylist {
-                    self.playlistViewModel.changeNoteTitle(noteId: self.note.id, title: self.textfieldNoteTitleEdit.text ?? "")
+                    self.playlistViewModel.changeNoteTitle(noteId: self.note.id, title: self.textViewNoteTitleEdit.text ?? "")
                 } else {
-                    self.playlistPracticeEntry.practiceItem()?.changeNoteTitle(for: self.note.id, title: self.textfieldNoteTitleEdit.text ?? "")
+                    self.playlistPracticeEntry.practiceItem()?.changeNoteTitle(for: self.note.id, title: self.textViewNoteTitleEdit.text ?? "")
                 }
             } else if self.practiceItem != nil {
                 self.practiceItem.changeNoteSubTitle(for: self.note.id, subTitle: self.textViewInputBox.text)
@@ -138,8 +141,6 @@ class PracticeNoteDetailsViewController: UIViewController {
             } else {
                 GoalsLocalManager.manager.changeGoalTitleAndSubTitle(goalId: self.note.id, subTitle: self.textViewInputBox.text)
             }
-            self.textfieldNoteTitleEdit.isHidden = true
-            self.labelNoteTitle.isHidden = false
         }
     }
 }
@@ -147,19 +148,52 @@ class PracticeNoteDetailsViewController: UIViewController {
 extension PracticeNoteDetailsViewController: CHGInputAccessoryViewDelegate {
     
     func attachInputAccessoryView() {
-        let inputAccessoryView = CHGInputAccessoryView.inputAccessoryView() as! CHGInputAccessoryView
-        let flexible = CHGInputAccessoryViewItem.flexibleSpace()!
+        var inputAccessoryView = CHGInputAccessoryView.inputAccessoryView() as! CHGInputAccessoryView
+        var flexible = CHGInputAccessoryViewItem.flexibleSpace()!
         let close = CHGInputAccessoryViewItem.button(withTitle: "Close")!
         close.tintColor = Color.black
         close.tag = 100
         inputAccessoryView.items = [flexible, close]
         inputAccessoryView.inputAccessoryViewDelegate = self
         self.textViewInputBox.inputAccessoryView = inputAccessoryView
+        
+        inputAccessoryView = CHGInputAccessoryView.inputAccessoryView() as! CHGInputAccessoryView
+        flexible = CHGInputAccessoryViewItem.flexibleSpace()!
+        let next = CHGInputAccessoryViewItem.button(withTitle: "Next")!
+        next.tintColor = Color.black
+        next.tag = 101
+        inputAccessoryView.items = [flexible, next]
+        inputAccessoryView.inputAccessoryViewDelegate = self
+        self.textViewNoteTitleEdit.inputAccessoryView = inputAccessoryView
     }
     
     func didTap(_ item: CHGInputAccessoryViewItem!) {
         if item.tag == 100 {
             self.textViewInputBox.resignFirstResponder()
+        } else if item.tag == 101 {
+            self.onDidEndOnExitOnField(self)
+            self.textViewInputBox.becomeFirstResponder()
+        }
+    }
+    
+    func processLabelAlignments() {
+        let size = self.labelNoteTitle.text?.measureSize(for: self.labelNoteTitle.font, constraindTo: CGSize(width: UIScreen.main.bounds.size.width - 100, height: CGFloat.greatestFiniteMagnitude)).height ?? 24
+        
+        if size > CGFloat(24) {
+            self.labelNoteTitle.textAlignment = .left
+            self.textViewNoteTitleEdit.textAlignment = .left
+        } else {
+            self.labelNoteTitle.textAlignment = .center
+            self.textViewNoteTitleEdit.textAlignment = .center
+        }
+    }
+}
+
+extension PracticeNoteDetailsViewController: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        if textView == self.textViewNoteTitleEdit {
+            self.labelNoteTitle.text = self.textViewNoteTitleEdit.text
+            self.processLabelAlignments()
         }
     }
 }
