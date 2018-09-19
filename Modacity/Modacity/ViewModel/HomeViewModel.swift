@@ -67,13 +67,7 @@ class HomeViewModel: ViewModel {
             
             self.totalImprovements = AppOveralDataManager.manager.totalImprovements()
             
-            var streaks = AppOveralDataManager.manager.calculateStreakDays()
-            if streaks == 1 {
-                //                if !AppOveralDataManager.manager.firstPlaylistStored() {
-                //                    streaks = 0
-                //                }
-            }
-            self.streakDays = streaks
+            self.streakDays = AppOveralDataManager.manager.calculateDaysStreakBasedOnPracticeItems()
             
             let data = PlaylistDailyLocalManager.manager.overallPracticeData()
             var totalMinutes = 0
