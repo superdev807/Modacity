@@ -13,10 +13,10 @@ class MusicQuotesManager: NSObject {
     
     static let manager = MusicQuotesManager()
     
-    var localQuotes = [["quote":"Mistakes are immensely useful. They show us where we are right now and what we need to do next.", "person": "William Westney"],
+    var localQuotes = [["quote":"Mistakes are immensely useful. They show us where we are right now and what we need to do next.", "person": "William Westney - The Perfect Wrong Note"],
                        ["quote":"Adapt what is useful, reject what is useless, and add what is specifically your own.", "person": "Bruce Lee"],
                        ["quote": "Let the path be open to talent.", "person":"Napoleon Bonaparte"],
-                       ["quote":"I have no special talent. I am only passionateyl curious", "person": "Albert Einstein"],
+                       ["quote":"I have no special talent. I am only passionately curious", "person": "Albert Einstein"],
                        ["quote":"Practice makes the master.", "person": "Patrick Rothfuss"]]
     
     func randomeQuote() -> [String:String] {
