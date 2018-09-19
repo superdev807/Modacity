@@ -535,6 +535,29 @@ class PlaylistContentsViewController: UIViewController {
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
+    override func becomeFirstResponder() -> Bool {
+        return true
+    }
+  
+    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+        if motion == .motionShake {
+            self.shufflePlaylist()
+            print("SHAKEN!");
+        }
+    }
+    
+    func shufflePlaylist() {
+        var last = self.viewModel.playlistPracticeEntries.count - 1
+        
+        while(last > 0)
+        {
+            let rand = Int(arc4random_uniform(UInt32(last)))
+            self.viewModel.playlistPracticeEntries.swapAt(last, rand)
+            last -= 1
+        }
+        self.tableViewMain.reloadData()
+    }
+    
     func finishPlaylist() {
         self.practiceBreakShown = false
         ModacityAnalytics.LogStringEvent("Pressed Finish Practice", extraParamName: "Practice Time", extraParamValue: self.playlistPracticeTotalTimeInSec)
