@@ -139,7 +139,7 @@ class PracticeItemSelectViewController: UIViewController {
     }
     
     func processWalkthrough() {
-        if !AppOveralDataManager.manager.walkThroughDoneForSecondPage() {
+        if !AppOveralDataManager.manager.walkThroughFlagChecking(key: "walkthrough_second_page") {
             showPracticeItemWalkThrough()
         } else {
             self.viewWalkthrough.isHidden = true
@@ -173,13 +173,7 @@ class PracticeItemSelectViewController: UIViewController {
             self.viewWalkthrough.alpha = 0
         }) { (finished) in
             self.viewWalkthrough.isHidden = true
-            if (self.practiceItems?.count ?? 0) > 0 {
-                if withSetting {
-                    // this never happens, should we remove this code?
-                    // withSetting is always false in the current code
-                    AppOveralDataManager.manager.walkThroughSecondPage()
-                }
-            }
+            AppOveralDataManager.manager.walkthroughSetFlag(key: "walkthrough_second_page", value: true)
         }
     }
 }
@@ -338,7 +332,7 @@ extension PracticeItemSelectViewController {
     @IBAction func onSelectItems(_ sender: Any) {
         ModacityAnalytics.LogStringEvent("Added Practice Item to Playlist", extraParamName: "Item Count", extraParamValue: self.selectedPracticeItems.count)
         
-        AppOveralDataManager.manager.walkThroughSecondPage()
+        AppOveralDataManager.manager.walkthroughSetFlag(key: "walkthrough_second_page", value: true)
         
         if !AppOveralDataManager.manager.firstPlaylistGenerated() {
             AppOveralDataManager.manager.generatedFirstPlaylist()

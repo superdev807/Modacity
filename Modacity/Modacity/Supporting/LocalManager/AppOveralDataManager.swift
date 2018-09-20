@@ -115,6 +115,8 @@ class AppOveralDataManager {
         PlaylistDailyLocalManager.manager.signout()
         PremiumDataManager.manager.signout()
         
+        WalkthroughRemoteManager.manager.synchronized = false
+        
         GIDSignIn.sharedInstance().signOut()
         FBSDKLoginManager().logOut()
         MyProfileRemoteManager.manager.signout()
@@ -271,85 +273,17 @@ class AppOveralDataManager {
     
     // Walk through settings
     
-    func walkThroughDoneForFirstPage() -> Bool {
-        return UserDefaults.standard.bool(forKey: "walkthrough_first_page")
+    func walkThroughFlagChecking(key: String) -> Bool {
+        return UserDefaults.standard.bool(forKey: key)
     }
     
-    func walkThroughFirstPage() {
-        UserDefaults.standard.set(true, forKey: "walkthrough_first_page")
+    func walkthroughSetFlag(key: String, value: Bool) {
+        UserDefaults.standard.set(value, forKey: key)
         UserDefaults.standard.synchronize()
-    }
-    
-    func walkThroughDoneForSecondPage() -> Bool {
-        return UserDefaults.standard.bool(forKey: "walkthrough_second_page")
-    }
-    
-    func walkThroughSecondPage() {
-        UserDefaults.standard.set(true, forKey: "walkthrough_second_page")
-        UserDefaults.standard.synchronize()
-    }
-    
-    func walkThroughDoneForPracticePage() -> Bool {
-        return UserDefaults.standard.bool(forKey: "walkthrough_practice_page")
-    }
-    
-    func walkThroughPracticePage() {
-        UserDefaults.standard.set(true, forKey: "walkthrough_practice_page")
-        UserDefaults.standard.synchronize()
-    }
-    
-    func walkThroughDoneForPracticeTimerUp() -> Bool {
-        return UserDefaults.standard.bool(forKey: "walkthrough_practice_timer_up")
-    }
-    
-    func walkThroughPracticeTimerUp() {
-        UserDefaults.standard.set(true, forKey: "walkthrough_practice_timer_up")
-        UserDefaults.standard.synchronize()
-    }
-    
-    func walkThroughDoneForPracticeRatePage() -> Bool {
-        return UserDefaults.standard.bool(forKey: "walkthrough_practice_rate_page")
-    }
-    
-    func walkThroughPracticeRatePage() {
-        UserDefaults.standard.set(true, forKey: "walkthrough_practice_rate_page")
-        UserDefaults.standard.synchronize()
-    }
-    
-    func walkThroughDoneForFirstPlaylist() -> Bool {
-        return UserDefaults.standard.bool(forKey: "walkthrough_first_playlist")
-    }
-    
-    func walkThroughFirstPlaylist() {
-        UserDefaults.standard.set(true, forKey: "walkthrough_first_playlist")
-        UserDefaults.standard.synchronize()
-    }
-    
-    func walkThroughDoneForPlaylistNaming() -> Bool {
-        return UserDefaults.standard.bool(forKey: "walkthrough_playlist_naming")
-    }
-    
-    func walkThroughPlaylistNaming() {
-        UserDefaults.standard.set(true, forKey: "walkthrough_playlist_naming")
-        UserDefaults.standard.synchronize()
-    }
-    
-    func walkThroughDoneForPlaylistFinish() -> Bool {
-        return UserDefaults.standard.bool(forKey: "walkthrough_playlist_finish")
-    }
-    
-    func walkThroughPlaylistFinish() {
-        UserDefaults.standard.set(true, forKey: "walkthrough_playlist_finish")
-        UserDefaults.standard.synchronize()
-    }
-    
-    func walkThroughDoneForPracticeItemSelection() -> Bool {
-        return UserDefaults.standard.bool(forKey: "walkthrough_practice_item_selection_finish")
-    }
-    
-    func walkThroughPracticeItemFinish() {
-        UserDefaults.standard.set(true, forKey: "walkthrough_practice_item_selection_finish")
-        UserDefaults.standard.synchronize()
+        
+        DispatchQueue.global().async {
+            WalkthroughRemoteManager.manager.updateWalkThroughValue(forLocalKey: key, value: value)
+        }
     }
     
     func defaultDataShiped() -> Bool {

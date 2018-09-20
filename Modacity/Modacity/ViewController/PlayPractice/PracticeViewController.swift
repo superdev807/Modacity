@@ -166,7 +166,7 @@ class PracticeViewController: UIViewController {
     
     func startPractice() {
         
-        if !AppOveralDataManager.manager.walkThroughDoneForPracticePage() {
+        if !AppOveralDataManager.manager.walkThroughFlagChecking(key: "walkthrough_practice_page") {
             self.showWalkthrough()
         } else {
             self.startPracticeTimer()
@@ -937,7 +937,7 @@ extension PracticeViewController {
         self.labelTimerUp.isHidden = false
         self.buttonTimerUpDownArrow.setImage(UIImage(named: "icon_arrow_updown"), for: .normal)
         self.cancelCountDownNotification()
-        if !AppOveralDataManager.manager.walkThroughDoneForPracticeTimerUp() {
+        if !AppOveralDataManager.manager.walkThroughFlagChecking(key: "walkthrough_practice_timer_up") {
             self.showTimerUpWalkThrough()
         }
     }
@@ -1158,9 +1158,7 @@ extension PracticeViewController: PlayPracticeWalkthroughViewDelegate, PracticeT
             if finished {
                 playpracticeWalkThroughView.removeConstraints(playpracticeWalkThroughView.constraints)
                 playpracticeWalkThroughView.removeFromSuperview()
-                if storing {
-                    AppOveralDataManager.manager.walkThroughPracticePage()
-                }
+                AppOveralDataManager.manager.walkthroughSetFlag(key: "walkthrough_practice_page", value: true)
                 self.startPracticeTimer()
             }
         }
@@ -1195,9 +1193,7 @@ extension PracticeViewController: PlayPracticeWalkthroughViewDelegate, PracticeT
             if finished {
                 practiceTimerUpWalkThroughView.removeConstraints(practiceTimerUpWalkThroughView.constraints)
                 practiceTimerUpWalkThroughView.removeFromSuperview()
-                if storing {
-                    AppOveralDataManager.manager.walkThroughPracticeTimerUp()
-                }
+                AppOveralDataManager.manager.walkthroughSetFlag(key: "walkthrough_practice_timer_up", value: true)
             }
         }
     }
