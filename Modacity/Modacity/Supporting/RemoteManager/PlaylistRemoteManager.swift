@@ -76,12 +76,6 @@ class PlaylistRemoteManager {
         return nil
     }
     
-    func removePlaylist(for itemId:String) {
-        if let db = self.dbReference(for: itemId) {
-            db.removeValue()
-        }
-    }
-    
     func update(item: Playlist) {
         if let db = self.dbReference(for: item.id) {
             db.updateChildValues(item.toJSON())

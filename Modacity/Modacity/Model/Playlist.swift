@@ -16,12 +16,14 @@ class Playlist: Mappable {
     var createdAt: String!
     var playlistPracticeEntries: [PlaylistPracticeEntry]!
     var notes: [Note]?
+    var removed = false
     
     init() {
         id = ""
         name = ""
         createdAt = "\(Date().timeIntervalSince1970)"
         playlistPracticeEntries = [PlaylistPracticeEntry]()
+        removed = false
     }
     
     required init?(map: Map) {
@@ -33,6 +35,7 @@ class Playlist: Mappable {
         name            <- map["name"]
         playlistPracticeEntries   <- map["practice_items"]
         notes           <- map["notes"]
+        removed         <- map["removed"]
     }
     
     func addNote(text: String) {

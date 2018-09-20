@@ -40,7 +40,14 @@ class PlaylistViewModel: ViewModel {
     }
     
     func loadPlaylists() {
-        self.playlists = PlaylistLocalManager.manager.loadPlaylists() ?? [Playlist]()
+        let orgPlaylists = PlaylistLocalManager.manager.loadPlaylists() ?? [Playlist]()
+        var tempPlaylists = [Playlist]()
+        for playlist in orgPlaylists {
+            if !playlist.removed {
+                tempPlaylists.append(playlist)
+            }
+        }
+        self.playlists = tempPlaylists
     }
     
     func countOfPlaylists() -> Int {
@@ -54,7 +61,6 @@ class PlaylistViewModel: ViewModel {
     func deletePlaylist(at row: Int) {
         let playlist = self.playlists[row]
         PlaylistLocalManager.manager.deletePlaylist(playlist)
-        PlaylistRemoteManager.manager.removePlaylist(for: playlist.id)
         ModacityAnalytics.LogStringEvent("Deleted Playlist", extraParamName: "name", extraParamValue: playlist.name)
         self.playlists.remove(at: row)
         
@@ -63,7 +69,6 @@ class PlaylistViewModel: ViewModel {
     
     func deletePlaylist(for playlist:Playlist) {
         PlaylistLocalManager.manager.deletePlaylist(playlist)
-        PlaylistRemoteManager.manager.removePlaylist(for: playlist.id)
         
         for row in 0..<self.playlists.count {
             if self.playlists[row].id == playlist.id {
