@@ -39,7 +39,8 @@ class MyProfileRemoteManager {
                 }
             }
             
-            DispatchQueue.global().async {
+            DispatchQueue.global(qos: .background).async {
+                WalkthroughRemoteManager.manager.syncFirst()
                 PracticeItemRemoteManager.manager.syncFirst()
                 PlaylistRemoteManager.manager.syncFirst()
                 OverallDataRemoteManager.manager.syncFirst()

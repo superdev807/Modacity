@@ -145,7 +145,7 @@ class PlaylistContentsViewController: UIViewController {
         } else {
             if self.justLastPracticeItemFinished {
                 self.justLastPracticeItemFinished = false
-                if !AppOveralDataManager.manager.walkThroughDoneForPlaylistFinish() {
+                if !AppOveralDataManager.manager.walkThroughFlagChecking(key: "walkthrough_playlist_finish") {
                     self.showWalkThrough2()
                 }
             }
@@ -172,7 +172,7 @@ class PlaylistContentsViewController: UIViewController {
     }
     
     func processWalkThrough() {
-        if !AppOveralDataManager.manager.walkThroughDoneForFirstPlaylist() {
+        if !AppOveralDataManager.manager.walkThroughFlagChecking(key: "walkthrough_first_playlist") {
             self.showWalkThrough1()
         } else {
             if self.viewWalkThrough1.superview != nil {
@@ -180,13 +180,13 @@ class PlaylistContentsViewController: UIViewController {
             }
             
             if self.viewModel.playlistName == "" {
-                if !AppOveralDataManager.manager.walkThroughDoneForPlaylistNaming() {
+                if !AppOveralDataManager.manager.walkThroughFlagChecking(key: "walkthrough_playlist_naming") {
                     self.showWalkThroughNaming()
                 } else {
                     if self.viewWalkThroughNaming.superview != nil {
                         self.viewWalkThroughNaming.removeFromSuperview()
                     }
-                    if !AppOveralDataManager.manager.walkThroughDoneForFirstPlaylist() {
+                    if !AppOveralDataManager.manager.walkThroughFlagChecking(key: "walkthrough_first_playlist") {
                         self.showWalkThrough1()
                     } else {
                         self.viewWalkThrough1.removeFromSuperview()
@@ -196,7 +196,7 @@ class PlaylistContentsViewController: UIViewController {
                 if self.viewWalkThroughNaming.superview != nil {
                     self.viewWalkThroughNaming.removeFromSuperview()
                 }
-                if !AppOveralDataManager.manager.walkThroughDoneForFirstPlaylist() {
+                if !AppOveralDataManager.manager.walkThroughFlagChecking(key: "walkthrough_first_playlist") {
                     self.showWalkThrough1()
                 } else {
                     self.viewWalkThrough1.removeFromSuperview()
@@ -225,9 +225,7 @@ class PlaylistContentsViewController: UIViewController {
     func dismissWalkThrough1(withSetting: Bool) {
         ModacityAnalytics.LogStringEvent("Walkthrough - Playlist Intro - Dismissed")
         self.viewWalkThrough1.removeFromSuperview()
-        if withSetting {
-            AppOveralDataManager.manager.walkThroughFirstPlaylist()
-        }
+        AppOveralDataManager.manager.walkthroughSetFlag(key: "walkthrough_first_playlist", value: true)
         self.showingWalkThrough1 = false
     }
     
@@ -238,7 +236,7 @@ class PlaylistContentsViewController: UIViewController {
         }) { (finished) in
             if finished {
                 self.viewWalkThrough2.isHidden = true
-                AppOveralDataManager.manager.walkThroughPlaylistFinish()
+                AppOveralDataManager.manager.walkthroughSetFlag(key: "walkthrough_playlist_finish", value: true)
             }
         }
     }
@@ -263,7 +261,7 @@ class PlaylistContentsViewController: UIViewController {
             if finished {
                 self.viewWalkThroughNaming.removeFromSuperview()
                 self.showingWalkThroughNaming = false
-                AppOveralDataManager.manager.walkThroughPlaylistNaming()
+                AppOveralDataManager.manager.walkthroughSetFlag(key: "walkthrough_playlist_naming", value: true)
             }
         }
     }
@@ -505,7 +503,7 @@ class PlaylistContentsViewController: UIViewController {
     
     @IBAction func onStart(_ sender: Any) {
         
-        AppOveralDataManager.manager.walkThroughFirstPlaylist()
+        AppOveralDataManager.manager.walkthroughSetFlag(key: "walkthrough_first_playlist", value: true)
         AppOveralDataManager.manager.storeFirstPlaylist()
         
         if self.showingWalkThrough1 {
@@ -514,7 +512,7 @@ class PlaylistContentsViewController: UIViewController {
         
         if !self.viewWalkThrough2.isHidden {
             self.viewWalkThrough2.isHidden = true
-            AppOveralDataManager.manager.walkThroughPlaylistFinish()
+            AppOveralDataManager.manager.walkthroughSetFlag(key: "walkthrough_playlist_finish", value: true)
         }
         
         if !self.isPlaying {

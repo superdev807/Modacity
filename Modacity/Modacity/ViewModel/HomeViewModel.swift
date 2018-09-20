@@ -86,7 +86,7 @@ class HomeViewModel: ViewModel {
     
     func loadRecentPlaylists() {
         
-        DispatchQueue.global().async {
+        DispatchQueue.global(qos: .background).async {
             if let playlists = PlaylistLocalManager.manager.recentPlaylists() {
                 self.recentPlaylists = playlists
             }

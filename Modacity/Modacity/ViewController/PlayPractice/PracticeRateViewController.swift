@@ -36,7 +36,7 @@ class PracticeRateViewController: UIViewController {
         self.rateView.contentMode = .scaleAspectFit
         self.rateView.delegate = self
         
-        if !AppOveralDataManager.manager.walkThroughDoneForPracticeRatePage() {
+        if !AppOveralDataManager.manager.walkThroughFlagChecking(key: "walkthrough_practice_rate_page") {
             self.showWalkThrough() // for Modacity coding style, put stuff like this in separate functions... especially viewDidLoad should always read easy and be short.
         } else {
             self.walkthroughIsDismissed = true
@@ -199,7 +199,7 @@ class PracticeRateViewController: UIViewController {
                 if finished {
                     self.viewWalkThrough.isHidden = true
                     self.viewWalkThrough.removeFromSuperview()
-                    AppOveralDataManager.manager.walkThroughPracticeRatePage()
+                    AppOveralDataManager.manager.walkthroughSetFlag(key: "walkthrough_practice_rate_page", value: true)
                 }
             }
         }
