@@ -146,7 +146,7 @@ class PracticeViewController: UIViewController {
             constraintForImageHeaderViewHeight.constant = 320
         }
         
-        //self.buttonDone.setTitle("Cancel", for: .normal)
+        self.buttonDone.setTitle("< Cancel", for: .normal)
         self.labelTimerUp.isHidden = true
         self.viewTimeAreaPausedPanel.isHidden = true
         
@@ -506,6 +506,11 @@ extension PracticeViewController: AVAudioPlayerDelegate, FDWaveformViewDelegate 
         self.viewRatePanel.isHidden = true
     }
     
+    func resetPlaybackRate() {
+        self.currentRate = 1.0
+        self.showRateValue()
+    }
+    
     func showRateValue() {
         if self.currentRate == 1.0 {
             self.viewRatePanel.isHidden = true
@@ -780,6 +785,7 @@ extension PracticeViewController {
     func stopRecording() {
         ModacityAnalytics.LogEvent(.RecordStop)
         recorder.stop()
+        self.resetPlaybackRate()
     }
 }
 
