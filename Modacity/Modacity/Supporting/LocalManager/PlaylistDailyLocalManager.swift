@@ -116,13 +116,22 @@ class PlaylistDailyLocalManager: NSObject {
     func overallPracticeData() -> [String:[PlaylistDaily]] {
         var data = [String:[PlaylistDaily]]()
         var playlistIds = [String]()
-        if let playlists = PlaylistLocalManager.manager.loadPlaylists() {
-            for playlist in playlists {
-                playlistIds.append(playlist.id ?? "")
+        
+        var foundFlag = [String:Bool]()
+        
+        for (key, _) in UserDefaults.standard.dictionaryRepresentation() {
+            if key.starts(with: "playlist-indecies-") {
+                let playlistId = key[("playlist-indecies-".count)..<(key.count)]
+                if foundFlag[playlistId] == nil {
+                    playlistIds.append(playlistId)
+                    foundFlag[playlistId] = true
+                }
             }
         }
         
-        playlistIds.append(AppConfig.appConstantTempPlaylistId)
+        if foundFlag[AppConfig.appConstantTempPlaylistId] == nil {
+            playlistIds.append(AppConfig.appConstantTempPlaylistId)
+        }
         
         for playlistId in playlistIds {
             if let ids = UserDefaults.standard.object(forKey: "playlist-indecies-\(playlistId)") as? [String:[String]] {
