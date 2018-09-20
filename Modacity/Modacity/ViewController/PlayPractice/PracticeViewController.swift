@@ -146,7 +146,7 @@ class PracticeViewController: UIViewController {
             constraintForImageHeaderViewHeight.constant = 320
         }
         
-        //self.buttonDone.setTitle("Cancel", for: .normal)
+        self.buttonDone.setTitle("< Cancel", for: .normal)
         self.labelTimerUp.isHidden = true
         self.viewTimeAreaPausedPanel.isHidden = true
         
