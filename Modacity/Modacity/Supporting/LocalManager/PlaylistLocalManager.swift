@@ -89,7 +89,7 @@ class PlaylistLocalManager: NSObject {
     }
     
     func deletePlaylist(_ playlist: Playlist) {
-        playlist.removed = true
+        playlist.archived = true
         UserDefaults.standard.set(playlist.toJSON(), forKey: "playlist:id:" + playlist.id)
         UserDefaults.standard.synchronize()
         PlaylistRemoteManager.manager.update(item: playlist)//removePlaylist(for: playlist.id)

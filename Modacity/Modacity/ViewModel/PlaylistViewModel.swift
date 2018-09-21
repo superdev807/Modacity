@@ -43,7 +43,7 @@ class PlaylistViewModel: ViewModel {
         let orgPlaylists = PlaylistLocalManager.manager.loadPlaylists() ?? [Playlist]()
         var tempPlaylists = [Playlist]()
         for playlist in orgPlaylists {
-            if !playlist.removed {
+            if !playlist.archived {
                 tempPlaylists.append(playlist)
             }
         }
