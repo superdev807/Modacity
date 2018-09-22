@@ -60,29 +60,208 @@ class HomeViewModel: ViewModel {
         }
     }
     
+    func refreshOverallData() {
+        self.totalImprovements = AppOveralDataManager.manager.totalImprovements()
+    }
+    
     func refreshDashboardValues() {
-        DispatchQueue.global().async {
-            // Buggy code, total working time storing module should be fixed
-            //          self.totalWorkingSeconds = AppOveralDataManager.manager.totalPracticeSeconds()
-            
-            self.totalImprovements = AppOveralDataManager.manager.totalImprovements()
-            
-            self.streakDays = AppOveralDataManager.manager.calculateDaysStreakBasedOnPracticeItems()
-            
-            let data = PlaylistDailyLocalManager.manager.overallPracticeData()
-            var totalMinutes = 0
-            
-            for date in data.keys {
-                if let dailyDatas = data[date] {
-                    for daily in dailyDatas {
-                        totalMinutes = totalMinutes + (daily.practiceTimeInSeconds ?? 0)
+        DispatchQueue.global(qos:.background).async {
+            let data = PracticingDailyLocalManager.manager.statsPracticing()
+            self.streakDays = data["streak"]!
+            self.totalWorkingSeconds = data["total"]!
+        }
+    }
+    
+    func calculateValuesBasedOnPracticeHistory() -> [String:Int] {
+        let start = Date()
+        
+        var practicedDataPerDate = [String:Bool]()
+        var totalPracticeTimeInSecond = 0
+        
+        var playlistIds = [String]()
+        var foundFlag = [String:Bool]()
+        
+        for (key, _) in UserDefaults.standard.dictionaryRepresentation() {
+            if key.starts(with: "playlist-indecies-") {
+                let playlistId = key[("playlist-indecies-".count)..<(key.count)]
+                if foundFlag[playlistId] == nil {
+                    playlistIds.append(playlistId)
+                    foundFlag[playlistId] = true
+                }
+            }
+        }
+        
+        if foundFlag[AppConfig.appConstantTempPlaylistId] == nil {
+            playlistIds.append(AppConfig.appConstantTempPlaylistId)
+        }
+        
+        for playlistId in playlistIds {
+            if let ids = UserDefaults.standard.object(forKey: "playlist-indecies-\(playlistId)") as? [String:[String]] {
+                for date in ids.keys {
+                    if let idValues = ids[date] {
+                        var found = [String:Bool]()
+                        
+                        for id in idValues {
+                            if let alreadyFound = found[id] {
+                                if alreadyFound {
+                                    continue
+                                }
+                            }
+                            
+                            found[id] = true
+                            if let practiceData = UserDefaults.standard.object(forKey: "playlist-data-\(id)") as? [String:Any] {
+                                if let practice = PlaylistDaily(JSON: practiceData) {
+                                    var totalTime = 0
+                                    if practice.practices != nil {
+                                        for practiceDataId in practice.practices {
+                                            if let practiceData = PracticingDailyLocalManager.manager.practicingData(forDataId: practiceDataId) {
+                                                totalTime = totalTime + practiceData.practiceTimeInSeconds
+                                                totalPracticeTimeInSecond = totalPracticeTimeInSecond + practiceData.practiceTimeInSeconds
+                                            }
+                                        }
+                                    }
+                                    
+                                    if totalTime > 0 {
+                                        practicedDataPerDate[practice.entryDateString] = true
+                                        continue
+                                    }
+                                }
+                            }
+                            
+                            if let practiceData = UserDefaults.standard.object(forKey: "playlist-data-Optional(\"\(id))\"") as? [String:Any] {
+                                if let practice = PlaylistDaily(JSON: practiceData) {
+                                    var totalTime = 0
+                                    if practice.practices != nil {
+                                        for practiceDataId in practice.practices {
+                                            if let practiceData = PracticingDailyLocalManager.manager.practicingData(forDataId: practiceDataId) {
+                                                totalTime = totalTime + practiceData.practiceTimeInSeconds
+                                                totalPracticeTimeInSecond = totalPracticeTimeInSecond + practiceData.practiceTimeInSeconds
+                                            }
+                                        }
+                                    }
+                                    
+                                    if totalTime > 0 {
+                                        practicedDataPerDate[practice.entryDateString] = true
+                                        continue
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
-            
-            self.totalWorkingSeconds = totalMinutes
         }
+        
+        var dateString = Date().ago(years: 0, months: 0, weeks: 0, days: 1, hours: 0, minutes: 0, seconds: 0).toString(format: "yy-MM-dd")
+        var streakDays = 1
+        while practicedDataPerDate[dateString] != nil  && practicedDataPerDate[dateString]! == true {
+            streakDays = streakDays + 1
+            dateString = dateString.date(format: "yy-MM-dd")!.ago(years: 0, months: 0, weeks: 0, days: 1, hours: 0, minutes: 0, seconds: 0).toString(format: "yy-MM-dd")
+        }
+        
+        ModacityDebugger.debug("App overall data calculation time - \(Date().timeIntervalSince1970 - start.timeIntervalSince1970)s")
+        
+        var finalResult = [String:Int]()
+        finalResult["streak"] = streakDays
+        finalResult["total"] = totalPracticeTimeInSecond
+        return finalResult
     }
+
+    
+//    func calculateValuesBasedOnPracticeHistory() -> [String:Int] {
+//        let start = Date()
+//
+//        var practicedDataPerDate = [String:Bool]()
+//        var totalPracticeTimeInSecond = 0
+//
+//        var playlistIds = [String]()
+//        var foundFlag = [String:Bool]()
+//
+//        for (key, _) in UserDefaults.standard.dictionaryRepresentation() {
+//            if key.starts(with: "playlist-indecies-") {
+//                let playlistId = key[("playlist-indecies-".count)..<(key.count)]
+//                if foundFlag[playlistId] == nil {
+//                    playlistIds.append(playlistId)
+//                    foundFlag[playlistId] = true
+//                }
+//            }
+//        }
+//
+//        if foundFlag[AppConfig.appConstantTempPlaylistId] == nil {
+//            playlistIds.append(AppConfig.appConstantTempPlaylistId)
+//        }
+//
+//        for playlistId in playlistIds {
+//            if let ids = UserDefaults.standard.object(forKey: "playlist-indecies-\(playlistId)") as? [String:[String]] {
+//                for date in ids.keys {
+//                    if let idValues = ids[date] {
+//                        var found = [String:Bool]()
+//
+//                        for id in idValues {
+//                            if let alreadyFound = found[id] {
+//                                if alreadyFound {
+//                                    continue
+//                                }
+//                            }
+//
+//                            found[id] = true
+//                            if let practiceData = UserDefaults.standard.object(forKey: "playlist-data-\(id)") as? [String:Any] {
+//                                if let practice = PlaylistDaily(JSON: practiceData) {
+//                                    var totalTime = 0
+//                                    if practice.practices != nil {
+//                                        for practiceDataId in practice.practices {
+//                                            if let practiceData = PracticingDailyLocalManager.manager.practicingData(forDataId: practiceDataId) {
+//                                                totalTime = totalTime + practiceData.practiceTimeInSeconds
+//                                                totalPracticeTimeInSecond = totalPracticeTimeInSecond + practiceData.practiceTimeInSeconds
+//                                            }
+//                                        }
+//                                    }
+//
+//                                    if totalTime > 0 {
+//                                        practicedDataPerDate[practice.entryDateString] = true
+//                                        continue
+//                                    }
+//                                }
+//                            }
+//
+//                            if let practiceData = UserDefaults.standard.object(forKey: "playlist-data-Optional(\"\(id))\"") as? [String:Any] {
+//                                if let practice = PlaylistDaily(JSON: practiceData) {
+//                                    var totalTime = 0
+//                                    if practice.practices != nil {
+//                                        for practiceDataId in practice.practices {
+//                                            if let practiceData = PracticingDailyLocalManager.manager.practicingData(forDataId: practiceDataId) {
+//                                                totalTime = totalTime + practiceData.practiceTimeInSeconds
+//                                                totalPracticeTimeInSecond = totalPracticeTimeInSecond + practiceData.practiceTimeInSeconds
+//                                            }
+//                                        }
+//                                    }
+//
+//                                    if totalTime > 0 {
+//                                        practicedDataPerDate[practice.entryDateString] = true
+//                                        continue
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//
+//        var dateString = Date().ago(years: 0, months: 0, weeks: 0, days: 1, hours: 0, minutes: 0, seconds: 0).toString(format: "yy-MM-dd")
+//        var streakDays = 1
+//        while practicedDataPerDate[dateString] != nil  && practicedDataPerDate[dateString]! == true {
+//            streakDays = streakDays + 1
+//            dateString = dateString.date(format: "yy-MM-dd")!.ago(years: 0, months: 0, weeks: 0, days: 1, hours: 0, minutes: 0, seconds: 0).toString(format: "yy-MM-dd")
+//        }
+//
+//        ModacityDebugger.debug("App overall data calculation time - \(Date().timeIntervalSince1970 - start.timeIntervalSince1970)s")
+//
+//        var finalResult = [String:Int]()
+//        finalResult["streak"] = streakDays
+//        finalResult["total"] = totalPracticeTimeInSecond
+//        return finalResult
+//    }
     
     func loadRecentPlaylists() {
         

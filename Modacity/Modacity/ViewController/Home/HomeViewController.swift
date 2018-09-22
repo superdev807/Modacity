@@ -43,12 +43,11 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        NotificationCenter.default.addObserver(self, selector: #selector(configureNameLabels), name: AppConfig.appNotificationProfileUpdated, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(refreshValues), name: AppConfig.appNotificationOverallAppDataLoadedFromServer, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(refreshList), name: AppConfig.appNotificationPlaylistLoadedFromServer, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(refreshValues), name: AppConfig.appNotificationPracticeDataFetched, object: nil)
         self.configureUI()
         self.bindViewModel()
+        self.registerNotifications()
+        self.refreshOverallAppData()
+        self.configureNameLabels()
         ModacityAnalytics.LogStringEvent("Home Screen")
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
             appDelegate.registerNotifications(UIApplication.shared)
@@ -57,6 +56,13 @@ class HomeViewController: UIViewController {
     
     deinit {
         NotificationCenter.default.removeObserver(self)
+    }
+    
+    func registerNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(configureNameLabels), name: AppConfig.appNotificationProfileUpdated, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshOverallAppData), name: AppConfig.appNotificationOverallAppDataLoadedFromServer, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshList), name: AppConfig.appNotificationPlaylistLoadedFromServer, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshDashboardValues), name: AppConfig.appNotificationPracticeDataFetched, object: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -75,8 +81,12 @@ class HomeViewController: UIViewController {
         self.viewModel.loadRecentPlaylists()
     }
     
-    @objc func refreshValues() {
+    @objc func refreshDashboardValues() {
         self.viewModel.refreshDashboardValues()
+    }
+    
+    @objc func refreshOverallAppData() {
+        self.viewModel.refreshOverallData()
     }
     
     func bindViewModel() {

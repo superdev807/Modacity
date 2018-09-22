@@ -24,25 +24,25 @@ class AppOveralDataManager {
         UserDefaults.standard.synchronize()
     }
     
-    func calculateDaysStreakBasedOnPracticeItems() -> Int {
-        var data = [String:[PlaylistDaily]]()
-        data = PlaylistDailyLocalManager.manager.overallPracticeData()
-
-        var practicedData = [String:Bool]()
-
-        for date in data.keys {
-            practicedData[date] = true
-        }
-        
-        var dateString = Date().ago(years: 0, months: 0, weeks: 0, days: 1, hours: 0, minutes: 0, seconds: 0).toString(format: "yy-MM-dd")
-        var streakDays = 1
-        while practicedData[dateString] != nil  && practicedData[dateString]! == true {
-            streakDays = streakDays + 1
-            dateString = dateString.date(format: "yy-MM-dd")!.ago(years: 0, months: 0, weeks: 0, days: 1, hours: 0, minutes: 0, seconds: 0).toString(format: "yy-MM-dd")
-        }
-        
-        return streakDays
-    }
+//    func calculateDaysStreakBasedOnPracticeItems() -> Int {
+//        var data = [String:[PlaylistDaily]]()
+//        data = PlaylistDailyLocalManager.manager.overallPracticeData()
+//
+//        var practicedData = [String:Bool]()
+//
+//        for date in data.keys {
+//            practicedData[date] = true
+//        }
+//
+//        var dateString = Date().ago(years: 0, months: 0, weeks: 0, days: 1, hours: 0, minutes: 0, seconds: 0).toString(format: "yy-MM-dd")
+//        var streakDays = 1
+//        while practicedData[dateString] != nil  && practicedData[dateString]! == true {
+//            streakDays = streakDays + 1
+//            dateString = dateString.date(format: "yy-MM-dd")!.ago(years: 0, months: 0, weeks: 0, days: 1, hours: 0, minutes: 0, seconds: 0).toString(format: "yy-MM-dd")
+//        }
+//
+//        return streakDays
+//    }
     
     func calculateStreakDays() -> Int {
         if let streakFrom = UserDefaults.standard.string(forKey: "streak_from") {

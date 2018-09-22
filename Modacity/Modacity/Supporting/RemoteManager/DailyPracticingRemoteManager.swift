@@ -54,7 +54,6 @@ class DailyPracticingRemoteManager: NSObject {
                                                 if let json = practicingDataSnapshot.value as? [String:Any] {
                                                     if let practicingData = PlaylistDaily(JSON: json) {
                                                         PlaylistDailyLocalManager.manager.storePlaylistPracitingDataToLocal(practicingData)
-                                                        NotificationCenter.default.post(Notification(name: AppConfig.appNotificationPracticeDataFetched))
                                                     }
                                                 }
                                             }
@@ -64,6 +63,8 @@ class DailyPracticingRemoteManager: NSObject {
                             }
                         }
                     }
+                    
+                    NotificationCenter.default.post(Notification(name: AppConfig.appNotificationPracticeDataFetched))
                 }
             }
         }
@@ -84,7 +85,6 @@ class DailyPracticingRemoteManager: NSObject {
                                                 if let json = practicingDataSnapshot.value as? [String:Any] {
                                                     if let practicingData = PracticeDaily(JSON: json) {
                                                         PracticingDailyLocalManager.manager.storePracitingDataToLocal(practicingData)
-                                                        NotificationCenter.default.post(Notification(name: AppConfig.appNotificationPracticeDataFetched))
                                                     }
                                                 }
                                             }
@@ -94,6 +94,8 @@ class DailyPracticingRemoteManager: NSObject {
                             }
                         }
                     }
+                    
+                    NotificationCenter.default.post(Notification(name: AppConfig.appNotificationPracticeDataFetched))
                 }
             }
         }

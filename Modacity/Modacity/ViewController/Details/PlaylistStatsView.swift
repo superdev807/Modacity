@@ -45,7 +45,6 @@ class PlaylistStatsView: UIView {
     @IBOutlet weak var buttonDetailsForward: UIButton!
     @IBOutlet weak var viewDetailsList: UIView!
     
-    
     @IBOutlet weak var constraintForPracticeDetailsHistoryPanelHeight: NSLayoutConstraint!
     @IBOutlet weak var viewForPracticeDetailsHistoryPanel: UIView!
     
@@ -53,7 +52,8 @@ class PlaylistStatsView: UIView {
     var detailsPeriodKeyIndex = 0
     
     var playlistIdForStats: String!
-    var practiceData: [String: [PlaylistDaily]]! = nil
+//    var practiceData: [String: [PlaylistDaily]]! = nil
+    var practiceData: [String: [PracticeDaily]]! = nil
     
     var detailsData = [String:[String: [String:Int]]]()       // this_week: practice_item_id : [time:0, improvements:0]
     
@@ -200,7 +200,7 @@ class PlaylistStatsView: UIView {
     
     func showOverallStats() {
         
-        let data = PlaylistDailyLocalManager.manager.overallPracticeData()
+        let data = PracticingDailyLocalManager.manager.overallPracticeData()
         
         ModacityDebugger.debug("overall stats - \(data)")
         
@@ -214,39 +214,64 @@ class PlaylistStatsView: UIView {
         for date in data.keys {
             let time = date.date(format: "yy-MM-dd")
             if let dailyDatas = data[date] {
-                for daily in dailyDatas {
+                for practiceDailyData in dailyDatas {
                     entryCount = entryCount + 1
-                    if daily.practices != nil {
-                        for practice in daily.practices {
-                            if let practiceDailyData = PracticingDailyLocalManager.manager.practicingData(forDataId: practice) {
-                                if let practiceItemId = practiceDailyData.practiceItemId {
-                                    
-                                    totalMinutes = totalMinutes + (practiceDailyData.practiceTimeInSeconds ?? 0)
-                                    
-                                    if time!.isThisWeek() {
-                                        thisWeekTotal = thisWeekTotal + (practiceDailyData.practiceTimeInSeconds ?? 0)
-                                        self.configureDetails(key: "this_week", practiceItemId: practiceItemId, practiceDailyData: practiceDailyData)
-                                    }
-                                    
-                                    if time!.isLastWeek() {
-                                        lastWeekTotal = lastWeekTotal + (practiceDailyData.practiceTimeInSeconds ?? 0)
-                                        self.configureDetails(key: "last_week", practiceItemId: practiceItemId, practiceDailyData: practiceDailyData)
-                                    }
-                                    
-                                    if time!.isThisMonth() {
-                                        thisMonthTotal = thisMonthTotal + (practiceDailyData.practiceTimeInSeconds ?? 0)
-                                        self.configureDetails(key: "this_month", practiceItemId: practiceItemId, practiceDailyData: practiceDailyData)
-                                    }
-                                    
-                                    if time!.isLastMonth() {
-                                        lastMonthTotal = lastMonthTotal + (practiceDailyData.practiceTimeInSeconds ?? 0)
-                                        self.configureDetails(key: "last_month", practiceItemId: practiceItemId, practiceDailyData: practiceDailyData)
-                                    }
-                                    
-                                }
-                            }
+                    if let practiceItemId = practiceDailyData.practiceItemId {
+                        
+                        totalMinutes = totalMinutes + (practiceDailyData.practiceTimeInSeconds ?? 0)
+                        
+                        if time!.isThisWeek() {
+                            thisWeekTotal = thisWeekTotal + (practiceDailyData.practiceTimeInSeconds ?? 0)
+                            self.configureDetails(key: "this_week", practiceItemId: practiceItemId, practiceDailyData: practiceDailyData)
                         }
+                        
+                        if time!.isLastWeek() {
+                            lastWeekTotal = lastWeekTotal + (practiceDailyData.practiceTimeInSeconds ?? 0)
+                            self.configureDetails(key: "last_week", practiceItemId: practiceItemId, practiceDailyData: practiceDailyData)
+                        }
+                        
+                        if time!.isThisMonth() {
+                            thisMonthTotal = thisMonthTotal + (practiceDailyData.practiceTimeInSeconds ?? 0)
+                            self.configureDetails(key: "this_month", practiceItemId: practiceItemId, practiceDailyData: practiceDailyData)
+                        }
+                        
+                        if time!.isLastMonth() {
+                            lastMonthTotal = lastMonthTotal + (practiceDailyData.practiceTimeInSeconds ?? 0)
+                            self.configureDetails(key: "last_month", practiceItemId: practiceItemId, practiceDailyData: practiceDailyData)
+                        }
+                        
                     }
+//                    if daily.practices != nil {
+//                        for practice in daily.practices {
+//                            if let practiceDailyData = PracticingDailyLocalManager.manager.practicingData(forDataId: practice) {
+//                                if let practiceItemId = practiceDailyData.practiceItemId {
+//
+//                                    totalMinutes = totalMinutes + (practiceDailyData.practiceTimeInSeconds ?? 0)
+//
+//                                    if time!.isThisWeek() {
+//                                        thisWeekTotal = thisWeekTotal + (practiceDailyData.practiceTimeInSeconds ?? 0)
+//                                        self.configureDetails(key: "this_week", practiceItemId: practiceItemId, practiceDailyData: practiceDailyData)
+//                                    }
+//
+//                                    if time!.isLastWeek() {
+//                                        lastWeekTotal = lastWeekTotal + (practiceDailyData.practiceTimeInSeconds ?? 0)
+//                                        self.configureDetails(key: "last_week", practiceItemId: practiceItemId, practiceDailyData: practiceDailyData)
+//                                    }
+//
+//                                    if time!.isThisMonth() {
+//                                        thisMonthTotal = thisMonthTotal + (practiceDailyData.practiceTimeInSeconds ?? 0)
+//                                        self.configureDetails(key: "this_month", practiceItemId: practiceItemId, practiceDailyData: practiceDailyData)
+//                                    }
+//
+//                                    if time!.isLastMonth() {
+//                                        lastMonthTotal = lastMonthTotal + (practiceDailyData.practiceTimeInSeconds ?? 0)
+//                                        self.configureDetails(key: "last_month", practiceItemId: practiceItemId, practiceDailyData: practiceDailyData)
+//                                    }
+//
+//                                }
+//                            }
+//                        }
+//                    }
                 }
             }
         }
@@ -321,57 +346,26 @@ class PlaylistStatsView: UIView {
                     totalMinutes = totalMinutes + daily.practiceTimeInSeconds
                     entryCount = entryCount + 1
                     
-                    if time!.isThisWeek() {
-                        thisWeekTotal = thisWeekTotal + daily.practiceTimeInSeconds
-                        if daily.practices != nil {
-                            for practice in daily.practices {
-                                if let practiceDailyData = PracticingDailyLocalManager.manager.practicingData(forDataId: practice) {
-                                    if let practiceItemId = practiceDailyData.practiceItemId {
-                                        self.configureDetails(key: "this_week", practiceItemId: practiceItemId, practiceDailyData: practiceDailyData)
-                                    }
-                                }
-                            }
+                    if daily.practiceItemId != nil {
+                        if time!.isThisWeek() {
+                            thisWeekTotal = thisWeekTotal + daily.practiceTimeInSeconds
+                            self.configureDetails(key: "this_week", practiceItemId: daily.practiceItemId, practiceDailyData: daily)
+
                         }
-                    }
-                 
-                    if time!.isLastWeek() {
-                        lastWeekTotal = lastWeekTotal + daily.practiceTimeInSeconds
-                        ModacityDebugger.debug("last week - playlist total time - \(daily.practiceTimeInSeconds)")
-                        if daily.practices != nil {
-                            for practice in daily.practices {
-                                if let practiceDailyData = PracticingDailyLocalManager.manager.practicingData(forDataId: practice) {
-                                    if let practiceItemId = practiceDailyData.practiceItemId {
-                                        ModacityDebugger.debug("last week - playlist practice entry - \(practiceDailyData.practiceItemId) : \(practiceDailyData.practiceTimeInSeconds)")
-                                        self.configureDetails(key: "last_week", practiceItemId: practiceItemId, practiceDailyData: practiceDailyData)
-                                    }
-                                }
-                            }
+                     
+                        if time!.isLastWeek() {
+                            lastWeekTotal = lastWeekTotal + daily.practiceTimeInSeconds
+                            self.configureDetails(key: "last_week", practiceItemId: daily.practiceItemId, practiceDailyData: daily)
                         }
-                    }
-                    
-                    if time!.isThisMonth() {
-                        thisMonthTotal = thisMonthTotal + daily.practiceTimeInSeconds
-                        if daily.practices != nil {
-                            for practice in daily.practices {
-                                if let practiceDailyData = PracticingDailyLocalManager.manager.practicingData(forDataId: practice) {
-                                    if let practiceItemId = practiceDailyData.practiceItemId {
-                                        self.configureDetails(key: "this_month", practiceItemId: practiceItemId, practiceDailyData: practiceDailyData)
-                                    }
-                                }
-                            }
+                        
+                        if time!.isThisMonth() {
+                            thisMonthTotal = thisMonthTotal + daily.practiceTimeInSeconds
+                            self.configureDetails(key: "this_month", practiceItemId: daily.practiceItemId, practiceDailyData: daily)
                         }
-                    }
-                    
-                    if time!.isLastMonth() {
-                        lastMonthTotal = lastMonthTotal + daily.practiceTimeInSeconds
-                        if daily.practices != nil {
-                            for practice in daily.practices {
-                                if let practiceDailyData = PracticingDailyLocalManager.manager.practicingData(forDataId: practice) {
-                                    if let practiceItemId = practiceDailyData.practiceItemId {
-                                        self.configureDetails(key: "last_month", practiceItemId: practiceItemId, practiceDailyData: practiceDailyData)
-                                    }
-                                }
-                            }
+                        
+                        if time!.isLastMonth() {
+                            lastMonthTotal = lastMonthTotal + daily.practiceTimeInSeconds
+                            self.configureDetails(key: "last_month", practiceItemId: daily.practiceItemId, practiceDailyData: daily)
                         }
                     }
                 }
