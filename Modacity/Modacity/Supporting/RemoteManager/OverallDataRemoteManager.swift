@@ -41,6 +41,8 @@ class OverallDataRemoteManager {
                         SyncStatusKeeper.keeper.statusOverallData = .failed
                     }
                 }
+                
+                NotificationCenter.default.post(Notification(name: AppConfig.appNotificationOverallAppDataLoadedFromServer))
             }
         }
     }

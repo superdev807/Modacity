@@ -19,6 +19,7 @@ class PlaylistRemoteManager {
         if let userId = MyProfileLocalManager.manager.userId() {
             self.refUser.child(userId).child("playlists").observeSingleEvent(of: .value) { (snapshot) in
                 if (!snapshot.exists()) {
+                    PlaylistLocalManager.manager.setPlaylistLoadedFlags()
                     self.startUploadAllPlaylists()      // sync from local
                 } else {
                     if snapshot.children.allObjects.count == 0 {
@@ -33,6 +34,7 @@ class PlaylistRemoteManager {
                             }
                         }
                     }
+                    PlaylistLocalManager.manager.setPlaylistLoadedFlags()
                     NotificationCenter.default.post(Notification(name: AppConfig.appNotificationPlaylistLoadedFromServer))
                 }
             }
@@ -58,6 +60,7 @@ class PlaylistRemoteManager {
         if !AppOveralDataManager.manager.defaultDataShiped() {
             OverallDataRemoteManager.manager.shipDefaultData()
         }
+        PlaylistLocalManager.manager.setPlaylistLoadedFlags()
     }
     
     func dbReferenceForPlaylists() -> DatabaseReference? {

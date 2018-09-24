@@ -19,6 +19,7 @@ class PracticeItemRemoteManager {
         if let userId = MyProfileLocalManager.manager.userId() {
             self.refUser.child(userId).child("practices").observeSingleEvent(of: .value) { (snapshot) in
                 if (!snapshot.exists()) {
+                    PracticeItemLocalManager.manager.setPracticeLoadedFlags()
                     self.startUPloadAllPracticeItems()      // sync from local
                 } else {
                     for data in snapshot.children.allObjects as! [DataSnapshot] {
@@ -30,6 +31,7 @@ class PracticeItemRemoteManager {
                             }
                         }
                     }
+                    PracticeItemLocalManager.manager.setPracticeLoadedFlags()
                     NotificationCenter.default.post(Notification(name: AppConfig.appNotificationPracticeLoadedFromServer))
                 }
             }

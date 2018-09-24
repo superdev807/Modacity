@@ -386,6 +386,8 @@
 		E2D0FE902100E5450083DEA9 /* PremiumUpgradeSlideView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2D0FE8D2100E5450083DEA9 /* PremiumUpgradeSlideView.xib */; };
 		E2D0FE912100E5450083DEA9 /* PremiumUpgradeSlideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D0FE8E2100E5450083DEA9 /* PremiumUpgradeSlideView.swift */; };
 		E2D0FE922100E5450083DEA9 /* PremiumUpgradeSlideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D0FE8E2100E5450083DEA9 /* PremiumUpgradeSlideView.swift */; };
+		E2E89ED9215930A0000456DA /* LocalCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E89ED8215930A0000456DA /* LocalCacheManager.swift */; };
+		E2E89EDA215930A0000456DA /* LocalCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E89ED8215930A0000456DA /* LocalCacheManager.swift */; };
 		EE45C33C78DB04B51D48C842 /* Pods_Modacity_Dev.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E91DFE323AAAD77A2F8A14A /* Pods_Modacity_Dev.framework */; };
 /* End PBXBuildFile section */
 
@@ -619,6 +621,7 @@
 		E2D01BD5208A146B00F54B5D /* MessagesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesManager.swift; sourceTree = "<group>"; };
 		E2D0FE8D2100E5450083DEA9 /* PremiumUpgradeSlideView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PremiumUpgradeSlideView.xib; sourceTree = "<group>"; };
 		E2D0FE8E2100E5450083DEA9 /* PremiumUpgradeSlideView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PremiumUpgradeSlideView.swift; sourceTree = "<group>"; };
+		E2E89ED8215930A0000456DA /* LocalCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalCacheManager.swift; sourceTree = "<group>"; };
 		E91BAC853A8BF6F8434DAB14 /* libPods-ModacityTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ModacityTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -801,6 +804,7 @@
 				E25FD98F20D7F778008C531A /* PlaylistDailyLocalManager.swift */,
 				E28415E820EE7A2300DD7BBE /* GoalsLocalManager.swift */,
 				E2143CC221379F0F00A204B8 /* SyncStatusKeeper.swift */,
+				E2E89ED8215930A0000456DA /* LocalCacheManager.swift */,
 			);
 			path = LocalManager;
 			sourceTree = "<group>";
@@ -1555,6 +1559,7 @@
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/CHGInputAccessoryView/CHGInputAccessoryView.framework",
 				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
+				"${BUILT_PRODUCTS_DIR}/DGActivityIndicatorView/DGActivityIndicatorView.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
@@ -1582,6 +1587,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CHGInputAccessoryView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DGActivityIndicatorView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
@@ -1637,6 +1643,7 @@
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/CHGInputAccessoryView/CHGInputAccessoryView.framework",
 				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
+				"${BUILT_PRODUCTS_DIR}/DGActivityIndicatorView/DGActivityIndicatorView.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
@@ -1664,6 +1671,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CHGInputAccessoryView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DGActivityIndicatorView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
@@ -1839,6 +1847,7 @@
 				8E64B7AC2056A35200900775 /* RecordingsLocalManager.swift in Sources */,
 				E2BA246320C8D1590048A5D5 /* MetrodronePlayer.swift in Sources */,
 				8EDA6194204827DE006D3208 /* PracticeItem.swift in Sources */,
+				E2E89ED9215930A0000456DA /* LocalCacheManager.swift in Sources */,
 				E23C337F20E51CA4000EED10 /* PlaylistHistoryCell.swift in Sources */,
 				E22A06ED20FCD1AD00184F78 /* BreakReminerSettingsViewController.swift in Sources */,
 				E2143CC321379F0F00A204B8 /* SyncStatusKeeper.swift in Sources */,
@@ -1991,6 +2000,7 @@
 				E21BE9CA2091796A000D1877 /* RecordingsLocalManager.swift in Sources */,
 				E2BA246420C8D1590048A5D5 /* MetrodronePlayer.swift in Sources */,
 				E21BE9CC2091796A000D1877 /* PracticeItem.swift in Sources */,
+				E2E89EDA215930A0000456DA /* LocalCacheManager.swift in Sources */,
 				E23C338020E51CA4000EED10 /* PlaylistHistoryCell.swift in Sources */,
 				E22A06EE20FCD1AD00184F78 /* BreakReminerSettingsViewController.swift in Sources */,
 				E2143CC421379F0F00A204B8 /* SyncStatusKeeper.swift in Sources */,

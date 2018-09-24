@@ -194,12 +194,15 @@ class AppOveralDataManager {
         OverallDataRemoteManager.manager.updateTotalPracticeSeconds(secondsSofar)
     }
     
-    func totalImprovements() -> Int {
-        return UserDefaults.standard.integer(forKey: "total_improvements")
+    func totalImprovements() -> Int? {
+        if UserDefaults.standard.object(forKey: "total_improvements") != nil {
+            return UserDefaults.standard.integer(forKey: "total_improvements")
+        }
+        return nil
     }
     
     func addImprovementsCount() {
-        let improvements = self.totalImprovements()
+        let improvements = self.totalImprovements() ?? 0
         UserDefaults.standard.set(improvements + 1, forKey: "total_improvements")
         UserDefaults.standard.synchronize()
         OverallDataRemoteManager.manager.updateTotalImprovements(improvements + 1)
@@ -362,6 +365,11 @@ class AppOveralDataManager {
         UserDefaults.standard.synchronize()
         OverallDataRemoteManager.manager.updateTuningStandard(value)
         MetrodroneParameters.instance.setTuningStandardA(Float(AppOveralDataManager.manager.tuningStandard()))
+    }
+    
+    func dataFetched() -> Bool {
+        return (PlaylistLocalManager.manager.playlistLoaded() && PracticeItemLocalManager.manager.practiceLoaded())
+            || (UserDefaults.standard.object(forKey: "recent_playlist_ids") != nil) || (UserDefaults.standard.object(forKey: "playlist_ids") != nil)
     }
     
     func tuningStandard() -> Double {

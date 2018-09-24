@@ -334,6 +334,9 @@ class PracticingDailyLocalManager: NSObject {
         
         ModacityDebugger.debug("App overall data calculation time - \(Date().timeIntervalSince1970 - start.timeIntervalSince1970)s")
         
+        LocalCacheManager.manager.storeTotalWorkingSecondsToCache(seconds: totalPracticeTimeInSecond)
+        LocalCacheManager.manager.storeDayStreaksToCache(days: streakDays)
+        
         var finalResult = [String:Int]()
         finalResult["streak"] = streakDays
         finalResult["total"] = totalPracticeTimeInSecond

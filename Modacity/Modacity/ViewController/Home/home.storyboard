@@ -100,7 +100,11 @@
                                                                                     <action selector="onTotalHours:" destination="uL2-n6-Rai" eventType="touchUpInside" id="HB7-gd-tRt"/>
                                                                                 </connections>
                                                                             </button>
-                                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0" textAlignment="center" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="76E-Vd-ZCr">
+                                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yyR-KT-6bO" customClass="DGActivityIndicatorView">
+                                                                                <rect key="frame" x="0.0" y="0.0" width="96" height="30"/>
+                                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                            </view>
+                                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="76E-Vd-ZCr">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="96" height="30"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="width" constant="96" id="QQY-dh-SfO"/>
@@ -109,10 +113,6 @@
                                                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Light" family="Lato" pointSize="28"/>
                                                                                 <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" returnKeyType="next"/>
-                                                                                <connections>
-                                                                                    <action selector="onDidEndOnExitOnFields:" destination="uL2-n6-Rai" eventType="editingDidEndOnExit" id="96N-gQ-HRV"/>
-                                                                                    <action selector="onEditingChangedOnTotalHours:" destination="uL2-n6-Rai" eventType="editingChanged" id="yRp-Fv-hBK"/>
-                                                                                </connections>
                                                                             </textField>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TOTAL HOURS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b5X-Yy-dRV">
                                                                                 <rect key="frame" x="0.0" y="37" width="96" height="12"/>
@@ -125,8 +125,12 @@
                                                                         <constraints>
                                                                             <constraint firstItem="b5X-Yy-dRV" firstAttribute="top" secondItem="76E-Vd-ZCr" secondAttribute="bottom" constant="7" id="0ig-sg-vqH"/>
                                                                             <constraint firstItem="dno-aV-C7m" firstAttribute="top" secondItem="0nn-tI-pqa" secondAttribute="top" id="AZH-6q-dH3"/>
+                                                                            <constraint firstItem="yyR-KT-6bO" firstAttribute="trailing" secondItem="76E-Vd-ZCr" secondAttribute="trailing" id="CcR-uB-xX6"/>
                                                                             <constraint firstItem="b5X-Yy-dRV" firstAttribute="leading" secondItem="0nn-tI-pqa" secondAttribute="leading" id="DHq-RR-NSh"/>
+                                                                            <constraint firstItem="yyR-KT-6bO" firstAttribute="leading" secondItem="76E-Vd-ZCr" secondAttribute="leading" id="Dhd-Me-jF7"/>
+                                                                            <constraint firstItem="yyR-KT-6bO" firstAttribute="bottom" secondItem="76E-Vd-ZCr" secondAttribute="bottom" id="Pza-W7-wtg"/>
                                                                             <constraint firstAttribute="trailing" secondItem="dno-aV-C7m" secondAttribute="trailing" id="a6w-5Q-weg"/>
+                                                                            <constraint firstItem="yyR-KT-6bO" firstAttribute="top" secondItem="76E-Vd-ZCr" secondAttribute="top" id="cmZ-H2-CYo"/>
                                                                             <constraint firstAttribute="trailing" secondItem="b5X-Yy-dRV" secondAttribute="trailing" id="gfC-bY-pWy"/>
                                                                             <constraint firstItem="b5X-Yy-dRV" firstAttribute="centerX" secondItem="0nn-tI-pqa" secondAttribute="centerX" id="hHH-9T-rzg"/>
                                                                             <constraint firstItem="76E-Vd-ZCr" firstAttribute="leading" secondItem="0nn-tI-pqa" secondAttribute="leading" id="oOa-Qg-Lnq"/>
@@ -138,7 +142,11 @@
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1r2-TD-EGg">
                                                                         <rect key="frame" x="96" y="0.0" width="96" height="61"/>
                                                                         <subviews>
-                                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0" textAlignment="center" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Vnz-GV-vcM">
+                                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oxk-da-N8m" customClass="DGActivityIndicatorView">
+                                                                                <rect key="frame" x="0.0" y="0.0" width="96" height="30"/>
+                                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                            </view>
+                                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Vnz-GV-vcM">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="96" height="30"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="height" constant="30" id="by9-Nz-E2Y"/>
@@ -147,10 +155,6 @@
                                                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Light" family="Lato" pointSize="28"/>
                                                                                 <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" returnKeyType="next"/>
-                                                                                <connections>
-                                                                                    <action selector="onDidEndOnExitOnFields:" destination="uL2-n6-Rai" eventType="editingDidEndOnExit" id="2PX-P2-QMX"/>
-                                                                                    <action selector="onEditingChangedOnTotalHours:" destination="uL2-n6-Rai" eventType="editingChanged" id="ZgN-2q-B6F"/>
-                                                                                </connections>
                                                                             </textField>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DAY STREAK" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yNo-yN-JI4">
                                                                                 <rect key="frame" x="18.5" y="37" width="60" height="12"/>
@@ -165,6 +169,10 @@
                                                                             <constraint firstItem="Vnz-GV-vcM" firstAttribute="centerX" secondItem="1r2-TD-EGg" secondAttribute="centerX" id="68S-WQ-omb"/>
                                                                             <constraint firstItem="yNo-yN-JI4" firstAttribute="centerX" secondItem="1r2-TD-EGg" secondAttribute="centerX" id="Ey9-EY-rE3"/>
                                                                             <constraint firstItem="Vnz-GV-vcM" firstAttribute="top" secondItem="1r2-TD-EGg" secondAttribute="top" id="OOE-Xc-jhu"/>
+                                                                            <constraint firstItem="oxk-da-N8m" firstAttribute="top" secondItem="Vnz-GV-vcM" secondAttribute="top" id="R6H-kD-5Hd"/>
+                                                                            <constraint firstItem="oxk-da-N8m" firstAttribute="bottom" secondItem="Vnz-GV-vcM" secondAttribute="bottom" id="Sfo-Ip-2uh"/>
+                                                                            <constraint firstItem="oxk-da-N8m" firstAttribute="leading" secondItem="Vnz-GV-vcM" secondAttribute="leading" id="etE-Bj-h8S"/>
+                                                                            <constraint firstItem="oxk-da-N8m" firstAttribute="trailing" secondItem="Vnz-GV-vcM" secondAttribute="trailing" id="hKf-OF-abJ"/>
                                                                         </constraints>
                                                                     </view>
                                                                 </subviews>
@@ -199,7 +207,11 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Ja-vi-yPL">
                                                         <rect key="frame" x="218.5" y="27" width="119.5" height="62"/>
                                                         <subviews>
-                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0" textAlignment="center" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="49d-EG-qn5">
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OhD-uK-gv3" customClass="DGActivityIndicatorView">
+                                                                <rect key="frame" x="12.5" y="0.0" width="96" height="30"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            </view>
+                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="49d-EG-qn5">
                                                                 <rect key="frame" x="12.5" y="0.0" width="96" height="30"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="1lB-Rh-Xs4"/>
@@ -208,10 +220,6 @@
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <fontDescription key="fontDescription" name="Lato-Light" family="Lato" pointSize="28"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" returnKeyType="done"/>
-                                                                <connections>
-                                                                    <action selector="onDidEndOnExitOnFields:" destination="uL2-n6-Rai" eventType="editingDidEndOnExit" id="5uy-Lz-tHd"/>
-                                                                    <action selector="onEditingChangedOnTotalHours:" destination="uL2-n6-Rai" eventType="editingChanged" id="rMY-Fg-VvA"/>
-                                                                </connections>
                                                             </textField>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="IMPROVEMENTS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fjo-Y6-VnS">
                                                                 <rect key="frame" x="20.5" y="37" width="80" height="12"/>
@@ -223,9 +231,13 @@
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <constraints>
                                                             <constraint firstItem="Fjo-Y6-VnS" firstAttribute="top" secondItem="49d-EG-qn5" secondAttribute="bottom" constant="7" id="5mT-UP-qgw"/>
+                                                            <constraint firstItem="OhD-uK-gv3" firstAttribute="bottom" secondItem="49d-EG-qn5" secondAttribute="bottom" id="Cdv-55-JwC"/>
+                                                            <constraint firstItem="OhD-uK-gv3" firstAttribute="leading" secondItem="49d-EG-qn5" secondAttribute="leading" id="VpB-fd-9Qe"/>
                                                             <constraint firstItem="Fjo-Y6-VnS" firstAttribute="centerX" secondItem="6Ja-vi-yPL" secondAttribute="centerX" id="Wlm-U7-L5K"/>
                                                             <constraint firstItem="49d-EG-qn5" firstAttribute="centerX" secondItem="6Ja-vi-yPL" secondAttribute="centerX" id="bvf-Pe-X01"/>
                                                             <constraint firstItem="49d-EG-qn5" firstAttribute="top" secondItem="6Ja-vi-yPL" secondAttribute="top" id="dpB-Yd-zRS"/>
+                                                            <constraint firstItem="OhD-uK-gv3" firstAttribute="top" secondItem="49d-EG-qn5" secondAttribute="top" id="e14-aS-6st"/>
+                                                            <constraint firstItem="OhD-uK-gv3" firstAttribute="trailing" secondItem="49d-EG-qn5" secondAttribute="trailing" id="kqP-OL-I26"/>
                                                         </constraints>
                                                     </view>
                                                 </subviews>
@@ -339,6 +351,10 @@ first playlist and start practicing.</string>
                                                                     <outlet property="delegate" destination="uL2-n6-Rai" id="qlc-DC-8Tn"/>
                                                                 </connections>
                                                             </collectionView>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="byW-dX-JtW" customClass="DGActivityIndicatorView">
+                                                                <rect key="frame" x="0.0" y="22" width="375" height="120"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            </view>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FAVORITES" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="da3-DE-qjr">
                                                                 <rect key="frame" x="20" y="147" width="53" height="12"/>
                                                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="10"/>
@@ -408,19 +424,31 @@ first playlist and start practicing.</string>
                                                                     <outlet property="delegate" destination="uL2-n6-Rai" id="8au-nx-0mj"/>
                                                                 </connections>
                                                             </collectionView>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zg4-yN-jYe" customClass="DGActivityIndicatorView">
+                                                                <rect key="frame" x="0.0" y="164" width="375" height="120"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            </view>
                                                         </subviews>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <constraints>
                                                             <constraint firstItem="rAI-c8-Ze7" firstAttribute="top" secondItem="da3-DE-qjr" secondAttribute="bottom" constant="5" id="0BA-F1-S6Q"/>
+                                                            <constraint firstItem="byW-dX-JtW" firstAttribute="leading" secondItem="NdI-26-i6m" secondAttribute="leading" id="4bz-sd-1oE"/>
+                                                            <constraint firstItem="byW-dX-JtW" firstAttribute="bottom" secondItem="NdI-26-i6m" secondAttribute="bottom" id="Eab-Ao-0fY"/>
+                                                            <constraint firstItem="Zg4-yN-jYe" firstAttribute="top" secondItem="rAI-c8-Ze7" secondAttribute="top" id="GDk-96-Nyp"/>
                                                             <constraint firstItem="rAI-c8-Ze7" firstAttribute="leading" secondItem="zsm-h9-2QW" secondAttribute="leading" id="Jzp-BU-mzV"/>
                                                             <constraint firstAttribute="trailing" secondItem="rAI-c8-Ze7" secondAttribute="trailing" id="P8i-kj-cvJ"/>
                                                             <constraint firstAttribute="trailing" secondItem="NdI-26-i6m" secondAttribute="trailing" id="Pjf-ZO-RIW"/>
                                                             <constraint firstItem="9qr-R3-BeI" firstAttribute="leading" secondItem="zsm-h9-2QW" secondAttribute="leading" constant="20" id="S7C-o6-4xh"/>
                                                             <constraint firstItem="9qr-R3-BeI" firstAttribute="top" secondItem="zsm-h9-2QW" secondAttribute="top" constant="5" id="UvN-2K-2BD"/>
+                                                            <constraint firstItem="Zg4-yN-jYe" firstAttribute="bottom" secondItem="rAI-c8-Ze7" secondAttribute="bottom" id="VQh-NX-EQj"/>
                                                             <constraint firstItem="da3-DE-qjr" firstAttribute="top" secondItem="NdI-26-i6m" secondAttribute="bottom" constant="5" id="b5H-3e-3wC"/>
                                                             <constraint firstItem="NdI-26-i6m" firstAttribute="leading" secondItem="zsm-h9-2QW" secondAttribute="leading" id="hCs-Wg-Fx9"/>
                                                             <constraint firstItem="NdI-26-i6m" firstAttribute="top" secondItem="9qr-R3-BeI" secondAttribute="bottom" constant="5" id="lpF-wF-waz"/>
+                                                            <constraint firstItem="byW-dX-JtW" firstAttribute="trailing" secondItem="NdI-26-i6m" secondAttribute="trailing" id="oOD-f7-bOL"/>
+                                                            <constraint firstItem="Zg4-yN-jYe" firstAttribute="trailing" secondItem="rAI-c8-Ze7" secondAttribute="trailing" id="qJL-Ys-erH"/>
                                                             <constraint firstItem="da3-DE-qjr" firstAttribute="leading" secondItem="9qr-R3-BeI" secondAttribute="leading" id="qjt-o1-bHD"/>
+                                                            <constraint firstItem="Zg4-yN-jYe" firstAttribute="leading" secondItem="rAI-c8-Ze7" secondAttribute="leading" id="rXN-T0-NiS"/>
+                                                            <constraint firstItem="byW-dX-JtW" firstAttribute="top" secondItem="NdI-26-i6m" secondAttribute="top" id="rXu-A4-hd5"/>
                                                         </constraints>
                                                     </view>
                                                 </subviews>
@@ -508,6 +536,11 @@ first playlist and start practicing.</string>
                     </view>
                     <navigationItem key="navigationItem" id="aLx-kM-m6i"/>
                     <connections>
+                        <outlet property="activityIndicatorDayStreak" destination="oxk-da-N8m" id="6hr-f7-sgh"/>
+                        <outlet property="activityIndicatorFavoriteList" destination="Zg4-yN-jYe" id="Tgc-f0-1BU"/>
+                        <outlet property="activityIndicatorRecentList" destination="byW-dX-JtW" id="UyW-DL-ieJ"/>
+                        <outlet property="activityIndicatorTotalHours" destination="yyR-KT-6bO" id="dnE-JQ-iRb"/>
+                        <outlet property="activityIndicatorTotalImprovements" destination="OhD-uK-gv3" id="6ah-da-fvn"/>
                         <outlet property="collectionViewFavoritePlaylists" destination="rAI-c8-Ze7" id="saI-fY-iGd"/>
                         <outlet property="collectionViewRecentPlaylists" destination="NdI-26-i6m" id="Y8N-hS-opA"/>
                         <outlet property="constraintForContentViewTopSpace" destination="UNQ-kf-CaU" id="2rq-LW-W9Y"/>

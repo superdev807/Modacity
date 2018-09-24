@@ -38,6 +38,20 @@ class DailyPracticingRemoteManager: NSObject {
         }
     }
     
+    func practicingDataFetched() -> Bool {
+        return UserDefaults.standard.bool(forKey: "fetched_practicing") && UserDefaults.standard.bool(forKey: "fetched_practicing_playlist")
+    }
+    
+    func setPracticingDataLoaded() {
+        UserDefaults.standard.set(true, forKey: "fetched_practicing")
+        UserDefaults.standard.synchronize()
+    }
+    
+    func setPlaylistPracticingDataLoaded() {
+        UserDefaults.standard.set(true, forKey: "fetched_practicing_playlist")
+        UserDefaults.standard.synchronize()
+    }
+    
     func fetchPlaylistPracticingDataFromServer() {
         ModacityDebugger.debug("fetching...")
         if let userId = MyProfileLocalManager.manager.userId() {
@@ -63,9 +77,9 @@ class DailyPracticingRemoteManager: NSObject {
                             }
                         }
                     }
-                    
-                    NotificationCenter.default.post(Notification(name: AppConfig.appNotificationPracticeDataFetched))
                 }
+                self.setPlaylistPracticingDataLoaded()
+                NotificationCenter.default.post(Notification(name: AppConfig.appNotificationPracticeDataFetched))
             }
         }
     }
@@ -94,9 +108,9 @@ class DailyPracticingRemoteManager: NSObject {
                             }
                         }
                     }
-                    
-                    NotificationCenter.default.post(Notification(name: AppConfig.appNotificationPracticeDataFetched))
                 }
+                self.setPracticingDataLoaded()
+                NotificationCenter.default.post(Notification(name: AppConfig.appNotificationPracticeDataFetched))
             }
         }
     }

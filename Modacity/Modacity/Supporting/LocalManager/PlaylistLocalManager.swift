@@ -205,6 +205,15 @@ class PlaylistLocalManager: NSObject {
         PlaylistRemoteManager.manager.add(item: playlist)
     }
     
+    func playlistLoaded() -> Bool {
+        return UserDefaults.standard.bool(forKey: "playlist_loaded")
+    }
+    
+    func setPlaylistLoadedFlags() {
+        UserDefaults.standard.set(true, forKey: "playlist_loaded")
+        UserDefaults.standard.synchronize()
+    }
+    
     func signout() {
         if let playlistIds = loadPlaylistIds() {
             for playlistId in playlistIds {
