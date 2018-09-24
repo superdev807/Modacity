@@ -375,7 +375,7 @@ extension UITabBarController {
 
 extension UITextView {
     func alignCenterToVerticalCenter() {
-        print("textview size - \(self.bounds.size.width)")
+        ModacityDebugger.debug("textview size - \(self.bounds.size.width)")
         let size = self.sizeThatFits(CGSize(width: self.bounds.size.width, height: CGFloat.greatestFiniteMagnitude))
         var topoffset = (self.bounds.size.height - size.height * self.zoomScale) / 2.0
         topoffset = topoffset < 0.0 ? 0.0 : topoffset

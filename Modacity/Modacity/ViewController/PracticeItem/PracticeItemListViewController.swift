@@ -91,7 +91,6 @@ class PracticeItemListViewController: UIViewController {
     
     @objc func onKeyboardWillChangeFrame(notification: Notification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            print("keyboard height - \(keyboardSize.height)")
             if AppUtils.iphoneIsXModel() {
                 self.constraintForTableViewBottomSpace.constant = (-1) * (keyboardSize.height - 34)
             } else {

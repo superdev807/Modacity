@@ -101,10 +101,10 @@ class NoteCell: UITableViewCell {
             if let textPosition = textView.closestPosition(to: tapLocation) {
                 if let attributes = textView.textStyling(at: textPosition, in: .forward) {
                     if let _ = attributes["NSLink"] {
-                        print("Link clicked clicked")
+                        ModacityDebugger.debug("Link clicked clicked")
                         return
                     } else {
-                        print("Clicked outside of links.")
+                        ModacityDebugger.debug("Clicked outside of links.")
                         if delegate != nil {
                             delegate.openDetails(note: note)
                         }

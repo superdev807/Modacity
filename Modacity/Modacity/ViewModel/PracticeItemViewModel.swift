@@ -202,7 +202,7 @@ class PracticeItemViewModel: ViewModel {
         }
         
         self.sectionedPracticeItems = finalResult
-        print("Sorted time - \(Date().timeIntervalSince1970 - time.timeIntervalSince1970)")
+        ModacityDebugger.debug("Sorted time - \(Date().timeIntervalSince1970 - time.timeIntervalSince1970)")
     }
     
     func searchResult(at row:Int) -> PracticeItem {

@@ -360,7 +360,7 @@ class AppOveralDataManager {
     }
     
     func saveTuningStandard(_ value:Double) {
-        print("Saving tuning standard \(value)")
+        ModacityDebugger.debug("Saving tuning standard \(value)")
         UserDefaults.standard.set(value, forKey: "tuning_standard")
         UserDefaults.standard.synchronize()
         OverallDataRemoteManager.manager.updateTuningStandard(value)
@@ -375,7 +375,7 @@ class AppOveralDataManager {
     func tuningStandard() -> Double {
         if let _ = UserDefaults.standard.object(forKey: "tuning_standard") {
             let standard = UserDefaults.standard.double(forKey: "tuning_standard") 
-            print("Retrieved tuning standard \(standard)")
+            ModacityDebugger.debug("Retrieved tuning standard \(standard)")
             return standard
         } else {
             return 440.0

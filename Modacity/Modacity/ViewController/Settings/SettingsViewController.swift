@@ -435,7 +435,7 @@ extension SettingsViewController: SettingsCellTextFieldDelegate {
     func settingsCellTextField(_ cell: SettingsCellTextField, changedValue: String) {
         if let value = Double(changedValue) {
             if ((value > 400 && value < 600)) {
-                print("tuning standard value \(value) saved!")
+                ModacityDebugger.debug("tuning standard value \(value) saved!")
                 AppOveralDataManager.manager.saveTuningStandard(value)
             }
         }

@@ -540,7 +540,7 @@ class PlaylistContentsViewController: UIViewController {
     override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
             self.shufflePlaylist()
-            print("SHAKEN!");
+            ModacityDebugger.debug("SHAKEN!");
         }
     }
     

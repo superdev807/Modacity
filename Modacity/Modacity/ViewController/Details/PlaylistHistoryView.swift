@@ -203,18 +203,14 @@ class PlaylistHistoryView: UIView {
                 self.data = PlaylistDailyLocalManager.manager.playlistPracticingData(forPlaylistId: playlistId!)
             }
             
-            print("Took time to load - \(Date().timeIntervalSince1970 - time.timeIntervalSince1970)")
-            
             self.loadPriData(for: playlistId)
             
             self.practiceHistoryDataList = []
             
             self.loadNextData()
             
-            print("Took time to load and process - \(Date().timeIntervalSince1970 - time.timeIntervalSince1970)")
-            
             DispatchQueue.main.async {
-                print("Took time to load and process, show - \(Date().timeIntervalSince1970 - time.timeIntervalSince1970)")
+                ModacityDebugger.debug("Took time to load and process, show - \(Date().timeIntervalSince1970 - time.timeIntervalSince1970)")
                 self.viewLoaderPanel.isHidden = true
                 self.tableViewMain.reloadData()
             }

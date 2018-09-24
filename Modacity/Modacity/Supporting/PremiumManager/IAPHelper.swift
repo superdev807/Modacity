@@ -201,7 +201,7 @@ extension IAPHelper {
         do {
             let jsonData = try JSONSerialization.data(withJSONObject: dict, options: .prettyPrinted)
             let receiptUrlLastPath = Bundle.main.appStoreReceiptURL?.lastPathComponent ?? ""
-            print("receipt url last path - \(receiptUrlLastPath)")
+            ModacityDebugger.debug("receipt url last path - \(receiptUrlLastPath)")
             let receiptUrl = (receiptUrlLastPath != "sandboxReceipt") ? "https://buy.itunes.apple.com/verifyReceipt" : "https://sandbox.itunes.apple.com/verifyReceipt"
             if let sandboxURL = Foundation.URL(string:receiptUrl) {
                 var request = URLRequest(url: sandboxURL)
@@ -217,8 +217,8 @@ extension IAPHelper {
                         do {
                             if let jsonResponse = try JSONSerialization.jsonObject(with: receivedData, options: JSONSerialization.ReadingOptions.mutableContainers) as? Dictionary<String, AnyObject> {
                                 
-                                print("receipt data =============================")
-                                print(String(data: receivedData, encoding: .utf8) ?? "")
+                                ModacityDebugger.debug("receipt data =============================")
+                                ModacityDebugger.debug(String(data: receivedData, encoding: .utf8) ?? "")
                                 if let pendingRenewalInfo = jsonResponse["pending_renewal_info"] as? [[String:Any]] {
                                     if pendingRenewalInfo.count > 0 {
                                         let autoRenewStatus = pendingRenewalInfo[0]["auto_renew_status"] as? String ?? "0"

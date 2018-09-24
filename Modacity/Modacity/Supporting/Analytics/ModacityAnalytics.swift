@@ -96,7 +96,7 @@ class ModacityAnalytics: NSObject {
             
         
             if (!debugPrefix.isEmpty) {
-                print(debugPrefix + "\(eventString), \(paramName) = \(value!)")
+                ModacityDebugger.debug(debugPrefix + "\(eventString), \(paramName) = \(value!)")
             }
         
             
@@ -108,7 +108,7 @@ class ModacityAnalytics: NSObject {
             
         } else {
             if (!debugPrefix.isEmpty) {
-                print(debugPrefix + eventString)
+                ModacityDebugger.debug(debugPrefix + eventString)
             }
             
             Analytics.logEvent(eventString, parameters: nil)

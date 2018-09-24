@@ -32,7 +32,7 @@ extension Double {
 public func frequencyForNote(noteName: String, octave: Int, aRef:Double = 440.0) -> Double {
     // octave ranges from 0 to 7
     if ((octave < 0) || (octave > 7)) {
-        print("frequencyForNote: Octave \(octave) not supported")
+        ModacityDebugger.debug("frequencyForNote: Octave \(octave) not supported")
         return -1
     }
     
