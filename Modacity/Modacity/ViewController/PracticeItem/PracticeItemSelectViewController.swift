@@ -124,7 +124,6 @@ class PracticeItemSelectViewController: UIViewController {
     
     @objc func onKeyboardWillChangeFrame(notification: Notification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            print("keyboard height - \(keyboardSize.height)")
             if AppUtils.iphoneIsXModel() {
                 self.constraintForAddButtonBottomSpace.constant = keyboardSize.height - 34
             } else {

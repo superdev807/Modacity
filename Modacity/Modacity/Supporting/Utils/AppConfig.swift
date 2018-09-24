@@ -91,10 +91,10 @@ class AppConfig: NSObject {
     
     static let production : Bool = {
         #if RELEASE
-        print("RELEASE")
+        ModacityDebugger.debug("RELEASE")
         return true
         #else
-        print("DEBUG")
+        ModacityDebugger.debug("DEBUG")
         return false
         #endif
     }()

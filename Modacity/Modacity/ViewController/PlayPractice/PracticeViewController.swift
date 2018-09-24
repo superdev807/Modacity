@@ -271,7 +271,7 @@ extension PracticeViewController: MetrodroneViewDelegate, SubdivisionSelectViewD
     }
     
     @objc func resetMetrodroneEngine() {
-        print("metrodrone engine reset")
+        ModacityDebugger.debug("metrodrone engine reset")
         if self.audioEngineRegreshing {
             return
         }
@@ -1451,7 +1451,7 @@ extension PracticeViewController: TimerInputViewDelegate {
             
             UNUserNotificationCenter.current().add(notificationRequest) { (error) in
                 if let error = error {
-                    print("Unable to Add Notification Request (\(error), \(error.localizedDescription))")
+                    ModacityDebugger.debug("Unable to Add Notification Request (\(error), \(error.localizedDescription))")
                 }
             }
         } else {
