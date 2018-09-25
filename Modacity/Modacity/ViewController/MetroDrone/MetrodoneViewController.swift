@@ -10,7 +10,6 @@ import UIKit
 
 
 class MetrodoneViewController: UIViewController {
-
     @IBOutlet weak var constraintForHeaderImageViewHeight: NSLayoutConstraint!
     @IBOutlet weak var constraintForSubdivisionButtonWidth: NSLayoutConstraint!
     @IBOutlet weak var constraintForDroneViewLeading: NSLayoutConstraint!
