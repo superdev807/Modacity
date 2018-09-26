@@ -47,7 +47,8 @@ class PlaylistFinishViewController: UIViewController {
             self.buttonNotes.isHidden = false
         }
         
-        self.labelSessionImprovements.text = "\(AppOveralDataManager.manager.calculateStreakDays())"
+        let dayStreakValue = LocalCacheManager.manager.dayStreak() ?? 1
+        self.labelSessionImprovements.text = "\(dayStreakValue)"
         
         if AppUtils.sizeModelOfiPhone() == .iphone4_35in {
             self.viewQuoteBox.isHidden = true

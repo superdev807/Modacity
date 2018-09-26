@@ -430,7 +430,7 @@ extension PracticeViewController {
             self.practiceItem.updateLastPracticedTime(to: self.practiceStartedTime)
             self.practiceItem.updateLastPracticedDuration(duration: self.overallPracticeTimeInSeconds)
             self.deliverModel.sessionTime = self.overallPracticeTimeInSeconds
-            AppOveralDataManager.manager.addPracticeTime(inSec: self.overallPracticeTimeInSeconds)
+//            AppOveralDataManager.manager.addPracticeTime(inSec: self.overallPracticeTimeInSeconds)
         }
         
         self.stopMetrodronePlay()

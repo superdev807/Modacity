@@ -68,7 +68,6 @@ class PlaylistRemoteManager {
         if !AppOveralDataManager.manager.defaultDataShiped() {
             OverallDataRemoteManager.manager.shipDefaultData()
         }
-//        PlaylistLocalManager.manager.setPlaylistLoadedFlags()
     }
     
     func dbReferenceForPlaylists() -> DatabaseReference? {
