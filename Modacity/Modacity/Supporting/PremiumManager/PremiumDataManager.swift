@@ -115,7 +115,7 @@ class PremiumDataManager: NSObject {
         UserDefaults.standard.synchronize()
         if let observer = self.premiumObserver {
             if let userId = MyProfileLocalManager.manager.userId() {
-                self.refUser.child(userId).child(userId).removeObserver(withHandle: observer)
+                self.refUser.child(userId).child("premium").removeObserver(withHandle: observer)
             }
         }
     }

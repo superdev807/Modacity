@@ -24,7 +24,7 @@ class MusicQuotesManager: NSObject {
     }
     
     func loadQuotesFromServer() {
-        Database.database().reference().child("quotes").observe(.value) { (snapshot) in
+        Database.database().reference().child("quotes").observeSingleEvent(of: .value) { (snapshot) in
             if snapshot.exists() {
                 if let all = snapshot.children.allObjects as? [DataSnapshot] {
                     for data in all {

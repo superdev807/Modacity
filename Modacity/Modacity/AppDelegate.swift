@@ -16,26 +16,33 @@ import Intercom
 import SplunkMint
 import UserNotifications
 import StoreKit
+import Reachability
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     var window: UIWindow?
+    let reachability = Reachability()!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        Intercom.setApiKey(AppConfig.appIntercomApiKey, forAppId:AppConfig.appIntercomAppId)
         Mint.sharedInstance().disableNetworkMonitoring()
         Mint.sharedInstance().initAndStartSession(withAPIKey: "b2ee2ef2")
+        
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+        
         FirebaseApp.configure()
         Database.database().isPersistenceEnabled = true
+        
         Fabric.sharedSDK().debug = true
         Fabric.with([Crashlytics.self])
+        
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
+        
         PracticeItemLocalManager.manager.syncWithOlderVersions()
         PlaylistLocalManager.manager.syncWithOlderVersion()
+        
         Amplitude.instance().initializeApiKey(AppConfig.appAmplitudeApiKey)
         
         if (!UserDefaults.standard.bool(forKey: "launchedbefore")) {
@@ -43,9 +50,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             ModacityAnalytics.LogStringEvent("FIRST LAUNCH")
         }
         
+        Intercom.setApiKey(AppConfig.appIntercomApiKey, forAppId:AppConfig.appIntercomAppId)
         Intercom.registerUnidentifiedUser()
+        
         ModacityAnalytics.LogEvent(.Launch)
         ModacityAudioEngine.engine.initEngine()
+        
+        configureReachability()
         
         return true
     }
@@ -76,6 +87,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         ModacityAnalytics.LogEvent(.Terminate)
+        reachability.stopNotifier()
     }
     
     func application(_ application: UIApplication, didReceive notification: UILocalNotification) {
@@ -148,6 +160,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
         return [.portrait, .portraitUpsideDown]
+    }
+    
+    func configureReachability() {
+        reachability.whenReachable = { reachability in
+            if reachability.connection == .wifi {
+                ModacityDebugger.debug("NETWORK STATUS - connected via WiFi")
+            } else {
+                ModacityDebugger.debug("NETWORK STATUS - connected via Cellular")
+            }
+        }
+        
+        reachability.whenUnreachable = { _ in
+            ModacityDebugger.debug("NETWORK STATUS - Offline")
+            MyProfileRemoteManager.manager.processOffline()
+        }
+        
+        do {
+            try reachability.startNotifier()
+        } catch {
+            ModacityDebugger.debug("NETWORK STATUS - Unable to start notifier")
+        }
     }
 }
 

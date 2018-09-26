@@ -62,7 +62,7 @@ class MyProfileRemoteManager {
     func updatePassword(current: String, newPassword: String, completion: @escaping (String?)->()) {
         if let currentUser = Auth.auth().currentUser {
             if let email = currentUser.email {
-                currentUser.reauthenticate(with: EmailAuthProvider.credential(withEmail: email, password: current)) { (error) in
+                currentUser.reauthenticateAndRetrieveData(with: EmailAuthProvider.credential(withEmail: email, password: current)) { (_, error) in
                     if let error = error {
                         completion(error.localizedDescription)
                     } else {
@@ -82,10 +82,22 @@ class MyProfileRemoteManager {
         completion("Unknown error!")
     }
     
+    func processOffline() {
+        if let listener = self.profileListnerHandler,
+            let userId = MyProfileLocalManager.manager.userId() {
+            
+        }
+    }
+    
+    func processResumeOnline() {
+        
+    }
+    
     func signout() {
         if self.profileListnerHandler != nil {
             if let userId = MyProfileLocalManager.manager.userId() {
                 self.refUser.child(userId).child("profile").removeObserver(withHandle: self.profileListnerHandler!)
+                self.profileListnerHandler = nil
             }
         }
     }
