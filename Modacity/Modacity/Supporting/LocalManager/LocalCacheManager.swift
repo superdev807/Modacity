@@ -9,7 +9,10 @@
 import UIKit
 
 class LocalCacheManager {
+    
     static let manager = LocalCacheManager()
+    
+    var firstTimeLaunch = true
     
     func profileName() -> String? {
         return UserDefaults.standard.string(forKey: "cache_profile_name")

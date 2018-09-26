@@ -17,20 +17,13 @@ enum DashboardTime { case Minutes; case Hours; case Default }
 class HomeViewController: UIViewController {
 
     @IBOutlet weak var textfieldTotalHours: UITextField!
-    @IBOutlet weak var activityIndicatorTotalHours: DGActivityIndicatorView!
-    
     @IBOutlet weak var textfieldDayStreak: UITextField!
-    @IBOutlet weak var activityIndicatorDayStreak: DGActivityIndicatorView!
-    
     @IBOutlet weak var textfieldImprovements: UITextField!
-    @IBOutlet weak var activityIndicatorTotalImprovements: DGActivityIndicatorView!
     
     @IBOutlet weak var viewEmptyPanel: UIView!
     @IBOutlet weak var collectionViewRecentPlaylists: UICollectionView!
-    @IBOutlet weak var activityIndicatorRecentList: DGActivityIndicatorView!
     
     @IBOutlet weak var collectionViewFavoritePlaylists: UICollectionView!
-    @IBOutlet weak var activityIndicatorFavoriteList: DGActivityIndicatorView!
     
     @IBOutlet weak var labelFavoritesHeader: UILabel!
     @IBOutlet weak var labelRecentHeader: UILabel!
@@ -84,9 +77,17 @@ class HomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationItem.title = "Home"
-        self.refreshDashboardValues()
-        self.refreshImprovementDashboardValue()
-        self.showList()
+        
+        if LocalCacheManager.manager.firstTimeLaunch {
+            self.showDashboardValuesFromViewModel()
+            self.showImprovementValueFromViewModel()
+            self.showListFromViewModel()
+            LocalCacheManager.manager.firstTimeLaunch = false
+        } else {
+            self.refreshImprovementValue()
+            self.recalculateDashboardValues()
+            self.refreshList()
+        }
     }
     
     func activityIndicatorStyling(_ view: DGActivityIndicatorView) {
@@ -98,12 +99,6 @@ class HomeViewController: UIViewController {
     }
     
     func configureUI() {
-        
-        self.activityIndicatorStyling(self.activityIndicatorTotalHours)
-        self.activityIndicatorStyling(self.activityIndicatorDayStreak)
-        self.activityIndicatorStyling(self.activityIndicatorTotalImprovements)
-        self.activityIndicatorStyling(self.activityIndicatorRecentList)
-        self.activityIndicatorStyling(self.activityIndicatorFavoriteList)
         
         self.textfieldTotalHours.tintColor = Color.white
         self.textfieldDayStreak.tintColor = Color.white
@@ -298,44 +293,48 @@ extension HomeViewController {
             self.displayTotalWorkingSconds(totalSeconds)
         } else {
             self.textfieldTotalHours.text = ""
-            self.activityIndicatorTotalHours.startAnimating()
-            self.activityIndicatorTotalHours.isHidden = false
         }
         
         if let dayStreak = LocalCacheManager.manager.dayStreak() {
             self.textfieldDayStreak.text = "\(dayStreak)"
-            self.activityIndicatorDayStreak.stopAnimating()
-            self.activityIndicatorDayStreak.isHidden = true
         } else {
             self.textfieldDayStreak.text = ""
-            self.activityIndicatorDayStreak.startAnimating()
-            self.activityIndicatorDayStreak.isHidden = false
         }
     }
     
-    @objc func refreshImprovementDashboardValue() {
-        
-        self.activityIndicatorTotalImprovements.isHidden = true
-        self.activityIndicatorTotalImprovements.stopAnimating()
-
+    func showImprovementValueFromViewModel() {
         if let viewModel = AppOveralDataManager.manager.viewModel {
             self.textfieldImprovements.text = "\(viewModel.totalImprovementsCount)"
         }
     }
     
-    @objc func refreshDashboardValues() {
+    func refreshImprovementValue() {
+        self.textfieldImprovements.text = "\(AppOveralDataManager.manager.totalImprovements() ?? 0)"
+    }
+    
+    func showDashboardValuesFromViewModel() {
         if let model = AppOveralDataManager.manager.viewModel {
-            self.activityIndicatorDayStreak.stopAnimating()
-            self.activityIndicatorDayStreak.isHidden = true
             self.displayTotalWorkingSconds(model.totalPracticeSeconds)
             self.textfieldDayStreak.text = "\(model.dayStreakValues)"
         }
     }
     
-    func displayTotalWorkingSconds(_ seconds: Int) {
+    func recalculateDashboardValues() {
         
-        self.activityIndicatorTotalHours.stopAnimating()
-        self.activityIndicatorTotalHours.isHidden = true
+        DispatchQueue.global(qos: .background).async {
+            let data = PracticingDailyLocalManager.manager.statsPracticing()
+            let dayStreakValues = data["streak"] ?? 0
+            let totalPracticeSeconds = data["total"] ?? 0
+            
+            DispatchQueue.main.async {
+                self.displayTotalWorkingSconds(totalPracticeSeconds)
+                self.textfieldDayStreak.text = "\(dayStreakValues)"
+            }
+        }
+        
+    }
+    
+    func displayTotalWorkingSconds(_ seconds: Int) {
         
         var displayMode: DashboardTime = .Default
         if seconds < 30 * 60 {
@@ -358,10 +357,8 @@ extension HomeViewController {
 
     }
     
-    @objc func showList() {
+    func showListFromViewModel() {
         if let viewModel = AppOveralDataManager.manager.viewModel {
-            self.activityIndicatorRecentList.stopAnimating()
-            self.activityIndicatorFavoriteList.stopAnimating()
             
             self.favoriteItems = viewModel.favoriteItems
             self.collectionViewFavoritePlaylists.reloadData()
@@ -371,4 +368,56 @@ extension HomeViewController {
         }
     }
     
+    func refreshList() {
+        self.refreshRecentList()
+        self.refreshFavoritesList()
+    }
+    
+    func refreshRecentList() {
+        DispatchQueue.global(qos: .background).async {
+            if let playlists = PlaylistLocalManager.manager.recentPlaylists() {
+                self.recentPlaylists = playlists
+            }
+            
+            DispatchQueue.main.async {
+                self.collectionViewRecentPlaylists.reloadData()
+            }
+        }
+    }
+    
+    func refreshFavoritesList() {
+        DispatchQueue.global(qos: .background).async {
+            var items = [[String:Any]]()
+            if let playlists = PlaylistLocalManager.manager.loadFavoritePlaylists() {
+                for playlist in playlists {
+                    items.append(["type":"playlist", "data":playlist])
+                }
+            }
+            
+            if let practiceItems = PracticeItemLocalManager.manager.loadAllFavoritePracticeItems() {
+                for practiceItem in practiceItems {
+                    items.append(["type":"practiceitem", "data":practiceItem])
+                }
+            }
+            self.favoriteItems = items.sorted(by: { (item1, item2) -> Bool in
+                var itemName1 = ""
+                var itemName2 = ""
+                if (item1["type"] as? String ?? "") == "playlist" {
+                    itemName1 = (item1["data"] as! Playlist).name.lowercased()
+                } else if (item1["type"] as? String ?? "") == "practiceitem" {
+                    itemName1 = (item1["data"] as! PracticeItem).name.lowercased()
+                }
+                if (item2["type"] as? String ?? "") == "playlist" {
+                    itemName2 = (item2["data"] as! Playlist).name.lowercased()
+                } else if (item1["type"] as? String ?? "") == "practiceitem" {
+                    itemName2 = (item2["data"] as! PracticeItem).name.lowercased()
+                }
+                return itemName1 < itemName2
+            })
+            
+            DispatchQueue.main.async {
+                self.collectionViewFavoritePlaylists.reloadData()
+            }
+        }
+    }
 }

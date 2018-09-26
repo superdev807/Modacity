@@ -47,7 +47,20 @@ class PlaylistFinishViewController: UIViewController {
             self.buttonNotes.isHidden = false
         }
         
-        self.labelSessionImprovements.text = "\(AppOveralDataManager.manager.calculateStreakDays())"
+        if let dayStreak = LocalCacheManager.manager.dayStreak() {
+            self.labelSessionImprovements.text = "\(dayStreak)"
+        } else {
+            self.labelSessionImprovements.text = ""
+        }
+        
+        DispatchQueue.global(qos: .background).async {
+            let data = PracticingDailyLocalManager.manager.statsPracticing()
+            let dayStreakValues = data["streak"] ?? 1
+            
+            DispatchQueue.main.async {
+                self.labelSessionImprovements.text = "\(dayStreakValues)"
+            }
+        }
         
         if AppUtils.sizeModelOfiPhone() == .iphone4_35in {
             self.viewQuoteBox.isHidden = true
