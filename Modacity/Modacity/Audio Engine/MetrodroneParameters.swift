@@ -22,6 +22,8 @@ class MetrodroneParameters {
     var subdivisions: Int = 1
     var currOctave: Int = 3
     
+    var ratioDroneToClick: Float = 0.5 // balance between drone and click when mixed. 0= no drone, 1 = all drone
+    
     //--------
     // Adding this here just for convenient singleton access. This code should be moved to user profile/defaults/settings file.
     var tuningStandardA: Float = 440.0 // this needs to be a setting on the settings screen, acceptable values range from 220 to 880
