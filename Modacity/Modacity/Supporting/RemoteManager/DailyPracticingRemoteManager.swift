@@ -56,18 +56,20 @@ class DailyPracticingRemoteManager: NSObject {
         ModacityDebugger.debug("fetching...")
         if let userId = MyProfileLocalManager.manager.userId() {
             self.refUser.child(userId).child("playlist_data").observeSingleEvent(of: .value) { (snapshot) in
-                if snapshot.exists() {
-                    if let dataSnapshots = snapshot.children.allObjects as? [DataSnapshot] {
-                        for dataSnapshot in  dataSnapshots {
-                            if let snapshotsPerDate = dataSnapshot.children.allObjects as? [DataSnapshot] {
-                                for snapshotPerDate in snapshotsPerDate {
-                                    if let practicingDataSnapshots = snapshotPerDate.children.allObjects as? [DataSnapshot] {
-                                        for practicingDataSnapshot in practicingDataSnapshots {
-                                            let practicingDataId = practicingDataSnapshot.key
-                                            if PracticingDailyLocalManager.manager.practicingData(forDataId: practicingDataId) == nil {
-                                                if let json = practicingDataSnapshot.value as? [String:Any] {
-                                                    if let practicingData = PlaylistDaily(JSON: json) {
-                                                        PlaylistDailyLocalManager.manager.storePlaylistPracitingDataToLocal(practicingData)
+                DispatchQueue.global(qos: .background).async {
+                    if snapshot.exists() {
+                        if let dataSnapshots = snapshot.children.allObjects as? [DataSnapshot] {
+                            for dataSnapshot in  dataSnapshots {
+                                if let snapshotsPerDate = dataSnapshot.children.allObjects as? [DataSnapshot] {
+                                    for snapshotPerDate in snapshotsPerDate {
+                                        if let practicingDataSnapshots = snapshotPerDate.children.allObjects as? [DataSnapshot] {
+                                            for practicingDataSnapshot in practicingDataSnapshots {
+                                                let practicingDataId = practicingDataSnapshot.key
+                                                if PracticingDailyLocalManager.manager.practicingData(forDataId: practicingDataId) == nil {
+                                                    if let json = practicingDataSnapshot.value as? [String:Any] {
+                                                        if let practicingData = PlaylistDaily(JSON: json) {
+                                                            PlaylistDailyLocalManager.manager.storePlaylistPracitingDataToLocal(practicingData)
+                                                        }
                                                     }
                                                 }
                                             }
@@ -77,9 +79,9 @@ class DailyPracticingRemoteManager: NSObject {
                             }
                         }
                     }
+                    self.setPlaylistPracticingDataLoaded()
+                    NotificationCenter.default.post(Notification(name: AppConfig.appNotificationPracticeDataFetched))
                 }
-                self.setPlaylistPracticingDataLoaded()
-                NotificationCenter.default.post(Notification(name: AppConfig.appNotificationPracticeDataFetched))
             }
         }
     }
@@ -87,18 +89,20 @@ class DailyPracticingRemoteManager: NSObject {
     func fetchPracticingDataFromServer() {
         if let userId = MyProfileLocalManager.manager.userId() {
             self.refUser.child(userId).child("practice_data").observeSingleEvent(of: .value) { (snapshot) in
-                if snapshot.exists() {
-                    if let dataSnapshots = snapshot.children.allObjects as? [DataSnapshot] {
-                        for dataSnapshot in  dataSnapshots {
-                            if let snapshotsPerDate = dataSnapshot.children.allObjects as? [DataSnapshot] {
-                                for snapshotPerDate in snapshotsPerDate {
-                                    if let practicingDataSnapshots = snapshotPerDate.children.allObjects as? [DataSnapshot] {
-                                        for practicingDataSnapshot in practicingDataSnapshots {
-                                            let practicingDataId = practicingDataSnapshot.key
-                                            if PracticingDailyLocalManager.manager.practicingData(forDataId: practicingDataId) == nil {
-                                                if let json = practicingDataSnapshot.value as? [String:Any] {
-                                                    if let practicingData = PracticeDaily(JSON: json) {
-                                                        PracticingDailyLocalManager.manager.storePracitingDataToLocal(practicingData)
+                DispatchQueue.global(qos: .background).async {
+                    if snapshot.exists() {
+                        if let dataSnapshots = snapshot.children.allObjects as? [DataSnapshot] {
+                            for dataSnapshot in  dataSnapshots {
+                                if let snapshotsPerDate = dataSnapshot.children.allObjects as? [DataSnapshot] {
+                                    for snapshotPerDate in snapshotsPerDate {
+                                        if let practicingDataSnapshots = snapshotPerDate.children.allObjects as? [DataSnapshot] {
+                                            for practicingDataSnapshot in practicingDataSnapshots {
+                                                let practicingDataId = practicingDataSnapshot.key
+                                                if PracticingDailyLocalManager.manager.practicingData(forDataId: practicingDataId) == nil {
+                                                    if let json = practicingDataSnapshot.value as? [String:Any] {
+                                                        if let practicingData = PracticeDaily(JSON: json) {
+                                                            PracticingDailyLocalManager.manager.storePracitingDataToLocal(practicingData)
+                                                        }
                                                     }
                                                 }
                                             }
@@ -108,9 +112,9 @@ class DailyPracticingRemoteManager: NSObject {
                             }
                         }
                     }
+                    self.setPracticingDataLoaded()
+                    NotificationCenter.default.post(Notification(name: AppConfig.appNotificationPracticeDataFetched))
                 }
-                self.setPracticingDataLoaded()
-                NotificationCenter.default.post(Notification(name: AppConfig.appNotificationPracticeDataFetched))
             }
         }
     }

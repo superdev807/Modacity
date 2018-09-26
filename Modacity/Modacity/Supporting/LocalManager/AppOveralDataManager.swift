@@ -14,6 +14,7 @@ import Intercom
 class AppOveralDataManager {
     static let manager = AppOveralDataManager()
     
+    var viewModel: HomeViewModel? = nil
     
     func beenTutorialRead() -> Bool {
         return UserDefaults.standard.bool(forKey: "tutorial_read")
@@ -23,26 +24,6 @@ class AppOveralDataManager {
         UserDefaults.standard.set(true, forKey: "tutorial_read")
         UserDefaults.standard.synchronize()
     }
-    
-//    func calculateDaysStreakBasedOnPracticeItems() -> Int {
-//        var data = [String:[PlaylistDaily]]()
-//        data = PlaylistDailyLocalManager.manager.overallPracticeData()
-//
-//        var practicedData = [String:Bool]()
-//
-//        for date in data.keys {
-//            practicedData[date] = true
-//        }
-//
-//        var dateString = Date().ago(years: 0, months: 0, weeks: 0, days: 1, hours: 0, minutes: 0, seconds: 0).toString(format: "yy-MM-dd")
-//        var streakDays = 1
-//        while practicedData[dateString] != nil  && practicedData[dateString]! == true {
-//            streakDays = streakDays + 1
-//            dateString = dateString.date(format: "yy-MM-dd")!.ago(years: 0, months: 0, weeks: 0, days: 1, hours: 0, minutes: 0, seconds: 0).toString(format: "yy-MM-dd")
-//        }
-//
-//        return streakDays
-//    }
     
     func calculateStreakDays() -> Int {
         if let streakFrom = UserDefaults.standard.string(forKey: "streak_from") {
@@ -367,10 +348,10 @@ class AppOveralDataManager {
         MetrodroneParameters.instance.setTuningStandardA(Float(AppOveralDataManager.manager.tuningStandard()))
     }
     
-    func dataFetched() -> Bool {
-        return (PlaylistLocalManager.manager.playlistLoaded() && PracticeItemLocalManager.manager.practiceLoaded())
-            || (UserDefaults.standard.object(forKey: "recent_playlist_ids") != nil) || (UserDefaults.standard.object(forKey: "playlist_ids") != nil)
-    }
+//    func dataFetched() -> Bool {
+//        return (PlaylistLocalManager.manager.playlistLoaded() && PracticeItemLocalManager.manager.practiceLoaded())
+//            || (UserDefaults.standard.object(forKey: "recent_playlist_ids") != nil) || (UserDefaults.standard.object(forKey: "playlist_ids") != nil)
+//    }
     
     func tuningStandard() -> Double {
         if let _ = UserDefaults.standard.object(forKey: "tuning_standard") {

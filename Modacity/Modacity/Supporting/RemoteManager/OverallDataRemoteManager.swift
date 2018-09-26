@@ -42,9 +42,19 @@ class OverallDataRemoteManager {
                     }
                 }
                 
+                self.setOverallDataSynchronized()
                 NotificationCenter.default.post(Notification(name: AppConfig.appNotificationOverallAppDataLoadedFromServer))
             }
         }
+    }
+    
+    func overallDataSynchronized() -> Bool {
+        return UserDefaults.standard.bool(forKey: "overall_data_synchronized")
+    }
+    
+    func setOverallDataSynchronized() {
+        UserDefaults.standard.set(true, forKey: "overall_data_synchronized")
+        UserDefaults.standard.synchronize()
     }
     
     func shipDefaultData() {

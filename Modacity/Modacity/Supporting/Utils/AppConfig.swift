@@ -67,6 +67,7 @@ class AppConfig: NSObject {
     static let appNotificationMetrodroneAudioEnginePrepared = Notification.Name(rawValue: "appNotificationMetrodroneAudioEnginePrepared")
     static let appNotificationSyncStatusUpdated = Notification.Name(rawValue: "appNotificationSyncStatusUpdated")
     static let appNotificationWalkthroughSynchronized = Notification.Name(rawValue: "appNotificationWalkthroughSynchronized")
+    static let appNotificationHomePageValuesLoaded = Notification.Name(rawValue: "appNotificationHomePageValuesLoaded")
     
     static let appMaxNumberForRecentPlaylists = 10
     static let appIdOnAppStore = "1351617981"

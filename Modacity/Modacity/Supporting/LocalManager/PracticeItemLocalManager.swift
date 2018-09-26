@@ -222,14 +222,14 @@ class PracticeItemLocalManager {
         return nil
     }
     
-    func practiceLoaded() -> Bool {
-        return UserDefaults.standard.bool(forKey: "practice_loaded")
-    }
-    
-    func setPracticeLoadedFlags() {
-        UserDefaults.standard.set(true, forKey: "practice_loaded")
-        UserDefaults.standard.synchronize()
-    }
+//    func practiceLoaded() -> Bool {
+//        return UserDefaults.standard.bool(forKey: "practice_loaded")
+//    }
+//    
+//    func setPracticeLoadedFlags() {
+//        UserDefaults.standard.set(true, forKey: "practice_loaded")
+//        UserDefaults.standard.synchronize()
+//    }
     
     func signout() {
         

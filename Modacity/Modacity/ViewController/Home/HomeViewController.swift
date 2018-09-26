@@ -49,11 +49,7 @@ class HomeViewController: UIViewController {
     private var formatter: NumberFormatter!
     
     var metrodroneView : MetrodroneView!
-    
-    var recentPlaylistPrepared = false
     var recentPlaylists = [Playlist]()
-    
-    var favoriteItemsPrepared = false
     var favoriteItems = [[String:Any]]()
     
     override func viewDidLoad() {
@@ -62,13 +58,7 @@ class HomeViewController: UIViewController {
         
         self.configureUI()
         self.showCacheValues()
-        
-        self.refreshImprovementDashboardValue()
-        self.refreshDashboardValues()
-        self.showList()
-        
         self.registerNotifications()
-        
         self.configureNameLabels()
         
         ModacityAnalytics.LogStringEvent("Home Screen")
@@ -84,9 +74,6 @@ class HomeViewController: UIViewController {
     
     func registerNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(configureNameLabels), name: AppConfig.appNotificationProfileUpdated, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(refreshImprovementDashboardValue), name: AppConfig.appNotificationOverallAppDataLoadedFromServer, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(showList), name: AppConfig.appNotificationPlaylistLoadedFromServer, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(refreshDashboardValues), name: AppConfig.appNotificationPracticeDataFetched, object: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -98,6 +85,7 @@ class HomeViewController: UIViewController {
         super.viewWillAppear(animated)
         self.navigationItem.title = "Home"
         self.refreshDashboardValues()
+        self.refreshImprovementDashboardValue()
         self.showList()
     }
     
@@ -325,83 +313,22 @@ extension HomeViewController {
         }
     }
     
-    func loadRecentPlaylists() {
-        DispatchQueue.global(qos: .background).async {
-            if let playlists = PlaylistLocalManager.manager.recentPlaylists() {
-                self.recentPlaylists = playlists
-            }
-            DispatchQueue.main.async {
-                self.collectionViewRecentPlaylists.reloadData()
-                self.activityIndicatorRecentList.stopAnimating()
-                self.activityIndicatorRecentList.isHidden = true
-            }
-        }
-    }
-    
-    func loadFavoriteItems() {
-        
-        DispatchQueue.global(qos: .background).async {
-            var items = [[String:Any]]()
-            if let playlists = PlaylistLocalManager.manager.loadFavoritePlaylists() {
-                for playlist in playlists {
-                    items.append(["type":"playlist", "data":playlist])
-                }
-            }
-            
-            if let practiceItems = PracticeItemLocalManager.manager.loadAllFavoritePracticeItems() {
-                for practiceItem in practiceItems {
-                    items.append(["type":"practiceitem", "data":practiceItem])
-                }
-            }
-            self.favoriteItems = items.sorted(by: { (item1, item2) -> Bool in
-                var itemName1 = ""
-                var itemName2 = ""
-                if (item1["type"] as? String ?? "") == "playlist" {
-                    itemName1 = (item1["data"] as! Playlist).name.lowercased()
-                } else if (item1["type"] as? String ?? "") == "practiceitem" {
-                    itemName1 = (item1["data"] as! PracticeItem).name.lowercased()
-                }
-                if (item2["type"] as? String ?? "") == "playlist" {
-                    itemName2 = (item2["data"] as! Playlist).name.lowercased()
-                } else if (item1["type"] as? String ?? "") == "practiceitem" {
-                    itemName2 = (item2["data"] as! PracticeItem).name.lowercased()
-                }
-                return itemName1 < itemName2
-            })
-            
-            DispatchQueue.main.async {
-                self.activityIndicatorFavoriteList.stopAnimating()
-                self.activityIndicatorFavoriteList.isHidden = true
-                self.collectionViewFavoritePlaylists.reloadData()
-            }
-        }
-    }
-    
     @objc func refreshImprovementDashboardValue() {
-        if let totalImprovements = AppOveralDataManager.manager.totalImprovements() {
-            self.textfieldImprovements.text = "\(totalImprovements)"
-            self.activityIndicatorTotalImprovements.isHidden = true
-            self.activityIndicatorTotalImprovements.stopAnimating()
-        } else {
-            self.textfieldImprovements.text = ""
-            self.activityIndicatorTotalImprovements.isHidden = false
-            self.activityIndicatorTotalImprovements.startAnimating()
+        
+        self.activityIndicatorTotalImprovements.isHidden = true
+        self.activityIndicatorTotalImprovements.stopAnimating()
+
+        if let viewModel = AppOveralDataManager.manager.viewModel {
+            self.textfieldImprovements.text = "\(viewModel.totalImprovementsCount)"
         }
     }
     
     @objc func refreshDashboardValues() {
-        if DailyPracticingRemoteManager.manager.practicingDataFetched() {
-            DispatchQueue.global(qos:.background).async {
-                let data = PracticingDailyLocalManager.manager.statsPracticing()
-                let streak = data["streak"] ?? 0
-                let total = data["total"] ?? 0
-                DispatchQueue.main.async {
-                    self.activityIndicatorDayStreak.stopAnimating()
-                    self.activityIndicatorDayStreak.isHidden = true
-                    self.textfieldDayStreak.text = "\(streak)"
-                    self.displayTotalWorkingSconds(total)
-                }
-            }
+        if let model = AppOveralDataManager.manager.viewModel {
+            self.activityIndicatorDayStreak.stopAnimating()
+            self.activityIndicatorDayStreak.isHidden = true
+            self.displayTotalWorkingSconds(model.totalPracticeSeconds)
+            self.textfieldDayStreak.text = "\(model.dayStreakValues)"
         }
     }
     
@@ -432,9 +359,15 @@ extension HomeViewController {
     }
     
     @objc func showList() {
-        if AppOveralDataManager.manager.dataFetched() {
-            self.loadRecentPlaylists()
-            self.loadFavoriteItems()
+        if let viewModel = AppOveralDataManager.manager.viewModel {
+            self.activityIndicatorRecentList.stopAnimating()
+            self.activityIndicatorFavoriteList.stopAnimating()
+            
+            self.favoriteItems = viewModel.favoriteItems
+            self.collectionViewFavoritePlaylists.reloadData()
+            
+            self.recentPlaylists = viewModel.recentPlaylists
+            self.collectionViewRecentPlaylists.reloadData()
         }
     }
     

@@ -202,8 +202,6 @@ class PlaylistStatsView: UIView {
         
         let data = PracticingDailyLocalManager.manager.overallPracticeData()
         
-        ModacityDebugger.debug("overall stats - \(data)")
-        
         var totalMinutes = 0
         var entryCount = 0
         var thisWeekTotal = 0
