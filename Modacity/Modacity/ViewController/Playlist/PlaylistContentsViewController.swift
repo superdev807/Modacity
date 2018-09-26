@@ -309,7 +309,7 @@ class PlaylistContentsViewController: UIViewController {
                 
                 if self.viewModel.playlistName == "" {
                     self.playlistPracticeTotalTimeInSec = self.viewModel.totalPracticedTime()
-                    AppOveralDataManager.manager.addPracticeTime(inSec: self.playlistPracticeTotalTimeInSec)
+//                    AppOveralDataManager.manager.addPracticeTime(inSec: self.playlistPracticeTotalTimeInSec)
                     if self.navigationController?.viewControllers.count == 1 {
                         self.navigationController?.dismiss(animated: true, completion: nil)
                     } else {
@@ -319,7 +319,7 @@ class PlaylistContentsViewController: UIViewController {
                 }
                 
                 self.playlistPracticeTotalTimeInSec = self.viewModel.totalPracticedTime()
-                AppOveralDataManager.manager.addPracticeTime(inSec: self.playlistPracticeTotalTimeInSec)
+//                AppOveralDataManager.manager.addPracticeTime(inSec: self.playlistPracticeTotalTimeInSec)
                 if self.navigationController?.viewControllers.count == 1 {
                     self.navigationController?.dismiss(animated: true, completion: nil)
                 } else {
@@ -333,7 +333,7 @@ class PlaylistContentsViewController: UIViewController {
         }
         
         self.playlistPracticeTotalTimeInSec = self.viewModel.totalPracticedTime()
-        AppOveralDataManager.manager.addPracticeTime(inSec: self.playlistPracticeTotalTimeInSec)
+//        AppOveralDataManager.manager.addPracticeTime(inSec: self.playlistPracticeTotalTimeInSec)
         
         if self.navigationController?.viewControllers.count == 1 {
             self.navigationController?.dismiss(animated: true, completion: nil)
@@ -568,7 +568,7 @@ class PlaylistContentsViewController: UIViewController {
         self.buttonBack.isHidden =  false
         self.imgBack.isHidden = false
         self.playlistPracticeTotalTimeInSec = self.viewModel.totalPracticedTime()
-        AppOveralDataManager.manager.addPracticeTime(inSec: self.playlistPracticeTotalTimeInSec)
+//        AppOveralDataManager.manager.addPracticeTime(inSec: self.playlistPracticeTotalTimeInSec)
         self.viewModel.sessionDurationInSecond = Int(Date().timeIntervalSince1970 - self.playingStartedTime!.timeIntervalSince1970)
         if let sessionStartedTime = self.sessionStarted {
             self.viewModel.sessionPlayedInPlaylistPage = self.viewModel.sessionPlayedInPlaylistPage + Int(Date().timeIntervalSince1970 - sessionStartedTime.timeIntervalSince1970) + self.sessionTimerPreviousPlayedTime

@@ -25,68 +25,6 @@ class AppOveralDataManager {
         UserDefaults.standard.synchronize()
     }
     
-    func calculateStreakDays() -> Int {
-        if let streakFrom = UserDefaults.standard.string(forKey: "streak_from") {
-            if let streakTo = UserDefaults.standard.string(forKey: "streak_to") {
-                let from = (streakFrom.count == 10) ? (streakFrom.date(format: "yyyy-MM-dd") ?? Date()) : (streakFrom.date(format: "yyyy-MM-ddHH:mm:ssZ") ?? Date())
-                let to = (streakTo.count == 10) ? (streakTo.date(format: "yyyy-MM-dd") ?? Date()) : (streakTo.date(format: "yyyy-MM-ddHH:mm:ssZ") ?? Date())
-                return from.differenceInDays(with: to)
-            }
-        }
-        return 1
-    }
-    
-    func saveStreak() {
-        let streakFrom = UserDefaults.standard.string(forKey: "streak_from")
-        let streakTo = UserDefaults.standard.string(forKey: "streak_to")
-        let today = Date().toString(format: "yyyy-MM-dd")
-        let todayFullFormat = Date().toString(format: "yyyy-MM-ddHH:mm:ssZ")
-        
-        if let _ = streakFrom {
-            if let to = streakTo {
-                if to.count == 10 {
-                    if to != today {
-                        let toDate = to.date(format: "yyyy-MM-dd") ?? Date()
-                        
-                        if Date().differenceInDays(with: toDate) > 2 {
-                            UserDefaults.standard.set(todayFullFormat, forKey: "streak_from")
-                            UserDefaults.standard.set(todayFullFormat, forKey: "streak_to")
-                            UserDefaults.standard.synchronize()
-                            ModacityDebugger.debug("Update streak values from, to both!")
-                            OverallDataRemoteManager.manager.updateStreakValues(from: todayFullFormat, to: todayFullFormat)
-                        } else {
-                            UserDefaults.standard.set(todayFullFormat, forKey: "streak_to")
-                            UserDefaults.standard.synchronize()
-                            OverallDataRemoteManager.manager.updateStreakValues(to: todayFullFormat)
-                        }
-                    }
-                } else {
-                    if to != todayFullFormat {
-                        let toDate = to.date(format: "yyyy-MM-ddHH:mm:ssZ") ?? Date()
-                        
-                        if Date().differenceInDays(with: toDate) > 2 {
-                            UserDefaults.standard.set(todayFullFormat, forKey: "streak_from")
-                            UserDefaults.standard.set(todayFullFormat, forKey: "streak_to")
-                            UserDefaults.standard.synchronize()
-                            ModacityDebugger.debug("Update streak values from, to both!")
-                            OverallDataRemoteManager.manager.updateStreakValues(from: todayFullFormat, to: todayFullFormat)
-                        } else {
-                            UserDefaults.standard.set(todayFullFormat, forKey: "streak_to")
-                            UserDefaults.standard.synchronize()
-                            OverallDataRemoteManager.manager.updateStreakValues(to: todayFullFormat)
-                        }
-                    }
-                }
-            }
-        } else {
-            UserDefaults.standard.set(todayFullFormat, forKey: "streak_from")
-            UserDefaults.standard.set(todayFullFormat, forKey: "streak_to")
-            UserDefaults.standard.synchronize()
-            OverallDataRemoteManager.manager.updateStreakValues(from: todayFullFormat, to: todayFullFormat)
-        }
-        
-    }
-    
     func signout() {
         self.removeValues()
         PracticeItemLocalManager.manager.signout()
@@ -114,12 +52,9 @@ class AppOveralDataManager {
             }
         }
         
-        UserDefaults.standard.removeObject(forKey: "total_practice_seconds")
         UserDefaults.standard.removeObject(forKey: "total_improvements")
         UserDefaults.standard.removeObject(forKey: "not_prevent_phone_sleep")
         UserDefaults.standard.removeObject(forKey: "disable_auto_playback")
-        UserDefaults.standard.removeObject(forKey: "streak_from")
-        UserDefaults.standard.removeObject(forKey: "streak_to")
         UserDefaults.standard.removeObject(forKey: "default_data_shiped")
         UserDefaults.standard.removeObject(forKey: "first_playlist_generated")
         UserDefaults.standard.removeObject(forKey: "settings_timer_pause_during_note")
@@ -130,13 +65,10 @@ class AppOveralDataManager {
         UserDefaults.standard.synchronize()
     }
     
-    func forcelySetValues(totalPracticeSeconds: Int,
-                          totalImprovements: Int,
+    func forcelySetValues(totalImprovements: Int,
                           notPreventPhoneSleep: Bool,
                           disableAutoPlayback: Bool,
                           goAfterRating: Bool,
-                          streakFrom: String,
-                          streakTo: String,
                           defaultDataShiped: Bool,
                           firstPlaylistGenerated: Bool,
                           timerPauseDuringNote: Bool,
@@ -145,13 +77,10 @@ class AppOveralDataManager {
                           tuningStandard: Double,
                           firstPlaylistStored: Bool) {
         
-        UserDefaults.standard.set(totalPracticeSeconds, forKey: "total_practice_seconds")
         UserDefaults.standard.set(totalImprovements, forKey: "total_improvements")
         UserDefaults.standard.set(notPreventPhoneSleep, forKey: "not_prevent_phone_sleep")
         UserDefaults.standard.set(disableAutoPlayback, forKey: "disable_auto_playback")
         UserDefaults.standard.set(goAfterRating, forKey: "go_after_rating")
-        UserDefaults.standard.set(streakFrom, forKey: "streak_from")
-        UserDefaults.standard.set(streakTo, forKey: "streak_to")
         UserDefaults.standard.set(defaultDataShiped, forKey: "default_data_shiped")
         UserDefaults.standard.set(firstPlaylistGenerated, forKey: "first_playlist_generated")
         UserDefaults.standard.set(timerPauseDuringNote, forKey: "settings_timer_pause_during_note")
@@ -160,19 +89,6 @@ class AppOveralDataManager {
         UserDefaults.standard.set(tuningStandard, forKey: "tuning_standard")
         UserDefaults.standard.set(firstPlaylistStored, forKey: "first_playlist_stored")
         UserDefaults.standard.synchronize()
-    }
-    
-    func totalPracticeSeconds() -> Int {
-        return UserDefaults.standard.integer(forKey: "total_practice_seconds")
-    }
-    
-    func addPracticeTime(inSec seconds:Int) {
-        var secondsSofar = self.totalPracticeSeconds()
-        secondsSofar = secondsSofar + seconds
-        UserDefaults.standard.set(secondsSofar, forKey: "total_practice_seconds")
-        UserDefaults.standard.synchronize()
-        
-        OverallDataRemoteManager.manager.updateTotalPracticeSeconds(secondsSofar)
     }
     
     func totalImprovements() -> Int? {
