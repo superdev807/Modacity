@@ -36,7 +36,8 @@ class HomeViewModel: ViewModel {
         let improvements = flags["improvements"] ?? false
         let favorites = flags["favorites"] ?? false
         let recents = flags["recents"] ?? false
-        return total && streak && improvements && favorites && recents
+        let profile = flags["profile"] ?? false
+        return total && streak && improvements && favorites && recents && profile
     }
     
     func clearNotification() {
@@ -44,10 +45,20 @@ class HomeViewModel: ViewModel {
     }
     
     func prepareValues() {
+        prepareProfileDisplayName()
         prepareFavoriteItems()
         prepareTotalImprovementValue()
         prepareTotalSecondsAndStreakValues()
         prepareRecentItems()
+    }
+    
+    @objc func prepareProfileDisplayName() {
+        if MyProfileRemoteManager.manager.profileLoaded() {
+            flags["profile"] = true
+            check()
+        } else {
+            NotificationCenter.default.addObserver(self, selector: #selector(prepareProfileDisplayName), name: AppConfig.appNotificationProfileUpdated, object: nil)
+        }
     }
     
     @objc func prepareTotalImprovementValue() {

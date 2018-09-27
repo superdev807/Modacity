@@ -36,6 +36,7 @@ class MyProfileRemoteManager {
                         MyProfileLocalManager.manager.me = Me(JSON: profile)
                         Crashlytics.sharedInstance().setUserName(MyProfileLocalManager.manager.me?.name ?? "___")
                         Crashlytics.sharedInstance().setUserEmail(MyProfileLocalManager.manager.me?.email ?? "__@__")
+                        MyProfileRemoteManager.manager.setProfileLoaded()
                         NotificationCenter.default.post(name: AppConfig.appNotificationProfileUpdated, object: nil)
                     }
                 }
@@ -53,6 +54,15 @@ class MyProfileRemoteManager {
                 GoalsRemoteManager.manager.fetchGoalsFromServer()
             }
         }
+    }
+    
+    func profileLoaded() -> Bool {
+        return UserDefaults.standard.bool(forKey: "profile_loaded")
+    }
+    
+    func setProfileLoaded() {
+        UserDefaults.standard.set(true, forKey: "profile_loaded")
+        UserDefaults.standard.synchronize()
     }
     
     func updateDisplayName(to name:String) {
