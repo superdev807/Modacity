@@ -169,11 +169,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             } else {
                 ModacityDebugger.debug("NETWORK STATUS - connected via Cellular")
             }
+            MyProfileRemoteManager.manager.processResumeOnline()
+            PremiumDataManager.manager.processResumeOnline()
         }
         
         reachability.whenUnreachable = { _ in
             ModacityDebugger.debug("NETWORK STATUS - Offline")
             MyProfileRemoteManager.manager.processOffline()
+            PremiumDataManager.manager.processOffline()
         }
         
         do {

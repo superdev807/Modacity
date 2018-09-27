@@ -19,6 +19,8 @@ class MyProfileRemoteManager {
     
     var profileListnerHandler : UInt?
     
+    var listenerPaused = false
+    
     func createMyProfile(userId: String, data: [String:Any]) {
         self.refUser.child(userId).child("profile").setValue(data)
     }
@@ -85,12 +87,28 @@ class MyProfileRemoteManager {
     func processOffline() {
         if let listener = self.profileListnerHandler,
             let userId = MyProfileLocalManager.manager.userId() {
-            
+            self.refUser.child(userId).child("profile").removeObserver(withHandle: listener)
+            self.profileListnerHandler = nil
+            listenerPaused = true
         }
     }
     
     func processResumeOnline() {
-        
+        if listenerPaused {
+            if let userId = MyProfileLocalManager.manager.userId() {
+                self.profileListnerHandler = self.refUser.child(userId).child("profile").observe(.value) { (snapshot) in
+                    if snapshot.exists() {
+                        if let profile = snapshot.value as? [String:Any] {
+                            MyProfileLocalManager.manager.me = Me(JSON: profile)
+                            Crashlytics.sharedInstance().setUserName(MyProfileLocalManager.manager.me?.name ?? "___")
+                            Crashlytics.sharedInstance().setUserEmail(MyProfileLocalManager.manager.me?.email ?? "__@__")
+                            NotificationCenter.default.post(name: AppConfig.appNotificationProfileUpdated, object: nil)
+                        }
+                    }
+                }
+            }
+            listenerPaused = false
+        }
     }
     
     func signout() {
@@ -98,6 +116,7 @@ class MyProfileRemoteManager {
             if let userId = MyProfileLocalManager.manager.userId() {
                 self.refUser.child(userId).child("profile").removeObserver(withHandle: self.profileListnerHandler!)
                 self.profileListnerHandler = nil
+                listenerPaused = false
             }
         }
     }
