@@ -116,11 +116,11 @@ class PlaylistStatsView: UIView {
     func showSelectedWeekValues() {
         
         var monday = self.date.weekDay(for: .mon)
-        var sunday = monday.addingTimeInterval(7 * 24 * 3600)
+        var sunday = monday.addingTimeInterval(6 * 24 * 3600)
         
         if self.date.weekDay == 1 {
             monday = self.date.weekDay(for: .mon).addingTimeInterval(-1 * 7 * 24 * 3600)
-            sunday = monday.addingTimeInterval(7 * 24 * 3600)
+            sunday = monday.addingTimeInterval(6 * 24 * 3600)
         }
         self.labelWeekDuration.text = "\(monday.toString(format: "MMM d yyyy")) - \(sunday.toString(format: "MMM d yyyy"))"
         

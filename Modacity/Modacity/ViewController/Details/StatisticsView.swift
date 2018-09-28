@@ -95,11 +95,11 @@ class StatisticsView: UIView {
     func showValues() {
         
         var monday = self.date.weekDay(for: .mon)
-        var sunday = monday.addingTimeInterval(7 * 24 * 3600)
+        var sunday = monday.addingTimeInterval(6 * 24 * 3600)
         
         if self.date.weekDay == 1 {
             monday = self.date.weekDay(for: .mon).addingTimeInterval(-1 * 7 * 24 * 3600)
-            sunday = monday.addingTimeInterval(7 * 24 * 3600)
+            sunday = monday.addingTimeInterval(6 * 24 * 3600)
         }
         
         self.labelWeekDuration.text = "\(monday.toString(format: "MMM d yyyy")) - \(sunday.toString(format: "MMM d yyyy"))"
@@ -234,43 +234,21 @@ class StatisticsView: UIView {
         } else {
             self.labelAverageSessionDuration.text = "0"
         }
-        
-        if thisWeekTotal < 60 {
-            self.labelThisWeekTotal.text = "\(thisWeekTotal)"
-            self.labelThisWeekUnit.text = "SECONDS"
-        } else {
-            self.labelThisWeekTotal.text = "\(thisWeekTotal / 60)"
-            self.labelThisWeekUnit.text = "MINUTES"
-        }
-        
-        if lastWeekTotal < 60 {
-            self.labelLastWeekTotal.text = "\(lastWeekTotal)"
-            self.labelLastWeekUnit.text = "SECONDS"
-        } else {
-            self.labelLastWeekTotal.text = "\(lastWeekTotal / 60)"
-            self.labelLastWeekUnit.text = "MINUTES"
-        }
-        
-        if thisMonthTotal < 60 {
-            self.labelThisMonthTotal.text = "\(thisMonthTotal)"
-            self.labelThisMonthUnit.text = "SECONDS"
-        } else {
-            self.labelThisMonthTotal.text = "\(thisMonthTotal / 60)"
-            self.labelThisMonthUnit.text = "MINUTES"
-        }
-        
-        if lastMonthTotal < 60 {
-            self.labelLastMonthTotal.text = "\(lastMonthTotal)"
-            self.labelLastMonthUnit.text = "SECONDS"
-        } else {
-            self.labelLastMonthTotal.text = "\(lastMonthTotal / 60)"
-            self.labelLastMonthUnit.text = "MINUTES"
-        }
+
+        self.practiceCalculateLabelsFormatting(totalSeconds: thisWeekTotal, labelValue: self.labelThisWeekTotal, labelUnit: self.labelThisWeekUnit)
+        self.practiceCalculateLabelsFormatting(totalSeconds: lastWeekTotal, labelValue: self.labelLastWeekTotal, labelUnit: self.labelLastWeekUnit)
+        self.practiceCalculateLabelsFormatting(totalSeconds: thisMonthTotal, labelValue: self.labelThisMonthTotal, labelUnit: self.labelThisMonthUnit)
+        self.practiceCalculateLabelsFormatting(totalSeconds: lastMonthTotal, labelValue: self.labelLastMonthTotal, labelUnit: self.labelLastMonthUnit)
         
         self.practiceData = data
         self.showValues()
     }
     
+    func practiceCalculateLabelsFormatting(totalSeconds: Int, labelValue: UILabel, labelUnit: UILabel) {
+        let displayFormat = AppUtils.totalPracticeTimeDisplay(seconds: totalSeconds)
+        labelValue.text = displayFormat["value"]
+        labelUnit.text = displayFormat["unit"]
+    }
 }
 
 
