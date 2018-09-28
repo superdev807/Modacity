@@ -614,8 +614,8 @@ extension PracticeItemSelectViewController: SortOptionsViewControllerDelegate {
         
         self.sectionNames = Array(self.sectionedPracticeItems.keys).sorted(by: { (ch1, ch2) -> Bool in
             if self.sortKey == .lastPracticedTime {
-                let date1 = ch1.date(format: "M/d/yy") ?? Date(timeIntervalSince1970: 0)
-                let date2 = ch2.date(format: "M/d/yy") ?? Date(timeIntervalSince1970: 0)
+                let date1 =  AppUtils.dateFromStringLocale(from: ch1) ?? Date(timeIntervalSince1970: 0)
+                let date2 =  AppUtils.dateFromStringLocale(from: ch2) ?? Date(timeIntervalSince1970: 0)
                 return (self.sortOption == .ascending) ? (date1 < date2) : (date1 > date2)
             } else {
                 return (self.sortOption == .ascending) ? (ch1 < ch2) : (ch1 > ch2)
