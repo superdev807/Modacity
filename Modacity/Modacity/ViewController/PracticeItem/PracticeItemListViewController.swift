@@ -254,7 +254,7 @@ extension PracticeItemListViewController: UITableViewDataSource, UITableViewDele
             let label = UILabel(frame: CGRect(x:10, y:0, width:tableViewMain.frame.size.width - 20, height:24))
             label.text = "\(self.sectionNames[section - (tableHeaderShowing ? 1: 0)])"
             label.textColor = Color.white.alpha(0.8)
-            label.font = UIFont(name: AppConfig.appFontLatoRegular, size: 14)
+            label.font = UIFont(name: AppConfig.UI.Fonts.appFontLatoRegular, size: 14)
             returnedView.addSubview(label)
             
             return returnedView

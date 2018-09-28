@@ -13,24 +13,24 @@ class MetrodroneParameters {
     
     var durationRatio: Float = 0.5 {
         didSet {
-            NotificationCenter.default.post(name: AppConfig.appNotificationMetrodroneParametersUpdated, object: nil, userInfo: ["key": "duration_ratio", "value":durationRatio, "from": oldValue])
+            NotificationCenter.default.post(name: AppConfig.NotificationNames.appNotificationMetrodroneParametersUpdated, object: nil, userInfo: ["key": "duration_ratio", "value":durationRatio, "from": oldValue])
         }
     }
     var currNote : String = "X" {
         didSet {
-            NotificationCenter.default.post(name: AppConfig.appNotificationMetrodroneParametersUpdated, object: nil, userInfo: ["key": "curr_note", "value":currNote, "from": oldValue])
+            NotificationCenter.default.post(name: AppConfig.NotificationNames.appNotificationMetrodroneParametersUpdated, object: nil, userInfo: ["key": "curr_note", "value":currNote, "from": oldValue])
         }
     }
     
     var lastUpIndex: Int = -1 {
         didSet {
-            NotificationCenter.default.post(name: AppConfig.appNotificationMetrodroneParametersUpdated, object: nil, userInfo: ["key": "last_up_index", "value":lastUpIndex, "from": oldValue])
+            NotificationCenter.default.post(name: AppConfig.NotificationNames.appNotificationMetrodroneParametersUpdated, object: nil, userInfo: ["key": "last_up_index", "value":lastUpIndex, "from": oldValue])
         }
     }
     
     var sustain  : Bool = false {
         didSet {
-            NotificationCenter.default.post(name: AppConfig.appNotificationMetrodroneParametersUpdated, object: nil, userInfo: ["key": "sustain", "value":sustain, "from": oldValue])
+            NotificationCenter.default.post(name: AppConfig.NotificationNames.appNotificationMetrodroneParametersUpdated, object: nil, userInfo: ["key": "sustain", "value":sustain, "from": oldValue])
         }
     }
     
@@ -38,25 +38,25 @@ class MetrodroneParameters {
     
     var tempo: Int = 120 {
         didSet {
-            NotificationCenter.default.post(name: AppConfig.appNotificationMetrodroneParametersUpdated, object: nil, userInfo: ["key": "tempo", "value":tempo, "from": oldValue])
+            NotificationCenter.default.post(name: AppConfig.NotificationNames.appNotificationMetrodroneParametersUpdated, object: nil, userInfo: ["key": "tempo", "value":tempo, "from": oldValue])
         }
     }
     
     var subdivisions: Int = 1 {
         didSet {
-            NotificationCenter.default.post(name: AppConfig.appNotificationMetrodroneParametersUpdated, object: nil, userInfo: ["key": "subdivisions", "value":subdivisions, "from": subdivisions])
+            NotificationCenter.default.post(name: AppConfig.NotificationNames.appNotificationMetrodroneParametersUpdated, object: nil, userInfo: ["key": "subdivisions", "value":subdivisions, "from": subdivisions])
         }
     }
     
     var currOctave: Int = 3 {
         didSet {
-            NotificationCenter.default.post(name: AppConfig.appNotificationMetrodroneParametersUpdated, object: nil, userInfo: ["key": "curr_octave", "value":currOctave, "from": oldValue])
+            NotificationCenter.default.post(name: AppConfig.NotificationNames.appNotificationMetrodroneParametersUpdated, object: nil, userInfo: ["key": "curr_octave", "value":currOctave, "from": oldValue])
         }
     }
     
     var ratioDroneToClick: Float = 0.5 {// balance between drone and click when mixed. 0= no drone, 1 = all drone
         didSet {
-            NotificationCenter.default.post(name: AppConfig.appNotificationMetrodroneParametersUpdated, object: nil, userInfo: ["key": "ratio_click", "value":ratioDroneToClick, "from": oldValue])
+            NotificationCenter.default.post(name: AppConfig.NotificationNames.appNotificationMetrodroneParametersUpdated, object: nil, userInfo: ["key": "ratio_click", "value":ratioDroneToClick, "from": oldValue])
         }
     }
     

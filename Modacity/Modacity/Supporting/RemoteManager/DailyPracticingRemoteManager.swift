@@ -80,7 +80,7 @@ class DailyPracticingRemoteManager: NSObject {
                         }
                     }
                     self.setPlaylistPracticingDataLoaded()
-                    NotificationCenter.default.post(Notification(name: AppConfig.appNotificationPracticeDataFetched))
+                    NotificationCenter.default.post(Notification(name: AppConfig.NotificationNames.appNotificationPracticeDataFetched))
                 }
             }
         }
@@ -113,7 +113,7 @@ class DailyPracticingRemoteManager: NSObject {
                         }
                     }
                     self.setPracticingDataLoaded()
-                    NotificationCenter.default.post(Notification(name: AppConfig.appNotificationPracticeDataFetched))
+                    NotificationCenter.default.post(Notification(name: AppConfig.NotificationNames.appNotificationPracticeDataFetched))
                 }
             }
         }

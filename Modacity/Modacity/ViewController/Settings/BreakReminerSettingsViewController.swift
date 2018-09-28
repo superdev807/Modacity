@@ -48,7 +48,7 @@ class BreakReminerSettingsViewController: UIViewController {
         
         self.updateLockView()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(updateLockView), name: AppConfig.appNotificationPremiumStatusChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateLockView), name: AppConfig.NotificationNames.appNotificationPremiumStatusChanged, object: nil)
     }
     
     deinit {

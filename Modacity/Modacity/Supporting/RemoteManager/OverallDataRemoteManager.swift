@@ -40,7 +40,7 @@ class OverallDataRemoteManager {
                 }
                 
                 self.setOverallDataSynchronized()
-                NotificationCenter.default.post(Notification(name: AppConfig.appNotificationOverallAppDataLoadedFromServer))
+                NotificationCenter.default.post(Notification(name: AppConfig.NotificationNames.appNotificationOverallAppDataLoadedFromServer))
             }
         }
     }
@@ -61,9 +61,9 @@ class OverallDataRemoteManager {
         if let userId = MyProfileLocalManager.manager.userId() {
             self.refUser.child(userId).child("overall").updateChildValues(["default_data_ship": AppOveralDataManager.manager.defaultDataShiped()])
         }
-        NotificationCenter.default.post(Notification(name: AppConfig.appNotificationPlaylistLoadedFromServer))
-        NotificationCenter.default.post(Notification(name: AppConfig.appNotificationPlaylistUpdated))
-        NotificationCenter.default.post(Notification(name: AppConfig.appNotificationPracticeLoadedFromServer))
+        NotificationCenter.default.post(Notification(name: AppConfig.NotificationNames.appNotificationPlaylistLoadedFromServer))
+        NotificationCenter.default.post(Notification(name: AppConfig.NotificationNames.appNotificationPlaylistUpdated))
+        NotificationCenter.default.post(Notification(name: AppConfig.NotificationNames.appNotificationPracticeLoadedFromServer))
     }
     
     func startUpdatingOverallData() {

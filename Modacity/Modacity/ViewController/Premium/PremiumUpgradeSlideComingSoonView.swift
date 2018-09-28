@@ -43,8 +43,8 @@ class PremiumUpgradeSlideComingSoonView: UIView {
         self.viewContent.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
         self.viewContent.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
         
-        let attributed = NSMutableAttributedString(string: "Coming soon", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoBlack, size: 16)!])
-        attributed.append(NSAttributedString(string: " for premium members only:", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoLight, size:16)!]))
+        let attributed = NSMutableAttributedString(string: "Coming soon", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.UI.Fonts.appFontLatoBlack, size: 16)!])
+        attributed.append(NSAttributedString(string: " for premium members only:", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.UI.Fonts.appFontLatoLight, size:16)!]))
         self.labelTitleTopView.attributedText = attributed
         
         let swipeNextGesture = UISwipeGestureRecognizer(target: self, action: #selector(onSwipeNext))

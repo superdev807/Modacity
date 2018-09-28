@@ -170,7 +170,7 @@ class PlaylistLocalManager: NSObject {
         }
         recentPlaylistIds.insert(playlist.id, at: 0)
         
-        if recentPlaylistIds.count > AppConfig.appMaxNumberForRecentPlaylists {
+        if recentPlaylistIds.count > AppConfig.Constants.appMaxNumberForRecentPlaylists {
             recentPlaylistIds.removeLast()
         }
         

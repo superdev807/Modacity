@@ -79,7 +79,6 @@
 		8EDEB709203DE38F00E8D48D /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8EDEB6FE203DE38F00E8D48D /* Lato-Regular.ttf */; };
 		8EDEB70C203DE38F00E8D48D /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDEB703203DE38F00E8D48D /* AppConfig.swift */; };
 		8EDEB70D203DE38F00E8D48D /* AppUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDEB704203DE38F00E8D48D /* AppUtils.swift */; };
-		8EDEB70E203DE38F00E8D48D /* DateUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDEB705203DE38F00E8D48D /* DateUtility.swift */; };
 		8EDEB713203DE4B300E8D48D /* Me.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDEB712203DE4B300E8D48D /* Me.swift */; };
 		8EDEB718203DFAC200E8D48D /* SideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDEB717203DFAC200E8D48D /* SideMenuController.swift */; };
 		8EDEB71A203DFB9A00E8D48D /* sidemenu.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EDEB719203DFB9A00E8D48D /* sidemenu.storyboard */; };
@@ -158,7 +157,6 @@
 		E21BE9BA2091796A000D1877 /* PlaylistLocalManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB9DB98204DA67200689C1D /* PlaylistLocalManager.swift */; };
 		E21BE9BB2091796A000D1877 /* MyProfileRemoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E58B43F20446AE40022704B /* MyProfileRemoteManager.swift */; };
 		E21BE9BC2091796A000D1877 /* PlaylistPracticeDurationKeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1EFEFB20500E7A000DE107 /* PlaylistPracticeDurationKeyboardViewController.swift */; };
-		E21BE9BD2091796A000D1877 /* DateUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDEB705203DE38F00E8D48D /* DateUtility.swift */; };
 		E21BE9BE2091796A000D1877 /* RecordingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA33BA620052D2700539A3F /* RecordingViewController.swift */; };
 		E21BE9BF2091796A000D1877 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDEB6F1203DD7A800E8D48D /* AuthViewModel.swift */; };
 		E21BE9C02091796A000D1877 /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3596212049AA9500F2E6DF /* Playlist.swift */; };
@@ -237,6 +235,14 @@
 		E22A06F420FCEBAB00184F78 /* PracticeBreakPromptView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E22A06F020FCEBAB00184F78 /* PracticeBreakPromptView.xib */; };
 		E22AE275215D308100708E9A /* DroneSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22AE274215D308100708E9A /* DroneSettings.swift */; };
 		E22AE276215D308100708E9A /* DroneSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22AE274215D308100708E9A /* DroneSettings.swift */; };
+		E235DA89215E84A700555944 /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E235DA88215E84A600555944 /* ColorExtensions.swift */; };
+		E235DA8A215E84A700555944 /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E235DA88215E84A600555944 /* ColorExtensions.swift */; };
+		E235DA8C215E8EFB00555944 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E235DA8B215E8EFB00555944 /* StringExtensions.swift */; };
+		E235DA8D215E8EFB00555944 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E235DA8B215E8EFB00555944 /* StringExtensions.swift */; };
+		E235DA8F215E8F5300555944 /* UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E235DA8E215E8F5300555944 /* UIImageExtensions.swift */; };
+		E235DA90215E8F5300555944 /* UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E235DA8E215E8F5300555944 /* UIImageExtensions.swift */; };
+		E235DA92215E8FFE00555944 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E235DA91215E8FFE00555944 /* DateExtensions.swift */; };
+		E235DA93215E8FFE00555944 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E235DA91215E8FFE00555944 /* DateExtensions.swift */; };
 		E23C337720E5172D000EED10 /* PlaylistHistoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E23C337520E5172D000EED10 /* PlaylistHistoryView.xib */; };
 		E23C337820E5172D000EED10 /* PlaylistHistoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E23C337520E5172D000EED10 /* PlaylistHistoryView.xib */; };
 		E23C337920E5172D000EED10 /* PlaylistHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23C337620E5172D000EED10 /* PlaylistHistoryView.swift */; };
@@ -492,7 +498,6 @@
 		8EDEB6FE203DE38F00E8D48D /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Regular.ttf"; sourceTree = "<group>"; };
 		8EDEB703203DE38F00E8D48D /* AppConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
 		8EDEB704203DE38F00E8D48D /* AppUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppUtils.swift; sourceTree = "<group>"; };
-		8EDEB705203DE38F00E8D48D /* DateUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateUtility.swift; sourceTree = "<group>"; };
 		8EDEB712203DE4B300E8D48D /* Me.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Me.swift; sourceTree = "<group>"; };
 		8EDEB717203DFAC200E8D48D /* SideMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuController.swift; sourceTree = "<group>"; };
 		8EDEB719203DFB9A00E8D48D /* sidemenu.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = sidemenu.storyboard; sourceTree = "<group>"; };
@@ -546,6 +551,10 @@
 		E22A06EF20FCEBAB00184F78 /* PracticeBreakPromptView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PracticeBreakPromptView.swift; sourceTree = "<group>"; };
 		E22A06F020FCEBAB00184F78 /* PracticeBreakPromptView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PracticeBreakPromptView.xib; sourceTree = "<group>"; };
 		E22AE274215D308100708E9A /* DroneSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroneSettings.swift; sourceTree = "<group>"; };
+		E235DA88215E84A600555944 /* ColorExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorExtensions.swift; sourceTree = "<group>"; };
+		E235DA8B215E8EFB00555944 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
+		E235DA8E215E8F5300555944 /* UIImageExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageExtensions.swift; sourceTree = "<group>"; };
+		E235DA91215E8FFE00555944 /* DateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		E23C337520E5172D000EED10 /* PlaylistHistoryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlaylistHistoryView.xib; sourceTree = "<group>"; };
 		E23C337620E5172D000EED10 /* PlaylistHistoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistHistoryView.swift; sourceTree = "<group>"; };
 		E23C337B20E51CA3000EED10 /* PlaylistHistoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlaylistHistoryCell.xib; sourceTree = "<group>"; };
@@ -985,7 +994,6 @@
 			children = (
 				8EDEB703203DE38F00E8D48D /* AppConfig.swift */,
 				8EDEB704203DE38F00E8D48D /* AppUtils.swift */,
-				8EDEB705203DE38F00E8D48D /* DateUtility.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1186,6 +1194,10 @@
 		E2CDDEBC2136E35B00BEB98B /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				E235DA91215E8FFE00555944 /* DateExtensions.swift */,
+				E235DA8E215E8F5300555944 /* UIImageExtensions.swift */,
+				E235DA8B215E8EFB00555944 /* StringExtensions.swift */,
+				E235DA88215E84A600555944 /* ColorExtensions.swift */,
 				E2CDDEBD2136E37C00BEB98B /* UIViewExtensions.swift */,
 			);
 			path = Extensions;
@@ -1816,6 +1828,7 @@
 				8E64B7AA2056A09F00900775 /* Recording.swift in Sources */,
 				E28415E920EE7A2300DD7BBE /* GoalsLocalManager.swift in Sources */,
 				8EA33BA320052A4A00539A3F /* PlaylistListViewController.swift in Sources */,
+				E235DA89215E84A700555944 /* ColorExtensions.swift in Sources */,
 				8EDEB718203DFAC200E8D48D /* SideMenuController.swift in Sources */,
 				8ED335E42048EBC700FB61C1 /* ViewModel.swift in Sources */,
 				8EAE1651204FE1050012450E /* PlaylistFinishViewController.swift in Sources */,
@@ -1823,7 +1836,6 @@
 				E2083FBC20DD47C700BCE27F /* PracticeMusicQuoteCell.swift in Sources */,
 				8E58B44420446AE40022704B /* MyProfileRemoteManager.swift in Sources */,
 				8E1EFEFC20500E7A000DE107 /* PlaylistPracticeDurationKeyboardViewController.swift in Sources */,
-				8EDEB70E203DE38F00E8D48D /* DateUtility.swift in Sources */,
 				E23C337920E5172D000EED10 /* PlaylistHistoryView.swift in Sources */,
 				8EA33BA720052D2700539A3F /* RecordingViewController.swift in Sources */,
 				E2083FAA20DD3AE700BCE27F /* RecordingCell.swift in Sources */,
@@ -1890,6 +1902,7 @@
 				E2083FC220DD47C700BCE27F /* PracticeNotesViewController.swift in Sources */,
 				E25FD98420D7F234008C531A /* PracticeDaily.swift in Sources */,
 				8E58B44620446AE40022704B /* MyProfileLocalManager.swift in Sources */,
+				E235DA92215E8FFE00555944 /* DateExtensions.swift in Sources */,
 				8EDEB70D203DE38F00E8D48D /* AppUtils.swift in Sources */,
 				E2806C3520ABCD910066959A /* PracticeViewController.swift in Sources */,
 				8EDA619820484580006D3208 /* PracticeItemViewModel.swift in Sources */,
@@ -1898,6 +1911,7 @@
 				8ED83FC72003262D00052256 /* TabBarViewController.swift in Sources */,
 				E28B822920E484B6005CA660 /* PlaylistStatsView.swift in Sources */,
 				E2083FCE20DD494100BCE27F /* NotesListView.swift in Sources */,
+				E235DA8C215E8EFB00555944 /* StringExtensions.swift in Sources */,
 				8E64B7AE2056AA7C00900775 /* RecordingViewModel.swift in Sources */,
 				8E84CA6720577F3500D2D1CB /* ImprovementViewModel.swift in Sources */,
 				8EAC1215200526BB004232A2 /* HomeViewController.swift in Sources */,
@@ -1934,6 +1948,7 @@
 				E249E62020DAB6C800FBDA72 /* StatisticsView.swift in Sources */,
 				E2770DAE20B7BD4400E05E20 /* DefaultDataShipManager.swift in Sources */,
 				E276D9D3211B447500A28081 /* PracticeItemCell.swift in Sources */,
+				E235DA8F215E8F5300555944 /* UIImageExtensions.swift in Sources */,
 				E28036F52107705F00B9987E /* SubscriptionTermsViewController.swift in Sources */,
 				8E58B43C204469E20022704B /* SettingsViewController.swift in Sources */,
 			);
@@ -1970,6 +1985,7 @@
 				E21BE9B52091796A000D1877 /* Recording.swift in Sources */,
 				E28415EA20EE7A2300DD7BBE /* GoalsLocalManager.swift in Sources */,
 				E21BE9B62091796A000D1877 /* PlaylistListViewController.swift in Sources */,
+				E235DA8A215E84A700555944 /* ColorExtensions.swift in Sources */,
 				E21BE9B72091796A000D1877 /* SideMenuController.swift in Sources */,
 				E21BE9B82091796A000D1877 /* ViewModel.swift in Sources */,
 				E21BE9B92091796A000D1877 /* PlaylistFinishViewController.swift in Sources */,
@@ -1977,7 +1993,6 @@
 				E2083FBD20DD47C700BCE27F /* PracticeMusicQuoteCell.swift in Sources */,
 				E21BE9BB2091796A000D1877 /* MyProfileRemoteManager.swift in Sources */,
 				E21BE9BC2091796A000D1877 /* PlaylistPracticeDurationKeyboardViewController.swift in Sources */,
-				E21BE9BD2091796A000D1877 /* DateUtility.swift in Sources */,
 				E23C337A20E5172D000EED10 /* PlaylistHistoryView.swift in Sources */,
 				E21BE9BE2091796A000D1877 /* RecordingViewController.swift in Sources */,
 				E2083FAB20DD3AE700BCE27F /* RecordingCell.swift in Sources */,
@@ -2044,6 +2059,7 @@
 				E2083FC320DD47C700BCE27F /* PracticeNotesViewController.swift in Sources */,
 				E25FD98520D7F234008C531A /* PracticeDaily.swift in Sources */,
 				E21BE9D62091796A000D1877 /* MyProfileLocalManager.swift in Sources */,
+				E235DA93215E8FFE00555944 /* DateExtensions.swift in Sources */,
 				E21BE9D72091796A000D1877 /* AppUtils.swift in Sources */,
 				E2806C3620ABCD910066959A /* PracticeViewController.swift in Sources */,
 				E21BE9D82091796A000D1877 /* PracticeItemViewModel.swift in Sources */,
@@ -2052,6 +2068,7 @@
 				E21BE9D92091796A000D1877 /* TabBarViewController.swift in Sources */,
 				E28B822A20E484B6005CA660 /* PlaylistStatsView.swift in Sources */,
 				E2083FCF20DD494100BCE27F /* NotesListView.swift in Sources */,
+				E235DA8D215E8EFB00555944 /* StringExtensions.swift in Sources */,
 				E21BE9DA2091796A000D1877 /* RecordingViewModel.swift in Sources */,
 				E21BE9DB2091796A000D1877 /* ImprovementViewModel.swift in Sources */,
 				E21BE9DC2091796A000D1877 /* HomeViewController.swift in Sources */,
@@ -2088,6 +2105,7 @@
 				E249E62120DAB6C800FBDA72 /* StatisticsView.swift in Sources */,
 				E2770DAF20B7BD4400E05E20 /* DefaultDataShipManager.swift in Sources */,
 				E276D9D4211B447500A28081 /* PracticeItemCell.swift in Sources */,
+				E235DA90215E8F5300555944 /* UIImageExtensions.swift in Sources */,
 				E28036F62107705F00B9987E /* SubscriptionTermsViewController.swift in Sources */,
 				E21BE9F02091796A000D1877 /* SettingsViewController.swift in Sources */,
 			);

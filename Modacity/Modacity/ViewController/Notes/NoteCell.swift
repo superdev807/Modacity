@@ -60,7 +60,7 @@ class NoteCell: UITableViewCell {
         
         if note.archived {
             let attributedString = NSMutableAttributedString(string:note.note)
-            attributedString.addAttributes([NSAttributedStringKey.foregroundColor: Color.white, NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoRegular, size: 14)!], range: NSMakeRange(0, attributedString.length))
+            attributedString.addAttributes([NSAttributedStringKey.foregroundColor: Color.white, NSAttributedStringKey.font: UIFont(name: AppConfig.UI.Fonts.appFontLatoRegular, size: 14)!], range: NSMakeRange(0, attributedString.length))
             attributedString.addAttribute(NSAttributedStringKey.baselineOffset, value: 0, range: NSMakeRange(0, attributedString.length))
             attributedString.addAttribute(NSAttributedStringKey.strikethroughStyle, value: NSNumber(value: NSUnderlineStyle.styleThick.rawValue), range: NSMakeRange(0, attributedString.length))
             attributedString.addAttribute(NSAttributedStringKey.strikethroughColor, value: Color.white, range: NSMakeRange(0, attributedString.length))
@@ -69,7 +69,7 @@ class NoteCell: UITableViewCell {
             self.imageViewChecked.image = UIImage(named:"icon_checkmark_white_grayed")
         } else {
             let attributedString = NSMutableAttributedString(string:note.note)
-            attributedString.addAttributes([NSAttributedStringKey.foregroundColor: Color.white, NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoRegular, size: 14)!], range: NSMakeRange(0, attributedString.length))
+            attributedString.addAttributes([NSAttributedStringKey.foregroundColor: Color.white, NSAttributedStringKey.font: UIFont(name: AppConfig.UI.Fonts.appFontLatoRegular, size: 14)!], range: NSMakeRange(0, attributedString.length))
             self.labelNote.attributedText = attributedString
             self.textViewNote.attributedText = attributedString
             self.imageViewChecked.image = UIImage(named:"icon_checkmark_blue_deselected")

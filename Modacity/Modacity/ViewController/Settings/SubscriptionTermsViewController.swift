@@ -36,17 +36,17 @@ class SubscriptionTermsViewController: UIViewController {
     
     @IBAction func onPrivacy(_ sender: Any) {
         if #available(iOS 10.0, *) {
-            UIApplication.shared.open(URL(string:AppConfig.appConfigPrivacyUrlLink)!, options: [:], completionHandler: nil)
+            UIApplication.shared.open(URL(string:AppConfig.Links.appConfigPrivacyUrlLink)!, options: [:], completionHandler: nil)
         } else {
-            UIApplication.shared.openURL(URL(string:AppConfig.appConfigPrivacyUrlLink)!)
+            UIApplication.shared.openURL(URL(string:AppConfig.Links.appConfigPrivacyUrlLink)!)
         }
     }
     
     @IBAction func onTerms(_ sender: Any) {
         if #available(iOS 10.0, *) {
-            UIApplication.shared.open(URL(string:AppConfig.appConfigTermsUrlLink)!, options: [:], completionHandler: nil)
+            UIApplication.shared.open(URL(string:AppConfig.Links.appConfigTermsUrlLink)!, options: [:], completionHandler: nil)
         } else {
-            UIApplication.shared.openURL(URL(string:AppConfig.appConfigTermsUrlLink)!)
+            UIApplication.shared.openURL(URL(string:AppConfig.Links.appConfigTermsUrlLink)!)
         }
     }
     

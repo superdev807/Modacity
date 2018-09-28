@@ -52,7 +52,7 @@ class MetrodoneViewController: UIViewController {
         self.configureLayout()
         NotificationCenter.default.addObserver(self, selector: #selector(processRouteChange), name: Notification.Name.AVAudioSessionRouteChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(processAudioEngineRefresh), name: Notification.Name.UIApplicationWillEnterForeground, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(updatePremiumUpgradeLockView), name: AppConfig.appNotificationPremiumStatusChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updatePremiumUpgradeLockView), name: AppConfig.NotificationNames.appNotificationPremiumStatusChanged, object: nil)
         self.updatePremiumUpgradeLockView()
     }
     

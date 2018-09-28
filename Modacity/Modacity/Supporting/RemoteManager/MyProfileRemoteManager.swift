@@ -37,7 +37,7 @@ class MyProfileRemoteManager {
                         Crashlytics.sharedInstance().setUserName(MyProfileLocalManager.manager.me?.name ?? "___")
                         Crashlytics.sharedInstance().setUserEmail(MyProfileLocalManager.manager.me?.email ?? "__@__")
                         MyProfileRemoteManager.manager.setProfileLoaded()
-                        NotificationCenter.default.post(name: AppConfig.appNotificationProfileUpdated, object: nil)
+                        NotificationCenter.default.post(name: AppConfig.NotificationNames.appNotificationProfileUpdated, object: nil)
                     }
                 }
             }
@@ -112,7 +112,7 @@ class MyProfileRemoteManager {
                             MyProfileLocalManager.manager.me = Me(JSON: profile)
                             Crashlytics.sharedInstance().setUserName(MyProfileLocalManager.manager.me?.name ?? "___")
                             Crashlytics.sharedInstance().setUserEmail(MyProfileLocalManager.manager.me?.email ?? "__@__")
-                            NotificationCenter.default.post(name: AppConfig.appNotificationProfileUpdated, object: nil)
+                            NotificationCenter.default.post(name: AppConfig.NotificationNames.appNotificationProfileUpdated, object: nil)
                         }
                     }
                 }

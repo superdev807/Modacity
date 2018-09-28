@@ -74,7 +74,7 @@ class CreateAccountViewController: UIViewController {
     
     func openHome() {
         self.spinnerProcessing.startAnimating()
-        NotificationCenter.default.addObserver(self, selector: #selector(showHomePage), name: AppConfig.appNotificationHomePageValuesLoaded, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showHomePage), name: AppConfig.NotificationNames.appNotificationHomePageValuesLoaded, object: nil)
         self.waitingTimer = Timer.scheduledTimer(timeInterval: TimeInterval(waitingTimeLongLimit), target: self, selector: #selector(showWaitingLabel), userInfo: nil, repeats: false)
         AppOveralDataManager.manager.viewModel = HomeViewModel()
         AppOveralDataManager.manager.viewModel!.prepareValues()
@@ -91,7 +91,7 @@ class CreateAccountViewController: UIViewController {
             self.spinnerGoogle.stopAnimating()
             self.spinnerFacebook.stopAnimating()
             self.spinnerProcessing.stopAnimating()
-            NotificationCenter.default.removeObserver(self, name: AppConfig.appNotificationHomePageValuesLoaded, object: nil)
+            NotificationCenter.default.removeObserver(self, name: AppConfig.NotificationNames.appNotificationHomePageValuesLoaded, object: nil)
             let controller = UIStoryboard(name: "sidemenu", bundle: nil).instantiateViewController(withIdentifier: "SideMenuController") as! SideMenuController
             self.navigationController?.pushViewController(controller, animated: true)
         }
@@ -161,7 +161,7 @@ extension CreateAccountViewController {
         loadingView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
         loadingView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
         self.loadingPanelView = loadingView
-        NotificationCenter.default.addObserver(self, selector: #selector(refreshSyncStatus), name: AppConfig.appNotificationSyncStatusUpdated, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshSyncStatus), name: AppConfig.NotificationNames.appNotificationSyncStatusUpdated, object: nil)
     }
     
     @objc func refreshSyncStatus() {

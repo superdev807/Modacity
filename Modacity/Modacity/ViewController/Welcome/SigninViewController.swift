@@ -97,7 +97,7 @@ class SigninViewController: UIViewController {
         self.textfieldEmailAddress.text = ""
         self.textfieldPassword.text = ""
         self.spinnerProcessing.startAnimating()
-        NotificationCenter.default.addObserver(self, selector: #selector(showHomePage), name: AppConfig.appNotificationHomePageValuesLoaded, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showHomePage), name: AppConfig.NotificationNames.appNotificationHomePageValuesLoaded, object: nil)
         self.waitingTimer = Timer.scheduledTimer(timeInterval: TimeInterval(waitingTimeLongLimit), target: self, selector: #selector(showWaitingLabel), userInfo: nil, repeats: false)
         AppOveralDataManager.manager.viewModel = HomeViewModel()
         AppOveralDataManager.manager.viewModel!.prepareValues()
@@ -114,7 +114,7 @@ class SigninViewController: UIViewController {
             self.spinerSignIn.stopAnimating()
             self.spinerCreateAccount.stopAnimating()
             self.spinnerProcessing.stopAnimating()
-            NotificationCenter.default.removeObserver(self, name: AppConfig.appNotificationHomePageValuesLoaded, object: nil)
+            NotificationCenter.default.removeObserver(self, name: AppConfig.NotificationNames.appNotificationHomePageValuesLoaded, object: nil)
             let controller = UIStoryboard(name: "sidemenu", bundle: nil).instantiateViewController(withIdentifier: "SideMenuController") as! SideMenuController
             self.navigationController?.pushViewController(controller, animated: true)
         }
