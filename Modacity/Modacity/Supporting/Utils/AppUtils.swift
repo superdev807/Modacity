@@ -123,6 +123,20 @@ class AppUtils: NSObject {
         }
         return results
     }
+    
+    class func stringFromDateLocale(from date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        formatter.timeStyle = .none
+        return formatter.string(from: date)
+    }
+    
+    class func dateFromStringLocale(from string:String) -> Date? {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        formatter.timeStyle = .none
+        return formatter.date(from: string)
+    }
 }
 
 public extension Color {

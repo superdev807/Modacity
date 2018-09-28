@@ -100,5 +100,4 @@ class AppConfig: NSObject {
         return false
         #endif
     }()
-
 }

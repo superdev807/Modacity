@@ -119,8 +119,8 @@ class PracticeItemViewModel: ViewModel {
         return self.sectionedPracticeItems.keys.sorted(by: { (key1, key2) -> Bool in
             
             if self.sortKey == .lastPracticedTime {
-                let date1 = key1.date(format: "M/d/yy") ?? Date(timeIntervalSince1970: 0)
-                let date2 = key2.date(format: "M/d/yy") ?? Date(timeIntervalSince1970: 0)
+                let date1 = AppUtils.dateFromStringLocale(from: key1) ?? Date(timeIntervalSince1970: 0)
+                let date2 =  AppUtils.dateFromStringLocale(from: key2) ?? Date(timeIntervalSince1970: 0)
                 return (self.sortOption == .ascending) ? (date1 < date2) : (date1 > date2)
             } else {
                 if self.sortOption == .ascending {
