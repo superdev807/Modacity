@@ -494,6 +494,10 @@ extension PracticeItemSelectViewController: UITableViewDelegate, UITableViewData
 extension PracticeItemSelectViewController: PracticeItemSelectCellDelegate {
     
     func onCellMenu(menuButton: UIButton, indexPath: IndexPath) {
+        if self.practiceItemNameEditingCell != nil {
+            self.practiceItemNameEditingCell!.textfieldInputPracticeItemName.resignFirstResponder()
+            self.practiceItemNameEditingCell = nil
+        }
         DropdownMenuView.instance.show(in: self.view,
                                        on: menuButton,
                                        rows: [["icon":"icon_notes", "text":"Details"],
