@@ -239,7 +239,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 let practiceViewController = controller.viewControllers[0] as! PracticeViewController
                 practiceViewController.practiceItem = practiceItem
                 let deliverModel = PlaylistAndPracticeDeliverModel()
-                deliverModel.deliverPracticeItem = practiceItem
+                deliverModel.deliverPracticeItem = PracticeItemLocalManager.manager.practiceItem(forId: practiceItem.id) ?? practiceItem
                 deliverModel.sessionTimeStarted = Date()
                 deliverModel.sessionImproved = [ImprovedRecord]()
                 practiceViewController.deliverModel = deliverModel
