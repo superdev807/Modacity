@@ -150,13 +150,9 @@ class PlaylistStatsView: UIView {
                 }
             }
             
-            if totalSeconds > 0 && totalSeconds < 60 {
-                self.labelTotalTime.text = "\(totalSeconds)"
-                self.labelTotalTimeUnit.text = "TOTAL SECONDS"
-            } else {
-                self.labelTotalTime.text = "\(totalSeconds / 60)"
-                self.labelTotalTimeUnit.text = "TOTAL MINUTES"
-            }
+            let dict = AppUtils.totalPracticeTimeDisplay(seconds: totalSeconds)
+            self.labelTotalTime.text = dict["value"]
+            self.labelTotalTimeUnit.text = "TOTAL \(dict["unit"] ?? "")"
             
             var cal = monday
             var seconds = [Double]()
@@ -239,37 +235,6 @@ class PlaylistStatsView: UIView {
                         }
                         
                     }
-//                    if daily.practices != nil {
-//                        for practice in daily.practices {
-//                            if let practiceDailyData = PracticingDailyLocalManager.manager.practicingData(forDataId: practice) {
-//                                if let practiceItemId = practiceDailyData.practiceItemId {
-//
-//                                    totalMinutes = totalMinutes + (practiceDailyData.practiceTimeInSeconds ?? 0)
-//
-//                                    if time!.isThisWeek() {
-//                                        thisWeekTotal = thisWeekTotal + (practiceDailyData.practiceTimeInSeconds ?? 0)
-//                                        self.configureDetails(key: "this_week", practiceItemId: practiceItemId, practiceDailyData: practiceDailyData)
-//                                    }
-//
-//                                    if time!.isLastWeek() {
-//                                        lastWeekTotal = lastWeekTotal + (practiceDailyData.practiceTimeInSeconds ?? 0)
-//                                        self.configureDetails(key: "last_week", practiceItemId: practiceItemId, practiceDailyData: practiceDailyData)
-//                                    }
-//
-//                                    if time!.isThisMonth() {
-//                                        thisMonthTotal = thisMonthTotal + (practiceDailyData.practiceTimeInSeconds ?? 0)
-//                                        self.configureDetails(key: "this_month", practiceItemId: practiceItemId, practiceDailyData: practiceDailyData)
-//                                    }
-//
-//                                    if time!.isLastMonth() {
-//                                        lastMonthTotal = lastMonthTotal + (practiceDailyData.practiceTimeInSeconds ?? 0)
-//                                        self.configureDetails(key: "last_month", practiceItemId: practiceItemId, practiceDailyData: practiceDailyData)
-//                                    }
-//
-//                                }
-//                            }
-//                        }
-//                    }
                 }
             }
         }
@@ -287,41 +252,20 @@ class PlaylistStatsView: UIView {
             self.labelAverageSessionDuration.text = "0"
         }
         
-        if thisWeekTotal < 60 {
-            self.labelThisWeekTotal.text = "\(thisWeekTotal)"
-            self.labelThisWeekUnit.text = "SECONDS"
-        } else {
-            self.labelThisWeekTotal.text = "\(thisWeekTotal / 60)"
-            self.labelThisWeekUnit.text = "MINUTES"
-        }
-        
-        if lastWeekTotal < 60 {
-            self.labelLastWeekTotal.text = "\(lastWeekTotal)"
-            self.labelLastWeekUnit.text = "SECONDS"
-        } else {
-            self.labelLastWeekTotal.text = "\(lastWeekTotal / 60)"
-            self.labelLastWeekUnit.text = "MINUTES"
-        }
-        
-        if thisMonthTotal < 60 {
-            self.labelThisMonthTotal.text = "\(thisMonthTotal)"
-            self.labelThisMonthUnit.text = "SECONDS"
-        } else {
-            self.labelThisMonthTotal.text = "\(thisMonthTotal / 60)"
-            self.labelThisMonthUnit.text = "MINUTES"
-        }
-        
-        if lastMonthTotal < 60 {
-            self.labelLastMonthTotal.text = "\(lastMonthTotal)"
-            self.labelLastMonthUnit.text = "SECONDS"
-        } else {
-            self.labelLastMonthTotal.text = "\(lastMonthTotal / 60)"
-            self.labelLastMonthUnit.text = "MINUTES"
-        }
+        self.practiceCalculateLabelsFormatting(totalSeconds: thisWeekTotal, labelValue: self.labelThisWeekTotal, labelUnit: self.labelThisWeekUnit)
+        self.practiceCalculateLabelsFormatting(totalSeconds: lastWeekTotal, labelValue: self.labelLastWeekTotal, labelUnit: self.labelLastWeekUnit)
+        self.practiceCalculateLabelsFormatting(totalSeconds: thisMonthTotal, labelValue: self.labelThisMonthTotal, labelUnit: self.labelThisMonthUnit)
+        self.practiceCalculateLabelsFormatting(totalSeconds: lastMonthTotal, labelValue: self.labelLastMonthTotal, labelUnit: self.labelLastMonthUnit)
         
         self.practiceData = data
         self.showSelectedWeekValues()
         self.showSelectedPeriodStats()
+    }
+    
+    func practiceCalculateLabelsFormatting(totalSeconds: Int, labelValue: UILabel, labelUnit: UILabel) {
+        let displayFormat = AppUtils.totalPracticeTimeDisplay(seconds: totalSeconds)
+        labelValue.text = displayFormat["value"]
+        labelUnit.text = displayFormat["unit"]
     }
     
     func showStats(playlistId: String) {

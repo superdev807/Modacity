@@ -12,8 +12,6 @@ import Crashlytics
 import Intercom
 import DGActivityIndicatorView
 
-enum DashboardTime { case Minutes; case Hours; case Default }
-
 class HomeViewController: UIViewController {
 
     @IBOutlet weak var textfieldTotalHours: UITextField!
@@ -37,9 +35,6 @@ class HomeViewController: UIViewController {
     
     @IBOutlet weak var constraintForRecentCollectionViewHeight: NSLayoutConstraint!
     @IBOutlet weak var constraintForFavoritesCollectionViewHeight: NSLayoutConstraint!
-    
-    private var timeDisplay: DashboardTime = .Default
-    private var formatter: NumberFormatter!
     
     var metrodroneView : MetrodroneView!
     var recentPlaylists = [Playlist]()
@@ -104,10 +99,6 @@ class HomeViewController: UIViewController {
         self.textfieldDayStreak.tintColor = Color.white
         self.textfieldImprovements.tintColor = Color.white
         
-        self.formatter = NumberFormatter()
-        self.formatter.numberStyle = .decimal
-        self.formatter.minimum = 0
-        
         if AppUtils.sizeModelOfiPhone() == .iphone4_35in {
             self.constraintForHeaderImageViewHeight.constant = 230
             self.constraintForContentViewTopSpace.constant = 220
@@ -147,13 +138,6 @@ class HomeViewController: UIViewController {
     }
 
     @IBAction func onTotalHours(_ sender: Any) {
-        //self.textfieldTotalHours.becomeFirstResponder()
-        if (self.timeDisplay == .Default) {
-            self.timeDisplay = .Minutes
-        }
-        else {
-            self.timeDisplay = .Default
-        }
     }
 
     @IBAction func onMenu(_ sender: Any) {
@@ -335,26 +319,9 @@ extension HomeViewController {
     }
     
     func displayTotalWorkingSconds(_ seconds: Int) {
-        
-        var displayMode: DashboardTime = .Default
-        if seconds < 30 * 60 {
-            displayMode = .Minutes
-        } else {
-            displayMode = .Hours
-        }
-        
-        if (self.timeDisplay == .Minutes) {
-            displayMode = .Minutes
-        }
-        
-        if (displayMode == .Minutes) {
-            self.textfieldTotalHours.text = String(format:"%.1f", Double(seconds) / 60.0)
-            self.labelTotalTimeCaption.text = "TOTAL MINUTES"
-        } else {
-            self.textfieldTotalHours.text = String(format:"%.1f", Double(seconds) / 3600.0)
-            self.labelTotalTimeCaption.text = "TOTAL HOURS"
-        }
-
+        let timeFormat = AppUtils.totalPracticeTimeDisplay(seconds: seconds)
+        self.textfieldTotalHours.text = timeFormat["value"]
+        self.labelTotalTimeCaption.text = "TOTAL \(timeFormat["unit"] ?? "")"
     }
     
     func showListFromViewModel() {

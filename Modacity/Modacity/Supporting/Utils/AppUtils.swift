@@ -105,6 +105,24 @@ class AppUtils: NSObject {
         }
         return newArray
     }
+    
+    class func totalPracticeTimeDisplay(seconds: Int) -> [String:String] {
+        
+        let formatter = NumberFormatter()
+        formatter.minimumFractionDigits = 0
+        formatter.maximumFractionDigits = 1
+        formatter.numberStyle = .decimal
+        
+        var results = [String: String]()
+        if seconds < 3600 {
+            results["value"] = formatter.string(from: (Float(seconds) / 60.0) as NSNumber) ?? "n/a"
+            results["unit"] = "MINUTES"
+        } else {
+            results["value"] = formatter.string(from: (Float(seconds) / 3600.0) as NSNumber) ?? "n/a"
+            results["unit"] = "HOURS"
+        }
+        return results
+    }
 }
 
 public extension Color {
