@@ -71,7 +71,7 @@ class OverallDataRemoteManager {
             self.refUser.child(userId).child("overall").updateChildValues(["total_improvements": AppOveralDataManager.manager.totalImprovements() ?? 0,
                                                                            "not_prevent_phone_sleep": !AppOveralDataManager.manager.settingsPhoneSleepPrevent(),
                                                                            "disable_auto_playback": AppOveralDataManager.manager.settingsDisableAutoPlayback(),
-                                                                           "go_after_rating": AppOveralDataManager.manager.settingsGotoNextItemAfterRating(),
+                                                                           "go_after_rating": !AppOveralDataManager.manager.settingsGotoNextItemAfterRating(),
                                                                            "default_data_shiped": AppOveralDataManager.manager.defaultDataShiped(),
                                                                            "first_playlist_generated": AppOveralDataManager.manager.firstPlaylistGenerated(),
                                                                            "settings_timer_pause_during_note": AppOveralDataManager.manager.settingsTimerPauseDuringNote(),
