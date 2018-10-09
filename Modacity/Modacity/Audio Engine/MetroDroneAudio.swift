@@ -82,6 +82,7 @@ class MetroDroneAudio {
     
     private func generateSubdividedClick(bpm: Double, subdivisions: Int, includeDrone: Bool, droneRatio: Float) -> AVAudioPCMBuffer {
         
+        let start = Date()
         audioFileMainClick.framePosition = 0
         audioFileSubClick.framePosition = 0
         
@@ -103,21 +104,49 @@ class MetroDroneAudio {
  
         if (includeDrone) {
             let bufferDroneMain = generateDronePulse(frameLength: subdivisionLength, decayPoint: droneRatio, droneType: .Triangle)
-            var bufferDroneSub: AVAudioPCMBuffer?
-            if (subdivisions > 1) {
+            // this is only required if we do a different tone for subdivision
+//            var bufferDroneSub: AVAudioPCMBuffer?
+            /*if (subdivisions > 1) {
                 bufferDroneSub = generateDronePulse(frameLength: subdivisionLength, decayPoint: droneRatio, droneType: .Triangle)
             }
+ */
+            
+            let droneMult: Float = MetrodroneParameters.instance.ratioDroneToClick
+            let clickMult: Float = MetrodroneParameters.instance.ratioDroneToClick - 1.0
+            var maxPoint: Float = 0.0
             for index in 0..<Int(subdivisionLength) {
                 let droneData: Float = bufferDroneMain.floatChannelData!.pointee[index]
-                bufferMainClick?.floatChannelData!.pointee[index] += droneData
-                if (subdivisions > 1) {
-                    let droneSubData: Float = bufferDroneSub!.floatChannelData!.pointee[index]
-                bufferSubClick?.floatChannelData!.pointee[index] += droneSubData
+                let clickData: Float = (bufferMainClick?.floatChannelData!.pointee[index])!
+                let newData = (droneData * droneMult) + (clickData * clickMult)
+                if (newData > maxPoint) {
+                    maxPoint = newData // for normalizing
                 }
+                bufferMainClick?.floatChannelData!.pointee[index] = newData
                 
+ //no need to do this it will happen in normalization - delete this comment once proven
+                /*
+                 if (subdivisions > 1) {
+// only for separate subdvision sound
+ //                 let droneSubData: Float = bufferDroneSub!.floatChannelData!.pointee[index]
+                    bufferSubClick?.floatChannelData!.pointee[index] = newData
+                }
+ */
+
+            }
+
+            let mult = 1.0/maxPoint
+            for index in 0..<Int(subdivisionLength) {
+                let clickData: Float = (bufferMainClick?.floatChannelData!.pointee[index])!
+                let newData = clickData * mult
+                bufferMainClick?.floatChannelData!.pointee[index] = newData
+                
+                if (subdivisions > 1) {
+                    //let subData: Float = (bufferSubClick?.floatChannelData!.pointee[index])!
+                    bufferSubClick?.floatChannelData!.pointee[index] = newData
+                }
             }
         }
-        
+ 
         let bufferBeat = AVAudioPCMBuffer(pcmFormat: audioFormat, frameCapacity: beatLength)
         bufferBeat?.frameLength = beatLength
         
@@ -144,6 +173,7 @@ class MetroDroneAudio {
         bufferBeat?.floatChannelData?.pointee.assign(from: beatArray,
                                                      count: Int(audioFormat.channelCount) * Int(bufferBeat!.frameLength))
         
+        ModacityDebugger.debug("Overall time to generate click - \(Date().timeIntervalSince1970 - start.timeIntervalSince1970)s")
         return bufferBeat!
     }
     

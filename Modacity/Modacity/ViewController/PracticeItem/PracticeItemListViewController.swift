@@ -91,7 +91,6 @@ class PracticeItemListViewController: UIViewController {
     
     @objc func onKeyboardWillChangeFrame(notification: Notification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            print("keyboard height - \(keyboardSize.height)")
             if AppUtils.iphoneIsXModel() {
                 self.constraintForTableViewBottomSpace.constant = (-1) * (keyboardSize.height - 34)
             } else {
@@ -174,8 +173,8 @@ class PracticeItemListViewController: UIViewController {
         
         self.sectionNames = Array(self.sectionedPracticeItems.keys).sorted(by: { (ch1, ch2) -> Bool in
             if self.sortKey == .lastPracticedTime {
-                let date1 = ch1.date(format: "M/d/yy") ?? Date(timeIntervalSince1970: 0)
-                let date2 = ch2.date(format: "M/d/yy") ?? Date(timeIntervalSince1970: 0)
+                let date1 = AppUtils.dateFromStringLocale(from: ch1) ?? Date(timeIntervalSince1970: 0)
+                let date2 = AppUtils.dateFromStringLocale(from: ch2) ?? Date(timeIntervalSince1970: 0)
                 return (self.sortOption == .ascending) ? (date1 < date2) : (date1 > date2)
             } else {
                 return (self.sortOption == .ascending) ? (ch1 < ch2) : (ch1 > ch2)
@@ -255,7 +254,7 @@ extension PracticeItemListViewController: UITableViewDataSource, UITableViewDele
             let label = UILabel(frame: CGRect(x:10, y:0, width:tableViewMain.frame.size.width - 20, height:24))
             label.text = "\(self.sectionNames[section - (tableHeaderShowing ? 1: 0)])"
             label.textColor = Color.white.alpha(0.8)
-            label.font = UIFont(name: AppConfig.appFontLatoRegular, size: 14)
+            label.font = UIFont(name: AppConfig.UI.Fonts.appFontLatoRegular, size: 14)
             returnedView.addSubview(label)
             
             return returnedView
@@ -315,7 +314,7 @@ extension PracticeItemListViewController: UITableViewDataSource, UITableViewDele
                 let practiceViewController = controller.viewControllers[0] as! PracticeViewController
                 practiceViewController.practiceItem = practiceItem
                 let deliverModel = PlaylistAndPracticeDeliverModel()
-                deliverModel.deliverPracticeItem = practiceItem
+                deliverModel.deliverPracticeItem = PracticeItemLocalManager.manager.practiceItem(forId: practiceItem.id) ?? practiceItem
                 deliverModel.sessionTimeStarted = Date()
                 deliverModel.sessionImproved = [ImprovedRecord]()
                 practiceViewController.deliverModel = deliverModel

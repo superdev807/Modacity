@@ -19,6 +19,8 @@ class MyProfileRemoteManager {
     
     var profileListnerHandler : UInt?
     
+    var listenerPaused = false
+    
     func createMyProfile(userId: String, data: [String:Any]) {
         self.refUser.child(userId).child("profile").setValue(data)
     }
@@ -34,12 +36,14 @@ class MyProfileRemoteManager {
                         MyProfileLocalManager.manager.me = Me(JSON: profile)
                         Crashlytics.sharedInstance().setUserName(MyProfileLocalManager.manager.me?.name ?? "___")
                         Crashlytics.sharedInstance().setUserEmail(MyProfileLocalManager.manager.me?.email ?? "__@__")
-                        NotificationCenter.default.post(name: AppConfig.appNotificationProfileUpdated, object: nil)
+                        MyProfileRemoteManager.manager.setProfileLoaded()
+                        NotificationCenter.default.post(name: AppConfig.NotificationNames.appNotificationProfileUpdated, object: nil)
                     }
                 }
             }
             
-            DispatchQueue.global().async {
+            DispatchQueue.global(qos: .background).async {
+                WalkthroughRemoteManager.manager.syncFirst()
                 PracticeItemRemoteManager.manager.syncFirst()
                 PlaylistRemoteManager.manager.syncFirst()
                 OverallDataRemoteManager.manager.syncFirst()
@@ -52,6 +56,15 @@ class MyProfileRemoteManager {
         }
     }
     
+    func profileLoaded() -> Bool {
+        return UserDefaults.standard.bool(forKey: "profile_loaded")
+    }
+    
+    func setProfileLoaded() {
+        UserDefaults.standard.set(true, forKey: "profile_loaded")
+        UserDefaults.standard.synchronize()
+    }
+    
     func updateDisplayName(to name:String) {
         if let userId = MyProfileLocalManager.manager.userId() {
             self.refUser.child(userId).child("profile").updateChildValues(["name": name])
@@ -61,7 +74,7 @@ class MyProfileRemoteManager {
     func updatePassword(current: String, newPassword: String, completion: @escaping (String?)->()) {
         if let currentUser = Auth.auth().currentUser {
             if let email = currentUser.email {
-                currentUser.reauthenticate(with: EmailAuthProvider.credential(withEmail: email, password: current)) { (error) in
+                currentUser.reauthenticateAndRetrieveData(with: EmailAuthProvider.credential(withEmail: email, password: current)) { (_, error) in
                     if let error = error {
                         completion(error.localizedDescription)
                     } else {
@@ -81,10 +94,39 @@ class MyProfileRemoteManager {
         completion("Unknown error!")
     }
     
+    func processOffline() {
+        if let listener = self.profileListnerHandler,
+            let userId = MyProfileLocalManager.manager.userId() {
+            self.refUser.child(userId).child("profile").removeObserver(withHandle: listener)
+            self.profileListnerHandler = nil
+            listenerPaused = true
+        }
+    }
+    
+    func processResumeOnline() {
+        if listenerPaused {
+            if let userId = MyProfileLocalManager.manager.userId() {
+                self.profileListnerHandler = self.refUser.child(userId).child("profile").observe(.value) { (snapshot) in
+                    if snapshot.exists() {
+                        if let profile = snapshot.value as? [String:Any] {
+                            MyProfileLocalManager.manager.me = Me(JSON: profile)
+                            Crashlytics.sharedInstance().setUserName(MyProfileLocalManager.manager.me?.name ?? "___")
+                            Crashlytics.sharedInstance().setUserEmail(MyProfileLocalManager.manager.me?.email ?? "__@__")
+                            NotificationCenter.default.post(name: AppConfig.NotificationNames.appNotificationProfileUpdated, object: nil)
+                        }
+                    }
+                }
+            }
+            listenerPaused = false
+        }
+    }
+    
     func signout() {
         if self.profileListnerHandler != nil {
             if let userId = MyProfileLocalManager.manager.userId() {
                 self.refUser.child(userId).child("profile").removeObserver(withHandle: self.profileListnerHandler!)
+                self.profileListnerHandler = nil
+                listenerPaused = false
             }
         }
     }

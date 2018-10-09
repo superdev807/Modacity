@@ -89,9 +89,10 @@ class PlaylistLocalManager: NSObject {
     }
     
     func deletePlaylist(_ playlist: Playlist) {
-        UserDefaults.standard.removeObject(forKey: "playlist:id:" + playlist.id)
+        playlist.archived = true
+        UserDefaults.standard.set(playlist.toJSON(), forKey: "playlist:id:" + playlist.id)
         UserDefaults.standard.synchronize()
-        PlaylistRemoteManager.manager.removePlaylist(for: playlist.id)
+        PlaylistRemoteManager.manager.update(item: playlist)//removePlaylist(for: playlist.id)
     }
     
     func storePlaylists(_ playlists: [Playlist]) {
@@ -169,7 +170,7 @@ class PlaylistLocalManager: NSObject {
         }
         recentPlaylistIds.insert(playlist.id, at: 0)
         
-        if recentPlaylistIds.count > AppConfig.appMaxNumberForRecentPlaylists {
+        if recentPlaylistIds.count > AppConfig.Constants.appMaxNumberForRecentPlaylists {
             recentPlaylistIds.removeLast()
         }
         

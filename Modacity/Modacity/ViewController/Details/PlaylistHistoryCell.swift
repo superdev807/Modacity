@@ -74,12 +74,12 @@ class PlaylistHistoryCell: UITableViewCell {
             
             if let improvements = row.improvements {
                 for improvement in improvements {
-                    let improvementAttributedStringText = NSMutableAttributedString(string: "Improved: ", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoRegular, size: 12)!])
+                    let improvementAttributedStringText = NSMutableAttributedString(string: "Improved: ", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.UI.Fonts.appFontLatoRegular, size: 12)!])
                     let improvementSuggestion = improvement.suggestion ?? ""
-                    improvementAttributedStringText.append(NSAttributedString(string: improvementSuggestion, attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoBlack, size: 12)!]))
-                    improvementAttributedStringText.append(NSAttributedString(string: " - ", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoRegular, size: 12)!]))
+                    improvementAttributedStringText.append(NSAttributedString(string: improvementSuggestion, attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.UI.Fonts.appFontLatoBlack, size: 12)!]))
+                    improvementAttributedStringText.append(NSAttributedString(string: " - ", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.UI.Fonts.appFontLatoRegular, size: 12)!]))
                     let hypothesisString = "“\(improvement.hypothesis ?? "")“"
-                    improvementAttributedStringText.append(NSAttributedString(string: hypothesisString, attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoItalic, size: 12)!]))
+                    improvementAttributedStringText.append(NSAttributedString(string: hypothesisString, attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.UI.Fonts.appFontLatoItalic, size: 12)!]))
                     let label = UILabel()
                     label.translatesAutoresizingMaskIntoConstraints = false
                     label.textColor = Color(hexString:"#908FE6")
@@ -125,12 +125,12 @@ class PlaylistHistoryCell: UITableViewCell {
             if let improvements = row.improvements {
                 for improvement in improvements {
                     
-                    let improvementAttributedStringText = NSMutableAttributedString(string: "Improved: ", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoRegular, size: 12)!])
+                    let improvementAttributedStringText = NSMutableAttributedString(string: "Improved: ", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.UI.Fonts.appFontLatoRegular, size: 12)!])
                     let improvementSuggestion = improvement.suggestion ?? ""
-                    improvementAttributedStringText.append(NSAttributedString(string: improvementSuggestion, attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoBlack, size: 12)!]))
-                    improvementAttributedStringText.append(NSAttributedString(string: " - ", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoRegular, size: 12)!]))
+                    improvementAttributedStringText.append(NSAttributedString(string: improvementSuggestion, attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.UI.Fonts.appFontLatoBlack, size: 12)!]))
+                    improvementAttributedStringText.append(NSAttributedString(string: " - ", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.UI.Fonts.appFontLatoRegular, size: 12)!]))
                     let hypothesisString = "“\(improvement.hypothesis ?? "")“"
-                    improvementAttributedStringText.append(NSAttributedString(string: hypothesisString, attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoItalic, size: 12)!]))
+                    improvementAttributedStringText.append(NSAttributedString(string: hypothesisString, attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.UI.Fonts.appFontLatoItalic, size: 12)!]))
                     height = height + improvementAttributedStringText.boundingRect(with: CGSize(width:UIScreen.main.bounds.size.width - 61,
                                                                                                 height:CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, context: nil).size.height
                 }

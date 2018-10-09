@@ -35,7 +35,7 @@ class SideMenuController: LGSideMenuController {
             self.constraintBadgeBottomSpace.constant = 0
         }
         
-        NotificationCenter.default.addObserver(self, selector: #selector(updatePremiumBadge), name: AppConfig.appNotificationPremiumStatusChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updatePremiumBadge), name: AppConfig.NotificationNames.appNotificationPremiumStatusChanged, object: nil)
     }
     
     deinit {

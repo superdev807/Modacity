@@ -49,7 +49,7 @@ class FeedbackSentViewController: UIViewController {
     }
     
     @IBAction func onRateApp(_ sender: Any) {
-        guard let url = URL(string : "itms-apps://itunes.apple.com/app/" + AppConfig.appIdOnAppStore) else {
+        guard let url = URL(string : "itms-apps://itunes.apple.com/app/" + AppConfig.ThirdParty.appIdOnAppStore) else {
             return
         }
         guard #available(iOS 10, *) else {

@@ -9,6 +9,11 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Lato-Regular.ttf">
+            <string>Lato-Regular</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Navigation Controller-->
         <scene sceneID="xnx-Ec-3e9">
@@ -42,23 +47,33 @@
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="IeJ-d7-9CU">
                                 <rect key="frame" x="177" y="711" width="20" height="20"/>
                             </activityIndicatorView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sorry, wait a few moment, please. we are processing practice history data..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X91-vB-giB">
+                                <rect key="frame" x="50" y="670.33333333333337" width="275" height="26.666666666666629"/>
+                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="11"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="ZKJ-EZ-II1" firstAttribute="leading" secondItem="Jqq-bV-6JJ" secondAttribute="leading" id="26R-ew-tGh"/>
+                            <constraint firstItem="IeJ-d7-9CU" firstAttribute="top" secondItem="X91-vB-giB" secondAttribute="bottom" constant="14" id="4n6-wr-YEJ"/>
                             <constraint firstItem="Jqq-bV-6JJ" firstAttribute="bottom" secondItem="IeJ-d7-9CU" secondAttribute="bottom" constant="47" id="BPH-gy-evd"/>
                             <constraint firstItem="sfh-XF-fsR" firstAttribute="centerX" secondItem="Jqq-bV-6JJ" secondAttribute="centerX" id="Dzi-Hm-kWQ"/>
                             <constraint firstItem="ZKJ-EZ-II1" firstAttribute="bottom" secondItem="Jqq-bV-6JJ" secondAttribute="bottom" constant="40" id="V7g-Sp-opv"/>
                             <constraint firstItem="IeJ-d7-9CU" firstAttribute="centerX" secondItem="ZKJ-EZ-II1" secondAttribute="centerX" id="buI-eC-HZT"/>
                             <constraint firstItem="ZKJ-EZ-II1" firstAttribute="trailing" secondItem="Jqq-bV-6JJ" secondAttribute="trailing" id="lUh-pf-tZj"/>
                             <constraint firstItem="sfh-XF-fsR" firstAttribute="centerY" secondItem="Jqq-bV-6JJ" secondAttribute="centerY" id="qMh-36-MEz"/>
+                            <constraint firstItem="X91-vB-giB" firstAttribute="leading" secondItem="Jqq-bV-6JJ" secondAttribute="leading" constant="50" id="w8Q-OD-K6a"/>
                             <constraint firstItem="ZKJ-EZ-II1" firstAttribute="top" secondItem="N35-5x-2ig" secondAttribute="top" id="xQa-ia-Loe"/>
+                            <constraint firstItem="Jqq-bV-6JJ" firstAttribute="trailing" secondItem="X91-vB-giB" secondAttribute="trailing" constant="50" id="yOm-5J-5h5"/>
                             <constraint firstItem="IeJ-d7-9CU" firstAttribute="centerX" secondItem="Jqq-bV-6JJ" secondAttribute="centerX" id="zPC-h8-A2T"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Jqq-bV-6JJ"/>
                     </view>
                     <navigationItem key="navigationItem" id="Sx0-Jb-DWY"/>
                     <connections>
+                        <outlet property="labelWait" destination="X91-vB-giB" id="GLo-9V-4qu"/>
                         <segue destination="kyk-Ey-mBX" kind="show" identifier="sid_home" id="LnI-bT-DmF"/>
                     </connections>
                 </viewController>

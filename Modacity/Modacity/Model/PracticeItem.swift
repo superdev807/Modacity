@@ -27,10 +27,10 @@ class PracticeItem: Mappable {
     var lastPracticedDurationInSecond: Int?
     var rating: Double = 0
     var isFavorite: Int = 0
-    
     var lastPracticedSortKey: String?
-    
     var lastPracticedDateKeyString: String?
+    
+    var droneSettings: DroneSettings? = nil
     
     init() {
         name = ""
@@ -47,6 +47,7 @@ class PracticeItem: Mappable {
         isFavorite  <- map["is_favorite"]
         lastPracticed <- map["last_practiced"]
         lastPracticedDurationInSecond <- map["last_practiced_duration"]
+        droneSettings <- map["drone_settings"]
     }
     
     func updateRating(rating: Double) {
@@ -139,7 +140,7 @@ class PracticeItem: Mappable {
         if let lastPracticed = lastPracticed {
             let timeInterval = Double(lastPracticed) ?? 0
             if timeInterval != 0 {
-                sectionString = Date(timeIntervalSince1970: timeInterval).toString(format: "M/d/yy")
+                sectionString = AppUtils.stringFromDateLocale(from: Date(timeIntervalSince1970: timeInterval))
             }
         }
         
@@ -152,7 +153,7 @@ class PracticeItem: Mappable {
             if timeInterval == 0 {
                 return ""
             } else {
-                let last = Date(timeIntervalSince1970: timeInterval).toString(format: "M/d/yy")
+                let last = AppUtils.stringFromDateLocale(from: Date(timeIntervalSince1970: timeInterval))
                 let seconds = self.lastPracticedDurationInSecond ?? 0
                 var timeString = "\(seconds)"
                 var unit = "seconds"
@@ -179,6 +180,11 @@ class PracticeItem: Mappable {
     
     func updateLastPracticedDuration(duration : Int) {
         self.lastPracticedDurationInSecond = duration
+        self.updateMe()
+    }
+    
+    func updateDroneSettings(_ settings:DroneSettings) {
+        self.droneSettings = settings
         self.updateMe()
     }
 }

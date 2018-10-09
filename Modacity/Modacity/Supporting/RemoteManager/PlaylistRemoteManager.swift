@@ -18,6 +18,7 @@ class PlaylistRemoteManager {
     func syncFirst() {      // if firebase online backup has not created, yet
         if let userId = MyProfileLocalManager.manager.userId() {
             self.refUser.child(userId).child("playlists").observeSingleEvent(of: .value) { (snapshot) in
+                self.setPlaylistItemsSynchronized()
                 if (!snapshot.exists()) {
                     self.startUploadAllPlaylists()      // sync from local
                 } else {
@@ -33,10 +34,19 @@ class PlaylistRemoteManager {
                             }
                         }
                     }
-                    NotificationCenter.default.post(Notification(name: AppConfig.appNotificationPlaylistLoadedFromServer))
                 }
+                NotificationCenter.default.post(Notification(name: AppConfig.NotificationNames.appNotificationPlaylistLoadedFromServer))
             }
         }
+    }
+    
+    func playlistItemsSynchronized() -> Bool {
+        return UserDefaults.standard.bool(forKey: "playlist_items_synchronized")
+    }
+    
+    func setPlaylistItemsSynchronized() {
+        UserDefaults.standard.set(true, forKey: "playlist_items_synchronized")
+        UserDefaults.standard.synchronize()
     }
     
     func startUploadAllPlaylists() {
@@ -74,12 +84,6 @@ class PlaylistRemoteManager {
         }
         
         return nil
-    }
-    
-    func removePlaylist(for itemId:String) {
-        if let db = self.dbReference(for: itemId) {
-            db.removeValue()
-        }
     }
     
     func update(item: Playlist) {

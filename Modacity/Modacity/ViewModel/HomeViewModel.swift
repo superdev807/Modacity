@@ -10,93 +10,85 @@ import UIKit
 
 class HomeViewModel: ViewModel {
     
-    var recentPlaylists: [Playlist] = [Playlist]() {
-        didSet {
-            self.dashboardPlaylistsCount = recentPlaylists.count + favoriteItems.count
-            if let callback = self.callBacks["recentPlaylists"] {
-                callback(.simpleChange, oldValue, recentPlaylists)
-            }
+    var profileName: String = ""
+    var recentPlaylists = [Playlist]()
+    var favoriteItems = [[String:Any]]()
+    var totalPracticeSeconds: Int = 0
+    var dayStreakValues: Int = 0
+    var totalImprovementsCount: Int = 0
+    
+    var flags = [String:Bool]()
+    
+    override init() {
+        flags = [String:Bool]()
+    }
+    
+    func check() {
+        if checkDone() {
+            self.clearNotification()
+            NotificationCenter.default.post(Notification(name: AppConfig.NotificationNames.appNotificationHomePageValuesLoaded))
         }
     }
     
-    var favoriteItems = [[String:Any]]() {
-        didSet {
-            self.dashboardPlaylistsCount = recentPlaylists.count + favoriteItems.count
-            if let callback = self.callBacks["favoriteItems"] {
-                callback(.simpleChange, oldValue, favoriteItems)
-            }
+    func checkDone() -> Bool {
+        let total = flags["total"] ?? false
+        let streak = flags["streak"] ?? false
+        let improvements = flags["improvements"] ?? false
+        let favorites = flags["favorites"] ?? false
+        let recents = flags["recents"] ?? false
+        let profile = flags["profile"] ?? false
+        return total && streak && improvements && favorites && recents && profile
+    }
+    
+    func clearNotification() {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    func prepareValues() {
+        prepareProfileDisplayName()
+        prepareFavoriteItems()
+        prepareTotalImprovementValue()
+        prepareTotalSecondsAndStreakValues()
+        prepareRecentItems()
+    }
+    
+    @objc func prepareProfileDisplayName() {
+        if MyProfileRemoteManager.manager.profileLoaded() {
+            flags["profile"] = true
+            check()
+        } else {
+            NotificationCenter.default.addObserver(self, selector: #selector(prepareProfileDisplayName), name: AppConfig.NotificationNames.appNotificationProfileUpdated, object: nil)
         }
     }
     
-    var dashboardPlaylistsCount = 0 {
-        didSet {
-            if let callback = self.callBacks["dashboardPlaylistsCount"] {
-                callback(.simpleChange, oldValue, dashboardPlaylistsCount)
-            }
+    @objc func prepareTotalImprovementValue() {
+        if OverallDataRemoteManager.manager.overallDataSynchronized() {
+            self.totalImprovementsCount = AppOveralDataManager.manager.totalImprovements() ?? 0
+            flags["improvements"] = true
+            check()
+        } else {
+            NotificationCenter.default.addObserver(self, selector: #selector(prepareTotalImprovementValue), name: AppConfig.NotificationNames.appNotificationOverallAppDataLoadedFromServer, object: nil)
         }
     }
     
-    var totalWorkingSeconds = 0 {
-        didSet {
-            if let callback = self.callBacks["totalWorkingSeconds"] {
-                callback(.simpleChange, oldValue, totalWorkingSeconds)
-            }
-        }
-    }
-    
-    var totalImprovements = 0 {
-        didSet {
-            if let callback = self.callBacks["totalImprovements"] {
-                callback(.simpleChange, oldValue, totalImprovements)
-            }
-        }
-    }
-    
-    var streakDays = 0 {
-        didSet {
-            if let callback = self.callBacks["streakDays"] {
-                callback(.simpleChange, oldValue, streakDays)
-            }
-        }
-    }
-    
-    func refreshDashboardValues() {
-        DispatchQueue.global().async {
-            // Buggy code, total working time storing module should be fixed
-            //          self.totalWorkingSeconds = AppOveralDataManager.manager.totalPracticeSeconds()
+    @objc func prepareTotalSecondsAndStreakValues() {
+        if DailyPracticingRemoteManager.manager.practicingDataFetched() {
+            let data = PracticingDailyLocalManager.manager.statsPracticing()
+            self.dayStreakValues = data["streak"] ?? 0
+            self.totalPracticeSeconds = data["total"] ?? 0
             
-            self.totalImprovements = AppOveralDataManager.manager.totalImprovements()
+            flags["total"] = true
+            flags["streak"] = true
             
-            var streaks = AppOveralDataManager.manager.calculateStreakDays()
-            if streaks == 1 {
-                //                if !AppOveralDataManager.manager.firstPlaylistStored() {
-                //                    streaks = 0
-                //                }
-            }
-            self.streakDays = streaks
-            
-            let data = PlaylistDailyLocalManager.manager.overallPracticeData()
-            var totalMinutes = 0
-            
-            for date in data.keys {
-                if let dailyDatas = data[date] {
-                    for daily in dailyDatas {
-                        totalMinutes = totalMinutes + (daily.practiceTimeInSeconds ?? 0)
-                    }
-                }
-            }
-            
-            self.totalWorkingSeconds = totalMinutes
+            check()
+        } else {
+            NotificationCenter.default.addObserver(self, selector: #selector(prepareTotalSecondsAndStreakValues), name: AppConfig.NotificationNames.appNotificationPracticeDataFetched, object: nil)
         }
     }
     
-    func loadRecentPlaylists() {
+    @objc func prepareFavoriteItems() {
         
-        DispatchQueue.global().async {
-            if let playlists = PlaylistLocalManager.manager.recentPlaylists() {
-                self.recentPlaylists = playlists
-            }
-            
+        if PlaylistRemoteManager.manager.playlistItemsSynchronized() && PracticeItemRemoteManager.manager.practiceItemsSynchronized() {
             var items = [[String:Any]]()
             if let playlists = PlaylistLocalManager.manager.loadFavoritePlaylists() {
                 for playlist in playlists {
@@ -125,7 +117,28 @@ class HomeViewModel: ViewModel {
                 return itemName1 < itemName2
             })
             
-            
+            flags["favorites"] = true
+            check()
+        } else {
+            if !PlaylistRemoteManager.manager.playlistItemsSynchronized() {
+                NotificationCenter.default.addObserver(self, selector: #selector(prepareFavoriteItems), name: AppConfig.NotificationNames.appNotificationPlaylistLoadedFromServer, object: nil)
+            }
+            if !PracticeItemRemoteManager.manager.practiceItemsSynchronized() {
+                NotificationCenter.default.addObserver(self, selector: #selector(prepareFavoriteItems), name: AppConfig.NotificationNames.appNotificationPracticeLoadedFromServer, object: nil)
+            }
         }
     }
+    
+    @objc func prepareRecentItems() {
+        if PlaylistRemoteManager.manager.playlistItemsSynchronized() {
+            if let playlists = PlaylistLocalManager.manager.recentPlaylists() {
+                self.recentPlaylists = playlists
+            }
+            flags["recents"] = true
+            check()
+        } else {
+            NotificationCenter.default.addObserver(self, selector: #selector(prepareRecentItems), name: AppConfig.NotificationNames.appNotificationPlaylistLoadedFromServer, object: nil)
+        }
+    }
+    
 }

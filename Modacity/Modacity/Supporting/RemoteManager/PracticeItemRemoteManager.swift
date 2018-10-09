@@ -18,19 +18,22 @@ class PracticeItemRemoteManager {
     func syncFirst() {      // if firebase online backup has not created, yet
         if let userId = MyProfileLocalManager.manager.userId() {
             self.refUser.child(userId).child("practices").observeSingleEvent(of: .value) { (snapshot) in
-                if (!snapshot.exists()) {
-                    self.startUPloadAllPracticeItems()      // sync from local
-                } else {
-                    for data in snapshot.children.allObjects as! [DataSnapshot] {
-                        if let practiceItem = data.value as? [String:Any] {
-                            if let item = PracticeItem(JSON: practiceItem) {
-                                if PracticeItemLocalManager.manager.practiceItem(forId: item.id) == nil {
-                                    PracticeItemLocalManager.manager.addPracticeItem(item)
+                DispatchQueue.global(qos: .background).async {
+                    self.setPracticeItemsSynchronized()
+                    if (!snapshot.exists()) {
+                        self.startUPloadAllPracticeItems()      // sync from local
+                    } else {
+                        for data in snapshot.children.allObjects as! [DataSnapshot] {
+                            if let practiceItem = data.value as? [String:Any] {
+                                if let item = PracticeItem(JSON: practiceItem) {
+                                    if PracticeItemLocalManager.manager.practiceItem(forId: item.id) == nil {
+                                        PracticeItemLocalManager.manager.addPracticeItem(item)
+                                    }
                                 }
                             }
                         }
                     }
-                    NotificationCenter.default.post(Notification(name: AppConfig.appNotificationPracticeLoadedFromServer))
+                    NotificationCenter.default.post(Notification(name: AppConfig.NotificationNames.appNotificationPracticeLoadedFromServer))
                 }
             }
             
@@ -44,10 +47,19 @@ class PracticeItemRemoteManager {
                     }
                     UserDefaults.standard.set(favoriteIds, forKey: "favorite_practice_item_ids")
                     UserDefaults.standard.synchronize()
-                    NotificationCenter.default.post(Notification(name: AppConfig.appNotificationPracticeLoadedFromServer))
+                    NotificationCenter.default.post(Notification(name: AppConfig.NotificationNames.appNotificationPracticeLoadedFromServer))
                 }
             }
         }
+    }
+    
+    func practiceItemsSynchronized() -> Bool {
+        return UserDefaults.standard.bool(forKey: "practice_items_synchronized")
+    }
+    
+    func setPracticeItemsSynchronized() {
+        UserDefaults.standard.set(true, forKey: "practice_items_synchronized")
+        UserDefaults.standard.synchronize()
     }
     
     func startUPloadAllPracticeItems() {

@@ -122,7 +122,7 @@ class MetrodroneView: UIView {
                                                 imageViewSubdivisionNote: self.buttonSubDivisionNoteOnButton)
         
         ModacityDebugger.debug("Metrodrone player prepared")
-        NotificationCenter.default.post(Notification(name: AppConfig.appNotificationMetrodroneAudioEnginePrepared))
+        NotificationCenter.default.post(Notification(name: AppConfig.NotificationNames.appNotificationMetrodroneAudioEnginePrepared))
         
     }
     

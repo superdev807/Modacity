@@ -10,17 +10,19 @@ import UIKit
 import Amplitude_iOS
 import Crashlytics
 import Intercom
-
-enum DashboardTime { case Minutes; case Hours; case Default }
+import DGActivityIndicatorView
 
 class HomeViewController: UIViewController {
 
     @IBOutlet weak var textfieldTotalHours: UITextField!
     @IBOutlet weak var textfieldDayStreak: UITextField!
     @IBOutlet weak var textfieldImprovements: UITextField!
+    
     @IBOutlet weak var viewEmptyPanel: UIView!
     @IBOutlet weak var collectionViewRecentPlaylists: UICollectionView!
+    
     @IBOutlet weak var collectionViewFavoritePlaylists: UICollectionView!
+    
     @IBOutlet weak var labelFavoritesHeader: UILabel!
     @IBOutlet weak var labelRecentHeader: UILabel!
     @IBOutlet weak var labelTotalTimeCaption: UILabel!
@@ -34,22 +36,21 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var constraintForRecentCollectionViewHeight: NSLayoutConstraint!
     @IBOutlet weak var constraintForFavoritesCollectionViewHeight: NSLayoutConstraint!
     
-    private var timeDisplay: DashboardTime = .Default
-    private var formatter: NumberFormatter!
-    private var viewModel = HomeViewModel()
-    
     var metrodroneView : MetrodroneView!
+    var recentPlaylists = [Playlist]()
+    var favoriteItems = [[String:Any]]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        NotificationCenter.default.addObserver(self, selector: #selector(configureNameLabels), name: AppConfig.appNotificationProfileUpdated, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(refreshValues), name: AppConfig.appNotificationOverallAppDataLoadedFromServer, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(refreshList), name: AppConfig.appNotificationPlaylistLoadedFromServer, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(refreshValues), name: AppConfig.appNotificationPracticeDataFetched, object: nil)
+        
         self.configureUI()
-        self.bindViewModel()
+        self.showCacheValues()
+        self.registerNotifications()
+        self.configureNameLabels()
+        
         ModacityAnalytics.LogStringEvent("Home Screen")
+        
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
             appDelegate.registerNotifications(UIApplication.shared)
         }
@@ -57,6 +58,10 @@ class HomeViewController: UIViewController {
     
     deinit {
         NotificationCenter.default.removeObserver(self)
+    }
+    
+    func registerNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(configureNameLabels), name: AppConfig.NotificationNames.appNotificationProfileUpdated, object: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -67,113 +72,32 @@ class HomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationItem.title = "Home"
-        self.viewModel.loadRecentPlaylists()
-        self.viewModel.refreshDashboardValues()
+        
+        if LocalCacheManager.manager.firstTimeLaunch {
+            self.showDashboardValuesFromViewModel()
+            self.showImprovementValueFromViewModel()
+            self.showListFromViewModel()
+            LocalCacheManager.manager.firstTimeLaunch = false
+        } else {
+            self.refreshImprovementValue()
+            self.recalculateDashboardValues()
+            self.refreshList()
+        }
     }
     
-    @objc func refreshList() {
-        self.viewModel.loadRecentPlaylists()
-    }
-    
-    @objc func refreshValues() {
-        self.viewModel.refreshDashboardValues()
-    }
-    
-    func bindViewModel() {
+    func activityIndicatorStyling(_ view: DGActivityIndicatorView) {
+        view.size = 20
+        view.tintColor = Color.white
+        view.type = .ballClipRotate
         
-        self.viewModel.subscribe(to: "dashboardPlaylistsCount") { _, _, count in
-            DispatchQueue.main.async {
-                if let count = count as? Int {
-                    if count > 0 {
-                        self.viewEmptyPanel.isHidden = true
-                        self.labelRecentHeader.isHidden = false
-                        return
-                    }
-                }
-                self.labelRecentHeader.isHidden = true
-                self.viewEmptyPanel.isHidden = false
-            }
-        }
-        
-        self.viewModel.subscribe(to: "recentPlaylists") { (_, _, _) in
-            DispatchQueue.main.async {
-                self.collectionViewRecentPlaylists.reloadData()
-            }
-        }
-        
-        self.viewModel.subscribe(to: "favoriteItems") { (_, _, favoriteItems) in
-            DispatchQueue.main.async {
-                if let playlists = favoriteItems as? [[String:Any]] {
-                    if playlists.count > 0 {
-                        self.labelFavoritesHeader.isHidden = false
-                    } else {
-                        self.labelFavoritesHeader.isHidden = true
-                    }
-                    self.collectionViewFavoritePlaylists.reloadData()
-                    return
-                }
-                self.labelFavoritesHeader.isHidden = true
-            }
-        }
-        
-        self.viewModel.subscribe(to: "totalWorkingSeconds") { (_, _, totalWorkingSeconds) in
-            DispatchQueue.main.async {
-                if let seconds = totalWorkingSeconds as? Int {
-                    var displayMode: DashboardTime = .Default
-                    if seconds < 30 * 60 {
-                        displayMode = .Minutes
-                    } else {
-                        displayMode = .Hours
-                        
-                    }
-                    
-                    if (self.timeDisplay == .Minutes) {
-                        displayMode = .Minutes
-                    }
-                    
-                    if (displayMode == .Minutes) {
-                        self.textfieldTotalHours.text = String(format:"%.1f", Double(seconds) / 60.0)
-                        self.labelTotalTimeCaption.text = "TOTAL MINUTES"
-                    } else {
-                        self.textfieldTotalHours.text = String(format:"%.1f", Double(seconds) / 3600.0)
-                        self.labelTotalTimeCaption.text = "TOTAL HOURS"
-                    }
-                    
-                } else {
-                    self.textfieldTotalHours.text = "0"
-                    self.labelTotalTimeCaption.text = "TOTAL HOURS"
-                }
-            }
-        }
-        
-        self.viewModel.subscribe(to: "totalImprovements") { (_, _, totalImprovements) in
-            DispatchQueue.main.async {
-                self.textfieldImprovements.text = "\(totalImprovements as? Int ?? 0)"
-            }
-        }
-        
-        self.viewModel.subscribe(to: "streakDays") { (_, _, streakDays) in
-            DispatchQueue.main.async {
-                self.textfieldDayStreak.text = "\(streakDays as? Int ?? 0)"
-            }
-        }
+        view.startAnimating()
     }
     
     func configureUI() {
-        self.textfieldTotalHours.delegate = self
+        
         self.textfieldTotalHours.tintColor = Color.white
-        
-        self.textfieldDayStreak.delegate = self
         self.textfieldDayStreak.tintColor = Color.white
-        
-        self.textfieldImprovements.delegate = self
         self.textfieldImprovements.tintColor = Color.white
-        
-        self.formatter = NumberFormatter()
-        self.formatter.numberStyle = .decimal
-        self.formatter.minimum = 0
-        
-        self.labelFavoritesHeader.isHidden = true
         
         if AppUtils.sizeModelOfiPhone() == .iphone4_35in {
             self.constraintForHeaderImageViewHeight.constant = 230
@@ -193,75 +117,42 @@ class HomeViewController: UIViewController {
         }
         
         configureNameLabels()
-        
     }
     
     @objc func configureNameLabels() {
+        
         if let me = MyProfileLocalManager.manager.me {
             self.labelWelcome.text = "Welcome \(me.displayName())!"
-            Amplitude.instance().setUserId(me.email)
-            Intercom.registerUser(withEmail: me.email)
-            let userAttributes = ICMUserAttributes()
-            userAttributes.name = me.displayName()
-            userAttributes.email = me.email
             
-            Intercom.updateUser(userAttributes)
-            
+            DispatchQueue.global(qos: .background).async {
+                Amplitude.instance().setUserId(me.email)
+                Intercom.registerUser(withEmail: me.email)
+                let userAttributes = ICMUserAttributes()
+                userAttributes.name = me.displayName()
+                userAttributes.email = me.email
+                Intercom.updateUser(userAttributes)
+            }
         } else {
             self.labelWelcome.text = "Welcome!"
         }
     }
 
     @IBAction func onTotalHours(_ sender: Any) {
-        //self.textfieldTotalHours.becomeFirstResponder()
-        if (self.timeDisplay == .Default) {
-            self.timeDisplay = .Minutes
-        }
-        else {
-            self.timeDisplay = .Default
-        }
     }
 
-    
-    @IBAction func onEditingChangedOnTotalHours(_ sender:UITextField) {
-        if sender.text!.contains(".") {
-        } else {
-            sender.text = "\(Int(sender.text ?? "") ?? 0)"
-        }
-    }
-    
-    @IBAction func onDidEndOnExitOnFields(_ sender: UITextField) {
-        if sender == self.textfieldTotalHours {
-            self.textfieldDayStreak.becomeFirstResponder()
-        } else if sender == self.textfieldDayStreak {
-            self.textfieldImprovements.becomeFirstResponder()
-        } else {
-            self.textfieldImprovements.resignFirstResponder()
-        }
-    }
-    
     @IBAction func onMenu(_ sender: Any) {
         self.sideMenuController?.showLeftViewAnimated()
     }
     
 }
 
-extension HomeViewController: UITextFieldDelegate {
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if string == "\n" {
-            return true
-        }
-        return formatter.number(from:"\(textField.text ?? "")\(string)") != nil
-    }
-}
-
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == self.collectionViewRecentPlaylists {
-            return self.viewModel.recentPlaylists.count
+            return self.recentPlaylists.count
         } else {
-            return self.viewModel.favoriteItems.count
+            return self.favoriteItems.count
         }
     }
     
@@ -269,10 +160,10 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PlaylistCell", for: indexPath)
         if let label = cell.viewWithTag(10) as? UILabel {
             if collectionView == self.collectionViewRecentPlaylists {
-                label.text = self.viewModel.recentPlaylists[indexPath.row].name
+                label.text = self.recentPlaylists[indexPath.row].name
             } else {
                 if let iconView = cell.viewWithTag(11) as? UIImageView {
-                    let item = self.viewModel.favoriteItems[indexPath.row]
+                    let item = self.favoriteItems[indexPath.row]
                     let typeLabel = cell.viewWithTag(12) as! UILabel
                     if let type = item["type"] as? String {
                         if type == "playlist" {
@@ -299,7 +190,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
         if collectionView == self.collectionViewRecentPlaylists {
             let deliverViewModel = PlaylistAndPracticeDeliverModel()
-            deliverViewModel.deliverPlaylist = self.viewModel.recentPlaylists[indexPath.row]
+            deliverViewModel.deliverPlaylist = self.recentPlaylists[indexPath.row]
             let controller = UIStoryboard(name: "playlist", bundle: nil).instantiateViewController(withIdentifier: "PlaylistContentsViewController") as! PlaylistContentsViewController
             controller.parentViewModel = deliverViewModel
             let nav = UINavigationController(rootViewController: controller)
@@ -307,7 +198,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             self.tabBarController?.present(nav, animated: true, completion: nil)
         } else {
             
-            let item = self.viewModel.favoriteItems[indexPath.row]
+            let item = self.favoriteItems[indexPath.row]
             if (item["type"] as? String ?? "") == "playlist" {
                 
                 let deliverViewModel = PlaylistAndPracticeDeliverModel()
@@ -332,7 +223,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 let practiceViewController = controller.viewControllers[0] as! PracticeViewController
                 practiceViewController.practiceItem = practiceItem
                 let deliverModel = PlaylistAndPracticeDeliverModel()
-                deliverModel.deliverPracticeItem = practiceItem
+                deliverModel.deliverPracticeItem = PracticeItemLocalManager.manager.practiceItem(forId: practiceItem.id) ?? practiceItem
                 deliverModel.sessionTimeStarted = Date()
                 deliverModel.sessionImproved = [ImprovedRecord]()
                 practiceViewController.deliverModel = deliverModel
@@ -369,5 +260,131 @@ extension HomeViewController: MetrodroneViewDelegate {
         let frame = self.view.convert(self.metrodroneView.buttonSubDivision.frame, from: self.metrodroneView.buttonSubDivision.superview)
         subdivisionSelectView.bottomAnchor.constraint(equalTo: self.view.topAnchor, constant: frame.origin.y).isActive = true
         subdivisionSelectView.centerXAnchor.constraint(equalTo: self.view.leadingAnchor, constant: frame.origin.x + frame.size.width / 2).isActive = true
+    }
+}
+
+extension HomeViewController {
+    
+    func showCacheValues() {
+        
+        if let profileName = LocalCacheManager.manager.profileName() {
+            self.labelWelcome.text = "Welcome \(profileName)!"
+        } else {
+            self.labelWelcome.text = "Welcome!"
+        }
+        
+        if let totalSeconds = LocalCacheManager.manager.totalWorkingSeconds() {
+            self.displayTotalWorkingSconds(totalSeconds)
+        } else {
+            self.textfieldTotalHours.text = ""
+        }
+        
+        if let dayStreak = LocalCacheManager.manager.dayStreak() {
+            self.textfieldDayStreak.text = "\(dayStreak)"
+        } else {
+            self.textfieldDayStreak.text = ""
+        }
+    }
+    
+    func showImprovementValueFromViewModel() {
+        if let viewModel = AppOveralDataManager.manager.viewModel {
+            self.textfieldImprovements.text = "\(viewModel.totalImprovementsCount)"
+        }
+    }
+    
+    func refreshImprovementValue() {
+        self.textfieldImprovements.text = "\(AppOveralDataManager.manager.totalImprovements() ?? 0)"
+    }
+    
+    func showDashboardValuesFromViewModel() {
+        if let model = AppOveralDataManager.manager.viewModel {
+            self.displayTotalWorkingSconds(model.totalPracticeSeconds)
+            self.textfieldDayStreak.text = "\(model.dayStreakValues)"
+        }
+    }
+    
+    func recalculateDashboardValues() {
+        
+        DispatchQueue.global(qos: .background).async {
+            let data = PracticingDailyLocalManager.manager.statsPracticing()
+            let dayStreakValues = data["streak"] ?? 0
+            let totalPracticeSeconds = data["total"] ?? 0
+            
+            DispatchQueue.main.async {
+                self.displayTotalWorkingSconds(totalPracticeSeconds)
+                self.textfieldDayStreak.text = "\(dayStreakValues)"
+            }
+        }
+        
+    }
+    
+    func displayTotalWorkingSconds(_ seconds: Int) {
+        let timeFormat = AppUtils.totalPracticeTimeDisplay(seconds: seconds)
+        self.textfieldTotalHours.text = timeFormat["value"]
+        self.labelTotalTimeCaption.text = "TOTAL \(timeFormat["unit"] ?? "")"
+    }
+    
+    func showListFromViewModel() {
+        if let viewModel = AppOveralDataManager.manager.viewModel {
+            
+            self.favoriteItems = viewModel.favoriteItems
+            self.collectionViewFavoritePlaylists.reloadData()
+            
+            self.recentPlaylists = viewModel.recentPlaylists
+            self.collectionViewRecentPlaylists.reloadData()
+        }
+    }
+    
+    func refreshList() {
+        self.refreshRecentList()
+        self.refreshFavoritesList()
+    }
+    
+    func refreshRecentList() {
+        DispatchQueue.global(qos: .background).async {
+            if let playlists = PlaylistLocalManager.manager.recentPlaylists() {
+                self.recentPlaylists = playlists
+            }
+            
+            DispatchQueue.main.async {
+                self.collectionViewRecentPlaylists.reloadData()
+            }
+        }
+    }
+    
+    func refreshFavoritesList() {
+        DispatchQueue.global(qos: .background).async {
+            var items = [[String:Any]]()
+            if let playlists = PlaylistLocalManager.manager.loadFavoritePlaylists() {
+                for playlist in playlists {
+                    items.append(["type":"playlist", "data":playlist])
+                }
+            }
+            
+            if let practiceItems = PracticeItemLocalManager.manager.loadAllFavoritePracticeItems() {
+                for practiceItem in practiceItems {
+                    items.append(["type":"practiceitem", "data":practiceItem])
+                }
+            }
+            self.favoriteItems = items.sorted(by: { (item1, item2) -> Bool in
+                var itemName1 = ""
+                var itemName2 = ""
+                if (item1["type"] as? String ?? "") == "playlist" {
+                    itemName1 = (item1["data"] as! Playlist).name.lowercased()
+                } else if (item1["type"] as? String ?? "") == "practiceitem" {
+                    itemName1 = (item1["data"] as! PracticeItem).name.lowercased()
+                }
+                if (item2["type"] as? String ?? "") == "playlist" {
+                    itemName2 = (item2["data"] as! Playlist).name.lowercased()
+                } else if (item1["type"] as? String ?? "") == "practiceitem" {
+                    itemName2 = (item2["data"] as! PracticeItem).name.lowercased()
+                }
+                return itemName1 < itemName2
+            })
+            
+            DispatchQueue.main.async {
+                self.collectionViewFavoritePlaylists.reloadData()
+            }
+        }
     }
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -100,7 +100,7 @@
                                                                                     <action selector="onTotalHours:" destination="uL2-n6-Rai" eventType="touchUpInside" id="HB7-gd-tRt"/>
                                                                                 </connections>
                                                                             </button>
-                                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0" textAlignment="center" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="76E-Vd-ZCr">
+                                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="76E-Vd-ZCr">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="96" height="30"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="width" constant="96" id="QQY-dh-SfO"/>
@@ -109,10 +109,6 @@
                                                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Light" family="Lato" pointSize="28"/>
                                                                                 <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" returnKeyType="next"/>
-                                                                                <connections>
-                                                                                    <action selector="onDidEndOnExitOnFields:" destination="uL2-n6-Rai" eventType="editingDidEndOnExit" id="96N-gQ-HRV"/>
-                                                                                    <action selector="onEditingChangedOnTotalHours:" destination="uL2-n6-Rai" eventType="editingChanged" id="yRp-Fv-hBK"/>
-                                                                                </connections>
                                                                             </textField>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TOTAL HOURS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b5X-Yy-dRV">
                                                                                 <rect key="frame" x="0.0" y="37" width="96" height="12"/>
@@ -138,7 +134,7 @@
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1r2-TD-EGg">
                                                                         <rect key="frame" x="96" y="0.0" width="96" height="61"/>
                                                                         <subviews>
-                                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0" textAlignment="center" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Vnz-GV-vcM">
+                                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Vnz-GV-vcM">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="96" height="30"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="height" constant="30" id="by9-Nz-E2Y"/>
@@ -147,10 +143,6 @@
                                                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Light" family="Lato" pointSize="28"/>
                                                                                 <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" returnKeyType="next"/>
-                                                                                <connections>
-                                                                                    <action selector="onDidEndOnExitOnFields:" destination="uL2-n6-Rai" eventType="editingDidEndOnExit" id="2PX-P2-QMX"/>
-                                                                                    <action selector="onEditingChangedOnTotalHours:" destination="uL2-n6-Rai" eventType="editingChanged" id="ZgN-2q-B6F"/>
-                                                                                </connections>
                                                                             </textField>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DAY STREAK" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yNo-yN-JI4">
                                                                                 <rect key="frame" x="18.5" y="37" width="60" height="12"/>
@@ -199,7 +191,7 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Ja-vi-yPL">
                                                         <rect key="frame" x="218.5" y="27" width="119.5" height="62"/>
                                                         <subviews>
-                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0" textAlignment="center" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="49d-EG-qn5">
+                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="49d-EG-qn5">
                                                                 <rect key="frame" x="12.5" y="0.0" width="96" height="30"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="1lB-Rh-Xs4"/>
@@ -208,10 +200,6 @@
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <fontDescription key="fontDescription" name="Lato-Light" family="Lato" pointSize="28"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" returnKeyType="done"/>
-                                                                <connections>
-                                                                    <action selector="onDidEndOnExitOnFields:" destination="uL2-n6-Rai" eventType="editingDidEndOnExit" id="5uy-Lz-tHd"/>
-                                                                    <action selector="onEditingChangedOnTotalHours:" destination="uL2-n6-Rai" eventType="editingChanged" id="rMY-Fg-VvA"/>
-                                                                </connections>
                                                             </textField>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="IMPROVEMENTS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fjo-Y6-VnS">
                                                                 <rect key="frame" x="20.5" y="37" width="80" height="12"/>
@@ -247,7 +235,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Cb-cv-3Zm">
                                                 <rect key="frame" x="0.0" y="220" width="375" height="363"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3vr-Vx-czF">
+                                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3vr-Vx-czF">
                                                         <rect key="frame" x="30" y="134.5" width="315" height="34"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YHj-6z-v2O">

@@ -124,7 +124,6 @@ class PracticeItemSelectViewController: UIViewController {
     
     @objc func onKeyboardWillChangeFrame(notification: Notification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            print("keyboard height - \(keyboardSize.height)")
             if AppUtils.iphoneIsXModel() {
                 self.constraintForAddButtonBottomSpace.constant = keyboardSize.height - 34
             } else {
@@ -139,7 +138,7 @@ class PracticeItemSelectViewController: UIViewController {
     }
     
     func processWalkthrough() {
-        if !AppOveralDataManager.manager.walkThroughDoneForSecondPage() {
+        if !AppOveralDataManager.manager.walkThroughFlagChecking(key: "walkthrough_second_page") {
             showPracticeItemWalkThrough()
         } else {
             self.viewWalkthrough.isHidden = true
@@ -173,13 +172,7 @@ class PracticeItemSelectViewController: UIViewController {
             self.viewWalkthrough.alpha = 0
         }) { (finished) in
             self.viewWalkthrough.isHidden = true
-            if (self.practiceItems?.count ?? 0) > 0 {
-                if withSetting {
-                    // this never happens, should we remove this code?
-                    // withSetting is always false in the current code
-                    AppOveralDataManager.manager.walkThroughSecondPage()
-                }
-            }
+            AppOveralDataManager.manager.walkthroughSetFlag(key: "walkthrough_second_page", value: true)
         }
     }
 }
@@ -338,7 +331,7 @@ extension PracticeItemSelectViewController {
     @IBAction func onSelectItems(_ sender: Any) {
         ModacityAnalytics.LogStringEvent("Added Practice Item to Playlist", extraParamName: "Item Count", extraParamValue: self.selectedPracticeItems.count)
         
-        AppOveralDataManager.manager.walkThroughSecondPage()
+        AppOveralDataManager.manager.walkthroughSetFlag(key: "walkthrough_second_page", value: true)
         
         if !AppOveralDataManager.manager.firstPlaylistGenerated() {
             AppOveralDataManager.manager.generatedFirstPlaylist()
@@ -427,7 +420,7 @@ extension PracticeItemSelectViewController: UITableViewDelegate, UITableViewData
             let label = UILabel(frame: CGRect(x:10, y:0, width:tableViewMain.frame.size.width - 20, height:24))
             label.text = "\(self.sectionNames[section - (tableHeaderShowing ? 1: 0)])"
             label.textColor = Color.white.alpha(0.8)
-            label.font = UIFont(name: AppConfig.appFontLatoRegular, size: 14)
+            label.font = UIFont(name: AppConfig.UI.Fonts.appFontLatoRegular, size: 14)
             returnedView.addSubview(label)
             
             return returnedView
@@ -501,6 +494,10 @@ extension PracticeItemSelectViewController: UITableViewDelegate, UITableViewData
 extension PracticeItemSelectViewController: PracticeItemSelectCellDelegate {
     
     func onCellMenu(menuButton: UIButton, indexPath: IndexPath) {
+        if self.practiceItemNameEditingCell != nil {
+            self.practiceItemNameEditingCell!.textfieldInputPracticeItemName.resignFirstResponder()
+            self.practiceItemNameEditingCell = nil
+        }
         DropdownMenuView.instance.show(in: self.view,
                                        on: menuButton,
                                        rows: [["icon":"icon_notes", "text":"Details"],
@@ -621,8 +618,8 @@ extension PracticeItemSelectViewController: SortOptionsViewControllerDelegate {
         
         self.sectionNames = Array(self.sectionedPracticeItems.keys).sorted(by: { (ch1, ch2) -> Bool in
             if self.sortKey == .lastPracticedTime {
-                let date1 = ch1.date(format: "M/d/yy") ?? Date(timeIntervalSince1970: 0)
-                let date2 = ch2.date(format: "M/d/yy") ?? Date(timeIntervalSince1970: 0)
+                let date1 =  AppUtils.dateFromStringLocale(from: ch1) ?? Date(timeIntervalSince1970: 0)
+                let date2 =  AppUtils.dateFromStringLocale(from: ch2) ?? Date(timeIntervalSince1970: 0)
                 return (self.sortOption == .ascending) ? (date1 < date2) : (date1 > date2)
             } else {
                 return (self.sortOption == .ascending) ? (ch1 < ch2) : (ch1 > ch2)

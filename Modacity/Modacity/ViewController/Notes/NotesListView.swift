@@ -120,8 +120,8 @@ class NotesListView: UIView {
         self.viewUnlockCover.isHidden = false
         self.viewUnlockCover.backgroundColor = Color.black.alpha(0.55)
         
-        let attributedString = NSMutableAttributedString(string: "WANT\n", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoLight, size: 16)!])
-        attributedString.append(NSAttributedString(string: "UNLIMITED NOTES?", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoBlack, size: 16)!]))
+        let attributedString = NSMutableAttributedString(string: "WANT\n", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.UI.Fonts.appFontLatoLight, size: 16)!])
+        attributedString.append(NSAttributedString(string: "UNLIMITED NOTES?", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.UI.Fonts.appFontLatoBlack, size: 16)!]))
         self.labelUnlockTitle.attributedText = attributedString
         self.labelUnlockDescription.text = "Get unlimited notes per item & access your archive."
         
@@ -136,8 +136,8 @@ class NotesListView: UIView {
     
     func freeUserLock() {
         
-        let attributedString = NSMutableAttributedString(string: "WANT\n", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoLight, size: 16)!])
-        attributedString.append(NSAttributedString(string: "UNLIMITED NOTES?", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoBlack, size: 16)!]))
+        let attributedString = NSMutableAttributedString(string: "WANT\n", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.UI.Fonts.appFontLatoLight, size: 16)!])
+        attributedString.append(NSAttributedString(string: "UNLIMITED NOTES?", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.UI.Fonts.appFontLatoBlack, size: 16)!]))
         self.labelUnlockTitle.attributedText = attributedString
         self.labelUnlockDescription.text = "Get unlimited notes per item & access your archive."
         

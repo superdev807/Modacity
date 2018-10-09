@@ -15,36 +15,12 @@ class DefaultDataShipManager {
     func produceDefaultData() {
         var practiceItems = [PracticeItem]()
         
-        
-        /*
-        let playlist1 = Playlist()
-        playlist1.id = UUID().uuidString
-        playlist1.name = "This Week's Routine"
-        playlist1.playlistPracticeEntries = [PlaylistPracticeEntry]()
-        
-        let playlist2 = Playlist()
-        playlist2.id = UUID().uuidString
-        playlist2.name = "Next Audition"
-        playlist2.playlistPracticeEntries = [PlaylistPracticeEntry]()
-        */
         var playlistPractice = PlaylistPracticeEntry()
         var practiceItem = PracticeItem()
         
         let playlist1 = AddNewPlaylist("This Week's Routine")
         let playlist2 = AddNewPlaylist("Next Audition")
         
-        /*
-         deleted by marc
-        practiceItem.id = UUID().uuidString
-        practiceItem.name = "Breathing"
-        practiceItem.addNote(text: "Use the breath to get focused")
-        practiceItems.append(practiceItem)
-        
-        playlistPractice.name = "Breathing"
-        playlistPractice.countDownDuration = 60
-        playlistPractice.practiceItemId = practiceItem.id
-        playlist1.playlistPracticeEntries.append(playlistPractice)
-        */
         practiceItem = PracticeItem()
         practiceItem.id = UUID().uuidString
         practiceItem.name = "Scales - Major"
@@ -58,21 +34,6 @@ class DefaultDataShipManager {
         playlistPractice.name = "Scales - Major"
         playlistPractice.practiceItemId = practiceItem.id
         playlist1.playlistPracticeEntries.append(playlistPractice)
-        
-        /*
-        practiceItem = PracticeItem()
-        practiceItem.id = UUID().uuidString
-        practiceItem.name = "Scales - Minor"
-        practiceItem.updateFavorite(favorite: true)
-        practiceItem.addNote(text: "Swipe up to archive notes")
-        practiceItems.append(practiceItem)
-        PracticeItemLocalManager.manager.updateFavoriteIds(withNewItemId: practiceItem.id)
-        
-        playlistPractice = PlaylistPracticeEntry()
-        playlistPractice.name = "Scales - Minor"
-        playlistPractice.practiceItemId = practiceItem.id
-        playlist1.playlistPracticeEntries.append(playlistPractice)
-        */
         
         practiceItem = PracticeItem()
         practiceItem.name = "Visualization"
@@ -122,22 +83,6 @@ class DefaultDataShipManager {
         playlistPractice.countDownDuration = 300
         playlist1.playlistPracticeEntries.append(playlistPractice)
         
-        /*
-         
-         removed by Marc
-         
-         practiceItem = PracticeItem()
-        practiceItem.id = UUID().uuidString
-        practiceItem.name = "Audition Binder"
-        practiceItems.append(practiceItem)
-
-        
-        playlistPractice = PlaylistPracticeEntry()
-        playlistPractice.name = "Audition Binder"
-        playlistPractice.practiceItemId = practiceItem.id
-        playlist2.playlistPracticeEntries.append(playlistPractice)
- */
- 
         playlistPractice = PlaylistPracticeEntry()
         playlistPractice.name = "Visualization"
         playlistPractice.practiceItemId = visualizationPracticeItemId
@@ -154,29 +99,6 @@ class DefaultDataShipManager {
         playlistPractice.practiceItemId = practiceItem.id
         playlist2.playlistPracticeEntries.append(playlistPractice)
         
-        /*practiceItem = PracticeItem()
-        practiceItem.id = UUID().uuidString
-        practiceItem.name = "Porgy & Bess"
-        practiceItems.append(practiceItem)
-        
-        playlistPractice = PlaylistPracticeEntry()
-        playlistPractice.name = "Porgy & Bess"
-        playlistPractice.practiceItemId = practiceItem.id
-        playlist2.playlistPracticeEntries.append(playlistPractice)
-        
-        practiceItem = PracticeItem()
-        practiceItem.id = UUID().uuidString
-        practiceItem.name = "Beethoven 9"
-        practiceItem.updateFavorite(favorite: true)
-        practiceItems.append(practiceItem)
-        PracticeItemLocalManager.manager.updateFavoriteIds(withNewItemId: practiceItem.id)
-        
-        playlistPractice = PlaylistPracticeEntry()
-        playlistPractice.name = "Beethoven 9"
-        playlistPractice.practiceItemId = practiceItem.id
-        playlist2.playlistPracticeEntries.append(playlistPractice)
-        */
-        
         playlistPractice = PlaylistPracticeEntry()
         playlistPractice.name = "Stretch, Reflect, Tidy Up"
         playlistPractice.practiceItemId = stretchPracticeItemId
@@ -191,8 +113,7 @@ class DefaultDataShipManager {
         
     }
     
-    func AddNewPracticeItem(_ itemName: String, notes: [String] = [])
-    -> PracticeItem {
+    func AddNewPracticeItem(_ itemName: String, notes: [String] = []) -> PracticeItem {
         let practiceItem = PracticeItem()
         practiceItem.name = itemName
         practiceItem.id = UUID().uuidString

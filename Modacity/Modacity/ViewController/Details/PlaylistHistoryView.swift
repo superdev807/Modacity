@@ -35,7 +35,7 @@ class PlaylistHistoryView: UIView {
     @IBOutlet weak var labelNoPracticeData: UILabel!
     @IBOutlet weak var viewLoaderPanel: UIView!
     
-    var data = [String:[PlaylistDaily]]()
+    var data = [String:[PracticeDaily]]()
     var practicesCount = 0
     var practices = [[PracticeDaily]]()
     var dates = [Date]()
@@ -90,7 +90,7 @@ class PlaylistHistoryView: UIView {
     
     func clear() {
         self.startIdx = 0
-        self.data = [String:[PlaylistDaily]]()
+        self.data = [String:[PracticeDaily]]()
         self.practices = [[PracticeDaily]]()
         self.practicesCount = 0
         self.dates = [Date]()
@@ -102,9 +102,9 @@ class PlaylistHistoryView: UIView {
     }
     
     func loadPriData(for playlistId: String? = nil) {
-        self.data = [String:[PlaylistDaily]]()
+        self.data = [String:[PracticeDaily]]()
         if playlistId == nil {
-            self.data = PlaylistDailyLocalManager.manager.overallPracticeData()
+            self.data = PracticingDailyLocalManager.manager.overallPracticeData()
         } else {
             self.data = PlaylistDailyLocalManager.manager.playlistPracticingData(forPlaylistId: playlistId!)
         }
@@ -151,14 +151,13 @@ class PlaylistHistoryView: UIView {
                 for daily in dailyDatas {
                     totalPracticesSeconds = totalPracticesSeconds + daily.practiceTimeInSeconds
 
-                    if daily.practices != nil {
-                        
-                        for practiceId in daily.practices {
-                            if let practicingData = PracticingDailyLocalManager.manager.practicingData(forDataId: practiceId) {
-                                practiceData.practiceDataList.append(practicingData)
-                            }
-                        }
-                    }
+//                    if daily.practices != nil {
+//                        for practiceId in daily.practices {
+//                            if let practicingData = PracticingDailyLocalManager.manager.practicingData(forDataId: practiceId) {
+                                practiceData.practiceDataList.append(daily)
+//                            }
+//                        }
+//                    }
                 }
             }
             
@@ -197,14 +196,12 @@ class PlaylistHistoryView: UIView {
         DispatchQueue.global().async {
             let time = Date()
             
-            self.data = [String:[PlaylistDaily]]()
+            self.data = [String:[PracticeDaily]]()
             if playlistId == nil {
-                self.data = PlaylistDailyLocalManager.manager.overallPracticeData()
+                self.data = PracticingDailyLocalManager.manager.overallPracticeData()
             } else {
                 self.data = PlaylistDailyLocalManager.manager.playlistPracticingData(forPlaylistId: playlistId!)
             }
-            
-            print("Took time to load - \(Date().timeIntervalSince1970 - time.timeIntervalSince1970)")
             
             self.loadPriData(for: playlistId)
             
@@ -212,10 +209,8 @@ class PlaylistHistoryView: UIView {
             
             self.loadNextData()
             
-            print("Took time to load and process - \(Date().timeIntervalSince1970 - time.timeIntervalSince1970)")
-            
             DispatchQueue.main.async {
-                print("Took time to load and process, show - \(Date().timeIntervalSince1970 - time.timeIntervalSince1970)")
+                ModacityDebugger.debug("Took time to load and process, show - \(Date().timeIntervalSince1970 - time.timeIntervalSince1970)")
                 self.viewLoaderPanel.isHidden = true
                 self.tableViewMain.reloadData()
             }

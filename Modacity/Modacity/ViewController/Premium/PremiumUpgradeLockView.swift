@@ -56,8 +56,8 @@ class PremiumUpgradeLockView: UIView {
     
     func configureForPracticeStats() {
         self.viewContent.isHidden = false
-        let attributedString = NSMutableAttributedString(string: "UNLOCK YOUR\n", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoLight, size: 16)!])
-        attributedString.append(NSAttributedString(string: "PRACTICE STATS", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoBlack, size: 16)!]))
+        let attributedString = NSMutableAttributedString(string: "UNLOCK YOUR\n", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.UI.Fonts.appFontLatoLight, size: 16)!])
+        attributedString.append(NSAttributedString(string: "PRACTICE STATS", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.UI.Fonts.appFontLatoBlack, size: 16)!]))
         self.labelTitle.attributedText = attributedString
         self.constraintForTopSpace.constant = 20
         self.labelDescription.text = "Get time breakdowns, rating history & more."
@@ -66,8 +66,8 @@ class PremiumUpgradeLockView: UIView {
     
     func configureForNote() {
 //        self.viewContentPanel.isHidden = true
-        let attributedString = NSMutableAttributedString(string: "WANT\n", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoLight, size: 16)!])
-        attributedString.append(NSAttributedString(string: "UNLIMITED NOTES?", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoBlack, size: 16)!]))
+        let attributedString = NSMutableAttributedString(string: "WANT\n", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.UI.Fonts.appFontLatoLight, size: 16)!])
+        attributedString.append(NSAttributedString(string: "UNLIMITED NOTES?", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.UI.Fonts.appFontLatoBlack, size: 16)!]))
         self.labelTitle.attributedText = attributedString
         self.constraintForTopSpace.constant = 20
         self.labelDescription.text = "Get unlimited notes per item & access your archive."
@@ -76,8 +76,8 @@ class PremiumUpgradeLockView: UIView {
     
     func configureForHistory() {
         self.viewContent.isHidden = false
-        let attributedString = NSMutableAttributedString(string: "UNLOCK YOUR\n", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoLight, size: 16)!])
-        attributedString.append(NSAttributedString(string: "PRACTICE LOG", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoBlack, size: 16)!]))
+        let attributedString = NSMutableAttributedString(string: "UNLOCK YOUR\n", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.UI.Fonts.appFontLatoLight, size: 16)!])
+        attributedString.append(NSAttributedString(string: "PRACTICE LOG", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.UI.Fonts.appFontLatoBlack, size: 16)!]))
         self.labelTitle.attributedText = attributedString
         self.constraintForTopSpace.constant = 20
         self.labelDescription.text = "See a detailed history of your practice."
@@ -86,8 +86,8 @@ class PremiumUpgradeLockView: UIView {
     
     func configureForMetrodrone() {
         self.viewContent.isHidden = false
-        let attributedString = NSMutableAttributedString(string: "UNLOCK STANDALONE\n", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoLight, size: 16)!])
-        attributedString.append(NSAttributedString(string: "METRODRONE", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoBlack, size: 16)!]))
+        let attributedString = NSMutableAttributedString(string: "UNLOCK STANDALONE\n", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.UI.Fonts.appFontLatoLight, size: 16)!])
+        attributedString.append(NSAttributedString(string: "METRODRONE", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.UI.Fonts.appFontLatoBlack, size: 16)!]))
         self.labelTitle.attributedText = attributedString
         self.constraintForTopSpace.constant = 20
         self.labelDescription.text = "Get access to our fullscreen MetroDrone."
@@ -96,8 +96,8 @@ class PremiumUpgradeLockView: UIView {
     
     func configureForTakeBreak() {
         self.viewContent.isHidden = false
-        let attributedString = NSMutableAttributedString(string: "UNLOCK\n", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoLight, size: 16)!])
-        attributedString.append(NSAttributedString(string: "BREAK REMINDERS", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoBlack, size: 16)!]))
+        let attributedString = NSMutableAttributedString(string: "UNLOCK\n", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.UI.Fonts.appFontLatoLight, size: 16)!])
+        attributedString.append(NSAttributedString(string: "BREAK REMINDERS", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.UI.Fonts.appFontLatoBlack, size: 16)!]))
         self.labelTitle.attributedText = attributedString
         self.constraintForTopSpace.constant = 20
         self.labelDescription.text = "Let Modacity remind you to take a break!"

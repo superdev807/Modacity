@@ -23,6 +23,11 @@ class SigninViewController: UIViewController {
     
     @IBOutlet weak var buttonCreateAnAccount: UIButton!
     
+    @IBOutlet weak var labelWaiting: UILabel!
+    @IBOutlet weak var spinnerProcessing: UIActivityIndicatorView!
+    let waitingTimeLongLimit: Int = 5
+    var waitingTimer: Timer? = nil
+    
     private let viewModel = AuthViewModel()
     
     override func viewDidLoad() {
@@ -54,6 +59,9 @@ class SigninViewController: UIViewController {
         
         self.spinerCreateAccount.stopAnimating()
         self.spinerSignIn.stopAnimating()
+        
+        self.spinnerProcessing.stopAnimating()
+        self.labelWaiting.isHidden = true
     }
     
     func bindViewModel() {
@@ -67,14 +75,12 @@ class SigninViewController: UIViewController {
                 case .signup:
                     self.view.isUserInteractionEnabled = false
                     self.spinerCreateAccount.startAnimating()
+                case .succeeded:
+                    self.openHome()
                 default:
                     self.view.isUserInteractionEnabled = true
                     self.spinerSignIn.stopAnimating()
                     self.spinerCreateAccount.stopAnimating()
-                }
-                
-                if value == .succeeded {
-                    self.openHome()
                 }
             }
         }
@@ -90,8 +96,34 @@ class SigninViewController: UIViewController {
     func openHome() {
         self.textfieldEmailAddress.text = ""
         self.textfieldPassword.text = ""
-        let home = UIStoryboard(name: "sidemenu", bundle: nil).instantiateViewController(withIdentifier: "SideMenuController") as! SideMenuController
-        self.navigationController?.pushViewController(home, animated: true)
+        self.spinnerProcessing.startAnimating()
+        NotificationCenter.default.addObserver(self, selector: #selector(showHomePage), name: AppConfig.NotificationNames.appNotificationHomePageValuesLoaded, object: nil)
+        self.waitingTimer = Timer.scheduledTimer(timeInterval: TimeInterval(waitingTimeLongLimit), target: self, selector: #selector(showWaitingLabel), userInfo: nil, repeats: false)
+        AppOveralDataManager.manager.viewModel = HomeViewModel()
+        AppOveralDataManager.manager.viewModel!.prepareValues()
+    }
+    
+    @objc func showHomePage() {
+        if let timer = self.waitingTimer {
+            timer.invalidate()
+            self.waitingTimer = nil
+        }
+        
+        DispatchQueue.main.async {
+            self.view.isUserInteractionEnabled = true
+            self.spinerSignIn.stopAnimating()
+            self.spinerCreateAccount.stopAnimating()
+            self.spinnerProcessing.stopAnimating()
+            NotificationCenter.default.removeObserver(self, name: AppConfig.NotificationNames.appNotificationHomePageValuesLoaded, object: nil)
+            let controller = UIStoryboard(name: "sidemenu", bundle: nil).instantiateViewController(withIdentifier: "SideMenuController") as! SideMenuController
+            self.navigationController?.pushViewController(controller, animated: true)
+        }
+    }
+    
+    @objc func showWaitingLabel() {
+        self.labelWaiting.isHidden = false
+        self.waitingTimer!.invalidate()
+        self.waitingTimer = nil
     }
     
     @IBAction func onBack(_ sender: Any) {

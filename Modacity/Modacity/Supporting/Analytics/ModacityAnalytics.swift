@@ -96,22 +96,18 @@ class ModacityAnalytics: NSObject {
             
         
             if (!debugPrefix.isEmpty) {
-                print(debugPrefix + "\(eventString), \(paramName) = \(value!)")
+                ModacityDebugger.debug(debugPrefix + "\(eventString), \(paramName) = \(value!)")
             }
-        
-            
-            Analytics.logEvent(eventString, parameters: [paramName: value!])
+
             FBSDKAppEvents.logEvent(eventString, parameters: [paramName: value!])
             Amplitude.instance().logEvent(eventString, withEventProperties: [paramName: value!])
             Intercom.logEvent(withName: eventString, metaData: [paramName : value!])
  
-            
         } else {
             if (!debugPrefix.isEmpty) {
-                print(debugPrefix + eventString)
+                ModacityDebugger.debug(debugPrefix + eventString)
             }
             
-            Analytics.logEvent(eventString, parameters: nil)
             FBSDKAppEvents.logEvent(eventString)
             Amplitude.instance().logEvent(eventString)
             Intercom.logEvent(withName: eventString)
@@ -128,7 +124,6 @@ class ModacityAnalytics: NSObject {
     }
     
     static func LogEvent(_ event: ModacityEvent, params: [String:Any]?) {
-        Analytics.logEvent(event.rawValue, parameters: params)
         FBSDKAppEvents.logEvent(event.rawValue, parameters: params)
         Amplitude.instance().logEvent(event.rawValue, withEventProperties: params)
         Intercom.logEvent(withName: event.rawValue, metaData: params ?? [String:Any]())

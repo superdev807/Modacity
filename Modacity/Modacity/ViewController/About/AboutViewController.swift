@@ -46,25 +46,25 @@ class AboutViewController: UIViewController {
     
     @IBAction func onAcknowledgement(_ sender: Any) {
         if #available(iOS 10.0, *) {
-            UIApplication.shared.open(URL(string:AppConfig.appConfigHomeUrlLink)!, options: [:], completionHandler: nil)
+            UIApplication.shared.open(URL(string:AppConfig.Links.appConfigHomeUrlLink)!, options: [:], completionHandler: nil)
         } else {
-            UIApplication.shared.openURL(URL(string:AppConfig.appConfigHomeUrlLink)!)
+            UIApplication.shared.openURL(URL(string:AppConfig.Links.appConfigHomeUrlLink)!)
         }
     }
     
     @IBAction func onPrivacy(_ sender: Any) {
         if #available(iOS 10.0, *) {
-            UIApplication.shared.open(URL(string:AppConfig.appConfigPrivacyUrlLink)!, options: [:], completionHandler: nil)
+            UIApplication.shared.open(URL(string:AppConfig.Links.appConfigPrivacyUrlLink)!, options: [:], completionHandler: nil)
         } else {
-            UIApplication.shared.openURL(URL(string:AppConfig.appConfigPrivacyUrlLink)!)
+            UIApplication.shared.openURL(URL(string:AppConfig.Links.appConfigPrivacyUrlLink)!)
         }
     }
     
     @IBAction func onTerms(_ sender: Any) {
         if #available(iOS 10.0, *) {
-            UIApplication.shared.open(URL(string:AppConfig.appConfigTermsUrlLink)!, options: [:], completionHandler: nil)
+            UIApplication.shared.open(URL(string:AppConfig.Links.appConfigTermsUrlLink)!, options: [:], completionHandler: nil)
         } else {
-            UIApplication.shared.openURL(URL(string:AppConfig.appConfigTermsUrlLink)!)
+            UIApplication.shared.openURL(URL(string:AppConfig.Links.appConfigTermsUrlLink)!)
         }
     }
     
@@ -129,27 +129,27 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
             //AppDelegate.
         } else if indexPath.row == 1 {
             if #available(iOS 10.0, *) {
-                UIApplication.shared.open(URL(string:AppConfig.appConfigInstagramLink)!, options: [:], completionHandler: nil)
+                UIApplication.shared.open(URL(string:AppConfig.Links.appConfigInstagramLink)!, options: [:], completionHandler: nil)
             } else {
-                UIApplication.shared.openURL(URL(string:AppConfig.appConfigInstagramLink)!)
+                UIApplication.shared.openURL(URL(string:AppConfig.Links.appConfigInstagramLink)!)
             }
         } else if indexPath.row == 2 {
             if #available(iOS 10.0, *) {
-                UIApplication.shared.open(URL(string:AppConfig.appConfigTwitterLink)!, options: [:], completionHandler: nil)
+                UIApplication.shared.open(URL(string:AppConfig.Links.appConfigTwitterLink)!, options: [:], completionHandler: nil)
             } else {
-                UIApplication.shared.openURL(URL(string:AppConfig.appConfigTwitterLink)!)
+                UIApplication.shared.openURL(URL(string:AppConfig.Links.appConfigTwitterLink)!)
             }
         } else if indexPath.row == 3 {
             if #available(iOS 10.0, *) {
-                UIApplication.shared.open(URL(string:AppConfig.appConfigFacebookLink)!, options: [:], completionHandler: nil)
+                UIApplication.shared.open(URL(string:AppConfig.Links.appConfigFacebookLink)!, options: [:], completionHandler: nil)
             } else {
-                UIApplication.shared.openURL(URL(string:AppConfig.appConfigFacebookLink)!)
+                UIApplication.shared.openURL(URL(string:AppConfig.Links.appConfigFacebookLink)!)
             }
         } else {
             if #available(iOS 10.0, *) {
-                UIApplication.shared.open(URL(string:AppConfig.appConfigWebsiteLink)!, options: [:], completionHandler: nil)
+                UIApplication.shared.open(URL(string:AppConfig.Links.appConfigWebsiteLink)!, options: [:], completionHandler: nil)
             } else {
-                UIApplication.shared.openURL(URL(string:AppConfig.appConfigWebsiteLink)!)
+                UIApplication.shared.openURL(URL(string:AppConfig.Links.appConfigWebsiteLink)!)
             }
         }
     }

@@ -281,6 +281,73 @@ class PracticingDailyLocalManager: NSObject {
         }
     }
     
+    func overallPracticeData() -> [String:[PracticeDaily]] {
+        
+        let start = Date()
+        
+        var data = [String:[PracticeDaily]]()
+        
+        for key in UserDefaults.standard.dictionaryRepresentation().keys {
+            if key.hasPrefix("practicing-data-") {
+                if let json = UserDefaults.standard.object(forKey: key) as? [String:Any] {
+                    if let practice = PracticeDaily(JSON: json) {
+                        if data[practice.entryDateString] == nil {
+                            data[practice.entryDateString] = [practice]
+                        } else {
+                            var entries = data[practice.entryDateString]!
+                            entries.append(practice)
+                            data[practice.entryDateString] = entries
+                        }
+                    }
+                }
+            }
+        }
+        
+        ModacityDebugger.debug("Overall practice data fetching time - \(Date().timeIntervalSince1970 - start.timeIntervalSince1970)s")
+        
+        return data
+    }
+    
+    func statsPracticing() -> [String: Int] {
+        let start = Date()
+        
+        var practicedDataPerDate = [String:Bool]()
+        var totalPracticeTimeInSecond = 0
+        
+        for key in UserDefaults.standard.dictionaryRepresentation().keys {
+            if key.hasPrefix("practicing-data-") {
+                if let data = UserDefaults.standard.object(forKey: key) as? [String:Any] {
+                    if let practice = PracticeDaily(JSON: data) {
+                        practicedDataPerDate[practice.entryDateString] = true
+                        totalPracticeTimeInSecond = totalPracticeTimeInSecond + practice.practiceTimeInSeconds
+                    }
+                }
+            }
+        }
+        
+        var dateString = Date().ago(years: 0, months: 0, weeks: 0, days: 1, hours: 0, minutes: 0, seconds: 0).toString(format: "yy-MM-dd")
+        var streakDays = 0
+        while practicedDataPerDate[dateString] != nil  && practicedDataPerDate[dateString]! == true {
+            streakDays = streakDays + 1
+            dateString = dateString.date(format: "yy-MM-dd")!.ago(years: 0, months: 0, weeks: 0, days: 1, hours: 0, minutes: 0, seconds: 0).toString(format: "yy-MM-dd")
+        }
+        
+        let todayString = Date().toString(format: "yy-MM-dd")
+        if practicedDataPerDate[todayString] != nil && practicedDataPerDate[todayString]! == true {
+            streakDays = streakDays + 1
+        }
+        
+        ModacityDebugger.debug("App overall data calculation time - \(Date().timeIntervalSince1970 - start.timeIntervalSince1970)s")
+        
+        LocalCacheManager.manager.storeTotalWorkingSecondsToCache(seconds: totalPracticeTimeInSecond)
+        LocalCacheManager.manager.storeDayStreaksToCache(days: streakDays)
+        
+        var finalResult = [String:Int]()
+        finalResult["streak"] = streakDays
+        finalResult["total"] = totalPracticeTimeInSecond
+        return finalResult
+    }
+    
     func signout() {
         for key in UserDefaults.standard.dictionaryRepresentation().keys {
             if key.hasPrefix("practicing-indecies-") || key.hasPrefix("practicing-data-") {

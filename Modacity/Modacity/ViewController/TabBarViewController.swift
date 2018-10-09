@@ -31,7 +31,8 @@ class TabBarViewController: UITabBarController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.tabBar.isHidden = true
-        NotificationCenter.default.addObserver(self, selector: #selector(updateWelcomeLabelText), name: AppConfig.appNotificationProfileUpdated, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateWelcomeLabelText), name: AppConfig.NotificationNames.appNotificationProfileUpdated, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(processWalkThrough), name: AppConfig.NotificationNames.appNotificationWalkthroughSynchronized, object: nil)
     }
     
     deinit {
@@ -253,74 +254,76 @@ class TabBarViewController: UITabBarController {
         self.viewControllers = [homeScene, playlistScene, recordingScene]
     }
     
-    func processWalkThrough() {
-        if !AppOveralDataManager.manager.walkThroughDoneForFirstPage() {
-            self.viewWalkThrough = UIView()
-            self.viewWalkThrough.backgroundColor = AppConfig.UI.AppColors.walkthroughOverlayColor
-            self.viewWalkThrough.translatesAutoresizingMaskIntoConstraints = false
-            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(onCloseWalkThrough))
-            self.viewWalkThrough.addGestureRecognizer(tapGesture)
-            self.view.addSubview(self.viewWalkThrough)
-            self.view.bringSubview(toFront: self.viewWalkThrough)
-            
-            self.viewWalkThrough.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
-            self.viewWalkThrough.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
-            self.viewWalkThrough.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
-            self.viewWalkThrough.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
-            
-            let buttonClose = UIButton()
-            buttonClose.setImage(UIImage(named:"icon_close"), for: .normal)
-            buttonClose.addTarget(self, action: #selector(onCloseWalkThrough), for: .touchUpInside)
-            buttonClose.translatesAutoresizingMaskIntoConstraints = false
-            self.viewWalkThrough.addSubview(buttonClose)
-            
-            buttonClose.leadingAnchor.constraint(equalTo: self.viewWalkThrough.leadingAnchor, constant: 0).isActive = true
-            buttonClose.topAnchor.constraint(equalTo: self.viewWalkThrough.topAnchor, constant: 20).isActive = true
-            buttonClose.widthAnchor.constraint(equalToConstant: 44).isActive = true
-            buttonClose.heightAnchor.constraint(equalToConstant: 44).isActive = true
-            
-            let imageViewArrow = UIImageView(image: UIImage(named: "walthrough_arrow_1"))
-            imageViewArrow.translatesAutoresizingMaskIntoConstraints = false
-            self.viewWalkThrough.addSubview(imageViewArrow)
-            var bottomConstraing = CGFloat(-64)
-            if AppUtils.iphoneIsXModel() {
-                bottomConstraing = -84
+    @objc func processWalkThrough() {
+        if !AppOveralDataManager.manager.walkThroughFlagChecking(key: "walkthrough_first_page") {
+            if WalkthroughRemoteManager.manager.synchronized {
+                self.viewWalkThrough = UIView()
+                self.viewWalkThrough.backgroundColor = AppConfig.UI.AppColors.walkthroughOverlayColor
+                self.viewWalkThrough.translatesAutoresizingMaskIntoConstraints = false
+                let tapGesture = UITapGestureRecognizer(target: self, action: #selector(onCloseWalkThrough))
+                self.viewWalkThrough.addGestureRecognizer(tapGesture)
+                self.view.addSubview(self.viewWalkThrough)
+                self.view.bringSubview(toFront: self.viewWalkThrough)
+                
+                self.viewWalkThrough.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+                self.viewWalkThrough.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+                self.viewWalkThrough.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+                self.viewWalkThrough.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+                
+                let buttonClose = UIButton()
+                buttonClose.setImage(UIImage(named:"icon_close"), for: .normal)
+                buttonClose.addTarget(self, action: #selector(onCloseWalkThrough), for: .touchUpInside)
+                buttonClose.translatesAutoresizingMaskIntoConstraints = false
+                self.viewWalkThrough.addSubview(buttonClose)
+                
+                buttonClose.leadingAnchor.constraint(equalTo: self.viewWalkThrough.leadingAnchor, constant: 0).isActive = true
+                buttonClose.topAnchor.constraint(equalTo: self.viewWalkThrough.topAnchor, constant: 20).isActive = true
+                buttonClose.widthAnchor.constraint(equalToConstant: 44).isActive = true
+                buttonClose.heightAnchor.constraint(equalToConstant: 44).isActive = true
+                
+                let imageViewArrow = UIImageView(image: UIImage(named: "walthrough_arrow_1"))
+                imageViewArrow.translatesAutoresizingMaskIntoConstraints = false
+                self.viewWalkThrough.addSubview(imageViewArrow)
+                var bottomConstraing = CGFloat(-64)
+                if AppUtils.iphoneIsXModel() {
+                    bottomConstraing = -84
+                }
+                imageViewArrow.bottomAnchor.constraint(equalTo: self.viewWalkThrough.bottomAnchor, constant: bottomConstraing).isActive = true
+                imageViewArrow.trailingAnchor.constraint(equalTo: self.viewWalkThrough.trailingAnchor, constant: -74).isActive = true
+                
+                let label = UILabel()
+                label.translatesAutoresizingMaskIntoConstraints = false
+                label.numberOfLines = 0
+                label.text = "To get started build your\nfirst playlist and start practicing."
+                label.textAlignment = .center
+                label.textColor = Color.white
+                label.font = UIFont(name: AppConfig.UI.Fonts.appFontLatoBoldItalic, size: 18)
+                self.viewWalkThrough.addSubview(label)
+                label.bottomAnchor.constraint(equalTo: imageViewArrow.topAnchor, constant: -20).isActive = true
+                label.centerXAnchor.constraint(equalTo: self.viewWalkThrough.centerXAnchor).isActive = true
+                
+                let welcomeLabel = UILabel()
+                
+                welcomeLabel.translatesAutoresizingMaskIntoConstraints = false
+                welcomeLabel.numberOfLines = 0
+                if let me = MyProfileLocalManager.manager.me {
+                    welcomeLabel.text = "Hi \(me.displayName()), it looks like\nyou’re new here."
+                } else {
+                    welcomeLabel.text = "Hi, it looks like you’re new here."
+                }
+                
+                welcomeLabel.textAlignment = .center
+                welcomeLabel.textColor = Color.white
+                welcomeLabel.font = UIFont(name: AppConfig.UI.Fonts.appFontLatoLight, size: 20)
+                self.viewWalkThrough.addSubview(welcomeLabel)
+                label.topAnchor.constraint(equalTo: welcomeLabel.bottomAnchor, constant: 40).isActive = true
+                welcomeLabel.centerXAnchor.constraint(equalTo: self.viewWalkThrough.centerXAnchor).isActive = true
+                
+                self.labelWelcome = welcomeLabel
+                
+                self.viewWalkThrough.alpha = 0
+                self.showWalkThrough()
             }
-            imageViewArrow.bottomAnchor.constraint(equalTo: self.viewWalkThrough.bottomAnchor, constant: bottomConstraing).isActive = true
-            imageViewArrow.trailingAnchor.constraint(equalTo: self.viewWalkThrough.trailingAnchor, constant: -74).isActive = true
-            
-            let label = UILabel()
-            label.translatesAutoresizingMaskIntoConstraints = false
-            label.numberOfLines = 0
-            label.text = "To get started build your\nfirst playlist and start practicing."
-            label.textAlignment = .center
-            label.textColor = Color.white
-            label.font = UIFont(name: AppConfig.appFontLatoBoldItalic, size: 18)
-            self.viewWalkThrough.addSubview(label)
-            label.bottomAnchor.constraint(equalTo: imageViewArrow.topAnchor, constant: -20).isActive = true
-            label.centerXAnchor.constraint(equalTo: self.viewWalkThrough.centerXAnchor).isActive = true
-            
-            let welcomeLabel = UILabel()
-            
-            welcomeLabel.translatesAutoresizingMaskIntoConstraints = false
-            welcomeLabel.numberOfLines = 0
-            if let me = MyProfileLocalManager.manager.me {
-                welcomeLabel.text = "Hi \(me.displayName()), it looks like\nyou’re new here."
-            } else {
-                welcomeLabel.text = "Hi, it looks like you’re new here."
-            }
-            
-            welcomeLabel.textAlignment = .center
-            welcomeLabel.textColor = Color.white
-            welcomeLabel.font = UIFont(name: AppConfig.appFontLatoLight, size: 20)
-            self.viewWalkThrough.addSubview(welcomeLabel)
-            label.topAnchor.constraint(equalTo: welcomeLabel.bottomAnchor, constant: 40).isActive = true
-            welcomeLabel.centerXAnchor.constraint(equalTo: self.viewWalkThrough.centerXAnchor).isActive = true
-            
-            self.labelWelcome = welcomeLabel
-            
-            self.viewWalkThrough.alpha = 0
-            self.showWalkThrough()
         }
     }
     
@@ -345,7 +348,7 @@ class TabBarViewController: UITabBarController {
                 self.viewWalkThrough.alpha = 0
             }) { (finished) in
                 self.viewWalkThrough.removeFromSuperview()
-                AppOveralDataManager.manager.walkThroughFirstPage()
+                AppOveralDataManager.manager.walkthroughSetFlag(key: "walkthrough_first_page", value: true)
                 ModacityAnalytics.LogStringEvent("Walkthrough - Home - Closed")
             }
         }
@@ -371,13 +374,13 @@ class TabBarViewController: UITabBarController {
 
     @objc func onNewPlaylist() {
         
-        if !AppOveralDataManager.manager.walkThroughDoneForFirstPage() {
+        if !AppOveralDataManager.manager.walkThroughFlagChecking(key: "walkthrough_first_page") {
             if self.viewWalkThrough != nil {
                 UIView.animate(withDuration: 0.5, animations: {
                     self.viewWalkThrough.alpha = 0
                 }) { (finished) in
                     self.viewWalkThrough.removeFromSuperview()
-                    AppOveralDataManager.manager.walkThroughFirstPage()
+                    AppOveralDataManager.manager.walkthroughSetFlag(key: "walkthrough_first_page", value: true)
                     self.openNewPlaylist()
                 }
                 return

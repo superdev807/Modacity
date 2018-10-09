@@ -14,8 +14,9 @@ class PremiumDataManager: NSObject {
     static let manager = PremiumDataManager()
     
     let refUser = Database.database().reference().child("users")
-    
     var premiumObserver: DatabaseHandle?
+    
+    var listenerPaused = false
     
     func fetchPremiumUpgradeStatus() {
         if let userId = MyProfileLocalManager.manager.userId() {
@@ -34,7 +35,7 @@ class PremiumDataManager: NSObject {
     func processPremium(_ premium: PremiumData) {
         UserDefaults.standard.set(premium.toJSON(), forKey: "premium")
         UserDefaults.standard.synchronize()
-        NotificationCenter.default.post(name: AppConfig.appNotificationPremiumStatusChanged, object: nil)
+        NotificationCenter.default.post(name: AppConfig.NotificationNames.appNotificationPremiumStatusChanged, object: nil)
         
         self.checkPremium()
     }
@@ -103,10 +104,36 @@ class PremiumDataManager: NSObject {
                 if let error = error {
                     completion(error.localizedDescription)
                 } else {
-                    NotificationCenter.default.post(name: AppConfig.appNotificationPremiumStatusChanged, object: nil)
+                    NotificationCenter.default.post(name: AppConfig.NotificationNames.appNotificationPremiumStatusChanged, object: nil)
                     completion(nil)
                 }
             }
+        }
+    }
+    
+    func processOffline() {
+        if let observer = self.premiumObserver,
+            let userId = MyProfileLocalManager.manager.userId() {
+            self.refUser.child(userId).child("premium").removeObserver(withHandle: observer)
+            self.premiumObserver = nil
+            listenerPaused = true
+        }
+    }
+    
+    func processResumeOnline() {
+        if listenerPaused {
+            if let userId = MyProfileLocalManager.manager.userId() {
+                self.premiumObserver = self.refUser.child(userId).child("premium").observe(.value) { (snapshot) in
+                    if snapshot.exists() {
+                        if let data = snapshot.value as? [String:Any] {
+                            if let premium = PremiumData(JSON: data) {
+                                self.processPremium(premium)
+                            }
+                        }
+                    }
+                }
+            }
+            listenerPaused = false
         }
     }
     
@@ -115,7 +142,9 @@ class PremiumDataManager: NSObject {
         UserDefaults.standard.synchronize()
         if let observer = self.premiumObserver {
             if let userId = MyProfileLocalManager.manager.userId() {
-                self.refUser.child(userId).child(userId).removeObserver(withHandle: observer)
+                self.refUser.child(userId).child("premium").removeObserver(withHandle: observer)
+                self.premiumObserver = nil
+                listenerPaused = false
             }
         }
     }

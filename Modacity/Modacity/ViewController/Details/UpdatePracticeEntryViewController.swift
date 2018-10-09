@@ -170,7 +170,7 @@ class UpdatePracticeEntryViewController: UIViewController {
             self.selectedDate = self.editingPracticeData.entryDateString.date(format: "yy-MM-dd") ?? Date(timeIntervalSince1970: self.editingPracticeData.startedTime)
             self.labelTotalDate.text = self.selectedDate.toString(format: "MMMM d, yyyy")
             self.dateSelected = true
-            self.labelTotalDate.font = UIFont(name: AppConfig.appFontLatoBold, size: 14)
+            self.labelTotalDate.font = UIFont(name: AppConfig.UI.Fonts.appFontLatoBold, size: 14)
             self.labelTotalDate.textColor = highlightedColor
             
             var seconds = self.editingPracticeData.practiceTimeInSeconds ?? 0
@@ -215,7 +215,7 @@ class UpdatePracticeEntryViewController: UIViewController {
             if self.editingPracticeData != nil {
                 
                 self.labelItemName.textColor = highlightedColor
-                self.labelItemName.font = UIFont(name: AppConfig.appFontLatoBold, size: 14)
+                self.labelItemName.font = UIFont(name: AppConfig.UI.Fonts.appFontLatoBold, size: 14)
                 self.labelPracticeItemOptional.isHidden = true
                 
                 self.viewItemNamePanel.backgroundColor = Color.black.alpha(0.1)
@@ -223,7 +223,7 @@ class UpdatePracticeEntryViewController: UIViewController {
                 self.labelPlaylistItemOptional.isHidden = true
                 
                 self.labelPlaylist.textColor = highlightedColor
-                self.labelPlaylist.font = UIFont(name: AppConfig.appFontLatoBold, size: 14)
+                self.labelPlaylist.font = UIFont(name: AppConfig.UI.Fonts.appFontLatoBold, size: 14)
                 self.viewPlaylistPanel.backgroundColor = Color.black.alpha(0.1)
                 self.buttonPlaylistSelect.isEnabled = false
                 
@@ -243,7 +243,7 @@ class UpdatePracticeEntryViewController: UIViewController {
                     if let playlist = PlaylistLocalManager.manager.loadPlaylist(forId: playlistId) {
                         self.selectedPlaylist = playlist
                         self.labelPlaylist.text = playlist.name
-                    } else if playlistId == AppConfig.appConstantTempPlaylistId || playlistId == "" {
+                    } else if playlistId == AppConfig.Constants.appConstantTempPlaylistId || playlistId == "" {
                         self.labelPlaylist.text = "(Standalone practice)"
                     }
                 } else {
@@ -285,7 +285,7 @@ extension UpdatePracticeEntryViewController: DatePickerPopupViewDelegate {
         self.dateSelected = true
         self.labelTotalDate.text = date.toString(format: "MMMM d, yyyy")
         self.labelTotalDate.textColor = highlightedColor
-        self.labelTotalDate.font = UIFont(name: AppConfig.appFontLatoBold, size: 14)
+        self.labelTotalDate.font = UIFont(name: AppConfig.UI.Fonts.appFontLatoBold, size: 14)
         popupView.removeFromSuperview()
         self.buttonCover.isHidden = true
         self.processButtonEntry()
@@ -374,7 +374,7 @@ extension UpdatePracticeEntryViewController: UITextFieldDelegate {
         let length = [0,1,2,4,5,7,8][inputString.count]
         attributedString.addAttribute(NSAttributedStringKey.foregroundColor, value: Color(hexString:"#92939B"), range: NSMakeRange(0, res.count))
         attributedString.addAttribute(NSAttributedStringKey.foregroundColor, value: highlightedColor, range: NSMakeRange(8 - length, length))
-        attributedString.addAttribute(NSAttributedStringKey.font, value: UIFont(name: AppConfig.appFontLatoBold, size: 14), range: NSMakeRange(8 - length, length))
+        attributedString.addAttribute(NSAttributedStringKey.font, value: UIFont(name: AppConfig.UI.Fonts.appFontLatoBold, size: 14), range: NSMakeRange(8 - length, length))
         return attributedString
     }
     
@@ -494,7 +494,7 @@ extension UpdatePracticeEntryViewController: PracticeItemListViewControllerDeleg
         self.selectedPracticeItem = selectedPracticeItem
         self.labelItemName.text = selectedPracticeItem.name
         self.labelItemName.textColor = highlightedColor
-        self.labelItemName.font = UIFont(name: AppConfig.appFontLatoBold, size: 14)
+        self.labelItemName.font = UIFont(name: AppConfig.UI.Fonts.appFontLatoBold, size: 14)
         self.processButtonEntry()
     }
 }
@@ -511,7 +511,7 @@ extension UpdatePracticeEntryViewController: PlaylistListViewControllerDelegate 
     func playlistViewController(_ controller: PlaylistListViewController, selectedPlaylist: Playlist) {
         self.labelPlaylist.text = selectedPlaylist.name
         self.labelPlaylist.textColor = highlightedColor
-        self.labelPlaylist.font = UIFont(name: AppConfig.appFontLatoBold, size: 14)
+        self.labelPlaylist.font = UIFont(name: AppConfig.UI.Fonts.appFontLatoBold, size: 14)
         self.selectedPlaylist = selectedPlaylist
         self.processButtonEntry()
     }

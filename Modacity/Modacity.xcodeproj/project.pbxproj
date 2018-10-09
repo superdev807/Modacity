@@ -79,7 +79,6 @@
 		8EDEB709203DE38F00E8D48D /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8EDEB6FE203DE38F00E8D48D /* Lato-Regular.ttf */; };
 		8EDEB70C203DE38F00E8D48D /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDEB703203DE38F00E8D48D /* AppConfig.swift */; };
 		8EDEB70D203DE38F00E8D48D /* AppUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDEB704203DE38F00E8D48D /* AppUtils.swift */; };
-		8EDEB70E203DE38F00E8D48D /* DateUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDEB705203DE38F00E8D48D /* DateUtility.swift */; };
 		8EDEB713203DE4B300E8D48D /* Me.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDEB712203DE4B300E8D48D /* Me.swift */; };
 		8EDEB718203DFAC200E8D48D /* SideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDEB717203DFAC200E8D48D /* SideMenuController.swift */; };
 		8EDEB71A203DFB9A00E8D48D /* sidemenu.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EDEB719203DFB9A00E8D48D /* sidemenu.storyboard */; };
@@ -158,7 +157,6 @@
 		E21BE9BA2091796A000D1877 /* PlaylistLocalManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB9DB98204DA67200689C1D /* PlaylistLocalManager.swift */; };
 		E21BE9BB2091796A000D1877 /* MyProfileRemoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E58B43F20446AE40022704B /* MyProfileRemoteManager.swift */; };
 		E21BE9BC2091796A000D1877 /* PlaylistPracticeDurationKeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1EFEFB20500E7A000DE107 /* PlaylistPracticeDurationKeyboardViewController.swift */; };
-		E21BE9BD2091796A000D1877 /* DateUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDEB705203DE38F00E8D48D /* DateUtility.swift */; };
 		E21BE9BE2091796A000D1877 /* RecordingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA33BA620052D2700539A3F /* RecordingViewController.swift */; };
 		E21BE9BF2091796A000D1877 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDEB6F1203DD7A800E8D48D /* AuthViewModel.swift */; };
 		E21BE9C02091796A000D1877 /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3596212049AA9500F2E6DF /* Playlist.swift */; };
@@ -235,6 +233,16 @@
 		E22A06F220FCEBAB00184F78 /* PracticeBreakPromptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22A06EF20FCEBAB00184F78 /* PracticeBreakPromptView.swift */; };
 		E22A06F320FCEBAB00184F78 /* PracticeBreakPromptView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E22A06F020FCEBAB00184F78 /* PracticeBreakPromptView.xib */; };
 		E22A06F420FCEBAB00184F78 /* PracticeBreakPromptView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E22A06F020FCEBAB00184F78 /* PracticeBreakPromptView.xib */; };
+		E22AE275215D308100708E9A /* DroneSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22AE274215D308100708E9A /* DroneSettings.swift */; };
+		E22AE276215D308100708E9A /* DroneSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22AE274215D308100708E9A /* DroneSettings.swift */; };
+		E235DA89215E84A700555944 /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E235DA88215E84A600555944 /* ColorExtensions.swift */; };
+		E235DA8A215E84A700555944 /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E235DA88215E84A600555944 /* ColorExtensions.swift */; };
+		E235DA8C215E8EFB00555944 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E235DA8B215E8EFB00555944 /* StringExtensions.swift */; };
+		E235DA8D215E8EFB00555944 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E235DA8B215E8EFB00555944 /* StringExtensions.swift */; };
+		E235DA8F215E8F5300555944 /* UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E235DA8E215E8F5300555944 /* UIImageExtensions.swift */; };
+		E235DA90215E8F5300555944 /* UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E235DA8E215E8F5300555944 /* UIImageExtensions.swift */; };
+		E235DA92215E8FFE00555944 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E235DA91215E8FFE00555944 /* DateExtensions.swift */; };
+		E235DA93215E8FFE00555944 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E235DA91215E8FFE00555944 /* DateExtensions.swift */; };
 		E23C337720E5172D000EED10 /* PlaylistHistoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E23C337520E5172D000EED10 /* PlaylistHistoryView.xib */; };
 		E23C337820E5172D000EED10 /* PlaylistHistoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E23C337520E5172D000EED10 /* PlaylistHistoryView.xib */; };
 		E23C337920E5172D000EED10 /* PlaylistHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23C337620E5172D000EED10 /* PlaylistHistoryView.swift */; };
@@ -297,6 +305,8 @@
 		E25FD99120D7F778008C531A /* PlaylistDailyLocalManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25FD98F20D7F778008C531A /* PlaylistDailyLocalManager.swift */; };
 		E25FD99320D7F7A9008C531A /* DailyPracticingRemoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25FD99220D7F7A9008C531A /* DailyPracticingRemoteManager.swift */; };
 		E25FD99420D7F7A9008C531A /* DailyPracticingRemoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25FD99220D7F7A9008C531A /* DailyPracticingRemoteManager.swift */; };
+		E261FE492152B6F300D62BF6 /* WalkthroughRemoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E261FE482152B6F200D62BF6 /* WalkthroughRemoteManager.swift */; };
+		E261FE4A2152B6F300D62BF6 /* WalkthroughRemoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E261FE482152B6F200D62BF6 /* WalkthroughRemoteManager.swift */; };
 		E264C09620CB01A20016CF8D /* metrodroneview.xib in Resources */ = {isa = PBXBuildFile; fileRef = E264C09520CB01A20016CF8D /* metrodroneview.xib */; };
 		E264C09720CB01A20016CF8D /* metrodroneview.xib in Resources */ = {isa = PBXBuildFile; fileRef = E264C09520CB01A20016CF8D /* metrodroneview.xib */; };
 		E264C09920CB02F50016CF8D /* MetrodroneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E264C09820CB02F50016CF8D /* MetrodroneView.swift */; };
@@ -384,6 +394,8 @@
 		E2D0FE902100E5450083DEA9 /* PremiumUpgradeSlideView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2D0FE8D2100E5450083DEA9 /* PremiumUpgradeSlideView.xib */; };
 		E2D0FE912100E5450083DEA9 /* PremiumUpgradeSlideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D0FE8E2100E5450083DEA9 /* PremiumUpgradeSlideView.swift */; };
 		E2D0FE922100E5450083DEA9 /* PremiumUpgradeSlideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D0FE8E2100E5450083DEA9 /* PremiumUpgradeSlideView.swift */; };
+		E2E89ED9215930A0000456DA /* LocalCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E89ED8215930A0000456DA /* LocalCacheManager.swift */; };
+		E2E89EDA215930A0000456DA /* LocalCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E89ED8215930A0000456DA /* LocalCacheManager.swift */; };
 		EE45C33C78DB04B51D48C842 /* Pods_Modacity_Dev.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E91DFE323AAAD77A2F8A14A /* Pods_Modacity_Dev.framework */; };
 /* End PBXBuildFile section */
 
@@ -486,7 +498,6 @@
 		8EDEB6FE203DE38F00E8D48D /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Regular.ttf"; sourceTree = "<group>"; };
 		8EDEB703203DE38F00E8D48D /* AppConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
 		8EDEB704203DE38F00E8D48D /* AppUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppUtils.swift; sourceTree = "<group>"; };
-		8EDEB705203DE38F00E8D48D /* DateUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateUtility.swift; sourceTree = "<group>"; };
 		8EDEB712203DE4B300E8D48D /* Me.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Me.swift; sourceTree = "<group>"; };
 		8EDEB717203DFAC200E8D48D /* SideMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuController.swift; sourceTree = "<group>"; };
 		8EDEB719203DFB9A00E8D48D /* sidemenu.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = sidemenu.storyboard; sourceTree = "<group>"; };
@@ -539,6 +550,11 @@
 		E22A06EC20FCD1AD00184F78 /* BreakReminerSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BreakReminerSettingsViewController.swift; sourceTree = "<group>"; };
 		E22A06EF20FCEBAB00184F78 /* PracticeBreakPromptView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PracticeBreakPromptView.swift; sourceTree = "<group>"; };
 		E22A06F020FCEBAB00184F78 /* PracticeBreakPromptView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PracticeBreakPromptView.xib; sourceTree = "<group>"; };
+		E22AE274215D308100708E9A /* DroneSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroneSettings.swift; sourceTree = "<group>"; };
+		E235DA88215E84A600555944 /* ColorExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorExtensions.swift; sourceTree = "<group>"; };
+		E235DA8B215E8EFB00555944 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
+		E235DA8E215E8F5300555944 /* UIImageExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageExtensions.swift; sourceTree = "<group>"; };
+		E235DA91215E8FFE00555944 /* DateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		E23C337520E5172D000EED10 /* PlaylistHistoryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlaylistHistoryView.xib; sourceTree = "<group>"; };
 		E23C337620E5172D000EED10 /* PlaylistHistoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistHistoryView.swift; sourceTree = "<group>"; };
 		E23C337B20E51CA3000EED10 /* PlaylistHistoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlaylistHistoryCell.xib; sourceTree = "<group>"; };
@@ -570,6 +586,7 @@
 		E25FD98C20D7F75A008C531A /* PracticingDailyLocalManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticingDailyLocalManager.swift; sourceTree = "<group>"; };
 		E25FD98F20D7F778008C531A /* PlaylistDailyLocalManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistDailyLocalManager.swift; sourceTree = "<group>"; };
 		E25FD99220D7F7A9008C531A /* DailyPracticingRemoteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyPracticingRemoteManager.swift; sourceTree = "<group>"; };
+		E261FE482152B6F200D62BF6 /* WalkthroughRemoteManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalkthroughRemoteManager.swift; sourceTree = "<group>"; };
 		E264C09520CB01A20016CF8D /* metrodroneview.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = metrodroneview.xib; sourceTree = "<group>"; };
 		E264C09820CB02F50016CF8D /* MetrodroneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetrodroneView.swift; sourceTree = "<group>"; };
 		E267CFA920CE18CA003D708B /* PlayPracticeWalkthroughView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayPracticeWalkthroughView.xib; sourceTree = "<group>"; };
@@ -616,6 +633,7 @@
 		E2D01BD5208A146B00F54B5D /* MessagesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesManager.swift; sourceTree = "<group>"; };
 		E2D0FE8D2100E5450083DEA9 /* PremiumUpgradeSlideView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PremiumUpgradeSlideView.xib; sourceTree = "<group>"; };
 		E2D0FE8E2100E5450083DEA9 /* PremiumUpgradeSlideView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PremiumUpgradeSlideView.swift; sourceTree = "<group>"; };
+		E2E89ED8215930A0000456DA /* LocalCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalCacheManager.swift; sourceTree = "<group>"; };
 		E91BAC853A8BF6F8434DAB14 /* libPods-ModacityTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ModacityTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -778,6 +796,7 @@
 				E2D01BD5208A146B00F54B5D /* MessagesManager.swift */,
 				E23D7A6F20A1EEB40052EE78 /* OverallDataRemoteManager.swift */,
 				E25FD99220D7F7A9008C531A /* DailyPracticingRemoteManager.swift */,
+				E261FE482152B6F200D62BF6 /* WalkthroughRemoteManager.swift */,
 				E28415EB20EE7D3200DD7BBE /* GoalsRemoteManager.swift */,
 			);
 			path = RemoteManager;
@@ -797,6 +816,7 @@
 				E25FD98F20D7F778008C531A /* PlaylistDailyLocalManager.swift */,
 				E28415E820EE7A2300DD7BBE /* GoalsLocalManager.swift */,
 				E2143CC221379F0F00A204B8 /* SyncStatusKeeper.swift */,
+				E2E89ED8215930A0000456DA /* LocalCacheManager.swift */,
 			);
 			path = LocalManager;
 			sourceTree = "<group>";
@@ -858,6 +878,7 @@
 				E25FD98620D7F34A008C531A /* ImprovedRecord.swift */,
 				8E9DF9042057CF47003F5FE8 /* Improvement.swift */,
 				E24DF50220987E9E00BAF0C7 /* Note.swift */,
+				E22AE274215D308100708E9A /* DroneSettings.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -973,7 +994,6 @@
 			children = (
 				8EDEB703203DE38F00E8D48D /* AppConfig.swift */,
 				8EDEB704203DE38F00E8D48D /* AppUtils.swift */,
-				8EDEB705203DE38F00E8D48D /* DateUtility.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1174,6 +1194,10 @@
 		E2CDDEBC2136E35B00BEB98B /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				E235DA91215E8FFE00555944 /* DateExtensions.swift */,
+				E235DA8E215E8F5300555944 /* UIImageExtensions.swift */,
+				E235DA8B215E8EFB00555944 /* StringExtensions.swift */,
+				E235DA88215E84A600555944 /* ColorExtensions.swift */,
 				E2CDDEBD2136E37C00BEB98B /* UIViewExtensions.swift */,
 			);
 			path = Extensions;
@@ -1551,6 +1575,7 @@
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/CHGInputAccessoryView/CHGInputAccessoryView.framework",
 				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
+				"${BUILT_PRODUCTS_DIR}/DGActivityIndicatorView/DGActivityIndicatorView.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
@@ -1563,6 +1588,7 @@
 				"${BUILT_PRODUCTS_DIR}/LGSideMenuController/LGSideMenuController.framework",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
+				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework",
 				"${BUILT_PRODUCTS_DIR}/SCSiriWaveformView/SCSiriWaveformView.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftMessages/SwiftMessages.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyReceiptValidator/SwiftyReceiptValidator.framework",
@@ -1578,6 +1604,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CHGInputAccessoryView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DGActivityIndicatorView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
@@ -1590,6 +1617,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LGSideMenuController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SCSiriWaveformView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftMessages.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyReceiptValidator.framework",
@@ -1633,6 +1661,7 @@
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/CHGInputAccessoryView/CHGInputAccessoryView.framework",
 				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
+				"${BUILT_PRODUCTS_DIR}/DGActivityIndicatorView/DGActivityIndicatorView.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
@@ -1645,6 +1674,7 @@
 				"${BUILT_PRODUCTS_DIR}/LGSideMenuController/LGSideMenuController.framework",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
+				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework",
 				"${BUILT_PRODUCTS_DIR}/SCSiriWaveformView/SCSiriWaveformView.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftMessages/SwiftMessages.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyReceiptValidator/SwiftyReceiptValidator.framework",
@@ -1660,6 +1690,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CHGInputAccessoryView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DGActivityIndicatorView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
@@ -1672,6 +1703,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LGSideMenuController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SCSiriWaveformView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftMessages.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyReceiptValidator.framework",
@@ -1796,6 +1828,7 @@
 				8E64B7AA2056A09F00900775 /* Recording.swift in Sources */,
 				E28415E920EE7A2300DD7BBE /* GoalsLocalManager.swift in Sources */,
 				8EA33BA320052A4A00539A3F /* PlaylistListViewController.swift in Sources */,
+				E235DA89215E84A700555944 /* ColorExtensions.swift in Sources */,
 				8EDEB718203DFAC200E8D48D /* SideMenuController.swift in Sources */,
 				8ED335E42048EBC700FB61C1 /* ViewModel.swift in Sources */,
 				8EAE1651204FE1050012450E /* PlaylistFinishViewController.swift in Sources */,
@@ -1803,7 +1836,6 @@
 				E2083FBC20DD47C700BCE27F /* PracticeMusicQuoteCell.swift in Sources */,
 				8E58B44420446AE40022704B /* MyProfileRemoteManager.swift in Sources */,
 				8E1EFEFC20500E7A000DE107 /* PlaylistPracticeDurationKeyboardViewController.swift in Sources */,
-				8EDEB70E203DE38F00E8D48D /* DateUtility.swift in Sources */,
 				E23C337920E5172D000EED10 /* PlaylistHistoryView.swift in Sources */,
 				8EA33BA720052D2700539A3F /* RecordingViewController.swift in Sources */,
 				E2083FAA20DD3AE700BCE27F /* RecordingCell.swift in Sources */,
@@ -1828,6 +1860,7 @@
 				E23FFD9721087ED5007713F0 /* IAPHelper.swift in Sources */,
 				8E9DF9052057CF47003F5FE8 /* Improvement.swift in Sources */,
 				E274A2FD212BB780004C75AA /* DatePickerPopupView.swift in Sources */,
+				E22AE275215D308100708E9A /* DroneSettings.swift in Sources */,
 				8E58B439204468100022704B /* ProfileViewModel.swift in Sources */,
 				8ED6218D207B09D600593EF2 /* PracticeItemRemoteManager.swift in Sources */,
 				E267CFAD20CE195C003D708B /* PlayPracticeWalkthroughView.swift in Sources */,
@@ -1835,6 +1868,7 @@
 				8E64B7AC2056A35200900775 /* RecordingsLocalManager.swift in Sources */,
 				E2BA246320C8D1590048A5D5 /* MetrodronePlayer.swift in Sources */,
 				8EDA6194204827DE006D3208 /* PracticeItem.swift in Sources */,
+				E2E89ED9215930A0000456DA /* LocalCacheManager.swift in Sources */,
 				E23C337F20E51CA4000EED10 /* PlaylistHistoryCell.swift in Sources */,
 				E22A06ED20FCD1AD00184F78 /* BreakReminerSettingsViewController.swift in Sources */,
 				E2143CC321379F0F00A204B8 /* SyncStatusKeeper.swift in Sources */,
@@ -1868,6 +1902,7 @@
 				E2083FC220DD47C700BCE27F /* PracticeNotesViewController.swift in Sources */,
 				E25FD98420D7F234008C531A /* PracticeDaily.swift in Sources */,
 				8E58B44620446AE40022704B /* MyProfileLocalManager.swift in Sources */,
+				E235DA92215E8FFE00555944 /* DateExtensions.swift in Sources */,
 				8EDEB70D203DE38F00E8D48D /* AppUtils.swift in Sources */,
 				E2806C3520ABCD910066959A /* PracticeViewController.swift in Sources */,
 				8EDA619820484580006D3208 /* PracticeItemViewModel.swift in Sources */,
@@ -1876,6 +1911,7 @@
 				8ED83FC72003262D00052256 /* TabBarViewController.swift in Sources */,
 				E28B822920E484B6005CA660 /* PlaylistStatsView.swift in Sources */,
 				E2083FCE20DD494100BCE27F /* NotesListView.swift in Sources */,
+				E235DA8C215E8EFB00555944 /* StringExtensions.swift in Sources */,
 				8E64B7AE2056AA7C00900775 /* RecordingViewModel.swift in Sources */,
 				8E84CA6720577F3500D2D1CB /* ImprovementViewModel.swift in Sources */,
 				8EAC1215200526BB004232A2 /* HomeViewController.swift in Sources */,
@@ -1896,6 +1932,7 @@
 				8EDEB71C203DFC0200E8D48D /* LeftMenuViewController.swift in Sources */,
 				8EE2BD24203DB2AF00D6D7A8 /* TutorialViewController.swift in Sources */,
 				E28415EC20EE7D3200DD7BBE /* GoalsRemoteManager.swift in Sources */,
+				E261FE492152B6F300D62BF6 /* WalkthroughRemoteManager.swift in Sources */,
 				8EDEB713203DE4B300E8D48D /* Me.swift in Sources */,
 				8E16B46D2052ECDE00A9BF8A /* PlaylistPracticeEntry.swift in Sources */,
 				E25FD98A20D7F520008C531A /* PlaylistDaily.swift in Sources */,
@@ -1911,6 +1948,7 @@
 				E249E62020DAB6C800FBDA72 /* StatisticsView.swift in Sources */,
 				E2770DAE20B7BD4400E05E20 /* DefaultDataShipManager.swift in Sources */,
 				E276D9D3211B447500A28081 /* PracticeItemCell.swift in Sources */,
+				E235DA8F215E8F5300555944 /* UIImageExtensions.swift in Sources */,
 				E28036F52107705F00B9987E /* SubscriptionTermsViewController.swift in Sources */,
 				8E58B43C204469E20022704B /* SettingsViewController.swift in Sources */,
 			);
@@ -1947,6 +1985,7 @@
 				E21BE9B52091796A000D1877 /* Recording.swift in Sources */,
 				E28415EA20EE7A2300DD7BBE /* GoalsLocalManager.swift in Sources */,
 				E21BE9B62091796A000D1877 /* PlaylistListViewController.swift in Sources */,
+				E235DA8A215E84A700555944 /* ColorExtensions.swift in Sources */,
 				E21BE9B72091796A000D1877 /* SideMenuController.swift in Sources */,
 				E21BE9B82091796A000D1877 /* ViewModel.swift in Sources */,
 				E21BE9B92091796A000D1877 /* PlaylistFinishViewController.swift in Sources */,
@@ -1954,7 +1993,6 @@
 				E2083FBD20DD47C700BCE27F /* PracticeMusicQuoteCell.swift in Sources */,
 				E21BE9BB2091796A000D1877 /* MyProfileRemoteManager.swift in Sources */,
 				E21BE9BC2091796A000D1877 /* PlaylistPracticeDurationKeyboardViewController.swift in Sources */,
-				E21BE9BD2091796A000D1877 /* DateUtility.swift in Sources */,
 				E23C337A20E5172D000EED10 /* PlaylistHistoryView.swift in Sources */,
 				E21BE9BE2091796A000D1877 /* RecordingViewController.swift in Sources */,
 				E2083FAB20DD3AE700BCE27F /* RecordingCell.swift in Sources */,
@@ -1979,6 +2017,7 @@
 				E23FFD9821087ED5007713F0 /* IAPHelper.swift in Sources */,
 				E21BE9C62091796A000D1877 /* Improvement.swift in Sources */,
 				E274A2FE212BB780004C75AA /* DatePickerPopupView.swift in Sources */,
+				E22AE276215D308100708E9A /* DroneSettings.swift in Sources */,
 				E21BE9C72091796A000D1877 /* ProfileViewModel.swift in Sources */,
 				E21BE9C92091796A000D1877 /* PracticeItemRemoteManager.swift in Sources */,
 				E267CFAE20CE195C003D708B /* PlayPracticeWalkthroughView.swift in Sources */,
@@ -1986,6 +2025,7 @@
 				E21BE9CA2091796A000D1877 /* RecordingsLocalManager.swift in Sources */,
 				E2BA246420C8D1590048A5D5 /* MetrodronePlayer.swift in Sources */,
 				E21BE9CC2091796A000D1877 /* PracticeItem.swift in Sources */,
+				E2E89EDA215930A0000456DA /* LocalCacheManager.swift in Sources */,
 				E23C338020E51CA4000EED10 /* PlaylistHistoryCell.swift in Sources */,
 				E22A06EE20FCD1AD00184F78 /* BreakReminerSettingsViewController.swift in Sources */,
 				E2143CC421379F0F00A204B8 /* SyncStatusKeeper.swift in Sources */,
@@ -2019,6 +2059,7 @@
 				E2083FC320DD47C700BCE27F /* PracticeNotesViewController.swift in Sources */,
 				E25FD98520D7F234008C531A /* PracticeDaily.swift in Sources */,
 				E21BE9D62091796A000D1877 /* MyProfileLocalManager.swift in Sources */,
+				E235DA93215E8FFE00555944 /* DateExtensions.swift in Sources */,
 				E21BE9D72091796A000D1877 /* AppUtils.swift in Sources */,
 				E2806C3620ABCD910066959A /* PracticeViewController.swift in Sources */,
 				E21BE9D82091796A000D1877 /* PracticeItemViewModel.swift in Sources */,
@@ -2027,6 +2068,7 @@
 				E21BE9D92091796A000D1877 /* TabBarViewController.swift in Sources */,
 				E28B822A20E484B6005CA660 /* PlaylistStatsView.swift in Sources */,
 				E2083FCF20DD494100BCE27F /* NotesListView.swift in Sources */,
+				E235DA8D215E8EFB00555944 /* StringExtensions.swift in Sources */,
 				E21BE9DA2091796A000D1877 /* RecordingViewModel.swift in Sources */,
 				E21BE9DB2091796A000D1877 /* ImprovementViewModel.swift in Sources */,
 				E21BE9DC2091796A000D1877 /* HomeViewController.swift in Sources */,
@@ -2047,6 +2089,7 @@
 				E21BE9E62091796A000D1877 /* LeftMenuViewController.swift in Sources */,
 				E21BE9E72091796A000D1877 /* TutorialViewController.swift in Sources */,
 				E28415ED20EE7D3200DD7BBE /* GoalsRemoteManager.swift in Sources */,
+				E261FE4A2152B6F300D62BF6 /* WalkthroughRemoteManager.swift in Sources */,
 				E21BE9E82091796A000D1877 /* Me.swift in Sources */,
 				E21BE9E92091796A000D1877 /* PlaylistPracticeEntry.swift in Sources */,
 				E25FD98B20D7F520008C531A /* PlaylistDaily.swift in Sources */,
@@ -2062,6 +2105,7 @@
 				E249E62120DAB6C800FBDA72 /* StatisticsView.swift in Sources */,
 				E2770DAF20B7BD4400E05E20 /* DefaultDataShipManager.swift in Sources */,
 				E276D9D4211B447500A28081 /* PracticeItemCell.swift in Sources */,
+				E235DA90215E8F5300555944 /* UIImageExtensions.swift in Sources */,
 				E28036F62107705F00B9987E /* SubscriptionTermsViewController.swift in Sources */,
 				E21BE9F02091796A000D1877 /* SettingsViewController.swift in Sources */,
 			);

@@ -348,25 +348,41 @@ To get started, create an account.</string>
                                     <constraint firstItem="vkz-QK-bRg" firstAttribute="centerX" secondItem="MNa-a2-MCF" secondAttribute="centerX" id="zx7-7s-i3g"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sorry, wait a few moment, please. we are processing practice history data..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Spr-RC-lfe">
+                                <rect key="frame" x="50" y="590.5" width="275" height="26.5"/>
+                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="11"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="qKV-nU-cMt">
+                                <rect key="frame" x="177.5" y="627" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="0.16470588235294117" green="0.19607843137254902" blue="0.32156862745098036" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="xUA-am-5jO" firstAttribute="bottom" secondItem="qKV-nU-cMt" secondAttribute="bottom" constant="20" id="1lZ-cJ-eIT"/>
                             <constraint firstItem="Pp0-zG-AEC" firstAttribute="leading" secondItem="xUA-am-5jO" secondAttribute="leading" id="E0x-WW-sRI"/>
+                            <constraint firstItem="Spr-RC-lfe" firstAttribute="leading" secondItem="xUA-am-5jO" secondAttribute="leading" constant="50" id="INb-8m-xOP"/>
                             <constraint firstItem="MNa-a2-MCF" firstAttribute="trailing" secondItem="xUA-am-5jO" secondAttribute="trailing" id="Qbn-9I-rlo"/>
                             <constraint firstItem="gkQ-Xw-PQq" firstAttribute="top" secondItem="xUA-am-5jO" secondAttribute="top" constant="20" id="WW3-wV-aJz"/>
                             <constraint firstItem="MNa-a2-MCF" firstAttribute="centerY" secondItem="xUA-am-5jO" secondAttribute="centerY" id="XFa-ro-2s2"/>
+                            <constraint firstItem="qKV-nU-cMt" firstAttribute="centerX" secondItem="xUA-am-5jO" secondAttribute="centerX" id="ZtU-p7-fFo"/>
                             <constraint firstItem="Pp0-zG-AEC" firstAttribute="bottom" secondItem="xUA-am-5jO" secondAttribute="bottom" constant="40" id="bLV-ET-AXd"/>
                             <constraint firstItem="Pp0-zG-AEC" firstAttribute="trailing" secondItem="xUA-am-5jO" secondAttribute="trailing" id="bn9-5Q-zuD"/>
+                            <constraint firstItem="qKV-nU-cMt" firstAttribute="top" secondItem="Spr-RC-lfe" secondAttribute="bottom" constant="10" id="f18-oY-dY2"/>
                             <constraint firstItem="Pp0-zG-AEC" firstAttribute="top" secondItem="ETv-Dw-jeq" secondAttribute="top" id="fzs-ZJ-bBm"/>
                             <constraint firstItem="MNa-a2-MCF" firstAttribute="leading" secondItem="xUA-am-5jO" secondAttribute="leading" id="lck-yX-t5d"/>
+                            <constraint firstItem="xUA-am-5jO" firstAttribute="trailing" secondItem="Spr-RC-lfe" secondAttribute="trailing" constant="50" id="m9P-X0-c4Z"/>
                             <constraint firstItem="gkQ-Xw-PQq" firstAttribute="leading" secondItem="xUA-am-5jO" secondAttribute="leading" constant="20" id="pE9-zS-t2o"/>
                             <constraint firstItem="gkQ-Xw-PQq" firstAttribute="width" secondItem="gkQ-Xw-PQq" secondAttribute="height" multiplier="137:35" id="sgn-A8-vnj"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="xUA-am-5jO"/>
                     </view>
                     <connections>
+                        <outlet property="labelWaiting" destination="Spr-RC-lfe" id="xoX-j9-fkK"/>
                         <outlet property="spinnerFacebook" destination="Vea-OK-UcC" id="FTC-2J-FMs"/>
                         <outlet property="spinnerGoogle" destination="g5w-cm-SQP" id="1LX-VF-XG0"/>
+                        <outlet property="spinnerProcessing" destination="qKV-nU-cMt" id="t3F-Up-wsk"/>
                         <segue destination="iww-ic-zBD" kind="show" identifier="sid_signin" id="ves-GS-lcD"/>
                     </connections>
                 </viewController>
@@ -521,12 +537,26 @@ To get started, create an account.</string>
                                                     <constraint firstItem="sQg-VS-Osk" firstAttribute="top" secondItem="yEg-RZ-ZFw" secondAttribute="bottom" constant="20" id="yIw-GF-n0k"/>
                                                 </constraints>
                                             </view>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sorry, wait a few moment, please. we are processing practice history data..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="caf-rs-90F">
+                                                <rect key="frame" x="50" y="479.5" width="275" height="26.5"/>
+                                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="11"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="4V0-XP-QMF">
+                                                <rect key="frame" x="177" y="516" width="20" height="20"/>
+                                            </activityIndicatorView>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
+                                            <constraint firstItem="4V0-XP-QMF" firstAttribute="top" secondItem="caf-rs-90F" secondAttribute="bottom" constant="10" id="Ei3-dc-63z"/>
                                             <constraint firstAttribute="trailing" secondItem="fBH-Sj-4b8" secondAttribute="trailing" constant="35" id="FKE-Gq-8YX"/>
+                                            <constraint firstItem="4V0-XP-QMF" firstAttribute="centerX" secondItem="AIt-wb-5Ir" secondAttribute="centerX" id="N9t-Vh-JLE"/>
+                                            <constraint firstItem="caf-rs-90F" firstAttribute="leading" secondItem="AIt-wb-5Ir" secondAttribute="leading" constant="50" id="Ug7-TF-pXh"/>
                                             <constraint firstItem="fBH-Sj-4b8" firstAttribute="leading" secondItem="AIt-wb-5Ir" secondAttribute="leading" constant="35" id="asx-7e-Fnl"/>
                                             <constraint firstItem="fBH-Sj-4b8" firstAttribute="top" secondItem="AIt-wb-5Ir" secondAttribute="top" constant="60" id="dA3-y3-9PD"/>
+                                            <constraint firstAttribute="bottom" secondItem="4V0-XP-QMF" secondAttribute="bottom" constant="20" id="qIo-RB-Tcx"/>
+                                            <constraint firstAttribute="trailing" secondItem="caf-rs-90F" secondAttribute="trailing" constant="50" id="sfP-dh-RfY"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -584,8 +614,10 @@ To get started, create an account.</string>
                         <outlet property="buttonCreateAnAccount" destination="sQg-VS-Osk" id="4qe-vy-R37"/>
                         <outlet property="imageViewIconEmail" destination="DJz-Di-aBW" id="aSl-mx-XPH"/>
                         <outlet property="imageViewIconPassword" destination="BVr-do-XTg" id="XSb-2I-qJc"/>
+                        <outlet property="labelWaiting" destination="caf-rs-90F" id="uIV-Nc-zBA"/>
                         <outlet property="spinerCreateAccount" destination="pag-nE-RBX" id="xqy-SS-ki9"/>
                         <outlet property="spinerSignIn" destination="Q8n-On-OPK" id="YzB-hs-jsF"/>
+                        <outlet property="spinnerProcessing" destination="4V0-XP-QMF" id="XNG-ll-8dv"/>
                         <outlet property="textfieldEmailAddress" destination="H2z-c1-aPj" id="71v-fc-4J5"/>
                         <outlet property="textfieldPassword" destination="zS9-Aj-jBP" id="y5F-vS-Bft"/>
                         <outlet property="viewEmailAddressContainer" destination="gW3-Aq-dHt" id="bUg-sH-Ew9"/>

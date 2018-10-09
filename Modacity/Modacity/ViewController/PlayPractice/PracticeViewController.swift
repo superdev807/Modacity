@@ -105,6 +105,7 @@ class PracticeViewController: UIViewController {
     var metrodroneViewTopConstraint: NSLayoutConstraint!
     var subdivisionView: SubdivisionSelectView? = nil
     var heightOfMetrodroneView = (AppUtils.sizeModelOfiPhone() == .iphone5_4in || AppUtils.sizeModelOfiPhone() == .iphone4_35in) ? CGFloat(320) : CGFloat(360)
+    var metrodroneParametersConfigured = false
 
     @IBOutlet weak var viewBottomXBar: UIView!
 
@@ -146,7 +147,7 @@ class PracticeViewController: UIViewController {
             constraintForImageHeaderViewHeight.constant = 320
         }
         
-        //self.buttonDone.setTitle("Cancel", for: .normal)
+        self.buttonDone.setTitle("< Cancel", for: .normal)
         self.labelTimerUp.isHidden = true
         self.viewTimeAreaPausedPanel.isHidden = true
         
@@ -166,7 +167,7 @@ class PracticeViewController: UIViewController {
     
     func startPractice() {
         
-        if !AppOveralDataManager.manager.walkThroughDoneForPracticePage() {
+        if !AppOveralDataManager.manager.walkThroughFlagChecking(key: "walkthrough_practice_page") {
             self.showWalkthrough()
         } else {
             self.startPracticeTimer()
@@ -242,10 +243,17 @@ class PracticeViewController: UIViewController {
         super.viewWillAppear(animated)
         UIApplication.shared.isIdleTimerDisabled = AppOveralDataManager.manager.settingsPhoneSleepPrevent()
         self.configureNotes()
+        
+        if self.metrodroneParametersConfigured {
+            NotificationCenter.default.addObserver(self, selector: #selector(droneSettingsChanged), name: AppConfig.NotificationNames.appNotificationMetrodroneParametersUpdated, object: nil)
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        
+        NotificationCenter.default.removeObserver(self, name: AppConfig.NotificationNames.appNotificationMetrodroneParametersUpdated, object: nil)
+        self.metrodroneParametersConfigured = true
         
         UIApplication.shared.isIdleTimerDisabled = false
         
@@ -271,7 +279,7 @@ extension PracticeViewController: MetrodroneViewDelegate, SubdivisionSelectViewD
     }
     
     @objc func resetMetrodroneEngine() {
-        print("metrodrone engine reset")
+        ModacityDebugger.debug("metrodrone engine reset")
         if self.audioEngineRegreshing {
             return
         }
@@ -293,6 +301,7 @@ extension PracticeViewController: MetrodroneViewDelegate, SubdivisionSelectViewD
     
     func initializeDroneUIs() {
         
+        self.configureMetrodroneParameters()
         self.metrodroneView = MetrodroneView()
         
         self.view.addSubview(self.metrodroneView!)
@@ -430,7 +439,6 @@ extension PracticeViewController {
             self.practiceItem.updateLastPracticedTime(to: self.practiceStartedTime)
             self.practiceItem.updateLastPracticedDuration(duration: self.overallPracticeTimeInSeconds)
             self.deliverModel.sessionTime = self.overallPracticeTimeInSeconds
-            AppOveralDataManager.manager.addPracticeTime(inSec: self.overallPracticeTimeInSeconds)
         }
         
         self.stopMetrodronePlay()
@@ -504,6 +512,11 @@ extension PracticeViewController: AVAudioPlayerDelegate, FDWaveformViewDelegate 
         self.viewWaveFormContainer.isHidden = true
         self.viewAudioPlayer.isHidden = true
         self.viewRatePanel.isHidden = true
+    }
+    
+    func resetPlaybackRate() {
+        self.currentRate = 1.0
+        self.showRateValue()
     }
     
     func showRateValue() {
@@ -780,6 +793,7 @@ extension PracticeViewController {
     func stopRecording() {
         ModacityAnalytics.LogEvent(.RecordStop)
         recorder.stop()
+        self.resetPlaybackRate()
     }
 }
 
@@ -937,7 +951,7 @@ extension PracticeViewController {
         self.labelTimerUp.isHidden = false
         self.buttonTimerUpDownArrow.setImage(UIImage(named: "icon_arrow_updown"), for: .normal)
         self.cancelCountDownNotification()
-        if !AppOveralDataManager.manager.walkThroughDoneForPracticeTimerUp() {
+        if !AppOveralDataManager.manager.walkThroughFlagChecking(key: "walkthrough_practice_timer_up") {
             self.showTimerUpWalkThrough()
         }
     }
@@ -1158,9 +1172,7 @@ extension PracticeViewController: PlayPracticeWalkthroughViewDelegate, PracticeT
             if finished {
                 playpracticeWalkThroughView.removeConstraints(playpracticeWalkThroughView.constraints)
                 playpracticeWalkThroughView.removeFromSuperview()
-                if storing {
-                    AppOveralDataManager.manager.walkThroughPracticePage()
-                }
+                AppOveralDataManager.manager.walkthroughSetFlag(key: "walkthrough_practice_page", value: true)
                 self.startPracticeTimer()
             }
         }
@@ -1195,9 +1207,7 @@ extension PracticeViewController: PlayPracticeWalkthroughViewDelegate, PracticeT
             if finished {
                 practiceTimerUpWalkThroughView.removeConstraints(practiceTimerUpWalkThroughView.constraints)
                 practiceTimerUpWalkThroughView.removeFromSuperview()
-                if storing {
-                    AppOveralDataManager.manager.walkThroughPracticeTimerUp()
-                }
+                AppOveralDataManager.manager.walkthroughSetFlag(key: "walkthrough_practice_timer_up", value: true)
             }
         }
     }
@@ -1449,7 +1459,7 @@ extension PracticeViewController: TimerInputViewDelegate {
             
             UNUserNotificationCenter.current().add(notificationRequest) { (error) in
                 if let error = error {
-                    print("Unable to Add Notification Request (\(error), \(error.localizedDescription))")
+                    ModacityDebugger.debug("Unable to Add Notification Request (\(error), \(error.localizedDescription))")
                 }
             }
         } else {
@@ -1511,8 +1521,34 @@ extension PracticeViewController: PracticeBreakPromptViewDelegate {
         if let metrodroneView = self.metrodroneView {
             if let mPlayer = metrodroneView.metrodonePlayer {
                 mPlayer.stopPlayer()
-                
             }
+        }
+    }
+}
+
+extension PracticeViewController {
+    func playingPracticeItem() -> PracticeItem? {
+        if self.playlistViewModel != nil {
+            return self.playlistViewModel.currentPracticeEntry.practiceItem()
+        } else {
+            return self.practiceItem
+        }
+    }
+    
+    func configureMetrodroneParameters() {
+        if let practiceItem = self.playingPracticeItem() {
+            if let settings = practiceItem.droneSettings {
+                MetrodroneParameters.instance.setFromSettings(settings)
+            }
+            
+            NotificationCenter.default.addObserver(self, selector: #selector(droneSettingsChanged), name: AppConfig.NotificationNames.appNotificationMetrodroneParametersUpdated, object: nil)
+        }
+    }
+    
+    @objc func droneSettingsChanged() {
+        if let practiceItem = self.playingPracticeItem() {
+            let settings = MetrodroneParameters.instance.extractDroneSettings()
+            practiceItem.updateDroneSettings(settings)
         }
     }
 }

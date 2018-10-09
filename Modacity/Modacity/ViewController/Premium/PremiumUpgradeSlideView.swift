@@ -54,9 +54,9 @@ class PremiumUpgradeSlideView: UIView {
         self.viewContent.addGestureRecognizer(swipePrevGesture)
         
         if AppUtils.sizeModelOfiPhone() == .iphone4_35in {
-            self.labelTitlePart1.font = UIFont(name: AppConfig.appFontLatoLight, size: 15)
-            self.labelTitlePart2.font = UIFont(name: AppConfig.appFontLatoBlack, size: 15)
-            self.labelDescription.font = UIFont(name: AppConfig.appFontLatoItalic, size: 11)
+            self.labelTitlePart1.font = UIFont(name: AppConfig.UI.Fonts.appFontLatoLight, size: 15)
+            self.labelTitlePart2.font = UIFont(name: AppConfig.UI.Fonts.appFontLatoBlack, size: 15)
+            self.labelDescription.font = UIFont(name: AppConfig.UI.Fonts.appFontLatoItalic, size: 11)
         }
     }
     

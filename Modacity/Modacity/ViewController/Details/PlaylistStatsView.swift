@@ -45,7 +45,6 @@ class PlaylistStatsView: UIView {
     @IBOutlet weak var buttonDetailsForward: UIButton!
     @IBOutlet weak var viewDetailsList: UIView!
     
-    
     @IBOutlet weak var constraintForPracticeDetailsHistoryPanelHeight: NSLayoutConstraint!
     @IBOutlet weak var viewForPracticeDetailsHistoryPanel: UIView!
     
@@ -53,7 +52,8 @@ class PlaylistStatsView: UIView {
     var detailsPeriodKeyIndex = 0
     
     var playlistIdForStats: String!
-    var practiceData: [String: [PlaylistDaily]]! = nil
+//    var practiceData: [String: [PlaylistDaily]]! = nil
+    var practiceData: [String: [PracticeDaily]]! = nil
     
     var detailsData = [String:[String: [String:Int]]]()       // this_week: practice_item_id : [time:0, improvements:0]
     
@@ -116,11 +116,11 @@ class PlaylistStatsView: UIView {
     func showSelectedWeekValues() {
         
         var monday = self.date.weekDay(for: .mon)
-        var sunday = monday.addingTimeInterval(7 * 24 * 3600)
+        var sunday = monday.addingTimeInterval(6 * 24 * 3600)
         
         if self.date.weekDay == 1 {
             monday = self.date.weekDay(for: .mon).addingTimeInterval(-1 * 7 * 24 * 3600)
-            sunday = monday.addingTimeInterval(7 * 24 * 3600)
+            sunday = monday.addingTimeInterval(6 * 24 * 3600)
         }
         self.labelWeekDuration.text = "\(monday.toString(format: "MMM d yyyy")) - \(sunday.toString(format: "MMM d yyyy"))"
         
@@ -150,13 +150,9 @@ class PlaylistStatsView: UIView {
                 }
             }
             
-            if totalSeconds > 0 && totalSeconds < 60 {
-                self.labelTotalTime.text = "\(totalSeconds)"
-                self.labelTotalTimeUnit.text = "TOTAL SECONDS"
-            } else {
-                self.labelTotalTime.text = "\(totalSeconds / 60)"
-                self.labelTotalTimeUnit.text = "TOTAL MINUTES"
-            }
+            let dict = AppUtils.totalPracticeTimeDisplay(seconds: totalSeconds)
+            self.labelTotalTime.text = dict["value"]
+            self.labelTotalTimeUnit.text = "TOTAL \(dict["unit"] ?? "")"
             
             var cal = monday
             var seconds = [Double]()
@@ -200,9 +196,7 @@ class PlaylistStatsView: UIView {
     
     func showOverallStats() {
         
-        let data = PlaylistDailyLocalManager.manager.overallPracticeData()
-        
-        ModacityDebugger.debug("overall stats - \(data)")
+        let data = PracticingDailyLocalManager.manager.overallPracticeData()
         
         var totalMinutes = 0
         var entryCount = 0
@@ -214,38 +208,32 @@ class PlaylistStatsView: UIView {
         for date in data.keys {
             let time = date.date(format: "yy-MM-dd")
             if let dailyDatas = data[date] {
-                for daily in dailyDatas {
+                for practiceDailyData in dailyDatas {
                     entryCount = entryCount + 1
-                    if daily.practices != nil {
-                        for practice in daily.practices {
-                            if let practiceDailyData = PracticingDailyLocalManager.manager.practicingData(forDataId: practice) {
-                                if let practiceItemId = practiceDailyData.practiceItemId {
-                                    
-                                    totalMinutes = totalMinutes + (practiceDailyData.practiceTimeInSeconds ?? 0)
-                                    
-                                    if time!.isThisWeek() {
-                                        thisWeekTotal = thisWeekTotal + (practiceDailyData.practiceTimeInSeconds ?? 0)
-                                        self.configureDetails(key: "this_week", practiceItemId: practiceItemId, practiceDailyData: practiceDailyData)
-                                    }
-                                    
-                                    if time!.isLastWeek() {
-                                        lastWeekTotal = lastWeekTotal + (practiceDailyData.practiceTimeInSeconds ?? 0)
-                                        self.configureDetails(key: "last_week", practiceItemId: practiceItemId, practiceDailyData: practiceDailyData)
-                                    }
-                                    
-                                    if time!.isThisMonth() {
-                                        thisMonthTotal = thisMonthTotal + (practiceDailyData.practiceTimeInSeconds ?? 0)
-                                        self.configureDetails(key: "this_month", practiceItemId: practiceItemId, practiceDailyData: practiceDailyData)
-                                    }
-                                    
-                                    if time!.isLastMonth() {
-                                        lastMonthTotal = lastMonthTotal + (practiceDailyData.practiceTimeInSeconds ?? 0)
-                                        self.configureDetails(key: "last_month", practiceItemId: practiceItemId, practiceDailyData: practiceDailyData)
-                                    }
-                                    
-                                }
-                            }
+                    if let practiceItemId = practiceDailyData.practiceItemId {
+                        
+                        totalMinutes = totalMinutes + (practiceDailyData.practiceTimeInSeconds ?? 0)
+                        
+                        if time!.isThisWeek() {
+                            thisWeekTotal = thisWeekTotal + (practiceDailyData.practiceTimeInSeconds ?? 0)
+                            self.configureDetails(key: "this_week", practiceItemId: practiceItemId, practiceDailyData: practiceDailyData)
                         }
+                        
+                        if time!.isLastWeek() {
+                            lastWeekTotal = lastWeekTotal + (practiceDailyData.practiceTimeInSeconds ?? 0)
+                            self.configureDetails(key: "last_week", practiceItemId: practiceItemId, practiceDailyData: practiceDailyData)
+                        }
+                        
+                        if time!.isThisMonth() {
+                            thisMonthTotal = thisMonthTotal + (practiceDailyData.practiceTimeInSeconds ?? 0)
+                            self.configureDetails(key: "this_month", practiceItemId: practiceItemId, practiceDailyData: practiceDailyData)
+                        }
+                        
+                        if time!.isLastMonth() {
+                            lastMonthTotal = lastMonthTotal + (practiceDailyData.practiceTimeInSeconds ?? 0)
+                            self.configureDetails(key: "last_month", practiceItemId: practiceItemId, practiceDailyData: practiceDailyData)
+                        }
+                        
                     }
                 }
             }
@@ -264,41 +252,20 @@ class PlaylistStatsView: UIView {
             self.labelAverageSessionDuration.text = "0"
         }
         
-        if thisWeekTotal < 60 {
-            self.labelThisWeekTotal.text = "\(thisWeekTotal)"
-            self.labelThisWeekUnit.text = "SECONDS"
-        } else {
-            self.labelThisWeekTotal.text = "\(thisWeekTotal / 60)"
-            self.labelThisWeekUnit.text = "MINUTES"
-        }
-        
-        if lastWeekTotal < 60 {
-            self.labelLastWeekTotal.text = "\(lastWeekTotal)"
-            self.labelLastWeekUnit.text = "SECONDS"
-        } else {
-            self.labelLastWeekTotal.text = "\(lastWeekTotal / 60)"
-            self.labelLastWeekUnit.text = "MINUTES"
-        }
-        
-        if thisMonthTotal < 60 {
-            self.labelThisMonthTotal.text = "\(thisMonthTotal)"
-            self.labelThisMonthUnit.text = "SECONDS"
-        } else {
-            self.labelThisMonthTotal.text = "\(thisMonthTotal / 60)"
-            self.labelThisMonthUnit.text = "MINUTES"
-        }
-        
-        if lastMonthTotal < 60 {
-            self.labelLastMonthTotal.text = "\(lastMonthTotal)"
-            self.labelLastMonthUnit.text = "SECONDS"
-        } else {
-            self.labelLastMonthTotal.text = "\(lastMonthTotal / 60)"
-            self.labelLastMonthUnit.text = "MINUTES"
-        }
+        self.practiceCalculateLabelsFormatting(totalSeconds: thisWeekTotal, labelValue: self.labelThisWeekTotal, labelUnit: self.labelThisWeekUnit)
+        self.practiceCalculateLabelsFormatting(totalSeconds: lastWeekTotal, labelValue: self.labelLastWeekTotal, labelUnit: self.labelLastWeekUnit)
+        self.practiceCalculateLabelsFormatting(totalSeconds: thisMonthTotal, labelValue: self.labelThisMonthTotal, labelUnit: self.labelThisMonthUnit)
+        self.practiceCalculateLabelsFormatting(totalSeconds: lastMonthTotal, labelValue: self.labelLastMonthTotal, labelUnit: self.labelLastMonthUnit)
         
         self.practiceData = data
         self.showSelectedWeekValues()
         self.showSelectedPeriodStats()
+    }
+    
+    func practiceCalculateLabelsFormatting(totalSeconds: Int, labelValue: UILabel, labelUnit: UILabel) {
+        let displayFormat = AppUtils.totalPracticeTimeDisplay(seconds: totalSeconds)
+        labelValue.text = displayFormat["value"]
+        labelUnit.text = displayFormat["unit"]
     }
     
     func showStats(playlistId: String) {
@@ -321,57 +288,26 @@ class PlaylistStatsView: UIView {
                     totalMinutes = totalMinutes + daily.practiceTimeInSeconds
                     entryCount = entryCount + 1
                     
-                    if time!.isThisWeek() {
-                        thisWeekTotal = thisWeekTotal + daily.practiceTimeInSeconds
-                        if daily.practices != nil {
-                            for practice in daily.practices {
-                                if let practiceDailyData = PracticingDailyLocalManager.manager.practicingData(forDataId: practice) {
-                                    if let practiceItemId = practiceDailyData.practiceItemId {
-                                        self.configureDetails(key: "this_week", practiceItemId: practiceItemId, practiceDailyData: practiceDailyData)
-                                    }
-                                }
-                            }
+                    if daily.practiceItemId != nil {
+                        if time!.isThisWeek() {
+                            thisWeekTotal = thisWeekTotal + daily.practiceTimeInSeconds
+                            self.configureDetails(key: "this_week", practiceItemId: daily.practiceItemId, practiceDailyData: daily)
+
                         }
-                    }
-                 
-                    if time!.isLastWeek() {
-                        lastWeekTotal = lastWeekTotal + daily.practiceTimeInSeconds
-                        ModacityDebugger.debug("last week - playlist total time - \(daily.practiceTimeInSeconds)")
-                        if daily.practices != nil {
-                            for practice in daily.practices {
-                                if let practiceDailyData = PracticingDailyLocalManager.manager.practicingData(forDataId: practice) {
-                                    if let practiceItemId = practiceDailyData.practiceItemId {
-                                        ModacityDebugger.debug("last week - playlist practice entry - \(practiceDailyData.practiceItemId) : \(practiceDailyData.practiceTimeInSeconds)")
-                                        self.configureDetails(key: "last_week", practiceItemId: practiceItemId, practiceDailyData: practiceDailyData)
-                                    }
-                                }
-                            }
+                     
+                        if time!.isLastWeek() {
+                            lastWeekTotal = lastWeekTotal + daily.practiceTimeInSeconds
+                            self.configureDetails(key: "last_week", practiceItemId: daily.practiceItemId, practiceDailyData: daily)
                         }
-                    }
-                    
-                    if time!.isThisMonth() {
-                        thisMonthTotal = thisMonthTotal + daily.practiceTimeInSeconds
-                        if daily.practices != nil {
-                            for practice in daily.practices {
-                                if let practiceDailyData = PracticingDailyLocalManager.manager.practicingData(forDataId: practice) {
-                                    if let practiceItemId = practiceDailyData.practiceItemId {
-                                        self.configureDetails(key: "this_month", practiceItemId: practiceItemId, practiceDailyData: practiceDailyData)
-                                    }
-                                }
-                            }
+                        
+                        if time!.isThisMonth() {
+                            thisMonthTotal = thisMonthTotal + daily.practiceTimeInSeconds
+                            self.configureDetails(key: "this_month", practiceItemId: daily.practiceItemId, practiceDailyData: daily)
                         }
-                    }
-                    
-                    if time!.isLastMonth() {
-                        lastMonthTotal = lastMonthTotal + daily.practiceTimeInSeconds
-                        if daily.practices != nil {
-                            for practice in daily.practices {
-                                if let practiceDailyData = PracticingDailyLocalManager.manager.practicingData(forDataId: practice) {
-                                    if let practiceItemId = practiceDailyData.practiceItemId {
-                                        self.configureDetails(key: "last_month", practiceItemId: practiceItemId, practiceDailyData: practiceDailyData)
-                                    }
-                                }
-                            }
+                        
+                        if time!.isLastMonth() {
+                            lastMonthTotal = lastMonthTotal + daily.practiceTimeInSeconds
+                            self.configureDetails(key: "last_month", practiceItemId: daily.practiceItemId, practiceDailyData: daily)
                         }
                     }
                 }
