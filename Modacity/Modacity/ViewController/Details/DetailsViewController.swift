@@ -79,7 +79,7 @@ class DetailsViewController: UIViewController {
         self.viewIndicatorTab4.backgroundColor = Color(hexString: "#292947")
         selectTab(startTabIdx)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(processPremiumStatusChanged), name: AppConfig.appNotificationPremiumStatusChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(processPremiumStatusChanged), name: AppConfig.NotificationNames.appNotificationPremiumStatusChanged, object: nil)
         
         if AppUtils.iphoneIsXModel() {
             self.constraintForHeaderViewHeight.constant = 140

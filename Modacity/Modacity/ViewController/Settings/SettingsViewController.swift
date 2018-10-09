@@ -119,8 +119,8 @@ class SettingsViewController: UIViewController {
         } else {
             self.constraintForHeaderImageViewHeight.constant = 88
         }
-        NotificationCenter.default.addObserver(self, selector: #selector(refresh), name: AppConfig.appNotificationProfileUpdated, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(refresh), name: AppConfig.appNotificationPremiumStatusChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(refresh), name: AppConfig.NotificationNames.appNotificationProfileUpdated, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(refresh), name: AppConfig.NotificationNames.appNotificationPremiumStatusChanged, object: nil)
         ModacityAnalytics.LogStringEvent("Loaded Settings Screen")
 
     }
@@ -185,7 +185,7 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
         let header = view as! UITableViewHeaderFooterView
         header.backgroundColor = Color.white.alpha(0.1)
         header.textLabel?.textColor = Color.white
-        header.textLabel?.font = UIFont(name: AppConfig.appFontLatoRegular, size: 12)
+        header.textLabel?.font = UIFont(name: AppConfig.UI.Fonts.appFontLatoRegular, size: 12)
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -348,7 +348,7 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func rateApp() {
-        guard let url = URL(string : "itms-apps://itunes.apple.com/app/" + AppConfig.appIdOnAppStore) else {
+        guard let url = URL(string : "itms-apps://itunes.apple.com/app/" + AppConfig.ThirdParty.appIdOnAppStore) else {
             return
         }
         guard #available(iOS 10, *) else {

@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // Override point for customization after application launch.
         
         Mint.sharedInstance().disableNetworkMonitoring()
-        Mint.sharedInstance().initAndStartSession(withAPIKey: "b2ee2ef2")
+        Mint.sharedInstance().initAndStartSession(withAPIKey: AppConfig.ThirdParty.appMintApiKey)
         
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
@@ -43,14 +43,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         PracticeItemLocalManager.manager.syncWithOlderVersions()
         PlaylistLocalManager.manager.syncWithOlderVersion()
         
-        Amplitude.instance().initializeApiKey(AppConfig.appAmplitudeApiKey)
+        Amplitude.instance().initializeApiKey(AppConfig.ThirdParty.appAmplitudeApiKey)
         
         if (!UserDefaults.standard.bool(forKey: "launchedbefore")) {
             UserDefaults.standard.set(true, forKey: "launchedbefore")
             ModacityAnalytics.LogStringEvent("FIRST LAUNCH")
         }
         
-        Intercom.setApiKey(AppConfig.appIntercomApiKey, forAppId:AppConfig.appIntercomAppId)
+        Intercom.setApiKey(AppConfig.ThirdParty.appIntercomApiKey, forAppId:AppConfig.ThirdParty.appIntercomAppId)
         Intercom.registerUnidentifiedUser()
         
         ModacityAnalytics.LogEvent(.Launch)

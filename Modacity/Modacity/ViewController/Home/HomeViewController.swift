@@ -61,7 +61,7 @@ class HomeViewController: UIViewController {
     }
     
     func registerNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(configureNameLabels), name: AppConfig.appNotificationProfileUpdated, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(configureNameLabels), name: AppConfig.NotificationNames.appNotificationProfileUpdated, object: nil)
     }
 
     override func didReceiveMemoryWarning() {

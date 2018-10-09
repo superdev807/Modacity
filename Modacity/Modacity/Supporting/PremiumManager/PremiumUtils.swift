@@ -103,8 +103,8 @@ class PremiumUpgradeData: Mappable {
         let now = Date()
         if let trialStarted = trialStarted {
             if now.timeIntervalSince1970 > trialStarted {
-                if now.timeIntervalSince1970 < trialStarted + TimeInterval(AppConfig.appFreeTrialDays * 24 * 3600) {
-                    let diffInSec = trialStarted + TimeInterval(AppConfig.appFreeTrialDays * 24 * 3600) - now.timeIntervalSince1970
+                if now.timeIntervalSince1970 < trialStarted + TimeInterval(AppConfig.Constants.appFreeTrialDays * 24 * 3600) {
+                    let diffInSec = trialStarted + TimeInterval(AppConfig.Constants.appFreeTrialDays * 24 * 3600) - now.timeIntervalSince1970
                     if diffInSec < 60 {
                         return "Your free trial ends soon!"
                     } else if diffInSec < 3600 {

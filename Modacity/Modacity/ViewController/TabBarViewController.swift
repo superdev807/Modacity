@@ -31,8 +31,8 @@ class TabBarViewController: UITabBarController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.tabBar.isHidden = true
-        NotificationCenter.default.addObserver(self, selector: #selector(updateWelcomeLabelText), name: AppConfig.appNotificationProfileUpdated, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(processWalkThrough), name: AppConfig.appNotificationWalkthroughSynchronized, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateWelcomeLabelText), name: AppConfig.NotificationNames.appNotificationProfileUpdated, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(processWalkThrough), name: AppConfig.NotificationNames.appNotificationWalkthroughSynchronized, object: nil)
     }
     
     deinit {
@@ -297,7 +297,7 @@ class TabBarViewController: UITabBarController {
                 label.text = "To get started build your\nfirst playlist and start practicing."
                 label.textAlignment = .center
                 label.textColor = Color.white
-                label.font = UIFont(name: AppConfig.appFontLatoBoldItalic, size: 18)
+                label.font = UIFont(name: AppConfig.UI.Fonts.appFontLatoBoldItalic, size: 18)
                 self.viewWalkThrough.addSubview(label)
                 label.bottomAnchor.constraint(equalTo: imageViewArrow.topAnchor, constant: -20).isActive = true
                 label.centerXAnchor.constraint(equalTo: self.viewWalkThrough.centerXAnchor).isActive = true
@@ -314,7 +314,7 @@ class TabBarViewController: UITabBarController {
                 
                 welcomeLabel.textAlignment = .center
                 welcomeLabel.textColor = Color.white
-                welcomeLabel.font = UIFont(name: AppConfig.appFontLatoLight, size: 20)
+                welcomeLabel.font = UIFont(name: AppConfig.UI.Fonts.appFontLatoLight, size: 20)
                 self.viewWalkThrough.addSubview(welcomeLabel)
                 label.topAnchor.constraint(equalTo: welcomeLabel.bottomAnchor, constant: 40).isActive = true
                 welcomeLabel.centerXAnchor.constraint(equalTo: self.viewWalkThrough.centerXAnchor).isActive = true

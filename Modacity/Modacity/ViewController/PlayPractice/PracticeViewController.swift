@@ -245,14 +245,14 @@ class PracticeViewController: UIViewController {
         self.configureNotes()
         
         if self.metrodroneParametersConfigured {
-            NotificationCenter.default.addObserver(self, selector: #selector(droneSettingsChanged), name: AppConfig.appNotificationMetrodroneParametersUpdated, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(droneSettingsChanged), name: AppConfig.NotificationNames.appNotificationMetrodroneParametersUpdated, object: nil)
         }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        NotificationCenter.default.removeObserver(self, name: AppConfig.appNotificationMetrodroneParametersUpdated, object: nil)
+        NotificationCenter.default.removeObserver(self, name: AppConfig.NotificationNames.appNotificationMetrodroneParametersUpdated, object: nil)
         self.metrodroneParametersConfigured = true
         
         UIApplication.shared.isIdleTimerDisabled = false
@@ -1541,7 +1541,7 @@ extension PracticeViewController {
                 MetrodroneParameters.instance.setFromSettings(settings)
             }
             
-            NotificationCenter.default.addObserver(self, selector: #selector(droneSettingsChanged), name: AppConfig.appNotificationMetrodroneParametersUpdated, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(droneSettingsChanged), name: AppConfig.NotificationNames.appNotificationMetrodroneParametersUpdated, object: nil)
         }
     }
     

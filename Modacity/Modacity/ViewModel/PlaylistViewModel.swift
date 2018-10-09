@@ -28,7 +28,7 @@ class PlaylistViewModel: ViewModel {
     
     override init() {
         super.init()
-        NotificationCenter.default.addObserver(self, selector: #selector(playlistUpdated), name: AppConfig.appNotificationPlaylistUpdated, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(playlistUpdated), name: AppConfig.NotificationNames.appNotificationPlaylistUpdated, object: nil)
     }
     
     deinit {

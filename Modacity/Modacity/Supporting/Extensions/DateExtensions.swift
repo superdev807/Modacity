@@ -1,25 +1,14 @@
 //
-//  DateUtility.swift
-//  
+// DateExtensions.swift
 //
-//  Created by Benjamin Chris on 2017/03/30.
-//  Copyright © 2017 crossover. All rights reserved.
+//
+// Created by Benjamin Chris on 2018/09/29.
 //
 
 import UIKit
 
 enum WeekDay: Int {
     case sun = 1, mon, tue, wed, thu, fri, sat
-}
-
-extension String {
-    func date(format: String) -> Date? {
-        DateFormatter.defaultFormatterBehavior = .behavior10_4
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = format
-        
-        return dateFormatter.date(from: self)
-    }
 }
 
 extension Date {

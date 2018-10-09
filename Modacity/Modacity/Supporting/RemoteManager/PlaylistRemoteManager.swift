@@ -35,7 +35,7 @@ class PlaylistRemoteManager {
                         }
                     }
                 }
-                NotificationCenter.default.post(Notification(name: AppConfig.appNotificationPlaylistLoadedFromServer))
+                NotificationCenter.default.post(Notification(name: AppConfig.NotificationNames.appNotificationPlaylistLoadedFromServer))
             }
         }
     }

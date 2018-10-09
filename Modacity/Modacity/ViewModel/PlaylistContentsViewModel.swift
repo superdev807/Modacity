@@ -209,7 +209,7 @@ class PlaylistContentsViewModel: ViewModel {
         if self.playlist.id != "" {
             PlaylistLocalManager.manager.storePlaylist(self.playlist)
             PlaylistRemoteManager.manager.update(item: self.playlist)
-            NotificationCenter.default.post(Notification(name: AppConfig.appNotificationPlaylistUpdated))
+            NotificationCenter.default.post(Notification(name: AppConfig.NotificationNames.appNotificationPlaylistUpdated))
         }
     }
     

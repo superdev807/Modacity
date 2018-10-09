@@ -42,7 +42,7 @@ class WalkthroughRemoteManager {
             self.refUser.child(userId).child("overall").child("walkthroughs").observeSingleEvent(of: .value) { (snapshot) in
                 if (!snapshot.exists()) {
                     self.synchronized = true
-                    NotificationCenter.default.post(Notification(name: AppConfig.appNotificationWalkthroughSynchronized))
+                    NotificationCenter.default.post(Notification(name: AppConfig.NotificationNames.appNotificationWalkthroughSynchronized))
                     self.startUpdatingWalkthroughData()      // sync from local
                 } else {
                     if let overallData = snapshot.value as? [String:Any] {
@@ -53,7 +53,7 @@ class WalkthroughRemoteManager {
                         SyncStatusKeeper.keeper.statusOverallData = .failed
                     }
                     self.synchronized = true
-                    NotificationCenter.default.post(Notification(name: AppConfig.appNotificationWalkthroughSynchronized))
+                    NotificationCenter.default.post(Notification(name: AppConfig.NotificationNames.appNotificationWalkthroughSynchronized))
                 }
             }
         }

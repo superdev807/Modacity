@@ -73,13 +73,13 @@ class PracticeBreakPromptView: UIView {
                 timeString = "\(minute) minutes"
             }
         }
-        let attributedString = NSMutableAttributedString(string: "You've been practicing for \n", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoRegular, size: 12)!])
-        attributedString.append(NSAttributedString(string: timeString, attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoBold, size: 12)!]))
-        attributedString.append(NSAttributedString(string: ", don’t forget to take a moment to rest.", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoRegular, size: 12)!]))
+        let attributedString = NSMutableAttributedString(string: "You've been practicing for \n", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.UI.Fonts.appFontLatoRegular, size: 12)!])
+        attributedString.append(NSAttributedString(string: timeString, attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.UI.Fonts.appFontLatoBold, size: 12)!]))
+        attributedString.append(NSAttributedString(string: ", don’t forget to take a moment to rest.", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.UI.Fonts.appFontLatoRegular, size: 12)!]))
         self.labelNote.attributedText = attributedString
         
-        let noteTitle = NSMutableAttributedString(string: "IT'S TIME TO\n", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoLight, size: 21)!])
-        noteTitle.append(NSAttributedString(string: "TAKE A BREAK", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.appFontLatoBold, size: 21)!]))
+        let noteTitle = NSMutableAttributedString(string: "IT'S TIME TO\n", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.UI.Fonts.appFontLatoLight, size: 21)!])
+        noteTitle.append(NSAttributedString(string: "TAKE A BREAK", attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.UI.Fonts.appFontLatoBold, size: 21)!]))
         self.labelTitle.attributedText = noteTitle
 
     }

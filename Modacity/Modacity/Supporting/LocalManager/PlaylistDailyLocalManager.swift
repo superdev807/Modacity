@@ -12,8 +12,8 @@ class PlaylistDailyLocalManager: NSObject {
     
     static let manager = PlaylistDailyLocalManager()
     
-    let miscPracticeId = AppConfig.appConstantMiscPracticeItemId
-    let miscPracticeItemName = AppConfig.appConstantMiscPracticeItemName
+    let miscPracticeId = AppConfig.Constants.appConstantMiscPracticeItemId
+    let miscPracticeItemName = AppConfig.Constants.appConstantMiscPracticeItemName
     
     func saveNewPlaylistPracticing(_ data: PlaylistDaily) {
         
@@ -56,7 +56,7 @@ class PlaylistDailyLocalManager: NSObject {
         if let playlistId = playlistId {
             playlistData.playlistId = playlistId
         } else {
-            playlistData.playlistId = AppConfig.appConstantTempPlaylistId
+            playlistData.playlistId = AppConfig.Constants.appConstantTempPlaylistId
         }
         playlistData.started = started.timeIntervalSince1970
         playlistData.practiceTimeInSeconds = duration

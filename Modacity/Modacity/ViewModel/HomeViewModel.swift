@@ -26,7 +26,7 @@ class HomeViewModel: ViewModel {
     func check() {
         if checkDone() {
             self.clearNotification()
-            NotificationCenter.default.post(Notification(name: AppConfig.appNotificationHomePageValuesLoaded))
+            NotificationCenter.default.post(Notification(name: AppConfig.NotificationNames.appNotificationHomePageValuesLoaded))
         }
     }
     
@@ -57,7 +57,7 @@ class HomeViewModel: ViewModel {
             flags["profile"] = true
             check()
         } else {
-            NotificationCenter.default.addObserver(self, selector: #selector(prepareProfileDisplayName), name: AppConfig.appNotificationProfileUpdated, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(prepareProfileDisplayName), name: AppConfig.NotificationNames.appNotificationProfileUpdated, object: nil)
         }
     }
     
@@ -67,7 +67,7 @@ class HomeViewModel: ViewModel {
             flags["improvements"] = true
             check()
         } else {
-            NotificationCenter.default.addObserver(self, selector: #selector(prepareTotalImprovementValue), name: AppConfig.appNotificationOverallAppDataLoadedFromServer, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(prepareTotalImprovementValue), name: AppConfig.NotificationNames.appNotificationOverallAppDataLoadedFromServer, object: nil)
         }
     }
     
@@ -82,7 +82,7 @@ class HomeViewModel: ViewModel {
             
             check()
         } else {
-            NotificationCenter.default.addObserver(self, selector: #selector(prepareTotalSecondsAndStreakValues), name: AppConfig.appNotificationPracticeDataFetched, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(prepareTotalSecondsAndStreakValues), name: AppConfig.NotificationNames.appNotificationPracticeDataFetched, object: nil)
         }
     }
     
@@ -121,10 +121,10 @@ class HomeViewModel: ViewModel {
             check()
         } else {
             if !PlaylistRemoteManager.manager.playlistItemsSynchronized() {
-                NotificationCenter.default.addObserver(self, selector: #selector(prepareFavoriteItems), name: AppConfig.appNotificationPlaylistLoadedFromServer, object: nil)
+                NotificationCenter.default.addObserver(self, selector: #selector(prepareFavoriteItems), name: AppConfig.NotificationNames.appNotificationPlaylistLoadedFromServer, object: nil)
             }
             if !PracticeItemRemoteManager.manager.practiceItemsSynchronized() {
-                NotificationCenter.default.addObserver(self, selector: #selector(prepareFavoriteItems), name: AppConfig.appNotificationPracticeLoadedFromServer, object: nil)
+                NotificationCenter.default.addObserver(self, selector: #selector(prepareFavoriteItems), name: AppConfig.NotificationNames.appNotificationPracticeLoadedFromServer, object: nil)
             }
         }
     }
@@ -137,7 +137,7 @@ class HomeViewModel: ViewModel {
             flags["recents"] = true
             check()
         } else {
-            NotificationCenter.default.addObserver(self, selector: #selector(prepareRecentItems), name: AppConfig.appNotificationPlaylistLoadedFromServer, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(prepareRecentItems), name: AppConfig.NotificationNames.appNotificationPlaylistLoadedFromServer, object: nil)
         }
     }
     

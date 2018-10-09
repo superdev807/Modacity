@@ -40,7 +40,7 @@ class OverallDataRemoteManager {
                 }
                 
                 self.setOverallDataSynchronized()
-                NotificationCenter.default.post(Notification(name: AppConfig.appNotificationOverallAppDataLoadedFromServer))
+                NotificationCenter.default.post(Notification(name: AppConfig.NotificationNames.appNotificationOverallAppDataLoadedFromServer))
             }
         }
     }
@@ -61,9 +61,9 @@ class OverallDataRemoteManager {
         if let userId = MyProfileLocalManager.manager.userId() {
             self.refUser.child(userId).child("overall").updateChildValues(["default_data_ship": AppOveralDataManager.manager.defaultDataShiped()])
         }
-        NotificationCenter.default.post(Notification(name: AppConfig.appNotificationPlaylistLoadedFromServer))
-        NotificationCenter.default.post(Notification(name: AppConfig.appNotificationPlaylistUpdated))
-        NotificationCenter.default.post(Notification(name: AppConfig.appNotificationPracticeLoadedFromServer))
+        NotificationCenter.default.post(Notification(name: AppConfig.NotificationNames.appNotificationPlaylistLoadedFromServer))
+        NotificationCenter.default.post(Notification(name: AppConfig.NotificationNames.appNotificationPlaylistUpdated))
+        NotificationCenter.default.post(Notification(name: AppConfig.NotificationNames.appNotificationPracticeLoadedFromServer))
     }
     
     func startUpdatingOverallData() {
@@ -71,7 +71,7 @@ class OverallDataRemoteManager {
             self.refUser.child(userId).child("overall").updateChildValues(["total_improvements": AppOveralDataManager.manager.totalImprovements() ?? 0,
                                                                            "not_prevent_phone_sleep": !AppOveralDataManager.manager.settingsPhoneSleepPrevent(),
                                                                            "disable_auto_playback": AppOveralDataManager.manager.settingsDisableAutoPlayback(),
-                                                                           "go_after_rating": AppOveralDataManager.manager.settingsGotoNextItemAfterRating(),
+                                                                           "go_after_rating": !AppOveralDataManager.manager.settingsGotoNextItemAfterRating(),
                                                                            "default_data_shiped": AppOveralDataManager.manager.defaultDataShiped(),
                                                                            "first_playlist_generated": AppOveralDataManager.manager.firstPlaylistGenerated(),
                                                                            "settings_timer_pause_during_note": AppOveralDataManager.manager.settingsTimerPauseDuringNote(),

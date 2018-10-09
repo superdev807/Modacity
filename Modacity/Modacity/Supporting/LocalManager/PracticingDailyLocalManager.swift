@@ -326,10 +326,15 @@ class PracticingDailyLocalManager: NSObject {
         }
         
         var dateString = Date().ago(years: 0, months: 0, weeks: 0, days: 1, hours: 0, minutes: 0, seconds: 0).toString(format: "yy-MM-dd")
-        var streakDays = 1
+        var streakDays = 0
         while practicedDataPerDate[dateString] != nil  && practicedDataPerDate[dateString]! == true {
             streakDays = streakDays + 1
             dateString = dateString.date(format: "yy-MM-dd")!.ago(years: 0, months: 0, weeks: 0, days: 1, hours: 0, minutes: 0, seconds: 0).toString(format: "yy-MM-dd")
+        }
+        
+        let todayString = Date().toString(format: "yy-MM-dd")
+        if practicedDataPerDate[todayString] != nil && practicedDataPerDate[todayString]! == true {
+            streakDays = streakDays + 1
         }
         
         ModacityDebugger.debug("App overall data calculation time - \(Date().timeIntervalSince1970 - start.timeIntervalSince1970)s")

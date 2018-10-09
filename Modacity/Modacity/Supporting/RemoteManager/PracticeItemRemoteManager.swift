@@ -33,7 +33,7 @@ class PracticeItemRemoteManager {
                             }
                         }
                     }
-                    NotificationCenter.default.post(Notification(name: AppConfig.appNotificationPracticeLoadedFromServer))
+                    NotificationCenter.default.post(Notification(name: AppConfig.NotificationNames.appNotificationPracticeLoadedFromServer))
                 }
             }
             
@@ -47,7 +47,7 @@ class PracticeItemRemoteManager {
                     }
                     UserDefaults.standard.set(favoriteIds, forKey: "favorite_practice_item_ids")
                     UserDefaults.standard.synchronize()
-                    NotificationCenter.default.post(Notification(name: AppConfig.appNotificationPracticeLoadedFromServer))
+                    NotificationCenter.default.post(Notification(name: AppConfig.NotificationNames.appNotificationPracticeLoadedFromServer))
                 }
             }
         }

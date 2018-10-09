@@ -35,7 +35,7 @@ class PremiumDataManager: NSObject {
     func processPremium(_ premium: PremiumData) {
         UserDefaults.standard.set(premium.toJSON(), forKey: "premium")
         UserDefaults.standard.synchronize()
-        NotificationCenter.default.post(name: AppConfig.appNotificationPremiumStatusChanged, object: nil)
+        NotificationCenter.default.post(name: AppConfig.NotificationNames.appNotificationPremiumStatusChanged, object: nil)
         
         self.checkPremium()
     }
@@ -104,7 +104,7 @@ class PremiumDataManager: NSObject {
                 if let error = error {
                     completion(error.localizedDescription)
                 } else {
-                    NotificationCenter.default.post(name: AppConfig.appNotificationPremiumStatusChanged, object: nil)
+                    NotificationCenter.default.post(name: AppConfig.NotificationNames.appNotificationPremiumStatusChanged, object: nil)
                     completion(nil)
                 }
             }

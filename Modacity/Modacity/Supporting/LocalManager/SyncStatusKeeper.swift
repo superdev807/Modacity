@@ -28,7 +28,7 @@ class SyncStatusKeeper: NSObject {
                 self.statusLabels.append("Loaded settings X")
             }
             
-            NotificationCenter.default.post(Notification(name: AppConfig.appNotificationSyncStatusUpdated))
+            NotificationCenter.default.post(Notification(name: AppConfig.NotificationNames.appNotificationSyncStatusUpdated))
         }
     }
     var statusQuotes: SyncStatus = .loading
