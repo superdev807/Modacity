@@ -213,7 +213,7 @@ class PremiumUpgradeViewController: UIViewController {
     }
     
     @objc func onUpgradeFailed(_ notification:Notification) {
-        ModacityAnalytics.LogStringEvent(" Upgrade Failed")
+        ModacityAnalytics.LogStringEvent("Upgrade Failed")
         MBProgressHUD.hide(for: self.view, animated: true)
         NotificationCenter.default.removeObserver(self, name: IAPHelper.appNotificationSubscriptionSucceeded, object: nil)
         NotificationCenter.default.removeObserver(self, name: IAPHelper.appNotificationSubscriptionFailed, object: nil)
