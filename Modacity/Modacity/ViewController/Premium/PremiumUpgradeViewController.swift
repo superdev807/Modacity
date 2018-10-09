@@ -184,7 +184,7 @@ class PremiumUpgradeViewController: UIViewController {
     }
     
     @IBAction func onStartFreeTrial(_ sender: Any) {
-        ModacityAnalytics.LogStringEvent(" Processing Free Trial", extraParamName: "currentView", extraParamValue: self.pageControlSlider.currentPage)
+        ModacityAnalytics.LogStringEvent("Processing Free Trial", extraParamName: "currentView", extraParamValue: self.pageControlSlider.currentPage)
         
         self.buttonFreeTrialStart.setTitle("PROCESSING...", for: .normal)
         self.view.isUserInteractionEnabled = false
@@ -194,7 +194,7 @@ class PremiumUpgradeViewController: UIViewController {
     }
     
     @IBAction func onRestorePayment(_ sender: Any) {
-        ModacityAnalytics.LogStringEvent(" Initiated Restore Subscription")
+        ModacityAnalytics.LogStringEvent("Initiated Restore Subscription")
         MBProgressHUD.showAdded(to: self.view, animated: true)
         NotificationCenter.default.addObserver(self, selector: #selector(onUpgradedSucceeded), name: IAPHelper.appNotificationSubscriptionSucceeded, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(onUpgradeFailed), name: IAPHelper.appNotificationSubscriptionFailed, object: nil)
@@ -202,7 +202,7 @@ class PremiumUpgradeViewController: UIViewController {
     }
     
     @objc func onUpgradedSucceeded(_ notification: Notification) {
-        ModacityAnalytics.LogStringEvent(" Upgrade Succeeded")
+        ModacityAnalytics.LogStringEvent("Upgrade Succeeded")
         MBProgressHUD.hide(for: self.view, animated: true)
         NotificationCenter.default.removeObserver(self, name: IAPHelper.appNotificationSubscriptionSucceeded, object: nil)
         NotificationCenter.default.removeObserver(self, name: IAPHelper.appNotificationSubscriptionFailed, object: nil)
