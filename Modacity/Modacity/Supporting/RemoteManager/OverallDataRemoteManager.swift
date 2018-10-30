@@ -15,11 +15,13 @@ class OverallDataRemoteManager {
     
     let refUser = Database.database().reference().child("users")
     
-    func syncFirst() {      // if firebase online backup has not created, yet
+    func syncFirst(completion: @escaping ()->()) {      // if firebase online backup has not created, yet
         if let userId = MyProfileLocalManager.manager.userId() {
+            self.refUser.child(userId).child("overall").keepSynced(true)
             self.refUser.child(userId).child("overall").observeSingleEvent(of: .value) { (snapshot) in
                 if (!snapshot.exists()) {
                     self.startUpdatingOverallData()      // sync from local
+                    completion()
                 } else {
                     if let overallData = snapshot.value as? [String:Any] {
                         AppOveralDataManager.manager.forcelySetValues(totalImprovements: overallData["total_improvements"] as? Int ?? 0,
@@ -41,6 +43,38 @@ class OverallDataRemoteManager {
                 
                 self.setOverallDataSynchronized()
                 NotificationCenter.default.post(Notification(name: AppConfig.NotificationNames.appNotificationOverallAppDataLoadedFromServer))
+                
+                completion()
+            }
+        }
+    }
+    
+    func eraseData(completion: @escaping ()->()) {
+        AppOveralDataManager.manager.resetTotalImprovements()
+        if let userId = MyProfileLocalManager.manager.userId() {
+            self.refUser.child(userId).child("overall").updateChildValues(["total_improvements": 0]) { (_, _) in
+                completion()
+            }
+        }
+    }
+    
+    func fullSync(completion: @escaping ()->()) {
+        if let userId = MyProfileLocalManager.manager.userId() {
+            self.refUser.child(userId).child("overall").observeSingleEvent(of: .value) { (snapshot) in
+                if let overallData = snapshot.value as? [String:Any] {
+                    AppOveralDataManager.manager.forcelySetValues(totalImprovements: overallData["total_improvements"] as? Int ?? 0,
+                                                                  notPreventPhoneSleep: overallData["not_prevent_phone_sleep"] as? Bool ?? false,
+                                                                  disableAutoPlayback: overallData["disable_auto_playback"] as? Bool ?? false,
+                                                                  goAfterRating: overallData["go_after_rating"] as? Bool ?? false,
+                                                                  defaultDataShiped: overallData["default_data_ship"] as? Bool ?? false,
+                                                                  firstPlaylistGenerated: overallData["first_playlist_generated"] as? Bool ?? false,
+                                                                  timerPauseDuringNote: overallData["settings_timer_pause_during_note"] as? Bool ?? false,
+                                                                  timerPauseDuringImprove: overallData["settings_timer_pause_during_improve"] as? Bool ?? false,
+                                                                  practiceBreakTime: overallData["practice_break_time"] as? Int ?? 0,
+                                                                  tuningStandard: overallData["tuning_standard"] as? Double ?? 440,
+                                                                  firstPlaylistStored: overallData["first_playlist_stored"] as? Bool ?? false)
+                }
+                completion()
             }
         }
     }

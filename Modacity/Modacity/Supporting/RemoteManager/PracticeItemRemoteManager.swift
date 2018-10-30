@@ -17,6 +17,7 @@ class PracticeItemRemoteManager {
     
     func syncFirst() {      // if firebase online backup has not created, yet
         if let userId = MyProfileLocalManager.manager.userId() {
+            self.refUser.child(userId).child("practices").keepSynced(true)
             self.refUser.child(userId).child("practices").observeSingleEvent(of: .value) { (snapshot) in
                 DispatchQueue.global(qos: .background).async {
                     self.setPracticeItemsSynchronized()
@@ -48,6 +49,36 @@ class PracticeItemRemoteManager {
                     UserDefaults.standard.set(favoriteIds, forKey: "favorite_practice_item_ids")
                     UserDefaults.standard.synchronize()
                     NotificationCenter.default.post(Notification(name: AppConfig.NotificationNames.appNotificationPracticeLoadedFromServer))
+                }
+            }
+        }
+    }
+    
+    func eraseData(completion: @escaping ()->()) {
+        if let userId = MyProfileLocalManager.manager.userId() {
+            self.refUser.child(userId).child("practices").removeValue { (_, _) in
+                completion()
+            }
+        }
+        PracticeItemLocalManager.manager.cleanPracticeItems()
+    }
+    
+    func fullSync(completion: @escaping ()->()) {
+        if let userId = MyProfileLocalManager.manager.userId() {
+            self.refUser.child(userId).child("practices").observeSingleEvent(of: .value) { (snapshot) in
+                DispatchQueue.global(qos: .background).async {
+                    PracticeItemLocalManager.manager.cleanPracticeItems()
+                    for data in snapshot.children.allObjects as! [DataSnapshot] {
+                        if let practiceItem = data.value as? [String:Any] {
+                            if let item = PracticeItem(JSON: practiceItem) {
+                                if PracticeItemLocalManager.manager.practiceItem(forId: item.id) == nil {
+                                    PracticeItemLocalManager.manager.addPracticeItem(item)
+                                }
+                            }
+                        }
+                    }
+                    
+                    completion()
                 }
             }
         }

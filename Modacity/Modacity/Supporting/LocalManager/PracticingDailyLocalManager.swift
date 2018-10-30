@@ -357,4 +357,12 @@ class PracticingDailyLocalManager: NSObject {
         UserDefaults.standard.synchronize()
     }
     
+    func cleanData() {
+        for key in UserDefaults.standard.dictionaryRepresentation().keys {
+            if key.hasPrefix("practicing-indecies-") || key.hasPrefix("practicing-data-") {
+                UserDefaults.standard.removeObject(forKey: key)
+            }
+        }
+    }
+    
 }

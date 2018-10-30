@@ -44,6 +44,16 @@ class GoalsLocalManager: NSObject {
         GoalsRemoteManager.manager.addGoal(goal)
     }
     
+    func cleanGoals() {
+        if let goalIds = UserDefaults.standard.object(forKey: "goal_ids") as? [String] {
+            for goalId in goalIds {
+                UserDefaults.standard.removeObject(forKey: "goal_\(goalId)")
+            }
+        }
+        UserDefaults.standard.removeObject(forKey: "goal_ids")
+        UserDefaults.standard.synchronize()
+    }
+    
     func removeGoal(for goalId:String) {
         if let json = UserDefaults.standard.object(forKey: "goal_\(goalId)") as? [String:Any] {
             if let goal = Note(JSON: json) {

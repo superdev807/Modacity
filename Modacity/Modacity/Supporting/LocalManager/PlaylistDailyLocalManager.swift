@@ -269,4 +269,12 @@ class PlaylistDailyLocalManager: NSObject {
         }
         UserDefaults.standard.synchronize()
     }
+    
+    func cleanData() {
+        for key in UserDefaults.standard.dictionaryRepresentation().keys {
+            if key.hasPrefix("playlist-indecies-") || key.hasPrefix("playlist-data-") {
+                UserDefaults.standard.removeObject(forKey: key)
+            }
+        }
+    }
 }

@@ -33,8 +33,18 @@ class GoalsRemoteManager: NSObject {
         }
     }
     
+    func eraseGoals(completion: @escaping ()->()) {
+        if let userId = MyProfileLocalManager.manager.userId() {
+            self.refUser.child(userId).child("goals").removeValue { (_, _) in
+                completion()
+            }
+        }
+        GoalsLocalManager.manager.cleanGoals()
+    }
+    
     func fetchGoalsFromServer() {
         if let userId = MyProfileLocalManager.manager.userId() {
+            self.refUser.child(userId).child("goals").keepSynced(true)
             self.refUser.child(userId).child("goals").observeSingleEvent(of: .value) { (snapshot) in
                 if snapshot.exists() {
                     if let dataSnapshots = snapshot.children.allObjects as? [DataSnapshot] {
@@ -47,6 +57,27 @@ class GoalsRemoteManager: NSObject {
                         }
                     }
                 }
+            }
+        }
+    }
+    
+    func fullSync(completion: @escaping ()->()) {
+        if let userId = MyProfileLocalManager.manager.userId() {
+            let ref = self.refUser.child(userId).child("goals")
+            ref.observeSingleEvent(of: .value) { (snapshot) in
+                if snapshot.exists() {
+                    if let dataSnapshots = snapshot.children.allObjects as? [DataSnapshot] {
+                        GoalsLocalManager.manager.cleanGoals()
+                        for dataSnapshot in  dataSnapshots {
+                            if let data = dataSnapshot.value as? [String:Any] {
+                                if let goal = Note(JSON: data) {
+                                    GoalsLocalManager.manager.addGoal(goal)
+                                }
+                            }
+                        }
+                    }
+                }
+                completion()
             }
         }
     }

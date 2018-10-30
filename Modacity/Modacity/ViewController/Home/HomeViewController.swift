@@ -19,9 +19,12 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var textfieldImprovements: UITextField!
     
     @IBOutlet weak var viewEmptyPanel: UIView!
+    
     @IBOutlet weak var collectionViewRecentPlaylists: UICollectionView!
+    @IBOutlet weak var viewNoRecentPlaylist: UIView!
     
     @IBOutlet weak var collectionViewFavoritePlaylists: UICollectionView!
+    @IBOutlet weak var viewNoFavoriteItems: UIView!
     
     @IBOutlet weak var labelFavoritesHeader: UILabel!
     @IBOutlet weak var labelRecentHeader: UILabel!
@@ -328,9 +331,19 @@ extension HomeViewController {
         if let viewModel = AppOveralDataManager.manager.viewModel {
             
             self.favoriteItems = viewModel.favoriteItems
+            if self.favoriteItems.count > 0 {
+                self.viewNoFavoriteItems.isHidden = true
+            } else {
+                self.viewNoFavoriteItems.isHidden = false
+            }
             self.collectionViewFavoritePlaylists.reloadData()
             
             self.recentPlaylists = viewModel.recentPlaylists
+            if self.recentPlaylists.count > 0 {
+                self.viewNoRecentPlaylist.isHidden = true
+            } else {
+                self.viewNoRecentPlaylist.isHidden = false
+            }
             self.collectionViewRecentPlaylists.reloadData()
         }
     }
@@ -347,6 +360,11 @@ extension HomeViewController {
             }
             
             DispatchQueue.main.async {
+                if self.recentPlaylists.count == 0 {
+                    self.viewNoRecentPlaylist.isHidden = false
+                } else {
+                    self.viewNoRecentPlaylist.isHidden = true
+                }
                 self.collectionViewRecentPlaylists.reloadData()
             }
         }
@@ -383,6 +401,11 @@ extension HomeViewController {
             })
             
             DispatchQueue.main.async {
+                if self.favoriteItems.count > 0 {
+                    self.viewNoFavoriteItems.isHidden = true
+                } else {
+                    self.viewNoFavoriteItems.isHidden = false
+                }
                 self.collectionViewFavoritePlaylists.reloadData()
             }
         }
