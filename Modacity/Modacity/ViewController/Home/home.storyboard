@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -71,31 +69,31 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="YOUR PROGRESS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wll-Ob-HBo">
-                                                <rect key="frame" x="16" y="82" width="81.5" height="12"/>
+                                                <rect key="frame" x="16" y="81.5" width="81.5" height="12"/>
                                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="10"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_box1" translatesAutoresizingMaskIntoConstraints="NO" id="SXo-VL-y88">
-                                                <rect key="frame" x="16" y="102" width="343" height="116"/>
+                                                <rect key="frame" x="16" y="101.5" width="343" height="116"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="SXo-VL-y88" secondAttribute="height" multiplier="343:116" id="A4c-Ac-9Vw"/>
                                                 </constraints>
                                             </imageView>
                                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xzs-A9-Hln">
-                                                <rect key="frame" x="16" y="102" width="343" height="116"/>
+                                                <rect key="frame" x="16" y="101.5" width="343" height="116"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pvf-0E-q5A">
                                                         <rect key="frame" x="0.0" y="0.0" width="212.5" height="116"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N2O-cM-fnt">
-                                                                <rect key="frame" x="13" y="27" width="192" height="61"/>
+                                                                <rect key="frame" x="13" y="27" width="191.5" height="61"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0nn-tI-pqa">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="96" height="61"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="95.5" height="61"/>
                                                                         <subviews>
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dno-aV-C7m">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="96" height="61"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="95.5" height="61"/>
                                                                                 <connections>
                                                                                     <action selector="onTotalHours:" destination="uL2-n6-Rai" eventType="touchUpInside" id="HB7-gd-tRt"/>
                                                                                 </connections>
@@ -111,7 +109,7 @@
                                                                                 <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" returnKeyType="next"/>
                                                                             </textField>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TOTAL HOURS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b5X-Yy-dRV">
-                                                                                <rect key="frame" x="0.0" y="37" width="96" height="12"/>
+                                                                                <rect key="frame" x="0.0" y="37" width="95.5" height="12"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="10"/>
                                                                                 <color key="textColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
                                                                                 <nil key="highlightedColor"/>
@@ -132,7 +130,7 @@
                                                                         </constraints>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1r2-TD-EGg">
-                                                                        <rect key="frame" x="96" y="0.0" width="96" height="61"/>
+                                                                        <rect key="frame" x="95.5" y="0.0" width="96" height="61"/>
                                                                         <subviews>
                                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Vnz-GV-vcM">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="96" height="30"/>
@@ -145,7 +143,7 @@
                                                                                 <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" returnKeyType="next"/>
                                                                             </textField>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DAY STREAK" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yNo-yN-JI4">
-                                                                                <rect key="frame" x="18.5" y="37" width="60" height="12"/>
+                                                                                <rect key="frame" x="18" y="37" width="60" height="12"/>
                                                                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="10"/>
                                                                                 <color key="textColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
                                                                                 <nil key="highlightedColor"/>
@@ -192,7 +190,7 @@
                                                         <rect key="frame" x="218.5" y="27" width="119.5" height="62"/>
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="49d-EG-qn5">
-                                                                <rect key="frame" x="12.5" y="0.0" width="96" height="30"/>
+                                                                <rect key="frame" x="11.5" y="0.0" width="96" height="30"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="1lB-Rh-Xs4"/>
                                                                     <constraint firstAttribute="width" constant="96" id="qLc-Jk-bJd"/>
@@ -202,7 +200,7 @@
                                                                 <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" returnKeyType="done"/>
                                                             </textField>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="IMPROVEMENTS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fjo-Y6-VnS">
-                                                                <rect key="frame" x="20.5" y="37" width="80" height="12"/>
+                                                                <rect key="frame" x="19.5" y="37" width="80" height="12"/>
                                                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="10"/>
                                                                 <color key="textColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -327,6 +325,22 @@ first playlist and start practicing.</string>
                                                                     <outlet property="delegate" destination="uL2-n6-Rai" id="qlc-DC-8Tn"/>
                                                                 </connections>
                                                             </collectionView>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TXd-z1-3IK">
+                                                                <rect key="frame" x="0.0" y="22" width="375" height="120"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No recent playlists" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O5d-Dj-RKc">
+                                                                        <rect key="frame" x="135" y="51.5" width="105" height="17"/>
+                                                                        <fontDescription key="fontDescription" name="Lato-Italic" family="Lato" pointSize="14"/>
+                                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <constraints>
+                                                                    <constraint firstItem="O5d-Dj-RKc" firstAttribute="centerY" secondItem="TXd-z1-3IK" secondAttribute="centerY" id="gpn-Lp-oTm"/>
+                                                                    <constraint firstItem="O5d-Dj-RKc" firstAttribute="centerX" secondItem="TXd-z1-3IK" secondAttribute="centerX" id="y6A-zb-Xqp"/>
+                                                                </constraints>
+                                                            </view>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FAVORITES" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="da3-DE-qjr">
                                                                 <rect key="frame" x="20" y="147" width="53" height="12"/>
                                                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="10"/>
@@ -396,19 +410,43 @@ first playlist and start practicing.</string>
                                                                     <outlet property="delegate" destination="uL2-n6-Rai" id="8au-nx-0mj"/>
                                                                 </connections>
                                                             </collectionView>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NJZ-fa-pvX">
+                                                                <rect key="frame" x="0.0" y="164" width="375" height="120"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No favorite items" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="loC-oe-llY">
+                                                                        <rect key="frame" x="138.5" y="51.5" width="98" height="17"/>
+                                                                        <fontDescription key="fontDescription" name="Lato-Italic" family="Lato" pointSize="14"/>
+                                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <constraints>
+                                                                    <constraint firstItem="loC-oe-llY" firstAttribute="centerX" secondItem="NJZ-fa-pvX" secondAttribute="centerX" id="NSF-MX-QkH"/>
+                                                                    <constraint firstItem="loC-oe-llY" firstAttribute="centerY" secondItem="NJZ-fa-pvX" secondAttribute="centerY" id="qeV-uq-hIi"/>
+                                                                </constraints>
+                                                            </view>
                                                         </subviews>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <constraints>
                                                             <constraint firstItem="rAI-c8-Ze7" firstAttribute="top" secondItem="da3-DE-qjr" secondAttribute="bottom" constant="5" id="0BA-F1-S6Q"/>
+                                                            <constraint firstItem="TXd-z1-3IK" firstAttribute="leading" secondItem="NdI-26-i6m" secondAttribute="leading" id="GLl-Eu-qTg"/>
+                                                            <constraint firstItem="TXd-z1-3IK" firstAttribute="bottom" secondItem="NdI-26-i6m" secondAttribute="bottom" id="I3P-mz-DrF"/>
                                                             <constraint firstItem="rAI-c8-Ze7" firstAttribute="leading" secondItem="zsm-h9-2QW" secondAttribute="leading" id="Jzp-BU-mzV"/>
+                                                            <constraint firstItem="NJZ-fa-pvX" firstAttribute="bottom" secondItem="rAI-c8-Ze7" secondAttribute="bottom" id="LkA-Jt-iFb"/>
                                                             <constraint firstAttribute="trailing" secondItem="rAI-c8-Ze7" secondAttribute="trailing" id="P8i-kj-cvJ"/>
                                                             <constraint firstAttribute="trailing" secondItem="NdI-26-i6m" secondAttribute="trailing" id="Pjf-ZO-RIW"/>
                                                             <constraint firstItem="9qr-R3-BeI" firstAttribute="leading" secondItem="zsm-h9-2QW" secondAttribute="leading" constant="20" id="S7C-o6-4xh"/>
+                                                            <constraint firstItem="NJZ-fa-pvX" firstAttribute="leading" secondItem="rAI-c8-Ze7" secondAttribute="leading" id="TBJ-b3-g6a"/>
                                                             <constraint firstItem="9qr-R3-BeI" firstAttribute="top" secondItem="zsm-h9-2QW" secondAttribute="top" constant="5" id="UvN-2K-2BD"/>
                                                             <constraint firstItem="da3-DE-qjr" firstAttribute="top" secondItem="NdI-26-i6m" secondAttribute="bottom" constant="5" id="b5H-3e-3wC"/>
                                                             <constraint firstItem="NdI-26-i6m" firstAttribute="leading" secondItem="zsm-h9-2QW" secondAttribute="leading" id="hCs-Wg-Fx9"/>
                                                             <constraint firstItem="NdI-26-i6m" firstAttribute="top" secondItem="9qr-R3-BeI" secondAttribute="bottom" constant="5" id="lpF-wF-waz"/>
+                                                            <constraint firstItem="NJZ-fa-pvX" firstAttribute="trailing" secondItem="rAI-c8-Ze7" secondAttribute="trailing" id="n1s-gv-lqd"/>
                                                             <constraint firstItem="da3-DE-qjr" firstAttribute="leading" secondItem="9qr-R3-BeI" secondAttribute="leading" id="qjt-o1-bHD"/>
+                                                            <constraint firstItem="NJZ-fa-pvX" firstAttribute="top" secondItem="rAI-c8-Ze7" secondAttribute="top" id="sft-Ws-MJP"/>
+                                                            <constraint firstItem="TXd-z1-3IK" firstAttribute="top" secondItem="NdI-26-i6m" secondAttribute="top" id="x0W-Bp-RWX"/>
+                                                            <constraint firstItem="TXd-z1-3IK" firstAttribute="trailing" secondItem="NdI-26-i6m" secondAttribute="trailing" id="ys5-OL-I96"/>
                                                         </constraints>
                                                     </view>
                                                 </subviews>
@@ -510,6 +548,8 @@ first playlist and start practicing.</string>
                         <outlet property="textfieldImprovements" destination="49d-EG-qn5" id="roM-AU-gE0"/>
                         <outlet property="textfieldTotalHours" destination="76E-Vd-ZCr" id="8Zk-mq-r3f"/>
                         <outlet property="viewEmptyPanel" destination="3vr-Vx-czF" id="vea-Y6-UFC"/>
+                        <outlet property="viewNoFavoriteItems" destination="NJZ-fa-pvX" id="uen-Mm-Vl8"/>
+                        <outlet property="viewNoRecentPlaylist" destination="TXd-z1-3IK" id="Ydl-cf-5XD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YSd-C5-07k" userLabel="First Responder" sceneMemberID="firstResponder"/>

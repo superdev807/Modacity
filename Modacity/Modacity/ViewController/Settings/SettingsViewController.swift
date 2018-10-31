@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 class SettingsCellWithIconAndSubTitle: UITableViewCell {
     
@@ -157,9 +158,9 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
             return 5
         } else if section == 2 {
             if PremiumDataManager.manager.isPremiumUnlocked() {
-                return 5
+                return 6
             } else {
-                return 4
+                return 5
             }
         } else if section == 3 {
             return 2
@@ -251,26 +252,30 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
             }
         } else if indexPath.section == 2 {
             if indexPath.row == 0 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCellWithoutIcon") as! SettingsCellWithoutIcon
+                cell.configure(caption: "App Data")
+                return cell
+            } else if indexPath.row == 1 {
                 let cell = self.tableViewSettings.dequeueReusableCell(withIdentifier: "SettingsCellTextField") as! SettingsCellTextField
                 cell.configure(value: String(AppOveralDataManager.manager.tuningStandard()))
                 cell.delegate = self
                 return cell
-            } else if indexPath.row == 1 {
+            } else if indexPath.row == 2 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCellWithSwitch") as! SettingsCellWithSwitch
                 cell.delegate = self
                 cell.configure(caption: "Prevent Phone Sleep During Audio Activity", isOn: AppOveralDataManager.manager.settingsPhoneSleepPrevent())
                 return cell
-            } else if indexPath.row == 2 {
+            } else if indexPath.row == 3 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCellWithSwitch") as! SettingsCellWithSwitch
                 cell.delegate = self
                 cell.configure(caption: "Disable Auto-Playback", isOn: AppOveralDataManager.manager.settingsDisableAutoPlayback())
                 return cell
-            }  else if indexPath.row == 3 {
+            }  else if indexPath.row == 4 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCellWithSwitch") as! SettingsCellWithSwitch
                 cell.delegate = self
                 cell.configure(caption: "After Rating Go to Next Item", isOn: AppOveralDataManager.manager.settingsGotoNextItemAfterRating())
                 return cell
-            } else if indexPath.row == 4 {
+            } else if indexPath.row == 5 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCellWithoutIcon") as! SettingsCellWithoutIcon
                 cell.configure(caption: "“Take a Break” Reminder")
                 return cell
@@ -316,11 +321,12 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
                 self.performSegue(withIdentifier: "sid_subscription_terms", sender: nil)
             }
         } else if indexPath.section == 2 {
-            if indexPath.row == 4 {
+            if indexPath.row == 0 {
+                self.performSegue(withIdentifier: "sid_app_data", sender: nil)
+            } else if indexPath.row == 5 {
                 self.openBreakReminderSettingsPage()
             }
         }
-        
     }
     
     func changeDisplayName() {
@@ -386,10 +392,10 @@ extension SettingsViewController: SettingsCellWithSwitchDelegate {
     func onSwitchValueChanged(forCaption: String?) {
         if "Prevent Phone Sleep During Audio Activity" == forCaption {
             AppOveralDataManager.manager.changePhoneSleepPrevent()
-            self.tableViewSettings.reloadRows(at: [IndexPath(row: 1, section: 2)], with: .none)
+            self.tableViewSettings.reloadRows(at: [IndexPath(row: 2, section: 2)], with: .none)
         } else if "Disable Auto-Playback" == forCaption {
             AppOveralDataManager.manager.changeDisableAutoPlayback()
-            self.tableViewSettings.reloadRows(at: [IndexPath(row: 2, section: 2)], with: .none)
+            self.tableViewSettings.reloadRows(at: [IndexPath(row: 3, section: 2)], with: .none)
         } else if "Pause Timer During Note Taking" == forCaption {
             AppOveralDataManager.manager.changeSettingsTimerPauseDuringNote()
             self.tableViewSettings.reloadRows(at: [IndexPath(row: 0, section: 3)], with: .none)
@@ -398,7 +404,7 @@ extension SettingsViewController: SettingsCellWithSwitchDelegate {
             self.tableViewSettings.reloadRows(at: [IndexPath(row: 1, section: 3)], with: .none)
         } else if "After Rating Go to Next Item" == forCaption {
             AppOveralDataManager.manager.changeGotoNextItemAfterRating()
-            self.tableViewSettings.reloadRows(at: [IndexPath(row:3, section: 2)], with: .none)
+            self.tableViewSettings.reloadRows(at: [IndexPath(row:4, section: 2)], with: .none)
         }
     }
 }

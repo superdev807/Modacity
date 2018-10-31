@@ -76,7 +76,6 @@ class AboutViewController: UIViewController {
         
         let activityController = UIActivityViewController(activityItems: [textString, stringWithLink], applicationActivities:nil)
         
-        
         activityController.completionWithItemsHandler = { (nil, completed, _, error)
             in
             if completed {

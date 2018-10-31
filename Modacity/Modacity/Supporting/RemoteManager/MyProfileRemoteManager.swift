@@ -44,14 +44,15 @@ class MyProfileRemoteManager {
             
             DispatchQueue.global(qos: .background).async {
                 WalkthroughRemoteManager.manager.syncFirst()
-                PracticeItemRemoteManager.manager.syncFirst()
-                PlaylistRemoteManager.manager.syncFirst()
-                OverallDataRemoteManager.manager.syncFirst()
                 MusicQuotesManager.manager.loadQuotesFromServer()
-                DailyPracticingRemoteManager.manager.fetchPracticingDataFromServer()
-                DailyPracticingRemoteManager.manager.fetchPlaylistPracticingDataFromServer()
                 PremiumDataManager.manager.fetchPremiumUpgradeStatus()
-                GoalsRemoteManager.manager.fetchGoalsFromServer()
+                OverallDataRemoteManager.manager.syncFirst {
+                    PracticeItemRemoteManager.manager.syncFirst()
+                    PlaylistRemoteManager.manager.syncFirst()
+                    DailyPracticingRemoteManager.manager.fetchPracticingDataFromServer()
+                    DailyPracticingRemoteManager.manager.fetchPlaylistPracticingDataFromServer()
+                    GoalsRemoteManager.manager.fetchGoalsFromServer()
+                }
             }
         }
     }

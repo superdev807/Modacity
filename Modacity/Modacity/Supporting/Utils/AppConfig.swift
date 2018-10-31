@@ -54,6 +54,8 @@ class AppConfig: NSObject {
         static let appGoogleAnalyticsTrackingId = "111435557"
         static let appMintApiKey = "b2ee2ef2"
         
+        static let appsFlyerDevKey = "PymGGsKXsSAVgTAiy4ewa6"
+        static let appsFlyerAppId = "1351617981"
     }
     
     struct Links {

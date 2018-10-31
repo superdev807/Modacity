@@ -72,6 +72,16 @@ class PlaylistLocalManager: NSObject {
         return nil
     }
     
+    func cleanPlaylists() {
+        if let playlistIds = self.loadPlaylistIds() {
+            for playlistId in playlistIds {
+                UserDefaults.standard.removeObject(forKey: "playlist:id:" + playlistId)
+            }
+        }
+        UserDefaults.standard.removeObject(forKey: "playlist_ids")
+        UserDefaults.standard.synchronize()
+    }
+    
     func loadPlaylists() -> [Playlist]? {
         if let playlistIds = self.loadPlaylistIds() {
             var playlists = [Playlist]()

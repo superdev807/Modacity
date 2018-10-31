@@ -17,6 +17,7 @@ class PlaylistRemoteManager {
     
     func syncFirst() {      // if firebase online backup has not created, yet
         if let userId = MyProfileLocalManager.manager.userId() {
+            self.refUser.child(userId).child("playlists").keepSynced(true)
             self.refUser.child(userId).child("playlists").observeSingleEvent(of: .value) { (snapshot) in
                 self.setPlaylistItemsSynchronized()
                 if (!snapshot.exists()) {
@@ -36,6 +37,33 @@ class PlaylistRemoteManager {
                     }
                 }
                 NotificationCenter.default.post(Notification(name: AppConfig.NotificationNames.appNotificationPlaylistLoadedFromServer))
+            }
+        }
+    }
+    
+    func eraseData(completion: @escaping ()->()) {
+        if let userId = MyProfileLocalManager.manager.userId() {
+            self.refUser.child(userId).child("playlists").removeValue { (_, _) in
+                completion()
+            }
+        }
+        PlaylistLocalManager.manager.cleanPlaylists()
+    }
+    
+    func fullSync(completion: @escaping ()->()) {
+        if let userId = MyProfileLocalManager.manager.userId() {
+            self.refUser.child(userId).child("playlists").observeSingleEvent(of: .value) { (snapshot) in
+                PlaylistLocalManager.manager.cleanPlaylists()
+                for data in snapshot.children.allObjects as! [DataSnapshot] {
+                    if let playlistData = data.value as? [String:Any] {
+                        if let item = Playlist(JSON: playlistData) {
+                            if PlaylistLocalManager.manager.loadPlaylist(forId: item.id) == nil {
+                                PlaylistLocalManager.manager.storePlaylist(item)
+                            }
+                        }
+                    }
+                }
+                completion()
             }
         }
     }

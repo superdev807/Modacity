@@ -17,15 +17,23 @@ import SplunkMint
 import UserNotifications
 import StoreKit
 import Reachability
+import AppsFlyerLib
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, AppsFlyerTrackerDelegate {
 
     var window: UIWindow?
     let reachability = Reachability()!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        // AppsFlyer------
+        AppsFlyerTracker.shared().appsFlyerDevKey = AppConfig.ThirdParty.appsFlyerDevKey
+        AppsFlyerTracker.shared().appleAppID = AppConfig.ThirdParty.appsFlyerAppId
+        AppsFlyerTracker.shared().delegate = self
+        //AppsFlyerTracker.shared().isDebug = true
+        //-------------
         
         Mint.sharedInstance().disableNetworkMonitoring()
         Mint.sharedInstance().initAndStartSession(withAPIKey: AppConfig.ThirdParty.appMintApiKey)
@@ -81,6 +89,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         FBSDKAppEvents.activateApp()
         ModacityAnalytics.LogEvent(.ResumeActive)
+        AppsFlyerTracker.shared().trackAppLaunch()
 //        AppOveralDataManager.manager.saveStreak()
     }
 
@@ -185,5 +194,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             ModacityDebugger.debug("NETWORK STATUS - Unable to start notifier")
         }
     }
+    
 }
 

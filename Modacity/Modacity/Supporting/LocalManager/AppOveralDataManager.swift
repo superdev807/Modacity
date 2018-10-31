@@ -98,6 +98,11 @@ class AppOveralDataManager {
         return nil
     }
     
+    func resetTotalImprovements() {
+        UserDefaults.standard.set(0, forKey: "total_improvements")
+        UserDefaults.standard.synchronize()
+    }
+    
     func addImprovementsCount() {
         let improvements = self.totalImprovements() ?? 0
         UserDefaults.standard.set(improvements + 1, forKey: "total_improvements")

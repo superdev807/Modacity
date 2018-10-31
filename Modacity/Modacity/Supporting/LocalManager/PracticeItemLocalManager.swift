@@ -87,6 +87,16 @@ class PracticeItemLocalManager {
         return nil
     }
     
+    func cleanPracticeItems() {
+        if let ids = self.practiceItemIds() {
+            for id in ids {
+                UserDefaults.standard.removeObject(forKey: "practice:id:" + id)
+            }
+            UserDefaults.standard.removeObject(forKey: "practice_item_ids")
+        }
+        UserDefaults.standard.synchronize()
+    }
+    
     func addPracticeItem(_ practiceItem:PracticeItem) {
         if let practiceItemId = practiceItem.id {
             if var itemIds = self.practiceItemIds() {
