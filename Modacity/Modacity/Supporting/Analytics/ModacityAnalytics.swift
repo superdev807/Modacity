@@ -11,6 +11,7 @@ import Firebase
 import FBSDKCoreKit
 import Amplitude_iOS
 import Intercom
+import AppsFlyerLib
 
 enum ModacityEvent:String {
     //Launch & basic functionality
@@ -78,8 +79,7 @@ class ModacityAnalytics: NSObject {
     private static func amplitudeLog(_ eventString: String, extraParamName: String? = nil,extraParamValue: AnyHashable? = nil) {
         if (extraParamName != nil) {
             Amplitude.instance().logEvent(eventString, withEventProperties: [extraParamName!: extraParamValue!])
-        }
-        else {
+        } else {
             Amplitude.instance().logEvent(eventString)
         }
     }
@@ -102,6 +102,7 @@ class ModacityAnalytics: NSObject {
             FBSDKAppEvents.logEvent(eventString, parameters: [paramName: value!])
             Amplitude.instance().logEvent(eventString, withEventProperties: [paramName: value!])
             Intercom.logEvent(withName: eventString, metaData: [paramName : value!])
+            AppsFlyerTracker.shared()?.trackEvent(eventString, withValues: [paramName: value!])
  
         } else {
             if (!debugPrefix.isEmpty) {
@@ -111,6 +112,7 @@ class ModacityAnalytics: NSObject {
             FBSDKAppEvents.logEvent(eventString)
             Amplitude.instance().logEvent(eventString)
             Intercom.logEvent(withName: eventString)
+            AppsFlyerTracker.shared()?.trackEvent(eventString, withValues: [String:Any]())
 
         }
     }
@@ -127,5 +129,6 @@ class ModacityAnalytics: NSObject {
         FBSDKAppEvents.logEvent(event.rawValue, parameters: params)
         Amplitude.instance().logEvent(event.rawValue, withEventProperties: params)
         Intercom.logEvent(withName: event.rawValue, metaData: params ?? [String:Any]())
+        AppsFlyerTracker.shared()?.trackEvent(event.rawValue, withValues: params ?? [String:Any]())
     }
 }

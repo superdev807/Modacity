@@ -11,6 +11,7 @@ import Amplitude_iOS
 import Crashlytics
 import Intercom
 import DGActivityIndicatorView
+import AppsFlyerLib
 
 class HomeViewController: UIViewController {
 
@@ -129,11 +130,15 @@ class HomeViewController: UIViewController {
             
             DispatchQueue.global(qos: .background).async {
                 Amplitude.instance().setUserId(me.email)
+                
                 Intercom.registerUser(withEmail: me.email)
                 let userAttributes = ICMUserAttributes()
                 userAttributes.name = me.displayName()
                 userAttributes.email = me.email
                 Intercom.updateUser(userAttributes)
+                
+                AppsFlyerTracker.shared()?.customerUserID = me.uid
+                AppsFlyerTracker.shared()?.setUserEmails([me.email], with: EmailCryptTypeSHA1)
             }
         } else {
             self.labelWelcome.text = "Welcome!"

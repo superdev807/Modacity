@@ -29,8 +29,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // Override point for customization after application launch.
         
         // AppsFlyer------
-        AppsFlyerTracker.shared().appsFlyerDevKey = "PymGGsKXsSAVgTAiy4ewa6";
-        AppsFlyerTracker.shared().appleAppID = "1351617981"
+        AppsFlyerTracker.shared().appsFlyerDevKey = AppConfig.ThirdParty.appsFlyerDevKey
+        AppsFlyerTracker.shared().appleAppID = AppConfig.ThirdParty.appsFlyerAppId
         AppsFlyerTracker.shared().delegate = self
         //AppsFlyerTracker.shared().isDebug = true
         //-------------
