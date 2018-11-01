@@ -473,7 +473,7 @@ extension PracticeViewController {
                                                                       improvements: self.playlistViewModel.sessionImproved,
                                                                       parentId: self.playlistViewModel.playlistPracticeData.entryId)
                 self.playlistViewModel.playlistPracticeData.practices.append(id)
-                self.playlistViewModel.playlistPracticeData.practiceTimeInSeconds = self.playlistViewModel.totalPracticedTime() + self.playlistViewModel.sessionPlayedInPlaylistPage
+                self.playlistViewModel.playlistPracticeData.practiceTimeInSeconds = self.playlistViewModel.totalPracticedTime()/* + self.playlistViewModel.sessionPlayedInPlaylistPage*/
                 PlaylistDailyLocalManager.manager.saveNewPlaylistPracticing(self.playlistViewModel.playlistPracticeData)
                 self.playlistViewModel.sessionImproved = [ImprovedRecord]()
                 self.navigationController?.popViewController(animated: true)
@@ -1513,9 +1513,11 @@ extension PracticeViewController: PracticeBreakPromptViewDelegate {
         }
         self.view.bringSubview(toFront: self.viewPracticeBreakPrompt)
         if self.playlistViewModel != nil && self.parentContentViewController != nil {
-            self.viewPracticeBreakPrompt.showPracticeTime(self.playlistViewModel.totalPracticedTime() + self.playlistViewModel.sessionPlayedInPlaylistPage + self.overallPracticeTimeInSeconds)
+            self.viewPracticeBreakPrompt.showPracticeTime(self.playlistViewModel.totalPracticedTime() + /*self.playlistViewModel.sessionPlayedInPlaylistPage +*/ self.overallPracticeTimeInSeconds)
+//            self.parentContentViewController.lastPracticeBreakTimeShown = self.playlistViewModel.totalPracticedTime() + self.overallPracticeTimeInSeconds
         } else {
             self.viewPracticeBreakPrompt.showPracticeTime(self.overallPracticeTimeInSeconds)
+//            self.parentContentViewController.lastPracticeBreakTimeShown = self.overallPracticeTimeInSeconds
         }
         self.viewPracticeBreakPrompt.startCountUpTimer()
     }
