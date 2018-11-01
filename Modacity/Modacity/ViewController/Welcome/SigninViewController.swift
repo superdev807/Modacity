@@ -42,6 +42,13 @@ class SigninViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "sid_reset_password" {
+            let controller = segue.destination as! ResetPasswordViewController
+            controller.deliveryEmailAddress = self.textfieldEmailAddress.text ?? ""
+        }
+    }
+    
     func initControls() {
         
         self.viewEmailAddressContainer.styling(cornerRadius: AppConfig.UI.AppUIValues.viewPanelCornerRadius, borderColor: AppConfig.UI.AppColors.inputContainerBorderColor, borderWidth: AppConfig.UI.AppUIValues.viewPanelBorderWidth)

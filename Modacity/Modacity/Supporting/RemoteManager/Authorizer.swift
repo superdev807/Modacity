@@ -69,6 +69,16 @@ class Authorizer: NSObject {
         }
     }
     
+    func resetPassword(email:String, completion: @escaping (String?)->()) {
+        Auth.auth().sendPasswordReset(withEmail: email) { (error) in
+            if let error = error {
+                completion(error.localizedDescription)
+            } else {
+                completion(nil)
+            }
+        }
+    }
+    
     func facebookLogin(controller: UIViewController, completion: @escaping (String?)->()) {
         let loginManager = FBSDKLoginManager()
         loginManager.logIn(withReadPermissions: ["public_profile", "email"], from: controller) { (result, error) in
