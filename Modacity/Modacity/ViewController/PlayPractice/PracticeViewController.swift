@@ -166,7 +166,6 @@ class PracticeViewController: UIViewController {
     }
     
     func startPractice() {
-        
         if !AppOveralDataManager.manager.walkThroughFlagChecking(key: "walkthrough_practice_page") {
             self.showWalkthrough()
         } else {
@@ -886,6 +885,10 @@ extension PracticeViewController {
         
         self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(onTimer), userInfo: nil, repeats: true)
         self.timerRunning = true
+        
+        if AppOveralDataManager.manager.settingsStartPracticeWithTimerPaused() {
+            self.onTapTimer(self)
+        }
     }
     
     @objc func onTimer() {

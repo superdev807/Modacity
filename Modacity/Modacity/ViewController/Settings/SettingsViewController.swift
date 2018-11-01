@@ -158,9 +158,9 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
             return 5
         } else if section == 2 {
             if PremiumDataManager.manager.isPremiumUnlocked() {
-                return 6
+                return 7
             } else {
-                return 5
+                return 6
             }
         } else if section == 3 {
             return 2
@@ -276,6 +276,11 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
                 cell.configure(caption: "After Rating Go to Next Item", isOn: AppOveralDataManager.manager.settingsGotoNextItemAfterRating())
                 return cell
             } else if indexPath.row == 5 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCellWithSwitch") as! SettingsCellWithSwitch
+                cell.delegate = self
+                cell.configure(caption: "Start Practice with Timer Paused", isOn: AppOveralDataManager.manager.settingsStartPracticeWithTimerPaused())
+                return cell
+            } else if indexPath.row == 6 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCellWithoutIcon") as! SettingsCellWithoutIcon
                 cell.configure(caption: "“Take a Break” Reminder")
                 return cell
@@ -323,7 +328,7 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
         } else if indexPath.section == 2 {
             if indexPath.row == 0 {
                 self.performSegue(withIdentifier: "sid_app_data", sender: nil)
-            } else if indexPath.row == 5 {
+            } else if indexPath.row == 6 {
                 self.openBreakReminderSettingsPage()
             }
         }
@@ -405,6 +410,9 @@ extension SettingsViewController: SettingsCellWithSwitchDelegate {
         } else if "After Rating Go to Next Item" == forCaption {
             AppOveralDataManager.manager.changeGotoNextItemAfterRating()
             self.tableViewSettings.reloadRows(at: [IndexPath(row:4, section: 2)], with: .none)
+        } else if "Start Practice with Timer Paused" == forCaption {
+            AppOveralDataManager.manager.changeStartPracticeWithTimerPaused()
+            self.tableViewSettings.reloadRows(at: [IndexPath(row:5, section: 2)], with: .none)
         }
     }
 }

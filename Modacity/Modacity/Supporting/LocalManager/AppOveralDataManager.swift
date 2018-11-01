@@ -61,6 +61,7 @@ class AppOveralDataManager {
         UserDefaults.standard.removeObject(forKey: "settings_timer_pause_during_improve")
         UserDefaults.standard.removeObject(forKey: "practice_break_time")
         UserDefaults.standard.removeObject(forKey: "go_after_rating")
+        UserDefaults.standard.removeObject(forKey: "start_practice_with_paused_timer")
         
         UserDefaults.standard.synchronize()
     }
@@ -75,7 +76,8 @@ class AppOveralDataManager {
                           timerPauseDuringImprove: Bool,
                           practiceBreakTime: Int,
                           tuningStandard: Double,
-                          firstPlaylistStored: Bool) {
+                          firstPlaylistStored: Bool,
+                          startPracticeWithTimerPaused: Bool) {
         
         UserDefaults.standard.set(totalImprovements, forKey: "total_improvements")
         UserDefaults.standard.set(notPreventPhoneSleep, forKey: "not_prevent_phone_sleep")
@@ -88,6 +90,7 @@ class AppOveralDataManager {
         UserDefaults.standard.set(practiceBreakTime, forKey: "practice_break_time")
         UserDefaults.standard.set(tuningStandard, forKey: "tuning_standard")
         UserDefaults.standard.set(firstPlaylistStored, forKey: "first_playlist_stored")
+        UserDefaults.standard.set(startPracticeWithTimerPaused, forKey: "start_practice_with_paused_timer")
         UserDefaults.standard.synchronize()
     }
     
@@ -138,6 +141,16 @@ class AppOveralDataManager {
         UserDefaults.standard.set(settingsGotoNextItemAfterRating(), forKey: "go_after_rating")
         UserDefaults.standard.synchronize()
         OverallDataRemoteManager.manager.postSettingsValueToServer(key: "go_after_rating", value: !settingsGotoNextItemAfterRating())
+    }
+    
+    func settingsStartPracticeWithTimerPaused() -> Bool {
+        return UserDefaults.standard.bool(forKey: "start_practice_with_paused_timer")
+    }
+    
+    func changeStartPracticeWithTimerPaused() {
+        UserDefaults.standard.set(!(settingsStartPracticeWithTimerPaused()), forKey: "start_practice_with_paused_timer")
+        UserDefaults.standard.synchronize()
+        OverallDataRemoteManager.manager.postSettingsValueToServer(key: "start_practice_with_paused_timer", value: settingsStartPracticeWithTimerPaused())
     }
     
     func settingsTimerPauseDuringNote() -> Bool {

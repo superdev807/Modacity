@@ -34,7 +34,8 @@ class OverallDataRemoteManager {
                                                                       timerPauseDuringImprove: overallData["settings_timer_pause_during_improve"] as? Bool ?? false,
                                                                       practiceBreakTime: overallData["practice_break_time"] as? Int ?? 0,
                                                                       tuningStandard: overallData["tuning_standard"] as? Double ?? 440,
-                                                                      firstPlaylistStored: overallData["first_playlist_stored"] as? Bool ?? false)
+                                                                      firstPlaylistStored: overallData["first_playlist_stored"] as? Bool ?? false,
+                                                                      startPracticeWithTimerPaused: overallData["start_practice_with_paused_timer"] as? Bool ?? false)
                         SyncStatusKeeper.keeper.statusOverallData = .succeeded
                     } else {
                         SyncStatusKeeper.keeper.statusOverallData = .failed
@@ -72,7 +73,8 @@ class OverallDataRemoteManager {
                                                                   timerPauseDuringImprove: overallData["settings_timer_pause_during_improve"] as? Bool ?? false,
                                                                   practiceBreakTime: overallData["practice_break_time"] as? Int ?? 0,
                                                                   tuningStandard: overallData["tuning_standard"] as? Double ?? 440,
-                                                                  firstPlaylistStored: overallData["first_playlist_stored"] as? Bool ?? false)
+                                                                  firstPlaylistStored: overallData["first_playlist_stored"] as? Bool ?? false,
+                                                                  startPracticeWithTimerPaused: overallData["start_practice_with_paused_timer"] as? Bool ?? false)
                 }
                 completion()
             }
@@ -112,7 +114,8 @@ class OverallDataRemoteManager {
                                                                            "settings_timer_pause_during_improve": AppOveralDataManager.manager.settingsTimerPauseDuringImprove(),
                                                                            "practice_break_time": AppOveralDataManager.manager.practiceBreakTime(),
                                                                            "tuning_standard": AppOveralDataManager.manager.tuningStandard(),
-                                                                           "first_playlist_stored": AppOveralDataManager.manager.firstPlaylistStored()])
+                                                                           "first_playlist_stored": AppOveralDataManager.manager.firstPlaylistStored(),
+                                                                           "start_practice_with_paused_timer": AppOveralDataManager.manager.settingsStartPracticeWithTimerPaused()])
             SyncStatusKeeper.keeper.statusOverallData = .succeeded
         } else {
             SyncStatusKeeper.keeper.statusOverallData = .failed
