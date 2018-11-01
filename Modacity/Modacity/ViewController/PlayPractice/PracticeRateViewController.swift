@@ -83,7 +83,7 @@ class PracticeRateViewController: UIViewController {
                         controller.playlistViewModel = self.playlistViewModel
                         controller.parentContentViewController = parentController
                         if parentController.practiceBreakTime > 0 {
-                            let spentTime = self.playlistViewModel.totalPracticedTime() + self.playlistViewModel.sessionPlayedInPlaylistPage
+                            let spentTime = self.playlistViewModel.totalPracticedTime() /*+ self.playlistViewModel.sessionPlayedInPlaylistPage*/
                             controller.lastPracticeBreakTime = -1 * (spentTime % parentController.practiceBreakTime)
                             controller.practiceBreakTime = parentController.practiceBreakTime
                             ModacityDebugger.debug("Last practice break time - \(controller.lastPracticeBreakTime)")
@@ -141,7 +141,7 @@ class PracticeRateViewController: UIViewController {
                                                                   improvements: self.playlistViewModel.sessionImproved,
                                                                   parentId: self.playlistViewModel.playlistPracticeData.entryId)
             self.playlistViewModel.playlistPracticeData.practices.append(id)
-            self.playlistViewModel.playlistPracticeData.practiceTimeInSeconds = self.playlistViewModel.totalPracticedTime() + self.playlistViewModel.sessionPlayedInPlaylistPage
+            self.playlistViewModel.playlistPracticeData.practiceTimeInSeconds = self.playlistViewModel.totalPracticedTime() /*+ self.playlistViewModel.sessionPlayedInPlaylistPage*/
             PlaylistDailyLocalManager.manager.saveNewPlaylistPracticing(self.playlistViewModel.playlistPracticeData)
             self.playlistViewModel.sessionImproved = [ImprovedRecord]()
         } else {

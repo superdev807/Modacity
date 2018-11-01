@@ -86,7 +86,7 @@ class PlaylistContentsViewModel: ViewModel {
     
     var playlistPracticeData = PlaylistDaily()
     
-    var sessionPlayedInPlaylistPage = 0
+//    var sessionPlayedInPlaylistPage = 0
     
     var clockEditingPracticeItemId = "" {
         didSet {
