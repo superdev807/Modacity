@@ -168,17 +168,20 @@ extension SigninViewController {     // actions
     }
     
     func processInputValidation() -> Bool {
-        if "" == self.textfieldEmailAddress.text {
+        
+        let email = (self.textfieldEmailAddress.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+        
+        if "" == email {
             AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Please enter email address.")
             return false
         }
         
-        if !self.textfieldEmailAddress.text!.isValidEmail() {
+        if !email.isValidEmail() {
             AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Please enter a valid email address.")
             return false
         }
         
-        if self.textfieldEmailAddress.text!.lowercased().hasSuffix(".con") {
+        if email.hasSuffix(".con") {
             AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Email address ending in .con is not valid.")
             return false
         }
