@@ -114,24 +114,25 @@ class PlaylistLocalManager: NSObject {
         self.savePlaylistIds(playlistIds)
     }
     
-    func isFavoritePlaylist(_ playlist: Playlist) -> Bool {
-        return UserDefaults.standard.bool(forKey: "favorite-" + playlist.id)
-    }
+//    func isFavoritePlaylist(_ playlist: Playlist) -> Bool {
+//        return playlist.isFavorite
+////        return UserDefaults.standard.bool(forKey: "favorite-" + playlist.id)
+//    }
     
-    func setFavoriteToPlaylist(_ playlist: Playlist) {
-        if self.isFavoritePlaylist(playlist) {
-            UserDefaults.standard.removeObject(forKey: "favorite-" + playlist.id)
-        } else {
-            UserDefaults.standard.set(true, forKey: "favorite-" + playlist.id)
-        }
-        UserDefaults.standard.synchronize()
-    }
+//    func setFavoriteToPlaylist(_ playlist: Playlist) {
+//        if self.isFavoritePlaylist(playlist) {
+//            UserDefaults.standard.removeObject(forKey: "favorite-" + playlist.id)
+//        } else {
+//            UserDefaults.standard.set(true, forKey: "favorite-" + playlist.id)
+//        }
+//        UserDefaults.standard.synchronize()
+//    }
     
     func loadFavoritePlaylists() -> [Playlist]? {
         if let playlists = self.loadPlaylists() {
             var favoritePlaylists = [Playlist]()
             for playlist in playlists {
-                if self.isFavoritePlaylist(playlist) {
+                if playlist.isFavorite {
                     favoritePlaylists.append(playlist)
                 }
             }

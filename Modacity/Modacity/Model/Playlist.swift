@@ -17,6 +17,7 @@ class Playlist: Mappable {
     var playlistPracticeEntries: [PlaylistPracticeEntry]!
     var notes: [Note]?
     var archived = false
+    var isFavorite: Bool = false
     
     init() {
         id = ""
@@ -24,18 +25,20 @@ class Playlist: Mappable {
         createdAt = "\(Date().timeIntervalSince1970)"
         playlistPracticeEntries = [PlaylistPracticeEntry]()
         archived = false
+        isFavorite = false
     }
     
     required init?(map: Map) {
     }
     
     func mapping(map: Map) {
-        id              <- map["id"]
-        createdAt       <- map["created_at"]
-        name            <- map["name"]
-        playlistPracticeEntries   <- map["practice_items"]
-        notes           <- map["notes"]
-        archived         <- map["archived"]
+        id                          <- map["id"]
+        createdAt                   <- map["created_at"]
+        name                        <- map["name"]
+        playlistPracticeEntries     <- map["practice_items"]
+        notes                       <- map["notes"]
+        archived                    <- map["archived"]
+        isFavorite                  <- map["favorite"]
     }
     
     func addNote(text: String) {
@@ -80,6 +83,11 @@ class Playlist: Mappable {
     func changeNoteSubTitle(for noteId:String, subTitle: String) {
         let note = self.notes?.first { $0.id == noteId }
         note?.subTitle = subTitle
+        self.updateMe()
+    }
+    
+    func setFavorite(_ favorite: Bool) {
+        self.isFavorite = favorite
         self.updateMe()
     }
     

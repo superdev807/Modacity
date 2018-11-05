@@ -79,12 +79,8 @@ class PlaylistViewModel: ViewModel {
         PlaylistLocalManager.manager.storePlaylists(self.playlists)
     }
     
-    func isFavorite(_ playlist:Playlist)->Bool {
-        return PlaylistLocalManager.manager.isFavoritePlaylist(playlist)
-    }
-    
     func setFavorite(_ playlist:Playlist) {
-        PlaylistLocalManager.manager.setFavoriteToPlaylist(playlist)
+        playlist.setFavorite(!(playlist.isFavorite))
     }
     
 }

@@ -102,6 +102,7 @@ class PlaylistListViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationItem.title = "Playlist"
+        self.viewModel.loadPlaylists()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -154,7 +155,7 @@ extension PlaylistListViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PlaylistCell") as! PlaylistCell
         let playlist = self.viewModel.playlist(at: indexPath.row)
-        cell.configure(with: playlist, isFavorite: self.viewModel.isFavorite(playlist))
+        cell.configure(with: playlist, isFavorite: playlist.isFavorite)
         cell.delegate = self
         return cell
     }
