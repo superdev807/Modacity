@@ -182,9 +182,12 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int){
-        view.tintColor = Color.white.alpha(0.1)
+        view.tintColor = AppConfig.UI.AppColors.listHeaderBackgroundColor
         let header = view as! UITableViewHeaderFooterView
-        header.backgroundColor = Color.white.alpha(0.1)
+        header.backgroundView?.backgroundColor = AppConfig.UI.AppColors.listHeaderBackgroundColor
+        header.backgroundColor = AppConfig.UI.AppColors.listHeaderBackgroundColor
+        header.alpha = 1
+        header.isOpaque = true
         header.textLabel?.textColor = Color.white
         header.textLabel?.font = UIFont(name: AppConfig.UI.Fonts.appFontLatoRegular, size: 12)
     }
@@ -303,6 +306,13 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.section == 1 && indexPath.row == 2 {
+            if Authorizer.authorizer.isEmailLogin() {
+                return 50
+            } else {
+                return 0
+            }
+        }
         return 50
     }
     
@@ -319,7 +329,9 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
             }
         } else if indexPath.section == 1 {
             if indexPath.row == 2 {
-                self.changePassword()
+                if Authorizer.authorizer.isEmailLogin() {
+                    self.changePassword()
+                }
             } else if indexPath.row == 3 {
                 self.openPremiumUpgrade()
             } else if indexPath.row == 4 {

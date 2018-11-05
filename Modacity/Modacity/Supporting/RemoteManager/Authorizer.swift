@@ -24,6 +24,22 @@ class Authorizer: NSObject {
         return Auth.auth().currentUser != nil
     }
     
+    func isEmailLogin() -> Bool {
+        if let user = Auth.auth().currentUser {
+            for userInfo in user.providerData {
+                if userInfo.providerID == "facebook.com" {
+                    return false
+                } else if userInfo.providerID == "google.com" {
+                    return false
+                }
+            }
+            
+            return true
+        }
+        
+        return false
+    }
+    
     func signup(email: String, password: String, completion: @escaping (String?) ->()) {
         Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
             if error == nil {

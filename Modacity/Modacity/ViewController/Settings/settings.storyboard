@@ -42,16 +42,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6IV-Gd-t8H" customClass="TPKeyboardAvoidingTableView">
-                                <rect key="frame" x="0.0" y="68" width="375" height="599"/>
+                                <rect key="frame" x="0.0" y="80" width="375" height="587"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <view key="tableHeaderView" contentMode="scaleToFill" id="v3M-2N-SgF">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="29"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsCellWithIconAndSubTitle" rowHeight="55" id="kOK-9f-4Py" customClass="SettingsCellWithIconAndSubTitle" customModule="Modacity" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="57" width="375" height="55"/>
+                                        <rect key="frame" x="0.0" y="28" width="375" height="55"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="kOK-9f-4Py" id="uWC-ea-Ove">
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="55"/>
@@ -102,7 +97,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsCellWithIcon" rowHeight="55" id="77D-HJ-nkk" customClass="SettingsCellWithIcon" customModule="Modacity" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="112" width="375" height="55"/>
+                                        <rect key="frame" x="0.0" y="83" width="375" height="55"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="77D-HJ-nkk" id="jwR-Ih-C8r">
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="55"/>
@@ -144,7 +139,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsCellWithoutIcon" rowHeight="55" id="R6d-CF-LSr" customClass="SettingsCellWithoutIcon" customModule="Modacity" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="167" width="375" height="55"/>
+                                        <rect key="frame" x="0.0" y="138" width="375" height="55"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="R6d-CF-LSr" id="amg-f4-Vbs">
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="55"/>
@@ -180,7 +175,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsCellWithSwitch" rowHeight="55" id="IkC-As-g1T" customClass="SettingsCellWithSwitch" customModule="Modacity" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="222" width="375" height="55"/>
+                                        <rect key="frame" x="0.0" y="193" width="375" height="55"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="IkC-As-g1T" id="2th-Il-g2i">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="55"/>
@@ -232,7 +227,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsCellWithDropdown" rowHeight="55" id="D7x-Et-P3n" customClass="SettingsCellWithDropdown" customModule="Modacity" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="277" width="375" height="55"/>
+                                        <rect key="frame" x="0.0" y="248" width="375" height="55"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="D7x-Et-P3n" id="D4R-ky-zUT">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="55"/>
@@ -281,7 +276,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsCellAccountType" rowHeight="55" id="H4O-Se-0W4" customClass="SettingsCellAccountType" customModule="Modacity" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="332" width="375" height="55"/>
+                                        <rect key="frame" x="0.0" y="303" width="375" height="55"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="H4O-Se-0W4" id="KGC-sf-zYR">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="55"/>
@@ -325,7 +320,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsCellTextField" rowHeight="55" id="bzE-Kh-hpG" customClass="SettingsCellTextField" customModule="Modacity" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="387" width="375" height="55"/>
+                                        <rect key="frame" x="0.0" y="358" width="375" height="55"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bzE-Kh-hpG" id="Cjz-bw-7Bo">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="55"/>
@@ -411,10 +406,10 @@
                             <constraint firstItem="Ivx-ss-Ty1" firstAttribute="centerY" secondItem="RbY-FD-URo" secondAttribute="centerY" id="JHm-aC-dnC"/>
                             <constraint firstItem="LQU-cY-mlo" firstAttribute="top" secondItem="suT-Je-ytR" secondAttribute="top" constant="-20" id="JRs-xW-k7N"/>
                             <constraint firstItem="6IV-Gd-t8H" firstAttribute="bottom" secondItem="suT-Je-ytR" secondAttribute="bottom" id="JeJ-jE-cpC"/>
+                            <constraint firstItem="6IV-Gd-t8H" firstAttribute="top" secondItem="KOO-qU-460" secondAttribute="bottom" constant="-8" id="TbC-7Z-seX"/>
                             <constraint firstItem="KOO-qU-460" firstAttribute="leading" secondItem="suT-Je-ytR" secondAttribute="leading" id="UMm-2E-h6T"/>
                             <constraint firstItem="KOO-qU-460" firstAttribute="trailing" secondItem="suT-Je-ytR" secondAttribute="trailing" id="W0I-uc-3Qn"/>
                             <constraint firstItem="LQU-cY-mlo" firstAttribute="leading" secondItem="suT-Je-ytR" secondAttribute="leading" id="gPi-hc-jRA"/>
-                            <constraint firstItem="6IV-Gd-t8H" firstAttribute="top" secondItem="LQU-cY-mlo" secondAttribute="bottom" constant="8" id="hah-AP-kpL"/>
                             <constraint firstItem="6IV-Gd-t8H" firstAttribute="trailing" secondItem="suT-Je-ytR" secondAttribute="trailing" id="hzq-xd-LQk"/>
                             <constraint firstItem="Ivx-ss-Ty1" firstAttribute="centerX" secondItem="suT-Je-ytR" secondAttribute="centerX" id="mrI-lr-Bzv"/>
                             <constraint firstItem="6IV-Gd-t8H" firstAttribute="leading" secondItem="suT-Je-ytR" secondAttribute="leading" id="s2B-Vv-IKM"/>
@@ -570,7 +565,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Change Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zhi-8O-FHE">
-                                <rect key="frame" x="124.5" y="33" width="126" height="19"/>
+                                <rect key="frame" x="122" y="33" width="131" height="19"/>
                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -979,13 +974,13 @@ take a break during my
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="b36-vU-zDL">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="40" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="b36-vU-zDL">
                                 <rect key="frame" x="0.0" y="80" width="375" height="587"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsCellWithIcon" rowHeight="55" id="sjE-SZ-h9U" customClass="SettingsCellWithIcon" customModule="Modacity" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="55"/>
+                                        <rect key="frame" x="0.0" y="40" width="375" height="55"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sjE-SZ-h9U" id="0CD-bD-XlL">
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="55"/>
@@ -1070,9 +1065,9 @@ take a break during my
                             <constraint firstItem="b36-vU-zDL" firstAttribute="trailing" secondItem="6eV-KS-btD" secondAttribute="trailing" id="PCc-dH-nui"/>
                             <constraint firstItem="vd6-Dg-PDy" firstAttribute="top" secondItem="6eV-KS-btD" secondAttribute="top" constant="-20" id="QSL-ig-EXM"/>
                             <constraint firstItem="vd6-Dg-PDy" firstAttribute="leading" secondItem="6eV-KS-btD" secondAttribute="leading" id="cl7-g7-pLn"/>
+                            <constraint firstItem="b36-vU-zDL" firstAttribute="top" secondItem="7Y4-7I-ffJ" secondAttribute="bottom" constant="-8" id="iME-wX-z2G"/>
                             <constraint firstItem="b36-vU-zDL" firstAttribute="leading" secondItem="6eV-KS-btD" secondAttribute="leading" id="jDC-9Z-EWQ"/>
                             <constraint firstItem="I34-qf-Qj7" firstAttribute="centerX" secondItem="6eV-KS-btD" secondAttribute="centerX" id="nHG-ty-cth"/>
-                            <constraint firstItem="b36-vU-zDL" firstAttribute="top" secondItem="vd6-Dg-PDy" secondAttribute="bottom" constant="20" id="vLq-2D-wq4"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6eV-KS-btD"/>
                     </view>

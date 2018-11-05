@@ -19,6 +19,7 @@ class AppConfig: NSObject {
             static let walkthroughOverlayColor = Color(hexString: "#252738").alpha(0.85)
             static let placeholderTextColorGray = Color(hexString: "#8F9098")
             static let placeholderIconColorGray = Color(hexString: "#AEAEB4")
+            static let listHeaderBackgroundColor = Color(hexString: "#393B49")
         }
         
         struct AppUIValues {
