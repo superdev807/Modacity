@@ -144,16 +144,18 @@ extension SigninViewController {     // actions
     @IBAction func onCreateAccount(_ sender: Any) {
         if self.processInputValidation() {
             self.view.endEditing(true)
-            self.viewModel.createAccount(email: self.textfieldEmailAddress.text ?? "", password: self.textfieldPassword.text ?? "")
-            ModacityAnalytics.LogStringEvent("Created Email Account", extraParamName: "address", extraParamValue: self.textfieldEmailAddress)
+            let email = (self.textfieldEmailAddress.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+            self.viewModel.createAccount(email: email, password: self.textfieldPassword.text ?? "")
+            ModacityAnalytics.LogStringEvent("Created Email Account", extraParamName: "address", extraParamValue: email)
         }
     }
     
     @IBAction func onSignin(_ sender: Any) {
         if self.processInputValidation() {
             self.view.endEditing(true)
-            self.viewModel.signin(email: self.textfieldEmailAddress.text ?? "", password: self.textfieldPassword.text ?? "")
-            ModacityAnalytics.LogStringEvent("Login Email", extraParamName: "address", extraParamValue: self.textfieldEmailAddress)
+            let email = (self.textfieldEmailAddress.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+            self.viewModel.signin(email: email, password: self.textfieldPassword.text ?? "")
+            ModacityAnalytics.LogStringEvent("Login Email", extraParamName: "address", extraParamValue:email)
         }
     }
     
@@ -173,6 +175,11 @@ extension SigninViewController {     // actions
         
         if !self.textfieldEmailAddress.text!.isValidEmail() {
             AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Please enter a valid email address.")
+            return false
+        }
+        
+        if self.textfieldEmailAddress.text!.lowercased().hasSuffix(".con") {
+            AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Email address ending in .con is not valid.")
             return false
         }
         
