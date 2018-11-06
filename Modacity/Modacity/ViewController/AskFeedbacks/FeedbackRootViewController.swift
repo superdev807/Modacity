@@ -38,7 +38,7 @@ class FeedbackRootViewController: UIViewController {
         self.imageViewCheckIcon.image = UIImage(named:"icon_checkmark_blue_deselected")
         self.textViewMessage.placeholder = "Type your message here"
         self.textViewMessage.placeholderColor = Color(hexString:"#9F9EAD")
-        if AppUtils.iphoneIsXModel() {
+        if AppUtils.iPhoneXorXRorXS() {
             self.constraintForHeaderImageViewHeight.constant = 108
         } else if AppUtils.sizeModelOfiPhone() == .iphone4_35in {
             self.constraintForHeaderImageViewHeight.constant = 70

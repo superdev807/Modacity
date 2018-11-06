@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,6 +17,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PlayPracticeWalkthroughView" customModule="Modacity" customModuleProvider="target">
             <connections>
+                <outlet property="closeButtonTopSpace" destination="zmw-Xj-UdO" id="EPT-SM-7Lr"/>
                 <outlet property="viewContent" destination="mXc-6y-zp0" id="yO9-UA-euQ"/>
             </connections>
         </placeholder>
@@ -55,16 +55,16 @@ your practice session.</string>
                     <rect key="frame" x="236" y="102" width="12" height="25"/>
                 </imageView>
                 <imageView userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="walkthrough_practice_arrow_2" translatesAutoresizingMaskIntoConstraints="NO" id="w3f-qh-wYu">
-                    <rect key="frame" x="181.5" y="240" width="12" height="25"/>
+                    <rect key="frame" x="181.5" y="250" width="12" height="25"/>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Record yourself" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bAc-7c-6Ko">
-                    <rect key="frame" x="143.5" y="273" width="88" height="17"/>
+                    <rect key="frame" x="143.5" y="283" width="88" height="17"/>
                     <fontDescription key="fontDescription" name="Lato-Italic" family="Lato" pointSize="14"/>
                     <color key="textColor" red="0.75686274509999996" green="0.76078431369999999" blue="0.78823529410000004" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bb5-bb-MfZ">
-                    <rect key="frame" x="134.5" y="320" width="106" height="66"/>
+                    <rect key="frame" x="134.5" y="330" width="106" height="66"/>
                     <state key="normal" image="btn_walkthrough_gotit"/>
                     <connections>
                         <action selector="onGotitButtonClick:" destination="-1" eventType="touchUpInside" id="a3M-KU-3KS"/>
@@ -125,13 +125,13 @@ Cg
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notes" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d0Q-QH-PfR">
-                    <rect key="frame" x="170.5" y="565" width="33.5" height="17"/>
+                    <rect key="frame" x="171" y="565" width="33.5" height="17"/>
                     <fontDescription key="fontDescription" name="Lato-Italic" family="Lato" pointSize="14"/>
                     <color key="textColor" red="0.75686274509999996" green="0.76078431369999999" blue="0.78823529410000004" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="walkthrough_practice_arrow_5" translatesAutoresizingMaskIntoConstraints="NO" id="ys0-v5-B27">
-                    <rect key="frame" x="181" y="592" width="12" height="25"/>
+                    <rect key="frame" x="181.5" y="592" width="12" height="25"/>
                 </imageView>
                 <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Aj-dY-wIw">
                     <rect key="frame" x="150" y="619" width="75" height="48"/>
@@ -141,7 +141,7 @@ Cg
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Timer" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zgr-2M-h4R">
-                    <rect key="frame" x="245.5" y="567" width="33.5" height="17"/>
+                    <rect key="frame" x="246" y="567" width="33.5" height="17"/>
                     <fontDescription key="fontDescription" name="Lato-Italic" family="Lato" pointSize="14"/>
                     <color key="textColor" red="0.75686274509999996" green="0.76078431369999999" blue="0.78823529410000004" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -206,7 +206,7 @@ help</string>
                 <constraint firstAttribute="trailing" secondItem="cEm-zq-VjI" secondAttribute="trailing" id="ZQU-g2-2UK"/>
                 <constraint firstItem="kRh-P3-yv1" firstAttribute="bottom" secondItem="ys0-v5-B27" secondAttribute="bottom" id="aP4-lz-5o2"/>
                 <constraint firstItem="cEm-zq-VjI" firstAttribute="top" secondItem="mXc-6y-zp0" secondAttribute="top" id="asG-oc-oI1"/>
-                <constraint firstItem="w3f-qh-wYu" firstAttribute="top" secondItem="mXc-6y-zp0" secondAttribute="top" constant="240" id="axR-cu-vF6"/>
+                <constraint firstItem="w3f-qh-wYu" firstAttribute="top" secondItem="mXc-6y-zp0" secondAttribute="top" constant="250" id="axR-cu-vF6"/>
                 <constraint firstItem="ZFu-4B-Q10" firstAttribute="bottom" secondItem="xLE-Ox-0BX" secondAttribute="bottom" id="cJd-Ik-EhZ"/>
                 <constraint firstItem="ys0-v5-B27" firstAttribute="bottom" secondItem="ZFu-4B-Q10" secondAttribute="bottom" id="coi-TH-oTI"/>
                 <constraint firstItem="zFu-ga-FGd" firstAttribute="leading" secondItem="mXc-6y-zp0" secondAttribute="leading" id="f98-Xl-0XK"/>

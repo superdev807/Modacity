@@ -113,6 +113,11 @@ class HomeViewController: UIViewController {
             self.constraintForContentViewTopSpace.constant = 210
             self.constraintForRecentCollectionViewHeight.constant = 120
             self.constraintForFavoritesCollectionViewHeight.constant  = 120
+        } else if AppUtils.sizeModelOfiPhone() == .iphonexR_xSMax {
+            self.constraintForHeaderImageViewHeight.constant = 300
+            self.constraintForContentViewTopSpace.constant = 270
+            self.constraintForRecentCollectionViewHeight.constant = 120
+            self.constraintForFavoritesCollectionViewHeight.constant  = 120
         } else {
             self.constraintForHeaderImageViewHeight.constant = 270
             self.constraintForContentViewTopSpace.constant = 266

@@ -72,7 +72,21 @@ class ImprovementViewController: UIViewController {
         self.labelHypothesis.text = self.viewModel.selectedHypothesis
         self.labelSuggestion.text = self.viewModel.selectedSuggestion
         
-        if AppUtils.sizeModelOfiPhone() == .iphone6p_55in {
+        switch AppUtils.sizeModelOfiPhone() {
+        case .iphone4_35in:
+            heightOfMetrodroneView = 320
+        case .iphone5_4in:
+            heightOfMetrodroneView = 320
+        case .iphone6_47in:
+            heightOfMetrodroneView = 360
+        case .iphone6p_55in:
+            heightOfMetrodroneView = 360
+        case .iphoneX_xS:
+            heightOfMetrodroneView = 400
+        case .iphonexR_xSMax:
+            heightOfMetrodroneView = 400
+        case .unknown:
+            break
         }
         
         self.buttonSaveRecord.alpha = 0.5
@@ -196,7 +210,11 @@ extension ImprovementViewController: MetrodroneViewDelegate, SubdivisionSelectVi
         } else {
             self.metrodroneViewTopConstraint = self.view.bottomAnchor.constraint(equalTo: self.metrodroneView!.topAnchor)
         }
-        self.metrodroneViewTopConstraint?.constant = 44
+        if AppUtils.sizeModelOfiPhone() == .iphonexR_xSMax {
+            self.metrodroneViewTopConstraint?.constant = 24
+        } else {
+            self.metrodroneViewTopConstraint?.constant = 44
+        }
         self.metrodroneViewTopConstraint?.isActive = true
         self.metrodroneView!.initializeDroneUIs()
     }
@@ -256,7 +274,11 @@ extension ImprovementViewController: MetrodroneViewDelegate, SubdivisionSelectVi
                 self.subdivisionView!.isHidden = true
             }
             
-            self.metrodroneViewTopConstraint.constant = 44
+            if AppUtils.sizeModelOfiPhone() == .iphonexR_xSMax {
+                self.metrodroneViewTopConstraint.constant = 24
+            } else {
+                self.metrodroneViewTopConstraint.constant = 44
+            }
             
             UIView.animate(withDuration: 0.5, animations: {
                 self.view.layoutIfNeeded()

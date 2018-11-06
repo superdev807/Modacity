@@ -22,6 +22,8 @@ enum DeviceSizeModel {
     case iphone5_4in
     case iphone6_47in
     case iphone6p_55in
+    case iphoneX_xS
+    case iphonexR_xSMax
     case unknown
 }
 
@@ -43,9 +45,17 @@ class AppUtils: NSObject {
             return .iphone6_47in
         } else if screenHeight <= 736 {
             return .iphone6p_55in
+        } else if screenHeight <= 812 {
+            return .iphoneX_xS
+        } else if screenHeight <= 896 {
+            return .iphonexR_xSMax
         } else {
             return .unknown
         }
+    }
+    
+    class func iPhoneXorXRorXS() -> Bool {
+        return sizeModelOfiPhone() == .iphoneX_xS || sizeModelOfiPhone() == .iphonexR_xSMax
     }
     
     class func iphoneIsXModel() -> Bool {

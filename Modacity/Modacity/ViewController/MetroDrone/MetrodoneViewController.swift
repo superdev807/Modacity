@@ -35,6 +35,10 @@ class MetrodoneViewController: UIViewController {
     
     @IBOutlet weak var imageViewHeader: UIImageView!
     
+    @IBOutlet weak var constraintDronframeTopSpace: NSLayoutConstraint!
+    
+    @IBOutlet weak var constraintDroneFrameBottomSpace: NSLayoutConstraint!
+    
     var selectedSubdivisionNote: Int = -1
     
     @IBOutlet weak var btnShowSubdivision: UIButton!
@@ -130,10 +134,15 @@ class MetrodoneViewController: UIViewController {
     
     func configureLayout() {
         
-        if AppUtils.iphoneIsXModel() {
+        if AppUtils.iPhoneXorXRorXS() {
             self.constraintForHeaderImageViewHeight.constant = 108
         } else {
             self.constraintForHeaderImageViewHeight.constant = 88
+        }
+        
+        if AppUtils.sizeModelOfiPhone() == .iphonexR_xSMax {
+            self.constraintDronframeTopSpace.constant = 50
+            self.constraintDroneFrameBottomSpace.constant = 50
         }
         
         self.constraintForMinTrickViewWidth.constant = self.imageViewMaxTrick.frame.size.width * CGFloat((MetrodroneParameters.instance.durationRatio - self.sliderDuration.minimumValue) / (self.sliderDuration.maximumValue - self.sliderDuration.minimumValue))

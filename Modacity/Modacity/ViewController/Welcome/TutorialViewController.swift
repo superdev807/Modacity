@@ -38,6 +38,11 @@ class TutorialCell: UITableViewCell {
             self.constraintSpace1.constant = 15
             self.constraintSpace2.constant = 15
             self.constraintForContainerViewCentering.constant = 20
+        case .iphonexR_xSMax:
+            self.constraintForImageWidth.constant = 414
+            self.constraintSpace1.constant = 30
+            self.constraintSpace2.constant = 30
+            self.constraintForContainerViewCentering.constant = 10
         default:
             self.constraintForImageWidth.constant = 375
             self.constraintSpace1.constant = 15

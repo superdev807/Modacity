@@ -18,7 +18,7 @@ class SettingsAppDataViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.tableViewSettings.tableFooterView = UIView()
-        if AppUtils.iphoneIsXModel() {
+        if AppUtils.iPhoneXorXRorXS() {
             self.constraintForHeaderImageViewHeight.constant = 108
         } else {
             self.constraintForHeaderImageViewHeight.constant = 88

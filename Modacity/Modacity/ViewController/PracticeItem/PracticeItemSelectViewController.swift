@@ -62,13 +62,17 @@ class PracticeItemSelectViewController: UIViewController {
     var tableHeaderShowing = false
     var tableHeaderKeyword = ""
     
+    var addPracticeButtonHeight: CGFloat = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        if AppUtils.iphoneIsXModel() {
+        if AppUtils.sizeModelOfiPhone() == .iphoneX_xS || AppUtils.sizeModelOfiPhone() == .iphonexR_xSMax {
             self.constraintForHeaderImageViewConstant.constant = 108
+            addPracticeButtonHeight = 75
         } else {
             self.constraintForHeaderImageViewConstant.constant = 88
+            addPracticeButtonHeight = 55
         }
         self.sortKey = AppOveralDataManager.manager.sortKey()
         self.sortOption = AppOveralDataManager.manager.sortOption()
@@ -125,7 +129,7 @@ class PracticeItemSelectViewController: UIViewController {
     @objc func onKeyboardWillChangeFrame(notification: Notification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             if AppUtils.iphoneIsXModel() {
-                self.constraintForAddButtonBottomSpace.constant = keyboardSize.height - 34
+                self.constraintForAddButtonBottomSpace.constant = keyboardSize.height - 40
             } else {
                 self.constraintForAddButtonBottomSpace.constant = keyboardSize.height
             }
@@ -350,18 +354,6 @@ extension PracticeItemSelectViewController: UITextFieldDelegate {
     @IBAction func onEditingChangedOnField(_ sender: Any) {
         self.searchKeyword = self.textfieldSearch.text ?? ""
         self.updateKeyword()
-//        let newKeyword = self.textfieldSearch.text ?? ""
-//        if newKeyword != "" && !self.practiceItemContains(for: newKeyword) {
-////            self.viewStoreNewItemPanel.isHidden = false
-////            self.labelStoreNewItem.text = "\(newKeyword)"
-////            self.constraintForTableViewTopSpace.constant = 74
-//        } else {
-////            self.viewStoreNewItemPanel.isHidden = true
-////            self.labelStoreNewItem.text = ""
-////            self.constraintForTableViewTopSpace.constant = 4
-//        }
-//        self.buttonRemoveKeyword.isHidden = (newKeyword == "")
-//        self.refreshList()
     }
     
     func practiceItemContains(for name: String) -> Bool {
@@ -381,18 +373,11 @@ extension PracticeItemSelectViewController: UITextFieldDelegate {
         self.searchKeyword = ""
         self.buttonRemoveKeyword.isHidden = true
         self.updateKeyword()
-//        self.textfieldSearch.text = ""
-//        self.buttonRemoveKeyword.isHidden = true
-//        self.searchKeyword = ""
-//        self.refreshList()
     }
     
     @IBAction func onDidEndOnExitOnField(_ sender: Any) {
         self.textfieldSearch.resignFirstResponder()
         self.updateKeyword()
-//        if !self.viewStoreNewItemPanel.isHidden {
-//            self.onAddtoStore(sender)
-//        }
     }
 }
 
@@ -567,7 +552,7 @@ extension PracticeItemSelectViewController: SortOptionsViewControllerDelegate {
                 self.tableViewMain.reloadData()
                 if self.selectedPracticeItems.count > 0 {
                     self.viewAddPracticeButtonContainer.isHidden = false
-                    self.constraintForAddPracticeButtonHeight.constant = 64// / 375 * UIScreen.main.bounds.size.width
+                    self.constraintForAddPracticeButtonHeight.constant = self.addPracticeButtonHeight
                 } else {
                     self.viewAddPracticeButtonContainer.isHidden = true
                     self.constraintForAddPracticeButtonHeight.constant = 0
@@ -585,7 +570,7 @@ extension PracticeItemSelectViewController: SortOptionsViewControllerDelegate {
             self.tableViewMain.reloadData()
             if self.selectedPracticeItems.count > 0 {
                 self.viewAddPracticeButtonContainer.isHidden = false
-                self.constraintForAddPracticeButtonHeight.constant = 64// / 375 * UIScreen.main.bounds.size.width
+                self.constraintForAddPracticeButtonHeight.constant = self.addPracticeButtonHeight
             } else {
                 self.viewAddPracticeButtonContainer.isHidden = true
                 self.constraintForAddPracticeButtonHeight.constant = 0

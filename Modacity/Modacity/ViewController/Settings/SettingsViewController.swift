@@ -115,7 +115,7 @@ class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        if AppUtils.iphoneIsXModel() {
+        if AppUtils.iPhoneXorXRorXS() {
             self.constraintForHeaderImageViewHeight.constant = 108
         } else {
             self.constraintForHeaderImageViewHeight.constant = 88

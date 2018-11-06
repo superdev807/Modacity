@@ -34,7 +34,7 @@ class ChangePasswordViewController: UIViewController {
         self.viewConfirmPasswordContainer.layer.cornerRadius = 10
         self.textfieldConfirmPassword.attributedPlaceholder = NSAttributedString(string: "Confirm Password", attributes: [NSAttributedStringKey.foregroundColor: Color.white.alpha(0.7)])
         
-        if AppUtils.iphoneIsXModel() {
+        if AppUtils.iPhoneXorXRorXS() {
             self.constraintForHeaderImageViewHeight.constant = 108
         } else {
             self.constraintForHeaderImageViewHeight.constant = 88

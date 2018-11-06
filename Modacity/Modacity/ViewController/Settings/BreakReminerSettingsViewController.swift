@@ -27,7 +27,7 @@ class BreakReminerSettingsViewController: UIViewController {
         formatter.numberStyle = .decimal//NSNumberFormatterStyle.DecimalStyle
         formatter.minimum = 0
         
-        if AppUtils.iphoneIsXModel() {
+        if AppUtils.iPhoneXorXRorXS() {
             self.constraintForHeaderImageViewHeight.constant = 108
         } else {
             self.constraintForHeaderImageViewHeight.constant = 88

@@ -15,6 +15,8 @@ protocol PlayPracticeWalkthroughViewDelegate {
 class PlayPracticeWalkthroughView: UIView {
 
     @IBOutlet var viewContent: UIView!
+    @IBOutlet weak var closeButtonTopSpace: NSLayoutConstraint!
+    
     var delegate: PlayPracticeWalkthroughViewDelegate!
     
     override init(frame: CGRect) {
@@ -36,6 +38,10 @@ class PlayPracticeWalkthroughView: UIView {
         self.viewContent.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         self.viewContent.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
         self.viewContent.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        
+        if AppUtils.iPhoneXorXRorXS() {
+            self.closeButtonTopSpace.constant = 40
+        }
     }
     
     @IBAction func onCoverClick(_ sender: Any) {

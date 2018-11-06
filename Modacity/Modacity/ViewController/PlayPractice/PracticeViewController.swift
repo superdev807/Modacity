@@ -137,14 +137,27 @@ class PracticeViewController: UIViewController {
         self.buttonSaveRecord.alpha = 0.5
         self.buttonSaveRecord.isEnabled = false
         
-        if AppUtils.sizeModelOfiPhone() == .iphone6p_55in {
-            constraintForImageHeaderViewHeight.constant = 480
-        } else if AppUtils.sizeModelOfiPhone() == .iphone6_47in {
-            constraintForImageHeaderViewHeight.constant = 480
-        } else if AppUtils.sizeModelOfiPhone() == .iphone5_4in {
-            constraintForImageHeaderViewHeight.constant = 360
-        } else if AppUtils.sizeModelOfiPhone() == .iphone4_35in {
+        switch AppUtils.sizeModelOfiPhone() {
+        case .iphone4_35in:
             constraintForImageHeaderViewHeight.constant = 320
+            heightOfMetrodroneView = 320
+        case .iphone5_4in:
+            constraintForImageHeaderViewHeight.constant = 360
+            heightOfMetrodroneView = 320
+        case .iphone6_47in:
+            constraintForImageHeaderViewHeight.constant = 480
+            heightOfMetrodroneView = 360
+        case .iphone6p_55in:
+            constraintForImageHeaderViewHeight.constant = 480
+            heightOfMetrodroneView = 360
+        case .iphoneX_xS:
+            constraintForImageHeaderViewHeight.constant = 540
+            heightOfMetrodroneView = 400
+        case .iphonexR_xSMax:
+            constraintForImageHeaderViewHeight.constant = 600
+            heightOfMetrodroneView = 400
+        case .unknown:
+            break
         }
         
         self.buttonDone.setTitle("< Cancel", for: .normal)
@@ -309,7 +322,7 @@ extension PracticeViewController: MetrodroneViewDelegate, SubdivisionSelectViewD
         self.metrodroneView!.heightAnchor.constraint(equalToConstant: heightOfMetrodroneView).isActive = true
         self.metrodroneView!.delegate = self
         if #available(iOS 11.0, *) {
-            if AppUtils.iphoneIsXModel() {
+            if AppUtils.iPhoneXorXRorXS() {
                 self.metrodroneViewTopConstraint = self.view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: self.metrodroneView!.topAnchor)
             } else {
                 self.metrodroneViewTopConstraint = self.view.bottomAnchor.constraint(equalTo: self.metrodroneView!.topAnchor)
@@ -1150,12 +1163,12 @@ extension PracticeViewController: PlayPracticeWalkthroughViewDelegate, PracticeT
         self.view.addSubview(walkThrough)
         walkThrough.commonInit()
         
-        
         if #available(iOS 11.0, *) {
             self.view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: walkThrough.bottomAnchor).isActive = true
         } else {
             self.view.bottomAnchor.constraint(equalTo: walkThrough.bottomAnchor).isActive = true
         }
+        
         self.view.topAnchor.constraint(equalTo: walkThrough.topAnchor).isActive = true
         self.view.leadingAnchor.constraint(equalTo: walkThrough.leadingAnchor).isActive = true
         self.view.trailingAnchor.constraint(equalTo: walkThrough.trailingAnchor).isActive = true
@@ -1225,7 +1238,7 @@ extension PracticeViewController: PlayPracticeTabBarViewDelegate {
         tabBarView.delegate = self
         self.view.insertSubview(tabBarView, at: self.view.subviews.count - 2)
         if #available(iOS 11.0, *) {
-            if AppUtils.iphoneIsXModel() {
+            if AppUtils.iPhoneXorXRorXS() {
                 tabBarView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
             } else {
                 tabBarView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true

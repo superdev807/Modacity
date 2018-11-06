@@ -18,7 +18,7 @@ class SubscriptionTermsViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.automaticallyAdjustsScrollViewInsets = false
-        if AppUtils.iphoneIsXModel() {
+        if AppUtils.iPhoneXorXRorXS() {
             self.constraintForHeaderImageViewHeight.constant = 108
         } else {
             self.constraintForHeaderImageViewHeight.constant = 88

@@ -81,6 +81,8 @@ class PlaylistListViewController: UIViewController {
         // Do any additional setup after loading the view.
         if AppUtils.sizeModelOfiPhone() == .iphone4_35in || AppUtils.sizeModelOfiPhone() == .iphone5_4in {
             self.constraintForHeaderImageViewHeight.constant = 70
+        } else if AppUtils.sizeModelOfiPhone() == .iphonexR_xSMax {
+            self.constraintForHeaderImageViewHeight.constant = 100
         } else {
             self.constraintForHeaderImageViewHeight.constant = 88
         }

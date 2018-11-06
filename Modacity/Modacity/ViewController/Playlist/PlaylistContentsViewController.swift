@@ -28,6 +28,10 @@ class PlaylistContentsViewController: UIViewController {
     @IBOutlet weak var viewWalkThroughNaming: UIView!
     @IBOutlet weak var viewWalkThrough2: UIView!
     
+    @IBOutlet weak var constraintForWalkthroughCloseButton1TopSpace: NSLayoutConstraint!
+    
+    @IBOutlet weak var constraintForWalkthroughCloseButton2TopSpace: NSLayoutConstraint!
+    
     var isNameEditing = false
     var parentViewModel: PlaylistAndPracticeDeliverModel? = nil
     var viewModel = PlaylistContentsViewModel()
@@ -64,10 +68,14 @@ class PlaylistContentsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        if AppUtils.iphoneIsXModel() {
+        if AppUtils.iPhoneXorXRorXS() {
             self.constraintHeaderImageViewHeight.constant = 170
+            self.constraintForWalkthroughCloseButton1TopSpace.constant = 40
+            self.constraintForWalkthroughCloseButton2TopSpace.constant = 40
         } else {
             self.constraintHeaderImageViewHeight.constant = 150
+            self.constraintForWalkthroughCloseButton1TopSpace.constant = 0
+            self.constraintForWalkthroughCloseButton2TopSpace.constant = 0
         }
         self.configureGUI()
         self.bindViewModel()

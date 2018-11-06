@@ -29,12 +29,6 @@ class SideMenuController: LGSideMenuController {
         let tabBarViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TabBarViewController")
         self.rootViewController = tabBarViewController
         
-        if AppUtils.iphoneIsXModel() {
-            self.constraintBadgeBottomSpace.constant = -40
-        } else {
-            self.constraintBadgeBottomSpace.constant = 0
-        }
-        
         NotificationCenter.default.addObserver(self, selector: #selector(updatePremiumBadge), name: AppConfig.NotificationNames.appNotificationPremiumStatusChanged, object: nil)
     }
     
