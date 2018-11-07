@@ -95,4 +95,19 @@ class Playlist: Mappable {
         PlaylistLocalManager.manager.storePlaylist(self)
         PlaylistRemoteManager.manager.update(item: self)
     }
+    
+    func totalSumOfRemainingTimers() -> Int {
+        if let entries = self.playlistPracticeEntries {
+            var totalSum = 0
+            for entry in entries {
+                if let duration = entry.countDownDuration {
+                    totalSum = totalSum + duration
+                }
+            }
+            
+            return totalSum
+        }
+        
+        return 0
+    }
 }

@@ -89,7 +89,7 @@ class PlaylistContentsViewController: UIViewController {
                 self.openPracticeItemsSelection()
                 return
             }
-            self.viewModel.playlistName = "My First Playlist"
+            self.viewModel.playlistName = "My First Practice Session"
             self.buttonEditName.isHidden = false
             self.openPracticeItemsSelection()
         } else {
@@ -433,6 +433,8 @@ class PlaylistContentsViewController: UIViewController {
                 self.viewModel.addPracticeItems([parent.deliverPracticeItem])
             }
         }
+        
+        self.tableViewMain.reloadData()
     }
     
     func showPracticeBreakPrompt(with time: Int) {
@@ -573,42 +575,69 @@ class PlaylistContentsViewController: UIViewController {
 
 extension PlaylistContentsViewController: UITableViewDelegate, UITableViewDataSource {
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.viewModel.playlistPracticeEntries.count
+        if section == 0 {
+            if self.viewModel.totalSumOfRemainingTimers() > 0 {
+                return 1
+            } else {
+                return 0
+            }
+        } else {
+            return self.viewModel.playlistPracticeEntries.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "PlaylistPracticeItemCell") as! PlaylistPracticeItemCell
-        let practiceItem = self.viewModel.playlistPracticeEntries[indexPath.row]
-        cell.confgure(for: practiceItem,
-                      isFavorite: self.viewModel.isFavoritePracticeItem(forItemId: practiceItem.practiceItemId),
-                      rate: self.viewModel.rating(forPracticeItemId: practiceItem.practiceItemId) ?? 0,
-                      isEditing: indexPath.row == self.viewModel.editingRow,
-                      duration: self.viewModel.duration(forPracticeItem: practiceItem.entryId))
-        cell.delegate = self
-        return cell
+        if indexPath.section == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "TotalSumCell")!
+            if let label = cell.viewWithTag(10) as? UILabel {
+                let countDownTimer = self.viewModel.totalSumOfRemainingTimers()
+                label.text = String(format: "Timers: %d:%02d", countDownTimer / 60, countDownTimer % 60)
+            }
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "PlaylistPracticeItemCell") as! PlaylistPracticeItemCell
+            let practiceItem = self.viewModel.playlistPracticeEntries[indexPath.row]
+            cell.confgure(for: practiceItem,
+                          isFavorite: self.viewModel.isFavoritePracticeItem(forItemId: practiceItem.practiceItemId),
+                          rate: self.viewModel.rating(forPracticeItemId: practiceItem.practiceItemId) ?? 0,
+                          isEditing: indexPath.row == self.viewModel.editingRow,
+                          duration: self.viewModel.duration(forPracticeItem: practiceItem.entryId))
+            cell.delegate = self
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 64
+        if indexPath.section == 0 {
+            return 44
+        } else {
+            return 64
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         tableView.deselectRow(at: indexPath, animated: true)
         
-        if self.viewModel.editingRow == indexPath.row {
-            self.viewModel.editingRow = -1
-        }
-        if !self.isPlaying {
-            self.startPractice(withItem: indexPath.row)
-        } else {
-            
-            self.viewModel.currentPracticeEntry = self.viewModel.playlistPracticeEntries[indexPath.row]
-            self.viewModel.sessionImproved = [ImprovedRecord]()
-            self.viewModel.sessionTimeStarted = Date()
+        if indexPath.section == 1 {
+            if self.viewModel.editingRow == indexPath.row {
+                self.viewModel.editingRow = -1
+            }
+            if !self.isPlaying {
+                self.startPractice(withItem: indexPath.row)
+            } else {
+                
+                self.viewModel.currentPracticeEntry = self.viewModel.playlistPracticeEntries[indexPath.row]
+                self.viewModel.sessionImproved = [ImprovedRecord]()
+                self.viewModel.sessionTimeStarted = Date()
 
-            self.openPracticeViewController()
+                self.openPracticeViewController()
+            }
         }
     }
     

@@ -86,8 +86,6 @@ class PlaylistContentsViewModel: ViewModel {
     
     var playlistPracticeData = PlaylistDaily()
     
-//    var sessionPlayedInPlaylistPage = 0
-    
     var clockEditingPracticeItemId = "" {
         didSet {
             for practiceItem in self.playlistPracticeEntries {
@@ -153,6 +151,7 @@ class PlaylistContentsViewModel: ViewModel {
         }
         
         self.playlist.playlistPracticeEntries = self.playlistPracticeEntries
+        PlaylistRemoteManager.manager.update(item: self.playlist)
         
         self.createAndStorePlaylist()
     }
@@ -351,5 +350,29 @@ class PlaylistContentsViewModel: ViewModel {
     
     func changePlaylistNoteTitle(note: Note, to: String) {
         self.playlist.changeNoteTitle(for: note.id, to: to)
+    }
+    
+    func totalSumOfRemainingTimers() -> Int {
+        if let entries = self.playlist.playlistPracticeEntries {
+            var timers = 0
+            for entry in entries {
+                if let countdownDuration = entry.countDownDuration {
+                    var addingTime = 0
+                    if let playedTime = self.countDownPlayedTime(forPracticeItem: entry.entryId) {
+                        if playedTime >= countdownDuration {
+                            addingTime = 0
+                        } else {
+                            addingTime = countdownDuration - playedTime
+                        }
+                    } else {
+                        addingTime = countdownDuration
+                    }
+                    timers = timers + addingTime
+                }
+            }
+            return timers
+        }
+        
+        return 0
     }
 }
