@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -68,7 +67,7 @@
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="39Z-SC-5fw">
-                                        <rect key="frame" x="124" y="24" width="126" height="36"/>
+                                        <rect key="frame" x="124.5" y="24" width="126" height="36"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MODACITY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QDg-IP-7bH">
                                                 <rect key="frame" x="0.0" y="11" width="63.5" height="14"/>
@@ -125,7 +124,7 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$8.99/month after trial. Cancel any time." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u6q-ai-Bfm">
-                                                <rect key="frame" x="78" y="498.5" width="218.5" height="14.5"/>
+                                                <rect key="frame" x="78.5" y="498.5" width="218.5" height="14.5"/>
                                                 <fontDescription key="fontDescription" name="Lato-Black" family="Lato" pointSize="12"/>
                                                 <color key="textColor" white="1" alpha="0.75" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -323,7 +322,7 @@ premium features.</string>
                                                                         <fragment content="Terms &amp; Conditions">
                                                                             <attributes>
                                                                                 <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                                <font key="NSFont" size="9" name="Lato-Regular"/>
+                                                                                <font key="NSFont" metaFont="miniSystem"/>
                                                                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                                 <integer key="NSUnderline" value="1"/>
                                                                             </attributes>
@@ -335,13 +334,13 @@ premium features.</string>
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mpn-IF-KmY">
-                                                                <rect key="frame" x="105" y="0.0" width="104.5" height="44"/>
+                                                                <rect key="frame" x="105" y="0.0" width="105" height="44"/>
                                                                 <state key="normal">
                                                                     <attributedString key="attributedTitle">
                                                                         <fragment content="Privacy Policy">
                                                                             <attributes>
                                                                                 <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                                <font key="NSFont" size="9" name="Lato-Regular"/>
+                                                                                <font key="NSFont" metaFont="miniSystem"/>
                                                                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                                 <integer key="NSUnderline" value="1"/>
                                                                             </attributes>
@@ -353,13 +352,13 @@ premium features.</string>
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TjK-Fa-GiQ">
-                                                                <rect key="frame" x="209.5" y="0.0" width="105.5" height="44"/>
+                                                                <rect key="frame" x="210" y="0.0" width="105" height="44"/>
                                                                 <state key="normal">
                                                                     <attributedString key="attributedTitle">
                                                                         <fragment content="Restore Subscription">
                                                                             <attributes>
                                                                                 <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                                <font key="NSFont" size="9" name="Lato-Regular"/>
+                                                                                <font key="NSFont" metaFont="miniSystem"/>
                                                                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                                 <integer key="NSUnderline" value="1"/>
                                                                             </attributes>
@@ -504,7 +503,7 @@ premium features.</string>
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Jv-0C-TR7">
-                                        <rect key="frame" x="123.5" y="24" width="127" height="36"/>
+                                        <rect key="frame" x="124" y="24" width="127" height="36"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MODACITY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XLO-7Q-081">
                                                 <rect key="frame" x="0.0" y="10.5" width="64" height="15"/>
