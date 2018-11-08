@@ -151,7 +151,10 @@ class PlaylistContentsViewModel: ViewModel {
         }
         
         self.playlist.playlistPracticeEntries = self.playlistPracticeEntries
-        PlaylistRemoteManager.manager.update(item: self.playlist)
+        
+        if self.playlist.id != "" {
+            PlaylistRemoteManager.manager.update(item: self.playlist)
+        }
         
         self.createAndStorePlaylist()
     }
