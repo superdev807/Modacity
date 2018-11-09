@@ -1063,6 +1063,10 @@ extension PracticeViewController: UICollectionViewDelegate, UICollectionViewData
                 }
             }
         }
+        
+        self.notesToShow.sort { (note1, note2) -> Bool in
+            return  Date(timeIntervalSince1970: Double(note1.createdAt) ?? 0).compare(Date(timeIntervalSince1970: Double(note2.createdAt) ?? 0)) == .orderedDescending
+        }
         self.collectionViewNotes.reloadData()
     }
     
@@ -1107,16 +1111,18 @@ extension PracticeViewController: UICollectionViewDelegate, UICollectionViewData
         
         if self.notesToShow.count > 0 {
             
-            let controller = UIStoryboard(name: "practice_note", bundle: nil).instantiateViewController(withIdentifier: "PracticeNoteDetailsViewController") as! PracticeNoteDetailsViewController
-            controller.note = self.notesToShow[indexPath.row]
-            controller.playlistViewModel = self.playlistViewModel
-            if self.playlistViewModel != nil {
-                controller.playlistPracticeEntry = self.playlistViewModel.currentPracticeEntry
+            if !(self.notesToShow[indexPath.row].isDeliberatePracticeNote) {
+                let controller = UIStoryboard(name: "practice_note", bundle: nil).instantiateViewController(withIdentifier: "PracticeNoteDetailsViewController") as! PracticeNoteDetailsViewController
+                controller.note = self.notesToShow[indexPath.row]
+                controller.playlistViewModel = self.playlistViewModel
+                if self.playlistViewModel != nil {
+                    controller.playlistPracticeEntry = self.playlistViewModel.currentPracticeEntry
+                }
+                
+                controller.practiceItem = self.practiceItem
+                ModacityAnalytics.LogStringEvent("Practicing - Opened Note", extraParamName: "NoteIndex", extraParamValue: indexPath.row)
+                self.navigationController?.pushViewController(controller, animated: true)
             }
-            
-            controller.practiceItem = self.practiceItem
-            ModacityAnalytics.LogStringEvent("Practicing - Opened Note", extraParamName: "NoteIndex", extraParamValue: indexPath.row)
-            self.navigationController?.pushViewController(controller, animated: true)
             
         }
     }
@@ -1282,15 +1288,35 @@ extension PracticeViewController: PlayPracticeTabBarViewDelegate {
         
         self.stopMetrodronePlay()
         
-        let controller = UIStoryboard(name: "improve", bundle: nil).instantiateViewController(withIdentifier: "improve_scene") as! UINavigationController
-        let root = controller.viewControllers[0] as! ImproveSuggestionViewController
-        if self.playlistViewModel != nil {
-            root.playlistModel = self.playlistViewModel
+        if AppOveralDataManager.manager.walkThroughFlagChecking(key: "walkthrough_improvement") {
+            let controller = UIStoryboard(name: "improve", bundle: nil).instantiateViewController(withIdentifier: "improve_scene") as! UINavigationController
+            let root = controller.viewControllers[0] as! ImproveSuggestionViewController
+            if self.playlistViewModel != nil {
+                root.playlistModel = self.playlistViewModel
+            } else {
+                if self.deliverModel != nil {
+                    self.deliverModel.deliverPracticeItem = self.practiceItem
+                }
+                root.practiceItem = self.practiceItem
+                root.deliverModel = self.deliverModel
+            }
+            self.present(controller, animated: true, completion: nil)
         } else {
-            root.practiceItem = self.practiceItem
-            root.deliverModel = self.deliverModel
+            let controller = UIStoryboard(name: "improve", bundle: nil).instantiateViewController(withIdentifier: "improve_walkthrough_scene") as! UINavigationController
+            let root = controller.viewControllers[0] as! ImprovementWalkthroughViewController
+            if self.playlistViewModel != nil {
+                root.playlistModel = self.playlistViewModel
+            } else {
+                root.practiceItem = self.practiceItem
+                
+                if self.deliverModel != nil {
+                    self.deliverModel.deliverPracticeItem = self.practiceItem
+                }
+                root.deliverModel = self.deliverModel
+            }
+            self.present(controller, animated: true, completion: nil)
         }
-        self.present(controller, animated: true, completion: nil)
+        
     }
     
     @IBAction func onAskExpert() {

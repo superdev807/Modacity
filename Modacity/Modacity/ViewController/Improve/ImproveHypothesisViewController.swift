@@ -17,7 +17,6 @@ class ImproveHypothesisViewController: UIViewController {
     
     @IBOutlet weak var tableViewHypothesis: UITableView!
     @IBOutlet weak var labelPracticeName: UILabel!
-    @IBOutlet weak var labelSuggestionName: UILabel!
     @IBOutlet weak var labelHeaderNote: UILabel!
     @IBOutlet weak var textfieldInputBox: UITextField!
     @IBOutlet weak var viewInputBox: UIView!
@@ -26,6 +25,7 @@ class ImproveHypothesisViewController: UIViewController {
     @IBOutlet weak var buttonTryAgain: UIButton!
     @IBOutlet weak var constraintForTryAgainButtonBottomSpace: NSLayoutConstraint!
     @IBOutlet weak var constraintForTableViewBottomSpace: NSLayoutConstraint!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,7 +39,6 @@ class ImproveHypothesisViewController: UIViewController {
         } else {
             self.labelPracticeName.text = self.practiceItem.name ?? ""
         }
-        self.labelSuggestionName.text = self.viewModel.selectedSuggestion
         self.buttonTryAgain.isHidden = true
         self.bindViewModel()
         
@@ -67,7 +66,7 @@ class ImproveHypothesisViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if self.viewModel.alreadyTried {
-            self.labelHeaderNote.text = "Try your hypothesis again or set a new one."
+            self.labelHeaderNote.attributedText = NSAttributedString(string: "Try again! or attempt\nsomething different.")
             self.textfieldInputBox.text = self.viewModel.selectedHypothesis
         }
     }
@@ -135,6 +134,10 @@ class ImproveHypothesisViewController: UIViewController {
     func bindViewModel() {
         self.viewModel.subscribe(to: "alreadyTried") { (_, _, _) in
             self.buttonTryAgain.isHidden = !self.viewModel.alreadyTried
+            
+            if self.viewModel.alreadyTried {
+                
+            }
         }
     }
 }
@@ -153,7 +156,7 @@ extension ImproveHypothesisViewController: UITableViewDelegate, UITableViewDataS
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 55
+        return 64
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

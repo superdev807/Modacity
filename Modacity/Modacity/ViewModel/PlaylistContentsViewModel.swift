@@ -323,6 +323,11 @@ class PlaylistContentsViewModel: ViewModel {
         self.storePlaylist()
     }
     
+    func addImprovedNote(to: PlaylistPracticeEntry, improved: ImprovedRecord) {
+        to.practiceItem()!.addImprovedNote(improved)
+        self.storePlaylist()
+    }
+    
     func changeNoteTitle(entry: PlaylistPracticeEntry, note:Note, to:String) {
         entry.practiceItem()?.changeNoteTitle(for: note.id, to: to)
     }

@@ -22,7 +22,6 @@ class ImprovementViewController: UIViewController {
     @IBOutlet weak var labelPracticeItemName: UILabel!
     @IBOutlet weak var imageViewHeader: UIImageView!
     @IBOutlet weak var labelHypothesis: UILabel!
-    @IBOutlet weak var labelSuggestion: UILabel!
     @IBOutlet weak var labelImprovementNote: UILabel!
     @IBOutlet weak var buttonSaveRecord: UIButton!
     
@@ -43,7 +42,7 @@ class ImprovementViewController: UIViewController {
     @IBOutlet weak var buttonAudioPlay: UIButton!
     @IBOutlet weak var labelPlayerRemainsTime: UILabel!
     @IBOutlet weak var labelPlayerCurrentTime: UILabel!
-    @IBOutlet weak var viewImprovedYesPanel: UIView!
+//    @IBOutlet weak var viewImprovedYesPanel: UIView!
     @IBOutlet weak var viewImprovedAlert: UIView!
     @IBOutlet weak var viewRatePanel: UIView!
     @IBOutlet weak var imageViewRateDirection: UIImageView!
@@ -56,6 +55,8 @@ class ImprovementViewController: UIViewController {
     var heightOfMetrodroneView = (AppUtils.sizeModelOfiPhone() == .iphone5_4in || AppUtils.sizeModelOfiPhone() == .iphone4_35in) ? CGFloat(320) : CGFloat(360)
     
     @IBOutlet weak var viewBottomXBar: UIView!
+    
+    var donePopupView: ImprovedDonePopupView?
     
     // MARK: - Properties for drone
     
@@ -70,7 +71,6 @@ class ImprovementViewController: UIViewController {
         }
         
         self.labelHypothesis.text = self.viewModel.selectedHypothesis
-        self.labelSuggestion.text = self.viewModel.selectedSuggestion
         
         switch AppUtils.sizeModelOfiPhone() {
         case .iphone4_35in:
@@ -566,7 +566,6 @@ extension ImprovementViewController {
     func initializeImproveActionViews() {
         self.labelImprovementNote.isHidden = false
         self.viewImprovedAlert.isHidden = true
-        self.viewImprovedYesPanel.isHidden = true
     }
     
     @IBAction func onImprovedNo(_ sender: Any) {
@@ -578,18 +577,39 @@ extension ImprovementViewController {
     
     @IBAction func onImprovedYes(_ sender: Any) {
        ModacityAnalytics.LogStringEvent("Hypothesis Worked")
-        self.viewImprovedAlert.isHidden = true
-        self.viewImprovedYesPanel.isHidden = false
+        self.showDonePopup()
     }
     
-    @IBAction func onImprovedNext(_ sender: Any) {
+    func stopMetrodronePlay() {
+        if let metrodroneView = self.metrodroneView {
+            if let mPlayer = metrodroneView.metrodonePlayer {
+                mPlayer.stopPlayer()
+            }
+        }
+    }
+}
+
+extension ImprovementViewController: ImprovedDonePopupViewDelegate {
+    
+    func showDonePopup() {
+        let popupView = ImprovedDonePopupView()
+        self.view.addSubview(popupView)
+        self.view.leadingAnchor.constraint(equalTo: popupView.leadingAnchor).isActive = true
+        self.view.trailingAnchor.constraint(equalTo: popupView.trailingAnchor).isActive = true
+        self.view.topAnchor.constraint(equalTo: popupView.topAnchor).isActive = true
+        self.view.bottomAnchor.constraint(equalTo: popupView.bottomAnchor).isActive = true
+        popupView.delegate = self
+        self.donePopupView = popupView
+    }
+    
+    func onPopupButtonNo() {
         ModacityAnalytics.LogStringEvent("Don't Practice Hypothesis Again")
         self.generateImprovedRecord()
         self.stopMetrodronePlay()
         self.navigationController?.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func onImproveAgain(_ sender: Any) {
+    func onPopupButtonYes() {
         ModacityAnalytics.LogStringEvent("Practice Same Hypothesis Again")
         self.viewModel.alreadyTried = true
         self.btnRecord.isHidden = false
@@ -606,9 +626,13 @@ extension ImprovementViewController {
         self.labelImprovementNote.isHidden = false
         
         self.viewImprovedAlert.isHidden = true
-        self.viewImprovedYesPanel.isHidden = true
+        
+        if let popupView = self.donePopupView {
+            popupView.removeFromSuperview()
+            self.donePopupView = nil
+        }
     }
-    
+
     func generateImprovedRecord() {
         let improvedRecord = ImprovedRecord()
         improvedRecord.suggestion = self.viewModel.selectedSuggestion
@@ -616,17 +640,14 @@ extension ImprovementViewController {
         if self.playlistViewModel != nil {
             self.playlistViewModel.sessionImproved.append(improvedRecord)
             self.playlistViewModel.addNewImprovement(self.viewModel.generateImprovement(with: self.playlistViewModel.playlist, practice: self.playlistViewModel.currentPracticeEntry))
+            self.playlistViewModel.addImprovedNote(to: self.playlistViewModel.currentPracticeEntry, improved: improvedRecord)
         } else {
             self.deliverModel.sessionImproved.append(improvedRecord)
-            AppOveralDataManager.manager.addImprovementsCount()
-        }
-    }
-    
-    func stopMetrodronePlay() {
-        if let metrodroneView = self.metrodroneView {
-            if let mPlayer = metrodroneView.metrodonePlayer {
-                mPlayer.stopPlayer()
+            
+            if self.deliverModel.deliverPracticeItem != nil {
+                self.deliverModel.deliverPracticeItem.addImprovedNote(improvedRecord)
             }
+            AppOveralDataManager.manager.addImprovementsCount()
         }
     }
 }

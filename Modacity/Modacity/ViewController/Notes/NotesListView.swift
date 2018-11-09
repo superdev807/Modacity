@@ -200,9 +200,13 @@ extension NotesListView : UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
         
         if indexPath.row < self.notes.count {
-            self.delegate.onOpenNoteDetails(self.notes[indexPath.row])
+            if !(self.notes[indexPath.row].isDeliberatePracticeNote) {
+                self.delegate.onOpenNoteDetails(self.notes[indexPath.row])
+            }
         } else if indexPath.row > self.notes.count {
-            self.delegate.onOpenNoteDetails(self.archivedNotes[indexPath.row - self.notes.count - 1])
+            if !(self.archivedNotes[indexPath.row - self.notes.count - 1].isDeliberatePracticeNote) {
+                self.delegate.onOpenNoteDetails(self.archivedNotes[indexPath.row - self.notes.count - 1])
+            }
         }
     }
 }
@@ -253,27 +257,37 @@ extension NotesListView: NoteCellDelegate {
 
     func onMenu(note: Note, buttonMenu: UIButton, cell:NoteCell) {
         
-        DropdownMenuView.instance.show(in: self.viewContent,
-                                       on: buttonMenu,
-                                       rows: [["icon":"icon_pen_white", "text": "Edit"],
-                                              ["icon":"icon_row_delete", "text":"Delete"]]) { (row) in
-
-                                                if row == 1 {
+        if note.isDeliberatePracticeNote {
+            DropdownMenuView.instance.show(in: self.viewContent,
+                                           on: buttonMenu,
+                                           rows: [["icon":"icon_row_delete", "text":"Delete"]]) { (row) in
                                                     self.delegate.onDeleteNote(note)
-                                                } else if row == 0 {
-
-                                                    if self.noteEditingCell != nil {
+            }
+        } else {
+            DropdownMenuView.instance.show(in: self.viewContent,
+                                           on: buttonMenu,
+                                           rows: [["icon":"icon_pen_white", "text": "Edit"],
+                                                  ["icon":"icon_row_delete", "text":"Delete"]]) { (row) in
+                                                    
+                                                    if row == 1 {
+                                                        self.delegate.onDeleteNote(note)
+                                                    } else if row == 0 {
+                                                        
+                                                        if self.noteEditingCell != nil {
+                                                        }
+                                                        
+                                                        self.noteEditingCell = cell
+                                                        cell.enableTitleEditing()
                                                     }
-
-                                                    self.noteEditingCell = cell
-                                                    cell.enableTitleEditing()
-                                                }
-
+                                                    
+            }
         }
     }
     
     func openDetails(note: Note) {
-        self.delegate.onOpenNoteDetails(note)
+        if !(note.isDeliberatePracticeNote) {
+            self.delegate.onOpenNoteDetails(note)
+        }
     }
 
     func onEditingEnd(cell: NoteCell, text: String) {

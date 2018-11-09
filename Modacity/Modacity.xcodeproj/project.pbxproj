@@ -89,8 +89,14 @@
 		8EF559C9207E89FA006728E4 /* FloatRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF559C8207E89FA006728E4 /* FloatRatingView.swift */; };
 		8EF559CB207E8A35006728E4 /* DropdownMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF559CA207E8A35006728E4 /* DropdownMenuView.swift */; };
 		8EFD2DAC207BC20900DC28C1 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFD2DAB207BC20900DC28C1 /* ChangePasswordViewController.swift */; };
+		AF03EB0D21952C7600AD79E1 /* ImprovedDonePopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF03EB0B21952C7500AD79E1 /* ImprovedDonePopupView.swift */; };
+		AF03EB0E21952C7600AD79E1 /* ImprovedDonePopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF03EB0B21952C7500AD79E1 /* ImprovedDonePopupView.swift */; };
+		AF03EB0F21952C7600AD79E1 /* ImprovedDonePopupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF03EB0C21952C7500AD79E1 /* ImprovedDonePopupView.xib */; };
+		AF03EB1021952C7600AD79E1 /* ImprovedDonePopupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF03EB0C21952C7500AD79E1 /* ImprovedDonePopupView.xib */; };
 		AFB60BD1218AB66100434DE1 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB60BD0218AB66100434DE1 /* ResetPasswordViewController.swift */; };
 		AFB60BD2218AB66100434DE1 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB60BD0218AB66100434DE1 /* ResetPasswordViewController.swift */; };
+		AFC6CB6B2193CD2F002B8680 /* ImprovementWalkthroughViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC6CB6A2193CD2F002B8680 /* ImprovementWalkthroughViewController.swift */; };
+		AFC6CB6C2193CD2F002B8680 /* ImprovementWalkthroughViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC6CB6A2193CD2F002B8680 /* ImprovementWalkthroughViewController.swift */; };
 		E2083FA420DD376100BCE27F /* RecordingsListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2083FA220DD376000BCE27F /* RecordingsListView.xib */; };
 		E2083FA520DD376100BCE27F /* RecordingsListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2083FA220DD376000BCE27F /* RecordingsListView.xib */; };
 		E2083FA620DD376100BCE27F /* RecordingsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2083FA320DD376000BCE27F /* RecordingsListView.swift */; };
@@ -513,7 +519,10 @@
 		8EF559CA207E8A35006728E4 /* DropdownMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownMenuView.swift; sourceTree = "<group>"; };
 		8EFD2DAB207BC20900DC28C1 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		9E91DFE323AAAD77A2F8A14A /* Pods_Modacity_Dev.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Modacity_Dev.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AF03EB0B21952C7500AD79E1 /* ImprovedDonePopupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImprovedDonePopupView.swift; sourceTree = "<group>"; };
+		AF03EB0C21952C7500AD79E1 /* ImprovedDonePopupView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImprovedDonePopupView.xib; sourceTree = "<group>"; };
 		AFB60BD0218AB66100434DE1 /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
+		AFC6CB6A2193CD2F002B8680 /* ImprovementWalkthroughViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImprovementWalkthroughViewController.swift; sourceTree = "<group>"; };
 		C7502E348716E20F4E0B7E5C /* libPods-ModacityUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ModacityUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C925C622EB9C22985FEC136B /* Pods-ModacityTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ModacityTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ModacityTests/Pods-ModacityTests.release.xcconfig"; sourceTree = "<group>"; };
 		CA2B3FB269EEE0DEA241813C /* Pods-ModacityUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ModacityUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ModacityUITests/Pods-ModacityUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -868,6 +877,9 @@
 				8ED001CE205768C100536122 /* ImproveSuggestionViewController.swift */,
 				8E84CA6420577E7600D2D1CB /* ImproveHypothesisViewController.swift */,
 				8E84CA682057858400D2D1CB /* ImprovementViewController.swift */,
+				AFC6CB6A2193CD2F002B8680 /* ImprovementWalkthroughViewController.swift */,
+				AF03EB0B21952C7500AD79E1 /* ImprovedDonePopupView.swift */,
+				AF03EB0C21952C7500AD79E1 /* ImprovedDonePopupView.xib */,
 			);
 			path = Improve;
 			sourceTree = "<group>";
@@ -977,8 +989,8 @@
 				E2CDDEBC2136E35B00BEB98B /* Extensions */,
 				8E0A51C1207E45DD006BDDC6 /* Analytics */,
 				8E0A51BB207E4449006BDDC6 /* Modacity-Bridging-Header.h */,
-				8ECCAF962056F5B9000E2B75 /* ding.wav */,
 				E248879620F3A6020093B3CF /* ModacityDebugger.swift */,
+				8ECCAF962056F5B9000E2B75 /* ding.wav */,
 			);
 			path = Supporting;
 			sourceTree = "<group>";
@@ -1418,6 +1430,7 @@
 				E251C9D420E14AA000C8BC49 /* PracticeHistoryDetailsRowView.xib in Resources */,
 				E2CDBEA82101098F00119D77 /* PremiumUpgradeSlideComingSoonView.xib in Resources */,
 				E267CFAA20CE18CA003D708B /* PlayPracticeWalkthroughView.xib in Resources */,
+				AF03EB0F21952C7600AD79E1 /* ImprovedDonePopupView.xib in Resources */,
 				E2083FD420DD5C6A00BCE27F /* ButtonCell.xib in Resources */,
 				8EA33BA120052A3300539A3F /* playlist.storyboard in Resources */,
 				E2746B68210028EB00D2A47D /* premium.storyboard in Resources */,
@@ -1483,6 +1496,7 @@
 				E2CDBEAF21011AE200119D77 /* PremiumUpgradeLockView.xib in Resources */,
 				E214FB2A212A5F4300162A69 /* LoadMoreCell.xib in Resources */,
 				E249E62320DAB6C800FBDA72 /* StatisticsView.xib in Resources */,
+				AF03EB1021952C7600AD79E1 /* ImprovedDonePopupView.xib in Resources */,
 				E21BEA042091796A000D1877 /* welcome.storyboard in Resources */,
 				E23C338620E51DD3000EED10 /* PlaylistHistoryDetailsRowView.xib in Resources */,
 				E23C337820E5172D000EED10 /* PlaylistHistoryView.xib in Resources */,
@@ -1834,8 +1848,10 @@
 				8EAE1651204FE1050012450E /* PlaylistFinishViewController.swift in Sources */,
 				8EB9DB99204DA67200689C1D /* PlaylistLocalManager.swift in Sources */,
 				E2083FBC20DD47C700BCE27F /* PracticeMusicQuoteCell.swift in Sources */,
+				AF03EB0D21952C7600AD79E1 /* ImprovedDonePopupView.swift in Sources */,
 				8E58B44420446AE40022704B /* MyProfileRemoteManager.swift in Sources */,
 				8E1EFEFC20500E7A000DE107 /* PlaylistPracticeDurationKeyboardViewController.swift in Sources */,
+				AFC6CB6B2193CD2F002B8680 /* ImprovementWalkthroughViewController.swift in Sources */,
 				AFB60BD1218AB66100434DE1 /* ResetPasswordViewController.swift in Sources */,
 				E23C337920E5172D000EED10 /* PlaylistHistoryView.swift in Sources */,
 				8EA33BA720052D2700539A3F /* RecordingViewController.swift in Sources */,
@@ -1993,8 +2009,10 @@
 				E21BE9B92091796A000D1877 /* PlaylistFinishViewController.swift in Sources */,
 				E21BE9BA2091796A000D1877 /* PlaylistLocalManager.swift in Sources */,
 				E2083FBD20DD47C700BCE27F /* PracticeMusicQuoteCell.swift in Sources */,
+				AF03EB0E21952C7600AD79E1 /* ImprovedDonePopupView.swift in Sources */,
 				E21BE9BB2091796A000D1877 /* MyProfileRemoteManager.swift in Sources */,
 				E21BE9BC2091796A000D1877 /* PlaylistPracticeDurationKeyboardViewController.swift in Sources */,
+				AFC6CB6C2193CD2F002B8680 /* ImprovementWalkthroughViewController.swift in Sources */,
 				AFB60BD2218AB66100434DE1 /* ResetPasswordViewController.swift in Sources */,
 				E23C337A20E5172D000EED10 /* PlaylistHistoryView.swift in Sources */,
 				E21BE9BE2091796A000D1877 /* RecordingViewController.swift in Sources */,

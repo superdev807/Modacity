@@ -20,6 +20,7 @@ class AppConfig: NSObject {
             static let placeholderTextColorGray = Color(hexString: "#8F9098")
             static let placeholderIconColorGray = Color(hexString: "#AEAEB4")
             static let listHeaderBackgroundColor = Color(hexString: "#393B49")
+            static let noteTextColorInPractice = Color(hexString: "#9697A6")
         }
         
         struct AppUIValues {
@@ -34,6 +35,30 @@ class AppConfig: NSObject {
             static let appFontLatoBoldItalic = "Lato-BoldItalic"
             static let appFontLatoItalic = "Lato-Italic"
             static let appFontLatoLight = "Lato-Light"
+            
+            static func latoRegular(with size: CGFloat) -> UIFont {
+                return UIFont(name: appFontLatoRegular, size: size)!
+            }
+            
+            static func latoBold(with size: CGFloat) -> UIFont {
+                return UIFont(name: appFontLatoBold, size: size)!
+            }
+            
+            static func latoBlack(with size: CGFloat) -> UIFont {
+                return UIFont(name: appFontLatoBlack, size: size)!
+            }
+            
+            static func latoLight(with size: CGFloat) -> UIFont {
+                return UIFont(name: appFontLatoLight, size: size)!
+            }
+            
+            static func latoItalic(with size: CGFloat) -> UIFont {
+                return UIFont(name: appFontLatoItalic, size: size)!
+            }
+            
+            static func latoBoldItalic(with size: CGFloat) -> UIFont {
+                return UIFont(name: appFontLatoBoldItalic, size: size)!
+            }
         }
     }
     
@@ -68,6 +93,9 @@ class AppConfig: NSObject {
         static let appConfigInstagramLink = "http://instagram.com/modacityapp"
         static let appConfigFacebookLink = "https://www.facebook.com/ModacityApp/"
         static let appConfigWebsiteLink = "https://www.modacity.co"
+        static let appDeliberatePracticeTutorialYoutubeId = "6WfMEMJ0VPk"
+        static let appDeliberatePracticeTutorialYoutubeLink = "youtube://\(appDeliberatePracticeTutorialYoutubeId)"
+        static let appDeliberatePracticeTutorialLink = "https://www.youtube.com/watch?v=\(appDeliberatePracticeTutorialYoutubeId)"
     }
     
     struct NotificationNames {

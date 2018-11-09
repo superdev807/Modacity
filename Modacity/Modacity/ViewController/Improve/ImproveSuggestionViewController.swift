@@ -27,7 +27,7 @@ class ImproveSuggestionViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        self.textfieldInputBox.attributedPlaceholder = NSAttributedString(string: "Type here or choose a suggestion", attributes: [NSAttributedStringKey.foregroundColor:Color.white.alpha(0.5)])
+        self.textfieldInputBox.attributedPlaceholder = NSAttributedString(string: "Create your own area of improvement", attributes: [NSAttributedStringKey.foregroundColor:Color.white.alpha(0.5)])
         self.viewInputBox.layer.cornerRadius = 5
         self.buttonCloseBox.isHidden = true
         
@@ -36,6 +36,8 @@ class ImproveSuggestionViewController: UIViewController {
         } else {
             self.labelPracticeName.text = self.practiceItem.name ?? ""
         }
+        
+        self.collectionViewLayoutConfigure()
         
         NotificationCenter.default.addObserver(self, selector: #selector(onKeyboardWillShow), name: Notification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(onKeyboardWillHide), name: Notification.Name.UIKeyboardWillHide, object: nil)
@@ -90,6 +92,26 @@ class ImproveSuggestionViewController: UIViewController {
     @objc func onKeyboardWillHide() {
         self.buttonCloseBox.isHidden = true
         self.constraintForCollectionViewBottomSpace.constant = 0
+    }
+    
+    func collectionViewLayoutConfigure() {
+        let flowLayout = self.collectionViewMain.collectionViewLayout as! UICollectionViewFlowLayout
+        switch AppUtils.sizeModelOfiPhone() {
+        case .iphone4_35in:
+            fallthrough
+        case .iphone5_4in:
+            flowLayout.sectionInset = UIEdgeInsetsMake(30, 10, 20, 10)
+        case .iphone6_47in:
+            fallthrough
+        case .iphone6p_55in:
+            fallthrough
+        case .iphoneX_xS:
+            fallthrough
+        case .iphonexR_xSMax:
+            flowLayout.sectionInset = UIEdgeInsetsMake(30, 30, 20, 30)
+        default:
+            return
+        }
     }
 }
 

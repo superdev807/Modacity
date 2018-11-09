@@ -21,7 +21,8 @@ class WalkthroughRemoteManager {
                                 "walkthrough_first_playlist":"fpl",
                                 "walkthrough_playlist_naming":"pn",
                                 "walkthrough_playlist_finish":"pf",
-                                "walkthrough_practice_item_selection_finish":"pisf"]
+                                "walkthrough_practice_item_selection_finish":"pisf",
+                                "walkthrough_improvement": "im"]
     
     let keysDictServerToLocal = ["fp":"walkthrough_first_page",
                                  "sp":"walkthrough_second_page",
@@ -31,7 +32,8 @@ class WalkthroughRemoteManager {
                                  "fpl":"walkthrough_first_playlist",
                                  "pn":"walkthrough_playlist_naming",
                                  "pf":"walkthrough_playlist_finish",
-                                 "pisf":"walkthrough_practice_item_selection_finish"]
+                                 "pisf":"walkthrough_practice_item_selection_finish",
+                                 "im": "walkthrough_improvement"]
     
     let refUser = Database.database().reference().child("users")
     

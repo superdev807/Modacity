@@ -34,6 +34,8 @@ class ImprovementViewModel: ViewModel {
     var selectedSuggestion: String = ""
     var selectedHypothesis: String = ""
     
+    var userOwnSuggestions = [String]()
+    
     var alreadyTried = false {
         didSet {
             if let callback = self.callBacks["alreadyTried"] {

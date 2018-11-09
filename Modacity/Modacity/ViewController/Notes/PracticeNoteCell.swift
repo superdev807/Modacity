@@ -18,6 +18,8 @@ class PracticeNoteCell: UICollectionViewCell, UIGestureRecognizerDelegate {
     @IBOutlet weak var imageViewBackground: UIImageView!
     @IBOutlet weak var labelTime: UILabel!
     @IBOutlet weak var textViewNote: UITextView!
+    @IBOutlet weak var viewImprovementHeader: UIView!
+    @IBOutlet weak var constraintBodyTopSpace: NSLayoutConstraint!
     
     var note: Note!
     var delegate: PracticeNoteCellDelegate!
@@ -30,11 +32,24 @@ class PracticeNoteCell: UICollectionViewCell, UIGestureRecognizerDelegate {
     
     func configure(note: Note, indexPath: IndexPath) {
         self.note = note
-        self.textViewNote.text = note.note
+        
         self.textViewNote.textContainer.lineFragmentPadding = 0
         self.textViewNote.textContainerInset = .zero
         self.labelTime.text = Date(timeIntervalSince1970: Double(note.createdAt) ?? 0).toString(format: "MM/dd/yy")
-        self.imageViewBackground.image = UIImage(named:"bg_note_box")?.stretchableImage(withLeftCapWidth: 24, topCapHeight: 24)
+        
+        if note.isDeliberatePracticeNote {
+            self.viewImprovementHeader.isHidden = false
+            self.constraintBodyTopSpace.constant = 20
+            self.imageViewBackground.image = UIImage(named:"bg_note_improvement_box")?.stretchableImage(withLeftCapWidth: 24, topCapHeight: 24)
+            
+            self.textViewNote.attributedText = note.deliberatePracticeNoteProcess()
+        } else {
+            self.textViewNote.attributedText = NSAttributedString(string: note.note,
+                                                                  attributes: [NSAttributedStringKey.font: AppConfig.UI.Fonts.latoItalic(with: 14), NSAttributedStringKey.foregroundColor: AppConfig.UI.AppColors.noteTextColorInPractice])
+            self.viewImprovementHeader.isHidden = true
+            self.constraintBodyTopSpace.constant = 10
+            self.imageViewBackground.image = UIImage(named:"bg_note_box")?.stretchableImage(withLeftCapWidth: 24, topCapHeight: 24)
+        }
         self.indexPath = indexPath
         
         let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(handleGesture))
@@ -82,7 +97,9 @@ class PracticeNoteCell: UICollectionViewCell, UIGestureRecognizerDelegate {
                     } else {
                         ModacityDebugger.debug("Clicked outside of links.")
                         if self.delegate != nil {
-                            self.delegate.openDetails(note: note)
+                            if !(note.isDeliberatePracticeNote) {
+                                self.delegate.openDetails(note: note)
+                            }
                         }
                     }
                 }

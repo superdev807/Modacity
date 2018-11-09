@@ -74,6 +74,21 @@ class PracticeItem: Mappable {
         self.updateMe()
     }
     
+    func addImprovedNote(_ record: ImprovedRecord) {
+        if self.notes == nil {
+            self.notes = [Note]()
+        }
+        
+        let note = Note()
+        note.id = UUID().uuidString
+        note.isDeliberatePracticeNote = true
+        note.note = "\(record.suggestion ?? ""):::::\(record.hypothesis ?? "")"
+        note.createdAt = "\(Date().timeIntervalSince1970)"
+        self.notes!.append(note)
+        
+        self.updateMe()
+    }
+    
     func deleteNote(for noteId:String) {
         
         self.notes = self.notes?.filter { $0.id != noteId }

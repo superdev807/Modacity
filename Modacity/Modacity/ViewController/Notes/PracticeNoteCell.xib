@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="Lato-Bold.ttf">
+            <string>Lato-Bold</string>
+        </array>
         <array key="lato-italic.ttf">
             <string>Lato-Italic</string>
         </array>
@@ -28,7 +31,7 @@
                         <rect key="frame" x="5" y="5" width="364" height="82"/>
                     </imageView>
                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dj5-yW-ulj" customClass="VerticalCenterTextView" customModule="Modacity" customModuleProvider="target">
-                        <rect key="frame" x="25" y="15" width="324" height="41"/>
+                        <rect key="frame" x="20" y="15" width="334" height="49"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</string>
                         <color key="textColor" red="0.58823529411764708" green="0.59215686274509804" blue="0.65098039215686276" alpha="1" colorSpace="calibratedRGB"/>
@@ -37,7 +40,7 @@
                         <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES" shipmentTrackingNumber="YES" flightNumber="YES" lookupSuggestion="YES"/>
                     </textView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9 / 24 / 18" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c7a-jA-ast">
-                        <rect key="frame" x="25" y="61" width="44.5" height="16"/>
+                        <rect key="frame" x="20" y="66" width="44.5" height="16"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="16" id="6sS-TT-ZJX"/>
                         </constraints>
@@ -45,15 +48,40 @@
                         <color key="textColor" red="0.1058823529" green="0.73725490199999999" blue="0.71372549019999998" alpha="0.69999999999999996" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ndx-60-mUf">
+                        <rect key="frame" x="15" y="10" width="89" height="20"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_note_improvement" translatesAutoresizingMaskIntoConstraints="NO" id="Bnb-d0-mvb">
+                                <rect key="frame" x="0.0" y="2" width="17" height="16"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="IMPROVEMENT" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ksA-vA-EqY">
+                                <rect key="frame" x="22" y="4.5" width="67" height="11"/>
+                                <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="9"/>
+                                <color key="textColor" red="0.56470588235294117" green="0.5607843137254902" blue="0.90196078431372551" alpha="0.69999999999999996" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="ksA-vA-EqY" firstAttribute="leading" secondItem="Bnb-d0-mvb" secondAttribute="trailing" constant="5" id="1Hq-md-kTd"/>
+                            <constraint firstItem="Bnb-d0-mvb" firstAttribute="leading" secondItem="Ndx-60-mUf" secondAttribute="leading" id="93b-hA-efj"/>
+                            <constraint firstAttribute="trailing" secondItem="ksA-vA-EqY" secondAttribute="trailing" id="AaK-ew-w5b"/>
+                            <constraint firstAttribute="height" constant="20" id="Dez-eS-2kf"/>
+                            <constraint firstItem="Bnb-d0-mvb" firstAttribute="centerY" secondItem="Ndx-60-mUf" secondAttribute="centerY" id="jno-QH-9gv"/>
+                            <constraint firstItem="ksA-vA-EqY" firstAttribute="centerY" secondItem="Ndx-60-mUf" secondAttribute="centerY" id="x4W-A9-k2G"/>
+                        </constraints>
+                    </view>
                 </subviews>
             </view>
             <constraints>
-                <constraint firstItem="Dj5-yW-ulj" firstAttribute="trailing" secondItem="D4N-9t-pTa" secondAttribute="trailing" constant="-20" id="Crd-yE-E9S"/>
-                <constraint firstItem="c7a-jA-ast" firstAttribute="bottom" secondItem="D4N-9t-pTa" secondAttribute="bottom" constant="-10" id="Dig-6c-1w1"/>
+                <constraint firstItem="Dj5-yW-ulj" firstAttribute="trailing" secondItem="D4N-9t-pTa" secondAttribute="trailing" constant="-15" id="Crd-yE-E9S"/>
+                <constraint firstItem="c7a-jA-ast" firstAttribute="bottom" secondItem="D4N-9t-pTa" secondAttribute="bottom" constant="-5" id="Dig-6c-1w1"/>
                 <constraint firstAttribute="trailing" secondItem="D4N-9t-pTa" secondAttribute="trailing" constant="5" id="INM-JN-fsJ"/>
-                <constraint firstItem="Dj5-yW-ulj" firstAttribute="leading" secondItem="D4N-9t-pTa" secondAttribute="leading" constant="20" id="JKx-K8-pJq"/>
+                <constraint firstItem="Dj5-yW-ulj" firstAttribute="leading" secondItem="D4N-9t-pTa" secondAttribute="leading" constant="15" id="JKx-K8-pJq"/>
                 <constraint firstItem="Dj5-yW-ulj" firstAttribute="top" secondItem="D4N-9t-pTa" secondAttribute="top" constant="10" id="MML-P1-PDm"/>
-                <constraint firstItem="c7a-jA-ast" firstAttribute="top" secondItem="Dj5-yW-ulj" secondAttribute="bottom" constant="5" id="iPr-yH-ybP"/>
+                <constraint firstItem="Ndx-60-mUf" firstAttribute="leading" secondItem="ZTg-uK-7eu" secondAttribute="leading" constant="15" id="cLw-rg-cp0"/>
+                <constraint firstItem="Ndx-60-mUf" firstAttribute="top" secondItem="ZTg-uK-7eu" secondAttribute="top" constant="10" id="hDk-Gj-h8r"/>
+                <constraint firstItem="c7a-jA-ast" firstAttribute="top" secondItem="Dj5-yW-ulj" secondAttribute="bottom" constant="2" id="iPr-yH-ybP"/>
                 <constraint firstItem="c7a-jA-ast" firstAttribute="leading" secondItem="Dj5-yW-ulj" secondAttribute="leading" id="icQ-UJ-wMp"/>
                 <constraint firstItem="D4N-9t-pTa" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="5" id="mRV-fo-DNj"/>
                 <constraint firstAttribute="bottom" secondItem="D4N-9t-pTa" secondAttribute="bottom" constant="5" id="mSU-vn-cy3"/>
@@ -62,11 +90,16 @@
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="374" height="92"/>
             <connections>
+                <outlet property="constraintBodyTopSpace" destination="MML-P1-PDm" id="kxd-XM-qpu"/>
                 <outlet property="imageViewBackground" destination="D4N-9t-pTa" id="3P9-DM-tpl"/>
                 <outlet property="labelTime" destination="c7a-jA-ast" id="FRY-Pn-ixt"/>
                 <outlet property="textViewNote" destination="Dj5-yW-ulj" id="lqR-fX-UXv"/>
+                <outlet property="viewImprovementHeader" destination="Ndx-60-mUf" id="dgn-1k-Z9c"/>
             </connections>
-            <point key="canvasLocation" x="187" y="73"/>
+            <point key="canvasLocation" x="185.59999999999999" y="72.863568215892059"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="icon_note_improvement" width="17" height="16"/>
+    </resources>
 </document>
