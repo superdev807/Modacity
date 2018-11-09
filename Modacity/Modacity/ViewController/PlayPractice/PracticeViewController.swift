@@ -677,7 +677,7 @@ extension PracticeViewController: AVAudioPlayerDelegate, FDWaveformViewDelegate 
                         self.buttonSaveRecord.isEnabled = false
                     } else if self.practiceItem != nil {
                         RecordingsLocalManager.manager.saveCurrentRecording(toFileName: name,
-                                                                            playlistId: "practice-\(self.practiceItem.id)",
+                                                                            playlistId: "practice-\(self.practiceItem.id ?? "___")",
                                                                             practiceName: self.practiceItem.name ?? "",
                                                                             practiceEntryId: self.practiceItem.id,
                                                                             practiceItemId: self.practiceItem.id)

@@ -215,7 +215,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             if (item["type"] as? String ?? "") == "playlist" {
                 
                 let deliverViewModel = PlaylistAndPracticeDeliverModel()
-                deliverViewModel.deliverPlaylist = item["data"] as! Playlist
+                deliverViewModel.deliverPlaylist = item["data"] as? Playlist
                 let controller = UIStoryboard(name: "playlist", bundle: nil).instantiateViewController(withIdentifier: "PlaylistContentsViewController") as! PlaylistContentsViewController
                 controller.parentViewModel = deliverViewModel
                 let nav = UINavigationController(rootViewController: controller)

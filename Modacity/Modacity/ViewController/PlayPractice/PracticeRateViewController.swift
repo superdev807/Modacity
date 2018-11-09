@@ -86,8 +86,8 @@ class PracticeRateViewController: UIViewController {
                             let spentTime = self.playlistViewModel.totalPracticedTime() /*+ self.playlistViewModel.sessionPlayedInPlaylistPage*/
                             controller.lastPracticeBreakTime = -1 * (spentTime % parentController.practiceBreakTime)
                             controller.practiceBreakTime = parentController.practiceBreakTime
-                            ModacityDebugger.debug("Last practice break time - \(controller.lastPracticeBreakTime)")
-                            ModacityDebugger.debug("Practice break time - \(controller.practiceBreakTime)")
+                            ModacityDebugger.debug("Last practice break time - \(controller.lastPracticeBreakTime ?? 0)")
+                            ModacityDebugger.debug("Practice break time - \(controller.practiceBreakTime ?? 0)")
                         } else {
                             controller.practiceBreakTime = 0
                         }

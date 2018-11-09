@@ -21,6 +21,7 @@ class PracticeItemSelectCell: UITableViewCell {
     @IBOutlet weak var buttonMenu: UIButton!
     @IBOutlet weak var labelLastPracticeTime: UILabel!
     
+    var practiceItem: PracticeItem!
     var delegate: PracticeItemSelectCellDelegate? = nil
     
     var indexPath: IndexPath!
@@ -62,6 +63,8 @@ class PracticeItemSelectCell: UITableViewCell {
         self.labelLastPracticeTime.text = item.lastPracticedTimeString()
         
         self.indexPath = indexPath
+        
+        self.practiceItem = item
     }
     
     @IBAction func onEditingChangedOnPracticeItemNameField(_ sender: Any) {
@@ -74,4 +77,13 @@ class PracticeItemSelectCell: UITableViewCell {
         }
     }
     
+    @IBAction func onDidEndOnExitOnPracticeItenNameField(_ sender: Any) {
+        if self.textfieldInputPracticeItemName.text != "" {
+            self.labelPracticeItemName.text = self.textfieldInputPracticeItemName.text
+            self.practiceItem.name = self.textfieldInputPracticeItemName.text
+            self.practiceItem.updateMe()
+        }
+        self.textfieldInputPracticeItemName.isHidden = true
+        self.labelPracticeItemName.isHidden = false
+    }
 }

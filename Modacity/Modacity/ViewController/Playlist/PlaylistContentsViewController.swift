@@ -928,8 +928,8 @@ extension PlaylistContentsViewController {
             controller.lastPracticeBreakTime = -1 * (self.viewModel.totalPracticedTime() % self.practiceBreakTime)
             controller.practiceBreakTime = self.practiceBreakTime
             
-            ModacityDebugger.debug("last practice break time - \(controller.lastPracticeBreakTime)")
-            ModacityDebugger.debug("practice break time - \(self.practiceBreakTime)")
+            ModacityDebugger.debug("last practice break time - \(controller.lastPracticeBreakTime ?? 0)")
+            ModacityDebugger.debug("practice break time - \(self.practiceBreakTime ?? 0)")
             
         } else {
             controller.practiceBreakTime = 0
