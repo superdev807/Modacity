@@ -33,6 +33,7 @@ class AppOveralDataManager {
         PracticingDailyLocalManager.manager.signout()
         PlaylistDailyLocalManager.manager.signout()
         PremiumDataManager.manager.signout()
+        DeliberatePracticeManager.manager.signout()
         
         WalkthroughRemoteManager.manager.synchronized = false
         

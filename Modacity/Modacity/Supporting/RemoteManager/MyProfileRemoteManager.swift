@@ -46,6 +46,7 @@ class MyProfileRemoteManager {
                 WalkthroughRemoteManager.manager.syncFirst()
                 MusicQuotesManager.manager.loadQuotesFromServer()
                 PremiumDataManager.manager.fetchPremiumUpgradeStatus()
+                DeliberatePracticeRemoteManager.manager.fetchDeliberatePractices()
                 OverallDataRemoteManager.manager.syncFirst {
                     PracticeItemRemoteManager.manager.syncFirst()
                     PlaylistRemoteManager.manager.syncFirst()

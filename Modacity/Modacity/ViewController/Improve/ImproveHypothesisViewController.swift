@@ -26,7 +26,6 @@ class ImproveHypothesisViewController: UIViewController {
     @IBOutlet weak var constraintForTryAgainButtonBottomSpace: NSLayoutConstraint!
     @IBOutlet weak var constraintForTableViewBottomSpace: NSLayoutConstraint!
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.

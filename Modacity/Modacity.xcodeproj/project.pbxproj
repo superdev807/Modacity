@@ -97,6 +97,14 @@
 		AFB60BD2218AB66100434DE1 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB60BD0218AB66100434DE1 /* ResetPasswordViewController.swift */; };
 		AFC6CB6B2193CD2F002B8680 /* ImprovementWalkthroughViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC6CB6A2193CD2F002B8680 /* ImprovementWalkthroughViewController.swift */; };
 		AFC6CB6C2193CD2F002B8680 /* ImprovementWalkthroughViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC6CB6A2193CD2F002B8680 /* ImprovementWalkthroughViewController.swift */; };
+		AFF7D35C2199BC3D00D5A6E2 /* DeliberatePracticeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF7D35B2199BC3D00D5A6E2 /* DeliberatePracticeManager.swift */; };
+		AFF7D35D2199BC3D00D5A6E2 /* DeliberatePracticeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF7D35B2199BC3D00D5A6E2 /* DeliberatePracticeManager.swift */; };
+		AFF7D35F2199F64700D5A6E2 /* DeliberatePracticeRemoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF7D35E2199F64700D5A6E2 /* DeliberatePracticeRemoteManager.swift */; };
+		AFF7D3602199F64700D5A6E2 /* DeliberatePracticeRemoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF7D35E2199F64700D5A6E2 /* DeliberatePracticeRemoteManager.swift */; };
+		AFF978EA219922B7009B25C5 /* deliberate_suggestions.plist in Resources */ = {isa = PBXBuildFile; fileRef = AFF978E9219922B7009B25C5 /* deliberate_suggestions.plist */; };
+		AFF978EB219922B7009B25C5 /* deliberate_suggestions.plist in Resources */ = {isa = PBXBuildFile; fileRef = AFF978E9219922B7009B25C5 /* deliberate_suggestions.plist */; };
+		AFF978ED219925E2009B25C5 /* DeliberatePracticeSuggestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF978EC219925E2009B25C5 /* DeliberatePracticeSuggestion.swift */; };
+		AFF978EE219925E2009B25C5 /* DeliberatePracticeSuggestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF978EC219925E2009B25C5 /* DeliberatePracticeSuggestion.swift */; };
 		E2083FA420DD376100BCE27F /* RecordingsListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2083FA220DD376000BCE27F /* RecordingsListView.xib */; };
 		E2083FA520DD376100BCE27F /* RecordingsListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2083FA220DD376000BCE27F /* RecordingsListView.xib */; };
 		E2083FA620DD376100BCE27F /* RecordingsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2083FA320DD376000BCE27F /* RecordingsListView.swift */; };
@@ -523,6 +531,10 @@
 		AF03EB0C21952C7500AD79E1 /* ImprovedDonePopupView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImprovedDonePopupView.xib; sourceTree = "<group>"; };
 		AFB60BD0218AB66100434DE1 /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
 		AFC6CB6A2193CD2F002B8680 /* ImprovementWalkthroughViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImprovementWalkthroughViewController.swift; sourceTree = "<group>"; };
+		AFF7D35B2199BC3D00D5A6E2 /* DeliberatePracticeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliberatePracticeManager.swift; sourceTree = "<group>"; };
+		AFF7D35E2199F64700D5A6E2 /* DeliberatePracticeRemoteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliberatePracticeRemoteManager.swift; sourceTree = "<group>"; };
+		AFF978E9219922B7009B25C5 /* deliberate_suggestions.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = deliberate_suggestions.plist; sourceTree = "<group>"; };
+		AFF978EC219925E2009B25C5 /* DeliberatePracticeSuggestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliberatePracticeSuggestion.swift; sourceTree = "<group>"; };
 		C7502E348716E20F4E0B7E5C /* libPods-ModacityUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ModacityUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C925C622EB9C22985FEC136B /* Pods-ModacityTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ModacityTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ModacityTests/Pods-ModacityTests.release.xcconfig"; sourceTree = "<group>"; };
 		CA2B3FB269EEE0DEA241813C /* Pods-ModacityUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ModacityUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ModacityUITests/Pods-ModacityUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -814,6 +826,7 @@
 				E25FD99220D7F7A9008C531A /* DailyPracticingRemoteManager.swift */,
 				E261FE482152B6F200D62BF6 /* WalkthroughRemoteManager.swift */,
 				E28415EB20EE7D3200DD7BBE /* GoalsRemoteManager.swift */,
+				AFF7D35E2199F64700D5A6E2 /* DeliberatePracticeRemoteManager.swift */,
 			);
 			path = RemoteManager;
 			sourceTree = "<group>";
@@ -833,6 +846,7 @@
 				E28415E820EE7A2300DD7BBE /* GoalsLocalManager.swift */,
 				E2143CC221379F0F00A204B8 /* SyncStatusKeeper.swift */,
 				E2E89ED8215930A0000456DA /* LocalCacheManager.swift */,
+				AFF7D35B2199BC3D00D5A6E2 /* DeliberatePracticeManager.swift */,
 			);
 			path = LocalManager;
 			sourceTree = "<group>";
@@ -898,6 +912,7 @@
 				8E9DF9042057CF47003F5FE8 /* Improvement.swift */,
 				E24DF50220987E9E00BAF0C7 /* Note.swift */,
 				E22AE274215D308100708E9A /* DroneSettings.swift */,
+				AFF978EC219925E2009B25C5 /* DeliberatePracticeSuggestion.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -991,6 +1006,7 @@
 				8E0A51BB207E4449006BDDC6 /* Modacity-Bridging-Header.h */,
 				E248879620F3A6020093B3CF /* ModacityDebugger.swift */,
 				8ECCAF962056F5B9000E2B75 /* ding.wav */,
+				AFF978E9219922B7009B25C5 /* deliberate_suggestions.plist */,
 			);
 			path = Supporting;
 			sourceTree = "<group>";
@@ -1398,6 +1414,7 @@
 				E214FB29212A5F4300162A69 /* LoadMoreCell.xib in Resources */,
 				8EA33BA520052D0600539A3F /* recording.storyboard in Resources */,
 				E2143CBC21379B5600A204B8 /* LoadingPanelView.xib in Resources */,
+				AFF978EA219922B7009B25C5 /* deliberate_suggestions.plist in Resources */,
 				E2BA253120C8D3870048A5D5 /* _Comp in Resources */,
 				E2806C3C20ABCE0B0066959A /* practice_item.storyboard in Resources */,
 				8E99A069204072F900A9A9B8 /* metrodone.storyboard in Resources */,
@@ -1479,6 +1496,7 @@
 				E21BE9FB2091796A000D1877 /* metrodone.storyboard in Resources */,
 				E249E61D20DAA68500FBDA72 /* details.storyboard in Resources */,
 				E21BE9FC2091796A000D1877 /* improve.storyboard in Resources */,
+				AFF978EB219922B7009B25C5 /* deliberate_suggestions.plist in Resources */,
 				E264C09720CB01A20016CF8D /* metrodroneview.xib in Resources */,
 				E2BA253220C8D3870048A5D5 /* _Comp in Resources */,
 				E283C51C20D16953002651E0 /* TimerInputView.xib in Resources */,
@@ -1848,6 +1866,7 @@
 				8EAE1651204FE1050012450E /* PlaylistFinishViewController.swift in Sources */,
 				8EB9DB99204DA67200689C1D /* PlaylistLocalManager.swift in Sources */,
 				E2083FBC20DD47C700BCE27F /* PracticeMusicQuoteCell.swift in Sources */,
+				AFF7D35C2199BC3D00D5A6E2 /* DeliberatePracticeManager.swift in Sources */,
 				AF03EB0D21952C7600AD79E1 /* ImprovedDonePopupView.swift in Sources */,
 				8E58B44420446AE40022704B /* MyProfileRemoteManager.swift in Sources */,
 				8E1EFEFC20500E7A000DE107 /* PlaylistPracticeDurationKeyboardViewController.swift in Sources */,
@@ -1855,8 +1874,10 @@
 				AFB60BD1218AB66100434DE1 /* ResetPasswordViewController.swift in Sources */,
 				E23C337920E5172D000EED10 /* PlaylistHistoryView.swift in Sources */,
 				8EA33BA720052D2700539A3F /* RecordingViewController.swift in Sources */,
+				AFF978ED219925E2009B25C5 /* DeliberatePracticeSuggestion.swift in Sources */,
 				E2083FAA20DD3AE700BCE27F /* RecordingCell.swift in Sources */,
 				E2143CAB213784A900A204B8 /* MusicalFrequencies.swift in Sources */,
+				AFF7D35F2199F64700D5A6E2 /* DeliberatePracticeRemoteManager.swift in Sources */,
 				E248879720F3A6020093B3CF /* ModacityDebugger.swift in Sources */,
 				E25FD99020D7F778008C531A /* PlaylistDailyLocalManager.swift in Sources */,
 				E23C338320E51DD3000EED10 /* PlaylistHistoryDetailsRowView.swift in Sources */,
@@ -2009,6 +2030,7 @@
 				E21BE9B92091796A000D1877 /* PlaylistFinishViewController.swift in Sources */,
 				E21BE9BA2091796A000D1877 /* PlaylistLocalManager.swift in Sources */,
 				E2083FBD20DD47C700BCE27F /* PracticeMusicQuoteCell.swift in Sources */,
+				AFF7D35D2199BC3D00D5A6E2 /* DeliberatePracticeManager.swift in Sources */,
 				AF03EB0E21952C7600AD79E1 /* ImprovedDonePopupView.swift in Sources */,
 				E21BE9BB2091796A000D1877 /* MyProfileRemoteManager.swift in Sources */,
 				E21BE9BC2091796A000D1877 /* PlaylistPracticeDurationKeyboardViewController.swift in Sources */,
@@ -2016,8 +2038,10 @@
 				AFB60BD2218AB66100434DE1 /* ResetPasswordViewController.swift in Sources */,
 				E23C337A20E5172D000EED10 /* PlaylistHistoryView.swift in Sources */,
 				E21BE9BE2091796A000D1877 /* RecordingViewController.swift in Sources */,
+				AFF978EE219925E2009B25C5 /* DeliberatePracticeSuggestion.swift in Sources */,
 				E2083FAB20DD3AE700BCE27F /* RecordingCell.swift in Sources */,
 				E2143CAC213784A900A204B8 /* MusicalFrequencies.swift in Sources */,
+				AFF7D3602199F64700D5A6E2 /* DeliberatePracticeRemoteManager.swift in Sources */,
 				E248879820F3A6020093B3CF /* ModacityDebugger.swift in Sources */,
 				E25FD99120D7F778008C531A /* PlaylistDailyLocalManager.swift in Sources */,
 				E23C338420E51DD3000EED10 /* PlaylistHistoryDetailsRowView.swift in Sources */,

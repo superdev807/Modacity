@@ -66,6 +66,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         configureReachability()
         
+//        print("suggestions - \(ImprovementViewModel().readDefaultSuggestions())")
+        
         return true
     }
     

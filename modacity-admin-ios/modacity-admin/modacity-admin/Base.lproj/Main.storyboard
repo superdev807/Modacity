@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Spu-KR-78k">
-                                <rect key="frame" x="164.5" y="607" width="46" height="30"/>
+                                <rect key="frame" x="165" y="607" width="45" height="30"/>
                                 <state key="normal" title="Export"/>
                                 <connections>
                                     <action selector="onExport:" destination="BYZ-38-t0r" eventType="touchUpInside" id="b71-kI-AVZ"/>
@@ -43,28 +43,44 @@
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7sQ-dS-Cli">
-                                <rect key="frame" x="166" y="172" width="42" height="30"/>
+                                <rect key="frame" x="166.5" y="172" width="42" height="30"/>
                                 <state key="normal" title="Log In"/>
                                 <connections>
                                     <action selector="onLogin:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Z2d-kW-os2"/>
                                 </connections>
                             </button>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="j2o-GC-5nd">
-                                <rect key="frame" x="177" y="333.5" width="20" height="20"/>
+                                <rect key="frame" x="177.5" y="333.5" width="20" height="20"/>
                             </activityIndicatorView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GB0-Bg-E5J">
+                                <rect key="frame" x="166.5" y="545" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5w2-kG-gP4">
+                                <rect key="frame" x="166.5" y="494.5" width="42" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="5w2-kG-gP4" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="6Ni-Zb-vef"/>
                             <constraint firstItem="dpP-3C-W7W" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="6dE-vr-Wn5"/>
                             <constraint firstItem="j2o-GC-5nd" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="7Au-Xy-BzB"/>
+                            <constraint firstItem="GB0-Bg-E5J" firstAttribute="top" secondItem="5w2-kG-gP4" secondAttribute="bottom" constant="30" id="Abr-Ca-cqP"/>
                             <constraint firstItem="Spu-KR-78k" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="CdK-jL-RLs"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Spu-KR-78k" secondAttribute="bottom" constant="30" id="E6l-NB-YhJ"/>
                             <constraint firstItem="9fb-Ht-wL9" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="K9V-87-LY7"/>
+                            <constraint firstItem="GB0-Bg-E5J" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="U9e-G7-L4r"/>
                             <constraint firstItem="9fb-Ht-wL9" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="39" id="W6l-71-7Px"/>
                             <constraint firstItem="dpP-3C-W7W" firstAttribute="top" secondItem="9fb-Ht-wL9" secondAttribute="bottom" constant="22" id="YXB-gx-ZEG"/>
                             <constraint firstItem="7sQ-dS-Cli" firstAttribute="top" secondItem="dpP-3C-W7W" secondAttribute="bottom" constant="31" id="hvU-Ry-8UC"/>
                             <constraint firstItem="j2o-GC-5nd" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="jRh-Qh-bVb"/>
                             <constraint firstItem="7sQ-dS-Cli" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="sUQ-ha-N0h"/>
+                            <constraint firstItem="Spu-KR-78k" firstAttribute="top" secondItem="GB0-Bg-E5J" secondAttribute="bottom" constant="41" id="wNH-t5-y7f"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -72,6 +88,8 @@
                         <outlet property="activityIndicatorLoading" destination="j2o-GC-5nd" id="xkt-UQ-6M2"/>
                         <outlet property="buttonExport" destination="Spu-KR-78k" id="37r-aI-5Bu"/>
                         <outlet property="buttonLogin" destination="7sQ-dS-Cli" id="Vos-P4-VRz"/>
+                        <outlet property="labelInfo" destination="5w2-kG-gP4" id="AID-tT-9Lf"/>
+                        <outlet property="labelStatus" destination="GB0-Bg-E5J" id="FU5-Oy-HDa"/>
                         <outlet property="textfieldEmail" destination="9fb-Ht-wL9" id="tXN-nY-kcN"/>
                         <outlet property="textfieldPassword" destination="dpP-3C-W7W" id="wZs-el-2gy"/>
                     </connections>

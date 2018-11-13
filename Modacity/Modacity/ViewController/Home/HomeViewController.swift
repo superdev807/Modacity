@@ -182,7 +182,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
                         if type == "playlist" {
                             if let playlist = item["data"] as? Playlist {
                                 label.text = playlist.name
-                                typeLabel.text = "PLAYLIST"
+                                typeLabel.text = "SESSION"
                             }
                             iconView.image = UIImage(named: "icon_playlist_blue")
                         } else {

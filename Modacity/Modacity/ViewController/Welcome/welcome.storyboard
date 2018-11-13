@@ -72,24 +72,24 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IA8-KW-lQs">
-                                                    <rect key="frame" x="0.0" y="24.5" width="320" height="412"/>
+                                                    <rect key="frame" x="0.0" y="24.5" width="375" height="412"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_carousel_1" translatesAutoresizingMaskIntoConstraints="NO" id="Jhm-SB-aHi">
-                                                            <rect key="frame" x="-27.5" y="0.0" width="375" height="286.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="375" height="286.5"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="375" id="TD1-ra-Ajw"/>
                                                                 <constraint firstAttribute="width" secondItem="Jhm-SB-aHi" secondAttribute="height" multiplier="377:288" id="Zma-qs-SXB"/>
                                                             </constraints>
                                                         </imageView>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YYR-vg-MES">
-                                                            <rect key="frame" x="60" y="286.5" width="200" height="1"/>
+                                                            <rect key="frame" x="60" y="286.5" width="255" height="1"/>
                                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.25" colorSpace="calibratedRGB"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="1" id="Nvw-yz-UHS"/>
                                                             </constraints>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pbq-vN-Jfc">
-                                                            <rect key="frame" x="32" y="302.5" width="256" height="27"/>
+                                                            <rect key="frame" x="59.5" y="302.5" width="256" height="27"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WELCOME" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J1I-4T-sIk">
                                                                     <rect key="frame" x="0.0" y="1" width="108" height="25"/>
@@ -115,7 +115,7 @@
                                                             </constraints>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FoD-En-zQe">
-                                                            <rect key="frame" x="35" y="344.5" width="250" height="67.5"/>
+                                                            <rect key="frame" x="62.5" y="344.5" width="250" height="67.5"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="250" id="Qun-hQ-JKe"/>
                                                             </constraints>
@@ -561,7 +561,7 @@ To get started, create an account.</string>
                                                     <constraint firstItem="sQg-VS-Osk" firstAttribute="top" secondItem="yEg-RZ-ZFw" secondAttribute="bottom" constant="20" id="yIw-GF-n0k"/>
                                                 </constraints>
                                             </view>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sorry, wait a few moment, please. we are processing practice history data..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="caf-rs-90F">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Processing new practice history data format...please wait a few moments, thanks!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="caf-rs-90F">
                                                 <rect key="frame" x="50" y="479.5" width="275" height="26.5"/>
                                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="11"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>

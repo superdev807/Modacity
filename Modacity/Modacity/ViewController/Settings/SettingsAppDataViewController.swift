@@ -80,21 +80,24 @@ extension SettingsAppDataViewController {
             PracticeItemRemoteManager.manager.fullSync {
                 DispatchQueue.main.async {hud.label.text = "Synchronizing playlist items..."}
                 PlaylistRemoteManager.manager.fullSync(completion: {
-                    DispatchQueue.main.async {hud.label.text = "Synchronizing overall data..."}
-                    OverallDataRemoteManager.manager.fullSync(completion: {
-                        DispatchQueue.main.async { hud.label.text = "Synchronizing goals..." }
-                        GoalsRemoteManager.manager.fullSync(completion: {
-                            DispatchQueue.main.async { hud.label.text = "Synchronzing practice data..." }
-                            DailyPracticingRemoteManager.manager.syncPlaylistPracticingData {
-                                DailyPracticingRemoteManager.manager.syncPracticeData {
-                                    DispatchQueue.main.async {
-                                        hud.hide(animated: true)
-                                        AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Sync Complete - You have the latest data")
+                    DispatchQueue.main.async {hud.label.text = "Synchronizing deliberate practices..."}
+                    DeliberatePracticeRemoteManager.manager.fullSync {
+                        DispatchQueue.main.async {hud.label.text = "Synchronizing overall data..."}
+                        OverallDataRemoteManager.manager.fullSync(completion: {
+                            DispatchQueue.main.async { hud.label.text = "Synchronizing goals..." }
+                            GoalsRemoteManager.manager.fullSync(completion: {
+                                DispatchQueue.main.async { hud.label.text = "Synchronzing practice data..." }
+                                DailyPracticingRemoteManager.manager.syncPlaylistPracticingData {
+                                    DailyPracticingRemoteManager.manager.syncPracticeData {
+                                        DispatchQueue.main.async {
+                                            hud.hide(animated: true)
+                                            AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Sync Complete - You have the latest data")
+                                        }
                                     }
                                 }
-                            }
+                            })
                         })
-                    })
+                    }
                 })
             }
         }
@@ -111,11 +114,14 @@ extension SettingsAppDataViewController {
                     OverallDataRemoteManager.manager.eraseData {
                         DispatchQueue.main.async {hud.label.text = "Clean practice items..."}
                         PracticeItemRemoteManager.manager.eraseData {
-                            DispatchQueue.main.async {hud.label.text = "Clean playlist data..."}
-                            PlaylistRemoteManager.manager.eraseData {
-                                DispatchQueue.main.async {
-                                    hud.hide(animated: true)
-                                    AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Clean completed")
+                            DispatchQueue.main.async {hud.label.text = "Clean practice items..."}
+                            DeliberatePracticeRemoteManager.manager.eraseDeliberatePractices {
+                                DispatchQueue.main.async {hud.label.text = "Clean playlist data..."}
+                                PlaylistRemoteManager.manager.eraseData {
+                                    DispatchQueue.main.async {
+                                        hud.hide(animated: true)
+                                        AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Clean completed")
+                                    }
                                 }
                             }
                         }

@@ -18,6 +18,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var buttonLogin: UIButton!
     @IBOutlet weak var buttonExport: UIButton!
     @IBOutlet weak var activityIndicatorLoading: UIActivityIndicatorView!
+    @IBOutlet weak var labelStatus: UILabel!
+    @IBOutlet weak var labelInfo: UILabel!
     
     let dateFormat = "yyyy-MM-dd"
     
@@ -65,31 +67,70 @@ class ViewController: UIViewController {
     @IBAction func onExport(_ sender: Any) {
         
         self.activityIndicatorLoading.startAnimating()
-        
+        self.labelStatus.text = "connecting..."
         Database.database().reference().child("users").observeSingleEvent(of: .value) { (snapshot) in
-            if snapshot.exists() {
-                self.userDataPerDate = [String: [[String:Any]]]()
-                if let children = snapshot.children.allObjects as? [DataSnapshot] {
-                    for data in children {
-                        if let userData = data.value as? [String:Any] {
-                            if let userProfile = userData["profile"] as? [String:Any] {
-                                if let createdAt = userProfile["created"] as? String {
-                                    let createdTime = Date(timeIntervalSince1970: Double(createdAt) ?? 0)
-                                    if var array = self.userDataPerDate[createdTime.toString(format: self.dateFormat)] {
-                                        array.append(userProfile)
-                                        self.userDataPerDate[createdTime.toString(format: self.dateFormat)] = array
-                                    } else {
-                                        self.userDataPerDate[createdTime.toString(format: self.dateFormat)] = [userProfile]
+            
+            DispatchQueue.global(qos: .background).async {
+                DispatchQueue.main.async { self.labelStatus.text = "connected" }
+                if snapshot.exists() {
+                    
+                    let total = snapshot.children.allObjects.count
+                    
+                    DispatchQueue.main.async {
+                        self.labelInfo.text = "total users - \(total)"
+                    }
+                    
+                    var counter = 0
+                    var premiumUsers = 0
+                    var lifetimeUsers = 0
+                    if let children = snapshot.children.allObjects as? [DataSnapshot] {
+                        for data in children {
+                            if let userData = data.value as? [String:Any] {
+                                if let premium = userData["premium"] as? [String:Any] {
+                                    if let until = premium["until"] as? Double {
+                                        if (until - Date().timeIntervalSince1970) > Date().advanced(years: 0, months: 1, weeks: 0, days: 0, hours: 0, minutes: 0, seconds: 0).timeIntervalSince1970 {
+                                            lifetimeUsers = lifetimeUsers + 1
+                                        }
+                                        premiumUsers = premiumUsers + 1
                                     }
                                 }
+                            }
+                            
+                            counter = counter + 1
+                            DispatchQueue.main.async {
+                                self.labelStatus.text = "\(counter)/\(total)"
+                                self.labelInfo.text = "total : \(total)\nsubscribed: \(premiumUsers)\nlifetime:\(lifetimeUsers)"
                             }
                         }
                     }
                 }
-                self.createAndExportUserDataPerDate()
             }
-            self.activityIndicatorLoading.stopAnimating()
+            
         }
+//        Database.database().reference().child("users").observeSingleEvent(of: .value) { (snapshot) in
+//            if snapshot.exists() {
+//                self.userDataPerDate = [String: [[String:Any]]]()
+//                if let children = snapshot.children.allObjects as? [DataSnapshot] {
+//                    for data in children {
+//                        if let userData = data.value as? [String:Any] {
+//                            if let userProfile = userData["profile"] as? [String:Any] {
+//                                if let createdAt = userProfile["created"] as? String {
+//                                    let createdTime = Date(timeIntervalSince1970: Double(createdAt) ?? 0)
+//                                    if var array = self.userDataPerDate[createdTime.toString(format: self.dateFormat)] {
+//                                        array.append(userProfile)
+//                                        self.userDataPerDate[createdTime.toString(format: self.dateFormat)] = array
+//                                    } else {
+//                                        self.userDataPerDate[createdTime.toString(format: self.dateFormat)] = [userProfile]
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//                self.createAndExportUserDataPerDate()
+//            }
+//            self.activityIndicatorLoading.stopAnimating()
+//        }
     }
     
     func createAndExportUserDataPerDate() {

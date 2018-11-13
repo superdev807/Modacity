@@ -649,5 +649,7 @@ extension ImprovementViewController: ImprovedDonePopupViewDelegate {
             }
             AppOveralDataManager.manager.addImprovementsCount()
         }
+        
+        self.viewModel.processSuggestionCustomization()
     }
 }
