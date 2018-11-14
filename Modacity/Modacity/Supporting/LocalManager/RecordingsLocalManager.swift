@@ -85,7 +85,11 @@ class RecordingsLocalManager: NSObject {
                     result.append(recording)
                 }
             }
-            return result
+            return result.sorted(by: { (recording1, recording2) -> Bool in
+                let time1 = Date(timeIntervalSince1970: Double(recording1.createdAt) ?? 0)
+                let time2 = Date(timeIntervalSince1970: Double(recording2.createdAt) ?? 0)
+                return time1.compare(time2) == .orderedDescending
+            })
         } else {
             return [Recording]()
         }
@@ -110,7 +114,11 @@ class RecordingsLocalManager: NSObject {
                     }
                 }
             }
-            return result
+            return result.sorted(by: { (recording1, recording2) -> Bool in
+                let time1 = Date(timeIntervalSince1970: Double(recording1.createdAt) ?? 0)
+                let time2 = Date(timeIntervalSince1970: Double(recording2.createdAt) ?? 0)
+                return time1.compare(time2) == .orderedDescending
+            })
         } else {
             return [Recording]()
         }
@@ -126,7 +134,11 @@ class RecordingsLocalManager: NSObject {
                     }
                 }
             }
-            return result
+            return result.sorted(by: { (recording1, recording2) -> Bool in
+                let time1 = Date(timeIntervalSince1970: Double(recording1.createdAt) ?? 0)
+                let time2 = Date(timeIntervalSince1970: Double(recording2.createdAt) ?? 0)
+                return time1.compare(time2) == .orderedDescending
+            })
         } else {
             return [Recording]()
         }

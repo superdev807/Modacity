@@ -93,9 +93,15 @@ class AppConfig: NSObject {
         static let appConfigInstagramLink = "http://instagram.com/modacityapp"
         static let appConfigFacebookLink = "https://www.facebook.com/ModacityApp/"
         static let appConfigWebsiteLink = "https://www.modacity.co"
+        
         static let appDeliberatePracticeTutorialYoutubeId = "6WfMEMJ0VPk"
         static let appDeliberatePracticeTutorialYoutubeLink = "youtube://\(appDeliberatePracticeTutorialYoutubeId)"
         static let appDeliberatePracticeTutorialLink = "https://www.youtube.com/watch?v=\(appDeliberatePracticeTutorialYoutubeId)"
+    }
+    
+    struct YoutubeVideoIds {
+        static let appHowToVideoYoutubeId = "XVUGnexvAMs"
+        static let appDeliberatePracticeTutorialYoutubeId = "6WfMEMJ0VPk"
     }
     
     struct NotificationNames {

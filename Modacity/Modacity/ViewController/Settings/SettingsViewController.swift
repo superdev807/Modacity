@@ -8,6 +8,7 @@
 
 import UIKit
 import MBProgressHUD
+import Intercom
 
 class SettingsCellWithIconAndSubTitle: UITableViewCell {
     
@@ -148,7 +149,7 @@ class SettingsViewController: UIViewController {
 extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+        return 5
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -164,6 +165,8 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
             }
         } else if section == 3 {
             return 2
+        } else if section == 4 {
+            return 3
         }
         return 0
     }
@@ -177,6 +180,8 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
             return "APP SETTINGS"
         } else if section == 3 {
             return "TIMER"
+        } else if section == 4 {
+            return "HELP"
         }
         return ""
     }
@@ -294,12 +299,22 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
                 cell.delegate = self
                 cell.configure(caption: "Pause Timer During Note Taking", isOn: AppOveralDataManager.manager.settingsTimerPauseDuringNote())
                 return cell
-            } else {
+            } else if indexPath.row == 1 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCellWithSwitch") as! SettingsCellWithSwitch
                 cell.delegate = self
                 cell.configure(caption: "Pause Timer During Deliberate Practice", isOn: AppOveralDataManager.manager.settingsTimerPauseDuringImprove())
                 return cell
             }
+        } else if indexPath.section == 4 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCellWithoutIcon") as! SettingsCellWithoutIcon
+            if indexPath.row == 0 {
+                cell.configure(caption: "How to use Modacity")
+            } else if indexPath.row == 1 {
+                cell.configure(caption: "How To:Deliberate Practice")
+            } else {
+                cell.configure(caption: "Ask a Question")
+            }
+            return cell
         }
         
         return UITableViewCell()
@@ -342,6 +357,14 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
                 self.performSegue(withIdentifier: "sid_app_data", sender: nil)
             } else if indexPath.row == 6 {
                 self.openBreakReminderSettingsPage()
+            }
+        } else if indexPath.section == 4 {
+            if indexPath.row == 0 {
+                self.openInAppTutorialsPages()
+            } else if indexPath.row == 1 {
+                self.openDeliberatePracticeWalkthroughPage()
+            } else {
+                self.askAQuestion()
             }
         }
     }
@@ -465,5 +488,24 @@ extension SettingsViewController: SettingsCellTextFieldDelegate {
                 AppOveralDataManager.manager.saveTuningStandard(value)
             }
         }
+    }
+}
+
+extension SettingsViewController {
+    func openInAppTutorialsPages() {
+        self.performSegue(withIdentifier: "sid_tutorials", sender: nil)
+    }
+    
+    func openDeliberatePracticeWalkthroughPage() {
+        let controller = UIStoryboard(name: "improve", bundle: nil).instantiateViewController(withIdentifier: "ImprovementWalkthroughViewController") as! ImprovementWalkthroughViewController
+        controller.fromSettings = true
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    func askAQuestion() {
+        let attr :ICMUserAttributes = ICMUserAttributes.init()
+        attr.customAttributes = ["AppLocation" : "ask_question"]
+        Intercom.updateUser(attr)
+        Intercom.presentMessenger()
     }
 }

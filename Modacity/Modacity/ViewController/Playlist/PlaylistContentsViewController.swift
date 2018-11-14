@@ -32,6 +32,9 @@ class PlaylistContentsViewController: UIViewController {
     
     @IBOutlet weak var constraintForWalkthroughCloseButton2TopSpace: NSLayoutConstraint!
     
+    @IBOutlet weak var constraintForHeaderViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var labelSumOfTimers: UILabel!
+    
     var isNameEditing = false
     var parentViewModel: PlaylistAndPracticeDeliverModel? = nil
     var viewModel = PlaylistContentsViewModel()
@@ -135,7 +138,7 @@ class PlaylistContentsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.tableViewMain.reloadData()
+        self.refreshData()
         
         if self.waitingPracticeSelection {
             self.waitingPracticeSelection = false
@@ -400,19 +403,19 @@ class PlaylistContentsViewController: UIViewController {
                 self.buttonStartPlaylist.isEnabled = false
                 self.buttonStartPlaylist.alpha = 0.5
             }
-            self.tableViewMain.reloadData()
+            self.refreshData()
         }
         
         self.viewModel.subscribe(to: "editingRow") { (event, oldrow, newrow) in
-            self.tableViewMain.reloadData()
+            self.refreshData()
         }
         
         self.viewModel.subscribe(to: "timePracticed") { (_, _, _) in
-            self.tableViewMain.reloadData()
+            self.refreshData()
         }
         
         self.viewModel.subscribe(to: "countDownTimer") { (_, _, _) in
-            self.tableViewMain.reloadData()
+            self.refreshData()
         }
         
         if let parent = self.parentViewModel {
@@ -434,7 +437,7 @@ class PlaylistContentsViewController: UIViewController {
             }
         }
         
-        self.tableViewMain.reloadData()
+        self.refreshData()
     }
     
     func showPracticeBreakPrompt(with time: Int) {
@@ -536,7 +539,7 @@ class PlaylistContentsViewController: UIViewController {
             self.viewModel.playlistPracticeEntries.swapAt(last, rand)
             last -= 1
         }
-        self.tableViewMain.reloadData()
+        self.refreshData()
     }
     
     func finishPlaylist() {
@@ -582,7 +585,7 @@ extension PlaylistContentsViewController: UITableViewDelegate, UITableViewDataSo
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             if self.viewModel.totalSumOfRemainingTimers() > 0 {
-                return 1
+                return 0
             } else {
                 return 0
             }
@@ -742,7 +745,7 @@ extension PlaylistContentsViewController: PlaylistPracticeItemCellDelegate {
     func onLike(item: PracticeItem?) {
         if let item = item {
             self.viewModel.setLikePracticeItem(for: item)
-            self.tableViewMain.reloadData()
+            self.refreshData()
         }
     }
     
@@ -935,5 +938,17 @@ extension PlaylistContentsViewController {
             controller.practiceBreakTime = 0
         }
         self.navigationController?.pushViewController(controller, animated: true)
-    }    
+    }
+    
+    func refreshData() {
+        
+        let countDownTimer = self.viewModel.totalSumOfRemainingTimers()
+        self.labelSumOfTimers.text = String(format: "Timers: %d:%02d", countDownTimer / 60, countDownTimer % 60)
+        if countDownTimer > 0 {
+            self.constraintForHeaderViewHeight.constant = 40
+        } else {
+            self.constraintForHeaderViewHeight.constant = 0
+        }
+        self.tableViewMain.reloadData()
+    }
 }

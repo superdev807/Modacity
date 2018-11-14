@@ -28,7 +28,11 @@ class ImprovementWalkthroughViewController: UIViewController {
     var practiceItem: PracticeItem!
     var deliverModel: PlaylistAndPracticeDeliverModel!
     
-    let instruction = "1. Pick one aspect of your piece you’d like  to improve most. Keep it simple.\n\n2.  Identify one thing you can try to in order to achieve that improvment.\n\n3. Record yourself while trying out your theory, and listen to your results.\n\n4. If it works - great! Keeping going until  it’s solid. If not, no problem - try again or test something else."
+    var fromSettings = false
+    
+//    let instruction = "1. Pick one aspect of your piece you’d like  to improve most. Keep it simple.\n\n2.  Identify one thing you can try to in order to achieve that improvment.\n\n3. Record yourself while trying out your theory, and listen to your results.\n\n4. If it works - great! Keeping going until  it’s solid. If not, no problem - try again or test something else."
+    
+    let instruction = "1. Pick one thing you’d like to improve most. Keep it simple.\n\n2.  Identify one strategy you will try in order to make that improvment.\n\n3. Record yourself while trying your strategy, and listen to the results.\n\n4. If it works - great! Keep going until it’s solid. If not, no problem - try again or test a different strategy."
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,28 +50,27 @@ class ImprovementWalkthroughViewController: UIViewController {
     }
     
     @IBAction func onGotIt(_ sender: Any) {
-        AppOveralDataManager.manager.walkthroughSetFlag(key: "walkthrough_improvement", value: true)
-        self.performSegue(withIdentifier: "sid_main", sender: nil)
-    }
-    
-    @IBAction func onLearnMore(_ sender: Any) {
-        if UIApplication.shared.canOpenURL(URL(string:AppConfig.Links.appDeliberatePracticeTutorialYoutubeLink)!) {
-            if #available(iOS 10.0, *) {
-                UIApplication.shared.open(URL(string:AppConfig.Links.appDeliberatePracticeTutorialYoutubeLink)!, options: [:], completionHandler: nil)
-            } else {
-                UIApplication.shared.openURL(URL(string:AppConfig.Links.appDeliberatePracticeTutorialYoutubeLink)!)
-            }
+        if self.fromSettings {
+            self.navigationController?.popViewController(animated: true)
         } else {
-            if #available(iOS 10.0, *) {
-                UIApplication.shared.open(URL(string:AppConfig.Links.appDeliberatePracticeTutorialLink)!, options: [:], completionHandler: nil)
-            } else {
-                UIApplication.shared.openURL(URL(string:AppConfig.Links.appDeliberatePracticeTutorialLink)!)
-            }
+            AppOveralDataManager.manager.walkthroughSetFlag(key: "walkthrough_improvement", value: true)
+            self.performSegue(withIdentifier: "sid_main", sender: nil)
         }
     }
     
+    @IBAction func onLearnMore(_ sender: Any) {
+        let controller = UIStoryboard(name: "video", bundle: nil).instantiateViewController(withIdentifier: "YoutubeViewController") as! YoutubeViewController
+        controller.titleString = "How To: Deliberate Practice"
+        controller.videoId = AppConfig.YoutubeVideoIds.appDeliberatePracticeTutorialYoutubeId
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
     @IBAction func onBack(_ sender: Any) {
-        self.navigationController?.dismiss(animated: true, completion: nil)
+        if self.fromSettings {
+            self.navigationController?.popViewController(animated: true)
+        } else {
+            self.navigationController?.dismiss(animated: true, completion: nil)
+        }
     }
     
     func configureUI() {
@@ -155,9 +158,7 @@ class ImprovementWalkthroughViewController: UIViewController {
         
         let attributedInstruction = NSMutableAttributedString(string: instruction, attributes: [NSAttributedStringKey.font: UIFont(name: AppConfig.UI.Fonts.appFontLatoRegular, size: instructionBodySize)!])
         attributedInstruction.addAttribute(NSAttributedStringKey.font, value: UIFont(name: AppConfig.UI.Fonts.appFontLatoBoldItalic, size: instructionBodySize)!, range: NSMakeRange(8, 3))
-        attributedInstruction.addAttribute(NSAttributedStringKey.font, value: UIFont(name: AppConfig.UI.Fonts.appFontLatoBoldItalic, size: instructionBodySize)!, range: NSMakeRange(92, 3))
+        attributedInstruction.addAttribute(NSAttributedStringKey.font, value: UIFont(name: AppConfig.UI.Fonts.appFontLatoBoldItalic, size: instructionBodySize)!, range: NSMakeRange(76, 3))
         self.labelInstructionBody.attributedText = attributedInstruction
     }
-    
-    // 羽绒服女中长款2018新款韩版修身显瘦加厚
 }

@@ -18,7 +18,9 @@ class SplashViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
         self.labelWait.isHidden = true
+        
         if !AppOveralDataManager.manager.beenTutorialRead() {
             self.openTutorial()
         } else {

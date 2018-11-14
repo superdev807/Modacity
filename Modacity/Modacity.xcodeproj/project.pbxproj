@@ -93,6 +93,12 @@
 		AF03EB0E21952C7600AD79E1 /* ImprovedDonePopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF03EB0B21952C7500AD79E1 /* ImprovedDonePopupView.swift */; };
 		AF03EB0F21952C7600AD79E1 /* ImprovedDonePopupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF03EB0C21952C7500AD79E1 /* ImprovedDonePopupView.xib */; };
 		AF03EB1021952C7600AD79E1 /* ImprovedDonePopupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF03EB0C21952C7500AD79E1 /* ImprovedDonePopupView.xib */; };
+		AF0BBA29219BCCD900D6313B /* YoutubeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0BBA28219BCCD900D6313B /* YoutubeViewController.swift */; };
+		AF0BBA2A219BCCD900D6313B /* YoutubeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0BBA28219BCCD900D6313B /* YoutubeViewController.swift */; };
+		AF0BBA2C219BCCE800D6313B /* video.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF0BBA2B219BCCE800D6313B /* video.storyboard */; };
+		AF0BBA2D219BCCE800D6313B /* video.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF0BBA2B219BCCE800D6313B /* video.storyboard */; };
+		AF6CC2F1219BBB7900592E1D /* SettingsTutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6CC2F0219BBB7900592E1D /* SettingsTutorialViewController.swift */; };
+		AF6CC2F2219BBB7900592E1D /* SettingsTutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6CC2F0219BBB7900592E1D /* SettingsTutorialViewController.swift */; };
 		AFB60BD1218AB66100434DE1 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB60BD0218AB66100434DE1 /* ResetPasswordViewController.swift */; };
 		AFB60BD2218AB66100434DE1 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB60BD0218AB66100434DE1 /* ResetPasswordViewController.swift */; };
 		AFC6CB6B2193CD2F002B8680 /* ImprovementWalkthroughViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC6CB6A2193CD2F002B8680 /* ImprovementWalkthroughViewController.swift */; };
@@ -529,6 +535,9 @@
 		9E91DFE323AAAD77A2F8A14A /* Pods_Modacity_Dev.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Modacity_Dev.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF03EB0B21952C7500AD79E1 /* ImprovedDonePopupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImprovedDonePopupView.swift; sourceTree = "<group>"; };
 		AF03EB0C21952C7500AD79E1 /* ImprovedDonePopupView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImprovedDonePopupView.xib; sourceTree = "<group>"; };
+		AF0BBA28219BCCD900D6313B /* YoutubeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeViewController.swift; sourceTree = "<group>"; };
+		AF0BBA2B219BCCE800D6313B /* video.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = video.storyboard; sourceTree = "<group>"; };
+		AF6CC2F0219BBB7900592E1D /* SettingsTutorialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTutorialViewController.swift; sourceTree = "<group>"; };
 		AFB60BD0218AB66100434DE1 /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
 		AFC6CB6A2193CD2F002B8680 /* ImprovementWalkthroughViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImprovementWalkthroughViewController.swift; sourceTree = "<group>"; };
 		AFF7D35B2199BC3D00D5A6E2 /* DeliberatePracticeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliberatePracticeManager.swift; sourceTree = "<group>"; };
@@ -809,6 +818,7 @@
 				E229399521879B9B00536097 /* SettingsAppDataViewController.swift */,
 				E28036F42107705F00B9987E /* SubscriptionTermsViewController.swift */,
 				E22A06EC20FCD1AD00184F78 /* BreakReminerSettingsViewController.swift */,
+				AF6CC2F0219BBB7900592E1D /* SettingsTutorialViewController.swift */,
 				8EFD2DAB207BC20900DC28C1 /* ChangePasswordViewController.swift */,
 			);
 			path = Settings;
@@ -952,6 +962,7 @@
 				8EA9E7C920429EC10019EFA5 /* AskFeedbacks */,
 				8ED83FC5200325FC00052256 /* Recording */,
 				8ED001CB205766F200536122 /* Improve */,
+				AF0BBA27219BCCBB00D6313B /* Video */,
 				E249E61720DAA63B00FBDA72 /* Details */,
 				8ED83FC62003262D00052256 /* TabBarViewController.swift */,
 			);
@@ -1069,6 +1080,15 @@
 				1068E0BB2146DED400D8823C /* NumberPadDoneCancel.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		AF0BBA27219BCCBB00D6313B /* Video */ = {
+			isa = PBXGroup;
+			children = (
+				AF0BBA28219BCCD900D6313B /* YoutubeViewController.swift */,
+				AF0BBA2B219BCCE800D6313B /* video.storyboard */,
+			);
+			path = Video;
 			sourceTree = "<group>";
 		};
 		E2083FAE20DD479400BCE27F /* Notes */ = {
@@ -1405,6 +1425,7 @@
 				E2CDBEAE21011AE200119D77 /* PremiumUpgradeLockView.xib in Resources */,
 				E29A30B020DA547D006125E2 /* PracticeTimerUpWalkThroughView.xib in Resources */,
 				E23C337720E5172D000EED10 /* PlaylistHistoryView.xib in Resources */,
+				AF0BBA2C219BCCE800D6313B /* video.storyboard in Resources */,
 				8EDEB706203DE38F00E8D48D /* Lato-Bold.ttf in Resources */,
 				8E4551E920030F7F002061AE /* LaunchScreen.storyboard in Resources */,
 				E251C9C820E13C2700C8BC49 /* HistoryListView.xib in Resources */,
@@ -1496,6 +1517,7 @@
 				E21BE9FB2091796A000D1877 /* metrodone.storyboard in Resources */,
 				E249E61D20DAA68500FBDA72 /* details.storyboard in Resources */,
 				E21BE9FC2091796A000D1877 /* improve.storyboard in Resources */,
+				AF0BBA2D219BCCE800D6313B /* video.storyboard in Resources */,
 				AFF978EB219922B7009B25C5 /* deliberate_suggestions.plist in Resources */,
 				E264C09720CB01A20016CF8D /* metrodroneview.xib in Resources */,
 				E2BA253220C8D3870048A5D5 /* _Comp in Resources */,
@@ -1632,6 +1654,7 @@
 				"${BUILT_PRODUCTS_DIR}/SwiftMessages/SwiftMessages.framework",
 				"${BUILT_PRODUCTS_DIR}/TPKeyboardAvoiding/TPKeyboardAvoiding.framework",
 				"${BUILT_PRODUCTS_DIR}/UITextView+Placeholder/UITextView_Placeholder.framework",
+				"${BUILT_PRODUCTS_DIR}/YouTubePlayer-Swift/YouTubePlayer_Swift.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
@@ -1659,6 +1682,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftMessages.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TPKeyboardAvoiding.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UITextView_Placeholder.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YouTubePlayer_Swift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -1714,6 +1738,7 @@
 				"${BUILT_PRODUCTS_DIR}/SwiftMessages/SwiftMessages.framework",
 				"${BUILT_PRODUCTS_DIR}/TPKeyboardAvoiding/TPKeyboardAvoiding.framework",
 				"${BUILT_PRODUCTS_DIR}/UITextView+Placeholder/UITextView_Placeholder.framework",
+				"${BUILT_PRODUCTS_DIR}/YouTubePlayer-Swift/YouTubePlayer_Swift.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
@@ -1741,6 +1766,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftMessages.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TPKeyboardAvoiding.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UITextView_Placeholder.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YouTubePlayer_Swift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -1971,6 +1997,7 @@
 				8EDEB71C203DFC0200E8D48D /* LeftMenuViewController.swift in Sources */,
 				8EE2BD24203DB2AF00D6D7A8 /* TutorialViewController.swift in Sources */,
 				E28415EC20EE7D3200DD7BBE /* GoalsRemoteManager.swift in Sources */,
+				AF0BBA29219BCCD900D6313B /* YoutubeViewController.swift in Sources */,
 				E261FE492152B6F300D62BF6 /* WalkthroughRemoteManager.swift in Sources */,
 				8EDEB713203DE4B300E8D48D /* Me.swift in Sources */,
 				8E16B46D2052ECDE00A9BF8A /* PlaylistPracticeEntry.swift in Sources */,
@@ -1980,6 +2007,7 @@
 				E2806C3320ABCD910066959A /* PracticeRateViewController.swift in Sources */,
 				E2BA245F20C8D1590048A5D5 /* MetroDroneAudio.swift in Sources */,
 				8EB9DB9B204DABFD00689C1D /* PlaylistViewModel.swift in Sources */,
+				AF6CC2F1219BBB7900592E1D /* SettingsTutorialViewController.swift in Sources */,
 				8EA9E7CD20429F140019EFA5 /* FeedbackRootViewController.swift in Sources */,
 				E23FFD9121081053007713F0 /* PremiumUtils.swift in Sources */,
 				8ED83FC220031EF400052256 /* SplashViewController.swift in Sources */,
@@ -2135,6 +2163,7 @@
 				E21BE9E62091796A000D1877 /* LeftMenuViewController.swift in Sources */,
 				E21BE9E72091796A000D1877 /* TutorialViewController.swift in Sources */,
 				E28415ED20EE7D3200DD7BBE /* GoalsRemoteManager.swift in Sources */,
+				AF0BBA2A219BCCD900D6313B /* YoutubeViewController.swift in Sources */,
 				E261FE4A2152B6F300D62BF6 /* WalkthroughRemoteManager.swift in Sources */,
 				E21BE9E82091796A000D1877 /* Me.swift in Sources */,
 				E21BE9E92091796A000D1877 /* PlaylistPracticeEntry.swift in Sources */,
@@ -2144,6 +2173,7 @@
 				E2806C3420ABCD910066959A /* PracticeRateViewController.swift in Sources */,
 				E2BA246020C8D1590048A5D5 /* MetroDroneAudio.swift in Sources */,
 				E21BE9EB2091796A000D1877 /* PlaylistViewModel.swift in Sources */,
+				AF6CC2F2219BBB7900592E1D /* SettingsTutorialViewController.swift in Sources */,
 				E21BE9EC2091796A000D1877 /* FeedbackRootViewController.swift in Sources */,
 				E23FFD9221081053007713F0 /* PremiumUtils.swift in Sources */,
 				E21BE9ED2091796A000D1877 /* SplashViewController.swift in Sources */,

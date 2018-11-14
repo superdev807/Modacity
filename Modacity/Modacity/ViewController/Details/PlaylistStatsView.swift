@@ -493,12 +493,10 @@ extension PlaylistStatsView {
         chartViewBarGraph.xAxis.labelTextColor = Color.white.alpha(0.5)
     }
     
-    func setBarChart(dataPoints: [String], values: [Double])
-    {
+    func setBarChart(dataPoints: [String], values: [Double]) {
         var dataEntries: [BarChartDataEntry] = []
         
-        for i in 0..<dataPoints.count
-        {
+        for i in 0..<dataPoints.count {
             let dataEntry = BarChartDataEntry(x: Double(i), y: values[i])
             dataEntries.append(dataEntry)
         }

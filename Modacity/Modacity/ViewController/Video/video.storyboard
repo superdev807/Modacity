@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Lato-Regular.ttf">
+            <string>Lato-Regular</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="Gec-G6-gGy">
+            <objects>
+                <navigationController navigationBarHidden="YES" id="0zk-gB-LjI" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="tFV-rS-VQG">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="V4s-sP-K3r" kind="relationship" relationship="rootViewController" id="GGa-Cz-czV"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xsK-r0-k8O" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-322" y="168"/>
+        </scene>
+        <!--Youtube View Controller-->
+        <scene sceneID="0xx-cF-8vT">
+            <objects>
+                <viewController storyboardIdentifier="YoutubeViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="V4s-sP-K3r" customClass="YoutubeViewController" customModule="Modacity" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="qt4-yq-WTB">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_premium" translatesAutoresizingMaskIntoConstraints="NO" id="eIN-59-CBP">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="747"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_arrow_left" translatesAutoresizingMaskIntoConstraints="NO" id="1Dd-B2-CiM">
+                                <rect key="frame" x="26" y="34" width="10" height="15"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How to Use Modacity" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SiB-XK-l9U">
+                                <rect key="frame" x="115.5" y="32.5" width="144" height="18"/>
+                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="15"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WWE-Mu-xii">
+                                <rect key="frame" x="10" y="10" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="Bge-Jo-egI"/>
+                                    <constraint firstAttribute="width" constant="60" id="C4A-cQ-mpF"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="onBack:" destination="V4s-sP-K3r" eventType="touchUpInside" id="bkQ-sB-8Dw"/>
+                                </connections>
+                            </button>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="z4s-XE-u9w">
+                                <rect key="frame" x="177.5" y="333.5" width="20" height="20"/>
+                            </activityIndicatorView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E1O-Wx-uaG" customClass="YouTubePlayerView" customModule="YouTubePlayer_Swift">
+                                <rect key="frame" x="0.0" y="213.5" width="375" height="260"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="E1O-Wx-uaG" secondAttribute="height" multiplier="75:52" id="4JC-w9-gHc"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="SiB-XK-l9U" firstAttribute="centerY" secondItem="1Dd-B2-CiM" secondAttribute="centerY" id="9zb-K5-sbw"/>
+                            <constraint firstItem="SiB-XK-l9U" firstAttribute="centerX" secondItem="xxw-DR-7Wj" secondAttribute="centerX" id="AQm-vE-fVk"/>
+                            <constraint firstItem="1Dd-B2-CiM" firstAttribute="top" secondItem="xxw-DR-7Wj" secondAttribute="top" constant="14" id="CSZ-Vt-U8Q"/>
+                            <constraint firstItem="z4s-XE-u9w" firstAttribute="centerX" secondItem="xxw-DR-7Wj" secondAttribute="centerX" id="JuR-qs-k45"/>
+                            <constraint firstItem="xxw-DR-7Wj" firstAttribute="top" secondItem="WWE-Mu-xii" secondAttribute="top" constant="10" id="KlT-Rq-U7V"/>
+                            <constraint firstItem="eIN-59-CBP" firstAttribute="trailing" secondItem="xxw-DR-7Wj" secondAttribute="trailing" id="LyZ-jg-mYO"/>
+                            <constraint firstItem="E1O-Wx-uaG" firstAttribute="trailing" secondItem="xxw-DR-7Wj" secondAttribute="trailing" id="Qp0-RC-HKi"/>
+                            <constraint firstItem="WWE-Mu-xii" firstAttribute="leading" secondItem="xxw-DR-7Wj" secondAttribute="leading" constant="10" id="a9V-c1-s6X"/>
+                            <constraint firstAttribute="bottom" secondItem="eIN-59-CBP" secondAttribute="bottom" constant="-80" id="cS0-TE-do3"/>
+                            <constraint firstItem="eIN-59-CBP" firstAttribute="leading" secondItem="xxw-DR-7Wj" secondAttribute="leading" id="cSs-5Y-JYx"/>
+                            <constraint firstItem="eIN-59-CBP" firstAttribute="top" secondItem="qt4-yq-WTB" secondAttribute="top" id="etX-oj-kC1"/>
+                            <constraint firstItem="z4s-XE-u9w" firstAttribute="centerY" secondItem="xxw-DR-7Wj" secondAttribute="centerY" id="fxu-Qb-MRc"/>
+                            <constraint firstItem="1Dd-B2-CiM" firstAttribute="leading" secondItem="xxw-DR-7Wj" secondAttribute="leading" constant="26" id="gsK-zr-uLZ"/>
+                            <constraint firstItem="E1O-Wx-uaG" firstAttribute="centerY" secondItem="xxw-DR-7Wj" secondAttribute="centerY" id="hN4-cd-A4p"/>
+                            <constraint firstItem="E1O-Wx-uaG" firstAttribute="leading" secondItem="xxw-DR-7Wj" secondAttribute="leading" id="lfZ-Qy-KUJ"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="xxw-DR-7Wj"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="kSf-KF-u3Q"/>
+                    <connections>
+                        <outlet property="labelTitle" destination="SiB-XK-l9U" id="Egj-NO-WnK"/>
+                        <outlet property="spinner" destination="z4s-XE-u9w" id="LU4-TJ-tEL"/>
+                        <outlet property="youtubePlayerView" destination="E1O-Wx-uaG" id="r7O-Sf-5eK"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2uI-Ax-XVS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="492" y="166.99507389162562"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="bg_premium" width="373.5" height="667"/>
+        <image name="icon_arrow_left" width="10" height="15"/>
+    </resources>
+</document>
