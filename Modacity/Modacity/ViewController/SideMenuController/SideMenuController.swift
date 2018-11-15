@@ -14,6 +14,10 @@ class SideMenuController: LGSideMenuController {
     @IBOutlet weak var imageViewPremiumBadge: UIImageView!
     @IBOutlet weak var constraintBadgeBottomSpace: NSLayoutConstraint!
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         ModacityAnalytics.LogStringEvent("Opened Side Menu")
@@ -40,8 +44,6 @@ class SideMenuController: LGSideMenuController {
         super.viewWillAppear(animated)
         self.updatePremiumBadge()
     }
-    
-    
     
     @objc func updatePremiumBadge() {
         self.imageViewPremiumBadge.isHidden = !(PremiumDataManager.manager.isPremiumUnlocked())

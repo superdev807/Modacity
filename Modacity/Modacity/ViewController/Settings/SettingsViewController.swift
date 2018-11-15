@@ -166,7 +166,7 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
         } else if section == 3 {
             return 2
         } else if section == 4 {
-            return 3
+            return 2
         }
         return 0
     }
@@ -308,9 +308,7 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
         } else if indexPath.section == 4 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCellWithoutIcon") as! SettingsCellWithoutIcon
             if indexPath.row == 0 {
-                cell.configure(caption: "How to use Modacity")
-            } else if indexPath.row == 1 {
-                cell.configure(caption: "How To:Deliberate Practice")
+                cell.configure(caption: "How To Deliberate Practice")
             } else {
                 cell.configure(caption: "Ask a Question")
             }
@@ -360,8 +358,6 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
             }
         } else if indexPath.section == 4 {
             if indexPath.row == 0 {
-                self.openInAppTutorialsPages()
-            } else if indexPath.row == 1 {
                 self.openDeliberatePracticeWalkthroughPage()
             } else {
                 self.askAQuestion()

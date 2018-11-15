@@ -26,7 +26,32 @@ class YoutubeViewController: UIViewController {
         self.labelTitle.text = titleString
     }
     
+    override var prefersStatusBarHidden: Bool {
+        return false
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
     @IBAction func onBack(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
+    }
+}
+
+extension YoutubeViewController: YouTubePlayerDelegate {
+    func playerReady(_ videoPlayer: YouTubePlayerView) {
+        
+    }
+    
+    func playerStateChanged(_ videoPlayer: YouTubePlayerView, playerState: YouTubePlayerState) {
+        if playerState == .Ended {
+            print("Youtube player ended")
+            self.setNeedsStatusBarAppearanceUpdate()
+        }
+    }
+    
+    func playerQualityChanged(_ videoPlayer: YouTubePlayerView, playbackQuality: YouTubePlaybackQuality) {
+        
     }
 }

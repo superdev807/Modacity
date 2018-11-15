@@ -66,6 +66,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         configureReachability()
         
+        configureAppearances()
+        
 //        print("suggestions - \(ImprovementViewModel().readDefaultSuggestions())")
         
         return true
@@ -195,6 +197,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         } catch {
             ModacityDebugger.debug("NETWORK STATUS - Unable to start notifier")
         }
+    }
+    
+    func configureAppearances() {
     }
     
 }

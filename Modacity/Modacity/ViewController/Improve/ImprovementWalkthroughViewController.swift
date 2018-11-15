@@ -60,7 +60,7 @@ class ImprovementWalkthroughViewController: UIViewController {
     
     @IBAction func onLearnMore(_ sender: Any) {
         let controller = UIStoryboard(name: "video", bundle: nil).instantiateViewController(withIdentifier: "YoutubeViewController") as! YoutubeViewController
-        controller.titleString = "How To: Deliberate Practice"
+        controller.titleString = "How To Deliberate Practice"
         controller.videoId = AppConfig.YoutubeVideoIds.appDeliberatePracticeTutorialYoutubeId
         self.navigationController?.pushViewController(controller, animated: true)
     }

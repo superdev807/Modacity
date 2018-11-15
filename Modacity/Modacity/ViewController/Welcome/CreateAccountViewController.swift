@@ -36,6 +36,10 @@ class CreateAccountViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     func initControls() {
         self.spinnerFacebook.stopAnimating()
         self.spinnerGoogle.stopAnimating()

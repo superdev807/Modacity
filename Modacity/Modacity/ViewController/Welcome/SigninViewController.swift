@@ -36,6 +36,10 @@ class SigninViewController: UIViewController {
         self.initControls()
         self.bindViewModel()
     }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
