@@ -365,6 +365,7 @@ extension PracticeItemListViewController: UITableViewDataSource, UITableViewDele
                                        on: cell.buttonMenu,
                                        rows: [["icon":"icon_notes", "text":"Details"],
                                               ["icon":"icon_pen_white", "text":"Rename"],
+                                              ["icon":"icon_duplicate", "text":"Duplicate"],
                                               ["icon":"icon_row_delete", "text":"Delete"]]) { (row) in
                                                 self.processAction(row, cell)
         }
@@ -384,6 +385,8 @@ extension PracticeItemListViewController: UITableViewDataSource, UITableViewDele
         } else if row == 0 {
             self.openDetails(cell.practiceItem.id)
         } else if row == 2 {
+            self.duplicateItem(cell.practiceItem)
+        } else if row == 3 {
             PracticeItemLocalManager.manager.removePracticeItem(for: cell.practiceItem)
             self.updateList()
         }
@@ -488,5 +491,9 @@ extension PracticeItemListViewController: SortOptionsViewControllerDelegate {
                 self.tableViewMain.reloadData()
             }
         }
+    }
+    
+    func duplicateItem(_ item: PracticeItem) {
+        
     }
 }

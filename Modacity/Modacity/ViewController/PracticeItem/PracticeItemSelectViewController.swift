@@ -64,6 +64,10 @@ class PracticeItemSelectViewController: ModacityParentViewController {
     
     var addPracticeButtonHeight: CGFloat = 0
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.

@@ -16,6 +16,7 @@ class DropdownMenuView {
     let heightOf1RowDropdownView = CGFloat(81)
     let heightOf2RowsDropdownView = CGFloat(123)
     let heightOf3RowsDropdownView = CGFloat(161)
+    let heightOf4RowsDropdownView = CGFloat(203)
     
     var currentView: UIView? = nil
     
@@ -91,6 +92,18 @@ class DropdownMenuView {
                 anchorPoint = anchorView.convert(CGPoint(x: anchorView.frame.size.width / 2, y: anchorView.frame.size.height / 2 - 5), to: view)
                 menuPopupView.frame = CGRect(x: anchorPoint.x - 118, y: anchorPoint.y - heightOf3RowsDropdownView, width: widthOfDropdownView, height: heightOf3RowsDropdownView)
             }
+        } else {
+            if anchorRect.origin.y + anchorRect.size.height / 2 + heightOf4RowsDropdownView  + 40 < view.frame.size.height {
+                to = 0
+                imageView.image = UIImage(named: "bg_popmenu_4_rows_to_down")
+                anchorPoint = anchorView.convert(CGPoint(x: anchorView.frame.size.width / 2, y: anchorView.frame.size.height / 2 + 5), to: view)
+                menuPopupView.frame = CGRect(x: anchorPoint.x - 118, y: anchorPoint.y, width: widthOfDropdownView, height: heightOf4RowsDropdownView)
+            } else {
+                to = 1
+                imageView.image = UIImage(named: "bg_popmenu_4_rows_to_up")
+                anchorPoint = anchorView.convert(CGPoint(x: anchorView.frame.size.width / 2, y: anchorView.frame.size.height / 2 - 5), to: view)
+                menuPopupView.frame = CGRect(x: anchorPoint.x - 118, y: anchorPoint.y - heightOf4RowsDropdownView, width: widthOfDropdownView, height: heightOf4RowsDropdownView)
+            }
         }
         
         self.onClick = onClick
@@ -118,8 +131,10 @@ class DropdownMenuView {
             height = heightOf1RowDropdownView
         } else if rows.count == 2 {
             height = heightOf2RowsDropdownView
-        } else {
+        } else if rows.count == 3 {
             height = heightOf3RowsDropdownView
+        } else {
+            height = heightOf4RowsDropdownView
         }
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: widthOfDropdownView, height: height))
         imageView.tag = 10
@@ -165,6 +180,7 @@ class DropdownMenuView {
             viewPopup.addSubview(labelText)
             
             y = y + rowHeight
+        
         }
     }
     

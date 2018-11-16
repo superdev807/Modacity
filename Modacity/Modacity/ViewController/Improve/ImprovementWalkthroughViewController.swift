@@ -34,6 +34,10 @@ class ImprovementWalkthroughViewController: ModacityParentViewController {
     
     let instruction = "1. Pick one thing you’d like to improve most. Keep it simple.\n\n2.  Identify one strategy you will try in order to make that improvment.\n\n3. Record yourself while trying your strategy, and listen to the results.\n\n4. If it works - great! Keep going until it’s solid. If not, no problem - try again or test a different strategy."
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
