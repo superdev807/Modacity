@@ -9,7 +9,7 @@
 import UIKit
 import StoreKit
 
-class PlaylistFinishViewController: UIViewController {
+class PlaylistFinishViewController: ModacityParentViewController {
     
     @IBOutlet weak var labelPlaylistName: UILabel!
     @IBOutlet weak var labelSessionDuration: UILabel!

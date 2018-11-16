@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FeedbackSentViewController: UIViewController {
+class FeedbackSentViewController: ModacityParentViewController {
     
     var pageUIMode: Int = 0
     

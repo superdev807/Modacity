@@ -9,7 +9,7 @@
 import UIKit
 import UserNotifications
 
-class SetReminderViewController: UIViewController {
+class SetReminderViewController: ModacityParentViewController {
     
     @IBOutlet weak var constraintForHeaderImageViewHeight: NSLayoutConstraint!
     @IBOutlet weak var datePicker: UIDatePicker!

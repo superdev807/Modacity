@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SettingsTutorialViewController: UIViewController {
+class SettingsTutorialViewController: ModacityParentViewController {
     
     @IBOutlet weak var horizontalTableViewTutorial: UITableView!
     @IBOutlet weak var constraintForStartButtonBottomSpace: NSLayoutConstraint!

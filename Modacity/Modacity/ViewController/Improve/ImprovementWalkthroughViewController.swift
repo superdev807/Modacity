@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ImprovementWalkthroughViewController: UIViewController {
+class ImprovementWalkthroughViewController: ModacityParentViewController {
 
     @IBOutlet weak var viewInstructionPanel: UIView!
     @IBOutlet weak var buttonGotIt: UIButton!

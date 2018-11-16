@@ -9,7 +9,7 @@
 import UIKit
 import Intercom
 
-class LeftMenuViewController: UIViewController {
+class LeftMenuViewController: ModacityParentViewController {
     
     let menuTitles = ["Home", "Metrodrone", /*"Recordings",*/"Overview", "Settings", "Feedback", "About Us", "Sign Out"]
     let menuIcons = ["icon_menu_home", "icon_menu_metrodrone", /*"icon_menu_mic",*/"icon_menu_overview", "icon_menu_settings", "icon_menu_feedbacks_new", "icon_menu_about", "icon_menu_signout"]

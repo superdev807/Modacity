@@ -13,7 +13,7 @@ import Intercom
 import DGActivityIndicatorView
 import AppsFlyerLib
 
-class HomeViewController: UIViewController {
+class HomeViewController: ModacityParentViewController {
 
     @IBOutlet weak var textfieldTotalHours: UITextField!
     @IBOutlet weak var textfieldDayStreak: UITextField!

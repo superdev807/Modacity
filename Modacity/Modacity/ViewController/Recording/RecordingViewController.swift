@@ -10,7 +10,7 @@ import UIKit
 
 import AVFoundation
 
-class RecordingViewController: UIViewController, RecordingsListViewDelegate {
+class RecordingViewController: ModacityParentViewController, RecordingsListViewDelegate {
     
     @IBOutlet weak var constraintForHeaderImageViewHeight: NSLayoutConstraint!
     @IBOutlet weak var imageViewHeader: UIImageView!

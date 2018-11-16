@@ -13,7 +13,7 @@ protocol PracticeItemListViewControllerDelegate {
     func practiceItemListViewController(_ controller: PracticeItemListViewController, selectedPracticeItem: PracticeItem)
 }
 
-class PracticeItemListViewController: UIViewController {
+class PracticeItemListViewController: ModacityParentViewController {
     
     @IBOutlet weak var tableViewMain: UITableView!
     @IBOutlet weak var constraintForHeaderImageViewHeight: NSLayoutConstraint!

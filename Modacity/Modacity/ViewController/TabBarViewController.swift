@@ -35,6 +35,10 @@ class TabBarViewController: UITabBarController {
         NotificationCenter.default.addObserver(self, selector: #selector(processWalkThrough), name: AppConfig.NotificationNames.appNotificationWalkthroughSynchronized, object: nil)
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     deinit {
         NotificationCenter.default.removeObserver(self)
         for subview in view.subviews {

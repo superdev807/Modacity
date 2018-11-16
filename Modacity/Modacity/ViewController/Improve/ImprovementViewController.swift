@@ -12,7 +12,7 @@ import SCSiriWaveformView
 import FDWaveformView
 import MBProgressHUD
 
-class ImprovementViewController: UIViewController {
+class ImprovementViewController: ModacityParentViewController {
     
     var playlistViewModel: PlaylistContentsViewModel!
     var practiceItem: PracticeItem!

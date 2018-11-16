@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ResetPasswordViewController: UIViewController {
+class ResetPasswordViewController: ModacityParentViewController {
 
     @IBOutlet weak var viewEmailAddressContainer: UIView!
     @IBOutlet weak var textfieldEmailAddress: UITextField!
@@ -18,10 +18,6 @@ class ResetPasswordViewController: UIViewController {
     @IBOutlet weak var buttonResetPassword: UIButton!
     
     var deliveryEmailAddress = ""
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

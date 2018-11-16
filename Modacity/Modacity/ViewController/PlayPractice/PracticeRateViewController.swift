@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PracticeRateViewController: UIViewController {
+class PracticeRateViewController: ModacityParentViewController {
     
     var playlistViewModel: PlaylistContentsViewModel!
     var practiceItem: PracticeItem!

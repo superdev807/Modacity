@@ -24,7 +24,7 @@ protocol SortOptionsViewControllerDelegate {
     func changeOptions(key: SortKeyOption, option: SortOption)
 }
 
-class SortOptionsViewController: UIViewController {
+class SortOptionsViewController: ModacityParentViewController {
     
     @IBOutlet weak var imageViewCheckDescending: UIImageView!
     @IBOutlet weak var imageViewCheckAscending: UIImageView!

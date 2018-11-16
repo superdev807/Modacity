@@ -9,7 +9,7 @@
 import UIKit
 import CHGInputAccessoryView
 
-class UpdatePracticeEntryViewController: UIViewController {
+class UpdatePracticeEntryViewController: ModacityParentViewController {
     
     var isUpdating = false
     var editingPracticeData: PracticeDaily!

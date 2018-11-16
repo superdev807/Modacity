@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BreakReminerSettingsViewController: UIViewController {
+class BreakReminerSettingsViewController: ModacityParentViewController {
    
     @IBOutlet weak var constraintForHeaderImageViewHeight: NSLayoutConstraint!
     @IBOutlet weak var viewReminderSettings: UIView!

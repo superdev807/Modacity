@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ImproveSuggestionViewController: UIViewController {
+class ImproveSuggestionViewController: ModacityParentViewController {
     
     var viewModel = ImprovementViewModel()
 

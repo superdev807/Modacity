@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PlaylistContentsViewController: UIViewController {
+class PlaylistContentsViewController: ModacityParentViewController {
 
     @IBOutlet weak var labelPlaylistName: UILabel!
     @IBOutlet weak var textfieldPlaylistName: UITextField!

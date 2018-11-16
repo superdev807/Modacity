@@ -9,7 +9,7 @@
 import UIKit
 
 
-class MetrodoneViewController: UIViewController {
+class MetrodoneViewController: ModacityParentViewController {
     @IBOutlet weak var constraintForHeaderImageViewHeight: NSLayoutConstraint!
     @IBOutlet weak var constraintForSubdivisionButtonWidth: NSLayoutConstraint!
     @IBOutlet weak var constraintForDroneViewLeading: NSLayoutConstraint!

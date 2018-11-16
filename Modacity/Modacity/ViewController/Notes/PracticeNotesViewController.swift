@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PracticeNotesViewController: UIViewController {
+class PracticeNotesViewController: ModacityParentViewController {
     
     @IBOutlet weak var labelTitle: UILabel!
     

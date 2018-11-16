@@ -9,7 +9,7 @@
 import UIKit
 import MBProgressHUD
 
-class PremiumUpgradeViewController: UIViewController {
+class PremiumUpgradeViewController: ModacityParentViewController {
     
     let sliderData = [["image": "premium_slider_chart",
                        "title1":"YOUR",

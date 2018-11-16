@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SubscriptionTermsViewController: UIViewController {
+class SubscriptionTermsViewController: ModacityParentViewController {
    
     @IBOutlet weak var constraintForHeaderImageViewHeight: NSLayoutConstraint!
     @IBOutlet weak var imageViewHeader: UIImageView!

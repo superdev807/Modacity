@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SigninViewController: UIViewController {
+class SigninViewController: ModacityParentViewController {
 
     @IBOutlet weak var viewEmailAddressContainer: UIView!
     @IBOutlet weak var textfieldEmailAddress: UITextField!
@@ -37,10 +37,6 @@ class SigninViewController: UIViewController {
         self.bindViewModel()
     }
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

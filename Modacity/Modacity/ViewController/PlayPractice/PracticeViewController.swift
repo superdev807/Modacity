@@ -15,7 +15,7 @@ import MBProgressHUD
 import Crashlytics
 import UserNotifications
 
-class PracticeViewController: UIViewController {
+class PracticeViewController: ModacityParentViewController {
     
     var playlistViewModel: PlaylistContentsViewModel!
     var practiceItem: PracticeItem!
@@ -414,6 +414,13 @@ extension PracticeViewController {
         
         if self.timer != nil {
             self.timer.invalidate()
+        }
+        
+        if self.countDownDuration > 0 && self.timerDirection == 1 {
+            self.countDownPlayed = self.secondsPrevCountDownPlayed
+            if self.playlistViewModel != nil {
+                self.playlistViewModel.updateCountDownPlayedTime(forPracticeItem: self.playlistViewModel.currentPracticeEntry.entryId, time: self.countDownPlayed)
+            }
         }
         
         self.cancelCountDownNotification()

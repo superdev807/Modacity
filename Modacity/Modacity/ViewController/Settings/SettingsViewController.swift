@@ -106,7 +106,7 @@ class SettingsCellWithDropdown: UITableViewCell {
     
 }
 
-class SettingsViewController: UIViewController {
+class SettingsViewController: ModacityParentViewController {
     
     @IBOutlet weak var tableViewSettings: UITableView!
     @IBOutlet weak var constraintForHeaderImageViewHeight: NSLayoutConstraint!

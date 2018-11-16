@@ -11,7 +11,7 @@ import UITextView_Placeholder
 import MessageUI
 import MBProgressHUD
 
-class FeedbackRootViewController: UIViewController {
+class FeedbackRootViewController: ModacityParentViewController {
     
     var pageUIMode: Int = 0         // 0 : Ask an Expert, 1 : Feedback
 

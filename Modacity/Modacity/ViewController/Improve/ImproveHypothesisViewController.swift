@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ImproveHypothesisViewController: UIViewController {
+class ImproveHypothesisViewController: ModacityParentViewController {
     
     var viewModel: ImprovementViewModel!
     var playlistModel: PlaylistContentsViewModel!

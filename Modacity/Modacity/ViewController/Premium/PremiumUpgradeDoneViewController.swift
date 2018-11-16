@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PremiumUpgradeDoneViewController: UIViewController {
+class PremiumUpgradeDoneViewController: ModacityParentViewController {
     
     @IBOutlet weak var constraintForHeaderViewHeight: NSLayoutConstraint!
     @IBOutlet weak var buttonFreeTrialStart: UIButton!

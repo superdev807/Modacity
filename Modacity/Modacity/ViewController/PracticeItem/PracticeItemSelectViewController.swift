@@ -11,7 +11,7 @@ import MBProgressHUD
 
 typealias CompletedAction = () -> ()
 
-class PracticeItemSelectViewController: UIViewController {
+class PracticeItemSelectViewController: ModacityParentViewController {
 
     @IBOutlet weak var viewEditboxContainer: UIView!
 //    @IBOutlet weak var viewStoreNewItemPanel: UIView!

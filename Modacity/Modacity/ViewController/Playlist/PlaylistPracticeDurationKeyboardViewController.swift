@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PlaylistPracticeDurationKeyboardViewController: UIViewController, TimerInputViewDelegate {
+class PlaylistPracticeDurationKeyboardViewController: ModacityParentViewController, TimerInputViewDelegate {
 
     @IBOutlet weak var buttonHeart: UIButton!
     @IBOutlet weak var labelPracticeName: UILabel!

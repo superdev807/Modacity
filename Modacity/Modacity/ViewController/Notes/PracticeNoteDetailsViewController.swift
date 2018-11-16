@@ -10,7 +10,7 @@ import UIKit
 import UITextView_Placeholder
 import CHGInputAccessoryView
 
-class PracticeNoteDetailsViewController: UIViewController {
+class PracticeNoteDetailsViewController: ModacityParentViewController {
 
     @IBOutlet weak var labelNoteTitle: UILabel!
     @IBOutlet weak var textViewInputBox: UITextView!

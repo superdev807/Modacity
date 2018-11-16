@@ -9,7 +9,7 @@
 import UIKit
 import YouTubePlayer_Swift
 
-class YoutubeViewController: UIViewController {
+class YoutubeViewController: ModacityParentViewController {
 
     @IBOutlet weak var labelTitle: UILabel!
     

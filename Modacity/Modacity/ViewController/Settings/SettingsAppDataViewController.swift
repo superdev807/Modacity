@@ -9,7 +9,7 @@
 import UIKit
 import MBProgressHUD
 
-class SettingsAppDataViewController: UIViewController {
+class SettingsAppDataViewController: ModacityParentViewController {
     
     @IBOutlet weak var tableViewSettings: UITableView!
     @IBOutlet weak var constraintForHeaderImageViewHeight: NSLayoutConstraint!

@@ -53,7 +53,7 @@ class TutorialCell: UITableViewCell {
     
 }
 
-class TutorialViewController: UIViewController {
+class TutorialViewController: ModacityParentViewController {
     
     @IBOutlet weak var horizontalTableViewTutorial: UITableView!
     @IBOutlet weak var constraintForStartButtonBottomSpace: NSLayoutConstraint!

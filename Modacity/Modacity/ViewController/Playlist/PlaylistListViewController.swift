@@ -63,7 +63,7 @@ protocol PlaylistListViewControllerDelegate {
     func playlistViewController(_ controller: PlaylistListViewController, selectedPlaylist: Playlist)
 }
 
-class PlaylistListViewController: UIViewController {
+class PlaylistListViewController: ModacityParentViewController {
 
     @IBOutlet weak var constraintForHeaderImageViewHeight: NSLayoutConstraint!
     @IBOutlet weak var tableViewMain: UITableView!

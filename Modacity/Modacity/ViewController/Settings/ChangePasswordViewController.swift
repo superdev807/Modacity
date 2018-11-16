@@ -9,7 +9,7 @@
 import UIKit
 
 
-class ChangePasswordViewController: UIViewController {
+class ChangePasswordViewController: ModacityParentViewController {
     
     @IBOutlet weak var viewCurrentPasswordContainer: UIView!
     @IBOutlet weak var textfieldCurrentPassword: UITextField!

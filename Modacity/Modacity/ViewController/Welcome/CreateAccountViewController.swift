@@ -9,7 +9,7 @@
 import UIKit
 import GoogleSignIn
 
-class CreateAccountViewController: UIViewController {
+class CreateAccountViewController: ModacityParentViewController {
 
     @IBOutlet weak var spinnerFacebook: UIActivityIndicatorView!
     @IBOutlet weak var spinnerGoogle: UIActivityIndicatorView!
@@ -34,10 +34,6 @@ class CreateAccountViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
     }
     
     func initControls() {
