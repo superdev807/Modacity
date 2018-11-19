@@ -8,57 +8,6 @@
 
 import UIKit
 
-protocol PlaylistCellDelegate {
-    func onFavorite(_ playlist: Playlist)
-    func onMenu(_ playlist: Playlist, buttonMenu: UIButton, cell:PlaylistCell)
-}
-
-class PlaylistCell: UITableViewCell {
-    
-    @IBOutlet weak var buttonMenu: UIButton!
-    @IBOutlet weak var labelPlaylistName: UILabel!
-    @IBOutlet weak var buttonFavorite: UIButton!
-    @IBOutlet weak var textfieldPlaylistName: UITextField!
-    var playlist: Playlist!
-    var delegate: PlaylistCellDelegate?
-    
-    func configure(with playlist: Playlist, isFavorite: Bool) {
-        self.playlist = playlist
-        self.labelPlaylistName.text = playlist.name
-        self.textfieldPlaylistName.isHidden = true
-        self.labelPlaylistName.isHidden = false
-        if isFavorite {
-            self.buttonFavorite.setImage(UIImage(named:"icon_heart_red"), for: .normal)
-            self.buttonFavorite.alpha = 1.0
-        } else {
-            self.buttonFavorite.setImage(UIImage(named:"icon_heart"), for: .normal)
-            self.buttonFavorite.alpha = 0.5
-        }
-    }
-    
-    @IBAction func onHeart(_ sender: Any) {
-        if self.delegate != nil {
-            self.delegate!.onFavorite(self.playlist)
-        }
-    }
-    
-    @IBAction func onMenu(_ sender: Any) {
-        if self.delegate != nil {
-            self.delegate!.onMenu(self.playlist, buttonMenu: self.buttonMenu, cell: self)
-        }
-    }
-    
-    @IBAction func onEditingDidEnd(_ sender: Any) {
-        if self.textfieldPlaylistName.text != "" {
-            self.labelPlaylistName.text = self.textfieldPlaylistName.text
-            self.playlist.name = self.textfieldPlaylistName.text
-            self.playlist.updateMe()
-        }
-        self.textfieldPlaylistName.isHidden = true
-        self.labelPlaylistName.isHidden = false
-    }
-}
-
 protocol PlaylistListViewControllerDelegate {
     func playlistViewController(_ controller: PlaylistListViewController, selectedPlaylist: Playlist)
 }
@@ -71,10 +20,12 @@ class PlaylistListViewController: ModacityParentViewController {
     @IBOutlet weak var imageViewIcon: UIImageView!
     @IBOutlet weak var constraintTableViewBottomSpace: NSLayoutConstraint!
     
-    var viewModel = PlaylistViewModel()
     var editingCell: PlaylistCell? = nil
     var singleSelectionMode = false
     var delegate: PlaylistListViewControllerDelegate? = nil
+    
+    var detailSelection: Playlist!
+    var playlists = [Playlist]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,7 +44,6 @@ class PlaylistListViewController: ModacityParentViewController {
             self.imageViewIcon.image = UIImage(named: "icon_arrow_left")
             self.constraintTableViewBottomSpace.constant = 0
         }
-        self.bindViewModel()
     }
 
     override func didReceiveMemoryWarning() {
@@ -104,14 +54,14 @@ class PlaylistListViewController: ModacityParentViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationItem.title = "Playlist"
-        self.viewModel.loadPlaylists()
+        self.loadPlaylists()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "sid_details" {
             let controller = (segue.destination as! UINavigationController).viewControllers[0] as! PlaylistContentsViewController
             let model = PlaylistAndPracticeDeliverModel()
-            model.deliverPlaylist = self.viewModel.detailSelection
+            model.deliverPlaylist = self.detailSelection
             controller.parentViewModel = model
         }
     }
@@ -129,25 +79,12 @@ class PlaylistListViewController: ModacityParentViewController {
         }
     }
     
-    func bindViewModel() {
-        self.viewModel.subscribe(to: "playlists") { (_, _, _) in
-            if self.viewModel.countOfPlaylists() == 0 {
-                self.viewNoPlaylist.isHidden = false
-            } else {
-                self.viewNoPlaylist.isHidden = true
-            }
-            self.tableViewMain.reloadData()
-        }
-        
-        self.viewModel.loadPlaylists()
-    }
-    
 }
 
 extension PlaylistListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.viewModel.countOfPlaylists()
+        return self.playlists.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -156,7 +93,7 @@ extension PlaylistListViewController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PlaylistCell") as! PlaylistCell
-        let playlist = self.viewModel.playlist(at: indexPath.row)
+        let playlist = self.playlists[indexPath.row]//self.viewModel.playlist(at: indexPath.row)
         cell.configure(with: playlist, isFavorite: playlist.isFavorite)
         cell.delegate = self
         return cell
@@ -167,12 +104,12 @@ extension PlaylistListViewController: UITableViewDelegate, UITableViewDataSource
         
         if self.singleSelectionMode {
             if let delegate = self.delegate {
-                delegate.playlistViewController(self, selectedPlaylist: self.viewModel.playlist(at: indexPath.row))
+                delegate.playlistViewController(self, selectedPlaylist: self.playlists[indexPath.row]/*self.viewModel.playlist(at: indexPath.row)*/)
             }
             self.navigationController?.popViewController(animated: true)
         } else {
-            self.viewModel.detailSelection = self.viewModel.playlist(at: indexPath.row)
-            ModacityAnalytics.LogEvent(.NewPlaylist, extraParamName: "Playlist", extraParamValue: self.viewModel.detailSelection!.name)
+            self.detailSelection = self.playlists[indexPath.row]
+            ModacityAnalytics.LogEvent(.NewPlaylist, extraParamName: "Playlist", extraParamValue: self.detailSelection!.name)
             self.performSegue(withIdentifier: "sid_details", sender: nil)
         }
     }
@@ -181,7 +118,7 @@ extension PlaylistListViewController: UITableViewDelegate, UITableViewDataSource
 extension PlaylistListViewController: PlaylistCellDelegate {
     
     func onFavorite(_ playlist: Playlist) {
-        self.viewModel.setFavorite(playlist)
+        playlist.setFavorite(!(playlist.isFavorite))
         self.tableViewMain.reloadData()
     }
     
@@ -190,25 +127,40 @@ extension PlaylistListViewController: PlaylistCellDelegate {
                                        on: buttonMenu,
                                        rows: [["icon":"icon_notes", "text":"Details"],
                                               ["icon":"icon_pen_white", "text": "Rename"],
+                                              ["icon":"icon_duplicate", "text":"Duplicate"],
                                               ["icon":"icon_row_delete", "text":"Delete"]]) { (row) in
-                                                if row == 2 {
-                                                    self.viewModel.deletePlaylist(for: playlist)
+                                                
+                                                if row == 3 {
+                                                    self.deletePlaylist(for: playlist)
                                                 } else if row == 1 {
-
-                                                    if self.editingCell != nil {
-                                                        self.editingCell!.textfieldPlaylistName.resignFirstResponder()
-                                                        self.editingCell = nil
-                                                    }
-                                                    cell.textfieldPlaylistName.isHidden = false
-                                                    cell.labelPlaylistName.isHidden = true
-                                                    cell.textfieldPlaylistName.becomeFirstResponder()
-                                                    cell.textfieldPlaylistName.text = cell.playlist.name
-                                                    self.editingCell = cell
-                                                    cell.textfieldPlaylistName.becomeFirstResponder()
-                                                } else {
+                                                    self.rename(on:cell)
+                                                } else if row == 0 {
                                                     self.openDetails(playlist)
+                                                } else if row == 2 {
+                                                    self.duplicatePlaylist(playlist)
                                                 }
         }
+    }
+    
+    func onNameEdited(on cell: PlaylistCell, for playlist: Playlist, to changedName: String) {
+        if changedName != "" {
+            cell.labelPlaylistName.text = cell.textfieldPlaylistName.text
+            playlist.name = changedName
+            playlist.updateMe()
+        }
+    }
+    
+    func rename(on cell: PlaylistCell) {
+        if self.editingCell != nil {
+            self.editingCell!.textfieldPlaylistName.resignFirstResponder()
+            self.editingCell = nil
+        }
+        cell.textfieldPlaylistName.isHidden = false
+        cell.labelPlaylistName.isHidden = true
+        cell.textfieldPlaylistName.becomeFirstResponder()
+        cell.textfieldPlaylistName.text = cell.playlist.name
+        self.editingCell = cell
+        cell.textfieldPlaylistName.becomeFirstResponder()
     }
     
     func openDetails(_ playlist:Playlist) {
@@ -216,5 +168,76 @@ extension PlaylistListViewController: PlaylistCellDelegate {
         let detailsViewController = controller.viewControllers[0] as! DetailsViewController
         detailsViewController.playlistItemId = playlist.id
         self.tabBarController!.present(controller, animated: true, completion: nil)
+    }
+    
+    func duplicatePlaylist(_ playlist: Playlist) {
+        let newPlaylist = Playlist()
+        newPlaylist.id = UUID().uuidString
+        newPlaylist.name = playlist.name
+        
+        newPlaylist.createdAt = "\(Date().timeIntervalSince1970)"
+        newPlaylist.playlistPracticeEntries = [PlaylistPracticeEntry]()
+        
+        for entry in playlist.playlistPracticeEntries {
+            let newEntry = PlaylistPracticeEntry()
+            newEntry.entryId = UUID().uuidString
+            newEntry.name = entry.name
+            newEntry.practiceItemId = entry.practiceItemId
+            newEntry.countDownDuration = entry.countDownDuration
+            
+            newPlaylist.playlistPracticeEntries.append(newEntry)
+        }
+        
+        newPlaylist.updateMe()
+        
+        if self.editingCell != nil {
+            self.editingCell!.textfieldPlaylistName.resignFirstResponder()
+            self.editingCell = nil
+        }
+        
+        self.loadPlaylists()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
+            for row in 0..<self.playlists.count {
+                let playlist = self.playlists[row]
+                if newPlaylist.id == playlist.id {
+                    if let cell = self.tableViewMain.cellForRow(at: IndexPath(row: row, section: 0)) as? PlaylistCell {
+                        self.rename(on: cell)
+                    }
+                    break
+                }
+            }
+        }
+    }
+    
+    func deletePlaylist(for playlist:Playlist) {
+        PlaylistLocalManager.manager.deletePlaylist(playlist)
+        
+        for row in 0..<self.playlists.count {
+            if self.playlists[row].id == playlist.id {
+                self.playlists.remove(at: row)
+                break
+            }
+        }
+        PlaylistLocalManager.manager.storePlaylists(self.playlists)
+        self.loadPlaylists()
+    }
+    
+    func loadPlaylists() {
+        let orgPlaylists = PlaylistLocalManager.manager.loadPlaylists() ?? [Playlist]()
+        var tempPlaylists = [Playlist]()
+        for playlist in orgPlaylists {
+            if !playlist.archived {
+                tempPlaylists.append(playlist)
+            }
+        }
+        self.playlists = tempPlaylists
+        
+        if self.playlists.count == 0 {
+            self.viewNoPlaylist.isHidden = false
+        } else {
+            self.viewNoPlaylist.isHidden = true
+        }
+        self.tableViewMain.reloadData()
     }
 }

@@ -58,6 +58,28 @@ class PlaylistViewModel: ViewModel {
         return self.playlists[row]
     }
     
+    func duplicatePlaylist(from playlist:Playlist) {
+        let newPlaylist = Playlist()
+        newPlaylist.id = UUID().uuidString
+        newPlaylist.name = playlist.name
+        
+        newPlaylist.createdAt = "\(Date().timeIntervalSince1970)"
+        newPlaylist.playlistPracticeEntries = [PlaylistPracticeEntry]()
+        
+        for entry in playlist.playlistPracticeEntries {
+            let newEntry = PlaylistPracticeEntry()
+            newEntry.entryId = UUID().uuidString
+            newEntry.name = entry.name
+            newEntry.practiceItemId = entry.practiceItemId
+            newEntry.countDownDuration = entry.countDownDuration
+            
+            newPlaylist.playlistPracticeEntries.append(newEntry)
+        }
+        
+        newPlaylist.updateMe()
+        self.loadPlaylists()
+    }
+    
     func deletePlaylist(at row: Int) {
         let playlist = self.playlists[row]
         PlaylistLocalManager.manager.deletePlaylist(playlist)

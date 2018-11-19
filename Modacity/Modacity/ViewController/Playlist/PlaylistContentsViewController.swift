@@ -772,15 +772,18 @@ extension PlaylistContentsViewController: PlaylistPracticeItemCellDelegate {
                                        on: buttonMenu,
                                        rows: [["icon":"icon_notes", "text":"Details"],
                                               ["icon":"icon_row_clock", "text":"Set Timer"],
+                                              ["icon":"icon_duplicate", "text":"Duplicate"],
                                               ["icon":"icon_row_delete", "text":"Remove"]]) { (row) in
                                                 
-                                                if row == 2 {
+                                                if row == 3 {
                                                     self.viewModel.editingRow = -1
                                                     self.viewModel.deletePracticeItem(for: item)
                                                 } else if row == 1 {
                                                     self.openClockEdit(for: item)
                                                 } else if row == 0 {
                                                     self.openDetails(for: item)
+                                                } else if row == 2 {
+                                                    self.duplicate(for: item)
                                                 }
                                                 
                                         }
@@ -810,9 +813,7 @@ protocol PlaylistPracticeItemCellDelegate {
     func onLike(item: PracticeItem?)
     func onClock(item: PlaylistPracticeEntry)
     func onDelete(item: PlaylistPracticeEntry)
-    
     func onSwipeToLeft(on item:PlaylistPracticeEntry)
-    
     func onMenu(item: PlaylistPracticeEntry, buttonMenu: UIButton)
 }
 
@@ -950,5 +951,9 @@ extension PlaylistContentsViewController {
             self.constraintForHeaderViewHeight.constant = 0
         }
         self.tableViewMain.reloadData()
+    }
+    
+    func duplicate(for item: PlaylistPracticeEntry) {
+        self.viewModel.duplicate(entry: item)
     }
 }

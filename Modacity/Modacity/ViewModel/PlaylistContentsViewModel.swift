@@ -129,6 +129,24 @@ class PlaylistContentsViewModel: ViewModel {
         }
     }
     
+    func duplicate(entry: PlaylistPracticeEntry) {
+        let newEntry = PlaylistPracticeEntry()
+        newEntry.entryId = UUID().uuidString
+        newEntry.name = entry.name
+        newEntry.countDownDuration = entry.countDownDuration
+        newEntry.practiceItemId = entry.practiceItemId
+        
+        for row in 0..<self.playlistPracticeEntries.count {
+            let oldEntry = self.playlistPracticeEntries[row]
+            if oldEntry.entryId == entry.entryId {
+                self.playlistPracticeEntries.insert(newEntry, at: row)
+                break
+            }
+        }
+        
+        self.playlist.playlistPracticeEntries = self.playlistPracticeEntries
+    }
+    
     func setPlaylist(_ playlist: Playlist) {
         self.playlist = playlist
         self.playlistName = playlist.name

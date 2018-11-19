@@ -494,6 +494,54 @@ extension PracticeItemListViewController: SortOptionsViewControllerDelegate {
     }
     
     func duplicateItem(_ item: PracticeItem) {
+        let newName = item.name ?? ""
         
+        ModacityAnalytics.LogStringEvent("Duplicated Practice Item", extraParamName: "name", extraParamValue: newName)
+        
+        let practiceItem = PracticeItem()
+        practiceItem.id = UUID().uuidString
+        practiceItem.name = newName
+        
+        if self.practiceItems == nil {
+            self.practiceItems = [PracticeItem]()
+        }
+        
+        self.practiceItems!.append(practiceItem)
+        
+        PracticeItemLocalManager.manager.storePracticeItems(self.practiceItems!)
+        PracticeItemRemoteManager.manager.add(item: practiceItem)
+        
+        self.updateList()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            
+            var cell: PracticeItemCell? = nil
+            for section in 0..<self.sectionNames.count {
+                var found = false
+                for row in 0..<self.sectionedPracticeItems[self.sectionNames[section]]!.count {
+                    let item = self.sectionedPracticeItems[self.sectionNames[section]]![row]
+                    if item.id == practiceItem.id {
+                        cell = self.tableViewMain.cellForRow(at: IndexPath(row: row, section: section)) as? PracticeItemCell
+                        found = true
+                        break
+                    }
+                }
+                if found {
+                    break
+                }
+            }
+            
+            if let cell = cell {
+                if self.practiceItemNameEditingCell != nil {
+                    self.practiceItemNameEditingCell!.textfieldNameEdit.resignFirstResponder()
+                    self.practiceItemNameEditingCell = nil
+                }
+                cell.textfieldNameEdit.isHidden = false
+                cell.labelPracticeName.isHidden = true
+                cell.textfieldNameEdit.becomeFirstResponder()
+                cell.textfieldNameEdit.text = cell.practiceItem.name
+                self.practiceItemNameEditingCell = cell
+            }
+        }
     }
 }

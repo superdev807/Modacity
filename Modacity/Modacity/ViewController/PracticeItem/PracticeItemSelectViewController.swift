@@ -246,42 +246,6 @@ extension PracticeItemSelectViewController {
         }
     }
     
-//    @IBAction func onAddtoStore(_ sender: Any) {
-//        let newName = self.textfieldSearch.text!
-//        ModacityAnalytics.LogStringEvent("Created Practice Item", extraParamName: "name", extraParamValue: newName)
-//        MBProgressHUD.showAdded(to: self.view, animated: true)
-//        DispatchQueue.global().async {
-//            self.addNewPracticeItem(newName)
-//            self.searchKeyword = ""
-//            self.updateList(completed: {
-////                self.viewStoreNewItemPanel.isHidden = true
-////                self.constraintForTableViewTopSpace.constant = 4
-//                self.textfieldSearch.text = ""
-//                self.buttonRemoveKeyword.isHidden = true
-//                self.scrollTableView(to:newName)
-//            })
-//        }
-//    }
-//
-//    func addNewPracticeItem(_ newName: String) {
-//
-//        ModacityAnalytics.LogStringEvent("Created Practice Item", extraParamName: "name", extraParamValue: newName)
-//
-//        let practiceItem = PracticeItem()
-//        practiceItem.id = UUID().uuidString
-//        practiceItem.name = newName
-//
-//        if self.practiceItems == nil {
-//            self.practiceItems = [PracticeItem]()
-//        }
-//
-//        self.practiceItems!.append(practiceItem)
-//
-//        PracticeItemLocalManager.manager.storePracticeItems(self.practiceItems!)
-//        PracticeItemRemoteManager.manager.add(item: practiceItem)
-//
-//    }
-
     func scrollTableView(to name:String) {
         for section in 0..<self.sectionNames.count {
             for row in 0..<self.sectionedPracticeItems[self.sectionNames[section]]!.count {
@@ -491,6 +455,7 @@ extension PracticeItemSelectViewController: PracticeItemSelectCellDelegate {
                                        on: menuButton,
                                        rows: [["icon":"icon_notes", "text":"Details"],
                                               ["icon":"icon_pen_white", "text":"Rename"],
+                                              ["icon":"icon_duplicate", "text":"Duplicate"],
                                               ["icon":"icon_row_delete", "text":"Delete"]]) { (row) in
                                                 self.processAction(row, indexPath)
         }
@@ -507,12 +472,14 @@ extension PracticeItemSelectViewController: PracticeItemSelectCellDelegate {
                 cell.labelPracticeItemName.isHidden = true
                 cell.textfieldInputPracticeItemName.becomeFirstResponder()
             }
-        } else if row == 2 {
+        } else if row == 3 {
             PracticeItemLocalManager.manager.removePracticeItem(for: self.sectionedPracticeItems[self.sectionNames[indexPath.section]]![indexPath.row])
             self.updateList()
             self.parentViewModel.checkPlaylistForPracticeItemRemoved()
-        } else {
+        } else if row == 0 {
             self.openDetails(self.sectionedPracticeItems[self.sectionNames[indexPath.section]]![indexPath.row].id)
+        } else if row == 2 {
+            self.duplicateItem(self.sectionedPracticeItems[self.sectionNames[indexPath.section]]![indexPath.row])
         }
     }
     
@@ -700,5 +667,56 @@ extension PracticeItemSelectViewController {
             }
         }
         return false
+    }
+    
+    func duplicateItem(_ item: PracticeItem) {
+        let newName = item.name ?? ""
+        
+        ModacityAnalytics.LogStringEvent("Duplicated Practice Item", extraParamName: "name", extraParamValue: newName)
+        
+        let practiceItem = PracticeItem()
+        practiceItem.id = UUID().uuidString
+        practiceItem.name = newName
+        
+        if self.practiceItems == nil {
+            self.practiceItems = [PracticeItem]()
+        }
+        
+        self.practiceItems!.append(practiceItem)
+        
+        PracticeItemLocalManager.manager.storePracticeItems(self.practiceItems!)
+        PracticeItemRemoteManager.manager.add(item: practiceItem)
+        
+        self.updateList()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            
+            var cell: PracticeItemSelectCell? = nil
+            var indexPath: IndexPath? = nil
+            for section in 0..<self.sectionNames.count {
+                var found = false
+                for row in 0..<self.sectionedPracticeItems[self.sectionNames[section]]!.count {
+                    let item = self.sectionedPracticeItems[self.sectionNames[section]]![row]
+                    if item.id == practiceItem.id {
+                        indexPath = IndexPath(row: row, section: section)
+                        cell = self.tableViewMain.cellForRow(at: indexPath!) as? PracticeItemSelectCell
+                        found = true
+                        break
+                    }
+                }
+                if found {
+                    break
+                }
+            }
+            
+            if let cell = cell {
+                self.practiceItemNameEditingCell = cell
+                self.editingSection = indexPath!.section
+                self.editingRow = indexPath!.row
+                cell.textfieldInputPracticeItemName.isHidden = false
+                cell.labelPracticeItemName.isHidden = true
+                cell.textfieldInputPracticeItemName.becomeFirstResponder()
+            }
+        }
     }
 }

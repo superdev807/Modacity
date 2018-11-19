@@ -99,6 +99,8 @@
 		AF0BBA2D219BCCE800D6313B /* video.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF0BBA2B219BCCE800D6313B /* video.storyboard */; };
 		AF6CC2F1219BBB7900592E1D /* SettingsTutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6CC2F0219BBB7900592E1D /* SettingsTutorialViewController.swift */; };
 		AF6CC2F2219BBB7900592E1D /* SettingsTutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6CC2F0219BBB7900592E1D /* SettingsTutorialViewController.swift */; };
+		AF7E51AE21A300A8003DC2CB /* PlaylistCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF7E51AD21A300A8003DC2CB /* PlaylistCell.swift */; };
+		AF7E51AF21A300A8003DC2CB /* PlaylistCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF7E51AD21A300A8003DC2CB /* PlaylistCell.swift */; };
 		AFB60BD1218AB66100434DE1 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB60BD0218AB66100434DE1 /* ResetPasswordViewController.swift */; };
 		AFB60BD2218AB66100434DE1 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB60BD0218AB66100434DE1 /* ResetPasswordViewController.swift */; };
 		AFC6CB6B2193CD2F002B8680 /* ImprovementWalkthroughViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC6CB6A2193CD2F002B8680 /* ImprovementWalkthroughViewController.swift */; };
@@ -540,6 +542,7 @@
 		AF0BBA28219BCCD900D6313B /* YoutubeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeViewController.swift; sourceTree = "<group>"; };
 		AF0BBA2B219BCCE800D6313B /* video.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = video.storyboard; sourceTree = "<group>"; };
 		AF6CC2F0219BBB7900592E1D /* SettingsTutorialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTutorialViewController.swift; sourceTree = "<group>"; };
+		AF7E51AD21A300A8003DC2CB /* PlaylistCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistCell.swift; sourceTree = "<group>"; };
 		AFB60BD0218AB66100434DE1 /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
 		AFC6CB6A2193CD2F002B8680 /* ImprovementWalkthroughViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImprovementWalkthroughViewController.swift; sourceTree = "<group>"; };
 		AFEACDC0219E691E005B1F55 /* ModacityParentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModacityParentViewController.swift; sourceTree = "<group>"; };
@@ -987,6 +990,7 @@
 			children = (
 				8EA33BA020052A3300539A3F /* playlist.storyboard */,
 				8EA33BA220052A4A00539A3F /* PlaylistListViewController.swift */,
+				AF7E51AD21A300A8003DC2CB /* PlaylistCell.swift */,
 				8E455D102045A84F003FDB80 /* PlaylistContentsViewController.swift */,
 				8EAE1650204FE1050012450E /* PlaylistFinishViewController.swift */,
 				8E1EFEFB20500E7A000DE107 /* PlaylistPracticeDurationKeyboardViewController.swift */,
@@ -1011,10 +1015,10 @@
 		8EDEB6F9203DE38F00E8D48D /* Supporting */ = {
 			isa = PBXGroup;
 			children = (
+				8EDEB6FA203DE38F00E8D48D /* Fonts */,
 				E23FFD892108100D007713F0 /* PremiumManager */,
 				8E58B44020446AE40022704B /* LocalManager */,
 				8E58B43D20446AE40022704B /* RemoteManager */,
-				8EDEB6FA203DE38F00E8D48D /* Fonts */,
 				8EDEB702203DE38F00E8D48D /* Utils */,
 				E2CDDEBC2136E35B00BEB98B /* Extensions */,
 				8E0A51C1207E45DD006BDDC6 /* Analytics */,
@@ -2007,6 +2011,7 @@
 				8EDEB713203DE4B300E8D48D /* Me.swift in Sources */,
 				8E16B46D2052ECDE00A9BF8A /* PlaylistPracticeEntry.swift in Sources */,
 				E25FD98A20D7F520008C531A /* PlaylistDaily.swift in Sources */,
+				AF7E51AE21A300A8003DC2CB /* PlaylistCell.swift in Sources */,
 				E294F16B211C90A4007B401F /* SortOptionsViewController.swift in Sources */,
 				8ED001CF205768C100536122 /* ImproveSuggestionViewController.swift in Sources */,
 				E2806C3320ABCD910066959A /* PracticeRateViewController.swift in Sources */,
@@ -2174,6 +2179,7 @@
 				E21BE9E82091796A000D1877 /* Me.swift in Sources */,
 				E21BE9E92091796A000D1877 /* PlaylistPracticeEntry.swift in Sources */,
 				E25FD98B20D7F520008C531A /* PlaylistDaily.swift in Sources */,
+				AF7E51AF21A300A8003DC2CB /* PlaylistCell.swift in Sources */,
 				E294F16C211C90A4007B401F /* SortOptionsViewController.swift in Sources */,
 				E21BE9EA2091796A000D1877 /* ImproveSuggestionViewController.swift in Sources */,
 				E2806C3420ABCD910066959A /* PracticeRateViewController.swift in Sources */,
