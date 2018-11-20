@@ -25,7 +25,12 @@ class PracticeItemCell: UITableViewCell {
     var delegate: PracticeItemCellDelegate? = nil
     var practiceItem: PracticeItem!
     
-    func configure(with practiceItem: PracticeItem, keyword: String) {
+    var indexPath: IndexPath!
+    
+    func configure(with practiceItem: PracticeItem, keyword: String, on indexPath: IndexPath) {
+        
+        self.indexPath = indexPath
+        
         if keyword == "" {
             self.labelPracticeName.attributedText = nil
             self.labelPracticeName.text = practiceItem.name

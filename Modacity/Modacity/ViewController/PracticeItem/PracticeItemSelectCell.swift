@@ -9,7 +9,7 @@
 import UIKit
 
 protocol PracticeItemSelectCellDelegate {
-    func onCellMenu(menuButton: UIButton, indexPath: IndexPath)
+    func onCellMenu(cell: PracticeItemSelectCell)
 }
 
 class PracticeItemSelectCell: UITableViewCell {
@@ -73,7 +73,7 @@ class PracticeItemSelectCell: UITableViewCell {
     
     @IBAction func onCellMenu(_ sender: Any) {
         if self.delegate != nil {
-            self.delegate!.onCellMenu(menuButton: self.buttonMenu, indexPath: self.indexPath)
+            self.delegate!.onCellMenu(cell: self)
         }
     }
     

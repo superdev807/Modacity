@@ -14,12 +14,10 @@ typealias CompletedAction = () -> ()
 class PracticeItemSelectViewController: ModacityParentViewController {
 
     @IBOutlet weak var viewEditboxContainer: UIView!
-//    @IBOutlet weak var viewStoreNewItemPanel: UIView!
-//    @IBOutlet weak var labelStoreNewItem: UILabel!
     
     @IBOutlet weak var textfieldSearch: UITextField!
     @IBOutlet weak var tableViewMain: UITableView!
-//    @IBOutlet weak var constraintForTableViewTopSpace: NSLayoutConstraint!
+
     @IBOutlet weak var constraintForAddButtonBottomSpace: NSLayoutConstraint!
     @IBOutlet weak var buttonRemoveKeyword: UIButton!
     @IBOutlet weak var constraintForHeaderImageViewConstant: NSLayoutConstraint!
@@ -117,10 +115,6 @@ class PracticeItemSelectViewController: ModacityParentViewController {
     }
     
     func configureGUI() {
-//        self.viewEditboxContainer.layer.cornerRadius = 5
-//        self.viewStoreNewItemPanel.layer.cornerRadius = 25
-//        self.viewStoreNewItemPanel.isHidden = true
-//        self.constraintForTableViewTopSpace.constant = 4
         self.tableViewMain.tableFooterView = UIView()
         self.viewAddPracticeButtonContainer.isHidden = true
         self.constraintForAddPracticeButtonHeight.constant = 0
@@ -446,40 +440,30 @@ extension PracticeItemSelectViewController: UITableViewDelegate, UITableViewData
 
 extension PracticeItemSelectViewController: PracticeItemSelectCellDelegate {
     
-    func onCellMenu(menuButton: UIButton, indexPath: IndexPath) {
+    func onCellMenu(cell: PracticeItemSelectCell) {
         if self.practiceItemNameEditingCell != nil {
             self.practiceItemNameEditingCell!.textfieldInputPracticeItemName.resignFirstResponder()
             self.practiceItemNameEditingCell = nil
         }
         DropdownMenuView.instance.show(in: self.view,
-                                       on: menuButton,
+                                       on: cell.buttonMenu,
                                        rows: [["icon":"icon_notes", "text":"Details"],
                                               ["icon":"icon_pen_white", "text":"Rename"],
                                               ["icon":"icon_duplicate", "text":"Duplicate"],
                                               ["icon":"icon_row_delete", "text":"Delete"]]) { (row) in
-                                                self.processAction(row, indexPath)
+                                                self.processAction(row, cell)
         }
-        
     }
     
-    func processAction(_ row: Int, _ indexPath: IndexPath) {
+    func processAction(_ row: Int, _ cell: PracticeItemSelectCell) {
         if row == 1 {
-            if let cell = self.tableViewMain.cellForRow(at: indexPath) as? PracticeItemSelectCell {
-                self.practiceItemNameEditingCell = cell
-                self.editingSection = indexPath.section
-                self.editingRow = indexPath.row
-                cell.textfieldInputPracticeItemName.isHidden = false
-                cell.labelPracticeItemName.isHidden = true
-                cell.textfieldInputPracticeItemName.becomeFirstResponder()
-            }
+            self.rename(on: cell)
         } else if row == 3 {
-            PracticeItemLocalManager.manager.removePracticeItem(for: self.sectionedPracticeItems[self.sectionNames[indexPath.section]]![indexPath.row])
-            self.updateList()
-            self.parentViewModel.checkPlaylistForPracticeItemRemoved()
+            self.delete(on: cell)
         } else if row == 0 {
-            self.openDetails(self.sectionedPracticeItems[self.sectionNames[indexPath.section]]![indexPath.row].id)
+            self.openDetails(self.sectionedPracticeItems[self.sectionNames[cell.indexPath.section]]![cell.indexPath.row].id)
         } else if row == 2 {
-            self.duplicateItem(self.sectionedPracticeItems[self.sectionNames[indexPath.section]]![indexPath.row])
+            self.duplicateItem(cell.practiceItem, on: cell.indexPath)
         }
     }
     
@@ -493,9 +477,62 @@ extension PracticeItemSelectViewController: PracticeItemSelectCellDelegate {
             ModacityAnalytics.LogStringEvent("Selected Practice Item", extraParamName: "Name", extraParamValue: practice.name)
         }
     }
+    
+    func rename(on cell: PracticeItemSelectCell) {
+        self.practiceItemNameEditingCell = cell
+        self.editingSection = cell.indexPath.section
+        self.editingRow = cell.indexPath.row
+        cell.textfieldInputPracticeItemName.isHidden = false
+        cell.labelPracticeItemName.isHidden = true
+        cell.textfieldInputPracticeItemName.becomeFirstResponder()
+    }
+    
+    func delete(on cell: PracticeItemSelectCell) {
+        
+        if let items = self.practiceItems {
+            for row in 0..<items.count {
+                if items[row].id == cell.practiceItem.id {
+                    self.practiceItems!.remove(at: row)
+                    break
+                }
+            }
+        }
+        
+        if let items = self.filteredPracticeItems {
+            for row in 0..<items.count {
+                if items[row].id == cell.practiceItem.id {
+                    self.filteredPracticeItems!.remove(at: row)
+                    break
+                }
+            }
+        }
+        
+        for row in 0..<self.selectedPracticeItems.count {
+            if self.selectedPracticeItems[row].id == cell.practiceItem.id {
+                self.selectedPracticeItems.remove(at: row)
+                break
+            }
+        }
+        
+        let sectionName = self.sectionNames[cell.indexPath.section - (tableHeaderShowing ? 1 : 0)]
+        if let _ = self.sectionedPracticeItems[sectionName] {
+            self.sectionedPracticeItems[sectionName]!.remove(at: cell.indexPath.row)
+            if self.sectionedPracticeItems[sectionName]!.count == 0 {
+                self.sectionNames.remove(at: cell.indexPath.section - (tableHeaderShowing ? 1 : 0))
+            }
+            
+            self.tableViewMain.reloadData()
+        }
+        
+        DispatchQueue.global(qos: .background).async {
+            PracticeItemLocalManager.manager.removePracticeItem(for: cell.practiceItem)
+            self.parentViewModel.checkPlaylistForPracticeItemRemoved()
+        }
+    }
 }
 
 extension PracticeItemSelectViewController: SortOptionsViewControllerDelegate {
+    
     func changeOptions(key: SortKeyOption, option: SortOption) {
         self.sortOption = option
         self.sortKey = key
@@ -669,7 +706,7 @@ extension PracticeItemSelectViewController {
         return false
     }
     
-    func duplicateItem(_ item: PracticeItem) {
+    func duplicateItem(_ item: PracticeItem, on indexPath:IndexPath) {
         let newName = item.name ?? ""
         
         ModacityAnalytics.LogStringEvent("Duplicated Practice Item", extraParamName: "name", extraParamValue: newName)
@@ -683,40 +720,23 @@ extension PracticeItemSelectViewController {
         }
         
         self.practiceItems!.append(practiceItem)
+        self.filteredPracticeItems!.append(practiceItem)
         
-        PracticeItemLocalManager.manager.storePracticeItems(self.practiceItems!)
-        PracticeItemRemoteManager.manager.add(item: practiceItem)
+        let sectionName = self.sectionNames[indexPath.section - (tableHeaderShowing ? 1 : 0)]
+        if let _ = self.sectionedPracticeItems[sectionName] {
+            self.sectionedPracticeItems[sectionName]!.insert(practiceItem, at: indexPath.row + 1)
+        }
         
-        self.updateList()
+        self.tableViewMain.reloadData()
+        self.tableViewMain.scrollToRow(at: IndexPath(row: indexPath.row + 1, section:indexPath.section), at: .none, animated: false)
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            
-            var cell: PracticeItemSelectCell? = nil
-            var indexPath: IndexPath? = nil
-            for section in 0..<self.sectionNames.count {
-                var found = false
-                for row in 0..<self.sectionedPracticeItems[self.sectionNames[section]]!.count {
-                    let item = self.sectionedPracticeItems[self.sectionNames[section]]![row]
-                    if item.id == practiceItem.id {
-                        indexPath = IndexPath(row: row, section: section)
-                        cell = self.tableViewMain.cellForRow(at: indexPath!) as? PracticeItemSelectCell
-                        found = true
-                        break
-                    }
-                }
-                if found {
-                    break
-                }
-            }
-            
-            if let cell = cell {
-                self.practiceItemNameEditingCell = cell
-                self.editingSection = indexPath!.section
-                self.editingRow = indexPath!.row
-                cell.textfieldInputPracticeItemName.isHidden = false
-                cell.labelPracticeItemName.isHidden = true
-                cell.textfieldInputPracticeItemName.becomeFirstResponder()
-            }
+        if let cell = self.tableViewMain.cellForRow(at: IndexPath(row: indexPath.row + 1, section:indexPath.section)) as? PracticeItemSelectCell {
+            self.rename(on: cell)
+        }
+        
+        DispatchQueue.global(qos: .background).async {
+            PracticeItemLocalManager.manager.storePracticeItems(self.practiceItems!)
+            PracticeItemRemoteManager.manager.add(item: practiceItem)
         }
     }
 }

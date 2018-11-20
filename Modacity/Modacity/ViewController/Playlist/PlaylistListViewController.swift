@@ -93,7 +93,7 @@ extension PlaylistListViewController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PlaylistCell") as! PlaylistCell
-        let playlist = self.playlists[indexPath.row]//self.viewModel.playlist(at: indexPath.row)
+        let playlist = self.playlists[indexPath.row]
         cell.configure(with: playlist, isFavorite: playlist.isFavorite)
         cell.delegate = self
         return cell
@@ -195,23 +195,28 @@ extension PlaylistListViewController: PlaylistCellDelegate {
             self.editingCell = nil
         }
         
-        self.loadPlaylists()
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
-            for row in 0..<self.playlists.count {
-                let playlist = self.playlists[row]
-                if newPlaylist.id == playlist.id {
-                    if let cell = self.tableViewMain.cellForRow(at: IndexPath(row: row, section: 0)) as? PlaylistCell {
-                        self.rename(on: cell)
-                    }
-                    break
-                }
+        var insertingRow = 0
+        for row in 0..<self.playlists.count {
+            let oldPlaylist = self.playlists[row]
+            if playlist.id == oldPlaylist.id {
+                self.playlists.insert(newPlaylist, at: row + 1)
+                insertingRow = row + 1
+                break
             }
+        }
+        
+        self.tableViewMain.reloadData()
+        
+        let indexPath = IndexPath(row: insertingRow, section: 0)
+        self.tableViewMain.scrollToRow(at: indexPath, at: .top, animated: false)
+        if let cell = self.tableViewMain.cellForRow(at: indexPath) as? PlaylistCell {
+            self.rename(on: cell)
+        } else {
+            print("Cell is nil")
         }
     }
     
     func deletePlaylist(for playlist:Playlist) {
-        PlaylistLocalManager.manager.deletePlaylist(playlist)
         
         for row in 0..<self.playlists.count {
             if self.playlists[row].id == playlist.id {
@@ -219,8 +224,13 @@ extension PlaylistListViewController: PlaylistCellDelegate {
                 break
             }
         }
-        PlaylistLocalManager.manager.storePlaylists(self.playlists)
-        self.loadPlaylists()
+        
+        self.tableViewMain.reloadData()
+        
+        DispatchQueue.global(qos: .background).async {
+            PlaylistLocalManager.manager.deletePlaylist(playlist)
+            PlaylistLocalManager.manager.storePlaylists(self.playlists)
+        }
     }
     
     func loadPlaylists() {
