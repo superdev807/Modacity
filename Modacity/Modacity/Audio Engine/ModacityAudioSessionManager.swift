@@ -1,27 +1,35 @@
 //
-//  ModacityAudio.swift
+//  ModacityAudioSessionManager.swift
 //  Modacity
 //
-//  Created by Marc Gelfo on 3/13/18.
+//  Created by Dream Realizer on 21/11/18.
 //  Copyright © 2018 Modacity, Inc. All rights reserved.
 //
 
-import Foundation
+import UIKit
 import AVFoundation
 import SwiftMessages
 
-class ModacityAudioEngine {
-    static var engine : ModacityAudio = ModacityAudio()
-}
-
-class ModacityAudio {
+class ModacityAudioSessionManager: NSObject {
     
-    var audioEngine:AVAudioEngine!
-
-    func initEngine() {
-//        printAudioOutputs()
-        NotificationCenter.default.addObserver(self, selector: #selector(processRouteChange), name: Notification.Name.AVAudioSessionRouteChange, object: nil)
-        audioEngine = AVAudioEngine()
+    static let manager = ModacityAudioSessionManager()
+    
+    func initAudioSession() {
+        
+        let audioSession = AVAudioSession.sharedInstance()
+        do {
+            if #available(iOS 10.0, *) {
+                try audioSession.setCategory(AVAudioSessionCategoryAmbient, with: [.defaultToSpeaker, .allowBluetooth, .allowAirPlay, .allowBluetoothA2DP, .mixWithOthers])
+            } else {
+                try audioSession.setCategory(AVAudioSessionCategoryAmbient, with: [.defaultToSpeaker, .allowBluetooth, .mixWithOthers])
+            }
+            try audioSession.setActive(true)
+        } catch let error {
+            ModacityDebugger.debug("audio session error \(error)")
+        }
+    }
+    
+    func openRecording() {
         let audioSession = AVAudioSession.sharedInstance()
         do {
             if #available(iOS 10.0, *) {
@@ -35,37 +43,24 @@ class ModacityAudio {
         }
     }
     
-    func attachAudio(node: AVAudioNode) {
-        ModacityDebugger.debug("Audio node attached to engine.")
-        audioEngine.attach(node)
+    func closeRecording() {
+        initAudioSession()
     }
     
-    func connectAudio(node: AVAudioNode, format: AVAudioFormat) {
-        ModacityDebugger.debug("Audio node connected to engine.")
-        audioEngine.connect(node, to: audioEngine.mainMixerNode, format: format)
-        
-    }
-    
-    func connectMultipleNodes(node1: AVAudioNode, node2: AVAudioNode, format: AVAudioFormat) {
-        ModacityDebugger.debug("Audio node connecting to other node.")
-        audioEngine.connect(node1, to: node2, format: format)
-    }
-    
-    func checkEngineStatus() {
-        
-    }
-    
-    func startEngine() {
-        ModacityDebugger.debug("Audio engine started.")
+    func activeSession() {
         do {
-            try audioEngine.start()
+            try AVAudioSession.sharedInstance().setActive(true)
         } catch let err {
-            ModacityDebugger.debug("start audio engine error - \(err)")
+            ModacityDebugger.debug("audio session activation error \(err)")
         }
     }
     
-    func restartEngine() {
-        audioEngine.stop()
+    func deactiveSession() {
+        do {
+            try AVAudioSession.sharedInstance().setActive(false)
+        } catch let err {
+            ModacityDebugger.debug("audio session activation error \(err)")
+        }
     }
     
     func printAudioOutputs() {
@@ -108,10 +103,5 @@ class ModacityAudio {
         }
         view.configureContent(title: title, body: body)
         SwiftMessages.show(config: config, view: view)
-    }
-    
-    @objc func processRouteChange() {
-//        self.printAudioOutputs()
-        ModacityDebugger.debug("audio session route changed.")
     }
 }

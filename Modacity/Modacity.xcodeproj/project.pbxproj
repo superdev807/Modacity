@@ -103,6 +103,8 @@
 		AF7E51AF21A300A8003DC2CB /* PlaylistCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF7E51AD21A300A8003DC2CB /* PlaylistCell.swift */; };
 		AFB60BD1218AB66100434DE1 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB60BD0218AB66100434DE1 /* ResetPasswordViewController.swift */; };
 		AFB60BD2218AB66100434DE1 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB60BD0218AB66100434DE1 /* ResetPasswordViewController.swift */; };
+		AFC0E45C21A4FD3800FB2B4E /* ModacityAudioSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC0E45B21A4FD3800FB2B4E /* ModacityAudioSessionManager.swift */; };
+		AFC0E45D21A4FD3800FB2B4E /* ModacityAudioSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC0E45B21A4FD3800FB2B4E /* ModacityAudioSessionManager.swift */; };
 		AFC6CB6B2193CD2F002B8680 /* ImprovementWalkthroughViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC6CB6A2193CD2F002B8680 /* ImprovementWalkthroughViewController.swift */; };
 		AFC6CB6C2193CD2F002B8680 /* ImprovementWalkthroughViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC6CB6A2193CD2F002B8680 /* ImprovementWalkthroughViewController.swift */; };
 		AFEACDC1219E691E005B1F55 /* ModacityParentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEACDC0219E691E005B1F55 /* ModacityParentViewController.swift */; };
@@ -397,8 +399,6 @@
 		E2BA246220C8D1590048A5D5 /* MetrodroneParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2BA245C20C8D1590048A5D5 /* MetrodroneParameters.swift */; };
 		E2BA246320C8D1590048A5D5 /* MetrodronePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2BA245D20C8D1590048A5D5 /* MetrodronePlayer.swift */; };
 		E2BA246420C8D1590048A5D5 /* MetrodronePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2BA245D20C8D1590048A5D5 /* MetrodronePlayer.swift */; };
-		E2BA246520C8D1590048A5D5 /* ModacityAudioEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2BA245E20C8D1590048A5D5 /* ModacityAudioEngine.swift */; };
-		E2BA246620C8D1590048A5D5 /* ModacityAudioEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2BA245E20C8D1590048A5D5 /* ModacityAudioEngine.swift */; };
 		E2BA252F20C8D3870048A5D5 /* waveforms in Resources */ = {isa = PBXBuildFile; fileRef = E2BA252D20C8D3860048A5D5 /* waveforms */; };
 		E2BA253020C8D3870048A5D5 /* waveforms in Resources */ = {isa = PBXBuildFile; fileRef = E2BA252D20C8D3860048A5D5 /* waveforms */; };
 		E2BA253120C8D3870048A5D5 /* _Comp in Resources */ = {isa = PBXBuildFile; fileRef = E2BA252E20C8D3860048A5D5 /* _Comp */; };
@@ -544,6 +544,7 @@
 		AF6CC2F0219BBB7900592E1D /* SettingsTutorialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTutorialViewController.swift; sourceTree = "<group>"; };
 		AF7E51AD21A300A8003DC2CB /* PlaylistCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistCell.swift; sourceTree = "<group>"; };
 		AFB60BD0218AB66100434DE1 /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
+		AFC0E45B21A4FD3800FB2B4E /* ModacityAudioSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModacityAudioSessionManager.swift; sourceTree = "<group>"; };
 		AFC6CB6A2193CD2F002B8680 /* ImprovementWalkthroughViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImprovementWalkthroughViewController.swift; sourceTree = "<group>"; };
 		AFEACDC0219E691E005B1F55 /* ModacityParentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModacityParentViewController.swift; sourceTree = "<group>"; };
 		AFF7D35B2199BC3D00D5A6E2 /* DeliberatePracticeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliberatePracticeManager.swift; sourceTree = "<group>"; };
@@ -660,7 +661,6 @@
 		E2BA245B20C8D1590048A5D5 /* MetroDroneAudio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetroDroneAudio.swift; sourceTree = "<group>"; };
 		E2BA245C20C8D1590048A5D5 /* MetrodroneParameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetrodroneParameters.swift; sourceTree = "<group>"; };
 		E2BA245D20C8D1590048A5D5 /* MetrodronePlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetrodronePlayer.swift; sourceTree = "<group>"; };
-		E2BA245E20C8D1590048A5D5 /* ModacityAudioEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModacityAudioEngine.swift; sourceTree = "<group>"; };
 		E2BA252D20C8D3860048A5D5 /* waveforms */ = {isa = PBXFileReference; lastKnownFileType = folder; name = waveforms; path = AudioAssets/waveforms; sourceTree = "<group>"; };
 		E2BA252E20C8D3860048A5D5 /* _Comp */ = {isa = PBXFileReference; lastKnownFileType = folder; name = _Comp; path = AudioAssets/_Comp; sourceTree = "<group>"; };
 		E2C26BFC20CA15FD00B4EA66 /* Modacity.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Modacity.entitlements; sourceTree = "<group>"; };
@@ -1250,7 +1250,7 @@
 				E2BA245C20C8D1590048A5D5 /* MetrodroneParameters.swift */,
 				E2BA245D20C8D1590048A5D5 /* MetrodronePlayer.swift */,
 				E2BA245B20C8D1590048A5D5 /* MetroDroneAudio.swift */,
-				E2BA245E20C8D1590048A5D5 /* ModacityAudioEngine.swift */,
+				AFC0E45B21A4FD3800FB2B4E /* ModacityAudioSessionManager.swift */,
 			);
 			path = "Audio Engine";
 			sourceTree = "<group>";
@@ -1995,7 +1995,6 @@
 				8E58B44320446AE40022704B /* Authorizer.swift in Sources */,
 				E229399621879B9B00536097 /* SettingsAppDataViewController.swift in Sources */,
 				8E99A067204072E900A9A9B8 /* MetrodoneViewController.swift in Sources */,
-				E2BA246520C8D1590048A5D5 /* ModacityAudioEngine.swift in Sources */,
 				8EF559C7207E89D3006728E4 /* ViewDroneFrame.swift in Sources */,
 				8E84CA692057858400D2D1CB /* ImprovementViewController.swift in Sources */,
 				1068E0BC2146DED400D8823C /* NumberPadDoneCancel.swift in Sources */,
@@ -2018,6 +2017,7 @@
 				E2BA245F20C8D1590048A5D5 /* MetroDroneAudio.swift in Sources */,
 				8EB9DB9B204DABFD00689C1D /* PlaylistViewModel.swift in Sources */,
 				AF6CC2F1219BBB7900592E1D /* SettingsTutorialViewController.swift in Sources */,
+				AFC0E45C21A4FD3800FB2B4E /* ModacityAudioSessionManager.swift in Sources */,
 				8EA9E7CD20429F140019EFA5 /* FeedbackRootViewController.swift in Sources */,
 				E23FFD9121081053007713F0 /* PremiumUtils.swift in Sources */,
 				8ED83FC220031EF400052256 /* SplashViewController.swift in Sources */,
@@ -2163,7 +2163,6 @@
 				E21BE9DF2091796A000D1877 /* Authorizer.swift in Sources */,
 				E229399721879B9B00536097 /* SettingsAppDataViewController.swift in Sources */,
 				E21BE9E02091796A000D1877 /* MetrodoneViewController.swift in Sources */,
-				E2BA246620C8D1590048A5D5 /* ModacityAudioEngine.swift in Sources */,
 				E21BE9E22091796A000D1877 /* ViewDroneFrame.swift in Sources */,
 				E21BE9E32091796A000D1877 /* ImprovementViewController.swift in Sources */,
 				1068E0BD2146DED400D8823C /* NumberPadDoneCancel.swift in Sources */,
@@ -2186,6 +2185,7 @@
 				E2BA246020C8D1590048A5D5 /* MetroDroneAudio.swift in Sources */,
 				E21BE9EB2091796A000D1877 /* PlaylistViewModel.swift in Sources */,
 				AF6CC2F2219BBB7900592E1D /* SettingsTutorialViewController.swift in Sources */,
+				AFC0E45D21A4FD3800FB2B4E /* ModacityAudioSessionManager.swift in Sources */,
 				E21BE9EC2091796A000D1877 /* FeedbackRootViewController.swift in Sources */,
 				E23FFD9221081053007713F0 /* PremiumUtils.swift in Sources */,
 				E21BE9ED2091796A000D1877 /* SplashViewController.swift in Sources */,

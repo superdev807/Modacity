@@ -174,7 +174,7 @@ class PracticeViewController: ModacityParentViewController {
         self.addTabBar()
         
         ModacityAnalytics.LogEvent(.StartPracticeItem, extraParamName: "ItemName", extraParamValue: self.labelPracticeItemName.text)
-        NotificationCenter.default.addObserver(self, selector: #selector(resetMetrodroneEngine), name: Notification.Name.UIApplicationWillEnterForeground, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(resetMetrodroneEngine), name: Notification.Name.UIApplicationWillEnterForeground, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(processRouteChange), name: Notification.Name.AVAudioSessionRouteChange, object: nil)
     }
     
@@ -284,9 +284,22 @@ class PracticeViewController: ModacityParentViewController {
 // MARK: - Metrodone processing
 extension PracticeViewController: MetrodroneViewDelegate, SubdivisionSelectViewDelegate {
     
-    @objc func processRouteChange() {
-        DispatchQueue.main.async {
-            self.resetMetrodroneEngine()
+    @objc func processRouteChange(notification: Notification) {
+        
+        guard let userInfo = notification.userInfo,
+            let reasonValue = userInfo[AVAudioSessionRouteChangeReasonKey] as? UInt,
+            let reason = AVAudioSessionRouteChangeReason(rawValue:reasonValue) else {
+                return
+        }
+        switch reason {
+        case .newDeviceAvailable:
+            fallthrough
+        case .oldDeviceUnavailable:
+            ModacityDebugger.debug("Audio route changed!")
+            DispatchQueue.main.async {
+                self.resetMetrodroneEngine()
+            }
+        default: ()
         }
     }
     
@@ -394,8 +407,10 @@ extension PracticeViewController: MetrodroneViewDelegate, SubdivisionSelectViewD
                 self.view.layoutIfNeeded()
             }) { (finished) in
                 if finished {
-                    self.metrodroneView!.imageViewMetrodroneViewShowingArrow.image = UIImage(named:"icon_arrow_up")
-                    self.metrodroneView!.isHidden = true
+                    DispatchQueue.main.async {
+                        self.metrodroneView!.imageViewMetrodroneViewShowingArrow.image = UIImage(named:"icon_arrow_up")
+                        self.metrodroneView!.isHidden = true
+                    }
                 }
             }
         }
@@ -773,6 +788,9 @@ extension PracticeViewController {
     }
     
     func startRecording() {
+        
+        ModacityAudioSessionManager.manager.openRecording()
+        
         ModacityAnalytics.LogEvent(.RecordStart)
         let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
         let soundFilePath = dirPath[0] + "/recording.wav"
@@ -813,6 +831,7 @@ extension PracticeViewController {
         ModacityAnalytics.LogEvent(.RecordStop)
         recorder.stop()
         self.resetPlaybackRate()
+        ModacityAudioSessionManager.manager.closeRecording()
     }
 }
 

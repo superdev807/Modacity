@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import AVFoundation
 
 class MetrodoneViewController: ModacityParentViewController {
     @IBOutlet weak var constraintForHeaderImageViewHeight: NSLayoutConstraint!
@@ -44,7 +44,7 @@ class MetrodoneViewController: ModacityParentViewController {
     @IBOutlet weak var btnShowSubdivision: UIButton!
     var subdivisionView: SubdivisionSelectView? = nil
     
-    var metrodronePlayer: MetrodronePlayer? = nil// MetrodronePlayer()//MetrodronePlayer.instance
+    var metrodronePlayer: MetrodronePlayer? = nil
     
     var premiumLockView: PremiumUpgradeLockView!
     
@@ -55,7 +55,7 @@ class MetrodoneViewController: ModacityParentViewController {
         self.prepareMetrodronePlayer()
         self.configureLayout()
         NotificationCenter.default.addObserver(self, selector: #selector(processRouteChange), name: Notification.Name.AVAudioSessionRouteChange, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(processAudioEngineRefresh), name: Notification.Name.UIApplicationWillEnterForeground, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(processAudioEngineRefresh), name: Notification.Name.UIApplicationWillEnterForeground, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updatePremiumUpgradeLockView), name: AppConfig.NotificationNames.appNotificationPremiumStatusChanged, object: nil)
         self.updatePremiumUpgradeLockView()
     }
@@ -92,13 +92,26 @@ class MetrodoneViewController: ModacityParentViewController {
         self.prepareMetrodronePlayer()
     }
     
-    @objc func processRouteChange() {
-        ModacityDebugger.debug("Audio route changed!")
-        if self.metrodronePlayer != nil {
-            self.metrodronePlayer!.stopPlayer()
-            self.metrodronePlayer = nil
+    @objc func processRouteChange(notification: Notification) {
+        
+        guard let userInfo = notification.userInfo,
+            let reasonValue = userInfo[AVAudioSessionRouteChangeReasonKey] as? UInt,
+            let reason = AVAudioSessionRouteChangeReason(rawValue:reasonValue) else {
+                return
         }
-        self.prepareMetrodronePlayer()
+        switch reason {
+        case .newDeviceAvailable:
+            fallthrough
+        case .oldDeviceUnavailable:
+            ModacityDebugger.debug("Audio route changed!")
+            if self.metrodronePlayer != nil {
+                self.metrodronePlayer!.stopPlayer()
+//                self.metrodronePlayer = nil
+            }
+//            self.prepareMetrodronePlayer()
+        default: ()
+        }
+        
     }
     
     func prepareMetrodronePlayer() {

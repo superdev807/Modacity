@@ -9,11 +9,11 @@ import AVFoundation
 
 class MetroDroneAudio {
     
+    private var droneAudioEngine: AVAudioEngine
     private var dronePlayerNode:AVAudioPlayerNode
     private var clickPlayerNode:AVAudioPlayerNode
     private var audioFileMainClick:AVAudioFile
     private var audioFileSubClick:AVAudioFile
-    
     
     //var clickOnly: Bool = true
     var decay: Float = 0.5
@@ -21,27 +21,47 @@ class MetroDroneAudio {
     
     init (mainClickFile: URL, subClickFile: URL? = nil) {
         
+        droneAudioEngine = AVAudioEngine()
         audioFileMainClick = try! AVAudioFile(forReading: mainClickFile)
         audioFileSubClick = try! AVAudioFile(forReading: subClickFile ?? mainClickFile)
         dronePlayerNode = AVAudioPlayerNode()
         clickPlayerNode = AVAudioPlayerNode()
         
         connectWithEngine()
-    }
-
-
-    func connectWithEngine() {
-        let format = audioFileMainClick.processingFormat
-        ModacityAudioEngine.engine.attachAudio(node: self.clickPlayerNode)
-        ModacityAudioEngine.engine.connectAudio(node: clickPlayerNode, format: format)
         
-        ModacityAudioEngine.engine.attachAudio(node: self.dronePlayerNode)
-        ModacityAudioEngine.engine.connectAudio(node: dronePlayerNode, format: format)
-        
-        ModacityAudioEngine.engine.startEngine()
-        ModacityDebugger.debug("Engine started")
     }
     
+    
+    func connectWithEngine() {
+        let format = audioFileMainClick.processingFormat
+        droneAudioEngine.attach(self.clickPlayerNode)
+        droneAudioEngine.connect(self.clickPlayerNode, to: droneAudioEngine.mainMixerNode, format: format)
+        
+        droneAudioEngine.attach(self.dronePlayerNode)
+        droneAudioEngine.connect(dronePlayerNode, to: droneAudioEngine.mainMixerNode, format: format)
+        
+        do {
+            try droneAudioEngine.start()
+        } catch let error {
+            print("audio engine start error : \(error)")
+        }
+    }
+    
+    func checkAndRestartEngine() {
+        print("Engine Status: \(droneAudioEngine.isRunning ? "Running" : "Not Running")")
+        
+        if !droneAudioEngine.isRunning {
+            do {
+                droneAudioEngine.prepare()
+                try droneAudioEngine.start()
+            } catch let error {
+                print("retart error \(error)")
+            }
+            
+            
+        }
+        
+    }
     
     private func generateDronePulse(frameLength: AVAudioFrameCount, decayPoint: Float, droneType: WaveType = .Triangle) -> AVAudioPCMBuffer {
         let audioFormat = audioFileMainClick.processingFormat
@@ -197,6 +217,9 @@ class MetroDroneAudio {
     }
     
     func playInfiniteDrone(withLooping: Bool = true) {
+        
+        checkAndRestartEngine()
+        
         let buffer = generateSustaining()
         
         let option: AVAudioPlayerNodeBufferOptions = (withLooping) ? .loops : .interrupts
@@ -220,6 +243,7 @@ class MetroDroneAudio {
             self.dronePlayerNode.volume = Float(i)/Float(steps)
         }
     }
+    
     func fadeAudioOut() {
         let steps = 1000
         for i in 0...steps {
@@ -228,6 +252,9 @@ class MetroDroneAudio {
     }
     
     func stopInfiniteDrone() {
+        
+        checkAndRestartEngine()
+        
         fadeAudioOut()
         
        // DispatchQueue.main.async {
@@ -239,6 +266,8 @@ class MetroDroneAudio {
     
     func playSingleClick() {
 
+        checkAndRestartEngine()
+        
         if (!clickPlayerNode.isPlaying) {
             self.clickPlayerNode.play()
         }
@@ -248,6 +277,9 @@ class MetroDroneAudio {
     
     // play timed metrodrone
     func playPulsing(bpm: Double, includeDrone: Bool, ratio: Float, subdivision: Int) {
+        
+        checkAndRestartEngine()
+        
         let bufferClick = generateSubdividedClick(bpm: bpm, subdivisions: subdivision, includeDrone: includeDrone, droneRatio: ratio)
         
         if clickPlayerNode.isPlaying {
@@ -261,7 +293,10 @@ class MetroDroneAudio {
     }
     
     func stopPulsing() {
+        
+        checkAndRestartEngine()
         clickPlayerNode.stop()
+        
     }
     
     func stop() {

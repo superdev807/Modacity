@@ -62,13 +62,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         Intercom.registerUnidentifiedUser()
         
         ModacityAnalytics.LogEvent(.Launch)
-        ModacityAudioEngine.engine.initEngine()
         
         configureReachability()
         
         configureAppearances()
         
-//        print("suggestions - \(ImprovementViewModel().readDefaultSuggestions())")
+        ModacityAudioSessionManager.manager.initAudioSession()
         
         return true
     }

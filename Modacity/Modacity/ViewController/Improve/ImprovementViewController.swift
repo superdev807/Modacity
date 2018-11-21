@@ -176,13 +176,26 @@ class ImprovementViewController: ModacityParentViewController {
 // MARK: - Drone processing
 extension ImprovementViewController: MetrodroneViewDelegate, SubdivisionSelectViewDelegate {
 
-    @objc func processRouteChange() {
-        DispatchQueue.main.async {
-            if let player = self.metrodroneView?.metrodonePlayer {
-                player.stopPlayer()
-                self.metrodroneView?.metrodonePlayer = nil
-                self.metrodroneView?.prepareMetrodrone()
+    @objc func processRouteChange(notification: Notification) {
+        
+        guard let userInfo = notification.userInfo,
+            let reasonValue = userInfo[AVAudioSessionRouteChangeReasonKey] as? UInt,
+            let reason = AVAudioSessionRouteChangeReason(rawValue:reasonValue) else {
+                return
+        }
+        switch reason {
+        case .newDeviceAvailable:
+            fallthrough
+        case .oldDeviceUnavailable:
+            ModacityDebugger.debug("Audio route changed!")
+            DispatchQueue.main.async {
+                if let player = self.metrodroneView?.metrodonePlayer {
+                    player.stopPlayer()
+                    self.metrodroneView?.metrodonePlayer = nil
+                    self.metrodroneView?.prepareMetrodrone()
+                }
             }
+        default: ()
         }
     }
     
