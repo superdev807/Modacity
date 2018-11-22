@@ -134,9 +134,8 @@ class HomeViewController: ModacityParentViewController {
             self.labelWelcome.text = "Welcome \(me.displayName())!"
             
             DispatchQueue.global(qos: .background).async {
-                Amplitude.instance().setUserId(me.email)
-                
-                Intercom.registerUser(withEmail: me.email)
+                Amplitude.instance().setUserId(me.email ?? "guest")
+                Intercom.registerUser(withEmail: me.email ?? "guest")
                 let userAttributes = ICMUserAttributes()
                 userAttributes.name = me.displayName()
                 userAttributes.email = me.email

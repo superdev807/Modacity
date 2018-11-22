@@ -1,5 +1,8 @@
 const functions = require('firebase-functions');
 
+
+// function deploy command : firebase deploy -P staging
+
 // The Firebase Admin SDK to access the Firebase Realtime Database.
 const admin = require('firebase-admin');
 admin.initializeApp();
@@ -58,8 +61,8 @@ exports.userCreated = functions.database.ref('/users/{userId}/')
 
 exports.userGuestLoginUpdated = functions.database.ref('/users/{userId}/profile/guest')
 	.onUpdate((change, context) => {		
-		const newValue = change.after.data();
-      	const previousValue = change.before.data();
+		const newValue = change.after.val();
+      	const previousValue = change.before.val();
       	if (previousValue === true && newValue === false) {
       		var today = todayText();
       		admin.database().ref('/overview/stats/' + today + '/guests_changed')

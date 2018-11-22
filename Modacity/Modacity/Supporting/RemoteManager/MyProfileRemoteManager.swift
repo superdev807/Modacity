@@ -25,6 +25,10 @@ class MyProfileRemoteManager {
         self.refUser.child(userId).child("profile").setValue(data)
     }
     
+    func updateMyProfile(userId: String, data:[String:Any]) {
+        self.refUser.child(userId).child("profile").updateChildValues(data)
+    }
+    
     func configureMyProfileListener() {
         if let userId = MyProfileLocalManager.manager.userId() {
             ModacityDebugger.debug("user id - \(userId)")
@@ -34,8 +38,13 @@ class MyProfileRemoteManager {
                 if snapshot.exists() {
                     if let profile = snapshot.value as? [String:Any] {
                         MyProfileLocalManager.manager.me = Me(JSON: profile)
-                        Crashlytics.sharedInstance().setUserName(MyProfileLocalManager.manager.me?.name ?? "___")
-                        Crashlytics.sharedInstance().setUserEmail(MyProfileLocalManager.manager.me?.email ?? "__@__")
+                        if let name = MyProfileLocalManager.manager.me?.name {
+                            Crashlytics.sharedInstance().setUserName(name)
+                        }
+                        
+                        if let email = MyProfileLocalManager.manager.me?.email {
+                            Crashlytics.sharedInstance().setUserEmail(email)
+                        }
                         MyProfileRemoteManager.manager.setProfileLoaded()
                         NotificationCenter.default.post(name: AppConfig.NotificationNames.appNotificationProfileUpdated, object: nil)
                     }

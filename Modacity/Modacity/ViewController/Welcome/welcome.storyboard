@@ -187,7 +187,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <segue destination="Wwc-UZ-FlQ" kind="show" identifier="sid_get_started" id="VTN-8k-v8X"/>
+                                            <action selector="onSkip:" destination="sUY-cM-9k1" eventType="touchUpInside" id="MAW-qi-Khd"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pup-kb-CY9">
@@ -365,12 +365,25 @@ To get started, create an account.</string>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="qKV-nU-cMt">
                                 <rect key="frame" x="177.5" y="627" width="20" height="20"/>
                             </activityIndicatorView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iar-xQ-FQ2">
+                                <rect key="frame" x="315" y="30" width="44" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="44" id="giK-rD-Whh"/>
+                                    <constraint firstAttribute="height" constant="44" id="hpJ-hO-BlQ"/>
+                                </constraints>
+                                <state key="normal" image="icon_close"/>
+                                <connections>
+                                    <action selector="onClose:" destination="Wwc-UZ-FlQ" eventType="touchUpInside" id="HiH-4P-OLD"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.16470588235294117" green="0.19607843137254902" blue="0.32156862745098036" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="xUA-am-5jO" firstAttribute="bottom" secondItem="qKV-nU-cMt" secondAttribute="bottom" constant="20" id="1lZ-cJ-eIT"/>
                             <constraint firstItem="Pp0-zG-AEC" firstAttribute="leading" secondItem="xUA-am-5jO" secondAttribute="leading" id="E0x-WW-sRI"/>
                             <constraint firstItem="Spr-RC-lfe" firstAttribute="leading" secondItem="xUA-am-5jO" secondAttribute="leading" constant="50" id="INb-8m-xOP"/>
+                            <constraint firstItem="Iar-xQ-FQ2" firstAttribute="centerY" secondItem="gkQ-Xw-PQq" secondAttribute="centerY" id="JLX-7G-Ivc"/>
+                            <constraint firstItem="xUA-am-5jO" firstAttribute="trailing" secondItem="Iar-xQ-FQ2" secondAttribute="trailing" constant="16" id="O7G-CF-tiQ"/>
                             <constraint firstItem="MNa-a2-MCF" firstAttribute="trailing" secondItem="xUA-am-5jO" secondAttribute="trailing" id="Qbn-9I-rlo"/>
                             <constraint firstItem="gkQ-Xw-PQq" firstAttribute="top" secondItem="xUA-am-5jO" secondAttribute="top" constant="20" id="WW3-wV-aJz"/>
                             <constraint firstItem="MNa-a2-MCF" firstAttribute="centerY" secondItem="xUA-am-5jO" secondAttribute="centerY" id="XFa-ro-2s2"/>
@@ -386,7 +399,10 @@ To get started, create an account.</string>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="xUA-am-5jO"/>
                     </view>
+                    <navigationItem key="navigationItem" id="1Jw-Mf-Pz1"/>
                     <connections>
+                        <outlet property="buttonClose" destination="Iar-xQ-FQ2" id="Hba-oY-kGt"/>
+                        <outlet property="buttonEmailSignIn" destination="d77-5O-tBZ" id="pYK-mw-74R"/>
                         <outlet property="labelWaiting" destination="Spr-RC-lfe" id="xoX-j9-fkK"/>
                         <outlet property="spinnerFacebook" destination="Vea-OK-UcC" id="FTC-2J-FMs"/>
                         <outlet property="spinnerGoogle" destination="g5w-cm-SQP" id="1LX-VF-XG0"/>
@@ -397,6 +413,21 @@ To get started, create an account.</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bmU-ZA-uvm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="860" y="162.3688155922039"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="MeD-JL-eZC">
+            <objects>
+                <navigationController storyboardIdentifier="LoginScene" useStoryboardIdentifierAsRestorationIdentifier="YES" navigationBarHidden="YES" id="DiX-1P-y5S" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="5Y2-fN-chr">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Wwc-UZ-FlQ" kind="relationship" relationship="rootViewController" id="pUb-2I-uEp"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="odJ-yC-yRs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="860" y="-553"/>
         </scene>
         <!--Signin View Controller-->
         <scene sceneID="dY4-WY-2kx">
@@ -636,6 +667,7 @@ To get started, create an account.</string>
                     </view>
                     <connections>
                         <outlet property="buttonCreateAnAccount" destination="sQg-VS-Osk" id="4qe-vy-R37"/>
+                        <outlet property="buttonForgotPassword" destination="sMU-o3-p3b" id="XTa-Sj-Tok"/>
                         <outlet property="imageViewIconEmail" destination="DJz-Di-aBW" id="aSl-mx-XPH"/>
                         <outlet property="imageViewIconPassword" destination="BVr-do-XTg" id="XSb-2I-qJc"/>
                         <outlet property="labelWaiting" destination="caf-rs-90F" id="uIV-Nc-zBA"/>
@@ -646,6 +678,7 @@ To get started, create an account.</string>
                         <outlet property="textfieldPassword" destination="zS9-Aj-jBP" id="y5F-vS-Bft"/>
                         <outlet property="viewEmailAddressContainer" destination="gW3-Aq-dHt" id="bUg-sH-Ew9"/>
                         <outlet property="viewPasswordContainer" destination="yEg-RZ-ZFw" id="8ZT-gY-qST"/>
+                        <outlet property="viewSignIn" destination="r7T-Id-Lxw" id="fdi-hS-zIN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V27-kg-B0X" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -812,6 +845,7 @@ To get started, create an account.</string>
         <image name="btn_facebook" width="312" height="62"/>
         <image name="btn_google" width="312" height="62"/>
         <image name="icon_arrow_left" width="10" height="15"/>
+        <image name="icon_close" width="15" height="15"/>
         <image name="icon_email" width="17" height="13"/>
         <image name="icon_password" width="14" height="20"/>
         <image name="img_carousel_1" width="377" height="288"/>

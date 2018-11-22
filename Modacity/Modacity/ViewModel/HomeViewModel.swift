@@ -19,12 +19,18 @@ class HomeViewModel: ViewModel {
     
     var flags = [String:Bool]()
     
+    var alreadyDone = false
+    
     override init() {
         flags = [String:Bool]()
     }
     
     func check() {
+        if alreadyDone {
+            return
+        }
         if checkDone() {
+            alreadyDone = true
             self.clearNotification()
             NotificationCenter.default.post(Notification(name: AppConfig.NotificationNames.appNotificationHomePageValuesLoaded))
         }

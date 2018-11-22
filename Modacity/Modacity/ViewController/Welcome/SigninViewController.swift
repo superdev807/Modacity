@@ -25,6 +25,10 @@ class SigninViewController: ModacityParentViewController {
     
     @IBOutlet weak var labelWaiting: UILabel!
     @IBOutlet weak var spinnerProcessing: UIActivityIndicatorView!
+    
+    @IBOutlet weak var viewSignIn: UIView!
+    @IBOutlet weak var buttonForgotPassword: UIButton!
+    
     let waitingTimeLongLimit: Int = 5
     var waitingTimer: Timer? = nil
     
@@ -69,6 +73,14 @@ class SigninViewController: ModacityParentViewController {
         
         self.spinnerProcessing.stopAnimating()
         self.labelWaiting.isHidden = true
+        
+        if Authorizer.authorizer.isGuestLogin() {
+            self.viewSignIn.isHidden = true
+            self.buttonForgotPassword.isHidden = true
+        } else {
+            self.viewSignIn.isHidden = false
+            self.buttonForgotPassword.isHidden = false
+        }
     }
     
     func bindViewModel() {

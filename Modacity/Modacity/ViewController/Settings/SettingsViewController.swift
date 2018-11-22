@@ -390,14 +390,16 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func rateApp() {
-        guard let url = URL(string : "itms-apps://itunes.apple.com/app/" + AppConfig.ThirdParty.appIdOnAppStore) else {
-            return
-        }
+//        guard let url = URL(string : "itms-apps://itunes.apple.com/app/" + AppConfig.ThirdParty.appIdOnAppStore) else {
+//            return
+//        }
+        guard let writeReviewURL = URL(string: "https://itunes.apple.com/app/id\(AppConfig.ThirdParty.appIdOnAppStore)?action=write-review")
+            else { fatalError("Expected a valid URL") }
         guard #available(iOS 10, *) else {
-            UIApplication.shared.openURL(url)
+            UIApplication.shared.openURL(writeReviewURL)
             return
         }
-        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        UIApplication.shared.open(writeReviewURL, options: [:], completionHandler: nil)
     }
     
     func shareModacityApp() {

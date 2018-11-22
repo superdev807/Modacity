@@ -25,7 +25,7 @@ class AppOveralDataManager {
         UserDefaults.standard.synchronize()
     }
     
-    func signout() {
+    func signout(with3rdPartyLogout: Bool = true) {
         self.removeValues()
         PracticeItemLocalManager.manager.signout()
         RecordingsLocalManager.manager.signout()
@@ -37,8 +37,11 @@ class AppOveralDataManager {
         
         WalkthroughRemoteManager.manager.synchronized = false
         
-        GIDSignIn.sharedInstance().signOut()
-        FBSDKLoginManager().logOut()
+        if with3rdPartyLogout {
+            GIDSignIn.sharedInstance().signOut()
+            FBSDKLoginManager().logOut()
+        }
+        
         MyProfileRemoteManager.manager.signout()
         MyProfileLocalManager.manager.signout()
         Authorizer.authorizer.signout()
