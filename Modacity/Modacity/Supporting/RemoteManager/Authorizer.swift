@@ -40,6 +40,21 @@ class Authorizer: NSObject {
         return false
     }
     
+    func guestLogin(completion: @escaping (String?) -> ()) {
+        Auth.auth().signInAnonymously { (authDataResult, error) in
+            if let error = error {
+                completion(error.localizedDescription)
+            } else {
+                if let user = authDataResult?.user {
+                    MyProfileRemoteManager.manager.createMyProfile(userId: user.uid,
+                                                                   data: ["uid":user.uid,
+                                                                          "guest":true,
+                                                                          "created":"\(Date().timeIntervalSince1970)"])
+                }
+            }
+        }
+    }
+    
     func signup(email: String, password: String, completion: @escaping (String?) ->()) {
         Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
             if error == nil {
