@@ -14,6 +14,8 @@ class ModacityAudioSessionManager: NSObject {
     
     static let manager = ModacityAudioSessionManager()
     
+    var audioRecordingEnabled = false
+    
     func initAudioSession() {
         
         let audioSession = AVAudioSession.sharedInstance()
@@ -24,6 +26,7 @@ class ModacityAudioSessionManager: NSObject {
                 try audioSession.setCategory(AVAudioSessionCategoryAmbient, with: [.defaultToSpeaker, .allowBluetooth, .mixWithOthers])
             }
             try audioSession.setActive(true)
+            audioRecordingEnabled = false
         } catch let error {
             ModacityDebugger.debug("audio session error \(error)")
         }
@@ -37,6 +40,7 @@ class ModacityAudioSessionManager: NSObject {
             } else {
                 try audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord, with: [.defaultToSpeaker, .allowBluetooth, .mixWithOthers])
             }
+            audioRecordingEnabled = true
             try audioSession.setActive(true)
         } catch let error {
             ModacityDebugger.debug("audio session error \(error)")

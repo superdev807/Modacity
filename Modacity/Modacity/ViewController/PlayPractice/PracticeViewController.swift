@@ -173,8 +173,12 @@ class PracticeViewController: ModacityParentViewController {
         
         self.addTabBar()
         
+        ModacityAudioSessionManager.manager.openRecording()
+        
         ModacityAnalytics.LogEvent(.StartPracticeItem, extraParamName: "ItemName", extraParamValue: self.labelPracticeItemName.text)
 //        NotificationCenter.default.addObserver(self, selector: #selector(resetMetrodroneEngine), name: Notification.Name.UIApplicationWillEnterForeground, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationWillEnterBackground), name: Notification.Name.UIApplicationWillResignActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationWillEnterForeground), name: Notification.Name.UIApplicationWillEnterForeground, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(processRouteChange), name: Notification.Name.AVAudioSessionRouteChange, object: nil)
     }
     
@@ -255,7 +259,6 @@ class PracticeViewController: ModacityParentViewController {
         super.viewWillAppear(animated)
         UIApplication.shared.isIdleTimerDisabled = AppOveralDataManager.manager.settingsPhoneSleepPrevent()
         self.configureNotes()
-        
         if self.metrodroneParametersConfigured {
             NotificationCenter.default.addObserver(self, selector: #selector(droneSettingsChanged), name: AppConfig.NotificationNames.appNotificationMetrodroneParametersUpdated, object: nil)
         }
@@ -464,6 +467,8 @@ extension PracticeViewController {
             AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Please stop recording before leaving the page.")
             return
         }
+        
+        ModacityAudioSessionManager.manager.closeRecording()
         
         if self.playlistViewModel != nil {
             self.playlistViewModel.updateDuration(forPracticeItem: self.playlistViewModel.currentPracticeEntry.entryId, duration: self.overallPracticeTimeInSeconds)
@@ -789,8 +794,6 @@ extension PracticeViewController {
     
     func startRecording() {
         
-        ModacityAudioSessionManager.manager.openRecording()
-        
         ModacityAnalytics.LogEvent(.RecordStart)
         let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
         let soundFilePath = dirPath[0] + "/recording.wav"
@@ -831,7 +834,6 @@ extension PracticeViewController {
         ModacityAnalytics.LogEvent(.RecordStop)
         recorder.stop()
         self.resetPlaybackRate()
-        ModacityAudioSessionManager.manager.closeRecording()
     }
 }
 
@@ -1621,4 +1623,22 @@ extension PracticeViewController {
             practiceItem.updateDroneSettings(settings)
         }
     }
+}
+
+extension PracticeViewController {
+    
+    @objc func applicationWillEnterForeground() {
+        if !ModacityAudioSessionManager.manager.audioRecordingEnabled {
+            ModacityAudioSessionManager.manager.openRecording()
+        }
+    }
+    
+    @objc func applicationWillEnterBackground() {
+        if !self.isRecording {
+            if !self.isPlaying {
+                ModacityAudioSessionManager.manager.closeRecording()
+            }
+        }
+    }
+    
 }
