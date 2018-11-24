@@ -86,7 +86,7 @@ extension SettingsAppDataViewController {
                         OverallDataRemoteManager.manager.fullSync(completion: {
                             DispatchQueue.main.async { hud.label.text = "Synchronizing goals..." }
                             GoalsRemoteManager.manager.fullSync(completion: {
-                                DispatchQueue.main.async { hud.label.text = "Synchronzing practice data..." }
+                                DispatchQueue.main.async { hud.label.text = "Synchronizing practice history..." }
                                 DailyPracticingRemoteManager.manager.syncPlaylistPracticingData {
                                     DailyPracticingRemoteManager.manager.syncPracticeData {
                                         DispatchQueue.main.async {
