@@ -8,6 +8,7 @@
 
 import UIKit
 import GoogleSignIn
+import MBProgressHUD
 
 class CreateAccountViewController: ModacityParentViewController {
 
@@ -17,11 +18,14 @@ class CreateAccountViewController: ModacityParentViewController {
     @IBOutlet weak var spinnerProcessing: UIActivityIndicatorView!
     @IBOutlet weak var buttonClose: UIButton!
     @IBOutlet weak var buttonEmailSignIn: UIButton!
+    @IBOutlet weak var buttonSkip: UIButton!
     
     var switchFromGuest = false
     
     let waitingTimeLongLimit: Int = 5
     var waitingTimer: Timer? = nil
+    
+    var fromSignout = false
     
     private let viewModel = AuthViewModel()
     
@@ -40,7 +44,17 @@ class CreateAccountViewController: ModacityParentViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if fromSignout || Authorizer.authorizer.isGuestLogin() {
+            self.buttonSkip.isHidden = true
+        } else {
+            self.buttonSkip.isHidden = false
+        }
+    }
+    
     func initControls() {
+        
         self.spinnerFacebook.stopAnimating()
         self.spinnerGoogle.stopAnimating()
         self.spinnerProcessing.stopAnimating()
@@ -49,10 +63,13 @@ class CreateAccountViewController: ModacityParentViewController {
         if Authorizer.authorizer.isGuestLogin() {
             self.buttonClose.isHidden = false
             self.buttonEmailSignIn.setTitle("Sign up with email", for: .normal)
+            self.buttonSkip.isHidden = true
         } else {
             self.buttonClose.isHidden = true
             self.buttonEmailSignIn.setTitle("Sign in with email", for: .normal)
+            self.buttonSkip.isHidden = false
         }
+        
     }
     
     func bindViewModel() {
@@ -163,6 +180,24 @@ class CreateAccountViewController: ModacityParentViewController {
     @IBAction func onClose(_ sender: Any) {
         self.navigationController?.dismiss(animated: true, completion: nil)
     }
+    
+    @IBAction func onSkip(_ sender: Any) {
+        MBProgressHUD.showAdded(to: self.view, animated: true)
+        Authorizer.authorizer.guestLogin { (error) in
+            if let _ = error {
+                DispatchQueue.main.async {
+                    MBProgressHUD.hide(for: self.view, animated: true)
+                    AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Sorry, we have encountered problems.  Please try again later")
+                }
+            } else {
+                DispatchQueue.main.async {
+                    MBProgressHUD.hide(for: self.view, animated: true)
+                    self.openHome()
+                }
+            }
+        }
+    }
+    
 }
 
 extension CreateAccountViewController {     // actions

@@ -19,6 +19,9 @@
         <array key="Lato-Regular.ttf">
             <string>Lato-Regular</string>
         </array>
+        <array key="lato-bolditalic.ttf">
+            <string>Lato-BoldItalic</string>
+        </array>
         <array key="lato-italic.ttf">
             <string>Lato-Italic</string>
         </array>
@@ -245,6 +248,7 @@
                         <outlet property="constraintForContentViewTrailing" destination="txU-UN-Bzf" id="4k5-gZ-ZLu"/>
                         <outlet property="horizontalTableViewTutorial" destination="dBh-fy-jLL" id="H67-2O-L3F"/>
                         <outlet property="pageControl" destination="70T-l7-Mrn" id="nsf-hi-gGW"/>
+                        <segue destination="Wwc-UZ-FlQ" kind="show" identifier="sid_startup" id="m3p-n8-QsD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="l8y-O8-xnD" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -376,6 +380,19 @@ To get started, create an account.</string>
                                     <action selector="onClose:" destination="Wwc-UZ-FlQ" eventType="touchUpInside" id="HiH-4P-OLD"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="geo-rj-wNZ">
+                                <rect key="frame" x="155.5" y="506" width="64" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="64" id="Kex-0l-Epa"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Lato-BoldItalic" family="Lato" pointSize="15"/>
+                                <state key="normal" title="Skip">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onSkip:" destination="Wwc-UZ-FlQ" eventType="touchUpInside" id="hJb-gH-haD"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.16470588235294117" green="0.19607843137254902" blue="0.32156862745098036" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -383,8 +400,10 @@ To get started, create an account.</string>
                             <constraint firstItem="Pp0-zG-AEC" firstAttribute="leading" secondItem="xUA-am-5jO" secondAttribute="leading" id="E0x-WW-sRI"/>
                             <constraint firstItem="Spr-RC-lfe" firstAttribute="leading" secondItem="xUA-am-5jO" secondAttribute="leading" constant="50" id="INb-8m-xOP"/>
                             <constraint firstItem="Iar-xQ-FQ2" firstAttribute="centerY" secondItem="gkQ-Xw-PQq" secondAttribute="centerY" id="JLX-7G-Ivc"/>
+                            <constraint firstItem="geo-rj-wNZ" firstAttribute="top" secondItem="d77-5O-tBZ" secondAttribute="bottom" constant="8.5" id="NZc-y4-14G"/>
                             <constraint firstItem="xUA-am-5jO" firstAttribute="trailing" secondItem="Iar-xQ-FQ2" secondAttribute="trailing" constant="16" id="O7G-CF-tiQ"/>
                             <constraint firstItem="MNa-a2-MCF" firstAttribute="trailing" secondItem="xUA-am-5jO" secondAttribute="trailing" id="Qbn-9I-rlo"/>
+                            <constraint firstItem="geo-rj-wNZ" firstAttribute="centerX" secondItem="d77-5O-tBZ" secondAttribute="centerX" id="Tyg-Fv-84N"/>
                             <constraint firstItem="gkQ-Xw-PQq" firstAttribute="top" secondItem="xUA-am-5jO" secondAttribute="top" constant="20" id="WW3-wV-aJz"/>
                             <constraint firstItem="MNa-a2-MCF" firstAttribute="centerY" secondItem="xUA-am-5jO" secondAttribute="centerY" id="XFa-ro-2s2"/>
                             <constraint firstItem="qKV-nU-cMt" firstAttribute="centerX" secondItem="xUA-am-5jO" secondAttribute="centerX" id="ZtU-p7-fFo"/>
@@ -403,6 +422,7 @@ To get started, create an account.</string>
                     <connections>
                         <outlet property="buttonClose" destination="Iar-xQ-FQ2" id="Hba-oY-kGt"/>
                         <outlet property="buttonEmailSignIn" destination="d77-5O-tBZ" id="pYK-mw-74R"/>
+                        <outlet property="buttonSkip" destination="geo-rj-wNZ" id="oUf-LE-vCi"/>
                         <outlet property="labelWaiting" destination="Spr-RC-lfe" id="xoX-j9-fkK"/>
                         <outlet property="spinnerFacebook" destination="Vea-OK-UcC" id="FTC-2J-FMs"/>
                         <outlet property="spinnerGoogle" destination="g5w-cm-SQP" id="1LX-VF-XG0"/>
@@ -853,5 +873,6 @@ To get started, create an account.</string>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="ves-GS-lcD"/>
+        <segue reference="m3p-n8-QsD"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -96,6 +96,8 @@ class SigninViewController: ModacityParentViewController {
                     self.spinerCreateAccount.startAnimating()
                 case .succeeded:
                     self.openHome()
+                case .guestSignupFinished:
+                    self.guestSignupFinished()
                 default:
                     self.view.isUserInteractionEnabled = true
                     self.spinerSignIn.stopAnimating()
@@ -110,6 +112,16 @@ class SigninViewController: ModacityParentViewController {
             }
         }
         
+    }
+    
+    func guestSignupFinished() {
+        self.textfieldEmailAddress.text = ""
+        self.textfieldPassword.text = ""
+        
+        AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Your account has been successfully set!", handler: { (_) in
+            NotificationCenter.default.post(Notification(name: AppConfig.NotificationNames.appNotificationGuestAccountSwitched))
+            self.navigationController?.dismiss(animated: true, completion: nil)
+        })
     }
     
     func openHome() {
@@ -157,8 +169,12 @@ extension SigninViewController {     // actions
         if self.processInputValidation() {
             self.view.endEditing(true)
             let email = (self.textfieldEmailAddress.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
-            self.viewModel.createAccount(email: email, password: self.textfieldPassword.text ?? "")
-            ModacityAnalytics.LogStringEvent("Created Email Account", extraParamName: "address", extraParamValue: email)
+            if Authorizer.authorizer.isGuestLogin() {
+                self.viewModel.guestCreateAccount(email: email, password: self.textfieldPassword.text ?? "")
+            } else {
+                self.viewModel.createAccount(email: email, password: self.textfieldPassword.text ?? "")
+                ModacityAnalytics.LogStringEvent("Created Email Account", extraParamName: "address", extraParamValue: email)
+            }
         }
     }
     

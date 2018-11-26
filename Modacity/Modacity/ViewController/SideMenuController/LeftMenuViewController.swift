@@ -47,6 +47,8 @@ class LeftMenuViewController: ModacityParentViewController {
         if let nav = self.sideMenuController?.navigationController {
             for controller in nav.viewControllers {
                 if controller is CreateAccountViewController {
+                    let loginController = controller as! CreateAccountViewController
+                    loginController.fromSignout = true
                     nav.popToViewController(controller, animated: true)
                     return
                 }
@@ -54,6 +56,7 @@ class LeftMenuViewController: ModacityParentViewController {
             
             var controllers = nav.viewControllers
             let login = UIStoryboard(name: "welcome", bundle: nil).instantiateViewController(withIdentifier: "CreateAccountViewController") as! CreateAccountViewController
+            login.fromSignout = true
             controllers.insert(login, at: 0)
             nav.viewControllers = controllers
             nav.popToViewController(login, animated: true)

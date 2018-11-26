@@ -391,7 +391,15 @@ class TabBarViewController: UITabBarController {
             }
         }
         
-        openNewPlaylist()
+        if Authorizer.authorizer.isGuestLogin() {
+            if AppOveralDataManager.manager.firstPlaylistStored() {
+                self.openSignup()
+            } else {
+                self.openNewPlaylist()
+            }
+        } else {
+            openNewPlaylist()
+        }
     }
     
     func openNewPlaylist() {
@@ -417,5 +425,10 @@ class TabBarViewController: UITabBarController {
             controller.animatedShowing = true
             self.present(playlistCreateNew, animated: true, completion: nil)
         }
+    }
+    
+    func openSignup() {
+        let controller = UIStoryboard(name: "welcome", bundle: nil).instantiateViewController(withIdentifier: "LoginScene") as! UINavigationController
+        self.present(controller, animated: true, completion: nil)
     }
 }

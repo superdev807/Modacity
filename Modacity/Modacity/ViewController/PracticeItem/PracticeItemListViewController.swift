@@ -475,6 +475,13 @@ extension PracticeItemListViewController: UITextFieldDelegate {
     
     func addNewPracticeItem() {
         
+        if Authorizer.authorizer.isGuestLogin() {
+            AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Please login to add new practice item.") { (_) in
+                self.openSignup()
+            }
+            return
+        }
+        
         let newName = tableHeaderKeyword
         
         ModacityAnalytics.LogStringEvent("Created Practice Item", extraParamName: "name", extraParamValue: newName)
@@ -566,5 +573,10 @@ extension PracticeItemListViewController: SortOptionsViewControllerDelegate {
             PracticeItemLocalManager.manager.storePracticeItems(self.practiceItems!)
             PracticeItemRemoteManager.manager.add(item: practiceItem)
         }
+    }
+    
+    func openSignup() {
+        let controller = UIStoryboard(name: "welcome", bundle: nil).instantiateViewController(withIdentifier: "LoginScene") as! UINavigationController
+        self.tabBarController?.present(controller, animated: true, completion: nil)
     }
 }

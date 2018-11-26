@@ -70,6 +70,35 @@ class Authorizer: NSObject {
         }
     }
     
+    func guestSignup(email: String, password: String, completion: @escaping (String?) -> ()) {
+        let credential = EmailAuthProvider.credential(withEmail: email, password: password)
+        Auth.auth().currentUser?.linkAndRetrieveData(with: credential, completion: { (authDataResult, error) in
+            if let error = error {
+                let errorCode = UInt((error as NSError).code)
+                if errorCode == AuthErrorCode.emailAlreadyInUse.rawValue {
+                    completion("EXISITNG EMAIL")
+                } else if errorCode == AuthErrorCode.accountExistsWithDifferentCredential.rawValue || errorCode == AuthErrorCode.providerAlreadyLinked.rawValue {
+                    completion("This email address is already in use with a different service.")
+                } else {
+                    completion(error.localizedDescription)
+                }
+            } else {
+                if let user = authDataResult?.user {
+                    MyProfileRemoteManager.manager.updateMyProfile(userId: user.uid,
+                                                                   data: ["email":email, "signedup":"\(Date().timeIntervalSince1970)", "guest": false])
+                    
+                    DispatchQueue.global(qos: .background).async {
+                        MyProfileRemoteManager.manager.configureMyProfileListener()
+                    }
+                    completion(nil)
+                    
+                } else {
+                    completion("Encountered unexpected problems.  Please try again")
+                }
+            }
+        })
+    }
+    
     func signup(email: String, password: String, completion: @escaping (String?) ->()) {
         Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
             if error == nil {

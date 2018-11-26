@@ -16,6 +16,7 @@ enum AuthorizingStatus {
     case google
     case succeeded
     case guestSucceeded
+    case guestSignupFinished
     case error
 }
 
@@ -32,6 +33,18 @@ class AuthViewModel: ViewModel {
         didSet {
             if let callback = self.callBacks["authorizeError"] {
                 callback(.simpleChange, oldValue, authorizeError)
+            }
+        }
+    }
+    
+    func guestCreateAccount(email: String, password: String) {
+        self.authorizing = .signup
+        Authorizer.authorizer.guestSignup(email: email, password: password) { (err) in
+            if err == nil {
+                self.authorizing = .guestSignupFinished
+            } else {
+                self.authorizing = .error
+                self.authorizeError = err
             }
         }
     }

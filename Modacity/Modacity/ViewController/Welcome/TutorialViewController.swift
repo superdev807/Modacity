@@ -190,21 +190,7 @@ extension TutorialViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension TutorialViewController {
     func openNext() {
-        MBProgressHUD.showAdded(to: self.view, animated: true)
-        Authorizer.authorizer.guestLogin { (error) in
-            if let _ = error {
-                DispatchQueue.main.async {
-                    MBProgressHUD.hide(for: self.view, animated: true)
-                    AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Sorry, we have encountered problems.  Please try again later")
-                }
-            } else {
-                DispatchQueue.main.async {
-                    NotificationCenter.default.addObserver(self, selector: #selector(self.showHomePage), name: AppConfig.NotificationNames.appNotificationHomePageValuesLoaded, object: nil)
-                    AppOveralDataManager.manager.viewModel = HomeViewModel()
-                    AppOveralDataManager.manager.viewModel!.prepareValues()
-                }
-            }
-        }
+        self.performSegue(withIdentifier: "sid_startup", sender: nil)
     }
     
     @objc func showHomePage() {
