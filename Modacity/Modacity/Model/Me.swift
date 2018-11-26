@@ -32,7 +32,7 @@ class Me: Mappable {
     func displayName() -> String {
         if guest {
             return "Music Practicer"
-        } else
+        } else {
             if name == nil || name == "" {
                 let emailPref = email.components(separatedBy: "@")[0]
                 var names = [String]()
@@ -54,6 +54,7 @@ class Me: Mappable {
                 return names.joined(separator: " ")
             } else {
                 return name!
+            }
         }
     }
 }
