@@ -51,6 +51,19 @@ class ModacityAudioSessionManager: NSObject {
         initAudioSession()
     }
     
+    func checkRecordingIsAvailable() -> Bool {
+        if !audioRecordingEnabled {
+            return false
+        }
+        
+        let audioSession = AVAudioSession.sharedInstance()
+        if audioSession.category != AVAudioSessionCategoryPlayAndRecord {
+            return false
+        }
+        
+        return true
+    }
+    
     func activeSession() {
         do {
             try AVAudioSession.sharedInstance().setActive(true)

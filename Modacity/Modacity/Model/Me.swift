@@ -29,6 +29,9 @@ class Me: Mappable {
     
     func displayName() -> String {
         if name == nil || name == "" {
+            if email == nil {
+                return ""
+            }
             let emailPref = email.components(separatedBy: "@")[0]
             var names = [String]()
             var name = ""

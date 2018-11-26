@@ -176,9 +176,8 @@ class PracticeViewController: ModacityParentViewController {
         ModacityAudioSessionManager.manager.openRecording()
         
         ModacityAnalytics.LogEvent(.StartPracticeItem, extraParamName: "ItemName", extraParamValue: self.labelPracticeItemName.text)
-//        NotificationCenter.default.addObserver(self, selector: #selector(resetMetrodroneEngine), name: Notification.Name.UIApplicationWillEnterForeground, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(applicationWillEnterBackground), name: Notification.Name.UIApplicationWillResignActive, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(applicationWillEnterForeground), name: Notification.Name.UIApplicationWillEnterForeground, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationWillEnterBackground), name: Notification.Name.UIApplicationDidEnterBackground, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationWillEnterForeground), name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(processRouteChange), name: Notification.Name.AVAudioSessionRouteChange, object: nil)
     }
     
@@ -1628,7 +1627,8 @@ extension PracticeViewController {
 extension PracticeViewController {
     
     @objc func applicationWillEnterForeground() {
-        if !ModacityAudioSessionManager.manager.audioRecordingEnabled {
+        if !ModacityAudioSessionManager.manager.checkRecordingIsAvailable() {
+            ModacityDebugger.debug("Recording enabled again!")
             ModacityAudioSessionManager.manager.openRecording()
         }
     }
@@ -1636,6 +1636,7 @@ extension PracticeViewController {
     @objc func applicationWillEnterBackground() {
         if !self.isRecording {
             if !self.isPlaying {
+                ModacityDebugger.debug("Recording enabled closed")
                 ModacityAudioSessionManager.manager.closeRecording()
             }
         }

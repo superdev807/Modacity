@@ -136,11 +136,12 @@ class HomeViewController: ModacityParentViewController {
             DispatchQueue.global(qos: .background).async {
                 Amplitude.instance().setUserId(me.email)
                 
-                Intercom.registerUser(withEmail: me.email)
-                let userAttributes = ICMUserAttributes()
-                userAttributes.name = me.displayName()
-                userAttributes.email = me.email
-                Intercom.updateUser(userAttributes)
+                if me.email != nil {
+                    let userAttributes = ICMUserAttributes()
+                    userAttributes.name = me.displayName()
+                    userAttributes.email = me.email
+                    Intercom.updateUser(userAttributes)
+                }
                 
                 AppsFlyerTracker.shared()?.customerUserID = me.uid
                 AppsFlyerTracker.shared()?.setUserEmails([me.email], with: EmailCryptTypeSHA1)
