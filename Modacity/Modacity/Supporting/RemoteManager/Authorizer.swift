@@ -124,6 +124,52 @@ class Authorizer: NSObject {
         }
     }
     
+    var tempTokenForGuestRestore: String? = nil
+    
+    func guestSignIn(email: String, password: String, completion: @escaping (String?)->()) {
+        print("refresh token - \(Auth.auth().currentUser?.refreshToken ?? "NO REFRESH TOKEN")")
+        
+        self.tempTokenForGuestRestore = Auth.auth().currentUser?.refreshToken
+        
+        do {
+            try Auth.auth().signOut()
+        } catch let error {
+            ModacityDebugger.debug("Sign out error: guest - \(error.localizedDescription)")
+        }
+        
+        Auth.auth().signIn(withEmail: email, password: password) { (authDataResult, error) in
+            if let error = error {
+                do {
+                    try Auth.auth().signOut()
+                } catch let err {
+                    ModacityDebugger.debug("Sign out error: email sign - \(err.localizedDescription)")
+                }
+                if let token = self.tempTokenForGuestRestore {
+                    Auth.auth().signIn(withCustomToken: token, completion: { (authDataResult, signInError) in
+                        
+                        if let signInError = signInError {
+                            ModacityDebugger.debug("Error in sign in again - \(signInError.localizedDescription)")
+                        }
+                        
+                        let errorCode = UInt((error as NSError).code)
+                        if errorCode == AuthErrorCode.invalidEmail.rawValue || errorCode == AuthErrorCode.userNotFound.rawValue {
+                            completion("User not found!")
+                        } else if errorCode == AuthErrorCode.invalidCredential.rawValue || errorCode == AuthErrorCode.wrongPassword.rawValue {
+                            completion("Password is incorrect.")
+                        } else {
+                            completion(error.localizedDescription)
+                        }
+                    })
+                }
+            } else {
+                DispatchQueue.global(qos: .background).async {
+                    MyProfileRemoteManager.manager.configureMyProfileListener()
+                }
+                completion(nil)
+            }
+        }
+    }
+    
     func signin(email: String, password: String, completion: @escaping (String?)->()) {
         Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
             if error == nil {

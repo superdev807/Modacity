@@ -66,7 +66,7 @@ class AppOveralDataManager {
         UserDefaults.standard.removeObject(forKey: "practice_break_time")
         UserDefaults.standard.removeObject(forKey: "go_after_rating")
         UserDefaults.standard.removeObject(forKey: "start_practice_with_paused_timer")
-        
+        UserDefaults.standard.removeObject(forKey: "finished_first_playlist")
         UserDefaults.standard.synchronize()
     }
     
@@ -81,7 +81,8 @@ class AppOveralDataManager {
                           practiceBreakTime: Int,
                           tuningStandard: Double,
                           firstPlaylistStored: Bool,
-                          startPracticeWithTimerPaused: Bool) {
+                          startPracticeWithTimerPaused: Bool,
+                          finishedFirstPlaylist: Bool) {
         
         UserDefaults.standard.set(totalImprovements, forKey: "total_improvements")
         UserDefaults.standard.set(notPreventPhoneSleep, forKey: "not_prevent_phone_sleep")
@@ -95,6 +96,7 @@ class AppOveralDataManager {
         UserDefaults.standard.set(tuningStandard, forKey: "tuning_standard")
         UserDefaults.standard.set(firstPlaylistStored, forKey: "first_playlist_stored")
         UserDefaults.standard.set(startPracticeWithTimerPaused, forKey: "start_practice_with_paused_timer")
+        UserDefaults.standard.set(finishedFirstPlaylist, forKey: "finished_first_playlist")
         UserDefaults.standard.synchronize()
     }
     
@@ -192,6 +194,17 @@ class AppOveralDataManager {
         UserDefaults.standard.set(value + 1, forKey: key)
         UserDefaults.standard.synchronize()
     }
+    
+    func finishedFirstPlaylist() -> Bool {
+        return UserDefaults.standard.bool(forKey: "finished_first_playlist")
+    }
+    
+    func setFinishedFirstPlaylist() {
+        UserDefaults.standard.set(true, forKey: "finished_first_playlist")
+        UserDefaults.standard.synchronize()
+        OverallDataRemoteManager.manager.postSettingsValueToServer(key: "finished_first_playlist", value: true)
+    }
+    
     
     // Walk through settings
     

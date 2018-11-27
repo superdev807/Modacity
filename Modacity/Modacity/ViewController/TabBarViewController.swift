@@ -391,18 +391,16 @@ class TabBarViewController: UITabBarController {
             }
         }
         
-        if Authorizer.authorizer.isGuestLogin() {
-            if AppOveralDataManager.manager.firstPlaylistStored() {
-                self.openSignup()
-            } else {
-                self.openNewPlaylist()
-            }
-        } else {
-            openNewPlaylist()
-        }
+        self.openNewPlaylist()
     }
     
     func openNewPlaylist() {
+        
+        if Authorizer.authorizer.isGuestLogin() && AppOveralDataManager.manager.finishedFirstPlaylist() {
+            self.openSignup()
+            return
+        }
+        
         let playlistCreateNew = UIStoryboard(name:"playlist", bundle: nil).instantiateViewController(withIdentifier: "playlist_control_scene") as! UINavigationController
         let controller = playlistCreateNew.viewControllers[0] as! PlaylistContentsViewController
         controller.shouldStartFromPracticeSelection = true

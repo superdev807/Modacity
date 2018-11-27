@@ -15,8 +15,8 @@ class PlaylistFinishViewController: ModacityParentViewController {
     @IBOutlet weak var labelSessionDuration: UILabel!
     @IBOutlet weak var labelSessionImprovements: UILabel!
     @IBOutlet weak var labelDurationUnits: UILabel!
-    
     @IBOutlet weak var buttonNotes: UIButton!
+    
     var playlistDetailsViewModel: PlaylistContentsViewModel!
     
     @IBOutlet weak var labelQuote: UILabel!
@@ -70,6 +70,10 @@ class PlaylistFinishViewController: ModacityParentViewController {
         let quote = MusicQuotesManager.manager.randomeQuote()
         self.labelQuote.text = quote["quote"]
         self.labelQuotePersonName.text = quote["person"]
+        
+        if !AppOveralDataManager.manager.finishedFirstPlaylist() {
+            AppOveralDataManager.manager.setFinishedFirstPlaylist()
+        }
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -89,7 +93,12 @@ class PlaylistFinishViewController: ModacityParentViewController {
     }
     
     @IBAction func onSkip(_ sender: Any) {
-        self.navigationController?.dismiss(animated: true, completion: nil)
+        
+        if Authorizer.authorizer.isGuestLogin() {
+            self.processSignup()
+        } else {
+            self.navigationController?.dismiss(animated: true, completion: nil)
+        }
         ModacityAnalytics.LogStringEvent("Congrats Screen Skip Button")
     }
     
@@ -107,5 +116,10 @@ class PlaylistFinishViewController: ModacityParentViewController {
                                        rows: [["icon":"icon_notes", "text":"Details"]]) { (row) in
                                                 self.openNotes()
         }
+    }
+    
+    func processSignup() {
+        let controller = UIStoryboard(name: "welcome", bundle: nil).instantiateViewController(withIdentifier: "LoginScene") as! UINavigationController
+        self.present(controller, animated: true, completion: nil)
     }
 }

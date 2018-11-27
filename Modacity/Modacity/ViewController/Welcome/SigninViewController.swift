@@ -74,13 +74,14 @@ class SigninViewController: ModacityParentViewController {
         self.spinnerProcessing.stopAnimating()
         self.labelWaiting.isHidden = true
         
-        if Authorizer.authorizer.isGuestLogin() {
-            self.viewSignIn.isHidden = true
-            self.buttonForgotPassword.isHidden = true
-        } else {
-            self.viewSignIn.isHidden = false
-            self.buttonForgotPassword.isHidden = false
-        }
+//        if Authorizer.authorizer.isGuestLogin() {
+//            self.viewSignIn.isHidden = true
+//            self.buttonForgotPassword.isHidden = true
+//        } else {
+//            self.viewSignIn.isHidden = false
+//            self.buttonForgotPassword.isHidden = false
+//        }
+        
     }
     
     func bindViewModel() {
@@ -181,8 +182,18 @@ extension SigninViewController {     // actions
     @IBAction func onSignin(_ sender: Any) {
         if self.processInputValidation() {
             self.view.endEditing(true)
+            
             let email = (self.textfieldEmailAddress.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
-            self.viewModel.signin(email: email, password: self.textfieldPassword.text ?? "")
+            if Authorizer.authorizer.isGuestLogin() {
+                let alert = UIAlertController(title: nil, message: "You will lost data that you've practiced in this time login. Are you sure to continue to login with your old account?", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (_) in
+                    self.viewModel.guestSignIn(email: email, password: self.textfieldPassword.text ?? "")
+                }))
+                alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            } else {
+                self.viewModel.signin(email: email, password: self.textfieldPassword.text ?? "")
+            }
             ModacityAnalytics.LogStringEvent("Login Email", extraParamName: "address", extraParamValue:email)
         }
     }

@@ -61,6 +61,18 @@ class AuthViewModel: ViewModel {
         }
     }
     
+    func guestSignIn(email: String, password: String) {
+        authorizing = .signin
+        Authorizer.authorizer.guestSignIn(email: email, password: password) { (error) in
+            if error == nil {
+                self.authorizing = .succeeded
+            } else {
+                self.authorizing = .error
+                self.authorizeError = error
+            }
+        }
+    }
+    
     func signin(email: String, password: String) {
         authorizing = .signin
         Authorizer.authorizer.signin(email: email, password: password) { (err) in
