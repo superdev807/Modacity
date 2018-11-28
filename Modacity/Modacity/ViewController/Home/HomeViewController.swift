@@ -175,6 +175,8 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         if let label = cell.viewWithTag(10) as? UILabel {
             if collectionView == self.collectionViewRecentPlaylists {
                 label.text = self.recentPlaylists[indexPath.row].name
+                let typeLabel = cell.viewWithTag(12) as! UILabel
+                typeLabel.text = "SESSION"
             } else {
                 if let iconView = cell.viewWithTag(11) as? UIImageView {
                     let item = self.favoriteItems[indexPath.row]

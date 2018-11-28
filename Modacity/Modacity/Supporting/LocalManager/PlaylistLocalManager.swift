@@ -100,6 +100,17 @@ class PlaylistLocalManager: NSObject {
     
     func deletePlaylist(_ playlist: Playlist) {
         playlist.archived = true
+        
+        if let recentPlaylistIds = UserDefaults.standard.object(forKey: "recent_playlist_ids") as? [String] {
+            var recentPlaylists = [Playlist]()
+            for playlistId in recentPlaylistIds {
+                if playlistId != playlist.id {
+                    recentPlaylists.append(playlist)
+                }
+            }
+            UserDefaults.standard.set(recentPlaylistIds, forKey: "recent_playlist_ids")
+        }
+        
         UserDefaults.standard.set(playlist.toJSON(), forKey: "playlist:id:" + playlist.id)
         UserDefaults.standard.synchronize()
         PlaylistRemoteManager.manager.update(item: playlist)//removePlaylist(for: playlist.id)
@@ -118,7 +129,7 @@ class PlaylistLocalManager: NSObject {
         if let playlists = self.loadPlaylists() {
             var favoritePlaylists = [Playlist]()
             for playlist in playlists {
-                if playlist.isFavorite {
+                if !playlist.archived && playlist.isFavorite {
                     favoritePlaylists.append(playlist)
                 }
             }
@@ -133,7 +144,9 @@ class PlaylistLocalManager: NSObject {
             var recentPlaylists = [Playlist]()
             for playlistId in recentPlaylistIds {
                 if let playlist = self.loadPlaylist(forId: playlistId) {
-                    recentPlaylists.append(playlist)
+                    if !playlist.archived {
+                        recentPlaylists.append(playlist)
+                    }
                 }
             }
             return recentPlaylists
@@ -178,14 +191,20 @@ class PlaylistLocalManager: NSObject {
     func processPracticeItemRemove(_ practiceItemId: String) {
         if let playlists = self.loadPlaylists() {
             for playlist in playlists {
+                var updated = false
                 if let practiceEntries = playlist.playlistPracticeEntries {
                     var newEntries = [PlaylistPracticeEntry]()
                     for entry in practiceEntries {
                         if entry.practiceItemId != practiceItemId {
                             newEntries.append(entry)
+                        } else {
+                            updated = true
                         }
                     }
                     playlist.playlistPracticeEntries = newEntries
+                }
+                if updated {
+                    playlist.updateMe()
                 }
             }
             self.storePlaylists(playlists)

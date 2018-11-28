@@ -38,7 +38,7 @@ class DeliberatePracticeRemoteManager: NSObject {
     
     func addDeliberatePractice(_ practice: DeliberatePracticeSuggestion) {
         if let userId = MyProfileLocalManager.manager.userId() {
-            self.refUser.child(userId).child("deliberate").child(practice.suggestion.lowercased()).setValue(practice.toJSON())
+            self.refUser.child(userId).child("deliberate").child(UUID().uuidString).setValue(practice.toJSON())
         }
     }
     

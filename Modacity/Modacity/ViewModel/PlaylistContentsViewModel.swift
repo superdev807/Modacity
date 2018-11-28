@@ -24,7 +24,19 @@ class PlaylistContentsViewModel: ViewModel {
     
     var playlistPracticeEntries:[PlaylistPracticeEntry] = [PlaylistPracticeEntry]() {
         didSet {
-            self.playlist.playlistPracticeEntries = playlistPracticeEntries
+            
+            
+            var cleanedEntries = [PlaylistPracticeEntry]()//playlistPracticeEntries
+            
+            for entry in playlistPracticeEntries {
+                if let _ = entry.practiceItem() {
+                    cleanedEntries.append(entry)
+                }
+            }
+            
+            playlistPracticeEntries = cleanedEntries
+            self.playlistPracticeEntries = cleanedEntries
+            
             self.storePlaylist()
             if !disableCallbackForRowEditing {
                 if let callback = self.callBacks["practiceItems"] {

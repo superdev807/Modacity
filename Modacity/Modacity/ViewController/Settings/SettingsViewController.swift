@@ -338,7 +338,7 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
             } else if indexPath.row == 1 {
                 self.rateApp()
             } else if indexPath.row == 2 {
-                self.shareModacityApp()
+                AppUtils.shareModacityApp(from: self)
             }
         } else if indexPath.section == 1 {
             if indexPath.row == 2 {
@@ -398,25 +398,6 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
             return
         }
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
-    }
-    
-    func shareModacityApp() {
-        //asdasdasd REFACTOR ME!!! this is duplicate code from About menu screen!!!
-        let textString:String = "I practice with Modacity - Self-recording, MetroDrone, Timers, Deliberate Practice. You can too!\n"
-        
-        let stringWithLink:String = "https://itunes.apple.com/us/app/modacity-pro-music-practice/id1351617981?ls=1&mt=8"
-        
-        let activityController = UIActivityViewController(activityItems: [textString, stringWithLink], applicationActivities:nil)
-        
-        activityController.completionWithItemsHandler = { (nil, completed, _, error)
-            in
-            if completed {
-                ModacityAnalytics.LogStringEvent("Shared Modacity App! Yay!")
-            } else {
-                ModacityAnalytics.LogStringEvent("Canceled App Share")
-            }
-        }
-        present(activityController, animated: true)
     }
     
     func openBreakReminderSettingsPage() {

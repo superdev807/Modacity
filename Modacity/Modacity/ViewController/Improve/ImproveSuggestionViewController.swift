@@ -76,8 +76,13 @@ class ImproveSuggestionViewController: ModacityParentViewController {
     }
     
     @IBAction func onDidEndOnExit(_ sender: Any) {
-        self.viewModel.selectedSuggestion = self.textfieldInputBox.text ?? ""
-        self.performSegue(withIdentifier: "sid_next", sender: nil)
+        let suggestion = (self.textfieldInputBox.text ?? "").trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        if suggestion == "" {
+            AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Please enter a sugestion.")
+        } else {
+            self.viewModel.selectedSuggestion = suggestion
+            self.performSegue(withIdentifier: "sid_next", sender: nil)
+        }
     }
     
     @IBAction func onEditingChangedOnField(_ sender: Any) {
