@@ -21,9 +21,9 @@ class ModacityAudioSessionManager: NSObject {
         let audioSession = AVAudioSession.sharedInstance()
         do {
             if #available(iOS 10.0, *) {
-                try audioSession.setCategory(AVAudioSessionCategoryAmbient, with: [.defaultToSpeaker, .allowBluetooth, .allowAirPlay, .allowBluetoothA2DP, .mixWithOthers])
+                try audioSession.setCategory(AVAudioSessionCategoryPlayback, with: [.defaultToSpeaker, .allowBluetooth, .allowAirPlay, .allowBluetoothA2DP, .mixWithOthers])
             } else {
-                try audioSession.setCategory(AVAudioSessionCategoryAmbient, with: [.defaultToSpeaker, .allowBluetooth, .mixWithOthers])
+                try audioSession.setCategory(AVAudioSessionCategoryPlayback, with: [.defaultToSpeaker, .allowBluetooth, .mixWithOthers])
             }
             try audioSession.setActive(true)
             audioRecordingEnabled = false
