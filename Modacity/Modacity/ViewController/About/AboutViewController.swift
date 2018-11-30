@@ -68,24 +68,6 @@ class AboutViewController: ModacityParentViewController {
         }
     }
     
-    func shareModacityApp() {
-        //asdasdasd REFACTOR ME!!!
-        let textString:String = "I practice with Modacity - Self-recording, MetroDrone, Timers, Deliberate Practice. You can too!\n"
-        
-        let stringWithLink:String = "https://itunes.apple.com/us/app/modacity-pro-music-practice/id1351617981?ls=1&mt=8"
-        
-        let activityController = UIActivityViewController(activityItems: [textString, stringWithLink], applicationActivities:nil)
-        
-        activityController.completionWithItemsHandler = { (nil, completed, _, error)
-            in
-            if completed {
-                ModacityAnalytics.LogStringEvent("Shared Modacity App! Yay!")
-            } else {
-                ModacityAnalytics.LogStringEvent("Canceled App Share")
-            }
-        }
-        present(activityController, animated: true)
-    }
 }
 
 extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
@@ -116,16 +98,7 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.row == 0 {
-            /*
-            if #available(iOS 10.0, *) {
-                UIApplication.shared.open(URL(string:AppConfig.appConfigShareTheAppUrlLink)!, options: [:], completionHandler: nil)
-            } else {
-                // Fallback on earlier versions
-                UIApplication.shared.openURL(URL(string:AppConfig.appConfigShareTheAppUrlLink)!)
-            }*/
-            
-            
-            //AppDelegate.
+            AppUtils.shareModacityApp(from: self)
         } else if indexPath.row == 1 {
             if #available(iOS 10.0, *) {
                 UIApplication.shared.open(URL(string:AppConfig.Links.appConfigInstagramLink)!, options: [:], completionHandler: nil)

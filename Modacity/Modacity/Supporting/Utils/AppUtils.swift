@@ -147,4 +147,22 @@ class AppUtils: NSObject {
         formatter.timeStyle = .none
         return formatter.date(from: string)
     }
+    
+    class func shareModacityApp(from controller: UIViewController) {
+        let textString:String = "I practice with Modacity - Self-recording, MetroDrone, Timers, Deliberate Practice. You can too!\n"
+        
+        let stringWithLink:String = "https://itunes.apple.com/us/app/modacity-pro-music-practice/id1351617981?ls=1&mt=8"
+        
+        let activityController = UIActivityViewController(activityItems: [textString, stringWithLink], applicationActivities:nil)
+        
+        activityController.completionWithItemsHandler = { (nil, completed, _, error)
+            in
+            if completed {
+                ModacityAnalytics.LogStringEvent("Shared Modacity App! Yay!")
+            } else {
+                ModacityAnalytics.LogStringEvent("Canceled App Share")
+            }
+        }
+        controller.present(activityController, animated: true)
+    }
 }
