@@ -65,7 +65,7 @@ class AuthViewModel: ViewModel {
         authorizing = .signin
         Authorizer.authorizer.guestSignIn(email: email, password: password) { (error) in
             if error == nil {
-                self.authorizing = .succeeded
+                self.authorizing = .guestSignupFinished
             } else {
                 self.authorizing = .error
                 self.authorizeError = error
