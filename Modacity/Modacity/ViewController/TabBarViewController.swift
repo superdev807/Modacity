@@ -391,10 +391,16 @@ class TabBarViewController: UITabBarController {
             }
         }
         
-        openNewPlaylist()
+        self.openNewPlaylist()
     }
     
     func openNewPlaylist() {
+        
+        if Authorizer.authorizer.isGuestLogin() && AppOveralDataManager.manager.finishedFirstPlaylist() {
+            self.openSignup()
+            return
+        }
+        
         let playlistCreateNew = UIStoryboard(name:"playlist", bundle: nil).instantiateViewController(withIdentifier: "playlist_control_scene") as! UINavigationController
         let controller = playlistCreateNew.viewControllers[0] as! PlaylistContentsViewController
         controller.shouldStartFromPracticeSelection = true
@@ -417,5 +423,10 @@ class TabBarViewController: UITabBarController {
             controller.animatedShowing = true
             self.present(playlistCreateNew, animated: true, completion: nil)
         }
+    }
+    
+    func openSignup() {
+        let controller = UIStoryboard(name: "welcome", bundle: nil).instantiateViewController(withIdentifier: "LoginScene") as! UINavigationController
+        self.present(controller, animated: true, completion: nil)
     }
 }

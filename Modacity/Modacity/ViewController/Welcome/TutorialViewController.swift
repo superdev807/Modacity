@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 class TutorialCell: UITableViewCell {
     
@@ -95,11 +96,17 @@ class TutorialViewController: ModacityParentViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "sid_get_started" {
             AppOveralDataManager.manager.didReadTutorial()
-            ModacityAnalytics.LogStringEvent("Welcome - Pressed 'SKIP'")
         }
     }
     
+    @IBAction func onSkip(_ sender: Any) {
+        AppOveralDataManager.manager.didReadTutorial()
+        ModacityAnalytics.LogStringEvent("Welcome - Pressed 'SKIP'")
+        self.openNext()
+    }
+    
     @IBAction func onNext(_ sender: Any) {
+        AppOveralDataManager.manager.didReadTutorial()
         ModacityAnalytics.LogStringEvent("Welcome - Pressed 'NEXT'")
         if let visibleRows = self.horizontalTableViewTutorial.indexPathsForVisibleRows {
             let currentPageNum = visibleRows[0].row
@@ -107,7 +114,8 @@ class TutorialViewController: ModacityParentViewController {
                 self.horizontalTableViewTutorial.setContentOffset(CGPoint(x: 0, y: horizontalTableViewTutorial.frame.size.width * CGFloat(currentPageNum + 1)), animated: true)
                 self.pageControl.currentPage = currentPageNum + 1
             } else {
-                self.performSegue(withIdentifier: "sid_get_started", sender: nil)
+                self.openNext()
+//                self.performSegue(withIdentifier: "sid_get_started", sender: nil)
             }
         }
     }
@@ -177,5 +185,20 @@ extension TutorialViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    }
+}
+
+extension TutorialViewController {
+    func openNext() {
+        self.performSegue(withIdentifier: "sid_startup", sender: nil)
+    }
+    
+    @objc func showHomePage() {
+        DispatchQueue.main.async {
+            MBProgressHUD.hide(for: self.view, animated: true)
+            NotificationCenter.default.removeObserver(self, name: AppConfig.NotificationNames.appNotificationHomePageValuesLoaded, object: nil)
+            let controller = UIStoryboard(name: "sidemenu", bundle: nil).instantiateViewController(withIdentifier: "SideMenuController") as! SideMenuController
+            self.navigationController?.pushViewController(controller, animated: true)
+        }
     }
 }

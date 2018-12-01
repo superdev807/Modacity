@@ -8,6 +8,7 @@
 
 import UIKit
 import GoogleSignIn
+import MBProgressHUD
 
 class CreateAccountViewController: ModacityParentViewController {
 
@@ -15,9 +16,16 @@ class CreateAccountViewController: ModacityParentViewController {
     @IBOutlet weak var spinnerGoogle: UIActivityIndicatorView!
     @IBOutlet weak var labelWaiting: UILabel!
     @IBOutlet weak var spinnerProcessing: UIActivityIndicatorView!
+    @IBOutlet weak var buttonClose: UIButton!
+    @IBOutlet weak var buttonEmailSignIn: UIButton!
+    @IBOutlet weak var buttonSkip: UIButton!
+    
+    var switchFromGuest = false
     
     let waitingTimeLongLimit: Int = 5
     var waitingTimer: Timer? = nil
+    
+    var fromSignout = false
     
     private let viewModel = AuthViewModel()
     
@@ -36,11 +44,32 @@ class CreateAccountViewController: ModacityParentViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if fromSignout || Authorizer.authorizer.isGuestLogin() {
+            self.buttonSkip.isHidden = true
+        } else {
+            self.buttonSkip.isHidden = false
+        }
+    }
+    
     func initControls() {
+        
         self.spinnerFacebook.stopAnimating()
         self.spinnerGoogle.stopAnimating()
         self.spinnerProcessing.stopAnimating()
         self.labelWaiting.isHidden = true
+        
+        if Authorizer.authorizer.isGuestLogin() {
+            self.buttonClose.isHidden = false
+            self.buttonEmailSignIn.setTitle("Sign up with email", for: .normal)
+            self.buttonSkip.isHidden = true
+        } else {
+            self.buttonClose.isHidden = true
+            self.buttonEmailSignIn.setTitle("Sign in with email", for: .normal)
+            self.buttonSkip.isHidden = false
+        }
+        
     }
     
     func bindViewModel() {
@@ -57,6 +86,8 @@ class CreateAccountViewController: ModacityParentViewController {
                     self.spinnerFacebook.startAnimating()
                 case .succeeded:
                     self.openHome()
+                case .guestSucceeded:
+                    self.processGuestLoginFinished()
                 default:
                     self.view.isUserInteractionEnabled = true
                     self.spinnerGoogle.stopAnimating()
@@ -67,9 +98,46 @@ class CreateAccountViewController: ModacityParentViewController {
         
         self.viewModel.subscribe(to: "authorizeError") { (_, _, value) in
             if let error = value as? String {
-                AppUtils.showSimpleAlertMessage(for: self, title: nil, message: error)
+                if error == "FACEBOOK ACCOUNT LINKED" {
+                    self.processFacebookAccountLinkingError()
+                } else if error == "Google Account Linked" {
+                    self.processGoogleAccountLinkingError()
+                } else {
+                    AppUtils.showSimpleAlertMessage(for: self, title: nil, message: error)
+                }
             }
         }
+    }
+    
+    func processFacebookAccountLinkingError() {
+        let alertController = UIAlertController(title: nil, message: "You have already joined to Modacity with your Facebook account. Do you want to continue with your existing account and restore your practice data from it?", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Continue", style: .default, handler: { (_) in
+            self.switchFromGuest = true
+            self.viewModel.facebookContinue()
+        }))
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (_) in
+            self.viewModel.facebookLogout()
+        }))
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func processGoogleAccountLinkingError() {
+        let alertController = UIAlertController(title: nil, message: "You have already joined to Modacity with your Google account. Do you want to continue with your existing account and restore your practice data from it?", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Continue", style: .default, handler: { (_) in
+            self.switchFromGuest = true
+            self.viewModel.googleContinue()
+        }))
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (_) in
+            self.viewModel.googleLogout()
+        }))
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func processGuestLoginFinished() {
+        AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Your account has been successfully set!", handler: { (_) in
+            NotificationCenter.default.post(Notification(name: AppConfig.NotificationNames.appNotificationGuestAccountSwitched))
+            self.navigationController?.dismiss(animated: true, completion: nil)
+        })
     }
     
     func openHome() {
@@ -92,8 +160,14 @@ class CreateAccountViewController: ModacityParentViewController {
             self.spinnerFacebook.stopAnimating()
             self.spinnerProcessing.stopAnimating()
             NotificationCenter.default.removeObserver(self, name: AppConfig.NotificationNames.appNotificationHomePageValuesLoaded, object: nil)
-            let controller = UIStoryboard(name: "sidemenu", bundle: nil).instantiateViewController(withIdentifier: "SideMenuController") as! SideMenuController
-            self.navigationController?.pushViewController(controller, animated: true)
+            
+            if self.switchFromGuest {
+                NotificationCenter.default.post(Notification(name: AppConfig.NotificationNames.appNotificationGuestAccountSwitched))
+                self.navigationController?.dismiss(animated: true, completion: nil)
+            } else {
+                let controller = UIStoryboard(name: "sidemenu", bundle: nil).instantiateViewController(withIdentifier: "SideMenuController") as! SideMenuController
+                self.navigationController?.pushViewController(controller, animated: true)
+            }
         }
     }
     
@@ -102,6 +176,28 @@ class CreateAccountViewController: ModacityParentViewController {
         self.waitingTimer!.invalidate()
         self.waitingTimer = nil
     }
+    
+    @IBAction func onClose(_ sender: Any) {
+        self.navigationController?.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func onSkip(_ sender: Any) {
+        MBProgressHUD.showAdded(to: self.view, animated: true)
+        Authorizer.authorizer.guestLogin { (error) in
+            if let _ = error {
+                DispatchQueue.main.async {
+                    MBProgressHUD.hide(for: self.view, animated: true)
+                    AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Sorry, we have encountered problems.  Please try again later")
+                }
+            } else {
+                DispatchQueue.main.async {
+                    MBProgressHUD.hide(for: self.view, animated: true)
+                    self.openHome()
+                }
+            }
+        }
+    }
+    
 }
 
 extension CreateAccountViewController {     // actions
@@ -117,12 +213,18 @@ extension CreateAccountViewController {     // actions
     @IBAction func onFacebook(_ sender: Any) {
         ModacityAnalytics.LogStringEvent("Pressed Facebook Login")
         self.view.endEditing(true)
-        self.viewModel.fbLogin(controller: self)
+        
+        if Authorizer.authorizer.isGuestLogin() {
+            self.viewModel.fbGuestLogin(controller: self)
+        } else {
+            self.viewModel.fbLogin(controller: self)
+        }
     }
     
     @IBAction func onGoogle(_ sender: Any) {
         ModacityAnalytics.LogStringEvent("Pressed Google Login")
         self.view.endEditing(true)
+        
         self.viewModel.googleLogin()
     }
     

@@ -11,6 +11,8 @@ import Intercom
 
 class LeftMenuViewController: ModacityParentViewController {
     
+    @IBOutlet weak var tableViewMain: UITableView!
+    
     let menuTitles = ["Home", "Metrodrone", /*"Recordings",*/"Overview", "Settings", "Feedback", "About Us", "Sign Out"]
     let menuIcons = ["icon_menu_home", "icon_menu_metrodrone", /*"icon_menu_mic",*/"icon_menu_overview", "icon_menu_settings", "icon_menu_feedbacks_new", "icon_menu_about", "icon_menu_signout"]
     
@@ -18,8 +20,17 @@ class LeftMenuViewController: ModacityParentViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.view.backgroundColor = Color.clear
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshMenu), name: AppConfig.NotificationNames.appNotificationGuestAccountSwitched, object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 
+    @objc func refreshMenu() {
+        self.tableViewMain.reloadData()
+    }
+    
     func signout() {
         let alert = UIAlertController(title: nil, message: "Are you sure to sign out?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
@@ -36,6 +47,8 @@ class LeftMenuViewController: ModacityParentViewController {
         if let nav = self.sideMenuController?.navigationController {
             for controller in nav.viewControllers {
                 if controller is CreateAccountViewController {
+                    let loginController = controller as! CreateAccountViewController
+                    loginController.fromSignout = true
                     nav.popToViewController(controller, animated: true)
                     return
                 }
@@ -43,10 +56,18 @@ class LeftMenuViewController: ModacityParentViewController {
             
             var controllers = nav.viewControllers
             let login = UIStoryboard(name: "welcome", bundle: nil).instantiateViewController(withIdentifier: "CreateAccountViewController") as! CreateAccountViewController
+            login.fromSignout = true
             controllers.insert(login, at: 0)
             nav.viewControllers = controllers
             nav.popToViewController(login, animated: true)
         }
+    }
+    
+    func openCreateAccount() {
+        self.sideMenuController?.hideLeftViewAnimated()
+        
+        let controller = UIStoryboard(name: "welcome", bundle: nil).instantiateViewController(withIdentifier: "LoginScene") as! UINavigationController
+        self.present(controller, animated: true, completion: nil)
     }
     
 }
@@ -60,8 +81,17 @@ extension LeftMenuViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MenuCell")
         let label = cell!.viewWithTag(11) as! UILabel
         label.text = menuTitles[indexPath.row]
+        
         let icon = cell!.viewWithTag(10) as! UIImageView
         icon.image = UIImage(named: menuIcons[indexPath.row])
+        
+        if indexPath.row == menuTitles.count - 1 {
+            if Authorizer.authorizer.isGuestLogin() {
+                label.text = "Create Account"
+                icon.image = UIImage(named: "icon_menu_signin")
+            }
+        }
+        
         return cell!
     }
     
@@ -85,8 +115,11 @@ extension LeftMenuViewController: UITableViewDataSource, UITableViewDelegate {
         
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.row == 6 {
-            
-            self.signout()
+            if Authorizer.authorizer.isGuestLogin() {
+                self.openCreateAccount()
+            } else {
+                self.signout()
+            }
             
         } else if indexPath.row == 0 {
             
@@ -122,23 +155,32 @@ extension LeftMenuViewController: UITableViewDataSource, UITableViewDelegate {
             
         } else if indexPath.row == 3 {
             
-            if (self.sideMenuController?.rootViewController is UINavigationController)
-                && (self.sideMenuController?.rootViewController as! UINavigationController).viewControllers[0] is SettingsViewController {
-                
+            if Authorizer.authorizer.isGuestLogin() {
+                self.openCreateAccount()
             } else {
-                let controller = UIStoryboard(name:"settings", bundle:nil).instantiateViewController(withIdentifier: "settingsscene")
-                self.sideMenuController?.rootViewController = controller
+                if (self.sideMenuController?.rootViewController is UINavigationController)
+                    && (self.sideMenuController?.rootViewController as! UINavigationController).viewControllers[0] is SettingsViewController {
+                    
+                } else {
+                    let controller = UIStoryboard(name:"settings", bundle:nil).instantiateViewController(withIdentifier: "settingsscene")
+                    self.sideMenuController?.rootViewController = controller
+                }
+                self.sideMenuController?.hideLeftViewAnimated()
             }
-            self.sideMenuController?.hideLeftViewAnimated()
             
         } else if indexPath.row == 4 {
             
-            let attr :ICMUserAttributes = ICMUserAttributes.init()
-            attr.customAttributes = ["AppLocation" : "feedback"]
-            Intercom.updateUser(attr)
-            Intercom.presentMessenger()
-            
-            self.sideMenuController?.hideLeftViewAnimated()
+            if Authorizer.authorizer.isGuestLogin() {
+                self.openCreateAccount()
+            } else {
+                let attr :ICMUserAttributes = ICMUserAttributes.init()
+                attr.customAttributes = ["AppLocation" : "feedback"]
+                Intercom.updateUser(attr)
+                Intercom.presentMessenger()
+                
+                self.sideMenuController?.hideLeftViewAnimated()
+            }
+                
             
         } else if indexPath.row == 5 {
             

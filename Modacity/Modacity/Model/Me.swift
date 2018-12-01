@@ -15,6 +15,7 @@ class Me: Mappable {
     var email: String!
     var createdAt: TimeInterval!
     var name: String?
+    var guest = false
     
     required init?(map: Map) {
         
@@ -25,33 +26,35 @@ class Me: Mappable {
         email       <- map["email"]
         createdAt   <- map["created_at"]
         name        <- map["name"]
+        guest       <- map["guest"]
     }
     
     func displayName() -> String {
-        if name == nil || name == "" {
-            if email == nil {
-                return ""
-            }
-            let emailPref = email.components(separatedBy: "@")[0]
-            var names = [String]()
-            var name = ""
-            for idx in 0..<emailPref.count {
-                let letter = String(emailPref[emailPref.index(emailPref.startIndex, offsetBy: idx)])
-                if letter.lowercased() < "a" || letter.lowercased() > "z" {
-                    if name != "" {
-                        names.append(name.capitalizingFirstLetter())
-                        name = ""
-                    }
-                } else {
-                    name = name + letter
-                }
-            }
-            if name != "" {
-                names.append(name.capitalizingFirstLetter())
-            }
-            return names.joined(separator: " ")
+        if guest {
+            return "Music Practicer"
         } else {
-            return name!
+            if name == nil || name == "" {
+                let emailPref = email.components(separatedBy: "@")[0]
+                var names = [String]()
+                var name = ""
+                for idx in 0..<emailPref.count {
+                    let letter = String(emailPref[emailPref.index(emailPref.startIndex, offsetBy: idx)])
+                    if letter.lowercased() < "a" || letter.lowercased() > "z" {
+                        if name != "" {
+                            names.append(name.capitalizingFirstLetter())
+                            name = ""
+                        }
+                    } else {
+                        name = name + letter
+                    }
+                }
+                if name != "" {
+                    names.append(name.capitalizingFirstLetter())
+                }
+                return names.joined(separator: " ")
+            } else {
+                return name!
+            }
         }
     }
 }

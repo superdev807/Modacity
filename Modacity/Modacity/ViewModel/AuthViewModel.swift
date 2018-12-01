@@ -15,6 +15,8 @@ enum AuthorizingStatus {
     case facebook
     case google
     case succeeded
+    case guestSucceeded
+    case guestSignupFinished
     case error
 }
 
@@ -35,6 +37,18 @@ class AuthViewModel: ViewModel {
         }
     }
     
+    func guestCreateAccount(email: String, password: String) {
+        self.authorizing = .signup
+        Authorizer.authorizer.guestSignup(email: email, password: password) { (err) in
+            if err == nil {
+                self.authorizing = .guestSignupFinished
+            } else {
+                self.authorizing = .error
+                self.authorizeError = err
+            }
+        }
+    }
+    
     func createAccount(email: String, password: String) {
         self.authorizing = .signup
         Authorizer.authorizer.signup(email: email, password: password) { (err) in
@@ -47,11 +61,35 @@ class AuthViewModel: ViewModel {
         }
     }
     
+    func guestSignIn(email: String, password: String) {
+        authorizing = .signin
+        Authorizer.authorizer.guestSignIn(email: email, password: password) { (error) in
+            if error == nil {
+                self.authorizing = .guestSignupFinished
+            } else {
+                self.authorizing = .error
+                self.authorizeError = error
+            }
+        }
+    }
+    
     func signin(email: String, password: String) {
         authorizing = .signin
         Authorizer.authorizer.signin(email: email, password: password) { (err) in
             if err == nil {
                 self.authorizing = .succeeded
+            } else {
+                self.authorizing = .error
+                self.authorizeError = err
+            }
+        }
+    }
+    
+    func fbGuestLogin(controller: UIViewController) {
+        authorizing = .facebook
+        Authorizer.authorizer.facebookLoginForGuestUser(controller: controller) { (err) in
+            if err == nil {
+                self.authorizing = .guestSucceeded
             } else {
                 self.authorizing = .error
                 self.authorizeError = err
@@ -71,6 +109,37 @@ class AuthViewModel: ViewModel {
         }
     }
     
+    func facebookLogout() {
+        Authorizer.authorizer.facebookLogout()
+    }
+    
+    func facebookContinue() {
+        authorizing = .facebook
+        AppOveralDataManager.manager.signout(with3rdPartyLogout: false)
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(300)) {
+            Authorizer.authorizer.facebookContinue { (err) in
+                if let error = err {
+                    self.authorizing = .error
+                    self.authorizeError = error
+                } else {
+                    self.authorizing = .succeeded
+                }
+            }
+        }
+    }
+    
+    func googleGuestLogin() {
+        authorizing = .google
+        Authorizer.authorizer.googleLogin() { (err) in
+            if err == nil {
+                self.authorizing = .guestSucceeded
+            } else {
+                self.authorizing = .error
+                self.authorizeError = err
+            }
+        }
+    }
+    
     func googleLogin() {
         authorizing = .google
         Authorizer.authorizer.googleLogin() { (err) in
@@ -79,6 +148,25 @@ class AuthViewModel: ViewModel {
             } else {
                 self.authorizing = .error
                 self.authorizeError = err
+            }
+        }
+    }
+    
+    func googleLogout() {
+        Authorizer.authorizer.googleLogout()
+    }
+    
+    func googleContinue() {
+        authorizing = .google
+        AppOveralDataManager.manager.signout(with3rdPartyLogout: false)
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(300)) {
+            Authorizer.authorizer.googleContinue { (err) in
+                if let error = err {
+                    self.authorizing = .error
+                    self.authorizeError = error
+                } else {
+                    self.authorizing = .succeeded
+                }
             }
         }
     }

@@ -27,6 +27,10 @@ class MyProfileLocalManager {
         }
     }
     
+    func isGuestLogin() -> Bool {
+        return me?.guest ?? false
+    }
+    
     func signout() {
         me = nil
     }

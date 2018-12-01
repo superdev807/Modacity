@@ -132,20 +132,31 @@ class HomeViewController: ModacityParentViewController {
         
         if let me = MyProfileLocalManager.manager.me {
             self.labelWelcome.text = "Welcome \(me.displayName())!"
-            
+
             DispatchQueue.global(qos: .background).async {
-                Amplitude.instance().setUserId(me.email)
+                Amplitude.instance()?.setUserId(me.uid)
                 
-                if me.email != nil {
+                Intercom.registerUser(withUserId: me.uid)
+                if Authorizer.authorizer.isGuestLogin() {
+                    let userAttributes = ICMUserAttributes()
+                    userAttributes.name = "Guest"
+                    userAttributes.email = "guest@modacity.co"
+                    Intercom.updateUser(userAttributes)
+                } else {
+                    Intercom.registerUser(withEmail: me.email)
                     let userAttributes = ICMUserAttributes()
                     userAttributes.name = me.displayName()
-                    userAttributes.email = me.email
+                    userAttributes.email = me.email ?? "no email address"
                     Intercom.updateUser(userAttributes)
                 }
                 
                 AppsFlyerTracker.shared()?.customerUserID = me.uid
-                AppsFlyerTracker.shared()?.setUserEmails([me.email], with: EmailCryptTypeSHA1)
+                
+                if !(Authorizer.authorizer.isGuestLogin()) {
+                    AppsFlyerTracker.shared()?.setUserEmails([me.email], with: EmailCryptTypeSHA1)
+                }
             }
+            
         } else {
             self.labelWelcome.text = "Welcome!"
         }
