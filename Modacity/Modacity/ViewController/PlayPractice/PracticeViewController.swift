@@ -46,6 +46,7 @@ class PracticeViewController: ModacityParentViewController {
     @IBOutlet weak var labelTimerUp: UILabel!
     
     var audioEngineRegreshing = false
+    var stopAudioOnSegue: Bool = true
     
     var timer: Timer!
     var timerRunning = false
@@ -64,6 +65,7 @@ class PracticeViewController: ModacityParentViewController {
     
     var dingSoundPlayer: AVAudioPlayer? = nil
     var countDownNotification: UILocalNotification? = nil
+    
     
     // unused
     var countupTimerStarted: Date!
@@ -240,6 +242,7 @@ class PracticeViewController: ModacityParentViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        self.stopAudioOnSegue = true
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -271,9 +274,11 @@ class PracticeViewController: ModacityParentViewController {
         
         UIApplication.shared.isIdleTimerDisabled = false
         
-        if let _ = self.player {
-            if self.isPlaying {
-                self.onPlayPauseAudio(self)
+        if (self.stopAudioOnSegue) {
+            if let _ = self.player {
+                if self.isPlaying {
+                    self.onPlayPauseAudio(self)
+                }
             }
         }
         
@@ -1031,6 +1036,8 @@ extension PracticeViewController: UICollectionViewDelegate, UICollectionViewData
     @IBAction func onTabNotes() {
         
         ModacityAnalytics.LogStringEvent("Practicing - Pressed Notes")
+        
+        self.stopAudioOnSegue = false // don't stop playing audio if going to notes.
         
         if AppOveralDataManager.manager.settingsTimerPauseDuringNote() {
             if self.timerRunning {
