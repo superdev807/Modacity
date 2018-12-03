@@ -41,6 +41,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
         FirebaseApp.configure()
+        
+//        try! Auth.auth().signOut()
         Database.database().isPersistenceEnabled = true
         
         Fabric.sharedSDK().debug = true

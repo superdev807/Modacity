@@ -144,7 +144,7 @@ class PlaylistContentsViewModel: ViewModel {
     func duplicate(entry: PlaylistPracticeEntry) {
         let newEntry = PlaylistPracticeEntry()
         newEntry.entryId = UUID().uuidString
-        newEntry.name = entry.name
+//        newEntry.name = entry.name
         newEntry.countDownDuration = entry.countDownDuration
         newEntry.practiceItemId = entry.practiceItemId
         

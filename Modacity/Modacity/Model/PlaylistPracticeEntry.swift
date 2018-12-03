@@ -12,7 +12,7 @@ import ObjectMapper
 class PlaylistPracticeEntry: Mappable {
     
     var entryId: String!
-    var name: String!
+//    var name: String!
     var countDownDuration: Int?
     var practiceItemId: String!
     
@@ -26,7 +26,7 @@ class PlaylistPracticeEntry: Mappable {
     
     func mapping(map: Map) {
         entryId             <- map["id"]
-        name                <- map["name"]
+//        name                <- map["name"]
         countDownDuration   <- map["count_down_duration"]
         practiceItemId      <- map["item_id"]
     }

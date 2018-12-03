@@ -116,7 +116,23 @@ class PracticeItemLocalManager {
     
     func removePracticeItem(for item:PracticeItem) {
         UserDefaults.standard.removeObject(forKey: "practice:id:" + item.id)
+        
+        if item.isFavorite != 0 {
+            if let favoritePracticeItemIds = UserDefaults.standard.object(forKey: "favorite_practice_item_ids") as? [String] {
+                var newFavoriteItemIds = [String]()
+                for itemId in favoritePracticeItemIds {
+                    if itemId != item.id {
+                        newFavoriteItemIds.append(itemId)
+                    }
+                }
+                UserDefaults.standard.set(newFavoriteItemIds, forKey: "favorite_practice_item_ids")
+                
+                PracticeItemRemoteManager.manager.updateFavoriteItemIds(newFavoriteItemIds)
+            }
+        }
+        
         UserDefaults.standard.synchronize()
+        
         PlaylistLocalManager.manager.processPracticeItemRemove(item.id)
         PracticeItemRemoteManager.manager.removePracticeItem(for: item.id)
     }

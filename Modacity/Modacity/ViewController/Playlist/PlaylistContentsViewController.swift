@@ -791,7 +791,7 @@ extension PlaylistContentsViewController: PlaylistPracticeItemCellDelegate {
     
     func openDetails(for item:PlaylistPracticeEntry) {
         if let practice = PracticeItemLocalManager.manager.practiceItem(forId: item.practiceItemId) {
-            ModacityAnalytics.LogEvent(.OpenNotes, extraParamName: "item", extraParamValue: item.name)
+            ModacityAnalytics.LogEvent(.OpenNotes, extraParamName: "item", extraParamValue: item.practiceItem()?.name ?? "NO PRACTICE ITEM NAME")
             let controller = UIStoryboard(name: "details", bundle: nil).instantiateViewController(withIdentifier: "DetailsScene") as! UINavigationController
             let detailsViewController = controller.viewControllers[0] as! DetailsViewController
             detailsViewController.practiceItemId = practice.id
@@ -801,7 +801,7 @@ extension PlaylistContentsViewController: PlaylistPracticeItemCellDelegate {
     }
     
     func openNotes(for item:PlaylistPracticeEntry) {
-        ModacityAnalytics.LogEvent(.OpenNotes, extraParamName: "item", extraParamValue: item.name)
+        ModacityAnalytics.LogEvent(.OpenNotes, extraParamName: "item", extraParamValue: item.practiceItem()?.name ?? "NO PRACTICE ITEM NAME")
         let controller = UIStoryboard(name: "practice_note", bundle: nil).instantiateViewController(withIdentifier: "PracticeNotesViewController") as! PracticeNotesViewController
         controller.playlistViewModel = self.viewModel
         controller.practiceEntry = item

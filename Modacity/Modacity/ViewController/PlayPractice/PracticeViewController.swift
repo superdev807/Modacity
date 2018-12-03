@@ -457,7 +457,7 @@ extension PracticeViewController {
     @IBAction func onEnd(_ sender: Any) {
 
         if self.playlistViewModel != nil {
-            ModacityAnalytics.LogStringEvent("Pressed End Practice Item", extraParamName: "item", extraParamValue: self.playlistViewModel.currentPracticeEntry.name)
+            ModacityAnalytics.LogStringEvent("Pressed End Practice Item", extraParamName: "item", extraParamValue: self.playlistViewModel.currentPracticeEntry.practiceItem()?.name ?? "NO PRACTICE ITEM NAME")
         } else {
             ModacityAnalytics.LogStringEvent("Pressed End Practice Item", extraParamName: "item", extraParamValue: self.practiceItem.name)
         }

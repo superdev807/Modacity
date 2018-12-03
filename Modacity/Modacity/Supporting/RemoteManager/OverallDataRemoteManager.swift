@@ -95,13 +95,15 @@ class OverallDataRemoteManager {
     func shipDefaultData() {
         ModacityDebugger.debug("shipping default data")
         AppOveralDataManager.manager.setDefaultDataShiped(shiped: true)
-        DefaultDataShipManager.manager.produceDefaultData()
-        if let userId = MyProfileLocalManager.manager.userId() {
-            self.refUser.child(userId).child("overall").updateChildValues(["default_data_ship": AppOveralDataManager.manager.defaultDataShiped()])
+        DefaultDataShipManager.manager.produceDefaultData { (_) in
+            if let userId = MyProfileLocalManager.manager.userId() {
+                self.refUser.child(userId).child("overall").updateChildValues(["default_data_ship": AppOveralDataManager.manager.defaultDataShiped()])
+            }
+            NotificationCenter.default.post(Notification(name: AppConfig.NotificationNames.appNotificationPlaylistLoadedFromServer))
+            NotificationCenter.default.post(Notification(name: AppConfig.NotificationNames.appNotificationPlaylistUpdated))
+            NotificationCenter.default.post(Notification(name: AppConfig.NotificationNames.appNotificationPracticeLoadedFromServer))
         }
-        NotificationCenter.default.post(Notification(name: AppConfig.NotificationNames.appNotificationPlaylistLoadedFromServer))
-        NotificationCenter.default.post(Notification(name: AppConfig.NotificationNames.appNotificationPlaylistUpdated))
-        NotificationCenter.default.post(Notification(name: AppConfig.NotificationNames.appNotificationPracticeLoadedFromServer))
+        
     }
     
     func startUpdatingOverallData() {

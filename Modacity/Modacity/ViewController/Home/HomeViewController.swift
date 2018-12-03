@@ -135,12 +135,11 @@ class HomeViewController: ModacityParentViewController {
 
             DispatchQueue.global(qos: .background).async {
                 Amplitude.instance()?.setUserId(me.uid)
-                
                 Intercom.registerUser(withUserId: me.uid)
+                
                 if Authorizer.authorizer.isGuestLogin() {
                     let userAttributes = ICMUserAttributes()
                     userAttributes.name = "Guest"
-                    userAttributes.email = "guest@modacity.co"
                     Intercom.updateUser(userAttributes)
                 } else {
                     Intercom.registerUser(withEmail: me.email)

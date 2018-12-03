@@ -181,7 +181,7 @@ extension PlaylistListViewController: PlaylistCellDelegate {
         for entry in playlist.playlistPracticeEntries {
             let newEntry = PlaylistPracticeEntry()
             newEntry.entryId = UUID().uuidString
-            newEntry.name = entry.name
+//            newEntry.name = entry.name
             newEntry.practiceItemId = entry.practiceItemId
             newEntry.countDownDuration = entry.countDownDuration
             

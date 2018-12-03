@@ -34,7 +34,7 @@ class ImprovementViewModel: ViewModel {
     func generateImprovement(with playlist: Playlist, practice: PlaylistPracticeEntry) -> Improvement {
         return Improvement(JSON: ["id":UUID().uuidString,
                                   "playlist_id": playlist.id,
-                                  "practice_name":practice.name,
+                                  "practice_name":practice.practiceItem()?.name ?? "NO PRACTICE ITEM NAME",
                                   "practice_entry_id":practice.entryId,
                                   "suggestion":selectedSuggestion,
                                   "hypothesis":selectedHypothesis,

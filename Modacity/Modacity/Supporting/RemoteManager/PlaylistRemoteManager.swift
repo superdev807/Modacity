@@ -25,6 +25,7 @@ class PlaylistRemoteManager {
                 } else {
                     if snapshot.children.allObjects.count == 0 {
                         self.processDefaultDataship()
+                        return
                     }
                     for data in snapshot.children.allObjects as! [DataSnapshot] {
                         if let playlistData = data.value as? [String:Any] {
@@ -35,8 +36,8 @@ class PlaylistRemoteManager {
                             }
                         }
                     }
+                    NotificationCenter.default.post(Notification(name: AppConfig.NotificationNames.appNotificationPlaylistLoadedFromServer))
                 }
-                NotificationCenter.default.post(Notification(name: AppConfig.NotificationNames.appNotificationPlaylistLoadedFromServer))
             }
         }
     }
@@ -82,14 +83,18 @@ class PlaylistRemoteManager {
             if let playlists = PlaylistLocalManager.manager.loadPlaylists() {
                 if playlists.count == 0 {
                     self.processDefaultDataship()
+                    return
                 }
                 for playlist in playlists {
                     refUser.child(userId).child("playlists").child(playlist.id).setValue(playlist.toJSON())
                 }
             } else {
                 self.processDefaultDataship()
+                return
             }
         }
+        
+        NotificationCenter.default.post(Notification(name: AppConfig.NotificationNames.appNotificationPlaylistLoadedFromServer))
     }
     
     func processDefaultDataship() {

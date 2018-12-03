@@ -7,110 +7,52 @@
 //
 
 import UIKit
+import FirebaseDatabase
 
 class DefaultDataShipManager {
     
     static let manager = DefaultDataShipManager()
     
-    func produceDefaultData() {
-        var practiceItems = [PracticeItem]()
-        
-        var playlistPractice = PlaylistPracticeEntry()
-        var practiceItem = PracticeItem()
-        
-        let playlist1 = AddNewPlaylist("This Week's Routine")
-        let playlist2 = AddNewPlaylist("Next Audition")
-        
-        practiceItem = PracticeItem()
-        practiceItem.id = UUID().uuidString
-        practiceItem.name = "Scales - Major"
-        practiceItem.updateFavorite(favorite: true)
-        practiceItem.addNote(text: "Swipe up to archive notes")
-        practiceItems.append(practiceItem)
-        
-        PracticeItemLocalManager.manager.updateFavoriteIds(withNewItemId: practiceItem.id)
-        
-        playlistPractice = PlaylistPracticeEntry()
-        playlistPractice.name = "Scales - Major"
-        playlistPractice.practiceItemId = practiceItem.id
-        playlist1.playlistPracticeEntries.append(playlistPractice)
-        
-        practiceItem = PracticeItem()
-        practiceItem.name = "Visualization"
-        practiceItem.id = UUID().uuidString
-        let visualizationPracticeItemId = practiceItem.id
-        practiceItems.append(practiceItem)
-        
-        playlistPractice = PlaylistPracticeEntry()
-        playlistPractice.name = "Visualization"
-        playlistPractice.practiceItemId = practiceItem.id
-        playlist1.playlistPracticeEntries.append(playlistPractice)
-        
-        practiceItem = PracticeItem()
-        practiceItem.id = UUID().uuidString
-        practiceItem.name = "Etude #1"
-        practiceItems.append(practiceItem)
-        
-        playlistPractice = PlaylistPracticeEntry()
-        playlistPractice.name = "Etude #1"
-        playlistPractice.practiceItemId = practiceItem.id
-        playlist1.playlistPracticeEntries.append(playlistPractice)
-        
-        playlistPractice = PlaylistPracticeEntry()
-        playlistPractice.name = "Visualization"
-        playlistPractice.practiceItemId = visualizationPracticeItemId
-        playlist1.playlistPracticeEntries.append(playlistPractice)
-        
-        practiceItem = PracticeItem()
-        practiceItem.id = UUID().uuidString
-        practiceItem.name = "Sonata in C"
-        practiceItems.append(practiceItem)
-        
-        playlistPractice = PlaylistPracticeEntry()
-        playlistPractice.name = "Sonata in C"
-        playlistPractice.practiceItemId = practiceItem.id
-        playlist1.playlistPracticeEntries.append(playlistPractice)
-        
-        practiceItem = PracticeItem()
-        practiceItem.id = UUID().uuidString
-        practiceItem.name = "Stretch, Reflect, Tidy Up"
-        let stretchPracticeItemId = practiceItem.id
-        practiceItems.append(practiceItem)
-        
-        playlistPractice = PlaylistPracticeEntry()
-        playlistPractice.name = "Stretch, Reflect, Tidy Up"
-        playlistPractice.practiceItemId = practiceItem.id
-        playlistPractice.countDownDuration = 300
-        playlist1.playlistPracticeEntries.append(playlistPractice)
-        
-        playlistPractice = PlaylistPracticeEntry()
-        playlistPractice.name = "Visualization"
-        playlistPractice.practiceItemId = visualizationPracticeItemId
-        playlist2.playlistPracticeEntries.append(playlistPractice)
-        
-        practiceItem = PracticeItem()
-        practiceItem.id = UUID().uuidString
-        practiceItem.name = "Ein Heldenleben"
-        practiceItem.addNote(text: "Be a hero! Communicate the musical message")
-        practiceItems.append(practiceItem)
-        
-        playlistPractice = PlaylistPracticeEntry()
-        playlistPractice.name = "Ein Heldenleben"
-        playlistPractice.practiceItemId = practiceItem.id
-        playlist2.playlistPracticeEntries.append(playlistPractice)
-        
-        playlistPractice = PlaylistPracticeEntry()
-        playlistPractice.name = "Stretch, Reflect, Tidy Up"
-        playlistPractice.practiceItemId = stretchPracticeItemId
-        playlist2.playlistPracticeEntries.append(playlistPractice)
-        
-        for item in practiceItems {
-            PracticeItemLocalManager.manager.addPracticeItem(item)
+    func produceDefaultData(completed: @escaping (Bool) -> ()) {
+        Database.database().reference().child("default_data").observeSingleEvent(of: .value, with: { (snapshot) in
+            if snapshot.exists() {
+                ModacityDebugger.debug("Produced default data from online")
+                if let rootValue = snapshot.value as? [String:Any] {
+                    if let practices = rootValue["practices"] as? [String:Any] {
+                        for practiceName in practices.keys {
+                            if let json = practices[practiceName] as? [String:Any] {
+                                if let practiceItem = PracticeItem(JSON: json) {
+                                    PracticeItemLocalManager.manager.addPracticeItem(practiceItem)
+                                }
+                            }
+                        }
+                    }
+                    
+                    if let playlists = rootValue["playlists"] as? [String:Any] {
+                        for playlistId in playlists.keys {
+                            if let json = playlists[playlistId] as? [String:Any] {
+                                if let playlist = Playlist(JSON: json) {
+                                    PlaylistLocalManager.manager.addPlaylist(playlist: playlist)
+                                }
+                            }
+                        }
+                    }
+                    
+                    completed(true)
+                    return
+                }
+            } else {
+                self.produceFromLocal(completed: completed)
+            }
+        }) { (error) in
+            self.produceFromLocal(completed: completed)
         }
+    }
+    
+    func produceFromLocal(completed: @escaping (Bool) -> ()) {
+        ModacityDebugger.debug("Produced default data from local")
         
-        PlaylistLocalManager.manager.addPlaylist(playlist: playlist1)
-        PlaylistLocalManager.manager.addPlaylist(playlist: playlist2)
-        
+        completed(true)
     }
     
     func AddNewPracticeItem(_ itemName: String, notes: [String] = []) -> PracticeItem {
@@ -135,15 +77,12 @@ class DefaultDataShipManager {
         playlist.name = playlistName
         playlist.playlistPracticeEntries = [PlaylistPracticeEntry]()
         
-        PlaylistLocalManager.manager.addPlaylist(playlist: playlist)
-        
         return playlist
     }
     
     func CreatePlaylistPracticeEntry(fromItem: PracticeItem, timerDuration: Int = 0) -> PlaylistPracticeEntry {
         
         let playlistPractice = PlaylistPracticeEntry()
-        playlistPractice.name = fromItem.name
         playlistPractice.practiceItemId = fromItem.id
         playlistPractice.countDownDuration = timerDuration
         

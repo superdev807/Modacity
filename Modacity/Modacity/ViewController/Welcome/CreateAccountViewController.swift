@@ -134,10 +134,10 @@ class CreateAccountViewController: ModacityParentViewController {
     }
     
     func processGuestLoginFinished() {
-        AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Your account has been successfully set!", handler: { (_) in
+//        AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Your account has been successfully set!", handler: { (_) in
             NotificationCenter.default.post(Notification(name: AppConfig.NotificationNames.appNotificationGuestAccountSwitched))
             self.navigationController?.dismiss(animated: true, completion: nil)
-        })
+//        })
     }
     
     func openHome() {

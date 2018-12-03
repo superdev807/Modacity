@@ -119,10 +119,10 @@ class SigninViewController: ModacityParentViewController {
         self.textfieldEmailAddress.text = ""
         self.textfieldPassword.text = ""
         
-        AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Your account has been successfully set!", handler: { (_) in
+//        AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Your account has been successfully set!", handler: { (_) in
             NotificationCenter.default.post(Notification(name: AppConfig.NotificationNames.appNotificationGuestAccountSwitched))
             self.navigationController?.dismiss(animated: true, completion: nil)
-        })
+//        })
     }
     
     func openHome() {
@@ -185,12 +185,7 @@ extension SigninViewController {     // actions
             
             let email = (self.textfieldEmailAddress.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
             if Authorizer.authorizer.isGuestLogin() {
-                let alert = UIAlertController(title: nil, message: "You will lost data that you've practiced in this time login. Are you sure to continue to login with your old account?", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (_) in
-                    self.viewModel.guestSignIn(email: email, password: self.textfieldPassword.text ?? "")
-                }))
-                alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
-                self.present(alert, animated: true, completion: nil)
+                self.viewModel.guestSignIn(email: email, password: self.textfieldPassword.text ?? "")
             } else {
                 self.viewModel.signin(email: email, password: self.textfieldPassword.text ?? "")
             }

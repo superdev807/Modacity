@@ -19,12 +19,12 @@ class PlaylistLocalManager: NSObject {
                 var newPracticeItems = [PlaylistPracticeEntry]()
                 if playlist.playlistPracticeEntries != nil {
                     for item in playlist.playlistPracticeEntries {
-                        if item.practiceItemId == nil && item.name != nil && item.name != "" {
-                            if let newPracticeItem = PracticeItemLocalManager.manager.searchPracticeItem(byName: item.name) {
-                                item.practiceItemId = newPracticeItem.id
-                                item.name = ""
-                                newPracticeItems.append(item)
-                            }
+                        if item.practiceItemId == nil {
+//                            if let newPracticeItem = PracticeItemLocalManager.manager.searchPracticeItem(byName: item.name) {
+//                                item.practiceItemId = newPracticeItem.id
+////                                item.name = ""
+//                                newPracticeItems.append(item)
+//                            }
                         } else if item.practiceItemId != nil {
                             newPracticeItems.append(item)
                         }
