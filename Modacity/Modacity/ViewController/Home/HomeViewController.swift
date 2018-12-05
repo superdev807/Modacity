@@ -135,7 +135,7 @@ class HomeViewController: ModacityParentViewController {
 
             DispatchQueue.global(qos: .background).async {
                 Amplitude.instance()?.setUserId(me.uid)
-                Intercom.registerUser(withUserId: me.uid)
+                //Intercom.registerUser(withUserId: me.uid)
                 
                 if Authorizer.authorizer.isGuestLogin() {
                     let userAttributes = ICMUserAttributes()
