@@ -135,18 +135,15 @@ class HomeViewController: ModacityParentViewController {
 
             DispatchQueue.global(qos: .background).async {
                 Amplitude.instance()?.setUserId(me.uid)
-                Intercom.registerUser(withUserId: me.uid)
                 
-                if Authorizer.authorizer.isGuestLogin() {
-                    let userAttributes = ICMUserAttributes()
-                    userAttributes.name = "Guest"
-                    Intercom.updateUser(userAttributes)
-                } else {
+                if me.email != nil && me.email != "" {
                     Intercom.registerUser(withEmail: me.email)
                     let userAttributes = ICMUserAttributes()
                     userAttributes.name = me.displayName()
                     userAttributes.email = me.email ?? "no email address"
                     Intercom.updateUser(userAttributes)
+                } else {
+                    Intercom.registerUnidentifiedUser()
                 }
                 
                 AppsFlyerTracker.shared()?.customerUserID = me.uid
