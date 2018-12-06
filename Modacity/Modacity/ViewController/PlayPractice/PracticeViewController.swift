@@ -1099,7 +1099,9 @@ extension PracticeViewController: UICollectionViewDelegate, UICollectionViewData
         }
         
         self.notesToShow.sort { (note1, note2) -> Bool in
-            return  Date(timeIntervalSince1970: Double(note1.createdAt) ?? 0).compare(Date(timeIntervalSince1970: Double(note2.createdAt) ?? 0)) == .orderedDescending
+            let time1 = (note1.createdAt == nil) ? Date() : Date(timeIntervalSince1970: Double(note1.createdAt) ?? 0)
+            let time2 = (note2.createdAt == nil) ? Date() : Date(timeIntervalSince1970: Double(note2.createdAt) ?? 0)
+            return time1.compare(time2) == .orderedDescending
         }
         self.collectionViewNotes.reloadData()
     }

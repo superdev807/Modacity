@@ -35,7 +35,11 @@ class PracticeNoteCell: UICollectionViewCell, UIGestureRecognizerDelegate {
         
         self.textViewNote.textContainer.lineFragmentPadding = 0
         self.textViewNote.textContainerInset = .zero
-        self.labelTime.text = Date(timeIntervalSince1970: Double(note.createdAt) ?? 0).toString(format: "MM/dd/yy")
+        if note.createdAt == nil {
+            self.labelTime.text = ""
+        } else {
+            self.labelTime.text = Date(timeIntervalSince1970: Double(note.createdAt) ?? 0).toString(format: "MM/dd/yy")
+        }
         
         if note.isDeliberatePracticeNote {
             self.viewImprovementHeader.isHidden = false

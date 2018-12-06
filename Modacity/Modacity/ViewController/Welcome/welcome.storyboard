@@ -276,22 +276,20 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MNa-a2-MCF">
                                 <rect key="frame" x="0.0" y="189.5" width="375" height="308"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="YOUR DATA IS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="70j-OD-Qq2">
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="YOUR DATA IS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="70j-OD-Qq2">
                                         <rect key="frame" x="120" y="0.0" width="135.5" height="25.5"/>
                                         <fontDescription key="fontDescription" name="Lato-Light" family="Lato" pointSize="21"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SAFE IN THE CLOUD" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lln-yy-QtG">
-                                        <rect key="frame" x="87" y="25.5" width="201.5" height="25.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CREATE AN ACCOUNT" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lln-yy-QtG">
+                                        <rect key="frame" x="76" y="25.5" width="223" height="25.5"/>
                                         <fontDescription key="fontDescription" name="Lato-Black" family="Lato" pointSize="21"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vkz-QK-bRg">
-                                        <rect key="frame" x="79" y="81" width="217.5" height="34"/>
-                                        <string key="text">Modacity saves your data in the cloud.
-To get started, create an account.</string>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To save your practice data and access all Modacity features, an account is required" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vkz-QK-bRg">
+                                        <rect key="frame" x="20" y="81" width="335" height="34"/>
                                         <fontDescription key="fontDescription" name="Lato-Italic" family="Lato" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -339,10 +337,12 @@ To get started, create an account.</string>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="vkz-QK-bRg" firstAttribute="leading" secondItem="MNa-a2-MCF" secondAttribute="leading" constant="20" id="5Se-Pc-aGo"/>
                                     <constraint firstItem="70j-OD-Qq2" firstAttribute="top" secondItem="MNa-a2-MCF" secondAttribute="top" id="5pq-GI-4FO"/>
                                     <constraint firstItem="lln-yy-QtG" firstAttribute="centerX" secondItem="MNa-a2-MCF" secondAttribute="centerX" id="6X5-g5-jM3"/>
                                     <constraint firstItem="vkz-QK-bRg" firstAttribute="top" secondItem="lln-yy-QtG" secondAttribute="bottom" constant="30" id="7Id-au-keb"/>
                                     <constraint firstItem="d77-5O-tBZ" firstAttribute="top" secondItem="twH-w9-GgW" secondAttribute="bottom" constant="7.5" id="D1a-J0-rdR"/>
+                                    <constraint firstAttribute="trailing" secondItem="vkz-QK-bRg" secondAttribute="trailing" constant="20" id="DVc-jb-B5h"/>
                                     <constraint firstItem="twH-w9-GgW" firstAttribute="leading" secondItem="MNa-a2-MCF" secondAttribute="leading" constant="35" id="F1s-7k-Ib9"/>
                                     <constraint firstItem="MVV-v0-JHJ" firstAttribute="top" secondItem="vkz-QK-bRg" secondAttribute="bottom" constant="30" id="FFq-HG-ica"/>
                                     <constraint firstItem="twH-w9-GgW" firstAttribute="trailing" secondItem="g5w-cm-SQP" secondAttribute="trailing" constant="30" id="IJB-Hp-sUx"/>
@@ -357,7 +357,6 @@ To get started, create an account.</string>
                                     <constraint firstItem="twH-w9-GgW" firstAttribute="top" secondItem="MVV-v0-JHJ" secondAttribute="bottom" constant="5" id="uhy-uW-cEF"/>
                                     <constraint firstAttribute="trailing" secondItem="twH-w9-GgW" secondAttribute="trailing" constant="35" id="wVZ-yi-QaW"/>
                                     <constraint firstItem="d77-5O-tBZ" firstAttribute="centerX" secondItem="MNa-a2-MCF" secondAttribute="centerX" id="xFj-9J-lar"/>
-                                    <constraint firstItem="vkz-QK-bRg" firstAttribute="centerX" secondItem="MNa-a2-MCF" secondAttribute="centerX" id="zx7-7s-i3g"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sorry, wait a few moment, please. we are processing practice history data..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Spr-RC-lfe">

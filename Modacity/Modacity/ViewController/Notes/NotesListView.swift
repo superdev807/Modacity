@@ -235,14 +235,14 @@ extension NotesListView {
         }
         
         self.archivedNotes.sort { (note1, note2) -> Bool in
-            let time1 = Date(timeIntervalSince1970: Double(note1.createdAt) ?? 0)
-            let time2 = Date(timeIntervalSince1970: Double(note2.createdAt) ?? 0)
+            let time1 = (note1.createdAt == nil) ? Date() : Date(timeIntervalSince1970: Double(note1.createdAt) ?? 0)
+            let time2 = (note2.createdAt == nil) ? Date() : Date(timeIntervalSince1970: Double(note2.createdAt) ?? 0)
             return time1 > time2
         }
         
         self.notes.sort { (note1, note2) -> Bool in
-            let time1 = Date(timeIntervalSince1970: Double(note1.createdAt) ?? 0)
-            let time2 = Date(timeIntervalSince1970: Double(note2.createdAt) ?? 0)
+            let time1 = (note1.createdAt == nil) ? Date() : Date(timeIntervalSince1970: Double(note1.createdAt) ?? 0)
+            let time2 = (note2.createdAt == nil) ? Date() : Date(timeIntervalSince1970: Double(note2.createdAt) ?? 0)
             return time1 > time2
         }
         self.tableViewMain.reloadData()

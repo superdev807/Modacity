@@ -14,7 +14,10 @@ class DefaultDataShipManager {
     static let manager = DefaultDataShipManager()
     
     func produceDefaultData(completed: @escaping (Bool) -> ()) {
-        Database.database().reference().child("default_data").observeSingleEvent(of: .value, with: { (snapshot) in
+
+        Database.database().reference().child("default_data").keepSynced(true)
+
+        Database.database().reference().child("default_data").observeSingleEvent(of:.value, with: { (snapshot) in
             if snapshot.exists() {
                 ModacityDebugger.debug("Produced default data from online")
                 if let rootValue = snapshot.value as? [String:Any] {
@@ -27,7 +30,7 @@ class DefaultDataShipManager {
                             }
                         }
                     }
-                    
+
                     if let playlists = rootValue["playlists"] as? [String:Any] {
                         for playlistId in playlists.keys {
                             if let json = playlists[playlistId] as? [String:Any] {
@@ -37,7 +40,7 @@ class DefaultDataShipManager {
                             }
                         }
                     }
-                    
+
                     completed(true)
                     return
                 }
@@ -51,8 +54,33 @@ class DefaultDataShipManager {
     
     func produceFromLocal(completed: @escaping (Bool) -> ()) {
         ModacityDebugger.debug("Produced default data from local")
-        
-        completed(true)
+        if let plistURL = Bundle.main.url(forResource: "defaultdata", withExtension: "plist") {
+            if let plist = NSDictionary(contentsOf: plistURL) as? [String:Any] {
+                if let practices = plist["practices"] as? [String:Any] {
+                    for practiceId in practices.keys {
+                        if let practiceJSON = practices[practiceId] as? [String:Any] {
+                            if let practice = PracticeItem(JSON: practiceJSON) {
+                                PracticeItemLocalManager.manager.addPracticeItem(practice)
+                            }
+                        }
+                    }
+                }
+                
+                if let playlists = plist["playlists"] as? [String:Any] {
+                    for playlistId in playlists.keys {
+                        if let json = playlists[playlistId] as? [String:Any] {
+                            if let playlist = Playlist(JSON: json) {
+                                PlaylistLocalManager.manager.addPlaylist(playlist: playlist)
+                            }
+                        }
+                    }
+                }
+                
+                completed(true)
+                return
+            }
+        }
+        completed(false)
     }
     
     func AddNewPracticeItem(_ itemName: String, notes: [String] = []) -> PracticeItem {

@@ -33,7 +33,11 @@ class NoteCell: UITableViewCell {
     
     func configure(note: Note) {
         self.note = note
-        self.labelNoteCreated.text = Date(timeIntervalSince1970: Double(note.createdAt) ?? 0).toString(format: "MM/dd/yy")
+        if note.createdAt == nil {
+            self.labelNoteCreated.text = ""
+        } else {
+            self.labelNoteCreated.text = Date(timeIntervalSince1970: Double(note.createdAt) ?? 0).toString(format: "MM/dd/yy")
+        }
         self.labelNoteSubTitle.text = note.subTitle
         self.labelNoteSubTitle.isHidden = true
         self.textViewNoteSubTitle.text = note.subTitle
