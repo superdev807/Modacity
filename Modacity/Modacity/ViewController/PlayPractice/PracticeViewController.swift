@@ -1159,7 +1159,6 @@ extension PracticeViewController: UICollectionViewDelegate, UICollectionViewData
                 ModacityAnalytics.LogStringEvent("Practicing - Opened Note", extraParamName: "NoteIndex", extraParamValue: indexPath.row)
                 self.navigationController?.pushViewController(controller, animated: true)
             }
-            
         }
     }
     

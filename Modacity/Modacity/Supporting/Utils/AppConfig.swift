@@ -127,6 +127,9 @@ class AppConfig: NSObject {
         static let appConstantTempPlaylistId = "tempplaylist"
         static let appConstantMiscPracticeItemId = "MISC-PRACTICE"
         static let appConstantMiscPracticeItemName = "Misc. Practice"
+        
+        static let appGuestUserPlaylistLimit = 3
+        static let appGuestUserStandalonePracticeLimit = 10
     }
     
     static let devVersion: Bool = {

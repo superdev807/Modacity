@@ -78,7 +78,9 @@ class PracticeItemLocalManager {
             for id in ids {
                 if let string = UserDefaults.standard.object(forKey: "practice:id:" + id) as? [String:Any] {
                     if let item = PracticeItem(JSON: string) {
-                        items.append(item)
+                        if item.visible {
+                            items.append(item)
+                        }
                     }
                 }
             }

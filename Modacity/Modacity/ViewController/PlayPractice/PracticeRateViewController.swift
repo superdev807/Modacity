@@ -20,6 +20,8 @@ class PracticeRateViewController: ModacityParentViewController {
     
     var walkthroughIsDismissed = false
     
+    var alreadyTriedSignup = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -28,7 +30,6 @@ class PracticeRateViewController: ModacityParentViewController {
         } else {
             self.labelPracticeName.text = self.practiceItem.name ?? ""
         }
-        
         
         self.rateView.editable = true
         self.rateView.maxRating = 5
@@ -108,7 +109,11 @@ class PracticeRateViewController: ModacityParentViewController {
                 }
             }
         } else {
-            self.navigationController?.dismiss(animated: true, completion: nil)
+            if Authorizer.authorizer.isGuestLogin() && !(alreadyTriedSignup) {
+                self.processSignup()
+            } else {
+                self.navigationController?.dismiss(animated: true, completion: nil)
+            }
         }
     }
     
@@ -190,6 +195,7 @@ class PracticeRateViewController: ModacityParentViewController {
             self.viewWalkThrough.alpha = 1
         }
     }
+    
     func dismissWalkThrough() {
         ModacityAnalytics.LogStringEvent("Closed Rating Screen Walkthrough")
         if self.viewWalkThrough != nil && self.viewWalkThrough.superview != nil {
@@ -203,6 +209,12 @@ class PracticeRateViewController: ModacityParentViewController {
                 }
             }
         }
+    }
+    
+    func processSignup() {
+        self.alreadyTriedSignup = true
+        let controller = UIStoryboard(name: "welcome", bundle: nil).instantiateViewController(withIdentifier: "LoginScene") as! UINavigationController
+        self.present(controller, animated: true, completion: nil)
     }
 }
 

@@ -25,6 +25,8 @@ class PlaylistFinishViewController: ModacityParentViewController {
     @IBOutlet weak var viewQuoteBox: UIView!
     @IBOutlet weak var viewSeparator: UIView!
     
+    var triedSignup = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -94,7 +96,7 @@ class PlaylistFinishViewController: ModacityParentViewController {
     
     @IBAction func onSkip(_ sender: Any) {
         
-        if Authorizer.authorizer.isGuestLogin() {
+        if (Authorizer.authorizer.isGuestLogin() && !self.triedSignup) {
             self.processSignup()
         } else {
             self.navigationController?.dismiss(animated: true, completion: nil)
@@ -119,6 +121,7 @@ class PlaylistFinishViewController: ModacityParentViewController {
     }
     
     func processSignup() {
+        triedSignup = true
         let controller = UIStoryboard(name: "welcome", bundle: nil).instantiateViewController(withIdentifier: "LoginScene") as! UINavigationController
         self.present(controller, animated: true, completion: nil)
     }
