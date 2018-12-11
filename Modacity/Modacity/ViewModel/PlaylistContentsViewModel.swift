@@ -199,6 +199,9 @@ class PlaylistContentsViewModel: ViewModel {
                 self.playlist.id = UUID().uuidString
                 PlaylistRemoteManager.manager.add(item: self.playlist)
             }
+            if Authorizer.authorizer.isGuestLogin() {
+                GuestCacheManager.manager.practiceSessionIds.append(self.playlist.id)
+            }
             self.storePlaylist()
         }
     }

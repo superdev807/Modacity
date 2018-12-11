@@ -210,4 +210,10 @@ class DailyPracticingRemoteManager: NSObject {
             self.refUser.child(userId).child("practice_data").child(data.practiceItemId).child(data.entryDateString).child(data.entryId).removeValue()
         }
     }
+    
+    func removePracticeSessionPracticingDataOnServer(for data: PlaylistDaily) {
+        if let userId = MyProfileLocalManager.manager.userId() {
+            self.refUser.child(userId).child("playlist_data").child(data.playlistId).child(data.entryDateString).child(data.entryId).removeValue()
+        }
+    }
 }

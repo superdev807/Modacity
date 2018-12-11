@@ -46,6 +46,10 @@ class PracticingDailyLocalManager: NSObject {
             DailyPracticingRemoteManager.manager.createPracticing(data)
         }
         
+        if Authorizer.authorizer.isGuestLogin() {
+            GuestCacheManager.manager.practiceDataEntryIds.append(data.entryId)
+        }
+        
         return data.entryId
     }
     

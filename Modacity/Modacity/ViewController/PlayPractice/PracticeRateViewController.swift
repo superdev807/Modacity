@@ -20,7 +20,7 @@ class PracticeRateViewController: ModacityParentViewController {
     
     var walkthroughIsDismissed = false
     
-    var alreadyTriedSignup = false
+    var shouldDismiss = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +48,13 @@ class PracticeRateViewController: ModacityParentViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if shouldDismiss {
+            self.navigationController?.dismiss(animated: true, completion: nil)
+        }
     }
     
     @IBAction func onNext(_ sender: Any) {
@@ -109,7 +116,7 @@ class PracticeRateViewController: ModacityParentViewController {
                 }
             }
         } else {
-            if Authorizer.authorizer.isGuestLogin() && !(alreadyTriedSignup) {
+            if Authorizer.authorizer.isGuestLogin()/* && !(alreadyTriedSignup)*/ {
                 self.processSignup()
             } else {
                 self.navigationController?.dismiss(animated: true, completion: nil)
@@ -212,10 +219,19 @@ class PracticeRateViewController: ModacityParentViewController {
     }
     
     func processSignup() {
-        self.alreadyTriedSignup = true
+        NotificationCenter.default.addObserver(self, selector: #selector(onGuestSignupCanceled), name: AppConfig.NotificationNames.appNotificationGuestSignUpCanceled, object: nil)
+//        self.alreadyTriedSignup = true
         let controller = UIStoryboard(name: "welcome", bundle: nil).instantiateViewController(withIdentifier: "LoginScene") as! UINavigationController
         self.present(controller, animated: true, completion: nil)
     }
+    
+    @objc func onGuestSignupCanceled() {
+        NotificationCenter.default.removeObserver(self)
+        shouldDismiss = true
+        GuestCacheManager.manager.clearCache()
+//        self.navigationController?.dismiss(animated: true, completion: nil)
+    }
+    
 }
 
 extension PracticeRateViewController: FloatRatingViewDelegate {

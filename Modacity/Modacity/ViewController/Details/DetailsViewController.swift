@@ -673,7 +673,16 @@ extension DetailsViewController: PremiumUpgradeLockViewDelegate {
     }
     
     func onFindOutMore() {
-        let controller = UIStoryboard(name: "premium", bundle: nil).instantiateViewController(withIdentifier: "PremiumUpgradeScene")
+        if Authorizer.authorizer.isGuestLogin() {
+            openSignup()
+        } else {
+            let controller = UIStoryboard(name: "premium", bundle: nil).instantiateViewController(withIdentifier: "PremiumUpgradeScene")
+            self.present(controller, animated: true, completion: nil)
+        }
+    }
+    
+    func openSignup() {
+        let controller = UIStoryboard(name: "welcome", bundle: nil).instantiateViewController(withIdentifier: "LoginScene") as! UINavigationController
         self.present(controller, animated: true, completion: nil)
     }
     

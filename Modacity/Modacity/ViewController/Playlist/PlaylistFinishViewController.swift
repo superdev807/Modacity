@@ -25,7 +25,7 @@ class PlaylistFinishViewController: ModacityParentViewController {
     @IBOutlet weak var viewQuoteBox: UIView!
     @IBOutlet weak var viewSeparator: UIView!
     
-    var triedSignup = false
+    var shouldDismiss = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,6 +77,13 @@ class PlaylistFinishViewController: ModacityParentViewController {
             AppOveralDataManager.manager.setFinishedFirstPlaylist()
         }
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if shouldDismiss {
+            self.navigationController?.dismiss(animated: true, completion: nil)
+        }
+    }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "sid_set_reminder" {
@@ -96,7 +103,7 @@ class PlaylistFinishViewController: ModacityParentViewController {
     
     @IBAction func onSkip(_ sender: Any) {
         
-        if (Authorizer.authorizer.isGuestLogin() && !self.triedSignup) {
+        if (Authorizer.authorizer.isGuestLogin()) {
             self.processSignup()
         } else {
             self.navigationController?.dismiss(animated: true, completion: nil)
@@ -121,8 +128,15 @@ class PlaylistFinishViewController: ModacityParentViewController {
     }
     
     func processSignup() {
-        triedSignup = true
+        NotificationCenter.default.addObserver(self, selector: #selector(onGuestSignupCanceled), name: AppConfig.NotificationNames.appNotificationGuestSignUpCanceled, object: nil)
         let controller = UIStoryboard(name: "welcome", bundle: nil).instantiateViewController(withIdentifier: "LoginScene") as! UINavigationController
         self.present(controller, animated: true, completion: nil)
     }
+    
+    @objc func onGuestSignupCanceled() {
+        NotificationCenter.default.removeObserver(self)
+        shouldDismiss = true
+        GuestCacheManager.manager.clearCache()
+    }
+    
 }

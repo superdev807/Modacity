@@ -118,6 +118,7 @@ class AppConfig: NSObject {
         static let appNotificationHomePageValuesLoaded = Notification.Name(rawValue: "appNotificationHomePageValuesLoaded")
         static let appNotificationMetrodroneParametersUpdated = Notification.Name(rawValue: "appNotificationMetrodroneParametersUpdated")
         static let appNotificationGuestAccountSwitched = Notification.Name(rawValue: "appNotificationGuestAccountSwitched")
+        static let appNotificationGuestSignUpCanceled = Notification.Name(rawValue: "appNotificationGuestSignUpCanceled")
     }
     
     struct Constants {

@@ -48,6 +48,38 @@ class PlaylistDailyLocalManager: NSObject {
         DispatchQueue.global(qos: .background).async {
             DailyPracticingRemoteManager.manager.createPlaylistPracticing(data)
         }
+        
+        if Authorizer.authorizer.isGuestLogin() {
+            GuestCacheManager.manager.practiceSessionPracticeDataIds.append(data.entryId)
+        }
+    }
+    
+    func removeData(for data: PlaylistDaily) {
+        if data != nil {
+            var indecies = [String:[String]]()
+            if let old = UserDefaults.standard.object(forKey: "playlist-indecies-\(data.playlistId ?? "")") as? [String:[String]] {
+                indecies = old
+            }
+            
+            var idsArrayPerDate = [String]()
+            
+            if let ids = indecies[data.entryDateString] {
+                idsArrayPerDate = ids
+            }
+
+            for idx in 0..<idsArrayPerDate.count {
+                if data.entryId == idsArrayPerDate[idx] {
+                    idsArrayPerDate.remove(at: idx)
+                    break
+                }
+            }
+            indecies[data.entryDateString] = idsArrayPerDate
+            UserDefaults.standard.set(indecies, forKey: "playlist-indecies-\(data.playlistId ?? "")")
+            UserDefaults.standard.removeObject(forKey: "playlist-data-\(data.entryId ?? "")")
+            UserDefaults.standard.synchronize()
+            
+            DailyPracticingRemoteManager.manager.removePracticeSessionPracticingDataOnServer(for: data)
+        }
     }
     
     func saveManualPracticing(duration: Int, practiceItemId: String?, started: Date, playlistId: String?) {

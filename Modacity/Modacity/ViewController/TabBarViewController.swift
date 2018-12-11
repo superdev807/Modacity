@@ -396,10 +396,10 @@ class TabBarViewController: UITabBarController {
     
     func openNewPlaylist() {
         
-        if Authorizer.authorizer.isGuestLogin() && AppOveralDataManager.manager.finishedFirstPlaylist() {
-            self.openSignup()
-            return
-        }
+//        if Authorizer.authorizer.isGuestLogin() && AppOveralDataManager.manager.finishedFirstPlaylist() {
+//            self.openSignup()
+//            return
+//        }
         
         let playlistCreateNew = UIStoryboard(name:"playlist", bundle: nil).instantiateViewController(withIdentifier: "playlist_control_scene") as! UINavigationController
         let controller = playlistCreateNew.viewControllers[0] as! PlaylistContentsViewController

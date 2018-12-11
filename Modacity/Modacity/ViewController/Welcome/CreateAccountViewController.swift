@@ -178,6 +178,7 @@ class CreateAccountViewController: ModacityParentViewController {
     }
     
     @IBAction func onClose(_ sender: Any) {
+        NotificationCenter.default.post(name: AppConfig.NotificationNames.appNotificationGuestSignUpCanceled, object: nil)
         self.navigationController?.dismiss(animated: true, completion: nil)
     }
     

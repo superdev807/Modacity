@@ -301,8 +301,12 @@ extension MetrodoneViewController: MetrodronePlayerDelegate, PremiumUpgradeLockV
     }
     
     func onFindOutMore() {
-        let controller = UIStoryboard(name: "premium", bundle: nil).instantiateViewController(withIdentifier: "PremiumUpgradeScene")
-        self.present(controller, animated: true, completion: nil)
+        if Authorizer.authorizer.isGuestLogin() {
+            openSignup()
+        } else {
+            let controller = UIStoryboard(name: "premium", bundle: nil).instantiateViewController(withIdentifier: "PremiumUpgradeScene")
+            self.present(controller, animated: true, completion: nil)
+        }
     }
     
     @objc func updatePremiumUpgradeLockView() {
@@ -311,6 +315,11 @@ extension MetrodoneViewController: MetrodronePlayerDelegate, PremiumUpgradeLockV
         } else {
             self.detachLockView()
         }
+    }
+    
+    func openSignup() {
+        let controller = UIStoryboard(name: "welcome", bundle: nil).instantiateViewController(withIdentifier: "LoginScene") as! UINavigationController
+        self.present(controller, animated: true, completion: nil)
     }
     
 }
