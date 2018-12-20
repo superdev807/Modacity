@@ -20,6 +20,8 @@ class SubdivisionSelectView: UIView {
     @IBOutlet weak var buttonSubdivisionNote2: UIButton!
     @IBOutlet weak var buttonSubdivisionNote3: UIButton!
     @IBOutlet weak var buttonSubdivisionNote4: UIButton!
+    @IBOutlet weak var buttonSubdivisionNote5: UIButton!
+    @IBOutlet weak var buttonSubdivisionNote7: UIButton!
     
     var selectedSubdivisionNote: Int = -1
     var delegate: SubdivisionSelectViewDelegate!
@@ -59,6 +61,10 @@ class SubdivisionSelectView: UIView {
             self.selectedSubdivisionNote = 2
         } else if sender == self.buttonSubdivisionNote4 {
             self.selectedSubdivisionNote = 3
+        } else if sender == self.buttonSubdivisionNote5 {
+            self.selectedSubdivisionNote = 4
+        } else if sender == self.buttonSubdivisionNote7 {
+            self.selectedSubdivisionNote = 5
         }
         
         self.configureSubdivisionNoteSelectionGUI()
@@ -70,6 +76,8 @@ class SubdivisionSelectView: UIView {
         self.buttonSubdivisionNote2.alpha = 0.5
         self.buttonSubdivisionNote3.alpha = 0.5
         self.buttonSubdivisionNote4.alpha = 0.5
+        self.buttonSubdivisionNote5.alpha = 0.5
+        self.buttonSubdivisionNote7.alpha = 0.5
         switch self.selectedSubdivisionNote {
         case 0:
             self.buttonSubdivisionNote1.alpha = 1.0
@@ -79,13 +87,17 @@ class SubdivisionSelectView: UIView {
             self.buttonSubdivisionNote3.alpha = 1.0
         case 3:
             self.buttonSubdivisionNote4.alpha = 1.0
+        case 4:
+            self.buttonSubdivisionNote5.alpha = 1.0
+        case 5:
+            self.buttonSubdivisionNote7.alpha = 1.0
         default:
             return
         }
     }
     
     func processSubdivision() {
-        if ((self.selectedSubdivisionNote < 0) || (self.selectedSubdivisionNote > 3)) {
+        if ((self.selectedSubdivisionNote < 0) || (self.selectedSubdivisionNote > 5)) {
             self.selectedSubdivisionNote = 0
         }
         
