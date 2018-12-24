@@ -25,7 +25,7 @@ class DefaultDataShipManager {
                         for practiceName in practices.keys {
                             if let json = practices[practiceName] as? [String:Any] {
                                 if let practiceItem = PracticeItem(JSON: json) {
-                                    PracticeItemLocalManager.manager.addPracticeItem(practiceItem)
+                                    PracticeItemLocalManager.manager.addPracticeItem(practiceItem, isDefault: true)
                                 }
                             }
                         }
@@ -35,7 +35,7 @@ class DefaultDataShipManager {
                         for playlistId in playlists.keys {
                             if let json = playlists[playlistId] as? [String:Any] {
                                 if let playlist = Playlist(JSON: json) {
-                                    PlaylistLocalManager.manager.addPlaylist(playlist: playlist)
+                                    PlaylistLocalManager.manager.addPlaylist(playlist: playlist, isDefault: true)
                                 }
                             }
                         }
@@ -60,7 +60,7 @@ class DefaultDataShipManager {
                     for practiceId in practices.keys {
                         if let practiceJSON = practices[practiceId] as? [String:Any] {
                             if let practice = PracticeItem(JSON: practiceJSON) {
-                                PracticeItemLocalManager.manager.addPracticeItem(practice)
+                                PracticeItemLocalManager.manager.addPracticeItem(practice, isDefault: true)
                             }
                         }
                     }
@@ -70,7 +70,7 @@ class DefaultDataShipManager {
                     for playlistId in playlists.keys {
                         if let json = playlists[playlistId] as? [String:Any] {
                             if let playlist = Playlist(JSON: json) {
-                                PlaylistLocalManager.manager.addPlaylist(playlist: playlist)
+                                PlaylistLocalManager.manager.addPlaylist(playlist: playlist, isDefault: true)
                             }
                         }
                     }
@@ -94,7 +94,7 @@ class DefaultDataShipManager {
                 practiceItem.addNote(text: note)
             }
         }
-        PracticeItemLocalManager.manager.addPracticeItem(practiceItem)
+        PracticeItemLocalManager.manager.addPracticeItem(practiceItem, isDefault: true)
         
         return practiceItem
     }

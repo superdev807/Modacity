@@ -99,7 +99,7 @@ class PracticeItemLocalManager {
         UserDefaults.standard.synchronize()
     }
     
-    func addPracticeItem(_ practiceItem:PracticeItem) {
+    func addPracticeItem(_ practiceItem:PracticeItem, isDefault: Bool) {
         
         if let practiceItemId = practiceItem.id {
             if var itemIds = self.practiceItemIds() {
@@ -113,8 +113,10 @@ class PracticeItemLocalManager {
             UserDefaults.standard.set(practiceItem.toJSON(), forKey: "practice:id:" + practiceItemId)
             UserDefaults.standard.synchronize()
             
-            if Authorizer.authorizer.isGuestLogin() {
-                GuestCacheManager.manager.practiceItemIds.append(practiceItemId)
+            if !isDefault {
+                if Authorizer.authorizer.isGuestLogin() {
+                    GuestCacheManager.manager.practiceItemIds.append(practiceItemId)
+                }
             }
             
             PracticeItemRemoteManager.manager.add(item: practiceItem)

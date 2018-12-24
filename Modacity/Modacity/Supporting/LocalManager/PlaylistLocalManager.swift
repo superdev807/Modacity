@@ -211,7 +211,7 @@ class PlaylistLocalManager: NSObject {
         }
     }
     
-    func addPlaylist(playlist: Playlist) {
+    func addPlaylist(playlist: Playlist, isDefault: Bool) {
         var newPlaylists = [Playlist]()
         if let playlists = self.loadPlaylists() {
             newPlaylists = playlists
@@ -219,8 +219,10 @@ class PlaylistLocalManager: NSObject {
         newPlaylists.append(playlist)
         self.storePlaylists(newPlaylists)
         
-        if Authorizer.authorizer.isGuestLogin() {
-            GuestCacheManager.manager.practiceSessionIds.append(playlist.id)
+        if !isDefault {
+            if Authorizer.authorizer.isGuestLogin() {
+                GuestCacheManager.manager.practiceSessionIds.append(playlist.id)
+            }
         }
         
         PlaylistRemoteManager.manager.add(item: playlist)

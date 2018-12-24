@@ -28,7 +28,7 @@ class PracticeItemRemoteManager {
                             if let practiceItem = data.value as? [String:Any] {
                                 if let item = PracticeItem(JSON: practiceItem) {
                                     if PracticeItemLocalManager.manager.practiceItem(forId: item.id) == nil {
-                                        PracticeItemLocalManager.manager.addPracticeItem(item)
+                                        PracticeItemLocalManager.manager.addPracticeItem(item, isDefault: false)
                                     }
                                 }
                             }
@@ -72,7 +72,7 @@ class PracticeItemRemoteManager {
                         if let practiceItem = data.value as? [String:Any] {
                             if let item = PracticeItem(JSON: practiceItem) {
                                 if PracticeItemLocalManager.manager.practiceItem(forId: item.id) == nil {
-                                    PracticeItemLocalManager.manager.addPracticeItem(item)
+                                    PracticeItemLocalManager.manager.addPracticeItem(item, isDefault: false)
                                 }
                             }
                         }
