@@ -43,11 +43,11 @@ class PremiumDataManager: NSObject {
     func isPremiumUnlocked() -> Bool {
         //if (Bundle.main.appStoreReceiptURL?.path.contains("CoreSimulator"))
         
-//        if let appStoreReceiptURL = Bundle.main.appStoreReceiptURL {
-//            if ((appStoreReceiptURL.lastPathComponent == "sandboxReceipt") || (appStoreReceiptURL.path.contains("CoreSimulator"))) {
-//                return true
-//            }
-//        }
+        if let appStoreReceiptURL = Bundle.main.appStoreReceiptURL {
+            if ((appStoreReceiptURL.lastPathComponent == "sandboxReceipt") || (appStoreReceiptURL.path.contains("CoreSimulator"))) {
+                return true
+            }
+        }
         
         if let data = UserDefaults.standard.object(forKey: "premium") as? [String:Any] {
             if let premium = PremiumData(JSON: data) {

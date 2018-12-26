@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -17,66 +16,91 @@
                 <outlet property="buttonSubdivisionNote2" destination="FYt-dD-TLH" id="2UW-om-4e8"/>
                 <outlet property="buttonSubdivisionNote3" destination="JKd-Hl-wH0" id="NvE-6A-PCa"/>
                 <outlet property="buttonSubdivisionNote4" destination="Rz6-wd-kcO" id="1j9-DO-OHV"/>
+                <outlet property="buttonSubdivisionNote5" destination="7st-nv-SHt" id="HB2-Os-MCu"/>
+                <outlet property="buttonSubdivisionNote7" destination="qwu-Ni-n6b" id="OWI-U1-WRJ"/>
                 <outlet property="viewContent" destination="cdi-Uq-eWb" id="BbU-x2-Map"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="cdi-Uq-eWb">
-            <rect key="frame" x="0.0" y="0.0" width="96" height="272"/>
+            <rect key="frame" x="0.0" y="0.0" width="96" height="397"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_subdivision" translatesAutoresizingMaskIntoConstraints="NO" id="Av9-Eu-gNY">
-                    <rect key="frame" x="0.0" y="0.0" width="96" height="272"/>
+                    <rect key="frame" x="0.0" y="0.0" width="96" height="397"/>
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dv9-jN-E2J">
-                    <rect key="frame" x="0.0" y="0.0" width="96" height="258"/>
+                    <rect key="frame" x="0.0" y="0.0" width="96" height="383"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t56-9r-hoZ" userLabel="Button Subdivision 1">
-                            <rect key="frame" x="0.0" y="0.0" width="96" height="65"/>
+                            <rect key="frame" x="0.0" y="0.0" width="96" height="64"/>
                             <state key="normal" image="icon_note_1"/>
                             <connections>
                                 <action selector="onSubdivisionNotes:" destination="-1" eventType="touchUpInside" id="RO8-Of-l0T"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FYt-dD-TLH">
-                            <rect key="frame" x="0.0" y="65" width="96" height="65"/>
+                            <rect key="frame" x="0.0" y="64" width="96" height="63.5"/>
                             <state key="normal" image="icon_note_2"/>
                             <connections>
                                 <action selector="onSubdivisionNotes:" destination="-1" eventType="touchUpInside" id="HeI-sF-22k"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JKd-Hl-wH0">
-                            <rect key="frame" x="0.0" y="130" width="96" height="65"/>
+                            <rect key="frame" x="0.0" y="127.5" width="96" height="64"/>
                             <state key="normal" image="icon_note_3"/>
                             <connections>
                                 <action selector="onSubdivisionNotes:" destination="-1" eventType="touchUpInside" id="zDS-KU-1sO"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rz6-wd-kcO">
-                            <rect key="frame" x="0.0" y="197.5" width="96" height="65"/>
+                            <rect key="frame" x="0.0" y="194" width="96" height="64"/>
                             <state key="normal" image="icon_note_4"/>
                             <connections>
                                 <action selector="onSubdivisionNotes:" destination="-1" eventType="touchUpInside" id="Cf7-x9-gCE"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7st-nv-SHt">
+                            <rect key="frame" x="0.0" y="258" width="96" height="63.5"/>
+                            <state key="normal" image="icon_note_5"/>
+                            <connections>
+                                <action selector="onSubdivisionNotes:" destination="-1" eventType="touchUpInside" id="0yf-wL-uQ3"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qwu-Ni-n6b">
+                            <rect key="frame" x="0.0" y="321.5" width="96" height="64"/>
+                            <state key="normal" image="icon_note_7"/>
+                            <connections>
+                                <action selector="onSubdivisionNotes:" destination="-1" eventType="touchUpInside" id="nYF-jn-3i6"/>
                             </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="t56-9r-hoZ" firstAttribute="leading" secondItem="Dv9-jN-E2J" secondAttribute="leading" id="1lB-zw-HLY"/>
-                        <constraint firstItem="t56-9r-hoZ" firstAttribute="height" secondItem="Dv9-jN-E2J" secondAttribute="height" multiplier="1/4" id="2mR-XZ-c9l"/>
+                        <constraint firstItem="t56-9r-hoZ" firstAttribute="height" secondItem="Dv9-jN-E2J" secondAttribute="height" multiplier="1/6" id="2mR-XZ-c9l"/>
+                        <constraint firstItem="7st-nv-SHt" firstAttribute="leading" secondItem="t56-9r-hoZ" secondAttribute="leading" id="4XJ-1c-elq"/>
                         <constraint firstItem="FYt-dD-TLH" firstAttribute="top" secondItem="t56-9r-hoZ" secondAttribute="bottom" id="750-yN-ugb"/>
                         <constraint firstItem="FYt-dD-TLH" firstAttribute="width" secondItem="t56-9r-hoZ" secondAttribute="width" id="Abm-o0-tzu"/>
                         <constraint firstItem="JKd-Hl-wH0" firstAttribute="width" secondItem="t56-9r-hoZ" secondAttribute="width" id="Ak0-1P-PZz"/>
+                        <constraint firstItem="7st-nv-SHt" firstAttribute="height" secondItem="t56-9r-hoZ" secondAttribute="height" id="BWk-Zf-auG"/>
                         <constraint firstItem="Rz6-wd-kcO" firstAttribute="height" secondItem="t56-9r-hoZ" secondAttribute="height" id="ChW-Qc-l68"/>
-                        <constraint firstAttribute="height" constant="258" id="DZA-Sa-6wY"/>
+                        <constraint firstAttribute="height" constant="383" id="DZA-Sa-6wY"/>
+                        <constraint firstItem="7st-nv-SHt" firstAttribute="width" secondItem="t56-9r-hoZ" secondAttribute="width" id="Th9-zS-xw9"/>
+                        <constraint firstItem="qwu-Ni-n6b" firstAttribute="top" secondItem="7st-nv-SHt" secondAttribute="bottom" id="UK5-iy-fax"/>
+                        <constraint firstItem="7st-nv-SHt" firstAttribute="top" secondItem="Rz6-wd-kcO" secondAttribute="bottom" id="WXH-OT-J51"/>
                         <constraint firstItem="JKd-Hl-wH0" firstAttribute="top" secondItem="FYt-dD-TLH" secondAttribute="bottom" id="XGC-Nq-yam"/>
+                        <constraint firstItem="qwu-Ni-n6b" firstAttribute="height" secondItem="t56-9r-hoZ" secondAttribute="height" id="cdH-KQ-hQM"/>
+                        <constraint firstItem="qwu-Ni-n6b" firstAttribute="trailing" secondItem="t56-9r-hoZ" secondAttribute="trailing" id="e79-yp-pMX"/>
                         <constraint firstAttribute="width" constant="96" id="ejX-SR-BG3"/>
                         <constraint firstItem="JKd-Hl-wH0" firstAttribute="leading" secondItem="t56-9r-hoZ" secondAttribute="leading" id="gZM-49-3rb"/>
                         <constraint firstItem="FYt-dD-TLH" firstAttribute="leading" secondItem="t56-9r-hoZ" secondAttribute="leading" id="mbB-pc-lEL"/>
                         <constraint firstItem="FYt-dD-TLH" firstAttribute="height" secondItem="t56-9r-hoZ" secondAttribute="height" id="oCE-vC-DMw"/>
+                        <constraint firstItem="7st-nv-SHt" firstAttribute="trailing" secondItem="t56-9r-hoZ" secondAttribute="trailing" id="onH-tq-jjK"/>
                         <constraint firstItem="Rz6-wd-kcO" firstAttribute="leading" secondItem="t56-9r-hoZ" secondAttribute="leading" id="pkF-IN-PWG"/>
                         <constraint firstItem="Rz6-wd-kcO" firstAttribute="width" secondItem="t56-9r-hoZ" secondAttribute="width" id="qaA-wU-PTH"/>
                         <constraint firstItem="Rz6-wd-kcO" firstAttribute="top" secondItem="JKd-Hl-wH0" secondAttribute="bottom" constant="2.5" id="reK-Ce-t4L"/>
+                        <constraint firstItem="qwu-Ni-n6b" firstAttribute="leading" secondItem="t56-9r-hoZ" secondAttribute="leading" id="uCv-eK-TeT"/>
                         <constraint firstItem="t56-9r-hoZ" firstAttribute="width" secondItem="Dv9-jN-E2J" secondAttribute="width" id="vsX-in-yIr"/>
                         <constraint firstItem="JKd-Hl-wH0" firstAttribute="height" secondItem="t56-9r-hoZ" secondAttribute="height" id="yfv-BG-iOc"/>
                         <constraint firstItem="t56-9r-hoZ" firstAttribute="top" secondItem="Dv9-jN-E2J" secondAttribute="top" id="zH7-VK-E2R"/>
@@ -100,10 +124,12 @@
         </view>
     </objects>
     <resources>
-        <image name="bg_subdivision" width="96" height="272"/>
+        <image name="bg_subdivision" width="96" height="397"/>
         <image name="icon_note_1" width="9" height="22"/>
         <image name="icon_note_2" width="21" height="26"/>
         <image name="icon_note_3" width="30" height="35"/>
         <image name="icon_note_4" width="44" height="32"/>
+        <image name="icon_note_5" width="44" height="34"/>
+        <image name="icon_note_7" width="44" height="28"/>
     </resources>
 </document>
