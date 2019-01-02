@@ -28,6 +28,7 @@ enum ModacityEvent:String {
     case WelcomeTutorial3 = "WelcomeTutorial Screen 3"
     case WelcomeTutorial4 = "WelcomeTutorial Screen 4"
     case PressedGetStarted = "Pressed Get Started"
+    
     //Login
     case CreateAccount = "Create Account Screen"
     case FacebookSignin = "Signed in with Facebook"
@@ -35,6 +36,8 @@ enum ModacityEvent:String {
     case EmailTyped = "Account Create: Typed in email field"
     case PasswordTyped = "Account Create: Typed in password field"
     case EmailCreate = "Pressed \"Create Account\""
+    
+    case CreatedAccount = "Created Account"
     
     //Sign in
     case SigninButton = "User "
