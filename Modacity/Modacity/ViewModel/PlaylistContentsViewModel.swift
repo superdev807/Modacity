@@ -25,8 +25,7 @@ class PlaylistContentsViewModel: ViewModel {
     var playlistPracticeEntries:[PlaylistPracticeEntry] = [PlaylistPracticeEntry]() {
         didSet {
             
-            
-            var cleanedEntries = [PlaylistPracticeEntry]()//playlistPracticeEntries
+            var cleanedEntries = [PlaylistPracticeEntry]()
             
             for entry in playlistPracticeEntries {
                 if let _ = entry.practiceItem() {
@@ -36,7 +35,7 @@ class PlaylistContentsViewModel: ViewModel {
             
             playlistPracticeEntries = cleanedEntries
             self.playlistPracticeEntries = cleanedEntries
-            
+            self.playlist.playlistPracticeEntries = self.playlistPracticeEntries
             self.storePlaylist()
             if !disableCallbackForRowEditing {
                 if let callback = self.callBacks["practiceItems"] {
@@ -144,7 +143,6 @@ class PlaylistContentsViewModel: ViewModel {
     func duplicate(entry: PlaylistPracticeEntry) {
         let newEntry = PlaylistPracticeEntry()
         newEntry.entryId = UUID().uuidString
-//        newEntry.name = entry.name
         newEntry.countDownDuration = entry.countDownDuration
         newEntry.practiceItemId = entry.practiceItemId
         
