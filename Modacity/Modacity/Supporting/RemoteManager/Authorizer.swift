@@ -84,6 +84,13 @@ class Authorizer: NSObject {
                 }
             } else {
                 if let user = authDataResult?.user {
+                    
+                    ModacityAnalytics.LogEvent(ModacityEvent.CreatedAccount,
+                                               params: ["by": "email",
+                                                        "uid": user.uid,
+                                                        "email": email,
+                                                        "guest": "yes"])
+                    
                     MyProfileRemoteManager.manager.updateMyProfile(userId: user.uid,
                                                                    data: ["email":email, "signedup":"\(Date().timeIntervalSince1970)", "guest": false])
                     
@@ -102,6 +109,12 @@ class Authorizer: NSObject {
     func signup(email: String, password: String, completion: @escaping (String?) ->()) {
         Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
             if error == nil {
+                
+                ModacityAnalytics.LogEvent(ModacityEvent.CreatedAccount,
+                                           params: ["by": "email",
+                                                    "uid": user!.user.uid,
+                                                    "email": email,
+                                                    "guest": "no"])
                 
                 MyProfileRemoteManager.manager.createMyProfile(userId: user!.user.uid, data: ["uid":user!.user.uid,
                                                                       "email":email,
@@ -214,6 +227,13 @@ class Authorizer: NSObject {
                                             let firstName = result["first_name"] as? String ?? ""
                                             let lastName = result["last_name"] as? String ?? ""
                                             
+                                            ModacityAnalytics.LogEvent(ModacityEvent.CreatedAccount,
+                                                                       params: ["by": "facebook",
+                                                                                "uid": user.uid,
+                                                                                "email": result["email"] as? String ?? "",
+                                                                                "fbid":result["id"] as? String ?? "",
+                                                                                "guest": "yes"])
+                                            
                                             MyProfileRemoteManager.manager.updateMyProfile(userId: user.uid, data:[
                                                 "name": "\(firstName) \(lastName)",
                                                 "email": result["email"] as? String ?? "",
@@ -310,6 +330,9 @@ class Authorizer: NSObject {
                                     FBSDKGraphRequest(graphPath: "me", parameters: ["fields":"id,name,first_name,last_name,picture.type(large), email"]).start(completionHandler: { (connection, result, error) in
                                         
                                         if error == nil {
+                                            
+                                            
+                                            
                                             if let result = result as? [String:Any] {
                                                 var photoUrl = ""
                                                 if let pictureData = result["picture"] as? [String:Any] {
@@ -319,6 +342,13 @@ class Authorizer: NSObject {
                                                 }
                                                 let firstName = result["first_name"] as? String ?? ""
                                                 let lastName = result["last_name"] as? String ?? ""
+                                                
+                                                ModacityAnalytics.LogEvent(ModacityEvent.CreatedAccount,
+                                                                           params: ["by": "facebook",
+                                                                                    "uid": user!.uid,
+                                                                                    "email": result["email"] as? String ?? "",
+                                                                                    "fbId": result["id"] as? String ?? "",
+                                                                                    "guest": "no"])
                                                 
                                                 MyProfileRemoteManager.manager.createMyProfile(userId: user!.uid, data:[
                                                     "uid":user!.uid,
@@ -380,6 +410,14 @@ class Authorizer: NSObject {
                         let dimension = UInt(round(100 * UIScreen.main.scale))
                         avatarUrl = googleUser.profile.imageURL(withDimension: dimension).absoluteString
                     }
+                    
+                    ModacityAnalytics.LogEvent(ModacityEvent.CreatedAccount,
+                                               params: ["by": "google",
+                                                        "uid": user.uid,
+                                                        "email": googleUser.profile.email,
+                                                        "googleId":googleUser.userID,
+                                                        "guest": "yes"])
+                    
                     MyProfileRemoteManager.manager.updateMyProfile(userId: user.uid, data:[
                         "name": googleUser.profile.name,
                         "email": googleUser.profile.email,
@@ -420,6 +458,14 @@ class Authorizer: NSObject {
                             let dimension = UInt(round(100 * UIScreen.main.scale))
                             avatarUrl = googleUser.profile.imageURL(withDimension: dimension).absoluteString
                         }
+                        
+                        ModacityAnalytics.LogEvent(ModacityEvent.CreatedAccount,
+                                                   params: ["by": "google",
+                                                            "uid": user!.uid,
+                                                            "email": googleUser.profile.email,
+                                                            "googleId": googleUser.userID,
+                                                            "guest": "no"])
+                        
                         MyProfileRemoteManager.manager.createMyProfile(userId: user!.uid, data:[
                             "uid":user!.uid,
                             "name": googleUser.profile.name,
