@@ -35,7 +35,7 @@ class RecordingViewModel: ViewModel {
         let recordingToRemove = self.recordings[row]
         do {
             let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
-            let url = URL(fileURLWithPath: dirPath[0] + "/" + recordingToRemove.fileName + ".wav")
+            let url = URL(fileURLWithPath: dirPath[0] + "/" + recordingToRemove.fileName +  AppConfig.Constants.appSavedAudioFileExtension)
             try FileManager.default.removeItem(at: url)
         } catch let error as NSError {
             ModacityDebugger.debug("file removing error - \(error.localizedDescription)")
@@ -50,7 +50,7 @@ class RecordingViewModel: ViewModel {
     func deleteRecording(for recording:Recording) {
         do {
             let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
-            let url = URL(fileURLWithPath: dirPath[0] + "/" + recording.fileName + ".wav")
+            let url = URL(fileURLWithPath: dirPath[0] + "/" + recording.fileName +  AppConfig.Constants.appSavedAudioFileExtension)
             try FileManager.default.removeItem(at: url)
         } catch let error as NSError {
             ModacityDebugger.debug("file removing error - \(error.localizedDescription)")

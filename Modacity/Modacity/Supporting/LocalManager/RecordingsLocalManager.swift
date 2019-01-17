@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GZZAudioConverter
 
 class RecordingsLocalManager: NSObject {
     
@@ -14,26 +15,38 @@ class RecordingsLocalManager: NSObject {
     
     func saveCurrentRecording(toFileName: String, playlistId: String, practiceName: String, practiceEntryId: String, practiceItemId:String) {
         let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
-        let sourceUrl = URL(fileURLWithPath: dirPath[0] + "/recording.wav")
-        let targetUrl = URL(fileURLWithPath: dirPath[0] + "/" + toFileName + ".wav")
         
-        let fileManager = FileManager.default
-        
-        do {
-            try fileManager.copyItem(at: sourceUrl, to: targetUrl)
-        } catch let error as NSError {
-            ModacityDebugger.debug("File copy error: \(error)")
+        DispatchQueue.global(qos: .background).async {
+            let sourcePath = dirPath[0] + AppConfig.Constants.appRecordingStartFileName
+            let targetPath = dirPath[0] + "/" + toFileName + AppConfig.Constants.appSavedAudioFileExtension
+            
+            let converter = GZZAudioConverter()
+            converter.inputFile = sourcePath
+            converter.outputFile = targetPath
+            converter.outputFileType = kAudioFileMP3Type
+            converter.outputFormatID = kAudioFormatMPEGLayer3
+            let success = converter.convert()
+            
+            if success {
+                ModacityDebugger.debug("Successfully converted")
+                
+                if let recording = Recording(JSON: ["id":UUID().uuidString,
+                                                    "created_at":"\(Date().timeIntervalSince1970)",
+                    "file_name":toFileName,
+                    "playlist_id":playlistId,
+                    "practice_name":practiceName,
+                    "practiceEntryId":practiceEntryId,
+                    "practiceItemId":practiceItemId]) {
+                    self.addNewRecording(recording)
+                }
+                
+            } else {
+                ModacityDebugger.debug("Convert failed.")
+                
+                
+            }
         }
         
-        if let recording = Recording(JSON: ["id":UUID().uuidString,
-                                         "created_at":"\(Date().timeIntervalSince1970)",
-                                         "file_name":toFileName,
-                                         "playlist_id":playlistId,
-                                         "practice_name":practiceName,
-                                         "practiceEntryId":practiceEntryId,
-                                         "practiceItemId":practiceItemId]) {
-            self.addNewRecording(recording)
-        }
     }
     
     func removeRecording(forId: String) {
@@ -80,9 +93,19 @@ class RecordingsLocalManager: NSObject {
     func loadRecordings() -> [Recording] {
         if let recordingIds = self.loadRecordingIds() {
             var result = [Recording]()
+            
+            let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+            let fileManager = FileManager.default
+            
             for recordingId in recordingIds {
                 if let recording = self.recording(forId: recordingId) {
-                    result.append(recording)
+                    
+                    let mp3FilePath = dirPath[0] + "/" + recording.fileName + AppConfig.Constants.appSavedAudioFileExtension
+                    let wavFilePath = dirPath[0] + "/" + recording.fileName + ".wav"
+                    
+                    if fileManager.fileExists(atPath: mp3FilePath) || fileManager.fileExists(atPath: wavFilePath) {
+                        result.append(recording)
+                    }
                 }
             }
             return result.sorted(by: { (recording1, recording2) -> Bool in

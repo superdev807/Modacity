@@ -33,7 +33,7 @@ class Recording: Mappable {
     
     static func currentRecordingURL() -> URL {
         let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
-        let soundFilePath = dirPath[0] + "/recording.wav"
+        let soundFilePath = dirPath[0] + AppConfig.Constants.appRecordingStartFileName
         let url = URL(fileURLWithPath: soundFilePath)
         
         return url
