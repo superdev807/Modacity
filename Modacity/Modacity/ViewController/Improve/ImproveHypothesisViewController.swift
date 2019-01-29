@@ -69,7 +69,7 @@ class ImproveHypothesisViewController: ModacityParentViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if self.viewModel.alreadyTried {
-            self.labelHeaderNote.attributedText = NSAttributedString(string: "Try again! or attempt\nsomething different.")
+            self.labelHeaderNote.attributedText = NSAttributedString(string: "Try again! or attempt\nsomething different.", attributes: [NSAttributedStringKey.foregroundColor: Color.white])
             self.textfieldInputBox.text = self.viewModel.selectedHypothesis
         }
     }

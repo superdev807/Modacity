@@ -22,6 +22,7 @@ class ImproveSuggestionViewController: ModacityParentViewController {
     @IBOutlet weak var collectionViewMain: UICollectionView!
     @IBOutlet weak var buttonCloseBox: UIButton!
     @IBOutlet weak var constraintForCollectionViewBottomSpace: NSLayoutConstraint!
+    @IBOutlet weak var labelHeaderTitle: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +42,12 @@ class ImproveSuggestionViewController: ModacityParentViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(onKeyboardWillShow), name: Notification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(onKeyboardWillHide), name: Notification.Name.UIKeyboardWillHide, object: nil)
+        
+        // What one thing will you improve now?
+        let attributedString = NSMutableAttributedString(string: "What ", attributes: [NSAttributedStringKey.foregroundColor: Color.white, NSAttributedStringKey.font: UIFont(name: AppConfig.UI.Fonts.appFontLatoBold, size: 16)!])
+        attributedString.append(NSAttributedString(string: "one ", attributes: [NSAttributedStringKey.foregroundColor: Color.white, NSAttributedStringKey.font: UIFont(name: AppConfig.UI.Fonts.appFontLatoBoldItalic, size: 16)!]))
+        attributedString.append(NSAttributedString(string: "thing will you improve now?", attributes: [NSAttributedStringKey.foregroundColor: Color.white, NSAttributedStringKey.font: UIFont(name: AppConfig.UI.Fonts.appFontLatoBold, size: 16)!]))
+        self.labelHeaderTitle.attributedText = attributedString
     }
     
     deinit {
