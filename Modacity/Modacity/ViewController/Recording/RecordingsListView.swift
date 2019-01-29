@@ -310,6 +310,7 @@ extension RecordingsListView: AVAudioPlayerDelegate {
                 guard let player = self.audioPlayer else { return }
                 player.enableRate = true
                 player.prepareToPlay()
+                currentRate = 1.0
                 player.delegate = self
             } catch let error {
                 ModacityDebugger.debug("Audio player error \(error.localizedDescription)")

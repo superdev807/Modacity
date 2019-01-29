@@ -18,6 +18,8 @@ class Recording: Mappable {
     var practiceEntryId: String!
     var practiceItemId: String!
     
+    var fileType: String! = "m4a"
+    
     required init?(map: Map) {
     }
     
@@ -29,6 +31,7 @@ class Recording: Mappable {
         practiceName    <- map["practice_name"]
         practiceEntryId <- map["practice_entry_id"]
         practiceItemId  <- map["practice_item_id"]
+        fileType        <- map["file_type"]
     }
     
     static func currentRecordingURL() -> URL {

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import GZZAudioConverter
+//import GZZAudioConverter
 
 class RecordingsLocalManager: NSObject {
     
@@ -16,37 +16,48 @@ class RecordingsLocalManager: NSObject {
     func saveCurrentRecording(toFileName: String, playlistId: String, practiceName: String, practiceEntryId: String, practiceItemId:String) {
         let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
         
-        DispatchQueue.global(qos: .background).async {
+//        DispatchQueue.global(qos: .background).async {
+//
+//            let start = Date().timeIntervalSince1970
+//
             let sourcePath = dirPath[0] + AppConfig.Constants.appRecordingStartFileName
             let targetPath = dirPath[0] + "/" + toFileName + AppConfig.Constants.appSavedAudioFileExtension
-            
-            let converter = GZZAudioConverter()
-            converter.inputFile = sourcePath
-            converter.outputFile = targetPath
-            converter.outputFileType = kAudioFileMP3Type
-            converter.outputFormatID = kAudioFormatMPEGLayer3
-            let success = converter.convert()
-            
-            if success {
-                ModacityDebugger.debug("Successfully converted")
-                
+        
+        
+        do {
+        try FileManager.default.copyItem(at: URL(fileURLWithPath: sourcePath), to: URL(fileURLWithPath: targetPath))
+//
+//            let converter = GZZAudioConverter()
+//            converter.inputFile = sourcePath
+//            converter.outputFile = targetPath
+//            converter.outputFileType = kAudioFileMP3Type
+//            converter.outputFormatID = kAudioFormatMPEGLayer3
+//            let success = converter.convert()
+//
+//            ModacityDebugger.debug("MP3 Converting - \(Date().timeIntervalSince1970 - start)")
+//
+//            if success {
+//                ModacityDebugger.debug("Successfully converted")
+        
                 if let recording = Recording(JSON: ["id":UUID().uuidString,
                                                     "created_at":"\(Date().timeIntervalSince1970)",
                     "file_name":toFileName,
                     "playlist_id":playlistId,
                     "practice_name":practiceName,
                     "practiceEntryId":practiceEntryId,
+                    "file_type": "m4a",
                     "practiceItemId":practiceItemId]) {
+                    
                     self.addNewRecording(recording)
                 }
                 
-            } else {
-                ModacityDebugger.debug("Convert failed.")
-                
-                
-            }
+//            } else {
+//                ModacityDebugger.debug("Convert failed.")
+//            }
+//        }
+        } catch let err {
+            ModacityDebugger.debug("copy file error \(err.localizedDescription)")
         }
-        
     }
     
     func removeRecording(forId: String) {

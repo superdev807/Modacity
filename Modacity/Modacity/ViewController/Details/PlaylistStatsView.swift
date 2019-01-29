@@ -205,6 +205,8 @@ class PlaylistStatsView: UIView {
         var thisMonthTotal = 0
         var lastMonthTotal = 0
         
+        self.detailsData = [String:[String: [String:Int]]]()
+        
         for date in data.keys {
             let time = date.date(format: "yy-MM-dd")
             if let dailyDatas = data[date] {
@@ -280,6 +282,8 @@ class PlaylistStatsView: UIView {
         var lastWeekTotal = 0
         var thisMonthTotal = 0
         var lastMonthTotal = 0
+        
+        self.detailsData = [String:[String: [String:Int]]]()
         
         for date in data.keys {
             let time = date.date(format: "yy-MM-dd")
@@ -420,10 +424,14 @@ class PlaylistStatsView: UIView {
             for practiceItemId in stats.keys {
                 let rowView = PracticeHistoryDetailsRowView()
                 var practiceName = ""
-                if let practice = PracticeItemLocalManager.manager.practiceItem(forId: practiceItemId) {
-                    practiceName = practice.name
+                if practiceItemId == AppConfig.Constants.appConstantMiscPracticeItemId {
+                    practiceName = AppConfig.Constants.appConstantMiscPracticeItemName
                 } else {
-                    practiceName = "(Deleted)"
+                    if let practice = PracticeItemLocalManager.manager.practiceItem(forId: practiceItemId) {
+                        practiceName = practice.name
+                    } else {
+                        practiceName = "(Deleted)"
+                    }
                 }
                 rowView.configure(title: practiceName, time: stats[practiceItemId]!["time"] ?? 0, improvements: stats[practiceItemId]!["improvements"] ?? 0)
                 self.viewDetailsList.addSubview(rowView)

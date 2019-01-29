@@ -133,7 +133,7 @@ class AppConfig: NSObject {
         static let appGuestUserStandalonePracticeLimit = 10
         
         static let appRecordingStartFileName = "/recording.m4a"
-        static let appSavedAudioFileExtension = ".mp3"
+        static let appSavedAudioFileExtension = ".m4a"
     }
     
     static let devVersion: Bool = {
