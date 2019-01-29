@@ -342,7 +342,7 @@ extension ImprovementViewController: AVAudioPlayerDelegate, FDWaveformViewDelega
         self.viewAudioPlayer.isHidden = false
         
         let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
-        let soundFilePath = dirPath[0] + "/recording.wav"
+        let soundFilePath = dirPath[0] + AppConfig.Constants.appRecordingStartFileName
         let url = URL(fileURLWithPath: soundFilePath)
         
         do {
@@ -538,16 +538,17 @@ extension ImprovementViewController {
     func startRecording() {
         
         let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
-        let soundFilePath = dirPath[0] + "/recording.wav"
+        let soundFilePath = dirPath[0] + AppConfig.Constants.appRecordingStartFileName
         let url = URL(fileURLWithPath: soundFilePath)
         
         let settings:[String:Any] = [
-            AVSampleRateKey: 44100.0,
-            AVFormatIDKey: kAudioFormatLinearPCM,
+            AVSampleRateKey: 12000/*44100.0*/,
+            AVFormatIDKey: kAudioFormatMPEG4AAC/*kAudioFormatLinearPCM kAudioFormatAppleIMA4*/,
             AVNumberOfChannelsKey: 1,
-            AVLinearPCMIsFloatKey: true,
+            AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
+            /*AVLinearPCMIsFloatKey: true,
             AVLinearPCMBitDepthKey:32,
-            AVEncoderAudioQualityKey: AVAudioQuality.min.rawValue
+            AVEncoderAudioQualityKey: AVAudioQuality.min.rawValue*/
         ]
         
         do {
