@@ -125,6 +125,8 @@ class PracticeViewController: ModacityParentViewController {
     
     var practiceStartedTime: Date!
     
+    var cellSwipeUpProcessing = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -1177,8 +1179,14 @@ extension PracticeViewController: UICollectionViewDelegate, UICollectionViewData
     }
     
     func onNoteSwipeUp(note: Note, cell: PracticeNoteCell, indexPath: IndexPath) {
+        
+        if (self.cellSwipeUpProcessing) {
+            return
+        }
+        
         ModacityAnalytics.LogStringEvent("Practicing - Swiped Note Up")
         if self.playlistViewModel != nil {
+            self.cellSwipeUpProcessing = true
             cell.startStraitUpAnimate {
                 if self.notesToShow.count > 2 {
                     self.collectionViewNotes.performBatchUpdates({
@@ -1191,7 +1199,12 @@ extension PracticeViewController: UICollectionViewDelegate, UICollectionViewData
                     self.configureNotes()
                 }
             }
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500), execute: {
+                self.cellSwipeUpProcessing = false
+            })
         } else {
+            self.cellSwipeUpProcessing = true
             cell.startStraitUpAnimate {
                 if self.notesToShow.count > 2 {
                     self.collectionViewNotes.performBatchUpdates({
@@ -1200,15 +1213,14 @@ extension PracticeViewController: UICollectionViewDelegate, UICollectionViewData
                         self.configureNotes()
                     }, completion: nil)
                 } else {
-//                    self.collectionViewNotes.performBatchUpdates({
-//                        self.practiceItem.archiveNote(for: note.id)
-//                        self.collectionViewNotes.deleteItems(at: [indexPath])
-//                        self.configureNotes()
-//                    }, completion: nil)
                     self.practiceItem.archiveNote(for: note.id)
                     self.configureNotes()
                 }
             }
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500), execute: {
+                self.cellSwipeUpProcessing = false
+            })
         }
     }
 }

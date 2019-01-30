@@ -84,11 +84,12 @@ class PracticeNoteCell: UICollectionViewCell, UIGestureRecognizerDelegate {
             self.frame.origin.y = self.frame.origin.y - self.frame.size.height
             self.alpha = 0
         }) { (finished) in
-            if finished {
-                completed()
-                
-                self.frame.origin.y = 0
-            }
+            
+            completed()
+            
+            self.frame.origin.y = 0
+//            if finished {
+//            }
         }
     }
     
