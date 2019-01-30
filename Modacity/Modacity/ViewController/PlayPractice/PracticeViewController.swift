@@ -248,6 +248,7 @@ class PracticeViewController: ModacityParentViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "sid_rate" {
             let controller = segue.destination as! PracticeRateViewController
+            controller.practicedTime = self.overallPracticeTimeInSeconds
             if self.playlistViewModel != nil {
                 controller.playlistViewModel = self.playlistViewModel
             } else {
@@ -478,6 +479,8 @@ extension PracticeViewController {
             self.playlistViewModel.updateDuration(forPracticeItem: self.playlistViewModel.currentPracticeEntry.entryId, duration: self.overallPracticeTimeInSeconds)
             self.playlistViewModel.currentPracticeEntry.practiceItem()?.updateLastPracticedTime(to: self.practiceStartedTime)
             self.playlistViewModel.currentPracticeEntry.practiceItem()?.updateLastPracticedDuration(duration: self.overallPracticeTimeInSeconds)
+            
+            self.playlistViewModel.practiceStartedTime = self.practiceStartedTime
         } else {
             self.practiceItem.updateLastPracticedTime(to: self.practiceStartedTime)
             self.practiceItem.updateLastPracticedDuration(duration: self.overallPracticeTimeInSeconds)
@@ -490,41 +493,43 @@ extension PracticeViewController {
             self.timer.invalidate()
         }
         
-        var practiceCompleted = false
-        
-        if self.countDownDuration == 0 {
-            practiceCompleted = true
-        } else {
-            if self.countDownPlayed < self.countDownDuration {
-                practiceCompleted = false
-            } else {
-                practiceCompleted = true
-            }
-        }
+//        var practiceCompleted = false
+//
+//        if self.countDownDuration == 0 {
+//            practiceCompleted = true
+//        } else {
+//            if self.countDownPlayed < self.countDownDuration {
+//                practiceCompleted = false
+//            } else {
+//                practiceCompleted = true
+//            }
+//        }
         
         self.cancelCountDownNotification()
+
+        self.performSegue(withIdentifier: "sid_rate", sender: nil)
         
-        if practiceCompleted {
-            self.performSegue(withIdentifier: "sid_rate", sender: nil)
-        } else {
-            if self.playlistViewModel != nil {
-                let id = PracticingDailyLocalManager.manager.saveNewPracticing(practiceItemId: self.playlistViewModel.currentPracticeEntry.practiceItemId,
-                                                                      started: self.playlistViewModel.sessionTimeStarted ?? Date(),
-                                                                      duration: self.overallPracticeTimeInSeconds,
-                                                                      rating: 0,
-                                                                      inPlaylist: self.playlistViewModel.playlist.id,
-                                                                      forPracticeEntry: self.playlistViewModel.currentPracticeEntry.entryId,
-                                                                      improvements: self.playlistViewModel.sessionImproved,
-                                                                      parentId: self.playlistViewModel.playlistPracticeData.entryId)
-                self.playlistViewModel.playlistPracticeData.practices.append(id)
-                self.playlistViewModel.playlistPracticeData.practiceTimeInSeconds = self.playlistViewModel.totalPracticedTime()/* + self.playlistViewModel.sessionPlayedInPlaylistPage*/
-                PlaylistDailyLocalManager.manager.saveNewPlaylistPracticing(self.playlistViewModel.playlistPracticeData)
-                self.playlistViewModel.sessionImproved = [ImprovedRecord]()
-                self.navigationController?.popViewController(animated: true)
-            } else {
-                self.performSegue(withIdentifier: "sid_rate", sender: nil)
-            }
-        }
+//        if practiceCompleted {
+//            self.performSegue(withIdentifier: "sid_rate", sender: nil)
+//        } else {
+//            if self.playlistViewModel != nil {
+//                let id = PracticingDailyLocalManager.manager.saveNewPracticing(practiceItemId: self.playlistViewModel.currentPracticeEntry.practiceItemId,
+//                                                                      started: self.playlistViewModel.sessionTimeStarted ?? Date(),
+//                                                                      duration: self.overallPracticeTimeInSeconds,
+//                                                                      rating: 0,
+//                                                                      inPlaylist: self.playlistViewModel.playlist.id,
+//                                                                      forPracticeEntry: self.playlistViewModel.currentPracticeEntry.entryId,
+//                                                                      improvements: self.playlistViewModel.sessionImproved,
+//                                                                      parentId: self.playlistViewModel.playlistPracticeData.entryId)
+//                self.playlistViewModel.playlistPracticeData.practices.append(id)
+//                self.playlistViewModel.playlistPracticeData.practiceTimeInSeconds = self.playlistViewModel.totalPracticedTime()/* + self.playlistViewModel.sessionPlayedInPlaylistPage*/
+//                PlaylistDailyLocalManager.manager.saveNewPlaylistPracticing(self.playlistViewModel.playlistPracticeData)
+//                self.playlistViewModel.sessionImproved = [ImprovedRecord]()
+//                self.navigationController?.popViewController(animated: true)
+//            } else {
+//                self.performSegue(withIdentifier: "sid_rate", sender: nil)
+//            }
+//        }
     }
     
     @IBAction func onToggleFavorite(_ sender: Any) {
@@ -1104,7 +1109,14 @@ extension PracticeViewController: UICollectionViewDelegate, UICollectionViewData
             let time2 = (note2.createdAt == nil) ? Date() : Date(timeIntervalSince1970: Double(note2.createdAt) ?? 0)
             return time1.compare(time2) == .orderedDescending
         }
-        self.collectionViewNotes.reloadData()
+        
+        DispatchQueue.main.async {
+            self.collectionViewNotes.reloadData()
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500), execute: {
+                self.collectionViewNotes.reloadData()
+            })
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -1135,6 +1147,7 @@ extension PracticeViewController: UICollectionViewDelegate, UICollectionViewData
             return CGSize(width: self.collectionViewNotes.frame.size.width, height: self.collectionViewNotes.frame.size.height)
         } else {
             if self.notesToShow.count == 1 {
+                ModacityDebugger.debug("asdf - \(self.collectionViewNotes.frame.size.width - 30),\(self.collectionViewNotes.frame.size.height)")
                 return CGSize(width: self.collectionViewNotes.frame.size.width, height: self.collectionViewNotes.frame.size.height)
             } else if self.notesToShow.count == 2 {
                 return CGSize(width: self.collectionViewNotes.frame.size.width - 30, height: self.collectionViewNotes.frame.size.height)
@@ -1187,6 +1200,11 @@ extension PracticeViewController: UICollectionViewDelegate, UICollectionViewData
                         self.configureNotes()
                     }, completion: nil)
                 } else {
+//                    self.collectionViewNotes.performBatchUpdates({
+//                        self.practiceItem.archiveNote(for: note.id)
+//                        self.collectionViewNotes.deleteItems(at: [indexPath])
+//                        self.configureNotes()
+//                    }, completion: nil)
                     self.practiceItem.archiveNote(for: note.id)
                     self.configureNotes()
                 }

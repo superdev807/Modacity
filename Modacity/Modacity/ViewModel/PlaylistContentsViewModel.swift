@@ -92,6 +92,8 @@ class PlaylistContentsViewModel: ViewModel {
     var sessionDurationInSecond: Int!
     var sessionCompleted = false
     
+    var practiceStartedTime: Date?
+    
     var sessionTimeStarted: Date?
     var sessionImproved =  [ImprovedRecord]()
     

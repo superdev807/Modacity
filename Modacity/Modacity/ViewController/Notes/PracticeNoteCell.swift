@@ -86,6 +86,8 @@ class PracticeNoteCell: UICollectionViewCell, UIGestureRecognizerDelegate {
         }) { (finished) in
             if finished {
                 completed()
+                
+                self.frame.origin.y = 0
             }
         }
     }

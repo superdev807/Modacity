@@ -18,6 +18,8 @@ class PracticeRateViewController: ModacityParentViewController {
     @IBOutlet weak var rateView: FloatRatingView!
     @IBOutlet weak var labelPracticeName: UILabel!
     
+    var practicedTime: Int! = 0
+    
     var walkthroughIsDismissed = false
     
     var shouldDismiss = false
@@ -145,8 +147,8 @@ class PracticeRateViewController: ModacityParentViewController {
     func storePracticeData() {
         if self.playlistViewModel != nil {
             let id = PracticingDailyLocalManager.manager.saveNewPracticing(practiceItemId: self.playlistViewModel.currentPracticeEntry.practiceItemId,
-                                                                  started: self.playlistViewModel.sessionTimeStarted ?? Date(),
-                                                                  duration: self.playlistViewModel.timePracticed[self.playlistViewModel.currentPracticeEntry.entryId] ?? 0,
+                                                                  started: /*self.playlistViewModel.sessionTimeStarted*/self.playlistViewModel.practiceStartedTime ?? Date(),
+                                                                  duration: /*self.playlistViewModel.timePracticed[self.playlistViewModel.currentPracticeEntry.entryId] ?? 0*/self.practicedTime,
                                                                   rating: self.rateView.rating,
                                                                   inPlaylist: self.playlistViewModel.playlist.id,
                                                                   forPracticeEntry: self.playlistViewModel.currentPracticeEntry.entryId,
