@@ -64,7 +64,7 @@ class SubdivisionSelectView: UIView {
         } else if sender == self.buttonSubdivisionNote5 {
             self.selectedSubdivisionNote = 4
         } else if sender == self.buttonSubdivisionNote7 {
-            self.selectedSubdivisionNote = 5
+            self.selectedSubdivisionNote = 6
         }
         
         self.configureSubdivisionNoteSelectionGUI()
@@ -89,7 +89,7 @@ class SubdivisionSelectView: UIView {
             self.buttonSubdivisionNote4.alpha = 1.0
         case 4:
             self.buttonSubdivisionNote5.alpha = 1.0
-        case 5:
+        case 6:
             self.buttonSubdivisionNote7.alpha = 1.0
         default:
             return
@@ -97,8 +97,12 @@ class SubdivisionSelectView: UIView {
     }
     
     func processSubdivision() {
-        if ((self.selectedSubdivisionNote < 0) || (self.selectedSubdivisionNote > 5)) {
+        if (self.selectedSubdivisionNote < 0) {
             self.selectedSubdivisionNote = 0
+        }
+        
+        if ((self.selectedSubdivisionNote > 6) || (self.selectedSubdivisionNote == 5)) {
+            self.selectedSubdivisionNote = 6
         }
         
         if let delegate = self.delegate {

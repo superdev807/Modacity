@@ -182,6 +182,10 @@ class MetrodronePlayer: DroneFrameDelegate {
                 _imageViewSubdivisionNote.image = UIImage(named:"icon_note_3")
             case 4:
                 _imageViewSubdivisionNote.image = UIImage(named:"icon_note_4")
+            case 5:
+                _imageViewSubdivisionNote.image = UIImage(named:"icon_note_5")
+            case 7:
+                _imageViewSubdivisionNote.image = UIImage(named:"icon_note_7")
             default:
                 return
             }
