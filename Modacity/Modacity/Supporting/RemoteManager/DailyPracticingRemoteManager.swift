@@ -22,6 +22,14 @@ class DailyPracticingRemoteManager: NSObject {
         }
     }
     
+    func deletePracticing(_ data: PracticeDaily) {
+        if let userId = MyProfileLocalManager.manager.userId() {
+            if data.practiceItemId != nil && data.practiceItemId != "" {
+                self.refUser.child(userId).child("practice_data").child(data.practiceItemId).child(data.entryDateString).child(data.entryId).removeValue()
+            }
+        }
+    }
+    
     func updatePracticing(_ data: PracticeDaily) {
         if let userId = MyProfileLocalManager.manager.userId() {
             if data.practiceItemId != nil && data.practiceItemId != "" {
@@ -57,25 +65,9 @@ class DailyPracticingRemoteManager: NSObject {
             self.refUser.child(userId).child("playlist_data").observeSingleEvent(of: .value) { (snapshot) in
                 DispatchQueue.global(qos: .background).async {
                     if snapshot.exists() {
-                        if let dataSnapshots = snapshot.children.allObjects as? [DataSnapshot] {
-                            for dataSnapshot in  dataSnapshots {
-                                if let snapshotsPerDate = dataSnapshot.children.allObjects as? [DataSnapshot] {
-                                    for snapshotPerDate in snapshotsPerDate {
-                                        if let practicingDataSnapshots = snapshotPerDate.children.allObjects as? [DataSnapshot] {
-                                            for practicingDataSnapshot in practicingDataSnapshots {
-                                                let practicingDataId = practicingDataSnapshot.key
-                                                if PracticingDailyLocalManager.manager.practicingData(forDataId: practicingDataId) == nil {
-                                                    if let json = practicingDataSnapshot.value as? [String:Any] {
-                                                        if let practicingData = PlaylistDaily(JSON: json) {
-                                                            PlaylistDailyLocalManager.manager.storePlaylistPracitingDataToLocal(practicingData)
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
+                        if let data = snapshot.value as? [String:Any] {
+                            PlaylistDailyLocalManager.manager.cleanData()
+                            PlaylistDailyLocalManager.manager.storeTotalData(data)
                         }
                     }
                     
@@ -90,25 +82,9 @@ class DailyPracticingRemoteManager: NSObject {
             self.refUser.child(userId).child("practice_data").observeSingleEvent(of: .value) { (snapshot) in
                 DispatchQueue.global(qos: .background).async {
                     if snapshot.exists() {
-                        if let dataSnapshots = snapshot.children.allObjects as? [DataSnapshot] {
-                            for dataSnapshot in  dataSnapshots {
-                                if let snapshotsPerDate = dataSnapshot.children.allObjects as? [DataSnapshot] {
-                                    for snapshotPerDate in snapshotsPerDate {
-                                        if let practicingDataSnapshots = snapshotPerDate.children.allObjects as? [DataSnapshot] {
-                                            for practicingDataSnapshot in practicingDataSnapshots {
-                                                let practicingDataId = practicingDataSnapshot.key
-                                                if PracticingDailyLocalManager.manager.practicingData(forDataId: practicingDataId) == nil {
-                                                    if let json = practicingDataSnapshot.value as? [String:Any] {
-                                                        if let practicingData = PracticeDaily(JSON: json) {
-                                                            PracticingDailyLocalManager.manager.storePracitingDataToLocal(practicingData)
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
+                        if let data = snapshot.value as? [String:Any] {
+                            PracticingDailyLocalManager.manager.cleanData()
+                            PracticingDailyLocalManager.manager.storeTotalData(data)
                         }
                     }
                     completion()
@@ -128,32 +104,20 @@ class DailyPracticingRemoteManager: NSObject {
     
     func fetchPlaylistPracticingDataFromServer() {
         if let userId = MyProfileLocalManager.manager.userId() {
+            var started = Date().timeIntervalSince1970
             self.refUser.child(userId).child("playlist_data").keepSynced(true)
             self.refUser.child(userId).child("playlist_data").observeSingleEvent(of: .value) { (snapshot) in
+                ModacityDebugger.debug("Firebase playlist data loading time = \(Date().timeIntervalSince1970 - started)s")
                 DispatchQueue.global(qos: .background).async {
+                    started = Date().timeIntervalSince1970
                     if snapshot.exists() {
-                        if let dataSnapshots = snapshot.children.allObjects as? [DataSnapshot] {
+                        if let data = snapshot.value as? [String:Any] {
                             PlaylistDailyLocalManager.manager.cleanData()
-                            for dataSnapshot in  dataSnapshots {
-                                if let snapshotsPerDate = dataSnapshot.children.allObjects as? [DataSnapshot] {
-                                    for snapshotPerDate in snapshotsPerDate {
-                                        if let practicingDataSnapshots = snapshotPerDate.children.allObjects as? [DataSnapshot] {
-                                            for practicingDataSnapshot in practicingDataSnapshots {
-                                                let practicingDataId = practicingDataSnapshot.key
-                                                if PracticingDailyLocalManager.manager.practicingData(forDataId: practicingDataId) == nil {
-                                                    if let json = practicingDataSnapshot.value as? [String:Any] {
-                                                        if let practicingData = PlaylistDaily(JSON: json) {
-                                                            PlaylistDailyLocalManager.manager.storePlaylistPracitingDataToLocal(practicingData)
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
+                            PlaylistDailyLocalManager.manager.storeTotalData(data)
                         }
                     }
+                    
+                    ModacityDebugger.debug("Firebase playlist data local storing time = \(Date().timeIntervalSince1970 - started)s")
                     self.setPlaylistPracticingDataLoaded()
                     NotificationCenter.default.post(Notification(name: AppConfig.NotificationNames.appNotificationPracticeDataFetched))
                 }
@@ -172,32 +136,20 @@ class DailyPracticingRemoteManager: NSObject {
     
     func fetchPracticingDataFromServer() {
         if let userId = MyProfileLocalManager.manager.userId() {
+            var started = Date().timeIntervalSince1970
             self.refUser.child(userId).child("practice_data").keepSynced(true)
             self.refUser.child(userId).child("practice_data").observeSingleEvent(of: .value) { (snapshot) in
+                ModacityDebugger.debug("Firebase practice data loading time = \(Date().timeIntervalSince1970 - started)s")
+                started = Date().timeIntervalSince1970
                 DispatchQueue.global(qos: .background).async {
                     if snapshot.exists() {
-                        if let dataSnapshots = snapshot.children.allObjects as? [DataSnapshot] {
+                        if let data = snapshot.value as? [String:Any] {
                             PracticingDailyLocalManager.manager.cleanData()
-                            for dataSnapshot in  dataSnapshots {
-                                if let snapshotsPerDate = dataSnapshot.children.allObjects as? [DataSnapshot] {
-                                    for snapshotPerDate in snapshotsPerDate {
-                                        if let practicingDataSnapshots = snapshotPerDate.children.allObjects as? [DataSnapshot] {
-                                            for practicingDataSnapshot in practicingDataSnapshots {
-                                                let practicingDataId = practicingDataSnapshot.key
-                                                if PracticingDailyLocalManager.manager.practicingData(forDataId: practicingDataId) == nil {
-                                                    if let json = practicingDataSnapshot.value as? [String:Any] {
-                                                        if let practicingData = PracticeDaily(JSON: json) {
-                                                            PracticingDailyLocalManager.manager.storePracitingDataToLocal(practicingData)
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
+                            PracticingDailyLocalManager.manager.storeTotalData(data)
                         }
                     }
+                    ModacityDebugger.debug("Firebase practice data local storing time = \(Date().timeIntervalSince1970 - started)s")
+                    
                     self.setPracticingDataLoaded()
                     NotificationCenter.default.post(Notification(name: AppConfig.NotificationNames.appNotificationPracticeDataFetched))
                 }

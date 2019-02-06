@@ -109,6 +109,7 @@ class AppConfig: NSObject {
         static let appNotificationPracticeLoadedFromServer = Notification.Name(rawValue: "appNotificationPracticeLoadedFromServer")
         static let appNotificationPlaylistLoadedFromServer = Notification.Name(rawValue: "appNotificationPlaylistLoadedFromServer")
         static let appNotificationPlaylistUpdated = Notification.Name(rawValue: "appNotificationPlaylistUpdated")
+        static let appNotificationPlaylistPracticeDataFetched = Notification.Name(rawValue: "appNotificationPlaylistPracticeDataFetched")
         static let appNotificationPracticeDataFetched = Notification.Name(rawValue: "appNotificationPracticeDataFetched")
         static let appNotificationProfileUpdated = Notification.Name(rawValue: "appNotificationProfileUpdated")
         static let appNotificationPremiumStatusChanged = Notification.Name(rawValue: "appNotificationPremiumStatusChanged")

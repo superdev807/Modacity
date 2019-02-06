@@ -17,33 +17,17 @@ class PlaylistDailyLocalManager: NSObject {
     
     func saveNewPlaylistPracticing(_ data: PlaylistDaily) {
         
-        var indecies = [String:[String]]()
-        if let old = UserDefaults.standard.object(forKey: "playlist-indecies-\(data.playlistId ?? "")") as? [String:[String]] {
-            indecies = old
-        }
+        var total = self.totalData() ?? [String:Any]()
         
-        var idsArrayPerDate = [String]()
+        var playlistTotal = total[data.playlistId] as? [String:Any] ?? [String:Any]()
         
-        if let ids = indecies[data.entryDateString] {
-            idsArrayPerDate = ids
-        }
+        var practiceDateTotal = playlistTotal[data.entryDateString] as? [String:Any] ?? [String:Any]()
         
-        var alreadyIncluded = false
-        for id in idsArrayPerDate {
-            if id == data.entryId {
-                alreadyIncluded = true
-                break
-            }
-        }
+        practiceDateTotal[data.entryId] = data.toJSON()
+        playlistTotal[data.entryDateString] = practiceDateTotal
+        total[data.playlistId] = playlistTotal
         
-        if !alreadyIncluded {
-            idsArrayPerDate.append(data.entryId)
-            indecies[data.entryDateString] = idsArrayPerDate
-            UserDefaults.standard.set(indecies, forKey: "playlist-indecies-\(data.playlistId ?? "")")
-        }
-        
-        UserDefaults.standard.set(data.toJSON(), forKey: "playlist-data-\(data.entryId ?? "")")
-        UserDefaults.standard.synchronize()
+        self.storeTotalData(total)
         
         DispatchQueue.global(qos: .background).async {
             DailyPracticingRemoteManager.manager.createPlaylistPracticing(data)
@@ -55,31 +39,24 @@ class PlaylistDailyLocalManager: NSObject {
     }
     
     func removeData(for data: PlaylistDaily) {
-        if data != nil {
-            var indecies = [String:[String]]()
-            if let old = UserDefaults.standard.object(forKey: "playlist-indecies-\(data.playlistId ?? "")") as? [String:[String]] {
-                indecies = old
+        var total = self.totalData() ?? [String:Any]()
+        
+        if var playlistTotal = total[data.playlistId] as? [String:Any] {
+            
+            if var practiceDateTotal = playlistTotal[data.entryDateString] as? [String:Any] {
+                
+                practiceDateTotal.removeValue(forKey: data.entryId)
+                
+                playlistTotal[data.entryDateString] = practiceDateTotal
+                total[data.playlistId] = playlistTotal
+                
+                self.storeTotalData(total)
             }
             
-            var idsArrayPerDate = [String]()
-            
-            if let ids = indecies[data.entryDateString] {
-                idsArrayPerDate = ids
-            }
-
-            for idx in 0..<idsArrayPerDate.count {
-                if data.entryId == idsArrayPerDate[idx] {
-                    idsArrayPerDate.remove(at: idx)
-                    break
-                }
-            }
-            indecies[data.entryDateString] = idsArrayPerDate
-            UserDefaults.standard.set(indecies, forKey: "playlist-indecies-\(data.playlistId ?? "")")
-            UserDefaults.standard.removeObject(forKey: "playlist-data-\(data.entryId ?? "")")
-            UserDefaults.standard.synchronize()
-            
-            DailyPracticingRemoteManager.manager.removePracticeSessionPracticingDataOnServer(for: data)
         }
+        
+        
+        DailyPracticingRemoteManager.manager.removePracticeSessionPracticingDataOnServer(for: data)
     }
     
     func saveManualPracticing(duration: Int, practiceItemId: String?, started: Date, playlistId: String?) {
@@ -124,76 +101,45 @@ class PlaylistDailyLocalManager: NSObject {
         saveNewPlaylistPracticing(playlistData)
     }
     
+    
+    
     func storePlaylistPracitingDataToLocal(_ data: PlaylistDaily) {
-        var indecies = [String:[String]]()
         
-        if data.playlistId != nil {
-            if let old = UserDefaults.standard.object(forKey: "playlist-indecies-\(data.playlistId ?? "")") as? [String:[String]] {
-                indecies = old
-            }
-        }
+        var total = self.totalData() ?? [String:Any]()
         
-        var idsArrayPerDate = [String]()
+        var playlistTotal = total[data.playlistId] as? [String:Any] ?? [String:Any]()
         
-        if let ids = indecies[data.entryDateString] {
-            idsArrayPerDate = AppUtils.cleanDuplicatedEntries(in: ids)
-        }
-        idsArrayPerDate.append(data.entryId)
-        indecies[data.entryDateString] = idsArrayPerDate
-        UserDefaults.standard.set(indecies, forKey: "playlist-indecies-\(data.playlistId ?? "")")
-        UserDefaults.standard.set(data.toJSON(), forKey: "playlist-data-\(data.entryId ?? "")")
-        UserDefaults.standard.synchronize()
+        var practiceDateTotal = playlistTotal[data.entryDateString] as? [String:Any] ?? [String:Any]()
+        
+        practiceDateTotal[data.entryId] = data.toJSON()
+        playlistTotal[data.entryDateString] = practiceDateTotal
+        total[data.playlistId] = playlistTotal
+        
+        self.storeTotalData(total)
+        
     }
     
     func playlistPracticingData(forPlaylistId: String) -> [String:[PracticeDaily]] {
+        
         var data = [String:[PracticeDaily]]()
-        if let ids = UserDefaults.standard.object(forKey: "playlist-indecies-\(forPlaylistId)") as? [String:[String]] {
-            for date in ids.keys {
-                if let idValues = ids[date] {
-                    var found = [String:Bool]()
-                    for id in idValues {
-                        if let alreadyFound = found[id] {
-                            if alreadyFound {
-                                continue
-                            }
-                        }
-                        found[id] = true
-                        if let practiceData = UserDefaults.standard.object(forKey: "playlist-data-\(id)") as? [String:Any] {
-                            if let practice = PlaylistDaily(JSON: practiceData) {
-                                var entries: [PracticeDaily]? = nil
-                                if let old = data[practice.entryDateString] {
-                                    entries = old
-                                }
-                                
-                                if let practicesArray = practice.practicesArray() {
-                                    if entries == nil {
-                                        entries = [PracticeDaily]()
+    
+        if let total = self.totalData() {
+            if let playlistData = total[forPlaylistId] as? [String: Any] {
+                for date in playlistData.keys {
+                    if let dataPerDate = playlistData[date] as? [String:Any] {
+                        for entryId in dataPerDate.keys {
+                            if let finalData = dataPerDate[entryId] as? [String:Any] {
+                                if let playlistPracticeData = PlaylistDaily(JSON: finalData) {
+                                    if let practices = playlistPracticeData.practicesArray() {
+                                        for practice in practices {
+                                            var entries = [PracticeDaily]()
+                                            if let old = data[practice.entryDateString] {
+                                                entries = old
+                                            }
+                                            entries.append(practice)
+                                            data[practice.entryDateString] = entries
+                                        }
                                     }
-                                    entries = entries! + practicesArray
-                                }
-                                
-                                if entries != nil {
-                                    data[practice.entryDateString] = entries!
-                                }
-                            }
-                        }
-                        
-                        if let practiceData = UserDefaults.standard.object(forKey: "playlist-data-Optional(\"\(id))\"") as? [String:Any] {
-                            if let practice = PlaylistDaily(JSON: practiceData) {
-                                var entries: [PracticeDaily]? = nil
-                                if let old = data[practice.entryDateString] {
-                                    entries = old
-                                }
-                                
-                                if let practicesArray = practice.practicesArray() {
-                                    if entries == nil {
-                                        entries = [PracticeDaily]()
-                                    }
-                                    entries = entries! + practicesArray
-                                }
-                                
-                                if entries != nil {
-                                    data[practice.entryDateString] = entries!
                                 }
                             }
                         }
@@ -206,37 +152,23 @@ class PlaylistDailyLocalManager: NSObject {
     }
     
     func playlistPracticingDataInPlaylistFormat(forPlaylistId: String) -> [String:[PlaylistDaily]] {
+        
         var data = [String:[PlaylistDaily]]()
-        if let ids = UserDefaults.standard.object(forKey: "playlist-indecies-\(forPlaylistId)") as? [String:[String]] {
-            for date in ids.keys {
-                if let idValues = ids[date] {
-                    var found = [String:Bool]()
-                    for id in idValues {
-                        if let alreadyFound = found[id] {
-                            if alreadyFound {
-                                continue
-                            }
-                        }
-                        found[id] = true
-                        if let practiceData = UserDefaults.standard.object(forKey: "playlist-data-\(id)") as? [String:Any] {
-                            if let practice = PlaylistDaily(JSON: practiceData) {
-                                var entries = [PlaylistDaily]()
-                                if let old = data[practice.entryDateString] {
-                                    entries = old
+        
+        if let total = self.totalData() {
+            if let playlistData = total[forPlaylistId] as? [String: Any] {
+                for date in playlistData.keys {
+                    if let dataPerDate = playlistData[date] as? [String:Any] {
+                        for entryId in dataPerDate.keys {
+                            if let finalData = dataPerDate[entryId] as? [String:Any] {
+                                if let practice = PlaylistDaily(JSON: finalData) {
+                                    var entries = [PlaylistDaily]()
+                                    if let old = data[practice.entryDateString] {
+                                        entries = old
+                                    }
+                                    entries.append(practice)
+                                    data[practice.entryDateString] = entries
                                 }
-                                entries.append(practice)
-                                data[practice.entryDateString] = entries
-                            }
-                        }
-                        
-                        if let practiceData = UserDefaults.standard.object(forKey: "playlist-data-Optional(\"\(id))\"") as? [String:Any] {
-                            if let practice = PlaylistDaily(JSON: practiceData) {
-                                var entries = [PlaylistDaily]()
-                                if let old = data[practice.entryDateString] {
-                                    entries = old
-                                }
-                                entries.append(practice)
-                                data[practice.entryDateString] = entries
                             }
                         }
                     }
@@ -245,22 +177,23 @@ class PlaylistDailyLocalManager: NSObject {
         }
         
         return data
+        
     }
     
     func findParentIdForPractice(for entryId: String, playlistId: String) -> PlaylistDaily? {
-        if playlistId == nil {
-            return nil
-        }
-        if let ids = UserDefaults.standard.object(forKey: "playlist-indecies-\(playlistId)") as? [String:[String]] {
-            for date in ids.keys {
-                if let idValues = ids[date] {
-                    for id in idValues {
-                        if let practiceData = UserDefaults.standard.object(forKey: "playlist-data-\(id)") as? [String:Any] {
-                            if let practice = PlaylistDaily(JSON: practiceData) {
-                                if let practiceIds = practice.practices {
-                                    for practiceId in practiceIds {
-                                        if practiceId == entryId {
-                                            return practice
+        
+        if let totalData = self.totalData() {
+            if let playlistData = totalData[playlistId] as? [String:Any] {
+                for date in playlistData.keys {
+                    if let dataPerDate = playlistData[date] as? [String:Any] {
+                        for id in dataPerDate.keys {
+                            if let finalData = dataPerDate[id] as? [String:Any] {
+                                if let practice = PlaylistDaily(JSON: finalData) {
+                                    if let practiceIds = practice.practices {
+                                        for practiceId in practiceIds {
+                                            if practiceId == entryId {
+                                                return practice
+                                            }
                                         }
                                     }
                                 }
@@ -293,20 +226,23 @@ class PlaylistDailyLocalManager: NSObject {
         }
     }
     
+    
     func signout() {
-        for key in UserDefaults.standard.dictionaryRepresentation().keys {
-            if key.hasPrefix("playlist-indecies-") || key.hasPrefix("playlist-data-") {
-                UserDefaults.standard.removeObject(forKey: key)
-            }
-        }
-        UserDefaults.standard.synchronize()
+        cleanData()
     }
     
     func cleanData() {
-        for key in UserDefaults.standard.dictionaryRepresentation().keys {
-            if key.hasPrefix("playlist-indecies-") || key.hasPrefix("playlist-data-") {
-                UserDefaults.standard.removeObject(forKey: key)
-            }
-        }
+        UserDefaults.standard.removeObject(forKey: "total_playlist_practice_data")
+        UserDefaults.standard.synchronize()
     }
+    
+    func storeTotalData(_ data: [String:Any]) {
+        UserDefaults.standard.set(data, forKey: "total_playlist_practice_data")
+        UserDefaults.standard.synchronize()
+    }
+    
+    func totalData() -> [String:Any]? {
+        return UserDefaults.standard.object(forKey: "total_playlist_practice_data") as? [String:Any]
+    }
+    
 }

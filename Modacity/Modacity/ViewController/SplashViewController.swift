@@ -25,6 +25,7 @@ class SplashViewController: ModacityParentViewController {
             self.openTutorial()
         } else {
             if Authorizer.authorizer.isAuthorized() {
+                
                 self.openHome()
                 DispatchQueue.global(qos: .background).async {
                     MyProfileRemoteManager.manager.configureMyProfileListener()

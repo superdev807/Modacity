@@ -177,14 +177,14 @@ class UpdatePracticeEntryViewController: ModacityParentViewController {
             if seconds > 0 {
                 var string = ""
                 if seconds / 3600 > 0 {
-                    string = String(format: "%@%d", string, seconds / 3600)
+                    string = String(format: "%@%02d", string, seconds / 3600)
                 } else {
                     string = ""
                 }
                 
                 seconds = seconds % 3600
                 if seconds / 60 > 0 {
-                    string = String(format: "%@%d", string, seconds / 60)
+                    string = String(format: "%@%02d", string, seconds / 60)
                 } else {
                     if string.count > 0 {
                         string = "\(string)00"
@@ -195,7 +195,7 @@ class UpdatePracticeEntryViewController: ModacityParentViewController {
                 
                 seconds = seconds % 60
                 if seconds > 0 {
-                    string = String(format: "%@%d", string, seconds)
+                    string = String(format: "%@%02d", string, seconds)
                 } else {
                     if string.count > 0 {
                         string = "\(string)00"
