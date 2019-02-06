@@ -57,10 +57,13 @@ class RecordingCell: UITableViewCell, FDWaveformViewDelegate {
             self.viewNoAudioFilePanel.isHidden = true
             
             let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
-            let soundFilePath = dirPath[0] + "/" + recording.fileName +  AppConfig.Constants.appSavedAudioFileExtension
-            
+            var soundFilePath = dirPath[0] + "/" + recording.fileName +  AppConfig.Constants.appSavedAudioFileExtension
             
             let fileManager = FileManager.default
+            
+            if !(fileManager.fileExists(atPath: soundFilePath)) {
+                soundFilePath = dirPath[0] + "/" + recording.fileName +  ".wav"
+            }
             
             let url = URL(fileURLWithPath: soundFilePath)
             
