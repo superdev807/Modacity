@@ -48,6 +48,7 @@ class DailyPracticingRemoteManager: NSObject {
     
     func practicingDataFetched() -> Bool {
         return UserDefaults.standard.bool(forKey: "fetched_practicing") && UserDefaults.standard.bool(forKey: "fetched_practicing_playlist")
+            && UserDefaults.standard.object(forKey: "total_practice_data") != nil && UserDefaults.standard.object(forKey: "total_playlist_practice_data") != nil
     }
     
     func setPracticingDataLoaded() {

@@ -356,7 +356,7 @@ class PracticingDailyLocalManager: NSObject {
     }
     
     func cleanData() {
-        UserDefaults.standard.removeObject(forKey: "total_data")
+        UserDefaults.standard.removeObject(forKey: "total_practice_data")
         UserDefaults.standard.synchronize()
     }
     
