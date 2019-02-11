@@ -76,7 +76,7 @@ class Authorizer: NSObject {
             if let error = error {
                 let errorCode = UInt((error as NSError).code)
                 if errorCode == AuthErrorCode.emailAlreadyInUse.rawValue {
-                    completion("EXISITNG EMAIL")
+                    completion("Account already registered to \(email)")
                 } else if errorCode == AuthErrorCode.accountExistsWithDifferentCredential.rawValue || errorCode == AuthErrorCode.providerAlreadyLinked.rawValue {
                     completion("This email address is already in use with a different service.")
                 } else {
@@ -164,6 +164,7 @@ class Authorizer: NSObject {
     }
     
     func signin(email: String, password: String, completion: @escaping (String?)->()) {
+    
         Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
             if error == nil {
                 DispatchQueue.global(qos: .background).async {
