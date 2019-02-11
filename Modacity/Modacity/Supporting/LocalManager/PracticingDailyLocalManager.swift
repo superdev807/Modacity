@@ -127,7 +127,7 @@ class PracticingDailyLocalManager: NSObject {
     
     func practicingData(forPracticeItemId: String) -> [String:[PracticeDaily]] {
         
-        var data = [String:[PracticeDaily]]()
+        var data = [String:[String:PracticeDaily]]()
         
         if let stored = totalData() {
             if let practiceStored = stored[forPracticeItemId] as? [String: Any] {
@@ -136,15 +136,22 @@ class PracticingDailyLocalManager: NSObject {
                         for practiceDataItemId in datePracticeStored.keys {
                             if let practiceData = datePracticeStored[practiceDataItemId] as? [String:Any] {
                                 if let practice = PracticeDaily(JSON: practiceData) {
-                                    var entries = [PracticeDaily]()
+                                    var entries = [String:PracticeDaily]()
                                     if let old = data[practice.entryDateString] {
                                         entries = old
                                     }
                                     
-                                    if !entryContained(entries, practice) {
-                                        entries.append(practice)
-                                        data[practice.entryDateString] = entries
+                                    if let entry = self.entryContained(entries, practice) {
+                                        if entry.practiceTimeInSeconds >= practice.practiceTimeInSeconds {
+                                            continue
+                                        } else {
+                                            entries.removeValue(forKey: entry.entryId)
+                                        }
                                     }
+                                        
+                                    entries[practice.entryId] = practice
+                                    data[practice.entryDateString] = entries
+                                    
                                 }
                             }
                         }
@@ -153,17 +160,35 @@ class PracticingDailyLocalManager: NSObject {
             }
         }
         
-        return data
-    }
-    
-    func entryContained(_ entries:[PracticeDaily], _ data: PracticeDaily) -> Bool {
-        for entry in entries {
-            if entry.startedTime == data.startedTime {
-                return true
+        var resultArray = [String:[PracticeDaily]]()
+        for key in data.keys {
+            if let dict = data[key] {
+                var arr = [PracticeDaily]()
+                for (_, value) in dict {
+                    arr.append(value)
+                }
+                resultArray[key] = arr
             }
         }
         
-        return false
+        return resultArray
+    }
+    
+    func entryContained(_ entries:[String:PracticeDaily], _ data: PracticeDaily) -> PracticeDaily? {
+        
+        if entries[data.entryId] != nil {
+            return entries[data.entryId]!
+        }
+        
+        for entryId in entries.keys {
+            if let entry = entries[entryId] {
+                if entry.startedTime == data.startedTime {
+                    return entry
+                }
+            }
+        }
+
+        return nil
     }
     
     func practicingData(forDataId: String) -> PracticeDaily? {
@@ -259,7 +284,7 @@ class PracticingDailyLocalManager: NSObject {
     
     func overallPracticeData() -> [String:[PracticeDaily]] {
 
-        var data = [String:[PracticeDaily]]()
+        var data = [String:[String:PracticeDaily]]()
         
         if let stored = totalData() {
             for practiceItemId in stored.keys {
@@ -269,15 +294,21 @@ class PracticingDailyLocalManager: NSObject {
                             for practiceDataItemId in datePracticeStored.keys {
                                 if let practiceData = datePracticeStored[practiceDataItemId] as? [String:Any] {
                                     if let practice = PracticeDaily(JSON: practiceData) {
-                                        var entries = [PracticeDaily]()
+                                        var entries = [String:PracticeDaily]()
                                         if let old = data[practice.entryDateString] {
                                             entries = old
                                         }
                                         
-                                        if !entryContained(entries, practice) {
-                                            entries.append(practice)
-                                            data[practice.entryDateString] = entries
+                                        if let entry = entryContained(entries, practice) {
+                                            if entry.practiceTimeInSeconds >= practice.practiceTimeInSeconds {
+                                                continue
+                                            } else {
+                                                entries.removeValue(forKey: entry.entryId)
+                                            }
                                         }
+                                        
+                                        entries[practice.entryId] = practice
+                                        data[practice.entryDateString] = entries
                                     }
                                 }
                             }
@@ -287,7 +318,18 @@ class PracticingDailyLocalManager: NSObject {
             }
         }
         
-        return data
+        var resultArray = [String:[PracticeDaily]]()
+        for key in data.keys {
+            if let dict = data[key] {
+                var arr = [PracticeDaily]()
+                for (_, value) in dict {
+                    arr.append(value)
+                }
+                resultArray[key] = arr
+            }
+        }
+        
+        return resultArray
     }
     
     func statsPracticing() -> [String: Int] {
@@ -296,7 +338,7 @@ class PracticingDailyLocalManager: NSObject {
         var practicedDataPerDate = [String:Bool]()
         var totalPracticeTimeInSecond = 0
         
-        var data = [String:[PracticeDaily]]()
+        var data = [String:[String: PracticeDaily]]()
 
         if let stored = totalData() {
             for practiceItemId in stored.keys {
@@ -305,20 +347,28 @@ class PracticingDailyLocalManager: NSObject {
                         if let datePracticeStored = practiceStored[date] as? [String: Any] {
                             for practiceDataItemId in datePracticeStored.keys {
                                 if let practiceData = datePracticeStored[practiceDataItemId] as? [String:Any] {
+                                    
                                     if let practice = PracticeDaily(JSON: practiceData) {
                                         
-                                        var entries = [PracticeDaily]()
+                                        var entries = [String:PracticeDaily]()
                                         if let old = data[practice.entryDateString] {
                                             entries = old
                                         }
                                         
-                                        if !entryContained(entries, practice) {
-                                            entries.append(practice)
-                                            data[practice.entryDateString] = entries
-                                            
-                                            practicedDataPerDate[practice.entryDateString] = true
-                                            totalPracticeTimeInSecond = totalPracticeTimeInSecond + practice.practiceTimeInSeconds
+                                        if let entry = self.entryContained(entries, practice) {
+                                            if entry.practiceTimeInSeconds > practice.practiceTimeInSeconds {
+                                                continue
+                                            } else {
+                                                totalPracticeTimeInSecond = totalPracticeTimeInSecond - entry.practiceTimeInSeconds
+                                                entries.removeValue(forKey: entry.entryId)
+                                            }
                                         }
+                                        
+                                        entries[practice.entryId] = practice
+                                        data[practice.entryDateString] = entries
+                                            
+                                        practicedDataPerDate[practice.entryDateString] = true
+                                        totalPracticeTimeInSecond = totalPracticeTimeInSecond + practice.practiceTimeInSeconds
                                     }
                                 }
                             }
@@ -348,6 +398,8 @@ class PracticingDailyLocalManager: NSObject {
         var finalResult = [String:Int]()
         finalResult["streak"] = streakDays
         finalResult["total"] = totalPracticeTimeInSecond
+        
+        ModacityDebugger.debug("streak - \(streakDays), total time - \(totalPracticeTimeInSecond)")
         return finalResult
     }
     

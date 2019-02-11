@@ -135,6 +135,16 @@ class DailyPracticingRemoteManager: NSObject {
         PracticingDailyLocalManager.manager.cleanData()
     }
     
+    func entryContained(_ entries:[PracticeDaily], _ data: PracticeDaily) -> PracticeDaily? {
+        for entry in entries {
+            if entry.startedTime == data.startedTime {
+                return entry
+            }
+        }
+        
+        return nil
+    }
+    
     func fetchPracticingDataFromServer() {
         if let userId = MyProfileLocalManager.manager.userId() {
             var started = Date().timeIntervalSince1970
@@ -145,6 +155,9 @@ class DailyPracticingRemoteManager: NSObject {
                 DispatchQueue.global(qos: .background).async {
                     if snapshot.exists() {
                         if let data = snapshot.value as? [String:Any] {
+                            
+//                            print("PRE CALCULATION TOTAL TIME - \(totalPracticeTimeInSecond)")
+                            
                             PracticingDailyLocalManager.manager.cleanData()
                             PracticingDailyLocalManager.manager.storeTotalData(data)
                         }
