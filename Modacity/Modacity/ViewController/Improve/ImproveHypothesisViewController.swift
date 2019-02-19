@@ -152,10 +152,10 @@ extension ImproveHypothesisViewController: UITableViewDelegate, UITableViewDataS
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "HypothesisCell")!
-        if let label = cell.viewWithTag(10) as? UILabel {
-            label.text = self.viewModel.hypothesisList()[indexPath.row]
-        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: "HypothesisCell") as! HypothesisCell
+        let hypothesis = self.viewModel.hypothesisList()[indexPath.row]
+        cell.configure(text: hypothesis, on: indexPath, isDefault: self.viewModel.hypothesisIsDefault(hypothesis))
+        cell.delegate = self
         return cell
     }
     
@@ -172,4 +172,52 @@ extension ImproveHypothesisViewController: UITableViewDelegate, UITableViewDataS
             self.performSegue(withIdentifier: "sid_next", sender: nil)
         }
     }
+}
+
+protocol HypothesisCellDelegate {
+    func tapMenuOnCell(_ cell: HypothesisCell, on indexPath:IndexPath)
+}
+
+class HypothesisCell: UITableViewCell {
+    
+    @IBOutlet weak var buttonCellMenu: UIButton!
+    @IBOutlet weak var labelCaption: UILabel!
+    
+    var indexPath: IndexPath!
+    var delegate: HypothesisCellDelegate?
+    
+    @IBAction func onCellMenu(_ sender: Any) {
+        if let delegate = self.delegate {
+            delegate.tapMenuOnCell(self, on: self.indexPath)
+        }
+    }
+    
+    func configure(text: String, on indexPath: IndexPath, isDefault: Bool) {
+        self.indexPath = indexPath
+        self.labelCaption.text = text
+        
+        self.buttonCellMenu.isHidden = isDefault
+    }
+    
+}
+
+extension ImproveHypothesisViewController: HypothesisCellDelegate {
+    
+    func tapMenuOnCell(_ cell: HypothesisCell, on indexPath: IndexPath) {
+        DropdownMenuView.instance.show(in: self.view,
+                                       on: cell.buttonCellMenu,
+                                       rows: [["icon":"icon_row_delete", "text":"Delete"]]) { (_) in
+                                        
+                                        let alert = UIAlertController(title: nil, message: "Are you sure to delete this hypothesis?", preferredStyle: .alert)
+                                        alert.addAction(UIAlertAction(title: "Confirm", style: .default, handler: { (_) in
+                                            let hypothesis = self.viewModel.hypothesisList()[indexPath.row]
+                                            self.viewModel.deleteHypothesis(hypothesis, at: indexPath.row)
+                                            self.tableViewHypothesis.reloadData()
+                                        }))
+                                        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                                        self.present(alert, animated: true, completion: nil)
+                                        
+        }
+    }
+    
 }

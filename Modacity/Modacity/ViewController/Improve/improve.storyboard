@@ -69,7 +69,7 @@
                                     <inset key="sectionInset" minX="30" minY="30" maxX="30" maxY="20"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SuggestCell" id="9PQ-8Z-QNf">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SuggestCell" id="9PQ-8Z-QNf" customClass="SuggestCell" customModule="Modacity" customModuleProvider="target">
                                         <rect key="frame" x="30" y="30" width="146" height="64"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -85,18 +85,35 @@
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="0.75" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9OE-3a-cJf">
+                                                    <rect key="frame" x="111" y="36" width="24" height="22"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="22" id="1Eg-cc-aLH"/>
+                                                        <constraint firstAttribute="width" constant="24" id="HCK-Od-Mc0"/>
+                                                    </constraints>
+                                                    <state key="normal" image="icon_cell_menu"/>
+                                                    <connections>
+                                                        <action selector="onCellMenu:" destination="9PQ-8Z-QNf" eventType="touchUpInside" id="Hrq-X5-gaE"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                         </view>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="r3Y-Zk-T2L" secondAttribute="bottom" constant="7" id="3NT-Bm-NtK"/>
+                                            <constraint firstItem="9OE-3a-cJf" firstAttribute="top" secondItem="2bS-Lc-WKM" secondAttribute="bottom" constant="-28" id="5hS-xT-G22"/>
                                             <constraint firstAttribute="trailing" secondItem="r3Y-Zk-T2L" secondAttribute="trailing" constant="7" id="LHr-OX-YJB"/>
                                             <constraint firstItem="2bS-Lc-WKM" firstAttribute="top" secondItem="9PQ-8Z-QNf" secondAttribute="top" id="QxE-NX-F3N"/>
                                             <constraint firstAttribute="trailing" secondItem="2bS-Lc-WKM" secondAttribute="trailing" id="UPj-W4-LA6"/>
+                                            <constraint firstItem="9OE-3a-cJf" firstAttribute="leading" secondItem="2bS-Lc-WKM" secondAttribute="trailing" constant="-35" id="Ybe-pp-vXI"/>
                                             <constraint firstAttribute="bottom" secondItem="2bS-Lc-WKM" secondAttribute="bottom" id="ktW-XS-InI"/>
                                             <constraint firstItem="r3Y-Zk-T2L" firstAttribute="top" secondItem="9PQ-8Z-QNf" secondAttribute="top" constant="3" id="sbm-Sh-xyQ"/>
                                             <constraint firstItem="r3Y-Zk-T2L" firstAttribute="leading" secondItem="9PQ-8Z-QNf" secondAttribute="leading" constant="6" id="tU3-Qf-Dbu"/>
                                             <constraint firstItem="2bS-Lc-WKM" firstAttribute="leading" secondItem="9PQ-8Z-QNf" secondAttribute="leading" id="wRU-Bp-2JX"/>
                                         </constraints>
+                                        <connections>
+                                            <outlet property="buttonMenu" destination="9OE-3a-cJf" id="AbH-NK-mZy"/>
+                                            <outlet property="labelCaption" destination="r3Y-Zk-T2L" id="t81-Ni-NXX"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                                 <connections>
@@ -267,7 +284,7 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HypothesisCell" rowHeight="74" id="Zgx-Oc-q57">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HypothesisCell" rowHeight="74" id="Zgx-Oc-q57" customClass="HypothesisCell" customModule="Modacity" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="58" width="375" height="74"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Zgx-Oc-q57" id="HTh-D3-Hgf">
@@ -286,17 +303,34 @@
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aJh-PV-fnz">
+                                                    <rect key="frame" x="310.5" y="23.5" width="24" height="22"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="24" id="3cf-Jk-ff8"/>
+                                                        <constraint firstAttribute="height" constant="22" id="n2g-dp-CPi"/>
+                                                    </constraints>
+                                                    <state key="normal" image="icon_cell_menu"/>
+                                                    <connections>
+                                                        <action selector="onCellMenu:" destination="Zgx-Oc-q57" eventType="touchUpInside" id="i8b-dl-Ycv"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="azI-ok-yu8" firstAttribute="top" secondItem="hMx-sp-UN2" secondAttribute="top" constant="5" id="2Wc-Sq-QwT"/>
                                                 <constraint firstItem="azI-ok-yu8" firstAttribute="bottom" secondItem="hMx-sp-UN2" secondAttribute="bottom" constant="-10" id="90j-7s-39Y"/>
                                                 <constraint firstItem="hMx-sp-UN2" firstAttribute="centerY" secondItem="HTh-D3-Hgf" secondAttribute="centerY" id="BJD-cF-h6x"/>
+                                                <constraint firstItem="aJh-PV-fnz" firstAttribute="centerY" secondItem="azI-ok-yu8" secondAttribute="centerY" id="Fh4-pI-0FY"/>
                                                 <constraint firstItem="azI-ok-yu8" firstAttribute="trailing" secondItem="hMx-sp-UN2" secondAttribute="trailing" constant="-10" id="XAK-T8-zRP"/>
+                                                <constraint firstItem="aJh-PV-fnz" firstAttribute="trailing" secondItem="azI-ok-yu8" secondAttribute="trailing" id="gGe-cE-Vnm"/>
                                                 <constraint firstItem="hMx-sp-UN2" firstAttribute="centerX" secondItem="HTh-D3-Hgf" secondAttribute="centerX" id="kix-JP-0IE"/>
                                                 <constraint firstItem="azI-ok-yu8" firstAttribute="leading" secondItem="hMx-sp-UN2" secondAttribute="leading" constant="20" id="msz-rI-eSu"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <outlet property="buttonCellMenu" destination="aJh-PV-fnz" id="DIv-Po-njo"/>
+                                            <outlet property="labelCaption" destination="azI-ok-yu8" id="90M-kw-icL"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -1350,6 +1384,7 @@ to help you learn and improve faster!</string>
         <image name="btn_try_again" width="168" height="64"/>
         <image name="icon_arrow_left" width="10" height="15"/>
         <image name="icon_backward" width="24" height="16"/>
+        <image name="icon_cell_menu" width="16" height="4"/>
         <image name="icon_forward_white" width="24" height="16"/>
         <image name="icon_play" width="28" height="30"/>
         <image name="icon_save_record" width="15" height="19"/>

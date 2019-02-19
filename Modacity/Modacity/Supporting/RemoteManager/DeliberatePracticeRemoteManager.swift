@@ -58,6 +58,17 @@ class DeliberatePracticeRemoteManager: NSObject {
         DeliberatePracticeManager.manager.cleanDeliberatePracticeManager()
     }
     
+    func deleteSuggestion(_ suggestion: DeliberatePracticeSuggestion) {
+        if let userId = MyProfileLocalManager.manager.userId() {
+            self.refUser.child(userId).child("deliberate").child(suggestion.id).removeValue()
+        }
+    }
+    
+    func updateHypothesis(on suggestion: DeliberatePracticeSuggestion, newHypos: [String]) {
+        if let userId = MyProfileLocalManager.manager.userId() {
+            self.refUser.child(userId).child("deliberate").child(suggestion.id).updateChildValues(["hypos": newHypos])
+        }
+    }
     
     func fullSync(completion: @escaping ()->()) {
         if let userId = MyProfileLocalManager.manager.userId() {

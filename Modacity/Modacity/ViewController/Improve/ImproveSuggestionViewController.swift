@@ -48,6 +48,8 @@ class ImproveSuggestionViewController: ModacityParentViewController {
         attributedString.append(NSAttributedString(string: "one ", attributes: [NSAttributedStringKey.foregroundColor: Color.white, NSAttributedStringKey.font: UIFont(name: AppConfig.UI.Fonts.appFontLatoBoldItalic, size: 16)!]))
         attributedString.append(NSAttributedString(string: "thing will you improve now?", attributes: [NSAttributedStringKey.foregroundColor: Color.white, NSAttributedStringKey.font: UIFont(name: AppConfig.UI.Fonts.appFontLatoBold, size: 16)!]))
         self.labelHeaderTitle.attributedText = attributedString
+        
+        self.bindViewModel()
     }
     
     deinit {
@@ -71,6 +73,11 @@ class ImproveSuggestionViewController: ModacityParentViewController {
                 controller.deliverModel = self.deliverModel
             }
         }
+    }
+    
+    func bindViewModel() {
+        self.viewModel.loadSuggestions()
+        self.collectionViewMain.reloadData()
     }
 
     @IBAction func onClose(_ sender: Any) {
@@ -110,6 +117,7 @@ class ImproveSuggestionViewController: ModacityParentViewController {
         self.constraintForCollectionViewBottomSpace.constant = 0
     }
     
+    
     func collectionViewLayoutConfigure() {
         let flowLayout = self.collectionViewMain.collectionViewLayout as! UICollectionViewFlowLayout
         switch AppUtils.sizeModelOfiPhone() {
@@ -143,10 +151,58 @@ extension ImproveSuggestionViewController: UICollectionViewDelegate, UICollectio
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SuggestCell", for: indexPath)
-        if let label = cell.viewWithTag(10) as? UILabel {
-            label.text = self.viewModel.suggestionsList[indexPath.row].suggestion
-        }
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SuggestCell", for: indexPath) as! SuggestCell
+        let suggestion = self.viewModel.suggestionsList[indexPath.row]
+        cell.configure(withText: suggestion.suggestion, indexPath: indexPath, isDefault: self.viewModel.suggestionIsDefault(suggestion))
+        cell.delegate = self
         return cell
+    }
+}
+
+protocol SuggestCellDelegate {
+    func menuTapOn(cell: SuggestCell, on indexPath: IndexPath)
+}
+
+class SuggestCell: UICollectionViewCell {
+    
+    @IBOutlet weak var labelCaption: UILabel!
+    @IBOutlet weak var buttonMenu: UIButton!
+    
+    var indexPath: IndexPath!
+    var delegate: SuggestCellDelegate?
+    
+    @IBAction func onCellMenu(_ sender: Any) {
+        if let delegate = self.delegate {
+            delegate.menuTapOn(cell: self, on: self.indexPath)
+        }
+    }
+    
+    func configure(withText: String, indexPath: IndexPath, isDefault: Bool) {
+        self.labelCaption.text = withText
+        self.indexPath = indexPath
+        
+        self.buttonMenu.isHidden = isDefault
+    }
+    
+}
+
+extension ImproveSuggestionViewController: SuggestCellDelegate {
+    
+    func menuTapOn(cell: SuggestCell, on indexPath: IndexPath) {
+        
+        DropdownMenuView.instance.show(in: self.view,
+                                       on: cell.buttonMenu,
+                                       rows: [["icon":"icon_row_delete", "text":"Delete"]]) { (_) in
+                                        
+                                        let suggestion = self.viewModel.suggestionsList[indexPath.row]
+                                        let alert = UIAlertController(title: nil, message: "Are you sure to delete this suggestion?", preferredStyle: .alert)
+                                        alert.addAction(UIAlertAction(title: "Confirm", style: .default, handler: { (_) in
+                                            self.viewModel.deleteSuggestion(suggestion, at: indexPath.row)
+                                            self.bindViewModel()
+                                        }))
+                                        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                                        self.present(alert, animated: true, completion: nil)
+
+        }
     }
 }

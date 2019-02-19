@@ -19,9 +19,17 @@ class ImprovementViewModel: ViewModel {
     
     var userOwnSuggestions = [String]()
     
-    var suggestionsList: [DeliberatePracticeSuggestion] {
-        get {
-            return DeliberatePracticeManager.manager.suggestionsList()
+    var suggestionsList = [DeliberatePracticeSuggestion](){
+        didSet {
+            if let callback = self.callBacks["suggestions_list"] {
+                if oldValue.count > suggestionsList.count {
+                    callback(.deleted, oldValue, suggestionsList)
+                } else if oldValue.count < suggestionsList.count {
+                    callback(.inserted, oldValue, suggestionsList)
+                } else {
+                    callback(.simpleChange, oldValue, suggestionsList)
+                }
+            }
         }
     }
     
@@ -31,6 +39,10 @@ class ImprovementViewModel: ViewModel {
                 callback(.simpleChange, oldValue, alreadyTried)
             }
         }
+    }
+    
+    func loadSuggestions() {
+        self.suggestionsList = DeliberatePracticeManager.manager.suggestionsList()
     }
     
     func hypothesisList()->[String] {
@@ -61,33 +73,39 @@ class ImprovementViewModel: ViewModel {
         
     }
     
-//        let suggestions = DeliberatePracticeManager.manager.suggestionsList()
-//        for suggestion in suggestions {
-//            if selectedSuggestion.lowercased() == suggestion.lowercased() {
-//                return
-//            }
-//        }
-//
-//        let customizedSuggestion = DeliberatePracticeSuggestion()
-//        customizedSuggestion.isStandard = false
-//        customizedSuggestion.suggestion = selectedSuggestion
-//        customizedSuggestion.hypos = []
-//
-//        var alreadyIncluded = false
-//
-//        if let hypos = DeliberatePracticeManager.manager.defaultHypos {
-//            for hypo in hypos {
-//                if hypo.lowercased() == selectedHypothesis.lowercased() {
-//                    alreadyIncluded = true
-//                    break
-//                }
-//            }
-//        }
-//
-//        if !alreadyIncluded {
-//            DeliberatePracticeManager.manager.addCustomizedSuggestion(selectedSuggestion, customizedHypothesis: selectedHypothesis)
-//        } else {
-//            DeliberatePracticeManager.manager.addCustomizedSuggestion(selectedSuggestion)
-//        }
-//    }
+    func suggestionIsDefault(_ suggestion: DeliberatePracticeSuggestion) -> Bool {
+        return suggestion.id.count < 4
+    }
+    
+    func hypothesisIsDefault(_ hypothesis: String) -> Bool {
+        if let data = self.selectedSuggestionData {
+            if data.id.count < 4 {
+                if let suggestionsDefaultData = DeliberatePracticeManager.manager.loadSuggestionsFromPlist()[data.id] {
+                    return suggestionsDefaultData.hypos.contains(hypothesis)
+                } else {
+                    return false
+                }
+            } else {
+                return DeliberatePracticeManager.manager.loadDefaultHypos().contains(hypothesis)
+            }
+        } else {
+            return DeliberatePracticeManager.manager.loadDefaultHypos().contains(hypothesis)
+        }
+    }
+    
+    func deleteSuggestion(_ suggestion: DeliberatePracticeSuggestion, at row: Int) {
+        
+        DeliberatePracticeManager.manager.deleteSuggestion(suggestion)
+        self.suggestionsList.remove(at: row)
+        
+    }
+    
+    func deleteHypothesis(_ hypothesis: String, at row: Int) {
+        if let suggestion = self.selectedSuggestionData {
+            DeliberatePracticeManager.manager.deleteHypothesis(on:suggestion, hypothesis: hypothesis)
+            suggestion.hypos.remove(at: row)
+            self.selectedSuggestionData!.hypos = suggestion.hypos
+        }
+    }
+    
 }
