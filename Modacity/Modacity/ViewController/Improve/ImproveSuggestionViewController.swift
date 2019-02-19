@@ -133,19 +133,19 @@ class ImproveSuggestionViewController: ModacityParentViewController {
 
 extension ImproveSuggestionViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.viewModel.suggestionsList().count
+        return self.viewModel.suggestionsList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.textfieldInputBox.text = ""
-        self.viewModel.selectedSuggestion = self.viewModel.suggestionsList()[indexPath.row]
+        self.viewModel.selectedSuggestionData = self.viewModel.suggestionsList[indexPath.row]
         self.performSegue(withIdentifier: "sid_next", sender: nil)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SuggestCell", for: indexPath)
         if let label = cell.viewWithTag(10) as? UILabel {
-            label.text = self.viewModel.suggestionsList()[indexPath.row]
+            label.text = self.viewModel.suggestionsList[indexPath.row].suggestion
         }
         return cell
     }

@@ -25,20 +25,27 @@ class DeliberatePracticeRemoteManager: NSObject {
                         for dataSnapshot in  dataSnapshots {
                             if let data = dataSnapshot.value as? [String:Any] {
                                 if let suggestion = DeliberatePracticeSuggestion(JSON: data) {
-                                    suggestions[suggestion.suggestion] = suggestion
+                                    if suggestion.id == "" {
+                                        suggestion.id = dataSnapshot.key
+                                    }
+                                    suggestions[suggestion.id] = suggestion
                                 }
                             }
                         }
                     }
-                    DeliberatePracticeManager.manager.storeCustomizedSuggestions(suggestions)
+                    DeliberatePracticeManager.manager.storeCustomSuggestions(suggestions)
                 }
             }
         }
     }
     
-    func addDeliberatePractice(_ practice: DeliberatePracticeSuggestion) {
+    func storeNewSuggestion(_ suggestion: DeliberatePracticeSuggestion, updating: Bool) {
         if let userId = MyProfileLocalManager.manager.userId() {
-            self.refUser.child(userId).child("deliberate").child(UUID().uuidString).setValue(practice.toJSON())
+            if updating {
+                self.refUser.child(userId).child("deliberate").child(suggestion.id).updateChildValues(suggestion.toJSON())
+            } else {
+                self.refUser.child(userId).child("deliberate").child(suggestion.id).setValue(suggestion.toJSON())
+            }
         }
     }
     
@@ -51,6 +58,7 @@ class DeliberatePracticeRemoteManager: NSObject {
         DeliberatePracticeManager.manager.cleanDeliberatePracticeManager()
     }
     
+    
     func fullSync(completion: @escaping ()->()) {
         if let userId = MyProfileLocalManager.manager.userId() {
             let ref = self.refUser.child(userId).child("deliberate")
@@ -62,12 +70,15 @@ class DeliberatePracticeRemoteManager: NSObject {
                         for dataSnapshot in  dataSnapshots {
                             if let data = dataSnapshot.value as? [String:Any] {
                                 if let suggestion = DeliberatePracticeSuggestion(JSON: data) {
-                                    suggestions[suggestion.suggestion] = suggestion
+                                    if suggestion.id == "" {
+                                        suggestion.id = dataSnapshot.key
+                                    }
+                                    suggestions[suggestion.id] = suggestion
                                 }
                             }
                         }
                     }
-                    DeliberatePracticeManager.manager.storeCustomizedSuggestions(suggestions)
+                    DeliberatePracticeManager.manager.storeCustomSuggestions(suggestions)
                 }
                 completion()
             }

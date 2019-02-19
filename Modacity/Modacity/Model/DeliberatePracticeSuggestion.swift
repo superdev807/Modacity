@@ -11,9 +11,11 @@ import ObjectMapper
 
 class DeliberatePracticeSuggestion: Mappable {
     
+    var id = ""
     var suggestion = ""
     var hypos = [String]()
     var isStandard = true
+    var createdAt = Date().timeIntervalSince1970
     
     init() {
         
@@ -23,7 +25,9 @@ class DeliberatePracticeSuggestion: Mappable {
     }
     
     func mapping(map: Map) {
+        id          <- map["id"]
         suggestion  <- map["suggestion"]
         hypos       <- map["hypos"]
+        createdAt   <- map["created"]
     }
 }

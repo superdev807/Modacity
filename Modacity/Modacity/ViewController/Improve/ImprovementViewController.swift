@@ -691,7 +691,12 @@ extension ImprovementViewController: ImprovedDonePopupViewDelegate {
 
     func generateImprovedRecord() {
         let improvedRecord = ImprovedRecord()
-        improvedRecord.suggestion = self.viewModel.selectedSuggestion
+        if self.viewModel.selectedSuggestionData == nil {
+            improvedRecord.suggestion = self.viewModel.selectedSuggestion
+        } else {
+            improvedRecord.suggestion = self.viewModel.selectedSuggestionData!.suggestion
+        }
+        
         improvedRecord.hypothesis = self.viewModel.selectedHypothesis
         if self.playlistViewModel != nil {
             self.playlistViewModel.sessionImproved.append(improvedRecord)

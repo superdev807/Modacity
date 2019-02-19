@@ -90,6 +90,7 @@ class ImproveHypothesisViewController: ModacityParentViewController {
     
     @IBAction func onDidEndOnExit(_ sender: Any) {
         self.viewModel.selectedHypothesis = self.textfieldInputBox.text ?? ""
+        self.viewModel.isNewHypo = true
         if AppUtils.sizeModelOfiPhone() == .iphone5_4in || AppUtils.sizeModelOfiPhone() == .iphone4_35in {
             self.performSegue(withIdentifier: "sid_next_small_sizes", sender: nil)
         } else {
@@ -164,6 +165,7 @@ extension ImproveHypothesisViewController: UITableViewDelegate, UITableViewDataS
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.viewModel.selectedHypothesis = self.viewModel.hypothesisList()[indexPath.row]
+        self.viewModel.isNewHypo = false
         if AppUtils.sizeModelOfiPhone() == .iphone5_4in || AppUtils.sizeModelOfiPhone() == .iphone4_35in {
             self.performSegue(withIdentifier: "sid_next_small_sizes", sender: nil)
         } else {
