@@ -52,15 +52,17 @@ class PracticeItemSelectViewController: ModacityParentViewController {
     var selectedPracticeItems: [PracticeItem] = [PracticeItem]()
     
     var firstAppearing = true
-    
     var searchKeyword = ""
-    
     var processingSelectItems = false
-    
     var tableHeaderShowing = false
     var tableHeaderKeyword = ""
     
     var addPracticeButtonHeight: CGFloat = 0
+    
+//    var processQueue: DispatchQueue?
+//    var currentOperation: BlockOperation
+    
+    let operationQueue = OperationQueue()
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -69,6 +71,7 @@ class PracticeItemSelectViewController: ModacityParentViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        operationQueue.maxConcurrentOperationCount = 1
         if AppUtils.sizeModelOfiPhone() == .iphoneX_xS || AppUtils.sizeModelOfiPhone() == .iphonexR_xSMax {
             self.constraintForHeaderImageViewConstant.constant = 108
             addPracticeButtonHeight = 75
@@ -200,13 +203,24 @@ extension PracticeItemSelectViewController {
         } else {
             tableHeaderShowing = false
         }
-        self.refreshList()
+        
+        operationQueue.cancelAllOperations()
+        operationQueue.addOperation {
+            DispatchQueue.global().async {
+                self.refreshList()
+            }
+        }
+        
         self.buttonRemoveKeyword.isHidden = (newKeyword == "")
     }
     
     func addNewPracticeItem() {
         
+        self.operationQueue.cancelAllOperations()
+        self.view.isUserInteractionEnabled = false
+        
         if Authorizer.authorizer.isGuestLogin() {
+            self.view.isUserInteractionEnabled = true
             AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Please login to add new practice item.") { (_) in
                 self.openSignup()
             }
@@ -240,10 +254,11 @@ extension PracticeItemSelectViewController {
         self.selectedPracticeItems.append(practiceItem)
         
         self.updateKeyword()
-        self.updateList()
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            self.scrollTableView(to:newName)
+        self.updateList {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                self.scrollTableView(to:newName)
+                self.view.isUserInteractionEnabled = true
+            }
         }
     }
     
@@ -549,28 +564,35 @@ extension PracticeItemSelectViewController: SortOptionsViewControllerDelegate {
     }
     
     func updateList(completed: CompletedAction? = nil) {
-        DispatchQueue.global().async {
-            self.practiceItems = PracticeItemLocalManager.manager.loadPracticeItems()?.sorted(by: { (item1, item2) -> Bool in
-                return item1.name < item2.name
-            })
-            self.refreshList(completed: completed)
+        
+        operationQueue.cancelAllOperations()
+        operationQueue.addOperation {
+            DispatchQueue.global().async {
+                self.practiceItems = PracticeItemLocalManager.manager.loadPracticeItems()?.sorted(by: { (item1, item2) -> Bool in
+                    return item1.name < item2.name
+                })
+                self.refreshList(completed: completed)
+            }
         }
     }
     
     func updateWithFilterList() {
-        DispatchQueue.global().async {
-            self.categorize()
-            self.sort()
-            DispatchQueue.main.async {
-                self.processingSelectItems = false
-                MBProgressHUD.hide(for: self.view, animated: true)
-                self.tableViewMain.reloadData()
-                if self.selectedPracticeItems.count > 0 {
-                    self.viewAddPracticeButtonContainer.isHidden = false
-                    self.constraintForAddPracticeButtonHeight.constant = self.addPracticeButtonHeight
-                } else {
-                    self.viewAddPracticeButtonContainer.isHidden = true
-                    self.constraintForAddPracticeButtonHeight.constant = 0
+        operationQueue.cancelAllOperations()
+        operationQueue.addOperation {
+            DispatchQueue.global().async {
+                self.categorize()
+                self.sort()
+                DispatchQueue.main.async {
+                    self.processingSelectItems = false
+                    MBProgressHUD.hide(for: self.view, animated: true)
+                    self.tableViewMain.reloadData()
+                    if self.selectedPracticeItems.count > 0 {
+                        self.viewAddPracticeButtonContainer.isHidden = false
+                        self.constraintForAddPracticeButtonHeight.constant = self.addPracticeButtonHeight
+                    } else {
+                        self.viewAddPracticeButtonContainer.isHidden = true
+                        self.constraintForAddPracticeButtonHeight.constant = 0
+                    }
                 }
             }
         }
@@ -580,6 +602,7 @@ extension PracticeItemSelectViewController: SortOptionsViewControllerDelegate {
         self.filter()
         self.categorize()
         self.sort()
+        
         DispatchQueue.main.async {
             MBProgressHUD.hide(for: self.view, animated: true)
             self.tableViewMain.reloadData()
