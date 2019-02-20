@@ -26,7 +26,6 @@ class PracticeItemListViewController: ModacityParentViewController {
     var sectionedPracticeItems = [String:[PracticeItem]]()
     
     @IBOutlet weak var viewTableHeader: UIView!
-    
     @IBOutlet weak var viewHeaderSearchBar: UIView!
     @IBOutlet weak var textfieldHeader: UITextField!
     @IBOutlet weak var buttonRemoveKeyboard: UIButton!
@@ -44,9 +43,13 @@ class PracticeItemListViewController: ModacityParentViewController {
     var singleSelectMode = false
     var delegate: PracticeItemListViewControllerDelegate? = nil
     
+    let operationQueue = OperationQueue()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        operationQueue.maxConcurrentOperationCount = 1
         if AppUtils.sizeModelOfiPhone() == .iphoneX_xS || AppUtils.sizeModelOfiPhone() == .iphonexR_xSMax {
             self.constraintForHeaderImageViewHeight.constant = 108
         } else {
@@ -133,22 +136,29 @@ class PracticeItemListViewController: ModacityParentViewController {
         }
     }
     
-    func updateList() {
-        DispatchQueue.global().async {
-            self.practiceItems = PracticeItemLocalManager.manager.loadPracticeItems()?.sorted(by: { (item1, item2) -> Bool in
-                return item1.name < item2.name
-            })
-            self.refreshList()
+    func updateList(completed: CompletedAction? = nil) {
+        self.operationQueue.cancelAllOperations()
+        self.operationQueue.addOperation {
+            DispatchQueue.global().async {
+                self.practiceItems = PracticeItemLocalManager.manager.loadPracticeItems()?.sorted(by: { (item1, item2) -> Bool in
+                    return item1.name < item2.name
+                })
+                self.refreshList(completed: completed)
+            }
         }
     }
     
-    func refreshList() {
+    func refreshList(completed: CompletedAction? = nil) {
         self.filter()
         self.categorize()
         self.sort()
         DispatchQueue.main.async {
             MBProgressHUD.hide(for: self.view, animated: true)
             self.tableViewMain.reloadData()
+            
+            if let completed = completed {
+                completed()
+            }
         }
     }
     
@@ -469,13 +479,22 @@ extension PracticeItemListViewController: UITextFieldDelegate {
         } else {
             tableHeaderShowing = false
         }
-        self.refreshList()
+        
+        self.operationQueue.cancelAllOperations()
+        self.operationQueue.addOperation {
+            DispatchQueue.global().async {
+                self.refreshList()
+            }
+        }
         self.buttonRemoveKeyboard.isHidden = (newKeyword == "")
     }
     
     func addNewPracticeItem() {
         
+        self.view.isUserInteractionEnabled = false
+        
         if Authorizer.authorizer.isGuestLogin() {
+            self.view.isUserInteractionEnabled = true
             AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Please login to add new practice item.") { (_) in
                 self.openSignup()
             }
@@ -505,9 +524,11 @@ extension PracticeItemListViewController: UITextFieldDelegate {
         self.textfieldHeader.text = ""
         self.buttonRemoveKeyboard.isHidden = true
         
-        self.updateList()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            self.scrollTableView(to:newName)
+        self.updateList {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                self.scrollTableView(to:newName)
+                self.view.isUserInteractionEnabled = true
+            }
         }
     }
     
