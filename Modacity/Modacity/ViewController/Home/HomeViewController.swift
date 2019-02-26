@@ -350,7 +350,7 @@ extension HomeViewController {
     func showListFromViewModel() {
         if let viewModel = AppOveralDataManager.manager.viewModel {
             
-            self.favoriteItems = viewModel.favoriteItems
+            self.favoriteItems = viewModel.favoriteItemsList()
             if self.favoriteItems.count > 0 {
                 self.viewNoFavoriteItems.isHidden = true
             } else {
@@ -375,7 +375,7 @@ extension HomeViewController {
     
     func refreshRecentList() {
         DispatchQueue.global(qos: .background).async {
-            if let playlists = PlaylistLocalManager.manager.recentPlaylists() {
+            if let playlists = PlaylistLocalManager.manager.loadFullRecentSessions() {
                 self.recentPlaylists = playlists
             }
             
@@ -391,34 +391,39 @@ extension HomeViewController {
     }
     
     func refreshFavoritesList() {
+        
         DispatchQueue.global(qos: .background).async {
-            var items = [[String:Any]]()
-            if let playlists = PlaylistLocalManager.manager.loadFavoritePlaylists() {
-                for playlist in playlists {
-                    items.append(["type":"playlist", "data":playlist])
-                }
+            if let viewModel = AppOveralDataManager.manager.viewModel {
+                self.favoriteItems = viewModel.favoriteItemsList()
             }
-            
-            if let practiceItems = PracticeItemLocalManager.manager.loadAllFavoritePracticeItems() {
-                for practiceItem in practiceItems {
-                    items.append(["type":"practiceitem", "data":practiceItem])
-                }
-            }
-            self.favoriteItems = items.sorted(by: { (item1, item2) -> Bool in
-                var itemName1 = ""
-                var itemName2 = ""
-                if (item1["type"] as? String ?? "") == "playlist" {
-                    itemName1 = (item1["data"] as! Playlist).name.lowercased()
-                } else if (item1["type"] as? String ?? "") == "practiceitem" {
-                    itemName1 = (item1["data"] as! PracticeItem).name.lowercased()
-                }
-                if (item2["type"] as? String ?? "") == "playlist" {
-                    itemName2 = (item2["data"] as! Playlist).name.lowercased()
-                } else if (item1["type"] as? String ?? "") == "practiceitem" {
-                    itemName2 = (item2["data"] as! PracticeItem).name.lowercased()
-                }
-                return itemName1 < itemName2
-            })
+//            var items = [[String:Any]]()
+//            if let playlists = PlaylistLocalManager.manager.loadFavoritePlaylists() {
+//                for playlist in playlists {
+//                    items.append(["type":"playlist", "data":playlist])
+//                }
+//            }
+//
+//            if let practiceItems = PracticeItemLocalManager.manager.loadFavoritePracticeItems() {
+//                for practiceItem in practiceItems {
+//                    items.append(["type":"practiceitem", "data":practiceItem])
+//                }
+//            }
+//
+//            self.favoriteItems = items.sorted(by: { (item1, item2) -> Bool in
+//                var itemName1 = ""
+//                var itemName2 = ""
+//                if (item1["type"] as? String ?? "") == "playlist" {
+//                    itemName1 = (item1["data"] as! Playlist).name.lowercased()
+//                } else if (item1["type"] as? String ?? "") == "practiceitem" {
+//                    itemName1 = (item1["data"] as! PracticeItem).name.lowercased()
+//                }
+//                if (item2["type"] as? String ?? "") == "playlist" {
+//                    itemName2 = (item2["data"] as! Playlist).name.lowercased()
+//                } else if (item1["type"] as? String ?? "") == "practiceitem" {
+//                    itemName2 = (item2["data"] as! PracticeItem).name.lowercased()
+//                }
+//                return itemName1 < itemName2
+//            })
             
             DispatchQueue.main.async {
                 if self.favoriteItems.count > 0 {
@@ -429,5 +434,6 @@ extension HomeViewController {
                 self.collectionViewFavoritePlaylists.reloadData()
             }
         }
+        
     }
 }

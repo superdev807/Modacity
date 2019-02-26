@@ -416,4 +416,10 @@ class PlaylistContentsViewModel: ViewModel {
         
         return 0
     }
+    
+    func storeToRecentSessions() {
+        if self.playlist.id != nil && self.playlist.id != "" {
+            PlaylistLocalManager.manager.storeRecentSession(sessionId: self.playlist.id)
+        }
+    }
 }

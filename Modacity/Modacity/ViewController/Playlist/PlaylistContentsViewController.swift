@@ -485,6 +485,8 @@ class PlaylistContentsViewController: ModacityParentViewController {
         self.viewModel.sessionTimeStarted = Date()
 
         self.openPracticeViewController()
+        
+        self.viewModel.storeToRecentSessions()
     }
     
     @IBAction func onStart(_ sender: Any) {

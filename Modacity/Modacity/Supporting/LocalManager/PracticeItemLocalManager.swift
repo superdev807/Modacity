@@ -134,9 +134,9 @@ class PracticeItemLocalManager {
                         newFavoriteItemIds.append(itemId)
                     }
                 }
-                UserDefaults.standard.set(newFavoriteItemIds, forKey: "favorite_practice_item_ids")
+//                UserDefaults.standard.set(newFavoriteItemIds, forKey: "favorite_practice_item_ids")
                 
-                PracticeItemRemoteManager.manager.updateFavoriteItemIds(newFavoriteItemIds)
+//                PracticeItemRemoteManager.manager.updateFavoriteItemIds(newFavoriteItemIds)
             }
         }
         
@@ -192,10 +192,14 @@ class PracticeItemLocalManager {
         if let practice = self.practiceItem(forId: forItemId) {
             if practice.isFavorite == 1 {
                 practice.updateFavorite(favorite: false)
-                self.updateFavoriteIds(withRemovingItemId: forItemId)
+//                self.updateFavoriteIds(withRemovingItemId: forItemId)
+                
+//                self.storeFavoritePractice(itemId: forItemId, name: practice.name)
+                
             } else {
                 practice.updateFavorite(favorite: true)
-                self.updateFavoriteIds(withNewItemId: forItemId)
+//                self.updateFavoriteIds(withNewItemId: forItemId)
+//                self.removeFavoritePractice(itemId: forItemId)
             }
         }
     }
@@ -206,54 +210,94 @@ class PracticeItemLocalManager {
         }
     }
     
-    func updateFavoriteIds(withRemovingItemId: String) {
-        if var favoritePracticeItemIds = UserDefaults.standard.object(forKey: "favorite_practice_item_ids") as? [String] {
-            for idx in 0..<favoritePracticeItemIds.count {
-                let id = favoritePracticeItemIds[idx]
-                if id == withRemovingItemId {
-                    favoritePracticeItemIds.remove(at: idx)
-                    break
-                }
-            }
-            UserDefaults.standard.set(favoritePracticeItemIds, forKey: "favorite_practice_item_ids")
-            UserDefaults.standard.synchronize()
-        }
-        
-        if let favoritePracticeItemIds = UserDefaults.standard.object(forKey: "favorite_practice_item_ids") as? [String] {
-            PracticeItemRemoteManager.manager.updateFavoriteItemIds(favoritePracticeItemIds)
-        }
-    }
+//    func updateFavoriteIds(withRemovingItemId: String) {
+//        if var favoritePracticeItemIds = UserDefaults.standard.object(forKey: "favorite_practice_item_ids") as? [String] {
+//            for idx in 0..<favoritePracticeItemIds.count {
+//                let id = favoritePracticeItemIds[idx]
+//                if id == withRemovingItemId {
+//                    favoritePracticeItemIds.remove(at: idx)
+//                    break
+//                }
+//            }
+//            UserDefaults.standard.set(favoritePracticeItemIds, forKey: "favorite_practice_item_ids")
+//            UserDefaults.standard.synchronize()
+//        }
+//
+//        if let favoritePracticeItemIds = UserDefaults.standard.object(forKey: "favorite_practice_item_ids") as? [String] {
+//            PracticeItemRemoteManager.manager.updateFavoriteItemIds(favoritePracticeItemIds)
+//        }
+//    }
     
-    func updateFavoriteIds(withNewItemId: String) {
-        if var favoritePracticeItemIds = UserDefaults.standard.object(forKey: "favorite_practice_item_ids") as? [String] {
-            for id in favoritePracticeItemIds {
-                if id == withNewItemId {
-                    return
-                }
-            }
-            favoritePracticeItemIds.append(withNewItemId)
-            UserDefaults.standard.set(favoritePracticeItemIds, forKey: "favorite_practice_item_ids")
-        } else {
-            UserDefaults.standard.set([withNewItemId], forKey: "favorite_practice_item_ids")
-        }
-        
-        UserDefaults.standard.synchronize()
-        
-        if let favoritePracticeItemIds = UserDefaults.standard.object(forKey: "favorite_practice_item_ids") as? [String] {
-            PracticeItemRemoteManager.manager.updateFavoriteItemIds(favoritePracticeItemIds)
-        }
-    }
+//    func updateFavoriteIds(withNewItemId: String) {
+//        if var favoritePracticeItemIds = UserDefaults.standard.object(forKey: "favorite_practice_item_ids") as? [String] {
+//            for id in favoritePracticeItemIds {
+//                if id == withNewItemId {
+//                    return
+//                }
+//            }
+//            favoritePracticeItemIds.append(withNewItemId)
+//            UserDefaults.standard.set(favoritePracticeItemIds, forKey: "favorite_practice_item_ids")
+//        } else {
+//            UserDefaults.standard.set([withNewItemId], forKey: "favorite_practice_item_ids")
+//        }
+//
+//        UserDefaults.standard.synchronize()
+//
+//        if let favoritePracticeItemIds = UserDefaults.standard.object(forKey: "favorite_practice_item_ids") as? [String] {
+//            PracticeItemRemoteManager.manager.updateFavoriteItemIds(favoritePracticeItemIds)
+//        }
+//    }
 
-    func loadAllFavoritePracticeItems() -> [PracticeItem]? {
-        if let favoritePracticeItemIds = UserDefaults.standard.object(forKey: "favorite_practice_item_ids") as? [String] {
+//    func loadAllFavoritePracticeItems() -> [PracticeItem]? {
+//        if let favoritePracticeItemIds = UserDefaults.standard.object(forKey: "favorite_practice_item_ids") as? [String] {
+//            var result = [PracticeItem]()
+//            for itemId in favoritePracticeItemIds {
+//                if let practiceItem = self.practiceItem(forId: itemId) {
+//                    result.append(practiceItem)
+//                }
+//            }
+//            return result
+//        }
+//        return nil
+//    }
+    
+//    func storeFavoritePractice(itemId: String, name: String) {
+//        var favoriteIds = [String:String]()
+//        if let storedFavoriteIds = UserDefaults.standard.object(forKey: "favorite_practices") as? [String:String] {
+//            favoriteIds = storedFavoriteIds
+//        }
+//
+//        favoriteIds[itemId] = name
+//        UserDefaults.standard.set(favoriteIds, forKey: "favorite_practices")
+//
+//        PracticeItemRemoteManager.manager.storeFavoritePractice(itemId: itemId, value: name)
+//    }
+//
+//    func removeFavoritePractice(itemId: String) {
+//        var favoriteIds = [String:String]()
+//        if let storedFavoriteIds = UserDefaults.standard.object(forKey: "favorite_practices") as? [String:String] {
+//            favoriteIds = storedFavoriteIds
+//        }
+//
+//        favoriteIds.removeValue(forKey: itemId)
+//        UserDefaults.standard.set(favoriteIds, forKey: "favorite_practices")
+//
+//        PracticeItemRemoteManager.manager.removeFavoritePractice(itemId: itemId)
+//    }
+    
+    func loadFavoritePracticeItems() -> [PracticeItem]? {
+        
+        
+        if let practiceItems = self.loadPracticeItems() {
             var result = [PracticeItem]()
-            for itemId in favoritePracticeItemIds {
-                if let practiceItem = self.practiceItem(forId: itemId) {
-                    result.append(practiceItem)
+            for item in practiceItems {
+                if item.isFavorite == 1 {
+                    result.append(item)
                 }
             }
             return result
         }
+
         return nil
     }
     

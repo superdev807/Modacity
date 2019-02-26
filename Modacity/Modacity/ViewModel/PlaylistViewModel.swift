@@ -69,7 +69,6 @@ class PlaylistViewModel: ViewModel {
         for entry in playlist.playlistPracticeEntries {
             let newEntry = PlaylistPracticeEntry()
             newEntry.entryId = UUID().uuidString
-//            newEntry.name = entry.name
             newEntry.practiceItemId = entry.practiceItemId
             newEntry.countDownDuration = entry.countDownDuration
             
@@ -104,5 +103,4 @@ class PlaylistViewModel: ViewModel {
     func setFavorite(_ playlist:Playlist) {
         playlist.setFavorite(!(playlist.isFavorite))
     }
-    
 }

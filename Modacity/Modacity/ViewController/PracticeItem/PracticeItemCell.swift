@@ -78,6 +78,12 @@ class PracticeItemCell: UITableViewCell {
     @IBAction func onHeart(_ sender:Any) {
         PracticeItemLocalManager.manager.setFavoritePracticeItem(forItemId: self.practiceItem.id)
         self.changeHeartIconImage()
+        
+        if !PracticeItemLocalManager.manager.isFavoritePracticeItem(for: self.practiceItem.id) {
+            AppOveralDataManager.manager.viewModel?.removeFavoritePractice(itemId: self.practiceItem.id)
+        } else {
+            AppOveralDataManager.manager.viewModel?.addFavoritePractice(practiceItem: self.practiceItem)
+        }
     }
 }
 

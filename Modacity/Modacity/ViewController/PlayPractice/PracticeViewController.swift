@@ -540,6 +540,12 @@ extension PracticeViewController {
             if let practiceItem = self.playlistViewModel.currentPracticeEntry.practiceItem() {
                 self.playlistViewModel.setLikePracticeItem(for: practiceItem)
                 self.processFavoriteIconImage()
+                
+                if !PracticeItemLocalManager.manager.isFavoritePracticeItem(for: practiceItem.id) {
+                    AppOveralDataManager.manager.viewModel?.removeFavoritePractice(itemId: practiceItem.id)
+                } else {
+                    AppOveralDataManager.manager.viewModel?.addFavoritePractice(practiceItem: practiceItem)
+                }
             }
         } else {
             PracticeItemLocalManager.manager.setFavoritePracticeItem(forItemId: self.practiceItem.id)
@@ -549,6 +555,12 @@ extension PracticeViewController {
                 self.practiceItem.isFavorite = 1
             }
             self.processFavoriteIconImage()
+            
+            if !PracticeItemLocalManager.manager.isFavoritePracticeItem(for: self.practiceItem.id) {
+                AppOveralDataManager.manager.viewModel?.removeFavoritePractice(itemId: self.practiceItem.id)
+            } else {
+                AppOveralDataManager.manager.viewModel?.addFavoritePractice(practiceItem: self.practiceItem)
+            }
         }
         ModacityAnalytics.LogStringEvent("Toggled Favorite")
     }

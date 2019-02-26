@@ -119,6 +119,11 @@ extension PlaylistListViewController: PlaylistCellDelegate {
     
     func onFavorite(_ playlist: Playlist) {
         playlist.setFavorite(!(playlist.isFavorite))
+        if playlist.isFavorite {
+            AppOveralDataManager.manager.viewModel?.addFavoriteSession(session: playlist)
+        } else {
+            AppOveralDataManager.manager.viewModel?.removeFavoriteSession(sessionId: playlist.id)
+        }
         self.tableViewMain.reloadData()
     }
     

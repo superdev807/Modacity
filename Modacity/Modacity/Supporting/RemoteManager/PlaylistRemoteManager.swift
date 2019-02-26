@@ -19,12 +19,14 @@ class PlaylistRemoteManager {
         if let userId = MyProfileLocalManager.manager.userId() {
             self.refUser.child(userId).child("playlists").keepSynced(true)
             self.refUser.child(userId).child("playlists").observeSingleEvent(of: .value) { (snapshot) in
-                self.setPlaylistItemsSynchronized()
+                
                 if (!snapshot.exists()) {
                     self.startUploadAllPlaylists()      // sync from local
                 } else {
                     if snapshot.children.allObjects.count == 0 {
                         self.processDefaultDataship()
+                        self.setPlaylistItemsSynchronized()
+                        NotificationCenter.default.post(Notification(name: AppConfig.NotificationNames.appNotificationPlaylistLoadedFromServer))
                         return
                     }
                     for data in snapshot.children.allObjects as! [DataSnapshot] {
@@ -36,8 +38,21 @@ class PlaylistRemoteManager {
                             }
                         }
                     }
-                    NotificationCenter.default.post(Notification(name: AppConfig.NotificationNames.appNotificationPlaylistLoadedFromServer))
                 }
+                
+                self.setPlaylistItemsSynchronized()
+                NotificationCenter.default.post(Notification(name: AppConfig.NotificationNames.appNotificationPlaylistLoadedFromServer))
+            }
+            
+            self.refUser.child(userId).child("recent_sessions").observeSingleEvent(of: .value) { (snapshot) in
+                if snapshot.exists() {
+                    if let value = snapshot.value as? [String:String] {
+                        PlaylistLocalManager.manager.saveRecentSessions(sessions: value)
+                    }
+                }
+                
+                self.setRecentSessionsSynchronized()
+                NotificationCenter.default.post(Notification(name: AppConfig.NotificationNames.appNotificationRecentSessionsLoadedFromServer))
             }
         }
     }
@@ -75,6 +90,15 @@ class PlaylistRemoteManager {
     
     func setPlaylistItemsSynchronized() {
         UserDefaults.standard.set(true, forKey: "playlist_items_synchronized")
+        UserDefaults.standard.synchronize()
+    }
+    
+    func recentSessionsSynchronized() -> Bool {
+        return UserDefaults.standard.bool(forKey: "recent_session_synchronized")
+    }
+    
+    func setRecentSessionsSynchronized() {
+        UserDefaults.standard.set(true, forKey: "recent_session_synchronized")
         UserDefaults.standard.synchronize()
     }
     
@@ -128,6 +152,32 @@ class PlaylistRemoteManager {
     func add(item: Playlist) {
         if let db = self.dbReference(for: item.id) {
             db.setValue(item.toJSON())
+        }
+    }
+    
+    
+    
+    func storeRecentSession(sessionId: String, value: String) {
+        if let userId = MyProfileLocalManager.manager.userId() {
+            self.refUser.child(userId).child("recent_sessions").child(sessionId).setValue(value)
+        }
+    }
+    
+    func removeRecentSession(sessionId: String) {
+        if let userId = MyProfileLocalManager.manager.userId() {
+            self.refUser.child(userId).child("recent_sessions").child(sessionId).removeValue()
+        }
+    }
+    
+    func storeFavoriteSession(sessionId: String, value: String) {
+        if let userId = MyProfileLocalManager.manager.userId() {
+            self.refUser.child(userId).child("favorite_sessions").child(sessionId).setValue(value)
+        }
+    }
+    
+    func removeFavoriteSession(sessionId: String) {
+        if let userId = MyProfileLocalManager.manager.userId() {
+            self.refUser.child(userId).child("favorite_sessions").child(sessionId).removeValue()
         }
     }
 }

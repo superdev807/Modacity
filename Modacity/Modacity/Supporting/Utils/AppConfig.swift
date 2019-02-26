@@ -108,6 +108,7 @@ class AppConfig: NSObject {
         static let appNotificationOverallAppDataLoadedFromServer = Notification.Name(rawValue: "appNotificationOverallAppDataLoadedFromServer")
         static let appNotificationPracticeLoadedFromServer = Notification.Name(rawValue: "appNotificationPracticeLoadedFromServer")
         static let appNotificationPlaylistLoadedFromServer = Notification.Name(rawValue: "appNotificationPlaylistLoadedFromServer")
+        static let appNotificationRecentSessionsLoadedFromServer = Notification.Name(rawValue: "appNotificationRecentSessionsLoadedFromServer")
         static let appNotificationPlaylistUpdated = Notification.Name(rawValue: "appNotificationPlaylistUpdated")
         static let appNotificationPlaylistPracticeDataFetched = Notification.Name(rawValue: "appNotificationPlaylistPracticeDataFetched")
         static let appNotificationPracticeDataFetched = Notification.Name(rawValue: "appNotificationPracticeDataFetched")
@@ -135,6 +136,8 @@ class AppConfig: NSObject {
         
         static let appRecordingStartFileName = "/recording.m4a"
         static let appSavedAudioFileExtension = ".m4a"
+        
+        static let appRecentQueueMaxSessionsCount = 50
     }
     
     static let devVersion: Bool = {

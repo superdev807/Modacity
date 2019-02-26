@@ -20,11 +20,6 @@ class PlaylistLocalManager: NSObject {
                 if playlist.playlistPracticeEntries != nil {
                     for item in playlist.playlistPracticeEntries {
                         if item.practiceItemId == nil {
-//                            if let newPracticeItem = PracticeItemLocalManager.manager.searchPracticeItem(byName: item.name) {
-//                                item.practiceItemId = newPracticeItem.id
-////                                item.name = ""
-//                                newPracticeItems.append(item)
-//                            }
                         } else if item.practiceItemId != nil {
                             newPracticeItems.append(item)
                         }
@@ -51,8 +46,6 @@ class PlaylistLocalManager: NSObject {
             
             UserDefaults.standard.set(playlist.toJSON(), forKey: "playlist:id:" + playlist.id)
             UserDefaults.standard.synchronize()
-            
-            self.processRecentPlaylist(playlist)
         }
     }
     
@@ -101,19 +94,13 @@ class PlaylistLocalManager: NSObject {
     func deletePlaylist(_ playlist: Playlist) {
         playlist.archived = true
         
-        if let recentPlaylistIds = UserDefaults.standard.object(forKey: "recent_playlist_ids") as? [String] {
-            var recentPlaylists = [Playlist]()
-            for playlistId in recentPlaylistIds {
-                if playlistId != playlist.id {
-                    recentPlaylists.append(playlist)
-                }
-            }
-            UserDefaults.standard.set(recentPlaylistIds, forKey: "recent_playlist_ids")
+        if playlist.id != nil && playlist.id != "" {
+            self.removeRecentSession(sessionId: playlist.id)
         }
         
         UserDefaults.standard.set(playlist.toJSON(), forKey: "playlist:id:" + playlist.id)
         UserDefaults.standard.synchronize()
-        PlaylistRemoteManager.manager.update(item: playlist)//removePlaylist(for: playlist.id)
+        PlaylistRemoteManager.manager.update(item: playlist)
     }
     
     func storePlaylists(_ playlists: [Playlist]) {
@@ -137,55 +124,6 @@ class PlaylistLocalManager: NSObject {
         }
         
         return nil
-    }
-    
-    func recentPlaylists() -> [Playlist]? {
-        if let recentPlaylistIds = UserDefaults.standard.object(forKey: "recent_playlist_ids") as? [String] {
-            var recentPlaylists = [Playlist]()
-            for playlistId in recentPlaylistIds {
-                if let playlist = self.loadPlaylist(forId: playlistId) {
-                    if !playlist.archived {
-                        recentPlaylists.append(playlist)
-                    }
-                }
-            }
-            return recentPlaylists
-        }
-        return nil
-    }
-    
-    func processRecentPlaylist(_ playlist:Playlist) {
-        if var recentPlaylistIds = UserDefaults.standard.object(forKey: "recent_playlist_ids") as? [String] {
-            for idx in 0..<recentPlaylistIds.count {
-                if recentPlaylistIds[idx] == playlist.id {
-                    if idx > 0 {
-                        recentPlaylistIds.remove(at: idx)
-                        recentPlaylistIds.insert(playlist.id, at: 0)
-                        UserDefaults.standard.set(recentPlaylistIds, forKey: "recent_playlist_ids")
-                        UserDefaults.standard.synchronize()
-                    }
-                    return
-                }
-            }
-            self.savePlaylistToRecentQueue(playlist: playlist)
-        } else {
-            self.savePlaylistToRecentQueue(playlist: playlist)
-        }
-    }
-    
-    func savePlaylistToRecentQueue(playlist: Playlist) {
-        var recentPlaylistIds = [String]()
-        if let savedRecentPlaylistIds = UserDefaults.standard.object(forKey: "recent_playlist_ids") as? [String] {
-            recentPlaylistIds = savedRecentPlaylistIds
-        }
-        recentPlaylistIds.insert(playlist.id, at: 0)
-        
-        if recentPlaylistIds.count > AppConfig.Constants.appMaxNumberForRecentPlaylists {
-            recentPlaylistIds.removeLast()
-        }
-        
-        UserDefaults.standard.set(recentPlaylistIds, forKey: "recent_playlist_ids")
-        UserDefaults.standard.synchronize()
     }
     
     func processPracticeItemRemove(_ practiceItemId: String) {
@@ -228,6 +166,101 @@ class PlaylistLocalManager: NSObject {
         PlaylistRemoteManager.manager.add(item: playlist)
     }
     
+    func saveRecentSessions(sessions: [String:String]) {
+        UserDefaults.standard.set(sessions, forKey: "recent_sessions")
+    }
+    
+    func storeRecentSession(sessionId: String) {
+        var sessionIds = [String:String]()
+        if let storedSessionIds = UserDefaults.standard.object(forKey: "recent_sessions") as? [String:String] {
+            sessionIds = storedSessionIds
+        }
+        
+        if (sessionIds.keys.count > AppConfig.Constants.appRecentQueueMaxSessionsCount) {
+            let sortedIds = sessionIds.keys.sorted { (firstKey, secondKey) -> Bool in
+                return sessionIds[firstKey]!.compare(sessionIds[secondKey]!) == .orderedDescending
+            }
+            
+            sessionIds.removeValue(forKey: sortedIds.last!)
+            PlaylistRemoteManager.manager.removeRecentSession(sessionId: sessionId)
+        }
+        
+        let value = "\(Date().timeIntervalSince1970)"
+        sessionIds[sessionId] = value
+        UserDefaults.standard.set(sessionIds, forKey: "recent_sessions")
+        
+        PlaylistRemoteManager.manager.storeRecentSession(sessionId: sessionId, value: value)
+    }
+    
+    func removeRecentSession(sessionId: String) {
+        var sessionIds = [String:String]()
+        if let storedSessionIds = UserDefaults.standard.object(forKey: "recent_sessions") as? [String:String] {
+            sessionIds = storedSessionIds
+        }
+        
+        if sessionIds[sessionId] != nil {
+            sessionIds.removeValue(forKey: sessionId)
+            UserDefaults.standard.set(sessionIds, forKey: "recent_sessions")
+            PlaylistRemoteManager.manager.removeRecentSession(sessionId: sessionId)
+        }
+    }
+    
+    func loadFullRecentSessions() -> [Playlist]? {
+        if var recentSessionIds = UserDefaults.standard.object(forKey: "recent_sessions") as? [String:String] {
+            
+            let sortedIds = recentSessionIds.keys.sorted { (firstKey, secondKey) -> Bool in
+                return recentSessionIds[firstKey]!.compare(recentSessionIds[secondKey]!) == .orderedDescending
+            }
+            
+            var result = [Playlist]()
+            for sessionId in sortedIds {
+                if let session = self.loadPlaylist(forId: sessionId) {
+                    result.append(session)
+                }
+            }
+            
+            return result
+        }
+        
+        return nil
+    }
+    
+//    func storeFavoriteSession(sessionId: String, sessionName: String) {
+//        var favoriteIds = [String:String]()
+//        if let storedFavoriteIds = UserDefaults.standard.object(forKey: "favorite_sessions") as? [String:String] {
+//            favoriteIds = storedFavoriteIds
+//        }
+//
+//        favoriteIds[sessionId] = sessionName
+//        UserDefaults.standard.set(favoriteIds, forKey: "favorite_sessions")
+//        PlaylistRemoteManager.manager.storeFavoriteSession(sessionId: sessionId, value: sessionName)
+//    }
+//
+//    func removeFavoriteSession(sessionId: String) {
+//        var favoriteIds = [String:String]()
+//        if let storedFavoriteIds = UserDefaults.standard.object(forKey: "favorite_sessions") as? [String:String] {
+//            favoriteIds = storedFavoriteIds
+//        }
+//
+//        favoriteIds.removeValue(forKey: sessionId)
+//        UserDefaults.standard.set(favoriteIds, forKey: "favorite_sessions")
+//        PlaylistRemoteManager.manager.removeFavoriteSession(sessionId: sessionId)
+//    }
+//
+//    func loadFullFavoriteSessions() -> [Playlist]? {
+//        if let favoriteIds = UserDefaults.standard.object(forKey: "favorite_sessions") as? [String:String] {
+//            var result = [Playlist]()
+//            for favoriteId in favoriteIds.keys {
+//                if let practiceItem = self.loadPlaylist(forId: favoriteId) {
+//                    result.append(practiceItem)
+//                }
+//            }
+//            return result
+//        }
+//
+//        return nil
+//    }
+    
     func signout() {
         if let playlistIds = loadPlaylistIds() {
             for playlistId in playlistIds {
@@ -236,6 +269,8 @@ class PlaylistLocalManager: NSObject {
         }
         UserDefaults.standard.removeObject(forKey: "playlist_ids")
         UserDefaults.standard.removeObject(forKey: "recent_playlist_ids")
+        UserDefaults.standard.removeObject(forKey: "recent_sessions")
+        UserDefaults.standard.removeObject(forKey: "favorite_sessions")
         UserDefaults.standard.synchronize()
     }
 }

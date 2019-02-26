@@ -48,7 +48,7 @@ class DailyPracticingRemoteManager: NSObject {
     
     func practicingDataFetched() -> Bool {
         return UserDefaults.standard.bool(forKey: "fetched_practicing") && UserDefaults.standard.bool(forKey: "fetched_practicing_playlist")
-            && UserDefaults.standard.object(forKey: "total_practice_data") != nil && UserDefaults.standard.object(forKey: "total_playlist_practice_data") != nil
+           /* && UserDefaults.standard.object(forKey: "total_practice_data") != nil && UserDefaults.standard.object(forKey: "total_playlist_practice_data") != nil */
     }
     
     func setPracticingDataLoaded() {
@@ -69,9 +69,13 @@ class DailyPracticingRemoteManager: NSObject {
                         if let data = snapshot.value as? [String:Any] {
                             PlaylistDailyLocalManager.manager.cleanData()
                             PlaylistDailyLocalManager.manager.storeTotalData(data)
+                            completion()
+                            return
                         }
                     }
                     
+                    PlaylistDailyLocalManager.manager.cleanData()
+                    PlaylistDailyLocalManager.manager.storeTotalData([String:Any]())
                     completion()
                 }
             }
@@ -86,8 +90,13 @@ class DailyPracticingRemoteManager: NSObject {
                         if let data = snapshot.value as? [String:Any] {
                             PracticingDailyLocalManager.manager.cleanData()
                             PracticingDailyLocalManager.manager.storeTotalData(data)
+                            completion()
+                            return
                         }
                     }
+                    
+                    PracticingDailyLocalManager.manager.cleanData()
+                    PracticingDailyLocalManager.manager.storeTotalData([String:Any]())
                     completion()
                 }
             }
@@ -155,9 +164,6 @@ class DailyPracticingRemoteManager: NSObject {
                 DispatchQueue.global(qos: .background).async {
                     if snapshot.exists() {
                         if let data = snapshot.value as? [String:Any] {
-                            
-//                            print("PRE CALCULATION TOTAL TIME - \(totalPracticeTimeInSecond)")
-                            
                             PracticingDailyLocalManager.manager.cleanData()
                             PracticingDailyLocalManager.manager.storeTotalData(data)
                         }
