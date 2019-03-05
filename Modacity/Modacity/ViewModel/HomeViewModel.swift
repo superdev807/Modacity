@@ -104,6 +104,7 @@ class HomeViewModel: ViewModel {
         
         if PlaylistRemoteManager.manager.playlistItemsSynchronized() && PracticeItemRemoteManager.manager.practiceItemsSynchronized() {
             
+            let start = Date()
             var items = [String:[String:Any]]()
             if let playlists = PlaylistLocalManager.manager.loadFavoritePlaylists() {
                 for playlist in playlists {
@@ -122,6 +123,8 @@ class HomeViewModel: ViewModel {
             flags["favorites"] = true
             
             print("favorites flag : DONE")
+            
+            ModacityDebugger.debug("Favorite calculation time - \(Date().timeIntervalSince1970 - start.timeIntervalSince1970)")
             check()
             
         } else {

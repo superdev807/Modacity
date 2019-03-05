@@ -276,7 +276,7 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
             } else if indexPath.row == 3 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCellWithSwitch") as! SettingsCellWithSwitch
                 cell.delegate = self
-                cell.configure(caption: "Disable Auto-Playback", isOn: AppOveralDataManager.manager.settingsDisableAutoPlayback())
+                cell.configure(caption: "Auto-playback new recordings", isOn: !AppOveralDataManager.manager.settingsDisableAutoPlayback())
                 return cell
             }  else if indexPath.row == 4 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCellWithSwitch") as! SettingsCellWithSwitch
@@ -412,7 +412,7 @@ extension SettingsViewController: SettingsCellWithSwitchDelegate {
         if "Prevent Phone Sleep During Audio Activity" == forCaption {
             AppOveralDataManager.manager.changePhoneSleepPrevent()
             self.tableViewSettings.reloadRows(at: [IndexPath(row: 2, section: 2)], with: .none)
-        } else if "Disable Auto-Playback" == forCaption {
+        } else if "Auto-playback new recordings" == forCaption {
             AppOveralDataManager.manager.changeDisableAutoPlayback()
             self.tableViewSettings.reloadRows(at: [IndexPath(row: 3, section: 2)], with: .none)
         } else if "Pause Timer During Note Taking" == forCaption {

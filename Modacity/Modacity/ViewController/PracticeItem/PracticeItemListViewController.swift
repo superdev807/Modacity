@@ -193,6 +193,7 @@ class PracticeItemListViewController: ModacityParentViewController {
     }
     
     func categorize() {
+        
         if var practiceItems = self.filteredPracticeItems {
             
             practiceItems.sort { (item1, item2) -> Bool in
@@ -256,14 +257,33 @@ extension PracticeItemListViewController: UITableViewDataSource, UITableViewDele
         if tableHeaderShowing && section == 0 {
             return nil
         } else {
-            let returnedView = UIView(frame: CGRect(x:0, y:0, width:tableViewMain.frame.size.width, height:40))
+            let returnedView = UIView(frame: CGRect(x:0, y:0, width:tableViewMain.frame.size.width, height:28))
             returnedView.backgroundColor = Color(hexString: "#3c385a")
             
-            let label = UILabel(frame: CGRect(x:10, y:0, width:tableViewMain.frame.size.width - 20, height:24))
-            label.text = "\(self.sectionNames[section - (tableHeaderShowing ? 1: 0)])"
-            label.textColor = Color.white.alpha(0.8)
-            label.font = UIFont(name: AppConfig.UI.Fonts.appFontLatoRegular, size: 14)
-            returnedView.addSubview(label)
+            if self.sortKey == .favorites {
+                
+                let sectionName = self.sectionNames[section - (tableHeaderShowing ? 1: 0)]
+                
+                let imageView = UIImageView(frame: CGRect(x:10, y:7, width:20, height:14))
+                if sectionName == "♥" {
+                    imageView.image = UIImage(named: "icon_heart_red")
+                    imageView.alpha = 1.0
+                } else {
+                    imageView.image = UIImage(named: "icon_heart")
+                    imageView.alpha = 0.3
+                }
+                imageView.contentMode = .scaleAspectFit
+                returnedView.addSubview(imageView)
+                
+            } else {
+                
+                let label = UILabel(frame: CGRect(x:10, y:0, width:tableViewMain.frame.size.width - 20, height:24))
+                label.text = "\(self.sectionNames[section - (tableHeaderShowing ? 1: 0)])"
+                label.textColor = Color.white.alpha(0.8)
+                label.font = UIFont(name: AppConfig.UI.Fonts.appFontLatoRegular, size: 14)
+                returnedView.addSubview(label)
+                
+            }
             
             return returnedView
         }

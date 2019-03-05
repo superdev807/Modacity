@@ -191,6 +191,7 @@ class PlaylistContentsViewModel: ViewModel {
     
     func createAndStorePlaylist() {
         if self.playlist.name != "" && self.playlist.playlistPracticeEntries != nil && self.playlist.playlistPracticeEntries.count > 0 {
+            
             if self.playlist.createdAt == "" {
                 self.playlist.createdAt = "\(Date().timeIntervalSince1970)"
             }
@@ -199,6 +200,7 @@ class PlaylistContentsViewModel: ViewModel {
                 self.playlist.id = UUID().uuidString
                 PlaylistRemoteManager.manager.add(item: self.playlist)
             }
+            
             if Authorizer.authorizer.isGuestLogin() {
                 GuestCacheManager.manager.practiceSessionIds.append(self.playlist.id)
             }
@@ -421,5 +423,12 @@ class PlaylistContentsViewModel: ViewModel {
         if self.playlist.id != nil && self.playlist.id != "" {
             PlaylistLocalManager.manager.storeRecentSession(sessionId: self.playlist.id)
         }
+    }
+    
+    func checkPlaylistNameAvailable(_ newName: String) -> Bool {
+        if newName == "" {
+            return false
+        }
+        return PlaylistLocalManager.manager.checkPlaylistNameAvailable(newName, self.playlist.id)
     }
 }

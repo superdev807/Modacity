@@ -291,41 +291,89 @@ class PlaylistContentsViewController: ModacityParentViewController {
     }
     
     @IBAction func onBack(_ sender: Any) {
+        
         ModacityAnalytics.LogStringEvent("Playlist Back Button", extraParamName: "duringSession", extraParamValue: self.isPlaying)
-        if self.isPlaying {
-            
-            let alertController = UIAlertController(title: nil, message: "This will end your practice session. Are you sure to close the page?", preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (_) in
+        
+        if self.viewModel.playlistName == "" {
+            let alertController = UIAlertController(title: nil, message: "You need to enter the name of the session to save this list.", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "Save", style: .default, handler: { (_) in
+                self.isNameEditing = true
+                self.buttonEditPlaylistNameLarge.isHidden = true
+                self.labelPlaylistName.isHidden = true
+                self.textfieldPlaylistName.isHidden = false
+                self.textfieldPlaylistName.becomeFirstResponder()
+                self.viewKeyboardDismiss.isHidden = false
+                self.textfieldPlaylistName.becomeFirstResponder()
+            }))
+            alertController.addAction(UIAlertAction(title: "Close", style: .cancel, handler: { (_) in
                 
-                if self.viewModel.playlistName == "" {
+                if self.isPlaying {
+                    if self.viewModel.playlistName == "" {
+                        self.playlistPracticeTotalTimeInSec = self.viewModel.totalPracticedTime()
+                        if self.navigationController?.viewControllers.count == 1 {
+                            self.navigationController?.dismiss(animated: true, completion: nil)
+                        } else {
+                            self.navigationController?.popViewController(animated: true)
+                        }
+                        return
+                    }
+                    
                     self.playlistPracticeTotalTimeInSec = self.viewModel.totalPracticedTime()
                     if self.navigationController?.viewControllers.count == 1 {
                         self.navigationController?.dismiss(animated: true, completion: nil)
                     } else {
                         self.navigationController?.popViewController(animated: true)
                     }
-                    return
-                }
-                
-                self.playlistPracticeTotalTimeInSec = self.viewModel.totalPracticedTime()
-                if self.navigationController?.viewControllers.count == 1 {
-                    self.navigationController?.dismiss(animated: true, completion: nil)
                 } else {
-                    self.navigationController?.popViewController(animated: true)
+                    self.playlistPracticeTotalTimeInSec = self.viewModel.totalPracticedTime()
+                    
+                    if self.navigationController?.viewControllers.count == 1 {
+                        self.navigationController?.dismiss(animated: true, completion: nil)
+                    } else {
+                        self.navigationController?.popViewController(animated: true)
+                    }
                 }
-                
             }))
-            alertController.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
             self.present(alertController, animated: true, completion: nil)
-            return
-        }
-        
-        self.playlistPracticeTotalTimeInSec = self.viewModel.totalPracticedTime()
-        
-        if self.navigationController?.viewControllers.count == 1 {
-            self.navigationController?.dismiss(animated: true, completion: nil)
+            
         } else {
-            self.navigationController?.popViewController(animated: true)
+            if self.isPlaying {
+                
+                let alertController = UIAlertController(title: nil, message: "This will end your practice session. Are you sure to close the page?", preferredStyle: .alert)
+                
+                alertController.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (_) in
+                    
+//                    if self.viewModel.playlistName == "" {
+//                        self.playlistPracticeTotalTimeInSec = self.viewModel.totalPracticedTime()
+//                        if self.navigationController?.viewControllers.count == 1 {
+//                            self.navigationController?.dismiss(animated: true, completion: nil)
+//                        } else {
+//                            self.navigationController?.popViewController(animated: true)
+//                        }
+//                        return
+//                    }
+                    
+                    self.playlistPracticeTotalTimeInSec = self.viewModel.totalPracticedTime()
+                    if self.navigationController?.viewControllers.count == 1 {
+                        self.navigationController?.dismiss(animated: true, completion: nil)
+                    } else {
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                    
+                }))
+                alertController.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+                self.present(alertController, animated: true, completion: nil)
+                return
+            }
+            
+            self.playlistPracticeTotalTimeInSec = self.viewModel.totalPracticedTime()
+            
+            if self.navigationController?.viewControllers.count == 1 {
+                self.navigationController?.dismiss(animated: true, completion: nil)
+            } else {
+                self.navigationController?.popViewController(animated: true)
+            }
+            
         }
         
     }
@@ -348,16 +396,53 @@ class PlaylistContentsViewController: ModacityParentViewController {
     }
     
     @IBAction func onDidEndOnExitOnNameInputField(_ sender: Any) {
-        self.changeNameEditMode()
+//        self.viewModel.playlistName = self.textfieldPlaylistName.text ?? ""
+//
+//        if self.viewModel.playlistName != "" {
+//            self.labelPlaylistName.alpha = 1.0
+//        } else {
+//            self.labelPlaylistName.alpha = 0.25
+//        }
+//
+//        self.changeNameEditMode()
+    }
+    
+    @IBAction func onEditingDidEndOnNameField(_ sender: Any) {
+        ModacityDebugger.debug("Editing did end on name field.")
+        
+        let newPlaylistName = self.textfieldPlaylistName.text ?? ""
+        
+        if newPlaylistName != "" && !(self.viewModel.checkPlaylistNameAvailable(newPlaylistName)) {
+            
+            AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Sesion name exists.", handler: { _ in
+                self.textfieldPlaylistName.becomeFirstResponder()
+            })
+            
+        } else {
+            
+            self.viewModel.playlistName = newPlaylistName
+            
+            if self.viewModel.playlistName != "" {
+                self.labelPlaylistName.alpha = 1.0
+            } else {
+                self.labelPlaylistName.alpha = 0.25
+            }
+            
+            self.changeNameEditMode()
+            
+        }
+        
     }
     
     @IBAction func onEditingChangedOnNameInputField(_ sender: Any) {
-        self.viewModel.playlistName = self.textfieldPlaylistName.text ?? ""
-        if self.viewModel.playlistName != "" {
-            self.labelPlaylistName.alpha = 1.0
-        } else {
-            self.labelPlaylistName.alpha = 0.25
-        }
+//        ModacityDebugger.debug("Editing changed on name input field!")
+//        self.viewModel.playlistName = self.textfieldPlaylistName.text ?? ""
+//
+//        if self.viewModel.playlistName != "" {
+//            self.labelPlaylistName.alpha = 1.0
+//        } else {
+//            self.labelPlaylistName.alpha = 0.25
+//        }
     }
     
     func changeNameEditMode() {
@@ -512,7 +597,8 @@ class PlaylistContentsViewController: ModacityParentViewController {
     }
     
     @IBAction func onDismissKeyboard(_ sender: Any) {
-        self.changeNameEditMode()
+        self.onEditingDidEndOnNameField(sender)
+//        self.changeNameEditMode()
     }
     
     @IBAction func onAddPracticeItem(_ sender: Any) {

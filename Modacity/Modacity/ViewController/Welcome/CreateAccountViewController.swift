@@ -46,11 +46,11 @@ class CreateAccountViewController: ModacityParentViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if fromSignout || Authorizer.authorizer.isGuestLogin() {
+//        if fromSignout || Authorizer.authorizer.isGuestLogin() {
             self.buttonSkip.isHidden = true
-        } else {
-            self.buttonSkip.isHidden = false
-        }
+//        } else {
+//            self.buttonSkip.isHidden = false
+//        }
     }
     
     func initControls() {

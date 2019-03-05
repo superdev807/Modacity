@@ -42,7 +42,6 @@ class ImprovementViewController: ModacityParentViewController {
     @IBOutlet weak var buttonAudioPlay: UIButton!
     @IBOutlet weak var labelPlayerRemainsTime: UILabel!
     @IBOutlet weak var labelPlayerCurrentTime: UILabel!
-//    @IBOutlet weak var viewImprovedYesPanel: UIView!
     @IBOutlet weak var viewImprovedAlert: UIView!
     @IBOutlet weak var viewRatePanel: UIView!
     @IBOutlet weak var imageViewRateDirection: UIImageView!
@@ -57,6 +56,8 @@ class ImprovementViewController: ModacityParentViewController {
     @IBOutlet weak var viewBottomXBar: UIView!
     
     var donePopupView: ImprovedDonePopupView?
+    
+    var improvedYes = false
     
     // MARK: - Properties for drone
     
@@ -166,6 +167,11 @@ class ImprovementViewController: ModacityParentViewController {
             AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Please stop recording before leaving the page.")
             return
         }
+        
+        if self.improvedYes {
+            self.generateImprovedRecord()
+        }
+        
         ModacityAnalytics.LogStringEvent("Exited Hypothesis Test Screen")
         self.stopMetrodronePlay()
         self.navigationController?.popViewController(animated: true)
@@ -633,6 +639,7 @@ extension ImprovementViewController {
     
     @IBAction func onImprovedYes(_ sender: Any) {
        ModacityAnalytics.LogStringEvent("Hypothesis Worked")
+        self.improvedYes = true
         self.showDonePopup()
     }
     

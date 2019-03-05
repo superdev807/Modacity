@@ -225,6 +225,18 @@ class PlaylistLocalManager: NSObject {
         return nil
     }
     
+    func checkPlaylistNameAvailable(_ newName: String, _ exceptId: String?) -> Bool {
+        if let sessions = self.loadPlaylists() {
+            for session in sessions {
+                if session.id != exceptId && session.name.lowercased() == newName.lowercased() {
+                    return false
+                }
+            }
+        }
+        
+        return true
+    }
+    
 //    func storeFavoriteSession(sessionId: String, sessionName: String) {
 //        var favoriteIds = [String:String]()
 //        if let storedFavoriteIds = UserDefaults.standard.object(forKey: "favorite_sessions") as? [String:String] {

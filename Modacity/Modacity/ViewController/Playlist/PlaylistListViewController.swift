@@ -27,6 +27,8 @@ class PlaylistListViewController: ModacityParentViewController {
     var detailSelection: Playlist!
     var playlists = [Playlist]()
     
+    private var test = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
