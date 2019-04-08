@@ -24,12 +24,14 @@ class StatisticsView: UIView {
     @IBOutlet weak var labelThisMonthTotal: UILabel!
     @IBOutlet weak var labelLastMonthTotal: UILabel!
     @IBOutlet weak var labelAverageSessionDuration: UILabel!
+    @IBOutlet weak var labelAverageDailyTime: UILabel!
     
     @IBOutlet weak var labelThisWeekUnit: UILabel!
     @IBOutlet weak var labelLastWeekUnit: UILabel!
     @IBOutlet weak var labelThisMonthUnit: UILabel!
     @IBOutlet weak var labelLastMonthUnit: UILabel!
-    @IBOutlet weak var labelAverageSessionUnit: UILabel!
+    @IBOutlet weak var labelAverageSessionDurationUnit: UILabel!
+    @IBOutlet weak var labelAverageDailyTimeUnit: UILabel!
     
     @IBOutlet weak var chartViewBarGraph: BarChartView!
     @IBOutlet weak var chartViewStarRatings: LineChartView!
@@ -88,46 +90,16 @@ class StatisticsView: UIView {
         self.viewAverageSessionDurationPanel.layer.borderColor = Color.white.alpha(0.1).cgColor
         
         initializeBarChart()
-        
-        self.showValues()
     }
     
-    func showValues() {
-        
-        var monday = self.date.weekDay(for: .mon)
-        var sunday = monday.addingTimeInterval(6 * 24 * 3600)
-        
-        if self.date.weekDay == 1 {
-            monday = self.date.weekDay(for: .mon).addingTimeInterval(-1 * 7 * 24 * 3600)
-            sunday = monday.addingTimeInterval(6 * 24 * 3600)
-        }
-        
-        self.labelWeekDuration.text = "\(monday.toString(format: "MMM d yyyy")) - \(sunday.toString(format: "MMM d yyyy"))"
-        
-        if self.date.startOfDate().timeIntervalSince1970 == Date().startOfDate().timeIntervalSince1970 {
-            self.buttonNextWeek.isHidden = true
-        } else {
-            self.buttonNextWeek.isHidden = false
-        }
-        
+    func showTotalTimeAndRaitingLine() {
         if self.practiceData != nil {
             var totalSeconds = 0
-            var secondsData = [String:Int]()
             var ratings = [Double:Double]()
             
             for date in self.practiceData.keys {
-                let time = date.date(format: "yy-MM-dd")
                 if let dailyDatas = self.practiceData[date] {
                     for daily in dailyDatas {
-                        if time!.timeIntervalSince1970 >= monday.timeIntervalSince1970 && time!.timeIntervalSince1970 <= sunday.timeIntervalSince1970 {
-                            if var val = secondsData[date] {
-                                val = val + daily.practiceTimeInSeconds
-                                secondsData[date] = val
-                            } else {
-                                secondsData[date] = daily.practiceTimeInSeconds
-                            }
-                        }
-                        
                         totalSeconds = totalSeconds + daily.practiceTimeInSeconds
                         
                         if daily.rating != nil && daily.rating > 0 {
@@ -146,6 +118,127 @@ class StatisticsView: UIView {
                 self.labelTotalTimeUnit.text = "TOTAL MINUTES"
             }
             
+            let sorted = ratings.sorted {$0.key < $1.key}
+            var ratingsLine = [Double]()
+            for (_, value) in sorted {
+                ratingsLine.append(value)
+            }
+            
+            setRatingLineChart(values: ratingsLine)
+        } else {
+            setRatingLineChart(values: [])
+        }
+    }
+    
+    func showSectionedValues() {
+        
+        if let data = self.practiceData {
+            var thisWeekTotal = 0
+            var lastWeekTotal = 0
+            var thisMonthTotal = 0
+            var lastMonthTotal = 0
+            
+            for date in data.keys {
+                let time = date.date(format: "yy-MM-dd")
+                if let dailyDatas = data[date] {
+                    for daily in dailyDatas {
+                        if time!.isThisWeek() {
+                            thisWeekTotal = thisWeekTotal + daily.practiceTimeInSeconds
+                        }
+                        
+                        if time!.isLastWeek() {
+                            lastWeekTotal = lastWeekTotal + daily.practiceTimeInSeconds
+                        }
+                        
+                        if time!.isThisMonth() {
+                            thisMonthTotal = thisMonthTotal + daily.practiceTimeInSeconds
+                        }
+                        
+                        if time!.isLastMonth() {
+                            lastMonthTotal = lastMonthTotal + daily.practiceTimeInSeconds
+                        }
+                    }
+                }
+            }
+            
+            self.practiceCalculateLabelsFormatting(totalSeconds: thisWeekTotal, labelValue: self.labelThisWeekTotal, labelUnit: self.labelThisWeekUnit)
+            self.practiceCalculateLabelsFormatting(totalSeconds: lastWeekTotal, labelValue: self.labelLastWeekTotal, labelUnit: self.labelLastWeekUnit)
+            self.practiceCalculateLabelsFormatting(totalSeconds: thisMonthTotal, labelValue: self.labelThisMonthTotal, labelUnit: self.labelThisMonthUnit)
+            self.practiceCalculateLabelsFormatting(totalSeconds: lastMonthTotal, labelValue: self.labelLastMonthTotal, labelUnit: self.labelLastMonthUnit)
+        }
+    }
+    
+    func showWeeklyValues() {
+        
+        var monday = self.date.weekDay(for: .mon)
+        var sunday = monday.addingTimeInterval(6 * 24 * 3600)
+        
+        if self.date.weekDay == 1 {
+            monday = self.date.weekDay(for: .mon).addingTimeInterval(-1 * 7 * 24 * 3600)
+            sunday = monday.addingTimeInterval(6 * 24 * 3600)
+        }
+        
+        self.labelWeekDuration.text = "\(monday.toString(format: "MMM d yyyy")) - \(sunday.toString(format: "MMM d yyyy"))"
+        
+        if self.date.startOfDate().timeIntervalSince1970 == Date().startOfDate().timeIntervalSince1970 {
+            self.buttonNextWeek.isHidden = true
+        } else {
+            self.buttonNextWeek.isHidden = false
+        }
+        
+        if self.practiceData != nil {
+            var secondsData = [String:Int]()
+            var sessionsCountInWeek = 0
+            var totalTimeInWeek = 0
+            
+            for date in self.practiceData.keys {
+                let time = date.date(format: "yy-MM-dd")
+                if let dailyDatas = self.practiceData[date] {
+                    for daily in dailyDatas {
+                        if time!.timeIntervalSince1970 >= monday.timeIntervalSince1970 && time!.timeIntervalSince1970 <= sunday.timeIntervalSince1970 {
+                            
+                            sessionsCountInWeek = sessionsCountInWeek + 1
+                            totalTimeInWeek = totalTimeInWeek + daily.practiceTimeInSeconds
+                            
+                            if var val = secondsData[date] {
+                                val = val + daily.practiceTimeInSeconds
+                                secondsData[date] = val
+                            } else {
+                                secondsData[date] = daily.practiceTimeInSeconds
+                            }
+                        }
+                    }
+                }
+            }
+            
+            if sessionsCountInWeek == 0 {
+                self.labelAverageSessionDuration.text = "0"
+                self.labelAverageSessionDurationUnit.text = "min"
+            } else {
+                let averageSessionDuration = totalTimeInWeek / sessionsCountInWeek
+                if averageSessionDuration > 0 && averageSessionDuration < 60 {
+                    self.labelAverageSessionDuration.text = "\(averageSessionDuration)"
+                    self.labelAverageSessionDurationUnit.text = "sec"
+                } else {
+                    self.labelAverageSessionDuration.text = "\(averageSessionDuration / 60)"
+                    self.labelAverageSessionDurationUnit.text = "min"
+                }
+            }
+            
+            if secondsData.keys.count == 0 {
+                self.labelAverageDailyTime.text = "0"
+                self.labelAverageDailyTimeUnit.text = "min"
+            } else {
+                let averageDailyTime = totalTimeInWeek / secondsData.keys.count
+                if averageDailyTime > 0 && averageDailyTime < 60 {
+                    self.labelAverageDailyTime.text = "\(averageDailyTime)"
+                    self.labelAverageDailyTimeUnit.text = "sec"
+                } else {
+                    self.labelAverageDailyTime.text = "\(averageDailyTime / 60)"
+                    self.self.labelAverageDailyTimeUnit.text = "min"
+                }
+            }
+            
             var cal = monday
             var seconds = [Double]()
             while cal.timeIntervalSince1970 <= sunday.timeIntervalSince1970 {
@@ -160,88 +253,31 @@ class StatisticsView: UIView {
             
             setBarChart(dataPoints: ["MON", "TUE", "WED", "THR", "FRI", "SAT", "SUN"], values: seconds)
             
-            let sorted = ratings.sorted {$0.key < $1.key}
-            var ratingsLine = [Double]()
-            for (_, value) in sorted {
-                ratingsLine.append(value)
-            }
-            
-            setLineChart(values: ratingsLine)
-            
         } else {
             
             setBarChart(dataPoints: ["MON", "TUE", "WED", "THR", "FRI", "SAT", "SUN"], values: [0,0,0,0,0,0,0])
-            setLineChart(values: [])
         }
     }
     
     @IBAction func onPreviousWeek(_ sender: Any) {
         self.date = self.date.addingTimeInterval(-1 * 7 * 24 * 3600)
-        self.showValues()
+        self.showWeeklyValues()
     }
     
     @IBAction func onNextWeek(_ sender: Any) {
         self.date = self.date.addingTimeInterval(7 * 24 * 3600)
-        self.showValues()
+        self.showWeeklyValues()
     }
     
     func showStats(practice: String) {
         self.practiceItemIdForStats = practice
         let data = PracticingDailyLocalManager.manager.practicingData(forPracticeItemId: practice)
         
-        var totalMinutes = 0
-        var entryCount = 0
-        var thisWeekTotal = 0
-        var lastWeekTotal = 0
-        var thisMonthTotal = 0
-        var lastMonthTotal = 0
-        
-        for date in data.keys {
-            let time = date.date(format: "yy-MM-dd")
-            if let dailyDatas = data[date] {
-                for daily in dailyDatas {
-                    totalMinutes = totalMinutes + daily.practiceTimeInSeconds
-                    entryCount = entryCount + 1
-                 
-                    if time!.isThisWeek() {
-                        thisWeekTotal = thisWeekTotal + daily.practiceTimeInSeconds
-                    }
-                 
-                    if time!.isLastWeek() {
-                        lastWeekTotal = lastWeekTotal + daily.practiceTimeInSeconds
-                    }
-                    
-                    if time!.isThisMonth() {
-                        thisMonthTotal = thisMonthTotal + daily.practiceTimeInSeconds
-                    }
-                    
-                    if time!.isLastMonth() {
-                        lastMonthTotal = lastMonthTotal + daily.practiceTimeInSeconds
-                    }
-                }
-            }
-        }
-        
-        if entryCount > 0  {
-            let aver = Int(totalMinutes / entryCount)
-            if aver < 60 {
-                self.labelAverageSessionDuration.text = "\(aver)"
-                self.labelAverageSessionUnit.text = "SECONDS"
-            } else {
-                self.labelAverageSessionDuration.text = "\(aver / 60)"
-                self.labelAverageSessionUnit.text = "MINUTES"
-            }
-        } else {
-            self.labelAverageSessionDuration.text = "0"
-        }
-
-        self.practiceCalculateLabelsFormatting(totalSeconds: thisWeekTotal, labelValue: self.labelThisWeekTotal, labelUnit: self.labelThisWeekUnit)
-        self.practiceCalculateLabelsFormatting(totalSeconds: lastWeekTotal, labelValue: self.labelLastWeekTotal, labelUnit: self.labelLastWeekUnit)
-        self.practiceCalculateLabelsFormatting(totalSeconds: thisMonthTotal, labelValue: self.labelThisMonthTotal, labelUnit: self.labelThisMonthUnit)
-        self.practiceCalculateLabelsFormatting(totalSeconds: lastMonthTotal, labelValue: self.labelLastMonthTotal, labelUnit: self.labelLastMonthUnit)
-        
         self.practiceData = data
-        self.showValues()
+        
+        self.showTotalTimeAndRaitingLine()
+        self.showSectionedValues()
+        self.showWeeklyValues()
     }
     
     func practiceCalculateLabelsFormatting(totalSeconds: Int, labelValue: UILabel, labelUnit: UILabel) {
@@ -254,7 +290,8 @@ class StatisticsView: UIView {
 
 // MARK: - Show charts
 extension StatisticsView {
-    func setLineChart(values: [Double]) {
+    
+    func setRatingLineChart(values: [Double]) {
         
         var dataEntries: [ChartDataEntry] = []
         

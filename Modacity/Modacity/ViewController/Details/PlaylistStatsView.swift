@@ -24,12 +24,14 @@ class PlaylistStatsView: UIView {
     @IBOutlet weak var labelThisMonthTotal: UILabel!
     @IBOutlet weak var labelLastMonthTotal: UILabel!
     @IBOutlet weak var labelAverageSessionDuration: UILabel!
+    @IBOutlet weak var labelAverageDailyTime: UILabel!
     
     @IBOutlet weak var labelThisWeekUnit: UILabel!
     @IBOutlet weak var labelLastWeekUnit: UILabel!
     @IBOutlet weak var labelThisMonthUnit: UILabel!
     @IBOutlet weak var labelLastMonthUnit: UILabel!
-    @IBOutlet weak var labelAverageSessionUnit: UILabel!
+    @IBOutlet weak var labelAverageSessionDurationUnit: UILabel!
+    @IBOutlet weak var labelAverageDailyTimeUnit: UILabel!
     
     @IBOutlet weak var chartViewBarGraph: BarChartView!
     
@@ -52,7 +54,6 @@ class PlaylistStatsView: UIView {
     var detailsPeriodKeyIndex = 0
     
     var playlistIdForStats: String!
-//    var practiceData: [String: [PlaylistDaily]]! = nil
     var practiceData: [String: [PracticeDaily]]! = nil
     
     var detailsData = [String:[String: [String:Int]]]()       // this_week: practice_item_id : [time:0, improvements:0]
@@ -132,12 +133,16 @@ class PlaylistStatsView: UIView {
         
         if self.practiceData != nil {
             var secondsData = [String:Int]()
-            var totalSeconds = 0
+            var totalSecondsInWeek = 0
+            var entryCountInWeek = 0
+            
             for date in self.practiceData.keys {
                 let time = date.date(format: "yy-MM-dd")
                 if let dailyDatas = self.practiceData[date] {
                     for daily in dailyDatas {
                         if time!.timeIntervalSince1970 >= monday.timeIntervalSince1970 && time!.timeIntervalSince1970 <= sunday.timeIntervalSince1970 {
+                            totalSecondsInWeek = totalSecondsInWeek + daily.practiceTimeInSeconds
+                            entryCountInWeek = entryCountInWeek + 1
                             if var val = secondsData[date] {
                                 val = val + daily.practiceTimeInSeconds
                                 secondsData[date] = val
@@ -145,14 +150,37 @@ class PlaylistStatsView: UIView {
                                 secondsData[date] = daily.practiceTimeInSeconds
                             }
                         }
-                        totalSeconds = totalSeconds + daily.practiceTimeInSeconds
                     }
                 }
             }
             
-            let dict = AppUtils.totalPracticeTimeDisplay(seconds: totalSeconds)
-            self.labelTotalTime.text = dict["value"]
-            self.labelTotalTimeUnit.text = "TOTAL \(dict["unit"] ?? "")"
+            if entryCountInWeek == 0 {
+                self.labelAverageSessionDuration.text = "0"
+                self.labelAverageSessionDurationUnit.text = "min"
+            } else {
+                let averageSessionDuration = totalSecondsInWeek / entryCountInWeek
+                if averageSessionDuration > 0 && averageSessionDuration < 60 {
+                    self.labelAverageSessionDuration.text = "\(averageSessionDuration)"
+                    self.labelAverageSessionDurationUnit.text = "sec"
+                } else {
+                    self.labelAverageSessionDuration.text = "\(averageSessionDuration / 60)"
+                    self.labelAverageSessionDurationUnit.text = "min"
+                }
+            }
+            
+            if secondsData.keys.count == 0 {
+                self.labelAverageDailyTime.text = "0"
+                self.labelAverageDailyTimeUnit.text = "min"
+            } else {
+                let averageDailyTime = totalSecondsInWeek / secondsData.keys.count
+                if averageDailyTime > 0 && averageDailyTime < 60 {
+                    self.labelAverageDailyTime.text = "\(averageDailyTime)"
+                    self.labelAverageDailyTimeUnit.text = "sec"
+                } else {
+                    self.labelAverageDailyTime.text = "\(averageDailyTime / 60)"
+                    self.self.labelAverageDailyTimeUnit.text = "min"
+                }
+            }
             
             var cal = monday
             var seconds = [Double]()
@@ -192,6 +220,12 @@ class PlaylistStatsView: UIView {
     @IBAction func onNextPeriod(_ sender: Any) {
         self.detailsPeriodKeyIndex = self.detailsPeriodKeyIndex + 1
         self.showSelectedPeriodStats()
+    }
+    
+    func practiceCalculateLabelsFormatting(totalSeconds: Int, labelValue: UILabel, labelUnit: UILabel) {
+        let displayFormat = AppUtils.totalPracticeTimeDisplay(seconds: totalSeconds)
+        labelValue.text = displayFormat["value"]
+        labelUnit.text = displayFormat["unit"]
     }
     
     func showOverallStats() {
@@ -241,18 +275,9 @@ class PlaylistStatsView: UIView {
             }
         }
         
-        if entryCount > 0  {
-            let aver = Int(totalMinutes / entryCount)
-            if aver < 60 {
-                self.labelAverageSessionDuration.text = "\(aver)"
-                self.labelAverageSessionUnit.text = "SECONDS"
-            } else {
-                self.labelAverageSessionDuration.text = "\(aver / 60)"
-                self.labelAverageSessionUnit.text = "MINUTES"
-            }
-        } else {
-            self.labelAverageSessionDuration.text = "0"
-        }
+        let dict = AppUtils.totalPracticeTimeDisplay(seconds: totalMinutes)
+        self.labelTotalTime.text = dict["value"]
+        self.labelTotalTimeUnit.text = "TOTAL \(dict["unit"] ?? "")"
         
         self.practiceCalculateLabelsFormatting(totalSeconds: thisWeekTotal, labelValue: self.labelThisWeekTotal, labelUnit: self.labelThisWeekUnit)
         self.practiceCalculateLabelsFormatting(totalSeconds: lastWeekTotal, labelValue: self.labelLastWeekTotal, labelUnit: self.labelLastWeekUnit)
@@ -264,19 +289,13 @@ class PlaylistStatsView: UIView {
         self.showSelectedPeriodStats()
     }
     
-    func practiceCalculateLabelsFormatting(totalSeconds: Int, labelValue: UILabel, labelUnit: UILabel) {
-        let displayFormat = AppUtils.totalPracticeTimeDisplay(seconds: totalSeconds)
-        labelValue.text = displayFormat["value"]
-        labelUnit.text = displayFormat["unit"]
-    }
-    
     func showStats(playlistId: String) {
         
         self.playlistIdForStats = playlistId
         let data = PlaylistDailyLocalManager.manager.playlistPracticingData(forPlaylistId: playlistId)
         ModacityDebugger.debug("Statistics data - \(data)")
         
-        var totalMinutes = 0
+        var totalSeconds = 0
         var entryCount = 0
         var thisWeekTotal = 0
         var lastWeekTotal = 0
@@ -289,7 +308,7 @@ class PlaylistStatsView: UIView {
             let time = date.date(format: "yy-MM-dd")
             if let dailyDatas = data[date] {
                 for daily in dailyDatas {
-                    totalMinutes = totalMinutes + daily.practiceTimeInSeconds
+                    totalSeconds = totalSeconds + daily.practiceTimeInSeconds
                     entryCount = entryCount + 1
                     
                     if daily.practiceItemId != nil {
@@ -318,18 +337,9 @@ class PlaylistStatsView: UIView {
             }
         }
         
-        if entryCount > 0  {
-            let aver = Int(totalMinutes / entryCount)
-            if aver < 60 {
-                self.labelAverageSessionDuration.text = "\(aver)"
-                self.labelAverageSessionUnit.text = "SECONDS"
-            } else {
-                self.labelAverageSessionDuration.text = "\(aver / 60)"
-                self.labelAverageSessionUnit.text = "MINUTES"
-            }
-        } else {
-            self.labelAverageSessionDuration.text = "0"
-        }
+        let dict = AppUtils.totalPracticeTimeDisplay(seconds: totalSeconds)
+        self.labelTotalTime.text = dict["value"]
+        self.labelTotalTimeUnit.text = "TOTAL \(dict["unit"] ?? "")"
         
         if thisWeekTotal < 60 {
             self.labelThisWeekTotal.text = "\(thisWeekTotal)"
