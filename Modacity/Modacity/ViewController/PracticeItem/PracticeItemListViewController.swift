@@ -180,7 +180,6 @@ class PracticeItemListViewController: ModacityParentViewController {
     }
     
     func sort() {
-        
         self.sectionNames = Array(self.sectionedPracticeItems.keys).sorted(by: { (ch1, ch2) -> Bool in
             if self.sortKey == .lastPracticedTime {
                 let date1 = AppUtils.dateFromStringLocale(from: ch1) ?? Date(timeIntervalSince1970: 0)
@@ -211,7 +210,6 @@ class PracticeItemListViewController: ModacityParentViewController {
                 }
             }
             
-            self.sectionNames = [String]()
             self.sectionedPracticeItems = [String:[PracticeItem]]()
             
             for practice in practiceItems {
@@ -304,9 +302,12 @@ extension PracticeItemListViewController: UITableViewDataSource, UITableViewDele
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "PracticeItemCell") as! PracticeItemCell
-            cell.configure(with: self.sectionedPracticeItems[self.sectionNames[indexPath.section - (tableHeaderShowing ? 1 : 0)]]![indexPath.row],
-                           keyword: self.tableHeaderKeyword,
-                           on: indexPath)
+            print("self.sectionNames[indexPath.section - (tableHeaderShowing ? 1 : 0)] = \(self.sectionNames[indexPath.section - (tableHeaderShowing ? 1 : 0)])")
+            if (self.sectionedPracticeItems[self.sectionNames[indexPath.section - (tableHeaderShowing ? 1 : 0)]]!.count > indexPath.row) {
+                cell.configure(with: self.sectionedPracticeItems[self.sectionNames[indexPath.section - (tableHeaderShowing ? 1 : 0)]]![indexPath.row],
+                               keyword: self.tableHeaderKeyword,
+                               on: indexPath)
+            }
             cell.delegate = self
             return cell
         }
@@ -492,6 +493,7 @@ extension PracticeItemListViewController: UITextFieldDelegate {
     }
     
     func updateKeyword() {
+        ModacityDebugger.debug("Keyword updating...")
         let newKeyword = self.textfieldHeader.text ?? ""
         tableHeaderKeyword = newKeyword
         if newKeyword != "" && !self.practiceItemContains(for: newKeyword) {
