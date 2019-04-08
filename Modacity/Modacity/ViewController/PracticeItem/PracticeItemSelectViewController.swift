@@ -204,8 +204,8 @@ extension PracticeItemSelectViewController {
             tableHeaderShowing = false
         }
         
-        operationQueue.cancelAllOperations()
-        operationQueue.addOperation {
+        self.operationQueue.cancelAllOperations()
+        self.operationQueue.addOperation {
             DispatchQueue.global().async {
                 self.refreshList()
             }
@@ -280,13 +280,13 @@ extension PracticeItemSelectViewController {
         
         if self.practiceItemNameEditingCell != nil {
             self.practiceItemNameEditingCell!.textfieldInputPracticeItemName.isHidden = true
-            if let originalPracticeItemName = self.sectionedPracticeItems[self.sectionNames[self.editingSection]]?[self.editingRow].name {
+            if let originalPracticeItemName = self.sectionedPracticeItems[self.sectionNames[self.editingSection - (tableHeaderShowing ? 1: 0)]]?[self.editingRow].name {
                 let newPracticeItemName = self.practiceItemNameEditingCell!.textfieldInputPracticeItemName.text ?? ""
                 if newPracticeItemName != originalPracticeItemName {
                     if newPracticeItemName == "" {
                         self.practiceItemNameEditingCell!.labelPracticeItemName.text = originalPracticeItemName
-                    } else if self.canChangeItemName(to: newPracticeItemName, forItem: self.sectionedPracticeItems[self.sectionNames[self.editingSection]]![self.editingRow]) {
-                        self.changeItemName(to: newPracticeItemName, forItem: self.sectionedPracticeItems[self.sectionNames[self.editingSection]]![self.editingRow])
+                    } else if self.canChangeItemName(to: newPracticeItemName, forItem: self.sectionedPracticeItems[self.sectionNames[self.editingSection - (tableHeaderShowing ? 1: 0)]]![self.editingRow]) {
+                        self.changeItemName(to: newPracticeItemName, forItem: self.sectionedPracticeItems[self.sectionNames[self.editingSection - (tableHeaderShowing ? 1: 0)]]![self.editingRow])
                     } else {
                         self.practiceItemNameEditingCell!.labelPracticeItemName.text = originalPracticeItemName
                         self.practiceItemNameEditingCell!.textfieldInputPracticeItemName.text = originalPracticeItemName
@@ -618,6 +618,7 @@ extension PracticeItemSelectViewController: SortOptionsViewControllerDelegate {
     }
     
     func refreshList(completed: CompletedAction? = nil) {
+        
         self.filter()
         self.categorize()
         self.sort()
@@ -657,7 +658,6 @@ extension PracticeItemSelectViewController: SortOptionsViewControllerDelegate {
     }
     
     func sort() {
-        
         self.sectionNames = Array(self.sectionedPracticeItems.keys).sorted(by: { (ch1, ch2) -> Bool in
             if self.sortKey == .lastPracticedTime {
                 let date1 =  AppUtils.dateFromStringLocale(from: ch1) ?? Date(timeIntervalSince1970: 0)
@@ -687,7 +687,6 @@ extension PracticeItemSelectViewController: SortOptionsViewControllerDelegate {
             }
         }
         
-        self.sectionNames = [String]()
         self.sectionedPracticeItems = [String:[PracticeItem]]()
         
         showingPracticeItems.sort { (item1, item2) -> Bool in
