@@ -1005,6 +1005,10 @@ extension PracticeViewController {
             if self.overallPracticeTimeInSeconds >= 5 {
                 self.buttonDone.setTitle("Done", for: .normal)
                 self.doneButtonChanged = true
+                
+                if self.parentContentViewController.firstPracticeItemPlaying {
+                    self.parentContentViewController.startPractice(withItem: self.parentContentViewController.shouldStartFrom)
+                }
             }
         }
         

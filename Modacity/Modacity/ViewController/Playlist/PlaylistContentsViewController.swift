@@ -68,6 +68,9 @@ class PlaylistContentsViewController: ModacityParentViewController {
     var deliveredSectionedPracticeItems = [String:[PracticeItem]]()
     var dataDelivered = false
     
+    var firstPracticeItemPlaying = false
+    var shouldStartFrom: Int!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -565,11 +568,8 @@ class PlaylistContentsViewController: ModacityParentViewController {
         self.viewModel.playlistPracticeData.practices = [String]()
         PlaylistDailyLocalManager.manager.saveNewPlaylistPracticing(self.viewModel.playlistPracticeData)
         
-        self.viewModel.currentPracticeEntry = self.viewModel.playlistPracticeEntries[withItem]
         self.viewModel.sessionImproved = [ImprovedRecord]()
         self.viewModel.sessionTimeStarted = Date()
-
-        self.openPracticeViewController()
         
         self.viewModel.storeToRecentSessions()
     }
@@ -590,7 +590,12 @@ class PlaylistContentsViewController: ModacityParentViewController {
         
         if !self.isPlaying {
             ModacityAnalytics.LogStringEvent("Pressed Start Practice")
-            self.startPractice(withItem: 0)
+            
+            firstPracticeItemPlaying = true
+            shouldStartFrom = 0
+            self.viewModel.currentPracticeEntry = self.viewModel.playlistPracticeEntries[0]
+            self.openPracticeViewController()
+//            self.startPractice(withItem: 0)
         } else {
             self.finishPlaylist()
         }
@@ -598,7 +603,6 @@ class PlaylistContentsViewController: ModacityParentViewController {
     
     @IBAction func onDismissKeyboard(_ sender: Any) {
         self.onEditingDidEndOnNameField(sender)
-//        self.changeNameEditMode()
     }
     
     @IBAction func onAddPracticeItem(_ sender: Any) {
@@ -720,7 +724,12 @@ extension PlaylistContentsViewController: UITableViewDelegate, UITableViewDataSo
                 self.viewModel.editingRow = -1
             }
             if !self.isPlaying {
-                self.startPractice(withItem: indexPath.row)
+                
+                firstPracticeItemPlaying = true
+                shouldStartFrom = indexPath.row
+                self.viewModel.currentPracticeEntry = self.viewModel.playlistPracticeEntries[indexPath.row]
+                self.openPracticeViewController()
+//                self.startPractice(withItem: indexPath.row)
             } else {
                 
                 self.viewModel.currentPracticeEntry = self.viewModel.playlistPracticeEntries[indexPath.row]
