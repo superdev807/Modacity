@@ -1006,7 +1006,7 @@ extension PracticeViewController {
                 self.buttonDone.setTitle("Done", for: .normal)
                 self.doneButtonChanged = true
                 
-                if self.parentContentViewController.firstPracticeItemPlaying {
+                if self.parentContentViewController != nil && self.parentContentViewController.firstPracticeItemPlaying {
                     self.parentContentViewController.startPractice(withItem: self.parentContentViewController.shouldStartFrom)
                 }
             }

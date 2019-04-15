@@ -55,7 +55,6 @@
 		8EAE1651204FE1050012450E /* PlaylistFinishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAE1650204FE1050012450E /* PlaylistFinishViewController.swift */; };
 		8EB479B920458B7100BE6461 /* about.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EB479B820458B7000BE6461 /* about.storyboard */; };
 		8EB479BB20458B7C00BE6461 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB479BA20458B7C00BE6461 /* AboutViewController.swift */; };
-		8EB81FCB2063D33E00EADDA5 /* SetReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB81FCA2063D33E00EADDA5 /* SetReminderViewController.swift */; };
 		8EB9DB99204DA67200689C1D /* PlaylistLocalManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB9DB98204DA67200689C1D /* PlaylistLocalManager.swift */; };
 		8EB9DB9B204DABFD00689C1D /* PlaylistViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB9DB9A204DABFD00689C1D /* PlaylistViewModel.swift */; };
 		8ECCAF952056EABE000E2B75 /* PlaylistAndPracticeDeliverModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ECCAF942056EABE000E2B75 /* PlaylistAndPracticeDeliverModel.swift */; };
@@ -89,6 +88,38 @@
 		8EF559C9207E89FA006728E4 /* FloatRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF559C8207E89FA006728E4 /* FloatRatingView.swift */; };
 		8EF559CB207E8A35006728E4 /* DropdownMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF559CA207E8A35006728E4 /* DropdownMenuView.swift */; };
 		8EFD2DAC207BC20900DC28C1 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFD2DAB207BC20900DC28C1 /* ChangePasswordViewController.swift */; };
+		A34740A5226125AE00160F98 /* RemindersManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34740A4226125AE00160F98 /* RemindersManager.swift */; };
+		A34740A6226125AE00160F98 /* RemindersManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34740A4226125AE00160F98 /* RemindersManager.swift */; };
+		A359328D226422E300D6E02A /* RemindersRemoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A359328C226422E200D6E02A /* RemindersRemoteManager.swift */; };
+		A359328E226422E300D6E02A /* RemindersRemoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A359328C226422E200D6E02A /* RemindersRemoteManager.swift */; };
+		A3E44682225E56D40047D469 /* reminder.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A3E44681225E56D30047D469 /* reminder.storyboard */; };
+		A3E44683225E56D40047D469 /* reminder.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A3E44681225E56D30047D469 /* reminder.storyboard */; };
+		A3E44685225E57110047D469 /* RemindersListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E44684225E57110047D469 /* RemindersListViewController.swift */; };
+		A3E44686225E57110047D469 /* RemindersListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E44684225E57110047D469 /* RemindersListViewController.swift */; };
+		A3E44688225E66840047D469 /* Reminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E44687225E66840047D469 /* Reminder.swift */; };
+		A3E44689225E66840047D469 /* Reminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E44687225E66840047D469 /* Reminder.swift */; };
+		A3E4468B225E8D350047D469 /* SetReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E4468A225E8D350047D469 /* SetReminderViewController.swift */; };
+		A3E4468C225E8D350047D469 /* SetReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E4468A225E8D350047D469 /* SetReminderViewController.swift */; };
+		A3E44695225F3D600047D469 /* TimePickerOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E44693225F3D600047D469 /* TimePickerOverlayView.swift */; };
+		A3E44696225F3D600047D469 /* TimePickerOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E44693225F3D600047D469 /* TimePickerOverlayView.swift */; };
+		A3E44697225F3D600047D469 /* TimePickerOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A3E44694225F3D600047D469 /* TimePickerOverlayView.xib */; };
+		A3E44698225F3D600047D469 /* TimePickerOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A3E44694225F3D600047D469 /* TimePickerOverlayView.xib */; };
+		A3E446A2225F6CB50047D469 /* OptionsPickerBottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E446A0225F6CB50047D469 /* OptionsPickerBottomSheetView.swift */; };
+		A3E446A3225F6CB50047D469 /* OptionsPickerBottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E446A0225F6CB50047D469 /* OptionsPickerBottomSheetView.swift */; };
+		A3E446A4225F6CB50047D469 /* OptionsPickerBottomSheetView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A3E446A1225F6CB50047D469 /* OptionsPickerBottomSheetView.xib */; };
+		A3E446A5225F6CB50047D469 /* OptionsPickerBottomSheetView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A3E446A1225F6CB50047D469 /* OptionsPickerBottomSheetView.xib */; };
+		A3E446A8225F6CDF0047D469 /* OptionsPickerOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E446A6225F6CDF0047D469 /* OptionsPickerOptionCell.swift */; };
+		A3E446A9225F6CDF0047D469 /* OptionsPickerOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E446A6225F6CDF0047D469 /* OptionsPickerOptionCell.swift */; };
+		A3E446AA225F6CDF0047D469 /* OptionsPickerOptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A3E446A7225F6CDF0047D469 /* OptionsPickerOptionCell.xib */; };
+		A3E446AB225F6CDF0047D469 /* OptionsPickerOptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A3E446A7225F6CDF0047D469 /* OptionsPickerOptionCell.xib */; };
+		A3E446B8225F95FA0047D469 /* CustomRecurrencePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E446B6225F95FA0047D469 /* CustomRecurrencePicker.swift */; };
+		A3E446B9225F95FA0047D469 /* CustomRecurrencePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E446B6225F95FA0047D469 /* CustomRecurrencePicker.swift */; };
+		A3E446BA225F95FA0047D469 /* CustomRecurrencePicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = A3E446B7225F95FA0047D469 /* CustomRecurrencePicker.xib */; };
+		A3E446BB225F95FA0047D469 /* CustomRecurrencePicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = A3E446B7225F95FA0047D469 /* CustomRecurrencePicker.xib */; };
+		A3E446BE225F96310047D469 /* RepeatOnCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E446BC225F96310047D469 /* RepeatOnCell.swift */; };
+		A3E446BF225F96310047D469 /* RepeatOnCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E446BC225F96310047D469 /* RepeatOnCell.swift */; };
+		A3E446C0225F96310047D469 /* RepeatOnCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A3E446BD225F96310047D469 /* RepeatOnCell.xib */; };
+		A3E446C1225F96310047D469 /* RepeatOnCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A3E446BD225F96310047D469 /* RepeatOnCell.xib */; };
 		AF03EB0D21952C7600AD79E1 /* ImprovedDonePopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF03EB0B21952C7500AD79E1 /* ImprovedDonePopupView.swift */; };
 		AF03EB0E21952C7600AD79E1 /* ImprovedDonePopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF03EB0B21952C7500AD79E1 /* ImprovedDonePopupView.swift */; };
 		AF03EB0F21952C7600AD79E1 /* ImprovedDonePopupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF03EB0C21952C7500AD79E1 /* ImprovedDonePopupView.xib */; };
@@ -208,7 +239,6 @@
 		E21BE9CE2091796A000D1877 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E64B7A72056332300900775 /* HomeViewModel.swift */; };
 		E21BE9CF2091796A000D1877 /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDEB6ED203DCD2200E8D48D /* CreateAccountViewController.swift */; };
 		E21BE9D02091796A000D1877 /* PlaylistRemoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED6218A207B09A900593EF2 /* PlaylistRemoteManager.swift */; };
-		E21BE9D12091796A000D1877 /* SetReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB81FCA2063D33E00EADDA5 /* SetReminderViewController.swift */; };
 		E21BE9D22091796A000D1877 /* ModacityAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0A51C4207E4663006BDDC6 /* ModacityAnalytics.swift */; };
 		E21BE9D32091796A000D1877 /* PlaylistContentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E455D102045A84F003FDB80 /* PlaylistContentsViewController.swift */; };
 		E21BE9D42091796A000D1877 /* MessagesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D01BD5208A146B00F54B5D /* MessagesManager.swift */; };
@@ -508,7 +538,6 @@
 		8EAE1650204FE1050012450E /* PlaylistFinishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistFinishViewController.swift; sourceTree = "<group>"; };
 		8EB479B820458B7000BE6461 /* about.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = about.storyboard; sourceTree = "<group>"; };
 		8EB479BA20458B7C00BE6461 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
-		8EB81FCA2063D33E00EADDA5 /* SetReminderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetReminderViewController.swift; sourceTree = "<group>"; };
 		8EB9DB98204DA67200689C1D /* PlaylistLocalManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistLocalManager.swift; sourceTree = "<group>"; };
 		8EB9DB9A204DABFD00689C1D /* PlaylistViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistViewModel.swift; sourceTree = "<group>"; };
 		8ECCAF942056EABE000E2B75 /* PlaylistAndPracticeDeliverModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistAndPracticeDeliverModel.swift; sourceTree = "<group>"; };
@@ -543,6 +572,22 @@
 		8EF559CA207E8A35006728E4 /* DropdownMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownMenuView.swift; sourceTree = "<group>"; };
 		8EFD2DAB207BC20900DC28C1 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		9E91DFE323AAAD77A2F8A14A /* Pods_Modacity_Dev.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Modacity_Dev.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A34740A4226125AE00160F98 /* RemindersManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemindersManager.swift; sourceTree = "<group>"; };
+		A359328C226422E200D6E02A /* RemindersRemoteManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemindersRemoteManager.swift; sourceTree = "<group>"; };
+		A3E44681225E56D30047D469 /* reminder.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = reminder.storyboard; sourceTree = "<group>"; };
+		A3E44684225E57110047D469 /* RemindersListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersListViewController.swift; sourceTree = "<group>"; };
+		A3E44687225E66840047D469 /* Reminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reminder.swift; sourceTree = "<group>"; };
+		A3E4468A225E8D350047D469 /* SetReminderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetReminderViewController.swift; sourceTree = "<group>"; };
+		A3E44693225F3D600047D469 /* TimePickerOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimePickerOverlayView.swift; sourceTree = "<group>"; };
+		A3E44694225F3D600047D469 /* TimePickerOverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimePickerOverlayView.xib; sourceTree = "<group>"; };
+		A3E446A0225F6CB50047D469 /* OptionsPickerBottomSheetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionsPickerBottomSheetView.swift; sourceTree = "<group>"; };
+		A3E446A1225F6CB50047D469 /* OptionsPickerBottomSheetView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OptionsPickerBottomSheetView.xib; sourceTree = "<group>"; };
+		A3E446A6225F6CDF0047D469 /* OptionsPickerOptionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionsPickerOptionCell.swift; sourceTree = "<group>"; };
+		A3E446A7225F6CDF0047D469 /* OptionsPickerOptionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OptionsPickerOptionCell.xib; sourceTree = "<group>"; };
+		A3E446B6225F95FA0047D469 /* CustomRecurrencePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomRecurrencePicker.swift; sourceTree = "<group>"; };
+		A3E446B7225F95FA0047D469 /* CustomRecurrencePicker.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomRecurrencePicker.xib; sourceTree = "<group>"; };
+		A3E446BC225F96310047D469 /* RepeatOnCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatOnCell.swift; sourceTree = "<group>"; };
+		A3E446BD225F96310047D469 /* RepeatOnCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RepeatOnCell.xib; sourceTree = "<group>"; };
 		AF03EB0B21952C7500AD79E1 /* ImprovedDonePopupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImprovedDonePopupView.swift; sourceTree = "<group>"; };
 		AF03EB0C21952C7500AD79E1 /* ImprovedDonePopupView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImprovedDonePopupView.xib; sourceTree = "<group>"; };
 		AF0BBA28219BCCD900D6313B /* YoutubeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeViewController.swift; sourceTree = "<group>"; };
@@ -846,6 +891,7 @@
 				8E58B43F20446AE40022704B /* MyProfileRemoteManager.swift */,
 				8ED6218A207B09A900593EF2 /* PlaylistRemoteManager.swift */,
 				8ED6218C207B09D600593EF2 /* PracticeItemRemoteManager.swift */,
+				A359328C226422E200D6E02A /* RemindersRemoteManager.swift */,
 				E2D01BD5208A146B00F54B5D /* MessagesManager.swift */,
 				E23D7A6F20A1EEB40052EE78 /* OverallDataRemoteManager.swift */,
 				E25FD99220D7F7A9008C531A /* DailyPracticingRemoteManager.swift */,
@@ -873,6 +919,7 @@
 				E2E89ED8215930A0000456DA /* LocalCacheManager.swift */,
 				AFF7D35B2199BC3D00D5A6E2 /* DeliberatePracticeManager.swift */,
 				AF8D0EB621C01BA00021FA1B /* GuestCacheManager.swift */,
+				A34740A4226125AE00160F98 /* RemindersManager.swift */,
 			);
 			path = LocalManager;
 			sourceTree = "<group>";
@@ -939,6 +986,7 @@
 				E24DF50220987E9E00BAF0C7 /* Note.swift */,
 				E22AE274215D308100708E9A /* DroneSettings.swift */,
 				AFF978EC219925E2009B25C5 /* DeliberatePracticeSuggestion.swift */,
+				A3E44687225E66840047D469 /* Reminder.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -980,6 +1028,7 @@
 				8ED001CB205766F200536122 /* Improve */,
 				AF0BBA27219BCCBB00D6313B /* Video */,
 				E249E61720DAA63B00FBDA72 /* Details */,
+				A3E44680225E55FF0047D469 /* Reminder */,
 				8ED83FC62003262D00052256 /* TabBarViewController.swift */,
 				AF89BF9721A6FFBE00322175 /* ModacityNavigationViewController.swift */,
 				AFEACDC0219E691E005B1F55 /* ModacityParentViewController.swift */,
@@ -1005,7 +1054,6 @@
 				8E455D102045A84F003FDB80 /* PlaylistContentsViewController.swift */,
 				8EAE1650204FE1050012450E /* PlaylistFinishViewController.swift */,
 				8E1EFEFB20500E7A000DE107 /* PlaylistPracticeDurationKeyboardViewController.swift */,
-				8EB81FCA2063D33E00EADDA5 /* SetReminderViewController.swift */,
 			);
 			path = Playlist;
 			sourceTree = "<group>";
@@ -1089,6 +1137,8 @@
 		8EF559C5207E89A8006728E4 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				A3E446B5225F95FA0047D469 /* CustomRecurrentPickerView */,
+				A3E4469F225F6C960047D469 /* OptionsPickerBottonSheetView */,
 				E2143CB521379B5600A204B8 /* LoadingPanel */,
 				8EF559C8207E89FA006728E4 /* FloatRatingView.swift */,
 				8EF559C6207E89D3006728E4 /* ViewDroneFrame.swift */,
@@ -1097,9 +1147,43 @@
 				E283C51A20D16953002651E0 /* TimerInputView.xib */,
 				E274A2FC212BB780004C75AA /* DatePickerPopupView.swift */,
 				E274A2FF212BB7A1004C75AA /* DatePickerPopupView.xib */,
+				A3E44693225F3D600047D469 /* TimePickerOverlayView.swift */,
+				A3E44694225F3D600047D469 /* TimePickerOverlayView.xib */,
 				1068E0BB2146DED400D8823C /* NumberPadDoneCancel.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		A3E44680225E55FF0047D469 /* Reminder */ = {
+			isa = PBXGroup;
+			children = (
+				A3E44681225E56D30047D469 /* reminder.storyboard */,
+				A3E44684225E57110047D469 /* RemindersListViewController.swift */,
+				A3E4468A225E8D350047D469 /* SetReminderViewController.swift */,
+			);
+			path = Reminder;
+			sourceTree = "<group>";
+		};
+		A3E4469F225F6C960047D469 /* OptionsPickerBottonSheetView */ = {
+			isa = PBXGroup;
+			children = (
+				A3E446A6225F6CDF0047D469 /* OptionsPickerOptionCell.swift */,
+				A3E446A7225F6CDF0047D469 /* OptionsPickerOptionCell.xib */,
+				A3E446A0225F6CB50047D469 /* OptionsPickerBottomSheetView.swift */,
+				A3E446A1225F6CB50047D469 /* OptionsPickerBottomSheetView.xib */,
+			);
+			path = OptionsPickerBottonSheetView;
+			sourceTree = "<group>";
+		};
+		A3E446B5225F95FA0047D469 /* CustomRecurrentPickerView */ = {
+			isa = PBXGroup;
+			children = (
+				A3E446B6225F95FA0047D469 /* CustomRecurrencePicker.swift */,
+				A3E446B7225F95FA0047D469 /* CustomRecurrencePicker.xib */,
+				A3E446BC225F96310047D469 /* RepeatOnCell.swift */,
+				A3E446BD225F96310047D469 /* RepeatOnCell.xib */,
+			);
+			path = CustomRecurrentPickerView;
 			sourceTree = "<group>";
 		};
 		AF0BBA27219BCCBB00D6313B /* Video */ = {
@@ -1447,6 +1531,7 @@
 				E23C337720E5172D000EED10 /* PlaylistHistoryView.xib in Resources */,
 				AF0BBA2C219BCCE800D6313B /* video.storyboard in Resources */,
 				8EDEB706203DE38F00E8D48D /* Lato-Bold.ttf in Resources */,
+				A3E446A4225F6CB50047D469 /* OptionsPickerBottomSheetView.xib in Resources */,
 				8E4551E920030F7F002061AE /* LaunchScreen.storyboard in Resources */,
 				E251C9C820E13C2700C8BC49 /* HistoryListView.xib in Resources */,
 				E245700420D00C9C00C9F720 /* SubdivisionSelectView.xib in Resources */,
@@ -1463,6 +1548,7 @@
 				8ED001CD2057671200536122 /* improve.storyboard in Resources */,
 				8EA9E7CB20429EE00019EFA5 /* feedback.storyboard in Resources */,
 				8EDEB71A203DFB9A00E8D48D /* sidemenu.storyboard in Resources */,
+				A3E446AA225F6CDF0047D469 /* OptionsPickerOptionCell.xib in Resources */,
 				8ECCAF972056F5B9000E2B75 /* ding.wav in Resources */,
 				8E4551E420030F7F002061AE /* Main.storyboard in Resources */,
 				E2D0FE8F2100E5450083DEA9 /* PremiumUpgradeSlideView.xib in Resources */,
@@ -1483,12 +1569,16 @@
 				E23C338520E51DD3000EED10 /* PlaylistHistoryDetailsRowView.xib in Resources */,
 				E2083FB620DD47C700BCE27F /* PracticeMusicQuoteCell.xib in Resources */,
 				E2083FB820DD47C700BCE27F /* practice_note.storyboard in Resources */,
+				A3E446BA225F95FA0047D469 /* CustomRecurrencePicker.xib in Resources */,
 				8E58B44820446B180022704B /* settings.storyboard in Resources */,
 				8EDEB709203DE38F00E8D48D /* Lato-Regular.ttf in Resources */,
 				E251C9D420E14AA000C8BC49 /* PracticeHistoryDetailsRowView.xib in Resources */,
 				E2CDBEA82101098F00119D77 /* PremiumUpgradeSlideComingSoonView.xib in Resources */,
+				A3E44697225F3D600047D469 /* TimePickerOverlayView.xib in Resources */,
+				A3E44682225E56D40047D469 /* reminder.storyboard in Resources */,
 				E267CFAA20CE18CA003D708B /* PlayPracticeWalkthroughView.xib in Resources */,
 				AF9A126921B56FD50053BB2A /* defaultdata.plist in Resources */,
+				A3E446C0225F96310047D469 /* RepeatOnCell.xib in Resources */,
 				AF03EB0F21952C7600AD79E1 /* ImprovedDonePopupView.xib in Resources */,
 				E2083FD420DD5C6A00BCE27F /* ButtonCell.xib in Resources */,
 				8EA33BA120052A3300539A3F /* playlist.storyboard in Resources */,
@@ -1560,11 +1650,15 @@
 				E249E62320DAB6C800FBDA72 /* StatisticsView.xib in Resources */,
 				AF03EB1021952C7600AD79E1 /* ImprovedDonePopupView.xib in Resources */,
 				E21BEA042091796A000D1877 /* welcome.storyboard in Resources */,
+				A3E44683225E56D40047D469 /* reminder.storyboard in Resources */,
 				E23C338620E51DD3000EED10 /* PlaylistHistoryDetailsRowView.xib in Resources */,
+				A3E446BB225F95FA0047D469 /* CustomRecurrencePicker.xib in Resources */,
+				A3E446A5225F6CB50047D469 /* OptionsPickerBottomSheetView.xib in Resources */,
 				E23C337820E5172D000EED10 /* PlaylistHistoryView.xib in Resources */,
 				E245700520D00C9C00C9F720 /* SubdivisionSelectView.xib in Resources */,
 				E2CDBEA92101098F00119D77 /* PremiumUpgradeSlideComingSoonView.xib in Resources */,
 				E21BEA1F2091807D000D1877 /* Info-dev.plist in Resources */,
+				A3E446C1225F96310047D469 /* RepeatOnCell.xib in Resources */,
 				E2806C3D20ABCE0B0066959A /* practice_item.storyboard in Resources */,
 				E21BEA052091796A000D1877 /* home.storyboard in Resources */,
 				E267CFAB20CE18CA003D708B /* PlayPracticeWalkthroughView.xib in Resources */,
@@ -1572,9 +1666,11 @@
 				E2083FC920DD481200BCE27F /* NoteCell.xib in Resources */,
 				E2C59FCC20CEAEDF000C3039 /* PlayPracticeTabBarView.xib in Resources */,
 				E2083FB720DD47C700BCE27F /* PracticeMusicQuoteCell.xib in Resources */,
+				A3E44698225F3D600047D469 /* TimePickerOverlayView.xib in Resources */,
 				E21BEA062091796A000D1877 /* settings.storyboard in Resources */,
 				E21BEA072091796A000D1877 /* Lato-Regular.ttf in Resources */,
 				E21BEA1B20917C46000D1877 /* GoogleService-Info.plist in Resources */,
+				A3E446AB225F6CDF0047D469 /* OptionsPickerOptionCell.xib in Resources */,
 				E21BEA082091796A000D1877 /* playlist.storyboard in Resources */,
 				E23C337E20E51CA4000EED10 /* PlaylistHistoryCell.xib in Resources */,
 				E2143CC121379B5600A204B8 /* LoadingStatusCell.xib in Resources */,
@@ -1902,6 +1998,7 @@
 				8EDEB6F0203DD3B900E8D48D /* SigninViewController.swift in Sources */,
 				E2143CBE21379B5600A204B8 /* LoadingStatusCell.swift in Sources */,
 				E2746B6E210042AB00D2A47D /* PremiumUpgradeViewController.swift in Sources */,
+				A3E446BE225F96310047D469 /* RepeatOnCell.swift in Sources */,
 				E2806C3920ABCDEA0066959A /* PracticeItemSelectViewController.swift in Sources */,
 				E2CDBEA62101098F00119D77 /* PremiumUpgradeSlideComingSoonView.swift in Sources */,
 				8E58B43520445BC20022704B /* FeedbackSentViewController.swift in Sources */,
@@ -1921,6 +2018,7 @@
 				AFC6CB6B2193CD2F002B8680 /* ImprovementWalkthroughViewController.swift in Sources */,
 				AFB60BD1218AB66100434DE1 /* ResetPasswordViewController.swift in Sources */,
 				E23C337920E5172D000EED10 /* PlaylistHistoryView.swift in Sources */,
+				A3E446A2225F6CB50047D469 /* OptionsPickerBottomSheetView.swift in Sources */,
 				8EA33BA720052D2700539A3F /* RecordingViewController.swift in Sources */,
 				AFF978ED219925E2009B25C5 /* DeliberatePracticeSuggestion.swift in Sources */,
 				E2083FAA20DD3AE700BCE27F /* RecordingCell.swift in Sources */,
@@ -1946,6 +2044,8 @@
 				E23FFD9721087ED5007713F0 /* IAPHelper.swift in Sources */,
 				8E9DF9052057CF47003F5FE8 /* Improvement.swift in Sources */,
 				E274A2FD212BB780004C75AA /* DatePickerPopupView.swift in Sources */,
+				A359328D226422E300D6E02A /* RemindersRemoteManager.swift in Sources */,
+				A34740A5226125AE00160F98 /* RemindersManager.swift in Sources */,
 				E22AE275215D308100708E9A /* DroneSettings.swift in Sources */,
 				8E58B439204468100022704B /* ProfileViewModel.swift in Sources */,
 				8ED6218D207B09D600593EF2 /* PracticeItemRemoteManager.swift in Sources */,
@@ -1971,10 +2071,10 @@
 				E24DF50C2098C1D400BAF0C7 /* MusicQuotesManager.swift in Sources */,
 				E214FB2C212AC5C200162A69 /* UpdatePracticeEntryViewController.swift in Sources */,
 				8EDEB6EE203DCD2200E8D48D /* CreateAccountViewController.swift in Sources */,
+				A3E446A8225F6CDF0047D469 /* OptionsPickerOptionCell.swift in Sources */,
 				E2CDBEAC21011AE200119D77 /* PremiumUpgradeLockView.swift in Sources */,
 				E2C59FCE20CEB0CC000C3039 /* PlayPracticeTabBarView.swift in Sources */,
 				8ED6218B207B09A900593EF2 /* PlaylistRemoteManager.swift in Sources */,
-				8EB81FCB2063D33E00EADDA5 /* SetReminderViewController.swift in Sources */,
 				8E0A51C5207E4663006BDDC6 /* ModacityAnalytics.swift in Sources */,
 				E2CDDEBE2136E37E00BEB98B /* UIViewExtensions.swift in Sources */,
 				E245700120D00C6F00C9F720 /* SubdivisionSelectView.swift in Sources */,
@@ -1994,11 +2094,14 @@
 				E2806C3520ABCD910066959A /* PracticeViewController.swift in Sources */,
 				8EDA619820484580006D3208 /* PracticeItemViewModel.swift in Sources */,
 				E2083FBA20DD47C700BCE27F /* PracticeNoteCell.swift in Sources */,
+				A3E44688225E66840047D469 /* Reminder.swift in Sources */,
 				AFEACDC1219E691E005B1F55 /* ModacityParentViewController.swift in Sources */,
 				E22A06F120FCEBAB00184F78 /* PracticeBreakPromptView.swift in Sources */,
 				8ED83FC72003262D00052256 /* TabBarViewController.swift in Sources */,
+				A3E446B8225F95FA0047D469 /* CustomRecurrencePicker.swift in Sources */,
 				E28B822920E484B6005CA660 /* PlaylistStatsView.swift in Sources */,
 				E2083FCE20DD494100BCE27F /* NotesListView.swift in Sources */,
+				A3E4468B225E8D350047D469 /* SetReminderViewController.swift in Sources */,
 				E235DA8C215E8EFB00555944 /* StringExtensions.swift in Sources */,
 				8E64B7AE2056AA7C00900775 /* RecordingViewModel.swift in Sources */,
 				8E84CA6720577F3500D2D1CB /* ImprovementViewModel.swift in Sources */,
@@ -2024,6 +2127,7 @@
 				AF0BBA29219BCCD900D6313B /* YoutubeViewController.swift in Sources */,
 				E261FE492152B6F300D62BF6 /* WalkthroughRemoteManager.swift in Sources */,
 				8EDEB713203DE4B300E8D48D /* Me.swift in Sources */,
+				A3E44695225F3D600047D469 /* TimePickerOverlayView.swift in Sources */,
 				8E16B46D2052ECDE00A9BF8A /* PlaylistPracticeEntry.swift in Sources */,
 				E25FD98A20D7F520008C531A /* PlaylistDaily.swift in Sources */,
 				AF7E51AE21A300A8003DC2CB /* PlaylistCell.swift in Sources */,
@@ -2033,6 +2137,7 @@
 				E2BA245F20C8D1590048A5D5 /* MetroDroneAudio.swift in Sources */,
 				8EB9DB9B204DABFD00689C1D /* PlaylistViewModel.swift in Sources */,
 				AF6CC2F1219BBB7900592E1D /* SettingsTutorialViewController.swift in Sources */,
+				A3E44685225E57110047D469 /* RemindersListViewController.swift in Sources */,
 				AFC0E45C21A4FD3800FB2B4E /* ModacityAudioSessionManager.swift in Sources */,
 				8EA9E7CD20429F140019EFA5 /* FeedbackRootViewController.swift in Sources */,
 				E23FFD9121081053007713F0 /* PremiumUtils.swift in Sources */,
@@ -2072,6 +2177,7 @@
 				E21BE9B22091796A000D1877 /* SigninViewController.swift in Sources */,
 				E2143CBF21379B5600A204B8 /* LoadingStatusCell.swift in Sources */,
 				E2746B6F210042AB00D2A47D /* PremiumUpgradeViewController.swift in Sources */,
+				A3E446BF225F96310047D469 /* RepeatOnCell.swift in Sources */,
 				E2806C3A20ABCDEA0066959A /* PracticeItemSelectViewController.swift in Sources */,
 				E2CDBEA72101098F00119D77 /* PremiumUpgradeSlideComingSoonView.swift in Sources */,
 				E21BE9B42091796A000D1877 /* FeedbackSentViewController.swift in Sources */,
@@ -2091,6 +2197,7 @@
 				AFC6CB6C2193CD2F002B8680 /* ImprovementWalkthroughViewController.swift in Sources */,
 				AFB60BD2218AB66100434DE1 /* ResetPasswordViewController.swift in Sources */,
 				E23C337A20E5172D000EED10 /* PlaylistHistoryView.swift in Sources */,
+				A3E446A3225F6CB50047D469 /* OptionsPickerBottomSheetView.swift in Sources */,
 				E21BE9BE2091796A000D1877 /* RecordingViewController.swift in Sources */,
 				AFF978EE219925E2009B25C5 /* DeliberatePracticeSuggestion.swift in Sources */,
 				E2083FAB20DD3AE700BCE27F /* RecordingCell.swift in Sources */,
@@ -2116,6 +2223,8 @@
 				E23FFD9821087ED5007713F0 /* IAPHelper.swift in Sources */,
 				E21BE9C62091796A000D1877 /* Improvement.swift in Sources */,
 				E274A2FE212BB780004C75AA /* DatePickerPopupView.swift in Sources */,
+				A359328E226422E300D6E02A /* RemindersRemoteManager.swift in Sources */,
+				A34740A6226125AE00160F98 /* RemindersManager.swift in Sources */,
 				E22AE276215D308100708E9A /* DroneSettings.swift in Sources */,
 				E21BE9C72091796A000D1877 /* ProfileViewModel.swift in Sources */,
 				E21BE9C92091796A000D1877 /* PracticeItemRemoteManager.swift in Sources */,
@@ -2141,10 +2250,10 @@
 				E24DF50D2098C1D400BAF0C7 /* MusicQuotesManager.swift in Sources */,
 				E214FB2D212AC5C200162A69 /* UpdatePracticeEntryViewController.swift in Sources */,
 				E21BE9CF2091796A000D1877 /* CreateAccountViewController.swift in Sources */,
+				A3E446A9225F6CDF0047D469 /* OptionsPickerOptionCell.swift in Sources */,
 				E2CDBEAD21011AE200119D77 /* PremiumUpgradeLockView.swift in Sources */,
 				E2C59FCF20CEB0CC000C3039 /* PlayPracticeTabBarView.swift in Sources */,
 				E21BE9D02091796A000D1877 /* PlaylistRemoteManager.swift in Sources */,
-				E21BE9D12091796A000D1877 /* SetReminderViewController.swift in Sources */,
 				E21BE9D22091796A000D1877 /* ModacityAnalytics.swift in Sources */,
 				E2CDDEBF2136E37E00BEB98B /* UIViewExtensions.swift in Sources */,
 				E245700220D00C6F00C9F720 /* SubdivisionSelectView.swift in Sources */,
@@ -2164,11 +2273,14 @@
 				E2806C3620ABCD910066959A /* PracticeViewController.swift in Sources */,
 				E21BE9D82091796A000D1877 /* PracticeItemViewModel.swift in Sources */,
 				E2083FBB20DD47C700BCE27F /* PracticeNoteCell.swift in Sources */,
+				A3E44689225E66840047D469 /* Reminder.swift in Sources */,
 				AFEACDC2219E691E005B1F55 /* ModacityParentViewController.swift in Sources */,
 				E22A06F220FCEBAB00184F78 /* PracticeBreakPromptView.swift in Sources */,
 				E21BE9D92091796A000D1877 /* TabBarViewController.swift in Sources */,
+				A3E446B9225F95FA0047D469 /* CustomRecurrencePicker.swift in Sources */,
 				E28B822A20E484B6005CA660 /* PlaylistStatsView.swift in Sources */,
 				E2083FCF20DD494100BCE27F /* NotesListView.swift in Sources */,
+				A3E4468C225E8D350047D469 /* SetReminderViewController.swift in Sources */,
 				E235DA8D215E8EFB00555944 /* StringExtensions.swift in Sources */,
 				E21BE9DA2091796A000D1877 /* RecordingViewModel.swift in Sources */,
 				E21BE9DB2091796A000D1877 /* ImprovementViewModel.swift in Sources */,
@@ -2194,6 +2306,7 @@
 				AF0BBA2A219BCCD900D6313B /* YoutubeViewController.swift in Sources */,
 				E261FE4A2152B6F300D62BF6 /* WalkthroughRemoteManager.swift in Sources */,
 				E21BE9E82091796A000D1877 /* Me.swift in Sources */,
+				A3E44696225F3D600047D469 /* TimePickerOverlayView.swift in Sources */,
 				E21BE9E92091796A000D1877 /* PlaylistPracticeEntry.swift in Sources */,
 				E25FD98B20D7F520008C531A /* PlaylistDaily.swift in Sources */,
 				AF7E51AF21A300A8003DC2CB /* PlaylistCell.swift in Sources */,
@@ -2203,6 +2316,7 @@
 				E2BA246020C8D1590048A5D5 /* MetroDroneAudio.swift in Sources */,
 				E21BE9EB2091796A000D1877 /* PlaylistViewModel.swift in Sources */,
 				AF6CC2F2219BBB7900592E1D /* SettingsTutorialViewController.swift in Sources */,
+				A3E44686225E57110047D469 /* RemindersListViewController.swift in Sources */,
 				AFC0E45D21A4FD3800FB2B4E /* ModacityAudioSessionManager.swift in Sources */,
 				E21BE9EC2091796A000D1877 /* FeedbackRootViewController.swift in Sources */,
 				E23FFD9221081053007713F0 /* PremiumUtils.swift in Sources */,
@@ -2379,7 +2493,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Modacity/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.app.Modacity;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2409,7 +2523,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Modacity/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.app.Modacity;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2500,7 +2614,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = D226H33SCU;
 				INFOPLIST_FILE = "Modacity/Info-dev.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.app.dev.modacity;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2525,7 +2639,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = D226H33SCU;
 				INFOPLIST_FILE = "Modacity/Info-dev.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.app.dev.modacity;
 				PRODUCT_NAME = "$(TARGET_NAME)";

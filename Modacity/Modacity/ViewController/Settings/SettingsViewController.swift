@@ -159,9 +159,9 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
             return 5
         } else if section == 2 {
             if PremiumDataManager.manager.isPremiumUnlocked() {
-                return 7
+                return 8
             } else {
-                return 6
+                return 7
             }
         } else if section == 3 {
             return 2
@@ -290,6 +290,10 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
                 return cell
             } else if indexPath.row == 6 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCellWithoutIcon") as! SettingsCellWithoutIcon
+                cell.configure(caption: "Practice Reminders")
+                return cell
+            } else if indexPath.row == 7 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCellWithoutIcon") as! SettingsCellWithoutIcon
                 cell.configure(caption: "“Take a Break” Reminder")
                 return cell
             }
@@ -353,8 +357,10 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
         } else if indexPath.section == 2 {
             if indexPath.row == 0 {
                 self.performSegue(withIdentifier: "sid_app_data", sender: nil)
-            } else if indexPath.row == 6 {
+            } else if indexPath.row == 7 {
                 self.openBreakReminderSettingsPage()
+            } else if indexPath.row == 6 {
+                self.openPracticeReminders()
             }
         } else if indexPath.section == 4 {
             if indexPath.row == 0 {
@@ -486,5 +492,10 @@ extension SettingsViewController {
         attr.customAttributes = ["AppLocation" : "ask_question"]
         Intercom.updateUser(attr)
         Intercom.presentMessenger()
+    }
+    
+    func openPracticeReminders() {
+        let controller = UIStoryboard(name:"reminder", bundle: nil).instantiateViewController(withIdentifier: "RemindersListViewController")
+        self.navigationController?.pushViewController(controller, animated:true)
     }
 }

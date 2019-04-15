@@ -80,23 +80,26 @@ extension SettingsAppDataViewController {
             PracticeItemRemoteManager.manager.fullSync {
                 DispatchQueue.main.async {hud.label.text = "Synchronizing playlist items..."}
                 PlaylistRemoteManager.manager.fullSync(completion: {
-                    DispatchQueue.main.async {hud.label.text = "Synchronizing deliberate practices..."}
-                    DeliberatePracticeRemoteManager.manager.fullSync {
-                        DispatchQueue.main.async {hud.label.text = "Synchronizing overall data..."}
-                        OverallDataRemoteManager.manager.fullSync(completion: {
-                            DispatchQueue.main.async { hud.label.text = "Synchronizing goals..." }
-                            GoalsRemoteManager.manager.fullSync(completion: {
-                                DispatchQueue.main.async { hud.label.text = "Synchronizing practice history..." }
-                                DailyPracticingRemoteManager.manager.syncPlaylistPracticingData {
-                                    DailyPracticingRemoteManager.manager.syncPracticeData {
-                                        DispatchQueue.main.async {
-                                            hud.hide(animated: true)
-                                            AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Sync Complete - You have the latest data")
+                    DispatchQueue.main.async {hud.label.text = "Synchronizing reminders..."}
+                    RemindersRemoteManager.manager.fullSync {
+                        DispatchQueue.main.async {hud.label.text = "Synchronizing deliberate practices..."}
+                        DeliberatePracticeRemoteManager.manager.fullSync {
+                            DispatchQueue.main.async {hud.label.text = "Synchronizing overall data..."}
+                            OverallDataRemoteManager.manager.fullSync(completion: {
+                                DispatchQueue.main.async { hud.label.text = "Synchronizing goals..." }
+                                GoalsRemoteManager.manager.fullSync(completion: {
+                                    DispatchQueue.main.async { hud.label.text = "Synchronizing practice history..." }
+                                    DailyPracticingRemoteManager.manager.syncPlaylistPracticingData {
+                                        DailyPracticingRemoteManager.manager.syncPracticeData {
+                                            DispatchQueue.main.async {
+                                                hud.hide(animated: true)
+                                                AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Sync Complete - You have the latest data")
+                                            }
                                         }
                                     }
-                                }
+                                })
                             })
-                        })
+                        }
                     }
                 })
             }
@@ -106,6 +109,8 @@ extension SettingsAppDataViewController {
     func clean() {
         ModacityAnalytics.LogStringEvent("Settings-Confirmed-Erase")
         let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+        RemindersRemoteManager.manager.eraseReminders {
+        }
         hud.label.text = "Clean goals data..."
         GoalsRemoteManager.manager.eraseGoals {
             DispatchQueue.main.async {hud.label.text = "Clean practicing data..."}

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Lato-Black.ttf">
+            <string>Lato-Black</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TimePickerOverlayView" customModule="Modacity" customModuleProvider="target">
+            <connections>
+                <outlet property="buttonDone" destination="Bti-Wp-lRc" id="Cd4-XT-tFg"/>
+                <outlet property="datePicker" destination="gwp-v0-Jz3" id="CqF-O4-qIv"/>
+                <outlet property="viewContent" destination="LvZ-Ql-04F" id="Chb-PO-iDg"/>
+                <outlet property="viewContentBox" destination="mqu-Bx-Khz" id="cvS-Wq-UEc"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="LvZ-Ql-04F">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_simple_gradient" translatesAutoresizingMaskIntoConstraints="NO" id="fcx-az-sdF">
+                    <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mqu-Bx-Khz">
+                    <rect key="frame" x="27.5" y="80" width="320" height="527"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SET TIME &amp; DATE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l22-ds-F18">
+                            <rect key="frame" x="102.5" y="30" width="115" height="17"/>
+                            <fontDescription key="fontDescription" name="Lato-Black" family="Lato" pointSize="14"/>
+                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Ws-ra-kcd">
+                            <rect key="frame" x="15" y="67" width="290" height="1"/>
+                            <color key="backgroundColor" white="0.86071428569999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="1" id="iuo-x9-DDS"/>
+                            </constraints>
+                        </view>
+                        <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="gwp-v0-Jz3">
+                            <rect key="frame" x="0.0" y="68" width="320" height="363"/>
+                            <date key="date" timeIntervalSinceReferenceDate="556512112.24943697">
+                                <!--2018-08-21 02:41:52 +0000-->
+                            </date>
+                        </datePicker>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v02-3T-bKN">
+                            <rect key="frame" x="15" y="431" width="290" height="96"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8r2-qa-5Ni">
+                                    <rect key="frame" x="0.0" y="0.0" width="290" height="1"/>
+                                    <color key="backgroundColor" white="0.86071428569999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="1" id="19i-SM-dN5"/>
+                                    </constraints>
+                                </view>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NWj-Qk-A8o">
+                                    <rect key="frame" x="0.0" y="20" width="145" height="56"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="56" id="wSx-T7-Tcg"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="Lato-Black" family="Lato" pointSize="12"/>
+                                    <state key="normal" title="CANCEL">
+                                        <color key="titleColor" red="0.32549019610000002" green="0.066666666669999999" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="onCancel:" destination="-1" eventType="touchUpInside" id="YYK-9b-IGT"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bti-Wp-lRc">
+                                    <rect key="frame" x="145" y="20" width="145" height="56"/>
+                                    <color key="backgroundColor" red="0.32549019610000002" green="0.066666666669999999" blue="0.79215686269999996" alpha="1" colorSpace="calibratedRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="56" id="uiH-JY-CYI"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="Lato-Black" family="Lato" pointSize="12"/>
+                                    <state key="normal" title="DONE">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="onDone:" destination="-1" eventType="touchUpInside" id="8dK-kQ-w5l"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="8r2-qa-5Ni" firstAttribute="top" secondItem="v02-3T-bKN" secondAttribute="top" id="DnG-hv-Hii"/>
+                                <constraint firstItem="8r2-qa-5Ni" firstAttribute="leading" secondItem="v02-3T-bKN" secondAttribute="leading" id="Fbx-2U-0NT"/>
+                                <constraint firstAttribute="trailing" secondItem="Bti-Wp-lRc" secondAttribute="trailing" id="H0R-HP-H4R"/>
+                                <constraint firstItem="NWj-Qk-A8o" firstAttribute="top" secondItem="v02-3T-bKN" secondAttribute="top" constant="20" id="O1k-E0-9XX"/>
+                                <constraint firstItem="NWj-Qk-A8o" firstAttribute="width" secondItem="v02-3T-bKN" secondAttribute="width" multiplier="1/2" id="OXP-SZ-4yM"/>
+                                <constraint firstAttribute="height" constant="96" id="b5j-mX-GJV"/>
+                                <constraint firstAttribute="trailing" secondItem="8r2-qa-5Ni" secondAttribute="trailing" id="bWz-Bu-tFT"/>
+                                <constraint firstItem="Bti-Wp-lRc" firstAttribute="leading" secondItem="NWj-Qk-A8o" secondAttribute="trailing" id="kTf-gW-She"/>
+                                <constraint firstItem="Bti-Wp-lRc" firstAttribute="top" secondItem="v02-3T-bKN" secondAttribute="top" constant="20" id="ugv-SE-kRA"/>
+                                <constraint firstItem="NWj-Qk-A8o" firstAttribute="leading" secondItem="v02-3T-bKN" secondAttribute="leading" id="zeV-WQ-NWY"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="l22-ds-F18" firstAttribute="top" secondItem="mqu-Bx-Khz" secondAttribute="top" constant="30" id="8yY-qI-sLD"/>
+                        <constraint firstItem="v02-3T-bKN" firstAttribute="top" secondItem="gwp-v0-Jz3" secondAttribute="bottom" id="ATv-Tv-FDu"/>
+                        <constraint firstItem="gwp-v0-Jz3" firstAttribute="leading" secondItem="mqu-Bx-Khz" secondAttribute="leading" id="Biw-nR-Tub"/>
+                        <constraint firstItem="0Ws-ra-kcd" firstAttribute="top" secondItem="l22-ds-F18" secondAttribute="bottom" constant="20" id="C1w-r2-Ss8"/>
+                        <constraint firstAttribute="bottom" secondItem="v02-3T-bKN" secondAttribute="bottom" id="CdW-F2-pbA"/>
+                        <constraint firstAttribute="trailing" secondItem="v02-3T-bKN" secondAttribute="trailing" constant="15" id="dzl-y0-f1O"/>
+                        <constraint firstAttribute="trailing" secondItem="gwp-v0-Jz3" secondAttribute="trailing" id="ll2-Im-Rpl"/>
+                        <constraint firstAttribute="trailing" secondItem="0Ws-ra-kcd" secondAttribute="trailing" constant="15" id="qu5-iP-dI8"/>
+                        <constraint firstItem="gwp-v0-Jz3" firstAttribute="top" secondItem="0Ws-ra-kcd" secondAttribute="bottom" id="sGM-IW-hGn"/>
+                        <constraint firstItem="l22-ds-F18" firstAttribute="centerX" secondItem="mqu-Bx-Khz" secondAttribute="centerX" id="v1l-aW-Uuv"/>
+                        <constraint firstItem="v02-3T-bKN" firstAttribute="leading" secondItem="mqu-Bx-Khz" secondAttribute="leading" constant="15" id="w5b-EQ-5dP"/>
+                        <constraint firstItem="0Ws-ra-kcd" firstAttribute="leading" secondItem="mqu-Bx-Khz" secondAttribute="leading" constant="15" id="yjc-JY-7Rb"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="uy0-Ul-4Ja" firstAttribute="top" secondItem="fcx-az-sdF" secondAttribute="top" id="H0I-2f-QKd"/>
+                <constraint firstItem="uy0-Ul-4Ja" firstAttribute="leading" secondItem="fcx-az-sdF" secondAttribute="leading" id="KAZ-Z3-EBK"/>
+                <constraint firstItem="mqu-Bx-Khz" firstAttribute="top" secondItem="uy0-Ul-4Ja" secondAttribute="top" constant="60" id="Lol-y4-GnM"/>
+                <constraint firstItem="uy0-Ul-4Ja" firstAttribute="bottom" secondItem="mqu-Bx-Khz" secondAttribute="bottom" constant="60" id="heL-bu-z4c"/>
+                <constraint firstItem="fcx-az-sdF" firstAttribute="trailing" secondItem="uy0-Ul-4Ja" secondAttribute="trailing" id="kcO-Va-eEt"/>
+                <constraint firstItem="fcx-az-sdF" firstAttribute="bottom" secondItem="uy0-Ul-4Ja" secondAttribute="bottom" id="nQp-NC-N2L"/>
+                <constraint firstItem="uy0-Ul-4Ja" firstAttribute="trailing" secondItem="mqu-Bx-Khz" secondAttribute="trailing" constant="27.5" id="ocq-3f-BCW"/>
+                <constraint firstItem="mqu-Bx-Khz" firstAttribute="leading" secondItem="uy0-Ul-4Ja" secondAttribute="leading" constant="27.5" id="wxP-Uo-0Si"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="uy0-Ul-4Ja"/>
+            <point key="canvasLocation" x="-0.80000000000000004" y="-140.77961019490255"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="bg_simple_gradient" width="375" height="667"/>
+    </resources>
+</document>

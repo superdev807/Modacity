@@ -42,6 +42,7 @@ class AppOveralDataManager {
             FBSDKLoginManager().logOut()
         }
         
+        RemindersManager.manager.cleanReminders()
         MyProfileRemoteManager.manager.signout()
         MyProfileLocalManager.manager.signout()
         Authorizer.authorizer.signout()

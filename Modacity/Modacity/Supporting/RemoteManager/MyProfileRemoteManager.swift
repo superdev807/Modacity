@@ -62,6 +62,7 @@ class MyProfileRemoteManager {
                     DailyPracticingRemoteManager.manager.fetchPracticingDataFromServer()
                     DailyPracticingRemoteManager.manager.fetchPlaylistPracticingDataFromServer()
                     GoalsRemoteManager.manager.fetchGoalsFromServer()
+                    RemindersRemoteManager.manager.fetchRemindersFromServer()
                 }
             }
         }

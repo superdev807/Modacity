@@ -54,10 +54,6 @@ class HomeViewController: ModacityParentViewController {
         self.configureNameLabels()
         
         ModacityAnalytics.LogStringEvent("Home Screen")
-        
-        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-            appDelegate.registerNotifications(UIApplication.shared)
-        }
     }
     
     deinit {
