@@ -44,6 +44,15 @@ extension Date {
         return calendar.component(.day, from:self)
     }
     
+    var hourIn24Format: Int {
+        return Int(toString(format: "H")) ?? 0
+    }
+    
+    var minute: Int {
+        let calendar = Calendar.current
+        return calendar.component(.minute, from: self)
+    }
+    
     var isToday: Bool {
         return toString(format: "yyyy-MM-dd") == Date().toString(format: "yyyy-MM-dd")
     }

@@ -176,7 +176,6 @@ extension SetReminderViewController: OptionsPickerBottomSheetViewDelegate {
             self.repeatOptionsPickerBottomSheetView.removeFromSuperview()
             self.showCustomRecurrencePicker()
         }
-        
     }
     
     func cancelOptionSelectInPickerBottomSheet(_ view: OptionsPickerBottomSheetView) {
@@ -265,13 +264,41 @@ extension SetReminderViewController {
     
     @IBAction func onRemindMe(_ sender: Any) {
         
+        if self.selectedRepeatMode == nil || self.selectedRepeatMode! == 0 {
+            let now = Date()
+            let time = self.selectedTime!
+            
+            if now.hourIn24Format * 60 + now.minute >= time.hourIn24Format * 60 + time.minute {
+                AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Reminder time already passed. Please set valid reminder time or set repeat modes.")
+                return
+            }
+        }
+        
+        if self.selectedRepeatMode != nil && self.selectedRepeatMode! == Reminder.reminderRepeatingModes.count - 1 {
+            if let custom = self.selectedCustom {
+                if (custom.everyMode == 0 && custom.onWeeks.count == 0) || (custom.everyMode == 1 && custom.onDays.count == 0) {
+                    AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Reminder repeat setting is invalid. Please schedule reminders correctly.")
+                    return
+                }
+                
+                if custom.calculateSchedulingCount(from: Date()) == 0 {
+                    AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Reminder repeat setting is invalid. Please schedule reminders correctly.")
+                    return
+                }
+            }
+        }
+        
         if let selectedTime = self.selectedTime {
         
             if let reminder = self.editingReminder {
                 
                 reminder.practiceSessionId = self.selectedPlaylistId
                 reminder.timeString = selectedTime.toString(format: "HH:mm")
-                reminder.repeatMode  = self.selectedRepeatMode
+                if self.selectedRepeatMode == nil {
+                    reminder.repeatMode = 0
+                } else {
+                    reminder.repeatMode  = self.selectedRepeatMode
+                }
                 reminder.custom = self.selectedCustom
                 
                 RemindersManager.manager.saveReminder(reminder)
@@ -282,7 +309,12 @@ extension SetReminderViewController {
                 reminder.id = UUID().uuidString
                 reminder.practiceSessionId = self.selectedPlaylistId
                 reminder.timeString = selectedTime.toString(format: "HH:mm")
-                reminder.repeatMode  = self.selectedRepeatMode
+                reminder.createdAt = Date().timeIntervalSince1970
+                if self.selectedRepeatMode == nil {
+                    reminder.repeatMode = 0
+                } else {
+                    reminder.repeatMode  = self.selectedRepeatMode
+                }
                 reminder.custom = self.selectedCustom
                 
                 RemindersManager.manager.saveReminder(reminder)

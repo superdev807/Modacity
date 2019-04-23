@@ -31,10 +31,6 @@ class RemindersListViewController: UIViewController {
         }
         
         self.buttonAddNew.layer.cornerRadius = 28
-        
-        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-            appDelegate.registerNotifications(UIApplication.shared)
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -54,12 +50,22 @@ class RemindersListViewController: UIViewController {
     }
     
     func loadReminders() {
-        reminders = RemindersManager.manager.loadReminders()
-        if reminders!.count > 0 {
-            self.labelNoReminders.isHidden = true
+        if let reminders = RemindersManager.manager.loadReminders() {
+            if reminders.count > 0 {
+                self.labelNoReminders.isHidden = true
+            } else {
+                self.labelNoReminders.isHidden = false
+            }
+            self.reminders = reminders.sorted(by: { (reminder1, reminder2) -> Bool in
+                let time1 = reminder1.nextScheduledTime()
+                let time2 = reminder2.nextScheduledTime()
+                
+                return time1.timeIntervalSince1970 < time2.timeIntervalSince1970
+            })
         } else {
-            self.labelNoReminders.isHidden = false
+            self.reminders = nil
         }
+        
         self.tableViewReminders.reloadData()
     }
 }
@@ -121,6 +127,7 @@ class ReminderCell: UITableViewCell {
     @IBOutlet weak var labelPlaylistName: UILabel!
     @IBOutlet weak var labelRepeats: UILabel!
     @IBOutlet weak var buttonCellMenu: UIButton!
+    @IBOutlet weak var labelNextSchedule: UILabel!
     
     var delegate: ReminderCellDelegate?
     
@@ -134,7 +141,23 @@ class ReminderCell: UITableViewCell {
         self.reminder = reminder
         
         self.labelPlaylistName.text = "Practice session: \(reminder.practiceSessionDescription())"
-        self.labelRepeats.text = "Repeats: \(reminder.repeatDescription())"
+        
+        
+        if reminder.repeatMode == nil || reminder.repeatMode! == 0 {
+            self.labelRepeats.text = reminder.repeatDescription()
+            self.labelNextSchedule.text = ""
+        } else {
+            self.labelRepeats.text = "Repeats: \(reminder.repeatDescription())"
+            let nextSchedule = reminder.nextScheduledTime()
+            if nextSchedule.isToday {
+                self.labelNextSchedule.text = "Next scheduled :  Today \(nextSchedule.toString(format: "h:mm a"))"
+            } else if nextSchedule.isTomorrow {
+                self.labelNextSchedule.text = "Next scheduled :  Tomorrow \(nextSchedule.toString(format: "h:mm a"))"
+            } else {
+                self.labelNextSchedule.text = "Next scheduled : \(reminder.nextScheduledTime().toString(format: "MMM d, h:mm a"))"
+            }
+        }
+        
     }
     
     @IBAction func onCellMenu(_ sender: Any) {

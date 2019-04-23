@@ -9,6 +9,7 @@
 import UIKit
 import MBProgressHUD
 import Intercom
+import UserNotifications
 
 class SettingsCellWithIconAndSubTitle: UITableViewCell {
     
@@ -495,7 +496,50 @@ extension SettingsViewController {
     }
     
     func openPracticeReminders() {
-        let controller = UIStoryboard(name:"reminder", bundle: nil).instantiateViewController(withIdentifier: "RemindersListViewController")
-        self.navigationController?.pushViewController(controller, animated:true)
+        
+        let notificationCenter = UNUserNotificationCenter.current()
+        notificationCenter.getNotificationSettings { (settings) in
+            if settings.authorizationStatus == .notDetermined {
+                DispatchQueue.main.async {
+                    notificationCenter.requestAuthorization(options: [.alert,.sound,.badge], completionHandler: {(granted,error) in
+                        if granted {
+                            ModacityAnalytics.LogStringEvent("User Enabled Push Notifications")
+                            DispatchQueue.main.async {
+                                UIApplication.shared.registerForRemoteNotifications()
+                                let controller = UIStoryboard(name:"reminder", bundle: nil).instantiateViewController(withIdentifier: "RemindersListViewController")
+                                self.navigationController?.pushViewController(controller, animated:true)
+                            }
+                        } else {
+                            ModacityAnalytics.LogStringEvent("User Refused Push Notifications")
+                            DispatchQueue.main.async {
+                                AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Please allow notification to use Reminders")
+                            }
+                        }
+                    })
+                }
+                return
+                
+            } else {
+            
+                if settings.alertSetting == .enabled {
+                    DispatchQueue.main.async {
+                        let controller = UIStoryboard(name:"reminder", bundle: nil).instantiateViewController(withIdentifier: "RemindersListViewController")
+                        self.navigationController?.pushViewController(controller, animated:true)
+                    }
+                } else {
+                    let alertController = UIAlertController(title: nil, message: "Please enable notifications in Settings to use Reminders.", preferredStyle: .alert)
+                    alertController.addAction(UIAlertAction(title: "Settings", style: .default, handler: { (_) in
+                        guard let settingsUrl = URL(string: UIApplicationOpenSettingsURLString) else {return}
+                        
+                        if UIApplication.shared.canOpenURL(settingsUrl) {
+                            UIApplication.shared.open(settingsUrl, options: [:], completionHandler: { (success) in
+                            })
+                        }
+                    }))
+                    alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                    self.present(alertController, animated: true, completion: nil)
+                }
+            }
+        }
     }
 }

@@ -63,7 +63,7 @@
                                                     <rect key="frame" x="15" y="20" width="345" height="83"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XJ1-oA-Br8">
-                                                            <rect key="frame" x="15" y="26.666666666666664" width="282" height="30"/>
+                                                            <rect key="frame" x="15" y="19.666666666666664" width="282" height="44"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Playlist: This Weeks Routine" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k9U-UB-JSu">
                                                                     <rect key="frame" x="0.0" y="0.0" width="282" height="15"/>
@@ -72,21 +72,29 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Repeats: Every Weekday at 5:00PM" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ww-AN-EKu">
-                                                                    <rect key="frame" x="0.0" y="18.000000000000007" width="282" height="12"/>
+                                                                    <rect key="frame" x="0.0" y="18" width="282" height="12"/>
                                                                     <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="10"/>
                                                                     <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YEt-kl-tO4">
+                                                                    <rect key="frame" x="0.0" y="32.000000000000007" width="22.333333333333332" height="12"/>
+                                                                    <fontDescription key="fontDescription" name="Lato-Italic" family="Lato" pointSize="10"/>
+                                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                             </subviews>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="bottom" secondItem="8ww-AN-EKu" secondAttribute="bottom" id="0aF-bb-Gcv"/>
                                                                 <constraint firstItem="k9U-UB-JSu" firstAttribute="leading" secondItem="XJ1-oA-Br8" secondAttribute="leading" id="1b6-WM-PhV"/>
                                                                 <constraint firstAttribute="trailing" secondItem="k9U-UB-JSu" secondAttribute="trailing" id="5p4-Wj-pFc"/>
                                                                 <constraint firstItem="8ww-AN-EKu" firstAttribute="top" secondItem="k9U-UB-JSu" secondAttribute="bottom" constant="3" id="NUy-yg-DeU"/>
+                                                                <constraint firstItem="YEt-kl-tO4" firstAttribute="top" secondItem="8ww-AN-EKu" secondAttribute="bottom" constant="2" id="Nbe-sg-C0L"/>
                                                                 <constraint firstItem="8ww-AN-EKu" firstAttribute="leading" secondItem="k9U-UB-JSu" secondAttribute="leading" id="Zj1-Db-E3Q"/>
+                                                                <constraint firstAttribute="bottom" secondItem="YEt-kl-tO4" secondAttribute="bottom" id="lmd-A4-YGX"/>
                                                                 <constraint firstAttribute="trailing" secondItem="8ww-AN-EKu" secondAttribute="trailing" id="vI5-pB-Ldl"/>
                                                                 <constraint firstItem="k9U-UB-JSu" firstAttribute="top" secondItem="XJ1-oA-Br8" secondAttribute="top" id="vk3-Yt-Uyo"/>
+                                                                <constraint firstItem="YEt-kl-tO4" firstAttribute="leading" secondItem="8ww-AN-EKu" secondAttribute="leading" id="wKw-Wj-vDL"/>
                                                             </constraints>
                                                         </view>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gqS-WH-d5T">
@@ -122,6 +130,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <outlet property="buttonCellMenu" destination="gqS-WH-d5T" id="vAr-UK-kRR"/>
+                                            <outlet property="labelNextSchedule" destination="YEt-kl-tO4" id="KPN-00-8nS"/>
                                             <outlet property="labelPlaylistName" destination="k9U-UB-JSu" id="xsv-8O-Kzo"/>
                                             <outlet property="labelRepeats" destination="8ww-AN-EKu" id="EbW-xD-Yrl"/>
                                             <outlet property="viewContainer" destination="E7u-rF-cLa" id="x3F-vD-6b1"/>

@@ -225,19 +225,25 @@ extension PlaylistListViewController: PlaylistCellDelegate {
     
     func deletePlaylist(for playlist:Playlist) {
         
-        for row in 0..<self.playlists.count {
-            if self.playlists[row].id == playlist.id {
-                self.playlists.remove(at: row)
-                break
+        let alert = UIAlertController(title: nil, message: "Are you sure to remove this practice session and all reminders for it?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (_) in
+            for row in 0..<self.playlists.count {
+                if self.playlists[row].id == playlist.id {
+                    self.playlists.remove(at: row)
+                    break
+                }
             }
-        }
-        
-        self.tableViewMain.reloadData()
-        
-        DispatchQueue.global(qos: .background).async {
-            PlaylistLocalManager.manager.deletePlaylist(playlist)
-            PlaylistLocalManager.manager.storePlaylists(self.playlists)
-        }
+            
+            self.tableViewMain.reloadData()
+            
+            DispatchQueue.global(qos: .background).async {
+                PlaylistLocalManager.manager.deletePlaylist(playlist)
+                PlaylistLocalManager.manager.storePlaylists(self.playlists)
+                RemindersManager.manager.removeReminder(forPracticeSessionId: playlist.id)
+            }
+        }))
+        alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
     
     func loadPlaylists() {

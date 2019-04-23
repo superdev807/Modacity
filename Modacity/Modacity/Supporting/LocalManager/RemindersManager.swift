@@ -16,11 +16,21 @@ class RemindersManager {
     func loadReminders() -> [Reminder]? {
         if let remindersData = UserDefaults.standard.object(forKey: "reminders") as? [String:[String:Any]] {
             var reminders = [Reminder]()
+            var expiredReminderIds = [String]()
             for reminderId in remindersData.keys {
                 if let reminder = Reminder(JSON: remindersData[reminderId]!) {
-                    reminders.append(reminder)
+                    if !(reminder.isExpired()) {
+                        reminders.append(reminder)
+                    } else {
+                        expiredReminderIds.append(reminderId)
+                    }
                 }
             }
+            
+            for id in expiredReminderIds {
+                removeReminder(id: id)
+            }
+            
             return reminders
         } else {
             return nil
@@ -74,6 +84,21 @@ class RemindersManager {
         }
         
         RemindersRemoteManager.manager.removeReminder(id:id)
+    }
+    
+    func removeReminder(forPracticeSessionId: String) {
+        if let reminders = self.loadReminders() {
+            var reminderIds = [String]()
+            for reminder in reminders {
+                if reminder.practiceSessionId != nil && reminder.practiceSessionId! == forPracticeSessionId {
+                    reminderIds.append(reminder.id)
+                }
+            }
+            
+            for id in reminderIds {
+                self.removeReminder(id: id)
+            }
+        }
     }
     
     func cleanReminders() {
@@ -140,13 +165,6 @@ class RemindersManager {
                 requests.append(request)
                 notificationIds = [reminder.id]
             case 3:
-                date.weekday = 6
-                date.weekOfMonth = 0
-                let trigger = UNCalendarNotificationTrigger(dateMatching: date, repeats: true)
-                let request = UNNotificationRequest(identifier: reminder.id, content: content, trigger: trigger)
-                requests.append(request)
-                notificationIds = [reminder.id]
-            case 4:
                 for wk in 2...6 {
                     date.weekday = wk
                     let trigger = UNCalendarNotificationTrigger(dateMatching: date, repeats: true)
@@ -198,7 +216,7 @@ class RemindersManager {
                                     dates.append(date)
                                 }
                             } else {
-                                if custom.onDays.contains(date.day) {
+                                if custom.onDays.contains(date.day - 1) {
                                     dates.append(date)
                                 }
                             }
