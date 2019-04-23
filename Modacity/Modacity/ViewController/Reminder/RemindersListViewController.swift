@@ -31,6 +31,7 @@ class RemindersListViewController: UIViewController {
         }
         
         self.buttonAddNew.layer.cornerRadius = 28
+        ModacityAnalytics.LogStringEvent("Reminders-Opened")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -39,6 +40,7 @@ class RemindersListViewController: UIViewController {
     }
     
     @IBAction func onBack(_ sender: Any) {
+        ModacityAnalytics.LogStringEvent("reminders-back")
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -46,6 +48,8 @@ class RemindersListViewController: UIViewController {
         if segue.identifier == "sid_reminder_edit" {
             let conroller = segue.destination as! SetReminderViewController
             conroller.editingReminder = self.editingReminder
+        } else if segue.identifier == "sid_add_new" {
+            ModacityAnalytics.LogStringEvent("reminders-press-add-new")
         }
     }
     
@@ -109,6 +113,7 @@ extension RemindersListViewController: UITableViewDelegate, UITableViewDataSourc
     func deleteReminder(_ reminder: Reminder) {
         let alertController = UIAlertController(title: nil, message: "Are you sure to remove this reminder?", preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (_) in
+            ModacityAnalytics.LogStringEvent("reminders-deleted")
             RemindersManager.manager.removeReminder(id: reminder.id)
             self.loadReminders()
         }))

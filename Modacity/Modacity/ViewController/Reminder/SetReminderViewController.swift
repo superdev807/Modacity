@@ -168,13 +168,13 @@ extension SetReminderViewController: OptionsPickerBottomSheetViewDelegate {
     
     func selectOptionInPickerBottomSheet(_ view: OptionsPickerBottomSheetView, optionIdx: Int, optionValue: String) {
         
-        self.selectedRepeatMode = optionIdx
-        self.showSelectedRepeatMode()
-        
         if optionIdx == Reminder.reminderRepeatingModes.count - 1 {     // Custom
             self.repeatOptionsPickerBottomSheetView.tableViewOptions.reloadData()
             self.repeatOptionsPickerBottomSheetView.removeFromSuperview()
             self.showCustomRecurrencePicker()
+        } else {
+            self.selectedRepeatMode = optionIdx
+            self.showSelectedRepeatMode()
         }
     }
     
@@ -249,6 +249,9 @@ extension SetReminderViewController: CustomRecurrencePickerDelegate {
         custom.endsMode = endsMode
         custom.endsNumber = endsNumber
         custom.endsUnit = endsUnit
+        
+        self.selectedRepeatMode = Reminder.reminderRepeatingModes.count - 1
+        self.showSelectedRepeatMode()
         self.selectedCustom = custom
         self.showSelectedRepeatMode()
         self.customRecurrencePickerView.removeFromSuperview()
@@ -257,19 +260,23 @@ extension SetReminderViewController: CustomRecurrencePickerDelegate {
     func closeCustomRecurrencePickerView(_ view: CustomRecurrencePicker) {
         self.customRecurrencePickerView.removeFromSuperview()
     }
-    
 }
 
 extension SetReminderViewController {
     
     @IBAction func onRemindMe(_ sender: Any) {
         
+        if self.selectedTime == nil {
+            AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Time is missing.")
+            return
+        }
+        
         if self.selectedRepeatMode == nil || self.selectedRepeatMode! == 0 {
             let now = Date()
             let time = self.selectedTime!
             
             if now.hourIn24Format * 60 + now.minute >= time.hourIn24Format * 60 + time.minute {
-                AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Reminder time already passed. Please set valid reminder time or set repeat modes.")
+                AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Reminder time already passed.")
                 return
             }
         }
@@ -277,12 +284,12 @@ extension SetReminderViewController {
         if self.selectedRepeatMode != nil && self.selectedRepeatMode! == Reminder.reminderRepeatingModes.count - 1 {
             if let custom = self.selectedCustom {
                 if (custom.everyMode == 0 && custom.onWeeks.count == 0) || (custom.everyMode == 1 && custom.onDays.count == 0) {
-                    AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Reminder repeat setting is invalid. Please schedule reminders correctly.")
+                    AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Reminder repeat setting is invalid.")
                     return
                 }
                 
                 if custom.calculateSchedulingCount(from: Date()) == 0 {
-                    AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Reminder repeat setting is invalid. Please schedule reminders correctly.")
+                    AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Reminder repeat setting is invalid.")
                     return
                 }
             }
@@ -302,6 +309,7 @@ extension SetReminderViewController {
                 reminder.custom = self.selectedCustom
                 
                 RemindersManager.manager.saveReminder(reminder)
+                ModacityAnalytics.LogStringEvent("reminders-edit")
                 
             } else {
                 
@@ -318,15 +326,10 @@ extension SetReminderViewController {
                 reminder.custom = self.selectedCustom
                 
                 RemindersManager.manager.saveReminder(reminder)
-                
+                ModacityAnalytics.LogStringEvent("reminders-scheduled")
             }
             
             self.navigationController?.popViewController(animated: true)
-            
-        } else {
-            
-            AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Please select time for reminder.")
-            
         }
     }
 }
