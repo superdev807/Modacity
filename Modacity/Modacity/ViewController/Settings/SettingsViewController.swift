@@ -499,7 +499,13 @@ extension SettingsViewController {
         
         let notificationCenter = UNUserNotificationCenter.current()
         notificationCenter.getNotificationSettings { (settings) in
-            if settings.authorizationStatus == .notDetermined {
+            
+            if settings.authorizationStatus == .authorized {
+                DispatchQueue.main.async {
+                    let controller = UIStoryboard(name:"reminder", bundle: nil).instantiateViewController(withIdentifier: "RemindersListViewController")
+                    self.navigationController?.pushViewController(controller, animated:true)
+                }
+            } else if settings.authorizationStatus == .notDetermined {
                 DispatchQueue.main.async {
                     notificationCenter.requestAuthorization(options: [.alert,.sound,.badge], completionHandler: {(granted,error) in
                         if granted {
@@ -517,28 +523,18 @@ extension SettingsViewController {
                         }
                     })
                 }
-                return
-                
             } else {
-            
-                if settings.alertSetting == .enabled {
-                    DispatchQueue.main.async {
-                        let controller = UIStoryboard(name:"reminder", bundle: nil).instantiateViewController(withIdentifier: "RemindersListViewController")
-                        self.navigationController?.pushViewController(controller, animated:true)
+                let alertController = UIAlertController(title: nil, message: "Please enable notifications in Settings to use Reminders.", preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: "Settings", style: .default, handler: { (_) in
+                    guard let settingsUrl = URL(string: UIApplicationOpenSettingsURLString) else {return}
+                    
+                    if UIApplication.shared.canOpenURL(settingsUrl) {
+                        UIApplication.shared.open(settingsUrl, options: [:], completionHandler: { (success) in
+                        })
                     }
-                } else {
-                    let alertController = UIAlertController(title: nil, message: "Please enable notifications in Settings to use Reminders.", preferredStyle: .alert)
-                    alertController.addAction(UIAlertAction(title: "Settings", style: .default, handler: { (_) in
-                        guard let settingsUrl = URL(string: UIApplicationOpenSettingsURLString) else {return}
-                        
-                        if UIApplication.shared.canOpenURL(settingsUrl) {
-                            UIApplication.shared.open(settingsUrl, options: [:], completionHandler: { (success) in
-                            })
-                        }
-                    }))
-                    alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-                    self.present(alertController, animated: true, completion: nil)
-                }
+                }))
+                alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                self.present(alertController, animated: true, completion: nil)
             }
         }
     }
