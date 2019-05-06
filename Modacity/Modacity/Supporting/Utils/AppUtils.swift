@@ -125,10 +125,10 @@ class AppUtils: NSObject {
         
         var results = [String: String]()
         if seconds < 3600 {
-            results["value"] = formatter.string(from: (Float(seconds) / 60.0) as NSNumber) ?? "n/a"
+            results["value"] = formatter.string(from: (Float(seconds) / Float(60.0)) as NSNumber) ?? "n/a"
             results["unit"] = "MINUTES"
         } else {
-            results["value"] = formatter.string(from: (Float(seconds) / 3600.0) as NSNumber) ?? "n/a"
+            results["value"] = formatter.string(from: (Float(seconds) / Float(3600.0)) as NSNumber) ?? "n/a"
             results["unit"] = "HOURS"
         }
         return results

@@ -184,8 +184,11 @@ extension SetReminderViewController: OptionsPickerBottomSheetViewDelegate {
     
     func showSelectedRepeatMode() {
         self.labelRepeatCustomDetails.isHidden = true
-        if let mode = self.selectedRepeatMode {
+        if var mode = self.selectedRepeatMode {
             self.labelRepeat.textColor = labelsSelectedColor
+            if mode > Reminder.reminderRepeatingModes.count - 1 {
+                mode = Reminder.reminderRepeatingModes.count - 1
+            }
             self.labelRepeat.text = Reminder.reminderRepeatingModes[mode]
             
             if mode == Reminder.reminderRepeatingModes.count - 1 {
@@ -241,14 +244,15 @@ extension SetReminderViewController: CustomRecurrencePickerDelegate {
         self.customRecurrencePickerView.configure(with: self.selectedCustom)
     }
     
-    func selectCustomRecurrence(everyMode: Int, onWeeks: [Int], onDays: [Int], endsMode: Int, endsNumber: Int, endsUnit: Int) {
+    func selectCustomRecurrence(everyMode: Int, onWeeks: [Int], onDays: [Int], endsMode: Int, endsDate: Date?) {
+        
         let custom = ReminderCustomRepeatData()
         custom.everyMode = everyMode
         custom.onWeeks = onWeeks
         custom.onDays = onDays
         custom.endsMode = endsMode
-        custom.endsNumber = endsNumber
-        custom.endsUnit = endsUnit
+        custom.endsDate = endsDate?.timeIntervalSince1970
+//        custom.endDateString = endsDate?.toString(format: "yyyy-MM-dd HH:mm:ss")
         
         self.selectedRepeatMode = Reminder.reminderRepeatingModes.count - 1
         self.showSelectedRepeatMode()

@@ -219,10 +219,10 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aGL-hA-3kM">
-                            <rect key="frame" x="15" y="286" width="67.5" height="30"/>
+                            <rect key="frame" x="15" y="286" width="57" height="30"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="spu-P3-Gym">
-                                    <rect key="frame" x="0.0" y="0.0" width="67.5" height="30"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="57" height="30"/>
                                     <connections>
                                         <action selector="onEndsAfter:" destination="-1" eventType="touchUpInside" id="ZMI-XT-c22"/>
                                     </connections>
@@ -230,8 +230,8 @@
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_option_normal" translatesAutoresizingMaskIntoConstraints="NO" id="Fti-tM-oup">
                                     <rect key="frame" x="8" y="4" width="22" height="22"/>
                                 </imageView>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="After" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="71c-BY-Lq9">
-                                    <rect key="frame" x="40.5" y="7.5" width="27" height="15"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="On" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="71c-BY-Lq9">
+                                    <rect key="frame" x="40.5" y="7.5" width="16.5" height="15"/>
                                     <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
                                     <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
@@ -259,8 +259,8 @@
                                         <action selector="onAfterTimeTap:" destination="-1" eventType="touchUpInside" id="zIL-Dh-oP5"/>
                                     </connections>
                                 </button>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6 Weeks" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5m3-SH-6MX">
-                                    <rect key="frame" x="3" y="7.5" width="46" height="15"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select End Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5m3-SH-6MX">
+                                    <rect key="frame" x="3" y="7.5" width="84" height="15"/>
                                     <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
                                     <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>

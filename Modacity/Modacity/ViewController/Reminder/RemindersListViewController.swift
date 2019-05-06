@@ -14,6 +14,7 @@ class RemindersListViewController: UIViewController {
     @IBOutlet weak var tableViewReminders: UITableView!
     @IBOutlet weak var buttonAddNew: UIButton!
     @IBOutlet weak var labelNoReminders: UILabel!
+    @IBOutlet weak var imageViewTopLeft: UIImageView!
     
     var reminders: [Reminder]? = nil
     var editingReminder: Reminder!
@@ -32,6 +33,13 @@ class RemindersListViewController: UIViewController {
         
         self.buttonAddNew.layer.cornerRadius = 28
         ModacityAnalytics.LogStringEvent("Reminders-Opened")
+        
+        if self.navigationController?.viewControllers.count == 1 {
+            self.imageViewTopLeft.image = UIImage(named: "icon_menu")
+        } else {
+            self.imageViewTopLeft.image = UIImage(named: "icon_arrow_left")
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -41,7 +49,11 @@ class RemindersListViewController: UIViewController {
     
     @IBAction func onBack(_ sender: Any) {
         ModacityAnalytics.LogStringEvent("reminders-back")
-        self.navigationController?.popViewController(animated: true)
+        if self.navigationController?.viewControllers.count == 1 {
+            self.sideMenuController?.toggleLeftViewAnimated()
+        } else {
+            self.navigationController?.popViewController(animated: true)
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

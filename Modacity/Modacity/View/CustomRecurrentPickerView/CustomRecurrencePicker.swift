@@ -10,8 +10,7 @@ import UIKit
 
 protocol CustomRecurrencePickerDelegate {
     func closeCustomRecurrencePickerView(_ view: CustomRecurrencePicker)
-    
-    func selectCustomRecurrence(everyMode: Int, onWeeks: [Int], onDays: [Int], endsMode: Int, endsNumber: Int, endsUnit: Int)
+    func selectCustomRecurrence(everyMode: Int, onWeeks: [Int], onDays: [Int], endsMode: Int, endsDate: Date?)
 }
 
 class CustomRecurrencePicker: UIView {
@@ -40,8 +39,13 @@ class CustomRecurrencePicker: UIView {
     var selectedRepeatOnWeeks = [Int]()
     var selectedRepeatOnDays = [Int]()
     var repeatEndsMode = 0      // 0 for never, 1 for after
-    var repeatEndsAfterNumber = 1
-    var repeatEndsAfterUnit = 0 // 0 for day, 1 for week, 2 for month
+    
+//    var repeatEndsAfterNumber = 1
+//    var repeatEndsAfterUnit = 0 // 0 for day, 1 for week, 2 for month
+    
+    var repeatEndsAfterDate: Date?
+    
+    var calendarOverlayView: CalendarOverlayView!
     
     override init(frame: CGRect) {
         super.init(frame:frame)
@@ -80,8 +84,9 @@ class CustomRecurrencePicker: UIView {
             self.repeatEveryMode = custom.everyMode
             self.selectedRepeatOnDays = custom.onDays
             self.selectedRepeatOnWeeks = custom.onWeeks
-            self.repeatEndsAfterNumber = custom.endsNumber
-            self.repeatEndsAfterUnit = custom.endsUnit
+            self.repeatEndsAfterDate = custom.repeatEndDate()
+//            self.repeatEndsAfterNumber = custom.endsNumber
+//            self.repeatEndsAfterUnit = custom.endsUnit
             self.repeatEndsMode = custom.endsMode
             
             configureRepeatEveryMode()
@@ -122,8 +127,7 @@ class CustomRecurrencePicker: UIView {
                                             onWeeks: self.selectedRepeatOnWeeks,
                                             onDays: self.selectedRepeatOnDays,
                                             endsMode: self.repeatEndsMode,
-                                            endsNumber: self.repeatEndsAfterNumber,
-                                            endsUnit: self.repeatEndsAfterUnit)
+                                            endsDate: self.repeatEndsAfterDate)
         }
     }
     
@@ -162,14 +166,21 @@ class CustomRecurrencePicker: UIView {
     }
     
     @IBAction func onSelectAfterTime(_ sender: Any) {
-        self.repeatEndsAfterNumber = self.pickerViewAfterTime.selectedRow(inComponent: 0) + 1
-        self.repeatEndsAfterUnit = self.pickerViewAfterTime.selectedRow(inComponent: 1)
+//        self.repeatEndsAfterNumber = self.pickerViewAfterTime.selectedRow(inComponent: 0) + 1
+//        self.repeatEndsAfterUnit = self.pickerViewAfterTime.selectedRow(inComponent: 1)
         self.configureRepeatEndsAfterTime()
         self.hideAfterTimeSelectPicker()
     }
     
     func configureRepeatEndsAfterTime() {
-        self.labelAfterTime.text = "\(self.repeatEndsAfterNumber) \(["day", "week", "month"][self.repeatEndsAfterUnit])\(self.repeatEndsAfterNumber > 1 ? "s" : "")"
+        if let date = self.repeatEndsAfterDate {
+            self.labelAfterTime.text = date.toString(format: "MMM d, yyyy")
+            self.labelAfterTime.textColor = Color.darkGray
+        } else {
+            self.labelAfterTime.text = "Select End Date"
+            self.labelAfterTime.textColor = AppConfig.UI.AppColors.placeholderTextColorGray
+        }
+//        self.labelAfterTime.text = "\(self.repeatEndsAfterNumber) \(["day", "week", "month"][self.repeatEndsAfterUnit])\(self.repeatEndsAfterNumber > 1 ? "s" : "")"
     }
 }
 
@@ -251,22 +262,52 @@ extension CustomRecurrencePicker: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func showAfterTimeSelectPicker() {
-        self.viewAfterTimePickerBox.isHidden = false
         
-        self.viewAfterTimePickerContainer.frame = CGRect(x: 0, y: self.viewContent.frame.size.height, width: self.viewAfterTimePickerContainer.frame.size.width, height: self.viewAfterTimePickerContainer.frame.size.height)
-        UIView.animate(withDuration: 0.5, animations: {
-            self.viewAfterTimePickerContainer.frame = CGRect(x: 0, y: self.viewContent.frame.size.height - self.viewAfterTimePickerContainer.frame.size.height, width: self.viewAfterTimePickerContainer.frame.size.width, height: self.viewAfterTimePickerContainer.frame.size.height)
-        }) { (_) in
-            
+        let view = CalendarOverlayView()
+        self.viewContent.addSubview(view)
+        
+        view.bottomAnchor.constraint(equalTo: self.viewContent.bottomAnchor).isActive = true
+        view.topAnchor.constraint(equalTo: self.viewContent.topAnchor, constant: -20).isActive = true
+        view.leadingAnchor.constraint(equalTo: self.viewContent.leadingAnchor).isActive = true
+        view.trailingAnchor.constraint(equalTo: self.viewContent.trailingAnchor).isActive = true
+        
+        view.delegate = self
+        
+        if let date = self.repeatEndsAfterDate {
+            view.selectDate(date)
         }
+        
+        self.calendarOverlayView = view
+//        self.viewAfterTimePickerBox.isHidden = false
+//
+//        self.viewAfterTimePickerContainer.frame = CGRect(x: 0, y: self.viewContent.frame.size.height, width: self.viewAfterTimePickerContainer.frame.size.width, height: self.viewAfterTimePickerContainer.frame.size.height)
+//        UIView.animate(withDuration: 0.5, animations: {
+//            self.viewAfterTimePickerContainer.frame = CGRect(x: 0, y: self.viewContent.frame.size.height - self.viewAfterTimePickerContainer.frame.size.height, width: self.viewAfterTimePickerContainer.frame.size.width, height: self.viewAfterTimePickerContainer.frame.size.height)
+//        }) { (_) in
+//
+//        }
     }
     
     func hideAfterTimeSelectPicker() {
-        self.viewAfterTimePickerContainer.frame = CGRect(x: 0, y: self.viewContent.frame.size.height - self.viewAfterTimePickerContainer.frame.size.height, width: self.viewAfterTimePickerContainer.frame.size.width, height: self.viewAfterTimePickerContainer.frame.size.height)
-        UIView.animate(withDuration: 0.5, animations: {
-            self.viewAfterTimePickerContainer.frame = CGRect(x: 0, y: self.viewContent.frame.size.height, width: self.viewAfterTimePickerContainer.frame.size.width, height: self.viewAfterTimePickerContainer.frame.size.height)
-        }) { (_) in
-            self.viewAfterTimePickerBox.isHidden = true
-        }
+        
+        self.calendarOverlayView.removeFromSuperview()
+//        self.viewAfterTimePickerContainer.frame = CGRect(x: 0, y: self.viewContent.frame.size.height - self.viewAfterTimePickerContainer.frame.size.height, width: self.viewAfterTimePickerContainer.frame.size.width, height: self.viewAfterTimePickerContainer.frame.size.height)
+//        UIView.animate(withDuration: 0.5, animations: {
+//            self.viewAfterTimePickerContainer.frame = CGRect(x: 0, y: self.viewContent.frame.size.height, width: self.viewAfterTimePickerContainer.frame.size.width, height: self.viewAfterTimePickerContainer.frame.size.height)
+//        }) { (_) in
+//            self.viewAfterTimePickerBox.isHidden = true
+//        }
+    }
+}
+
+extension CustomRecurrencePicker: CalendarOverlayViewDelegate {
+    func selectedDateOnCalendarOverlayView(_ view: CalendarOverlayView, date: Date) {
+        self.repeatEndsAfterDate = date
+        self.configureRepeatEndsAfterTime()
+        self.hideAfterTimeSelectPicker()
+    }
+    
+    func cancelOnCalendarOverlayView(_ view: CalendarOverlayView) {
+        self.hideAfterTimeSelectPicker()
     }
 }

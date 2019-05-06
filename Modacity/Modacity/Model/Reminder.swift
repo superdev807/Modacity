@@ -17,8 +17,11 @@ class ReminderCustomRepeatData: Mappable {
     var onWeeks = [Int]()
     var onDays = [Int]()
     var endsMode = 0
-    var endsNumber = 1
-    var endsUnit = 0
+    var endsDate: TimeInterval?
+    
+//    var endDateString: String?
+//    var endsNumber = 1
+//    var endsUnit = 0
     
     init() {}
     
@@ -29,9 +32,21 @@ class ReminderCustomRepeatData: Mappable {
         onWeeks <- map["on_weeks"]
         onDays <- map["on_days"]
         endsMode <- map["ends"]
-        endsNumber <- map["ends_number"]
-        endsUnit <- map["ends_unit"]
+        
+        endsDate <- map["end_date"]
+        
+//        endsNumber <- map["ends_number"]
+//        endsUnit <- map["ends_unit"]
     }
+    
+    func repeatEndDate() -> Date? {
+        if let ends = self.endsDate {
+            return Date(timeIntervalSince1970: ends)
+        }
+        
+        return nil
+    }
+    
     
     func customRepeatDescription() -> String {
         var resultString = ""
@@ -67,10 +82,14 @@ class ReminderCustomRepeatData: Mappable {
         }
         
         if self.endsMode == 1 {
-            if resultString.isEmpty {
-                resultString = " Ends after " + "\(self.endsNumber) \(["day", "week", "month"][self.endsUnit])\(self.endsNumber > 1 ? "s" : "")"
-            } else {
-                resultString = resultString + ", Ends after " + "\(self.endsNumber) \(["day", "week", "month"][self.endsUnit])\(self.endsNumber > 1 ? "s" : "")"
+            if let endDate = self.repeatEndDate() {
+                
+                if resultString.isEmpty {
+                    resultString = " Until \(endDate.toString(format: "MMM d, yyyy"))"
+                } else {
+                    resultString = resultString + ", until \(endDate.toString(format: "MMM d, yyyy"))"
+                }
+                
             }
         }
         
@@ -96,21 +115,16 @@ class ReminderCustomRepeatData: Mappable {
             }
         }
         
-        var expireDate: Date!
+        var expireDate: Date? = nil
         
         if endsMode == 1 {
-            
-            if endsUnit == 0 {
-                expireDate = started.advanced(years: 0, months: 0, weeks: 0, days: endsNumber, hours: 0, minutes: 0, seconds: 0)
-            } else if endsUnit == 1 {
-                expireDate = started.advanced(years: 0, months: 0, weeks: endsNumber, days: 0, hours: 0, minutes: 0, seconds: 0)
-            } else {
-                expireDate = started.advanced(years: 0, months: endsNumber, weeks: 0, days: 0, hours: 0, minutes: 0, seconds: 0)
+            if let endDate = self.repeatEndDate() {
+                expireDate = endDate
             }
         }
         
         var date = from
-        while (endsMode == 0 || (date.timeIntervalSince1970 < expireDate.timeIntervalSince1970)) {
+        while (expireDate == nil || (date.timeIntervalSince1970 < expireDate!.timeIntervalSince1970)) {
             date = date.advanced(years: 0, months: 0, weeks: 0, days: 1, hours: 0, minutes: 0, seconds: 0)
             if everyMode == 0 {
                 if onWeeks.contains(date.weekDay - 1) {
@@ -134,40 +148,40 @@ class ReminderCustomRepeatData: Mappable {
             
         } else {
             
-            var expireDate: Date!
-            if endsUnit == 0 {
-                expireDate = today.advanced(years: 0, months: 0, weeks: 0, days: endsNumber, hours: 0, minutes: 0, seconds: 0)
-            } else if endsUnit == 1 {
-                expireDate = today.advanced(years: 0, months: 0, weeks: endsNumber, days: 0, hours: 0, minutes: 0, seconds: 0)
-            } else {
-                expireDate = today.advanced(years: 0, months: endsNumber, weeks: 0, days: 0, hours: 0, minutes: 0, seconds: 0)
-            }
-            
-            var dates = [Date]()
-            
-            var date = today.startOfDate()
-            while (date.timeIntervalSince1970 < expireDate.timeIntervalSince1970) {
-                if everyMode == 0 {
-                    if onWeeks.contains(date.weekDay - 1) {
-                        dates.append(date)
+            if let endDate = self.repeatEndDate() {
+                
+                let expireDate = endDate
+                
+                var dates = [Date]()
+                
+                var date = today.startOfDate()
+                while (date.timeIntervalSince1970 < expireDate.timeIntervalSince1970) {
+                    if everyMode == 0 {
+                        if onWeeks.contains(date.weekDay - 1) {
+                            dates.append(date)
+                        }
+                    } else {
+                        if onDays.contains(date.day - 1) {
+                            dates.append(date)
+                        }
                     }
-                } else {
-                    if onDays.contains(date.day - 1) {
-                        dates.append(date)
-                    }
+                    date = date.advanced(years: 0, months: 0, weeks: 0, days: 1, hours: 0, minutes: 0, seconds: 0)
                 }
-                date = date.advanced(years: 0, months: 0, weeks: 0, days: 1, hours: 0, minutes: 0, seconds: 0)
+                
+                return dates.count
+                
+            } else {
+                
+                return -1
+                
             }
-            
-            return dates.count
-            
         }
     }
 }
 
 class Reminder: Mappable {
     
-    static let reminderRepeatingModes = ["Does Not Repeat", "Daily", "Weekly on Friday", "Every Weekday(Monday to Friday)", "Custom"]
+    static let reminderRepeatingModes = ["Does Not Repeat", "Daily", "Every Weekday(Monday to Friday)", "Custom"]
     
     var id: String!
     var practiceSessionId: String?
@@ -205,8 +219,6 @@ class Reminder: Mappable {
             case 1:
                 return "Every day at \(timeFormattedString)"
             case 2:
-                return "Every Friday at \(timeFormattedString)"
-            case 3:
                 return "Every Weekday (Monday to Friday) at \(timeFormattedString)"
             default:
                 return "Custom Repeat"
@@ -278,24 +290,6 @@ class Reminder: Mappable {
                     return (tomorrow.toString(format: "yyyy-MM-dd") + " " + timeString).date(format: "yyyy-MM-dd HH:mm") ?? tomorrow
                 }
             } else if repeatMode == 2 {
-                if now.weekDay == 6 {
-                    if now.hourIn24Format * 60 + now.minute < time!.hourIn24Format * 60 + time!.minute {
-                        return (Date().toString(format: "yyyy-MM-dd") + " " + timeString).date(format: "yyyy-MM-dd HH:mm") ?? Date()
-                    }
-                }
-                
-                var date = now
-                var seeker = 0
-                while (seeker < 7) {
-                    date = date.advanced(years: 0, months: 0, weeks: 0, days: 1, hours: 0, minutes: 0, seconds: 0)
-                    if date.weekDay == 6 {
-                        return (date.toString(format: "yyyy-MM-dd") + " " + timeString).date(format: "yyyy-MM-dd HH:mm") ?? Date()
-                    }
-                    seeker = seeker + 1
-                }
-                
-                return Date()
-            } else if repeatMode == 3 {
                 if now.weekDay >= 2 && now.weekDay <= 6  {
                     if now.hourIn24Format * 60 + now.minute < time!.hourIn24Format * 60 + time!.minute {
                         return (Date().toString(format: "yyyy-MM-dd") + " " + timeString).date(format: "yyyy-MM-dd HH:mm") ?? Date()

@@ -132,6 +132,7 @@ class RemindersManager {
                 content.body = "It's time to practice '\(practiceSession.name ?? "")'"
             }
         }
+        content.sound = UNNotificationSound.init(named: "ding.wav")
         
         if let repeatMode = reminder.repeatMode {
             
@@ -159,12 +160,6 @@ class RemindersManager {
                 requests.append(request)
                 notificationIds = [reminder.id]
             case 2:
-                date.weekday = 6
-                let trigger = UNCalendarNotificationTrigger(dateMatching: date, repeats: true)
-                let request = UNNotificationRequest(identifier: reminder.id, content: content, trigger: trigger)
-                requests.append(request)
-                notificationIds = [reminder.id]
-            case 3:
                 for wk in 2...6 {
                     date.weekday = wk
                     let trigger = UNCalendarNotificationTrigger(dateMatching: date, repeats: true)
@@ -175,7 +170,7 @@ class RemindersManager {
                 }
             default:
                 if let custom = reminder.custom {
-                    if custom.endsMode == 0 {
+                    if custom.endsMode == 0 || custom.repeatEndDate() == nil {
                         if custom.everyMode == 0 {
                             for wk in custom.onWeeks {
                                 date.weekday = wk + 1
@@ -198,14 +193,10 @@ class RemindersManager {
                     } else {
                         
                         let today = Date()
-                        var expireDate: Date!
-                        if custom.endsUnit == 0 {
-                            expireDate = today.advanced(years: 0, months: 0, weeks: 0, days: custom.endsNumber, hours: 0, minutes: 0, seconds: 0)
-                        } else if custom.endsUnit == 1 {
-                            expireDate = today.advanced(years: 0, months: 0, weeks: custom.endsNumber, days: 0, hours: 0, minutes: 0, seconds: 0)
-                        } else {
-                            expireDate = today.advanced(years: 0, months: custom.endsNumber, weeks: 0, days: 0, hours: 0, minutes: 0, seconds: 0)
-                        }
+                        
+                        var expireDate = Date()
+                        
+                        expireDate = custom.repeatEndDate()!
                         
                         var dates = [Date]()
                         

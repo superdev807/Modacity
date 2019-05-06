@@ -8,13 +8,14 @@
 
 import UIKit
 import Intercom
+import UserNotifications
 
-class LeftMenuViewController: ModacityParentViewController {
+class LeftMenuViewController: ModacityParentViewController, UNUserNotificationCenterDelegate {
     
     @IBOutlet weak var tableViewMain: UITableView!
     
-    let menuTitles = ["Home", "Metrodrone", /*"Recordings",*/"Overview", "Settings", "Feedback", "About Us", "Sign Out"]
-    let menuIcons = ["icon_menu_home", "icon_menu_metrodrone", /*"icon_menu_mic",*/"icon_menu_overview", "icon_menu_settings", "icon_menu_feedbacks_new", "icon_menu_about", "icon_menu_signout"]
+    let menuTitles = ["Home", "Metrodrone", /*"Recordings",*/"Overview", "Settings", "Reminders", "Feedback", "About Us", "Sign Out"]
+    let menuIcons = ["icon_menu_home", "icon_menu_metrodrone", /*"icon_menu_mic",*/"icon_menu_overview", "icon_menu_settings", "icon_menu_reminder", "icon_menu_feedbacks_new", "icon_menu_about", "icon_menu_signout"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -114,7 +115,7 @@ extension LeftMenuViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         tableView.deselectRow(at: indexPath, animated: true)
-        if indexPath.row == 6 {
+        if indexPath.row == 7 {
             if Authorizer.authorizer.isGuestLogin() {
                 self.openCreateAccount()
             } else {
@@ -173,6 +174,16 @@ extension LeftMenuViewController: UITableViewDataSource, UITableViewDelegate {
             if Authorizer.authorizer.isGuestLogin() {
                 self.openCreateAccount()
             } else {
+                
+                self.openReminder()
+            }
+            
+            
+        } else if indexPath.row == 5 {
+            
+            if Authorizer.authorizer.isGuestLogin() {
+                self.openCreateAccount()
+            } else {
                 let attr :ICMUserAttributes = ICMUserAttributes.init()
                 attr.customAttributes = ["AppLocation" : "feedback"]
                 Intercom.updateUser(attr)
@@ -182,7 +193,7 @@ extension LeftMenuViewController: UITableViewDataSource, UITableViewDelegate {
             }
                 
             
-        } else if indexPath.row == 5 {
+        } else if indexPath.row == 6 {
             
             if (self.sideMenuController?.rootViewController is UINavigationController)
                 && (self.sideMenuController?.rootViewController as! UINavigationController).viewControllers[0] is AboutViewController {
@@ -193,5 +204,61 @@ extension LeftMenuViewController: UITableViewDataSource, UITableViewDelegate {
             self.sideMenuController?.hideLeftViewAnimated()
             
         }
+    }
+    
+    func openReminder() {
+        
+        if (self.sideMenuController?.rootViewController is UINavigationController)
+            && (self.sideMenuController?.rootViewController as! UINavigationController).viewControllers[0] is RemindersListViewController {
+            
+        } else {
+            
+            let notificationCenter = UNUserNotificationCenter.current()
+            notificationCenter.getNotificationSettings { (settings) in
+                
+                if settings.authorizationStatus == .authorized {
+                    DispatchQueue.main.async {
+                        let controller = UIStoryboard(name:"reminder", bundle:nil).instantiateViewController(withIdentifier: "reminderscene")
+                        self.sideMenuController?.rootViewController = controller
+                        self.sideMenuController?.hideLeftViewAnimated()
+                    }
+                } else if settings.authorizationStatus == .notDetermined {
+                    DispatchQueue.main.async {
+                        notificationCenter.requestAuthorization(options: [.alert,.sound,.badge], completionHandler: {(granted,error) in
+                            if granted {
+                                ModacityAnalytics.LogStringEvent("User Enabled Push Notifications")
+                                DispatchQueue.main.async {
+                                    UIApplication.shared.registerForRemoteNotifications()
+                                    let controller = UIStoryboard(name:"reminder", bundle: nil).instantiateViewController(withIdentifier: "RemindersListViewController")
+                                    self.navigationController?.pushViewController(controller, animated:true)
+                                }
+                            } else {
+                                ModacityAnalytics.LogStringEvent("User Refused Push Notifications")
+                                DispatchQueue.main.async {
+                                    AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Please allow notification to use Reminders")
+                                }
+                            }
+                        })
+                        notificationCenter.delegate = self
+                    }
+                } else {
+                    let alertController = UIAlertController(title: nil, message: "Please enable notifications in Settings to use Reminders.", preferredStyle: .alert)
+                    alertController.addAction(UIAlertAction(title: "Settings", style: .default, handler: { (_) in
+                        guard let settingsUrl = URL(string: UIApplicationOpenSettingsURLString) else {return}
+                        
+                        if UIApplication.shared.canOpenURL(settingsUrl) {
+                            UIApplication.shared.open(settingsUrl, options: [:], completionHandler: { (success) in
+                            })
+                        }
+                    }))
+                    alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                    self.present(alertController, animated: true, completion: nil)
+                }
+            }
+        }
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.alert,.sound,.badge])
     }
 }

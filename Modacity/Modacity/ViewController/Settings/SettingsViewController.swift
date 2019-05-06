@@ -160,9 +160,9 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
             return 5
         } else if section == 2 {
             if PremiumDataManager.manager.isPremiumUnlocked() {
-                return 8
-            } else {
                 return 7
+            } else {
+                return 6
             }
         } else if section == 3 {
             return 2
@@ -291,10 +291,6 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
                 return cell
             } else if indexPath.row == 6 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCellWithoutIcon") as! SettingsCellWithoutIcon
-                cell.configure(caption: "Practice Reminders")
-                return cell
-            } else if indexPath.row == 7 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCellWithoutIcon") as! SettingsCellWithoutIcon
                 cell.configure(caption: "“Take a Break” Reminder")
                 return cell
             }
@@ -358,10 +354,8 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
         } else if indexPath.section == 2 {
             if indexPath.row == 0 {
                 self.performSegue(withIdentifier: "sid_app_data", sender: nil)
-            } else if indexPath.row == 7 {
-                self.openBreakReminderSettingsPage()
             } else if indexPath.row == 6 {
-                self.openPracticeReminders()
+                self.openBreakReminderSettingsPage()
             }
         } else if indexPath.section == 4 {
             if indexPath.row == 0 {
@@ -477,7 +471,8 @@ extension SettingsViewController: SettingsCellTextFieldDelegate {
     }
 }
 
-extension SettingsViewController {
+extension SettingsViewController: UNUserNotificationCenterDelegate {
+    
     func openInAppTutorialsPages() {
         self.performSegue(withIdentifier: "sid_tutorials", sender: nil)
     }
@@ -522,6 +517,8 @@ extension SettingsViewController {
                             }
                         }
                     })
+                    
+                    notificationCenter.delegate = self
                 }
             } else {
                 let alertController = UIAlertController(title: nil, message: "Please enable notifications in Settings to use Reminders.", preferredStyle: .alert)
@@ -537,5 +534,9 @@ extension SettingsViewController {
                 self.present(alertController, animated: true, completion: nil)
             }
         }
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.alert,.sound,.badge])
     }
 }

@@ -27,7 +27,7 @@
         <!--Navigation Controller-->
         <scene sceneID="lgJ-s6-v3u">
             <objects>
-                <navigationController storyboardIdentifier="feedbackscene" useStoryboardIdentifierAsRestorationIdentifier="YES" navigationBarHidden="YES" id="yLv-WZ-Nai" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="reminderscene" useStoryboardIdentifierAsRestorationIdentifier="YES" navigationBarHidden="YES" id="yLv-WZ-Nai" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="41O-uF-IMm">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -215,6 +215,7 @@
                     <connections>
                         <outlet property="buttonAddNew" destination="9Ay-KY-1jH" id="1oL-lJ-w0k"/>
                         <outlet property="constraintForHeaderImageViewHeight" destination="8kL-p8-4Pg" id="68a-Fh-E4N"/>
+                        <outlet property="imageViewTopLeft" destination="RbY-FD-URo" id="38b-2f-fX8"/>
                         <outlet property="labelNoReminders" destination="FiZ-44-ovj" id="nz9-eB-4mI"/>
                         <outlet property="tableViewReminders" destination="yWy-zO-t0b" id="bQU-cX-Ijg"/>
                         <segue destination="kEm-gM-lKQ" kind="show" identifier="sid_reminder_edit" id="PJY-mb-Ll1"/>
@@ -321,7 +322,7 @@
                                                 <color key="textColor" red="0.57254901960000004" green="0.57254901960000004" blue="0.57254901960000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_arrow_left_gray" translatesAutoresizingMaskIntoConstraints="NO" id="Nlk-PO-ySl">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_arrow_right_gray" translatesAutoresizingMaskIntoConstraints="NO" id="Nlk-PO-ySl">
                                                 <rect key="frame" x="275" y="17.666666666666657" width="8" height="12"/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Every Monday, Tuesday, Wednesday and Sunday, ends after 5 weeks" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="usr-ag-0vc">
@@ -363,7 +364,7 @@
                                                 <color key="textColor" red="0.57254901960000004" green="0.57254901960000004" blue="0.57254901960000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_arrow_left_gray" translatesAutoresizingMaskIntoConstraints="NO" id="aMT-8X-g4u">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_arrow_right_gray" translatesAutoresizingMaskIntoConstraints="NO" id="aMT-8X-g4u">
                                                 <rect key="frame" x="275" y="17.666666666666686" width="8" height="12"/>
                                             </imageView>
                                         </subviews>
@@ -432,7 +433,7 @@
         <image name="bg_header_small" width="375" height="87"/>
         <image name="btn_remind" width="182" height="58"/>
         <image name="icon_arrow_left" width="10" height="15"/>
-        <image name="icon_arrow_left_gray" width="8" height="12"/>
+        <image name="icon_arrow_right_gray" width="8" height="12"/>
         <image name="icon_cell_menu_gray" width="20" height="4"/>
         <image name="icon_remind_calendar" width="20" height="22"/>
     </resources>
