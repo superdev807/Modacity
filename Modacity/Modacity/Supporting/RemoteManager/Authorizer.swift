@@ -398,7 +398,11 @@ class Authorizer: NSObject {
     
     func googleLogin(completion: @escaping (String?)->()){
         self.completionCallbackForGoogleSignin = completion
-        GIDSignIn.sharedInstance().signIn()
+        do {
+            try GIDSignIn.sharedInstance().signIn()
+        } catch let error {
+            print("Error in google sign in : \(error)")
+        }
         GIDSignIn.sharedInstance().delegate = self
     }
     
