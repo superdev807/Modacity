@@ -140,16 +140,20 @@ class RemindersManager {
             
             var date = DateComponents()
             
-            if let time = reminder.timeString.date(format: "HH:mm") {
-                date.hour = Int(time.toString(format: "HH"))
-                date.minute = Int(time.toString(format: "mm"))
-                date.second = 0
-            }
+            let time = /*reminder.timeString.date(format: "HH:mm")*/reminder.getTime()
+            
+            date.hour = Int(time.toString(format: "HH"))
+            date.minute = Int(time.toString(format: "mm"))
+            date.second = 0
+            
             
             var requests = [UNNotificationRequest]()
             
             switch (repeatMode) {
             case 0:
+                date.year = Int(time.toString(format: "yyyy"))
+                date.month = Int(time.toString(format: "MM"))
+                date.day = Int(time.toString(format: "dd"))
                 let trigger = UNCalendarNotificationTrigger(dateMatching: date, repeats: false)
                 let request = UNNotificationRequest(identifier: reminder.id, content: content, trigger: trigger)
                 requests.append(request)
@@ -221,10 +225,11 @@ class RemindersManager {
                             dateCmp.year = date.year
                             dateCmp.month = date.month
                             dateCmp.day = date.day
-                            if let time = reminder.timeString.date(format: "HH:mm") {
+                            let time = reminder.getTime()
+//                            if let time = reminder.timeString.date(format: "HH:mm") {
                                 dateCmp.hour = Int(time.toString(format: "HH"))
                                 dateCmp.minute = Int(time.toString(format: "mm"))
-                            }
+//                            }
                             dateCmp.second = 0
                             
                             ModacityDebugger.debug("\(dateCmp.month!) - \(dateCmp.day!), \(dateCmp.hour!):\(dateCmp.minute!)")

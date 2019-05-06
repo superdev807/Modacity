@@ -133,7 +133,12 @@ extension SetReminderViewController: TimePickerOverlayViewDelegate {
     func showSelectedTimeValue() {
         if let time = self.selectedTime {
             self.labelSelectedTime.textColor = labelsSelectedColor
-            self.labelSelectedTime.text = time.toString(format: "h:mm a")
+            if time.isToday {
+                self.labelSelectedTime.text = "Today at \(time.toString(format: "h:mm a"))"
+            } else {
+                self.labelSelectedTime.text = time.toString(format: "h:mm a, MMM d")
+            }
+            
         } else {
             self.labelSelectedTime.textColor = labelsPlaceholderColor
             self.labelSelectedTime.text = "Time"
@@ -246,13 +251,17 @@ extension SetReminderViewController: CustomRecurrencePickerDelegate {
     
     func selectCustomRecurrence(everyMode: Int, onWeeks: [Int], onDays: [Int], endsMode: Int, endsDate: Date?) {
         
+        
+        if ((everyMode == 0 && onWeeks.count == 0) || (everyMode == 1 && onDays.count == 0)) {
+            AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Repeat days setting is empty.")
+        }
+        
         let custom = ReminderCustomRepeatData()
         custom.everyMode = everyMode
         custom.onWeeks = onWeeks
         custom.onDays = onDays
         custom.endsMode = endsMode
         custom.endsDate = endsDate?.timeIntervalSince1970
-//        custom.endDateString = endsDate?.toString(format: "yyyy-MM-dd HH:mm:ss")
         
         self.selectedRepeatMode = Reminder.reminderRepeatingModes.count - 1
         self.showSelectedRepeatMode()
@@ -277,9 +286,10 @@ extension SetReminderViewController {
         
         if self.selectedRepeatMode == nil || self.selectedRepeatMode! == 0 {
             let now = Date()
+            
             let time = self.selectedTime!
             
-            if now.hourIn24Format * 60 + now.minute >= time.hourIn24Format * 60 + time.minute {
+            if time.timeIntervalSince1970 < now.timeIntervalSince1970 {
                 AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Reminder time already passed.")
                 return
             }
@@ -304,7 +314,8 @@ extension SetReminderViewController {
             if let reminder = self.editingReminder {
                 
                 reminder.practiceSessionId = self.selectedPlaylistId
-                reminder.timeString = selectedTime.toString(format: "HH:mm")
+                reminder.timeString = selectedTime.toString(format: "yyyy-MM-dd HH:mm z")
+                reminder.timeStringFormat = "yyyy-MM-dd HH:mm z"
                 if self.selectedRepeatMode == nil {
                     reminder.repeatMode = 0
                 } else {
@@ -320,7 +331,8 @@ extension SetReminderViewController {
                 let reminder = Reminder()
                 reminder.id = UUID().uuidString
                 reminder.practiceSessionId = self.selectedPlaylistId
-                reminder.timeString = selectedTime.toString(format: "HH:mm")
+                reminder.timeString = selectedTime.toString(format: "yyyy-MM-dd HH:mm z")
+                reminder.timeStringFormat = "yyyy-MM-dd HH:mm z"
                 reminder.createdAt = Date().timeIntervalSince1970
                 if self.selectedRepeatMode == nil {
                     reminder.repeatMode = 0

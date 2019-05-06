@@ -48,6 +48,8 @@ class TimePickerOverlayView: UIView {
         
         self.viewContentBox.layer.cornerRadius = 5
         self.buttonDone.layer.cornerRadius = 28
+        
+        self.datePicker.datePickerMode = .dateAndTime
     }
 
     @IBAction func onDone(_ sender: Any) {

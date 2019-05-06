@@ -186,6 +186,7 @@ class Reminder: Mappable {
     var id: String!
     var practiceSessionId: String?
     var timeString: String!
+    var timeStringFormat: String?
     var repeatMode: Int?
     var custom: ReminderCustomRepeatData?
     var createdAt: TimeInterval?
@@ -204,18 +205,47 @@ class Reminder: Mappable {
         repeatMode <- map["repeat_mode"]
         custom <- map["repeat_custom"]
         createdAt <- map["created_at"]
+        timeStringFormat <- map["tformat"]
+    }
+    
+    func getTime() -> Date {
+        if self.timeStringFormat == nil {
+            return timeString.date(format: "HH:mm")!
+        } else {
+            return timeString.date(format: self.timeStringFormat!) ?? Date()
+        }
+    }
+    
+    func getTimeString() -> String {
+        if self.timeStringFormat == nil {
+            return timeString.date(format: "HH:mm")!.toString(format: "HH:mm")
+        } else {
+            return (timeString.date(format: self.timeStringFormat!) ?? Date()).toString(format: "HH:mm")
+        }
     }
     
     func repeatDescription() -> String {
-        if timeString == nil {
+        if self.timeString == nil {
             return ""
         }
-        let time = timeString.date(format: "HH:mm")!
+        let time = self.getTime()
         let timeFormattedString = time.toString(format: "h:mm a").uppercased()
         if let repeatMode = repeatMode {
             switch repeatMode {
             case 0:
-                return "Today at \(timeFormattedString)"
+                if (self.timeStringFormat == nil) {
+                    return "Today at \(timeFormattedString)"
+                } else {
+                    let dateString = time.toString(format: "MMM d")
+                    let timeString = time.toString(format: "h:mm a").uppercased()
+                    if time.isToday {
+                        return "Today at \(timeString)"
+                    } else if time.isTomorrow {
+                        return "Tomorrow at \(timeString)"
+                    } else {
+                        return "\(timeString), \(dateString)"
+                    }
+                }
             case 1:
                 return "Every day at \(timeFormattedString)"
             case 2:
@@ -242,22 +272,32 @@ class Reminder: Mappable {
     
     func isExpired() -> Bool {
         if repeatMode == nil || repeatMode! == 0 {
-            let time = timeString.date(format: "HH:mm")
-            var created = Date()
-            if let createdAt = createdAt {
-                created = Date(timeIntervalSince1970: createdAt)
-            }
+            
+            let time = self.getTime()
+            
+//            var created = Date()
+//            if let createdAt = createdAt {
+//                created = Date(timeIntervalSince1970: createdAt)
+//            }
+            
             let now = Date()
             
-            if now.toString(format: "yyyy-MM-dd") != created.toString(format: "yyyy-MM-dd") {
+            if now.timeIntervalSince1970 > time.timeIntervalSince1970 {
                 return true
             } else {
-                if now.hourIn24Format * 60 + now.minute > time!.hourIn24Format * 60 + time!.minute {
-                    return true
-                } else {
-                    return false
-                }
+                return false
             }
+            
+//            if now.toString(format: "yyyy-MM-dd") != created.toString(format: "yyyy-MM-dd") {
+//                return true
+//            } else {
+//                if now.hourIn24Format * 60 + now.minute > time.hourIn24Format * 60 + time.minute {
+//                    return true
+//                } else {
+//                    return false
+//                }
+//            }
+            
         }
         
         if repeatMode != nil && repeatMode! == Reminder.reminderRepeatingModes.count - 1 {
@@ -267,7 +307,7 @@ class Reminder: Mappable {
                     if let createdAt = createdAt {
                         created = Date(timeIntervalSince1970: createdAt)
                     }
-                    if custom.calculateNextScheduleTime(time: timeString.date(format: "HH:mm")!, from: Date(), started: created) == nil {
+                    if custom.calculateNextScheduleTime(time: /*timeString.date(format: "HH:mm")!*/self.getTimeString().date(format: "HH:mm")!, from: Date(), started: created) == nil {
                         return true
                     }
                 }
@@ -279,11 +319,11 @@ class Reminder: Mappable {
     func nextScheduledTime() -> Date {
         if let repeatMode = self.repeatMode {
             let now = Date()
-            let time = timeString.date(format: "HH:mm")
+            let time = self.getTime()
             if repeatMode == 0 {
-                return (Date().toString(format: "yyyy-MM-dd") + " " + timeString).date(format: "yyyy-MM-dd HH:mm") ?? Date()
+                return time
             } else if repeatMode == 1 {
-                if now.hourIn24Format * 60 + now.minute < time!.hourIn24Format * 60 + time!.minute {
+                if now.hourIn24Format * 60 + now.minute < time.hourIn24Format * 60 + time.minute {
                     return (Date().toString(format: "yyyy-MM-dd") + " " + timeString).date(format: "yyyy-MM-dd HH:mm") ?? Date()
                 } else {
                     let tomorrow = Date().advanced(years: 0, months: 0, weeks: 0, days: 1, hours: 0, minutes: 0, seconds: 0)
@@ -291,7 +331,7 @@ class Reminder: Mappable {
                 }
             } else if repeatMode == 2 {
                 if now.weekDay >= 2 && now.weekDay <= 6  {
-                    if now.hourIn24Format * 60 + now.minute < time!.hourIn24Format * 60 + time!.minute {
+                    if now.hourIn24Format * 60 + now.minute < time.hourIn24Format * 60 + time.minute {
                         return (Date().toString(format: "yyyy-MM-dd") + " " + timeString).date(format: "yyyy-MM-dd HH:mm") ?? Date()
                     }
                 }
@@ -309,7 +349,7 @@ class Reminder: Mappable {
                 return Date()
             } else {
                 if let custom = self.custom {
-                    return custom.calculateNextScheduleTime(time: time!, from: Date(), started: Date(timeIntervalSince1970: (createdAt ?? 0)) ) ?? Date()
+                    return custom.calculateNextScheduleTime(time: time, from: Date(), started: Date(timeIntervalSince1970: (createdAt ?? 0)) ) ?? Date()
                 } else {
                     return Date()
                 }
