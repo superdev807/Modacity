@@ -44,7 +44,7 @@ extension SettingsAppDataViewController: UITableViewDataSource, UITableViewDeleg
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCellWithIcon") as! SettingsCellWithIcon
         if indexPath.row == 0 {
-            cell.configure(icon: "icon_sync", caption: "Refresh Practice Data (From Server)")
+            cell.configure(icon: "icon_sync", caption: "Sync Account Data")
         } else {
             cell.configure(icon: "icon_clean_data", caption: "Erase All Practice Data")
         }
