@@ -83,9 +83,6 @@ class PlaylistHistoryView: UIView {
         let bottomView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 20))
         bottomView.backgroundColor = Color.clear
         self.tableViewMain.tableFooterView = bottomView
-        
-//        self.constraintForHistoryViewTopActionsPanelHeight.constant = 0
-//        self.viewTopActionsPanel.isHidden = true
     }
     
     func clear() {
@@ -150,14 +147,7 @@ class PlaylistHistoryView: UIView {
             if let dailyDatas = self.data[time.toString(format: "yy-MM-dd")] {
                 for daily in dailyDatas {
                     totalPracticesSeconds = totalPracticesSeconds + daily.practiceTimeInSeconds
-
-//                    if daily.practices != nil {
-//                        for practiceId in daily.practices {
-//                            if let practicingData = PracticingDailyLocalManager.manager.practicingData(forDataId: practiceId) {
-                                practiceData.practiceDataList.append(daily)
-//                            }
-//                        }
-//                    }
+                    practiceData.practiceDataList.append(daily)
                 }
             }
             

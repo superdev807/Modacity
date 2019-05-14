@@ -49,7 +49,7 @@ class SetReminderViewController: UIViewController {
         self.configureViewPanels()
         
         if let editingReminder = self.editingReminder {
-            self.selectedTime = editingReminder.timeString.date(format: "HH:mm")
+            self.selectedTime = editingReminder.getTime()
             self.selectedRepeatMode = editingReminder.repeatMode
             self.selectedPlaylistId = editingReminder.practiceSessionId
             self.selectedCustom = editingReminder.custom

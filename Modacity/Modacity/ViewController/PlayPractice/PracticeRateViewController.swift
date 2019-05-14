@@ -154,10 +154,16 @@ class PracticeRateViewController: ModacityParentViewController {
                                                                   forPracticeEntry: self.playlistViewModel.currentPracticeEntry.entryId,
                                                                   improvements: self.playlistViewModel.sessionImproved,
                                                                   parentId: self.playlistViewModel.playlistPracticeData.entryId)
+            
+            
+            print("Current playlist practicing data: \(self.playlistViewModel.playlistPracticeData.toJSON())")
+            
             self.playlistViewModel.playlistPracticeData.practices.append(id)
             self.playlistViewModel.playlistPracticeData.practiceTimeInSeconds = self.playlistViewModel.totalPracticedTime() /*+ self.playlistViewModel.sessionPlayedInPlaylistPage*/
             PlaylistDailyLocalManager.manager.saveNewPlaylistPracticing(self.playlistViewModel.playlistPracticeData)
             self.playlistViewModel.sessionImproved = [ImprovedRecord]()
+            
+            print("Current playlist practicing data: \(self.playlistViewModel.playlistPracticeData.toJSON())")
         } else {
             let practiceId = PracticingDailyLocalManager.manager.saveNewPracticing(practiceItemId: self.practiceItem.id,
                                                                   started: self.deliverModel.sessionTimeStarted ?? Date(),

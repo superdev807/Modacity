@@ -226,10 +226,8 @@ class RemindersManager {
                             dateCmp.month = date.month
                             dateCmp.day = date.day
                             let time = reminder.getTime()
-//                            if let time = reminder.timeString.date(format: "HH:mm") {
-                                dateCmp.hour = Int(time.toString(format: "HH"))
-                                dateCmp.minute = Int(time.toString(format: "mm"))
-//                            }
+                            dateCmp.hour = Int(time.toString(format: "HH"))
+                            dateCmp.minute = Int(time.toString(format: "mm"))
                             dateCmp.second = 0
                             
                             ModacityDebugger.debug("\(dateCmp.month!) - \(dateCmp.day!), \(dateCmp.hour!):\(dateCmp.minute!)")

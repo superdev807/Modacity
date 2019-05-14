@@ -324,15 +324,15 @@ class Reminder: Mappable {
                 return time
             } else if repeatMode == 1 {
                 if now.hourIn24Format * 60 + now.minute < time.hourIn24Format * 60 + time.minute {
-                    return (Date().toString(format: "yyyy-MM-dd") + " " + timeString).date(format: "yyyy-MM-dd HH:mm") ?? Date()
+                    return (Date().toString(format: "yyyy-MM-dd") + " " + time.toString(format: "HH:mm")).date(format: "yyyy-MM-dd HH:mm") ?? Date()
                 } else {
                     let tomorrow = Date().advanced(years: 0, months: 0, weeks: 0, days: 1, hours: 0, minutes: 0, seconds: 0)
-                    return (tomorrow.toString(format: "yyyy-MM-dd") + " " + timeString).date(format: "yyyy-MM-dd HH:mm") ?? tomorrow
+                    return (tomorrow.toString(format: "yyyy-MM-dd") + " " + time.toString(format: "HH:mm")).date(format: "yyyy-MM-dd HH:mm") ?? tomorrow
                 }
             } else if repeatMode == 2 {
                 if now.weekDay >= 2 && now.weekDay <= 6  {
                     if now.hourIn24Format * 60 + now.minute < time.hourIn24Format * 60 + time.minute {
-                        return (Date().toString(format: "yyyy-MM-dd") + " " + timeString).date(format: "yyyy-MM-dd HH:mm") ?? Date()
+                        return (Date().toString(format: "yyyy-MM-dd") + " " + time.toString(format: "HH:mm")).date(format: "yyyy-MM-dd HH:mm") ?? Date()
                     }
                 }
                 
@@ -341,7 +341,7 @@ class Reminder: Mappable {
                 while (seeker < 7) {
                     date = date.advanced(years: 0, months: 0, weeks: 0, days: 1, hours: 0, minutes: 0, seconds: 0)
                     if date.weekDay >= 2 && date.weekDay <= 6  {
-                        return (date.toString(format: "yyyy-MM-dd") + " " + timeString).date(format: "yyyy-MM-dd HH:mm") ?? Date()
+                        return (date.toString(format: "yyyy-MM-dd") + " " + time.toString(format: "HH:mm")).date(format: "yyyy-MM-dd HH:mm") ?? Date()
                     }
                     seeker = seeker + 1
                 }
@@ -355,7 +355,8 @@ class Reminder: Mappable {
                 }
             }
         } else {
-            return (Date().toString(format: "yyyy-MM-dd") + " " + timeString).date(format: "yyyy-MM-dd HH:mm") ?? Date()
+            let time = self.getTime()
+            return (Date().toString(format: "yyyy-MM-dd") + " " + time.toString(format: "HH:mm")).date(format: "yyyy-MM-dd HH:mm") ?? Date()
         }
     }
 }

@@ -159,7 +159,6 @@ class ReminderCell: UITableViewCell {
         
         self.labelPlaylistName.text = "Practice session: \(reminder.practiceSessionDescription())"
         
-        
         if reminder.repeatMode == nil || reminder.repeatMode! == 0 {
             self.labelRepeats.text = reminder.repeatDescription()
             self.labelNextSchedule.text = ""

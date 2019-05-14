@@ -565,7 +565,7 @@ class PlaylistContentsViewController: ModacityParentViewController {
         self.viewModel.playlistPracticeData.entryDateString = now.toString(format: "yy-MM-dd")
         self.viewModel.playlistPracticeData.fromTime = now.toString(format: "HH:mm:ss")
         self.viewModel.playlistPracticeData.started = now.timeIntervalSince1970
-        self.viewModel.playlistPracticeData.practices = [String]()
+//        self.viewModel.playlistPracticeData.practices = [String]()
         PlaylistDailyLocalManager.manager.saveNewPlaylistPracticing(self.viewModel.playlistPracticeData)
         
         self.viewModel.sessionImproved = [ImprovedRecord]()
