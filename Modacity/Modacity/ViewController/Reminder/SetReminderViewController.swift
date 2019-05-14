@@ -67,6 +67,10 @@ class SetReminderViewController: UIViewController {
         self.showSelectedRepeatMode()
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     @IBAction func onBack(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }

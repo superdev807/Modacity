@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -1035,13 +1035,34 @@ named to be saved.</string>
                                     <constraint firstAttribute="trailing" secondItem="1Yb-M0-ntn" secondAttribute="trailing" id="jOx-Ph-M7S"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sLd-kW-EbF">
-                                <rect key="frame" x="92.5" y="591" width="190" height="66"/>
-                                <state key="normal" image="btn_done"/>
-                                <connections>
-                                    <action selector="onSkip:" destination="0bp-de-LWD" eventType="touchUpInside" id="g0o-jk-GPg"/>
-                                </connections>
-                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B5v-oc-t6n">
+                                <rect key="frame" x="10" y="581" width="355" height="66"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sLd-kW-EbF">
+                                        <rect key="frame" x="19" y="0.0" width="153" height="66"/>
+                                        <state key="normal" image="btn_set_reminder"/>
+                                        <connections>
+                                            <action selector="onSetReminder:" destination="0bp-de-LWD" eventType="touchUpInside" id="mR2-eR-Bmt"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8g7-DQ-T9C">
+                                        <rect key="frame" x="177" y="0.0" width="153" height="66"/>
+                                        <state key="normal" image="btn_cong_done"/>
+                                        <connections>
+                                            <action selector="onSkip:" destination="0bp-de-LWD" eventType="touchUpInside" id="FLX-Ls-Vq2"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="sLd-kW-EbF" firstAttribute="leading" secondItem="B5v-oc-t6n" secondAttribute="leading" constant="19" id="DpG-Z6-YfR"/>
+                                    <constraint firstItem="sLd-kW-EbF" firstAttribute="top" secondItem="B5v-oc-t6n" secondAttribute="top" id="GGC-b8-rAi"/>
+                                    <constraint firstItem="8g7-DQ-T9C" firstAttribute="leading" secondItem="sLd-kW-EbF" secondAttribute="trailing" constant="5" id="NIz-YM-oPU"/>
+                                    <constraint firstAttribute="bottom" secondItem="sLd-kW-EbF" secondAttribute="bottom" id="TZs-LC-UDS"/>
+                                    <constraint firstItem="8g7-DQ-T9C" firstAttribute="centerY" secondItem="sLd-kW-EbF" secondAttribute="centerY" id="bEp-Ru-V1V"/>
+                                    <constraint firstAttribute="trailing" secondItem="8g7-DQ-T9C" secondAttribute="trailing" constant="25" id="jAs-kc-g8S"/>
+                                </constraints>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uTn-IJ-aKm">
                                 <rect key="frame" x="331" y="24" width="44" height="44"/>
                                 <constraints>
@@ -1056,19 +1077,19 @@ named to be saved.</string>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="B5v-oc-t6n" firstAttribute="top" secondItem="BId-NN-Jte" secondAttribute="bottom" constant="-2" id="1Vs-hj-DTE"/>
                             <constraint firstItem="V4X-8z-zQR" firstAttribute="bottom" secondItem="YRQ-Ef-Vnh" secondAttribute="bottom" constant="40" id="3Jo-L8-OsD"/>
-                            <constraint firstItem="YRQ-Ef-Vnh" firstAttribute="bottom" secondItem="sLd-kW-EbF" secondAttribute="bottom" constant="10" id="5t6-UE-CZh"/>
                             <constraint firstItem="2P2-vP-yD3" firstAttribute="top" secondItem="YRQ-Ef-Vnh" secondAttribute="top" constant="16" id="6dU-MK-xDE"/>
                             <constraint firstItem="adW-sx-asn" firstAttribute="leading" secondItem="YRQ-Ef-Vnh" secondAttribute="leading" constant="16" id="83i-oi-nOd"/>
-                            <constraint firstItem="sLd-kW-EbF" firstAttribute="top" secondItem="BId-NN-Jte" secondAttribute="bottom" constant="8" id="Acc-gk-i6F"/>
                             <constraint firstItem="adW-sx-asn" firstAttribute="top" secondItem="YRQ-Ef-Vnh" secondAttribute="top" constant="15" id="Du1-4C-Jb1"/>
                             <constraint firstItem="2P2-vP-yD3" firstAttribute="leading" secondItem="YRQ-Ef-Vnh" secondAttribute="leading" constant="40" id="KoZ-Lk-aIu"/>
                             <constraint firstItem="V4X-8z-zQR" firstAttribute="trailing" secondItem="YRQ-Ef-Vnh" secondAttribute="trailing" id="MLS-GB-KtK"/>
-                            <constraint firstItem="sLd-kW-EbF" firstAttribute="centerX" secondItem="YRQ-Ef-Vnh" secondAttribute="centerX" id="NgA-fa-eih"/>
+                            <constraint firstItem="YRQ-Ef-Vnh" firstAttribute="bottom" secondItem="B5v-oc-t6n" secondAttribute="bottom" constant="20" id="Vpi-Y8-pVn"/>
                             <constraint firstItem="V4X-8z-zQR" firstAttribute="leading" secondItem="YRQ-Ef-Vnh" secondAttribute="leading" id="WEh-Qp-q2K"/>
                             <constraint firstItem="pdX-tn-VLq" firstAttribute="leading" secondItem="YRQ-Ef-Vnh" secondAttribute="leading" id="Z3O-mO-omx"/>
                             <constraint firstItem="BId-NN-Jte" firstAttribute="leading" secondItem="jDC-ir-3AD" secondAttribute="leading" constant="20" id="d8u-sV-bHt"/>
                             <constraint firstItem="BId-NN-Jte" firstAttribute="trailing" secondItem="jDC-ir-3AD" secondAttribute="trailing" constant="-20" id="e5A-I7-Tsr"/>
+                            <constraint firstItem="B5v-oc-t6n" firstAttribute="centerX" secondItem="YRQ-Ef-Vnh" secondAttribute="centerX" id="h5C-pj-IOd"/>
                             <constraint firstItem="YRQ-Ef-Vnh" firstAttribute="trailing" secondItem="uTn-IJ-aKm" secondAttribute="trailing" id="iRU-Eg-Ot9"/>
                             <constraint firstItem="V4X-8z-zQR" firstAttribute="top" secondItem="cmo-0L-9VB" secondAttribute="top" id="jsv-uN-9q6"/>
                             <constraint firstItem="BId-NN-Jte" firstAttribute="top" secondItem="jDC-ir-3AD" secondAttribute="bottom" constant="1.5" id="lGB-v6-ffe"/>
@@ -1281,7 +1302,7 @@ named to be saved.</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="inY-mY-2vp">
-                                <rect key="frame" x="92.5" y="561" width="190" height="66"/>
+                                <rect key="frame" x="96.5" y="569" width="182" height="58"/>
                                 <state key="normal" image="btn_remind"/>
                                 <connections>
                                     <action selector="onRemindMe:" destination="Uxh-bj-FgW" eventType="touchUpInside" id="2uv-Bz-UK9"/>
@@ -1361,7 +1382,7 @@ named to be saved.</string>
                                 </constraints>
                             </view>
                             <datePicker contentMode="scaleToFill" verticalHuggingPriority="249" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="7R0-Ib-IT2">
-                                <rect key="frame" x="0.0" y="246" width="375" height="295"/>
+                                <rect key="frame" x="0.0" y="246" width="375" height="303"/>
                                 <date key="date" timeIntervalSinceReferenceDate="543413390.01358795">
                                     <!--2018-03-22 12:09:50 +0000-->
                                 </date>
@@ -1427,9 +1448,10 @@ named to be saved.</string>
         <image name="bg_header_medium" width="375" height="147"/>
         <image name="bg_header_small" width="375" height="87"/>
         <image name="btn_add_practice" width="184" height="51"/>
-        <image name="btn_done" width="190" height="66"/>
+        <image name="btn_cong_done" width="153" height="66"/>
         <image name="btn_playlist_start" width="72" height="72"/>
-        <image name="btn_remind" width="190" height="66"/>
+        <image name="btn_remind" width="182" height="58"/>
+        <image name="btn_set_reminder" width="153" height="66"/>
         <image name="icon_arrow_left" width="10" height="15"/>
         <image name="icon_arrow_right" width="8" height="12"/>
         <image name="icon_cell_menu" width="16" height="4"/>

@@ -86,10 +86,6 @@ class PlaylistFinishViewController: ModacityParentViewController {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "sid_set_reminder" {
-//            let controller = segue.destination as! SetReminderViewController
-//            controller.playlistParentViewModel = self.playlistDetailsViewModel
-//        }
     }
     
     @IBAction func onBack(_ sender: Any) {
@@ -99,6 +95,13 @@ class PlaylistFinishViewController: ModacityParentViewController {
     
     @IBAction func onRemindMe(_ sender: Any) {
         ModacityAnalytics.LogStringEvent("Congrats Screen Reminder Button")
+    }
+    
+    @IBAction func onSetReminder(_ sender: Any) {
+        ModacityAnalytics.LogStringEvent("congrats-reminder-pressed")
+        
+        let controller = UIStoryboard(name: "reminder", bundle: nil).instantiateViewController(withIdentifier: "SetReminderViewController") as! SetReminderViewController
+        self.navigationController?.pushViewController(controller, animated: true)
     }
     
     @IBAction func onSkip(_ sender: Any) {
