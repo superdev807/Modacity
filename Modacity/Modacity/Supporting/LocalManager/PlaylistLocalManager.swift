@@ -237,41 +237,16 @@ class PlaylistLocalManager: NSObject {
         return true
     }
     
-//    func storeFavoriteSession(sessionId: String, sessionName: String) {
-//        var favoriteIds = [String:String]()
-//        if let storedFavoriteIds = UserDefaults.standard.object(forKey: "favorite_sessions") as? [String:String] {
-//            favoriteIds = storedFavoriteIds
-//        }
-//
-//        favoriteIds[sessionId] = sessionName
-//        UserDefaults.standard.set(favoriteIds, forKey: "favorite_sessions")
-//        PlaylistRemoteManager.manager.storeFavoriteSession(sessionId: sessionId, value: sessionName)
-//    }
-//
-//    func removeFavoriteSession(sessionId: String) {
-//        var favoriteIds = [String:String]()
-//        if let storedFavoriteIds = UserDefaults.standard.object(forKey: "favorite_sessions") as? [String:String] {
-//            favoriteIds = storedFavoriteIds
-//        }
-//
-//        favoriteIds.removeValue(forKey: sessionId)
-//        UserDefaults.standard.set(favoriteIds, forKey: "favorite_sessions")
-//        PlaylistRemoteManager.manager.removeFavoriteSession(sessionId: sessionId)
-//    }
-//
-//    func loadFullFavoriteSessions() -> [Playlist]? {
-//        if let favoriteIds = UserDefaults.standard.object(forKey: "favorite_sessions") as? [String:String] {
-//            var result = [Playlist]()
-//            for favoriteId in favoriteIds.keys {
-//                if let practiceItem = self.loadPlaylist(forId: favoriteId) {
-//                    result.append(practiceItem)
-//                }
-//            }
-//            return result
-//        }
-//
-//        return nil
-//    }
+    func availablePlaylistName(from name: String) -> String {
+        var idx = 1
+        while (true) {
+            let newName = "\(name)_\(idx)"
+            if (self.checkPlaylistNameAvailable(newName, nil)) {
+                return newName
+            }
+            idx = idx + 1
+        }
+    }
     
     func signout() {
         if let playlistIds = loadPlaylistIds() {

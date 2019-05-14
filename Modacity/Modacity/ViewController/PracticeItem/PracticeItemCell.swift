@@ -10,6 +10,8 @@ import UIKit
 
 protocol PracticeItemCellDelegate {
     func onCellMenu(cell: PracticeItemCell)
+    
+    func onEditingDidEnd(on cell: PracticeItemCell, for practiceItem: PracticeItem, to newName: String)
 }
 
 class PracticeItemCell: UITableViewCell {
@@ -66,11 +68,12 @@ class PracticeItemCell: UITableViewCell {
     }
     
     @IBAction func onEditingDidEnd(_ sender: Any) {
-        if self.textfieldNameEdit.text != "" {
-            self.labelPracticeName.text = self.textfieldNameEdit.text
-            self.practiceItem.name = self.textfieldNameEdit.text
-            self.practiceItem.updateMe()
+        
+        self.textfieldNameEdit.resignFirstResponder()
+        if let delegate = self.delegate {
+            delegate.onEditingDidEnd(on: self, for: self.practiceItem, to: self.textfieldNameEdit.text ?? "")
         }
+        
         self.textfieldNameEdit.isHidden = true
         self.labelPracticeName.isHidden = false
     }

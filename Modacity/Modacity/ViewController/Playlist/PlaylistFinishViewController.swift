@@ -86,10 +86,6 @@ class PlaylistFinishViewController: ModacityParentViewController {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "sid_set_reminder" {
-//            let controller = segue.destination as! SetReminderViewController
-//            controller.playlistParentViewModel = self.playlistDetailsViewModel
-//        }
     }
     
     @IBAction func onBack(_ sender: Any) {

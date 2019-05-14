@@ -152,8 +152,18 @@ extension PlaylistListViewController: PlaylistCellDelegate {
     func onNameEdited(on cell: PlaylistCell, for playlist: Playlist, to changedName: String) {
         if changedName != "" {
             cell.labelPlaylistName.text = cell.textfieldPlaylistName.text
-            playlist.name = changedName
-            playlist.updateMe()
+            
+            if playlist.name.lowercased() == changedName.lowercased() {
+                return
+            } else {
+                if (PlaylistLocalManager.manager.checkPlaylistNameAvailable(changedName, playlist.id)) {
+                    playlist.name = changedName
+                    playlist.updateMe()
+                } else {
+                    cell.labelPlaylistName.text = playlist.name
+                    AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Playlist with this name already exists!")
+                }
+            }
         }
     }
     
@@ -180,7 +190,8 @@ extension PlaylistListViewController: PlaylistCellDelegate {
     func duplicatePlaylist(_ playlist: Playlist) {
         let newPlaylist = Playlist()
         newPlaylist.id = UUID().uuidString
-        newPlaylist.name = playlist.name
+        
+        newPlaylist.name = PlaylistLocalManager.manager.availablePlaylistName(from: playlist.name)
         
         newPlaylist.createdAt = "\(Date().timeIntervalSince1970)"
         newPlaylist.playlistPracticeEntries = [PlaylistPracticeEntry]()
@@ -188,7 +199,6 @@ extension PlaylistListViewController: PlaylistCellDelegate {
         for entry in playlist.playlistPracticeEntries {
             let newEntry = PlaylistPracticeEntry()
             newEntry.entryId = UUID().uuidString
-//            newEntry.name = entry.name
             newEntry.practiceItemId = entry.practiceItemId
             newEntry.countDownDuration = entry.countDownDuration
             
@@ -217,7 +227,9 @@ extension PlaylistListViewController: PlaylistCellDelegate {
         let indexPath = IndexPath(row: insertingRow, section: 0)
         self.tableViewMain.scrollToRow(at: indexPath, at: .top, animated: false)
         if let cell = self.tableViewMain.cellForRow(at: indexPath) as? PlaylistCell {
-            self.rename(on: cell)
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
+                self.rename(on: cell)
+            }
         } else {
             print("Cell is nil")
         }
