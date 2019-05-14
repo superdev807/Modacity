@@ -53,9 +53,12 @@ class PlaylistCell: UITableViewCell {
     
     @IBAction func onEditingDidEnd(_ sender: Any) {
         
+        self.textfieldPlaylistName.resignFirstResponder()
+        
         if let delegate = self.delegate {
             delegate.onNameEdited(on:self, for: self.playlist, to: self.textfieldPlaylistName.text!)
         }
+        
         
         self.textfieldPlaylistName.isHidden = true
         self.labelPlaylistName.isHidden = false

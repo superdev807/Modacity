@@ -387,6 +387,25 @@ extension PracticeItemListViewController: UITableViewDataSource, UITableViewDele
         }
     }
     
+    func onEditingDidEnd(on cell: PracticeItemCell, for practiceItem: PracticeItem, to newName: String) {
+        
+        if newName != "" {
+            cell.labelPracticeName.text = cell.textfieldNameEdit.text
+            
+            if practiceItem.name.lowercased() == newName.lowercased() {
+                return
+            } else {
+                if (PracticeItemLocalManager.manager.checkPracticeItemNameAvailable(newName, practiceItem.id)) {
+                    practiceItem.name = newName
+                    practiceItem.updateMe()
+                } else {
+                    cell.labelPracticeName.text = practiceItem.name
+                    AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "An item with this name already exists!")
+                }
+            }
+        }
+    }
+    
     func onCellMenu(cell: PracticeItemCell) {
         if self.practiceItemNameEditingCell != nil {
             self.practiceItemNameEditingCell!.textfieldNameEdit.resignFirstResponder()
@@ -591,7 +610,7 @@ extension PracticeItemListViewController: SortOptionsViewControllerDelegate {
         
         let practiceItem = PracticeItem()
         practiceItem.id = UUID().uuidString
-        practiceItem.name = newName
+        practiceItem.name = PracticeItemLocalManager.manager.availablePracticeItemName(from: newName)
         
         if self.practiceItems == nil {
             self.practiceItems = [PracticeItem]()
@@ -609,7 +628,9 @@ extension PracticeItemListViewController: SortOptionsViewControllerDelegate {
         self.tableViewMain.scrollToRow(at: IndexPath(row: indexPath.row + 1, section:indexPath.section), at: .none, animated: false)
         
         if let cell = self.tableViewMain.cellForRow(at: IndexPath(row: indexPath.row + 1, section:indexPath.section)) as? PracticeItemCell {
-            self.rename(on: cell)
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
+                self.rename(on: cell)
+            }
         }
         
         DispatchQueue.global(qos: .background).async {
