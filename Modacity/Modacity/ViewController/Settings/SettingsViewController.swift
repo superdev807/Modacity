@@ -484,10 +484,12 @@ extension SettingsViewController: UNUserNotificationCenterDelegate {
     }
     
     func askAQuestion() {
-        let attr :ICMUserAttributes = ICMUserAttributes.init()
-        attr.customAttributes = ["AppLocation" : "ask_question"]
-        Intercom.updateUser(attr)
-        Intercom.presentMessenger()
+        if AppConfig.appVersion == .live {
+            let attr :ICMUserAttributes = ICMUserAttributes.init()
+            attr.customAttributes = ["AppLocation" : "ask_question"]
+            Intercom.updateUser(attr)
+            Intercom.presentMessenger()
+        }
     }
     
     func openPracticeReminders() {

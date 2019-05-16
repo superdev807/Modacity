@@ -1444,10 +1444,13 @@ extension PracticeViewController: PlayPracticeTabBarViewDelegate {
     
     @IBAction func onAskExpert() {
         ModacityAnalytics.LogEvent(.PressedAsk)
-        let attr :ICMUserAttributes = ICMUserAttributes.init()
-        attr.customAttributes = ["AppLocation" : "practice"]
-        Intercom.updateUser(attr)
-        Intercom.presentMessenger()
+        
+        if AppConfig.appVersion == .live {
+            let attr :ICMUserAttributes = ICMUserAttributes.init()
+            attr.customAttributes = ["AppLocation" : "practice"]
+            Intercom.updateUser(attr)
+            Intercom.presentMessenger()
+        }
     }
 }
 

@@ -80,15 +80,22 @@ enum ModacityEvent:String {
 class ModacityAnalytics: NSObject {
     
     private static func amplitudeLog(_ eventString: String, extraParamName: String? = nil,extraParamValue: AnyHashable? = nil) {
-        if (extraParamName != nil) {
-            Amplitude.instance().logEvent(eventString, withEventProperties: [extraParamName!: extraParamValue!])
-        } else {
-            Amplitude.instance().logEvent(eventString)
+        
+        if AppConfig.appVersion == .live {
+            if (extraParamName != nil) {
+                Amplitude.instance().logEvent(eventString, withEventProperties: [extraParamName!: extraParamValue!])
+            } else {
+                Amplitude.instance().logEvent(eventString)
+            }
         }
     }
     
     static func LogStringEvent(_ eventString: String, extraParamName: String? = nil, extraParamValue: AnyHashable? = nil) {
-
+        
+        if AppConfig.appVersion != .live {
+            return
+        }
+        
         let debugPrefix: String = "::::: "
         
         if let paramName = extraParamName {
@@ -121,17 +128,23 @@ class ModacityAnalytics: NSObject {
     }
     
     static func LogEvent(_ event: ModacityEvent) {
-        ModacityAnalytics.LogEvent(event, extraParamName: nil, extraParamValue: nil)
+        if AppConfig.appVersion == .live {
+            ModacityAnalytics.LogEvent(event, extraParamName: nil, extraParamValue: nil)
+        }
     }
     
     static func LogEvent(_ event: ModacityEvent, extraParamName: String?, extraParamValue: AnyHashable?) {
-        LogStringEvent(event.rawValue, extraParamName: extraParamName, extraParamValue: extraParamValue)
+        if AppConfig.appVersion == .live {
+            LogStringEvent(event.rawValue, extraParamName: extraParamName, extraParamValue: extraParamValue)
+        }
     }
     
     static func LogEvent(_ event: ModacityEvent, params: [String:Any]?) {
-        FBSDKAppEvents.logEvent(event.rawValue, parameters: params)
-        Amplitude.instance().logEvent(event.rawValue, withEventProperties: params)
-        Intercom.logEvent(withName: event.rawValue, metaData: params ?? [String:Any]())
-        AppsFlyerTracker.shared()?.trackEvent(event.rawValue, withValues: params ?? [String:Any]())
+        if AppConfig.appVersion == .live {
+            FBSDKAppEvents.logEvent(event.rawValue, parameters: params)
+            Amplitude.instance().logEvent(event.rawValue, withEventProperties: params)
+            Intercom.logEvent(withName: event.rawValue, metaData: params ?? [String:Any]())
+            AppsFlyerTracker.shared()?.trackEvent(event.rawValue, withValues: params ?? [String:Any]())
+        }
     }
 }

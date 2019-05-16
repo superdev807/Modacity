@@ -28,10 +28,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+        switch AppConfig.appVersion {
+        case .dev:
+            print("App version DEV")
+        case .staging:
+            print("App version STAGING")
+        case .live:
+            print("App version LIVE")
+        }
         // AppsFlyer------
-        AppsFlyerTracker.shared().appsFlyerDevKey = AppConfig.ThirdParty.appsFlyerDevKey
-        AppsFlyerTracker.shared().appleAppID = AppConfig.ThirdParty.appsFlyerAppId
-        AppsFlyerTracker.shared().delegate = self
+        if AppConfig.appVersion == .live {
+            AppsFlyerTracker.shared().appsFlyerDevKey = AppConfig.ThirdParty.appsFlyerDevKey
+            AppsFlyerTracker.shared().appleAppID = AppConfig.ThirdParty.appsFlyerAppId
+            AppsFlyerTracker.shared().delegate = self
+        }
         //AppsFlyerTracker.shared().isDebug = true
         //-------------
         
@@ -53,15 +63,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         PracticeItemLocalManager.manager.syncWithOlderVersions()
         PlaylistLocalManager.manager.syncWithOlderVersion()
         
-        Amplitude.instance().initializeApiKey(AppConfig.ThirdParty.appAmplitudeApiKey)
+        if AppConfig.appVersion == .live {
+            Amplitude.instance().initializeApiKey(AppConfig.ThirdParty.appAmplitudeApiKey)
+        }
         
         if (!UserDefaults.standard.bool(forKey: "launchedbefore")) {
             UserDefaults.standard.set(true, forKey: "launchedbefore")
             ModacityAnalytics.LogStringEvent("FIRST LAUNCH")
         }
         
-        Intercom.setApiKey(AppConfig.ThirdParty.appIntercomApiKey, forAppId:AppConfig.ThirdParty.appIntercomAppId)
-        Intercom.registerUnidentifiedUser()
+        if AppConfig.appVersion == .live {
+            Intercom.setApiKey(AppConfig.ThirdParty.appIntercomApiKey, forAppId:AppConfig.ThirdParty.appIntercomAppId)
+            Intercom.registerUnidentifiedUser()
+        }
         
         ModacityAnalytics.LogEvent(.Launch)
         
@@ -158,7 +172,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        Intercom.setDeviceToken(deviceToken)
+        if AppConfig.appVersion == .live {
+            Intercom.setDeviceToken(deviceToken)
+        }
     }
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
@@ -166,8 +182,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        if (Intercom.isIntercomPushNotification(userInfo)) {
-            Intercom.handlePushNotification(userInfo)
+        
+        if AppConfig.appVersion == .live {
+            if (Intercom.isIntercomPushNotification(userInfo)) {
+                Intercom.handlePushNotification(userInfo)
+            }
         }
         completionHandler(.noData);
     }

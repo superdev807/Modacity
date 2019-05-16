@@ -184,10 +184,13 @@ extension LeftMenuViewController: UITableViewDataSource, UITableViewDelegate {
             if Authorizer.authorizer.isGuestLogin() {
                 self.openCreateAccount()
             } else {
-                let attr :ICMUserAttributes = ICMUserAttributes.init()
-                attr.customAttributes = ["AppLocation" : "feedback"]
-                Intercom.updateUser(attr)
-                Intercom.presentMessenger()
+                
+                if AppConfig.appVersion == .live {
+                    let attr :ICMUserAttributes = ICMUserAttributes.init()
+                    attr.customAttributes = ["AppLocation" : "feedback"]
+                    Intercom.updateUser(attr)
+                    Intercom.presentMessenger()
+                }
                 
                 self.sideMenuController?.hideLeftViewAnimated()
             }

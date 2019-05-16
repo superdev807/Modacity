@@ -148,6 +148,24 @@ class AppConfig: NSObject {
             return false
         }
     }()
+
+    static let stagingVersion: Bool = {
+        let appBundleId = Bundle.main.infoDictionary![kCFBundleIdentifierKey as String] as! String
+        if appBundleId.contains("staging") {
+            return true
+        } else {
+            return false
+        }
+    }()
+
+    static let liveVersion: Bool = {
+        let appBundleId = Bundle.main.infoDictionary![kCFBundleIdentifierKey as String] as! String
+        if appBundleId == "com.app.Modacity" {
+            return true
+        } else {
+            return false
+        }
+    }()
     
     static let production : Bool = {
         #if RELEASE
@@ -157,5 +175,22 @@ class AppConfig: NSObject {
         ModacityDebugger.debug("DEBUG")
         return false
         #endif
+    }()
+    
+    enum AppVersions {
+        case live
+        case dev
+        case staging
+    }
+    
+    static let appVersion: AppVersions = {
+        let appBundleId = Bundle.main.infoDictionary![kCFBundleIdentifierKey as String] as! String
+        if appBundleId == "com.app.Modacity" {
+            return .live
+        } else if appBundleId.contains("staging") {
+            return .staging
+        } else {
+            return .dev
+        }
     }()
 }

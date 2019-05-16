@@ -46,7 +46,10 @@ class AppOveralDataManager {
         MyProfileRemoteManager.manager.signout()
         MyProfileLocalManager.manager.signout()
         Authorizer.authorizer.signout()
-        Intercom.logout()
+        
+        if AppConfig.appVersion == .live {
+            Intercom.logout()
+        }
     }
     
     func removeValues() {

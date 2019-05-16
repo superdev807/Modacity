@@ -130,16 +130,18 @@ class HomeViewController: ModacityParentViewController {
             self.labelWelcome.text = "Welcome \(me.displayName())!"
 
             DispatchQueue.global(qos: .background).async {
-                Amplitude.instance()?.setUserId(me.uid)
                 
-                if me.email != nil && me.email != "" {
-                    Intercom.registerUser(withEmail: me.email)
-                    let userAttributes = ICMUserAttributes()
-                    userAttributes.name = me.displayName()
-                    userAttributes.email = me.email ?? "no email address"
-                    Intercom.updateUser(userAttributes)
-                } else {
-                    Intercom.registerUnidentifiedUser()
+                if AppConfig.appVersion == .live {
+                    Amplitude.instance()?.setUserId(me.uid)
+                    if me.email != nil && me.email != "" {
+                        Intercom.registerUser(withEmail: me.email)
+                        let userAttributes = ICMUserAttributes()
+                        userAttributes.name = me.displayName()
+                        userAttributes.email = me.email ?? "no email address"
+                        Intercom.updateUser(userAttributes)
+                    } else {
+                        Intercom.registerUnidentifiedUser()
+                    }
                 }
                 
                 AppsFlyerTracker.shared()?.customerUserID = me.uid

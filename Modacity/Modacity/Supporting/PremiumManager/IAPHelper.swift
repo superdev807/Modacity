@@ -184,12 +184,16 @@ extension IAPHelper {
                     })
                 })
             } catch {
-                Amplitude.instance().logEvent("Purchase Failed", withEventProperties: ["point":"con_fail",
-                                                                                       "urlPath":appStoreReceiptURL.path])
+                if AppConfig.appVersion == .live {
+                    Amplitude.instance().logEvent("Purchase Failed", withEventProperties: ["point":"con_fail",
+                                                                                           "urlPath":appStoreReceiptURL.path])
+                }
                 NotificationCenter.default.post(name: IAPHelper.appNotificationSubscriptionFailed, object: nil, userInfo: ["error": "Failed to parse receipt."])
             }
         } else {
-            Amplitude.instance().logEvent("Purchase Failed", withEventProperties: ["point":"start_fail"])
+            if AppConfig.appVersion == .live {
+                Amplitude.instance().logEvent("Purchase Failed", withEventProperties: ["point":"start_fail"])
+            }
             NotificationCenter.default.post(name: IAPHelper.appNotificationSubscriptionFailed, object: nil, userInfo: ["error": "Failed to retrieve receipt."])
         }
     }
@@ -241,14 +245,18 @@ extension IAPHelper {
                                 }
                                 completion(nil, self.renewalStatus, self.validUntil)
                             } else {
-                                Amplitude.instance().logEvent("Purchase Failed", withEventProperties: ["point":"json_resp_fail",
-                                                                                                       "receipt":receiptString])
+                                if AppConfig.appVersion == .live {
+                                    Amplitude.instance().logEvent("Purchase Failed", withEventProperties: ["point":"json_resp_fail",
+                                                                                                           "receipt":receiptString])
+                                }
                                 completion("Failed to cast serialized JSON to Dictionary<String, AnyObject>", false, nil)
                             }
                         } catch {
-                            Amplitude.instance().logEvent("Purchase Failed", withEventProperties: ["point":"json_fail",
-                                                                                                   "receipt":receiptString,
-                                                                                                   "error": error.localizedDescription])
+                            if AppConfig.appVersion == .live {
+                                Amplitude.instance().logEvent("Purchase Failed", withEventProperties: ["point":"json_fail",
+                                                                                                       "receipt":receiptString,
+                                                                                                       "error": error.localizedDescription])
+                            }
                             completion("Couldn't serialize JSON with error: " + error.localizedDescription, false, nil)
                         }
                     } else {
@@ -264,27 +272,33 @@ extension IAPHelper {
                         
                         let requestJSONData = String(data: jsonData, encoding: String.Encoding.utf8) ?? "no request json data"
                         
-                        Amplitude.instance().logEvent("Purchase Failed", withEventProperties: ["point":"task_fail",
-                                                                                               "receipt":receiptString,
-                                                                                               "http_status_code": responseCode,
-                                                                                               "error":error?.localizedDescription ?? "",
-                                                                                               "url": receiptUrlLastPath,
-                                                                                               "request_json_data": requestJSONData,
-                                                                                               "data": receivedDataString])
+                        if AppConfig.appVersion == .live {
+                            Amplitude.instance().logEvent("Purchase Failed", withEventProperties: ["point":"task_fail",
+                                                                                                   "receipt":receiptString,
+                                                                                                   "http_status_code": responseCode,
+                                                                                                   "error":error?.localizedDescription ?? "",
+                                                                                                   "url": receiptUrlLastPath,
+                                                                                                   "request_json_data": requestJSONData,
+                                                                                                   "data": receivedDataString])
+                        }
                         completion("Failed to receive response from app store receipt.", false, nil)
                     }
                 }
                 task.resume()
             } else {
                 
-                Amplitude.instance().logEvent("Purchase Failed", withEventProperties: ["point":"url_fail",
-                                                                                       "receipt":receiptString])
+                if AppConfig.appVersion == .live {
+                    Amplitude.instance().logEvent("Purchase Failed", withEventProperties: ["point":"url_fail",
+                                                                                           "receipt":receiptString])
+                }
                 completion("Couldn't convert string into URL. Check for special characters.", false, nil)
             }
         } catch {
-            Amplitude.instance().logEvent("Purchase Failed", withEventProperties: ["point":"overall_fail",
-                                                                                   "error": error.localizedDescription,
-                                                                                   "receipt":receiptString])
+            if AppConfig.appVersion == .live {
+                Amplitude.instance().logEvent("Purchase Failed", withEventProperties: ["point":"overall_fail",
+                                                                                       "error": error.localizedDescription,
+                                                                                       "receipt":receiptString])
+            }
             completion("Couldn't create JSON with error: " + error.localizedDescription, false, nil)
         }
     }
