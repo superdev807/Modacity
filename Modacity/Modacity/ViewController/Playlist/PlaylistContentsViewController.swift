@@ -488,8 +488,10 @@ class PlaylistContentsViewController: ModacityParentViewController {
                 self.buttonStartPlaylist.isEnabled = true
                 self.buttonStartPlaylist.alpha = 1.0
             } else {
-                self.buttonStartPlaylist.isEnabled = false
-                self.buttonStartPlaylist.alpha = 0.5
+                if !self.isPlaying {
+                    self.buttonStartPlaylist.isEnabled = false
+                    self.buttonStartPlaylist.alpha = 0.5
+                }
             }
             self.refreshData()
         }
@@ -516,8 +518,10 @@ class PlaylistContentsViewController: ModacityParentViewController {
                     self.buttonStartPlaylist.isEnabled = true
                     self.buttonStartPlaylist.alpha = 1.0
                 } else {
-                    self.buttonStartPlaylist.isEnabled = false
-                    self.buttonStartPlaylist.alpha = 0.5
+                    if !self.isPlaying {
+                        self.buttonStartPlaylist.isEnabled = false
+                        self.buttonStartPlaylist.alpha = 0.5
+                    }
                 }
                 
             } else if parent.deliverPracticeItem != nil {
