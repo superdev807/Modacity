@@ -98,6 +98,10 @@ class PlaylistLocalManager: NSObject {
             self.removeRecentSession(sessionId: playlist.id)
         }
         
+        if playlist.isFavorite {
+            AppOveralDataManager.manager.viewModel?.removeFavoriteSession(sessionId: playlist.id)
+        }
+        
         UserDefaults.standard.set(playlist.toJSON(), forKey: "playlist:id:" + playlist.id)
         UserDefaults.standard.synchronize()
         PlaylistRemoteManager.manager.update(item: playlist)
