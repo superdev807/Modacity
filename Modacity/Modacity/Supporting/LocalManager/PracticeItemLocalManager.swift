@@ -127,14 +127,15 @@ class PracticeItemLocalManager {
         UserDefaults.standard.removeObject(forKey: "practice:id:" + item.id)
         
         if item.isFavorite != 0 {
-            if let favoritePracticeItemIds = UserDefaults.standard.object(forKey: "favorite_practice_item_ids") as? [String] {
-                var newFavoriteItemIds = [String]()
-                for itemId in favoritePracticeItemIds {
-                    if itemId != item.id {
-                        newFavoriteItemIds.append(itemId)
-                    }
-                }
-            }
+            AppOveralDataManager.manager.viewModel?.removeFavoritePractice(itemId: item.id)
+//            if let favoritePracticeItemIds = UserDefaults.standard.object(forKey: "favorite_practice_item_ids") as? [String] {
+//                var newFavoriteItemIds = [String]()
+//                for itemId in favoritePracticeItemIds {
+//                    if itemId != item.id {
+//                        newFavoriteItemIds.append(itemId)
+//                    }
+//                }
+//            }
         }
         
         UserDefaults.standard.synchronize()
