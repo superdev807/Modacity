@@ -198,7 +198,11 @@ class PracticeItemListViewController: ModacityParentViewController {
             practiceItems.sort { (item1, item2) -> Bool in
                 switch self.sortKey {
                 case .rating:
-                    fallthrough
+                    if item1.rating == item2.rating {
+                        return (self.sortOption == .ascending) ? (item1.name < item2.name) : (item1.name > item2.name)
+                    } else {
+                        return (self.sortOption == .ascending) ? (item1.rating < item2.rating) : (item1.rating > item2.rating)
+                    }
                 case .favorites:
                     fallthrough
                 case .name:
