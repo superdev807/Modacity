@@ -180,6 +180,16 @@ class PracticeItemSelectViewController: ModacityParentViewController {
             AppOveralDataManager.manager.walkthroughSetFlag(key: "walkthrough_second_page", value: true)
         }
     }
+    
+    @IBAction func onSort(_ sender: Any) {
+        let controller = UIStoryboard(name: "practice_item", bundle: nil).instantiateViewController(withIdentifier: "SortOptionsViewController") as! SortOptionsViewController
+        controller.sortOption = self.sortOption
+        controller.sortKey = self.sortKey
+        controller.delegate = self
+        controller.modalPresentationStyle = .overCurrentContext
+        controller.modalTransitionStyle = .crossDissolve
+        self.present(controller, animated: true, completion: nil)
+    }
 }
 
 extension PracticeItemSelectViewController {

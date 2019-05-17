@@ -272,7 +272,7 @@
                                     <constraint firstAttribute="height" constant="40" id="QtQ-1E-beS"/>
                                 </constraints>
                                 <connections>
-                                    <segue destination="YZD-dZ-n3o" kind="presentation" identifier="sid_sort" modalPresentationStyle="overFullScreen" modalTransitionStyle="crossDissolve" id="sFc-qT-n1d"/>
+                                    <action selector="onSort:" destination="ZH6-O4-ov3" eventType="touchUpInside" id="wMD-8j-RbL"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ls5-j1-RPP">
@@ -1140,7 +1140,7 @@ Working On?</string>
                                     <constraint firstAttribute="width" constant="41" id="aew-Ro-ePe"/>
                                 </constraints>
                                 <connections>
-                                    <segue destination="YZD-dZ-n3o" kind="presentation" identifier="sid_sort" modalPresentationStyle="overFullScreen" modalTransitionStyle="crossDissolve" id="22z-sW-tiL"/>
+                                    <action selector="onSort:" destination="Nt4-pi-OvH" eventType="touchUpInside" id="D1w-3N-yNO"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1209,7 +1209,4 @@ Working On?</string>
         <image name="walkthrough_arrow_2" width="55" height="97"/>
         <image name="walkthrough_arrow_3" width="12" height="24"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="sFc-qT-n1d"/>
-    </inferredMetricsTieBreakers>
 </document>
