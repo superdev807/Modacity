@@ -202,12 +202,37 @@ extension RecordingsListView: RecordingCellDelegate {
         }
     }
     
-    func onAudioForward() {
+    func onAudioBackward() {
         if let player = self.audioPlayer {
-            self.currentRate = self.currentRate / 2.0
-            if self.currentRate < 1 / 16.0 {
-                self.currentRate = 1.0
+//            self.currentRate = self.currentRate / 2.0
+//            if self.currentRate < 1 / 16.0 {
+//                self.currentRate = 1.0
+//            }
+            
+            var newRate = 1.0
+            
+            switch(self.currentRate) {
+            case 1.5:
+                newRate = 2.0
+            case 1.4:
+                newRate = 1.5
+            case 1.3:
+                newRate = 1.4
+            case 1.2:
+                newRate = 1.3
+            case 1.1:
+                newRate = 1.2
+            case 1:
+                newRate = 1.1
+            default:
+                // covers the case where rate = 8x
+                // and the case when user has been slow playing
+                // and wants to reset to 1.0
+                newRate = 1.0
             }
+            
+            self.currentRate = newRate
+            
             player.rate = Float(self.currentRate)
             if let cell = self.playingCell() {
                 cell.processsAudioPlaybackRate(player: player)
@@ -215,12 +240,31 @@ extension RecordingsListView: RecordingCellDelegate {
         }
     }
     
-    func onAudioBackward() {
+    func onAudioForward() {
         if let player = self.audioPlayer {
-            self.currentRate = self.currentRate * 2.0
-            if self.currentRate > 16.0 {
-                self.currentRate = 1.0
+//            self.currentRate = self.currentRate * 2.0
+//            if self.currentRate > 16.0 {
+//                self.currentRate = 1.0
+//            }
+            
+            var newRate = 1.0
+            
+            switch(self.currentRate) {
+            case 0.6:
+                newRate = 0.5
+            case 0.7:
+                newRate = 0.6
+            case 0.8:
+                newRate = 0.7
+            case 0.9:
+                newRate = 0.8
+            case 1.0:
+                newRate = 0.9
+            default:
+                newRate = 1.0
             }
+            
+            self.currentRate = newRate
             player.rate = Float(self.currentRate)
             if let cell = self.playingCell() {
                 cell.processsAudioPlaybackRate(player: player)

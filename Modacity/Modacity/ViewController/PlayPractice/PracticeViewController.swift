@@ -595,38 +595,27 @@ extension PracticeViewController: AVAudioPlayerDelegate, FDWaveformViewDelegate 
             self.viewRatePanel.isHidden = true
         } else {
             self.viewRatePanel.isHidden = false
-            if self.currentRate < 1 {
-                let displayRate = Float(round(10.0 / self.currentRate)/10.0)
-                self.imageViewRateDirection.image = UIImage(named:"icon_backward")
-                self.labelRateValue.text = "\(displayRate)"
-            } else {
-                self.imageViewRateDirection.image = UIImage(named:"icon_forward_white")
-                self.labelRateValue.text = "\(Float(self.currentRate))"
-            }
+            self.imageViewRateDirection.image = UIImage(named:"icon_forward_white")
+            self.labelRateValue.text = "\(Float(self.currentRate))"
         }
     }
     
     
     @IBAction func onTouchDownOnBackward(_ sender: Any) {
-        // the progression of speeds should be as follows:
-        // BACKWARDS
-        // "-1.5x -2x -4x -8x"
-        // expressed as currentRate, [0.666, 0.5, 0.25 0.125]
         var newRate = 1.0
         
         switch(self.currentRate) {
-        case 0.25:
-            newRate = 0.125
-        case 0.5:
-            newRate = 0.25
-        case 0.666:
+        case 0.6:
             newRate = 0.5
+        case 0.7:
+            newRate = 0.6
+        case 0.8:
+            newRate = 0.7
+        case 0.9:
+            newRate = 0.8
         case 1.0:
-            newRate = 0.666
+            newRate = 0.9
         default:
-            // covers the case where rate = 0.125
-            // and the case when user has been fast forwarding
-            // and wants to reset to 1.0
             newRate = 1.0
         }
         
@@ -634,20 +623,21 @@ extension PracticeViewController: AVAudioPlayerDelegate, FDWaveformViewDelegate 
     }
 
     @IBAction func onTouchDownOnForward(_ sender: Any) {
-        // FORWARDS
-        // "1.5x 2x 4x 8x"
-        //expressed as rates [1.5, 2, 4, 8]
         var newRate = 1.0
         
         switch(self.currentRate) {
-        case 4:
-            newRate = 8.0
-        case 2:
-            newRate = 4.0
         case 1.5:
             newRate = 2.0
-        case 1:
+        case 1.4:
             newRate = 1.5
+        case 1.3:
+            newRate = 1.4
+        case 1.2:
+            newRate = 1.3
+        case 1.1:
+            newRate = 1.2
+        case 1:
+            newRate = 1.1
         default:
             // covers the case where rate = 8x
             // and the case when user has been slow playing

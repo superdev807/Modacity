@@ -114,10 +114,10 @@ class RecordingCell: UITableViewCell, FDWaveformViewDelegate {
             self.viewAudioPlaybackRatePanel.isHidden = false
             if player.rate < 1.0 {
                 self.imageViewAudioPlaybackRate.image = UIImage(named:"icon_backward")
-                self.labelAudioPlaybackRateValue.text = "x \(Int(1 / player.rate))"
+                self.labelAudioPlaybackRateValue.text = "x \(player.rate)"//"x \(Int(1 / player.rate))"
             } else {
                 self.imageViewAudioPlaybackRate.image = UIImage(named:"icon_forward_white")
-                self.labelAudioPlaybackRateValue.text = "x \(Int(player.rate))"
+                self.labelAudioPlaybackRateValue.text = "x \(player.rate)"//"x \(Int(player.rate))"
             }
         }
     }
