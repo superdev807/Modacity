@@ -163,7 +163,7 @@ class PlaylistStatsView: UIView {
                     self.labelAverageSessionDuration.text = "\(averageSessionDuration)"
                     self.labelAverageSessionDurationUnit.text = "sec"
                 } else {
-                    self.labelAverageSessionDuration.text = "\(averageSessionDuration / 60)"
+                    self.labelAverageSessionDuration.text = String(format:"%.1f", Double(averageSessionDuration) / 60.0)
                     self.labelAverageSessionDurationUnit.text = "min"
                 }
             }
@@ -177,7 +177,7 @@ class PlaylistStatsView: UIView {
                     self.labelAverageDailyTime.text = "\(averageDailyTime)"
                     self.labelAverageDailyTimeUnit.text = "sec"
                 } else {
-                    self.labelAverageDailyTime.text = "\(averageDailyTime / 60)"
+                    self.labelAverageDailyTime.text = String(format:"%.1f", Double(averageDailyTime) / 60.0)
                     self.self.labelAverageDailyTimeUnit.text = "min"
                 }
             }

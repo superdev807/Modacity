@@ -110,23 +110,33 @@ class StatisticsView: UIView {
                 }
             }
             
+            print("ratings - \(ratings)")
+            
             if totalSeconds > 0 && totalSeconds < 60 {
                 self.labelTotalTime.text = "\(totalSeconds)"
                 self.labelTotalTimeUnit.text = "TOTAL SECONDS"
             } else {
-                self.labelTotalTime.text = "\(totalSeconds / 60)"
+                self.labelTotalTime.text = String(format:"%.1f", Double(totalSeconds) / 60.0)
                 self.labelTotalTimeUnit.text = "TOTAL MINUTES"
             }
             
             let sorted = ratings.sorted {$0.key < $1.key}
             var ratingsLine = [Double]()
-            for (_, value) in sorted {
+            var ratingsTimeStamp = [TimeInterval]()
+            
+            for (timeStamp, value) in sorted {
                 ratingsLine.append(value)
+                ratingsTimeStamp.append(timeStamp)
             }
             
-            setRatingLineChart(values: ratingsLine)
+            if ratingsLine.count == 1 {
+                ratingsLine.insert(0, at: 0)
+                ratingsTimeStamp.insert(0, at: 0)
+            }
+            
+            setRatingLineChart(values: ratingsLine, timeStamp: ratingsTimeStamp)
         } else {
-            setRatingLineChart(values: [])
+            setRatingLineChart(values: [], timeStamp: [])
         }
     }
     
@@ -220,7 +230,7 @@ class StatisticsView: UIView {
                     self.labelAverageSessionDuration.text = "\(averageSessionDuration)"
                     self.labelAverageSessionDurationUnit.text = "sec"
                 } else {
-                    self.labelAverageSessionDuration.text = "\(averageSessionDuration / 60)"
+                    self.labelAverageSessionDuration.text = String(format:"%.1f", Double(averageSessionDuration) / 60.0)
                     self.labelAverageSessionDurationUnit.text = "min"
                 }
             }
@@ -234,7 +244,7 @@ class StatisticsView: UIView {
                     self.labelAverageDailyTime.text = "\(averageDailyTime)"
                     self.labelAverageDailyTimeUnit.text = "sec"
                 } else {
-                    self.labelAverageDailyTime.text = "\(averageDailyTime / 60)"
+                    self.labelAverageDailyTime.text = String(format:"%.1f", Double(averageDailyTime) / 60.0)
                     self.self.labelAverageDailyTimeUnit.text = "min"
                 }
             }
@@ -291,14 +301,35 @@ class StatisticsView: UIView {
 // MARK: - Show charts
 extension StatisticsView {
     
-    func setRatingLineChart(values: [Double]) {
+    func setRatingLineChart(values: [Double], timeStamp: [TimeInterval]) {
+        
+        let formatter = BarChartFormatter()
+        
+        let xaxis:XAxis = XAxis()
+        
+        var dates = [String]()
         
         var dataEntries: [ChartDataEntry] = []
         
         for i in 0..<values.count {
             let dataEntry = ChartDataEntry(x: Double(i), y: values[i])
             dataEntries.append(dataEntry)
+            let time = timeStamp[i]
+            if time > 0 {
+                if i == values.count - 1 || i == 0 {
+                    let date = Date(timeIntervalSince1970: time)
+                    dates.append(date.toString(format: "MMM d"))
+                } else {
+                    dates.append("")
+                }
+            } else {
+                dates.append("")
+            }
         }
+        
+        formatter.setValues(values: dates)
+        xaxis.valueFormatter = formatter
+        chartViewStarRatings.xAxis.valueFormatter = xaxis.valueFormatter
         
         let chartDataSet = LineChartDataSet(values: dataEntries, label: nil)
         
@@ -318,11 +349,11 @@ extension StatisticsView {
         
         let chartData = LineChartData(dataSet: chartDataSet)
         chartViewStarRatings.data = chartData
-        
+        chartViewStarRatings.clipsToBounds = false
         chartViewStarRatings.xAxis.labelPosition = .bottom
         chartViewStarRatings.xAxis.drawGridLinesEnabled = false
         chartViewStarRatings.xAxis.drawAxisLineEnabled = true
-        chartViewStarRatings.xAxis.drawLabelsEnabled = false
+        chartViewStarRatings.xAxis.drawLabelsEnabled = true
         
         chartViewStarRatings.chartDescription?.enabled = false
         chartViewStarRatings.rightAxis.enabled = false
@@ -338,13 +369,20 @@ extension StatisticsView {
         chartViewStarRatings.leftAxis.granularity = 1.0
         chartViewStarRatings.leftAxis.decimals = 0
         
-        
         chartViewStarRatings.leftAxis.valueFormatter = ChartAxisLineIntFormatter()
         
         chartViewStarRatings.leftAxis.axisMinimum = 0.5
         chartViewStarRatings.leftAxis.axisMaximum = 5.5
         
+        chartViewStarRatings.xAxis.spaceMin = 0.1
+        chartViewStarRatings.xAxis.spaceMax = 0.1
+        
         chartViewStarRatings.animate(yAxisDuration: 1.5)
+        
+        chartViewStarRatings.xAxis.granularityEnabled = true
+        chartViewStarRatings.xAxis.granularity = 1.0
+        chartViewStarRatings.xAxis.decimals = 0
+        chartViewStarRatings.xAxis.labelTextColor = Color.white.alpha(0.5)
     }
     
     func initializeBarChart() {
@@ -440,6 +478,15 @@ public class ChartAxisLineIntFormatter: NSObject, IAxisValueFormatter
         return "\(Int(value)) ★"
     }
 }
+
+//@objc(ChartXAxisLineDateFormatter)
+//public class ChartXAxisLineDateFormatter: NSObject, IAxisValueFormatter
+//{
+//    public func stringForValue(_ value: String, axis: AxisBase?) -> String
+//    {
+//        return value
+//    }
+//}
 
 
 class BarChartIntFormatter: NSObject, IValueFormatter{
