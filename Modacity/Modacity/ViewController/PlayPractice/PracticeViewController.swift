@@ -1699,6 +1699,8 @@ extension PracticeViewController {
         if let practiceItem = self.playingPracticeItem() {
             if let settings = practiceItem.droneSettings {
                 MetrodroneParameters.instance.setFromSettings(settings)
+            } else {
+                MetrodroneParameters.instance.setFromStandard()
             }
             
             NotificationCenter.default.addObserver(self, selector: #selector(droneSettingsChanged), name: AppConfig.NotificationNames.appNotificationMetrodroneParametersUpdated, object: nil)

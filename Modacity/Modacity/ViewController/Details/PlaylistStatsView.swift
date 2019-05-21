@@ -187,7 +187,7 @@ class PlaylistStatsView: UIView {
             while cal.timeIntervalSince1970 <= sunday.timeIntervalSince1970 {
                 let key = cal.toString(format: "yy-MM-dd")
                 if let value = secondsData[key] {
-                    seconds.append(Double(value) / 60)
+                    seconds.append(Double(value) / 60.0)
                 } else {
                     seconds.append(0)
                 }

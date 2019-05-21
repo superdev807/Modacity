@@ -317,7 +317,6 @@ extension PracticeItemListViewController: UITableViewDataSource, UITableViewDele
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "PracticeItemCell") as! PracticeItemCell
-            print("self.sectionNames[indexPath.section - (tableHeaderShowing ? 1 : 0)] = \(self.sectionNames[indexPath.section - (tableHeaderShowing ? 1 : 0)])")
             if (self.sectionedPracticeItems[self.sectionNames[indexPath.section - (tableHeaderShowing ? 1 : 0)]]!.count > indexPath.row) {
                 cell.configure(with: self.sectionedPracticeItems[self.sectionNames[indexPath.section - (tableHeaderShowing ? 1 : 0)]]![indexPath.row],
                                keyword: self.tableHeaderKeyword,

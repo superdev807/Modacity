@@ -80,25 +80,29 @@ extension SettingsAppDataViewController {
             PracticeItemRemoteManager.manager.fullSync {
                 DispatchQueue.main.async {hud.label.text = "Synchronizing playlist items..."}
                 PlaylistRemoteManager.manager.fullSync(completion: {
-                    DispatchQueue.main.async {hud.label.text = "Synchronizing reminders..."}
-                    RemindersRemoteManager.manager.fullSync {
-                        DispatchQueue.main.async {hud.label.text = "Synchronizing deliberate practices..."}
-                        DeliberatePracticeRemoteManager.manager.fullSync {
-                            DispatchQueue.main.async {hud.label.text = "Synchronizing overall data..."}
-                            OverallDataRemoteManager.manager.fullSync(completion: {
-                                DispatchQueue.main.async { hud.label.text = "Synchronizing goals..." }
-                                GoalsRemoteManager.manager.fullSync(completion: {
-                                    DispatchQueue.main.async { hud.label.text = "Synchronizing practice history..." }
-                                    DailyPracticingRemoteManager.manager.syncPlaylistPracticingData {
-                                        DailyPracticingRemoteManager.manager.syncPracticeData {
-                                            DispatchQueue.main.async {
-                                                hud.hide(animated: true)
-                                                AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Sync Complete - You have the latest data")
+                    PlaylistRemoteManager.manager.syncRecentItems {
+                        AppOveralDataManager.manager.viewModel?.prepareRecentItems()
+                        DispatchQueue.main.async {hud.label.text = "Synchronizing reminders..."}
+                        RemindersRemoteManager.manager.fullSync {
+                            DispatchQueue.main.async {hud.label.text = "Synchronizing deliberate practices..."}
+                            DeliberatePracticeRemoteManager.manager.fullSync {
+                                AppOveralDataManager.manager.viewModel?.prepareFavoriteItems()
+                                DispatchQueue.main.async {hud.label.text = "Synchronizing overall data..."}
+                                OverallDataRemoteManager.manager.fullSync(completion: {
+                                    DispatchQueue.main.async { hud.label.text = "Synchronizing goals..." }
+                                    GoalsRemoteManager.manager.fullSync(completion: {
+                                        DispatchQueue.main.async { hud.label.text = "Synchronizing practice history..." }
+                                        DailyPracticingRemoteManager.manager.syncPlaylistPracticingData {
+                                            DailyPracticingRemoteManager.manager.syncPracticeData {
+                                                DispatchQueue.main.async {
+                                                    hud.hide(animated: true)
+                                                    AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Sync Complete - You have the latest data")
+                                                }
                                             }
                                         }
-                                    }
+                                    })
                                 })
-                            })
+                            }
                         }
                     }
                 })

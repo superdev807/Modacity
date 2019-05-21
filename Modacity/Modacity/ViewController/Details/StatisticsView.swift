@@ -494,11 +494,6 @@ class BarChartIntFormatter: NSObject, IValueFormatter{
         if value == 0 {
             return ""
         }
-        if value >= 1 {
-            let correctValue = Int(value)
-            return String(correctValue)
-        } else {
-            return String(format: "%.1f", value)
-        }
+        return String(format: "%.1f", round(value * 1000) / 1000.0)
     }
 }

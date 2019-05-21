@@ -72,6 +72,17 @@ class MetrodroneParameters {
         return (currNote != "X")
     }
     
+    func setFromStandard() {
+        self.durationRatio = 0.5
+        self.currNote = "X"
+        self.currOctave = 3
+        self.lastUpIndex = -1
+        self.ratioDroneToClick = 0.5
+        self.sustain = false
+        self.tempo = 120
+        self.subdivisions = 1
+    }
+    
     func setFromSettings(_ settings: DroneSettings) {
         self.durationRatio = settings.durationRatio
         self.currNote = settings.currNote

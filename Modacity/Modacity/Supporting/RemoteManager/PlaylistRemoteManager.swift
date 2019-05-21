@@ -43,7 +43,7 @@ class PlaylistRemoteManager {
                 self.setPlaylistItemsSynchronized()
                 NotificationCenter.default.post(Notification(name: AppConfig.NotificationNames.appNotificationPlaylistLoadedFromServer))
             }
-            
+            self.refUser.child(userId).child("recent_sessions").keepSynced(true)
             self.refUser.child(userId).child("recent_sessions").observeSingleEvent(of: .value) { (snapshot) in
                 if snapshot.exists() {
                     if let value = snapshot.value as? [String:String] {
@@ -79,6 +79,20 @@ class PlaylistRemoteManager {
                         }
                     }
                 }
+                completion()
+            }
+        }
+    }
+    
+    func syncRecentItems(completion: @escaping ()->()) {
+        if let userId = MyProfileLocalManager.manager.userId() {
+            self.refUser.child(userId).child("recent_sessions").observeSingleEvent(of: .value) { (snapshot) in
+                if snapshot.exists() {
+                    if let value = snapshot.value as? [String:String] {
+                        PlaylistLocalManager.manager.saveRecentSessions(sessions: value)
+                    }
+                }
+                
                 completion()
             }
         }
