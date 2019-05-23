@@ -112,10 +112,15 @@ extension SettingsAppDataViewController {
     
     func clean() {
         ModacityAnalytics.LogStringEvent("Settings-Confirmed-Erase")
+        
         let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+        hud.label.text = "Clean goals data..."
+        
         RemindersRemoteManager.manager.eraseReminders {
         }
-        hud.label.text = "Clean goals data..."
+        
+        RecordingsLocalManager.manager.cleanAllRecordings()
+        
         GoalsRemoteManager.manager.eraseGoals {
             DispatchQueue.main.async {hud.label.text = "Clean practicing data..."}
             DailyPracticingRemoteManager.manager.erasePracticingData {

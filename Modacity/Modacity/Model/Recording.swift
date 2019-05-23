@@ -41,4 +41,21 @@ class Recording: Mappable {
         
         return url
     }
+    
+    func filePath() -> String? {
+        let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+        let fileManager = FileManager.default
+        
+        var soundFilePath = dirPath[0] + "/" + fileName + AppConfig.Constants.appSavedAudioFileExtension
+        
+        if !(fileManager.fileExists(atPath: soundFilePath)) {
+            if fileManager.fileExists(atPath: dirPath[0] + "/" + fileName + ".wav") {
+                return dirPath[0] + "/" + fileName + ".wav"
+            } else {
+                return nil
+            }
+        }
+        
+        return soundFilePath
+    }
 }

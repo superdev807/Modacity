@@ -334,30 +334,21 @@ extension RecordingsListView: AVAudioPlayerDelegate {
     func prepareAudio() {
         
         if let recording = self.playingRecording {
-            let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
-            let fileManager = FileManager.default
-            
-            var soundFilePath = dirPath[0] + "/" + recording.fileName + AppConfig.Constants.appSavedAudioFileExtension
-            
-            if !(fileManager.fileExists(atPath: soundFilePath)) {
-                if fileManager.fileExists(atPath: dirPath[0] + "/" + recording.fileName + ".wav") {
-                    soundFilePath = dirPath[0] + "/" + recording.fileName + ".wav"
-                } else {
-                    ModacityDebugger.debug("Recording file removed.")
+            if let filePath = recording.filePath() {
+                let url = URL(fileURLWithPath: filePath)
+                
+                do {
+                    self.audioPlayer = try AVAudioPlayer(contentsOf: url)
+                    guard let player = self.audioPlayer else { return }
+                    player.enableRate = true
+                    player.prepareToPlay()
+                    currentRate = 1.0
+                    player.delegate = self
+                } catch let error {
+                    ModacityDebugger.debug("Audio player error \(error.localizedDescription)")
                 }
-            }
-            
-            let url = URL(fileURLWithPath: soundFilePath)
-            
-            do {
-                self.audioPlayer = try AVAudioPlayer(contentsOf: url)
-                guard let player = self.audioPlayer else { return }
-                player.enableRate = true
-                player.prepareToPlay()
-                currentRate = 1.0
-                player.delegate = self
-            } catch let error {
-                ModacityDebugger.debug("Audio player error \(error.localizedDescription)")
+            } else {
+                ModacityDebugger.debug("Audio file deleted")
             }
         }
         
@@ -397,9 +388,12 @@ extension RecordingsListView {
         
         let recordingToRemove = self.recordings[row]
         do {
-            let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
-            let url = URL(fileURLWithPath: dirPath[0] + "/" + recordingToRemove.fileName +  AppConfig.Constants.appSavedAudioFileExtension)
-            try FileManager.default.removeItem(at: url)
+            if let filePath = recordingToRemove.filePath() {
+                let url = URL(fileURLWithPath: filePath)
+                try FileManager.default.removeItem(at: url)
+            } else {
+                ModacityDebugger.debug("No file exists")
+            }
         } catch let error as NSError {
             ModacityDebugger.debug("file removing error - \(error.localizedDescription)")
         }
@@ -412,9 +406,12 @@ extension RecordingsListView {
     
     func deleteRecording(for recording:Recording) {
         do {
-            let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
-            let url = URL(fileURLWithPath: dirPath[0] + "/" + recording.fileName +  AppConfig.Constants.appSavedAudioFileExtension)
-            try FileManager.default.removeItem(at: url)
+            if let filePath = recording.filePath() {
+                let url = URL(fileURLWithPath: filePath)
+                try FileManager.default.removeItem(at: url)
+            } else {
+                ModacityDebugger.debug("No file exists")
+            }
         } catch let error as NSError {
             ModacityDebugger.debug("file removing error - \(error.localizedDescription)")
         }

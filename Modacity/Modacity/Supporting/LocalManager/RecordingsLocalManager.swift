@@ -16,29 +16,13 @@ class RecordingsLocalManager: NSObject {
     func saveCurrentRecording(toFileName: String, playlistId: String, practiceName: String, practiceEntryId: String, practiceItemId:String) {
         let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
         
-//        DispatchQueue.global(qos: .background).async {
-//
-//            let start = Date().timeIntervalSince1970
-//
-            let sourcePath = dirPath[0] + AppConfig.Constants.appRecordingStartFileName
-            let targetPath = dirPath[0] + "/" + toFileName + AppConfig.Constants.appSavedAudioFileExtension
+        let sourcePath = dirPath[0] + AppConfig.Constants.appRecordingStartFileName
+        let targetPath = dirPath[0] + "/" + toFileName + AppConfig.Constants.appSavedAudioFileExtension
         
         
         do {
         try FileManager.default.copyItem(at: URL(fileURLWithPath: sourcePath), to: URL(fileURLWithPath: targetPath))
-//
-//            let converter = GZZAudioConverter()
-//            converter.inputFile = sourcePath
-//            converter.outputFile = targetPath
-//            converter.outputFileType = kAudioFileMP3Type
-//            converter.outputFormatID = kAudioFormatMPEGLayer3
-//            let success = converter.convert()
-//
-//            ModacityDebugger.debug("MP3 Converting - \(Date().timeIntervalSince1970 - start)")
-//
-//            if success {
-//                ModacityDebugger.debug("Successfully converted")
-        
+      
                 if let recording = Recording(JSON: ["id":UUID().uuidString,
                                                     "created_at":"\(Date().timeIntervalSince1970)",
                     "file_name":toFileName,
@@ -50,17 +34,28 @@ class RecordingsLocalManager: NSObject {
                     
                     self.addNewRecording(recording)
                 }
-                
-//            } else {
-//                ModacityDebugger.debug("Convert failed.")
-//            }
-//        }
+            
         } catch let err {
             ModacityDebugger.debug("copy file error \(err.localizedDescription)")
         }
     }
     
-    func removeRecording(forId: String) {
+    func removeRecording(forId: String, deleteWithFile: Bool = false) {
+        
+        if deleteWithFile {
+            if let recording = self.recording(forId: forId) {
+                do {
+                    if let filePath = recording.filePath() {
+                        let url = URL(fileURLWithPath: filePath)
+                        try FileManager.default.removeItem(at: url)
+                    } else {
+                        ModacityDebugger.debug("No file exists")
+                    }
+                } catch let error as NSError {
+                    ModacityDebugger.debug("file removing error - \(error.localizedDescription)")
+                }
+            }
+        }
         
         if let oldRecordingIds = self.loadRecordingIds() {
             var recordingIds = [String]()
@@ -188,6 +183,14 @@ class RecordingsLocalManager: NSObject {
         
         UserDefaults.standard.set(recording.toJSON(), forKey: "recording-" + recording.id)
         UserDefaults.standard.synchronize()
+    }
+    
+    func cleanAllRecordings() {
+        if let recordingIds = self.loadRecordingIds() {
+            for recordingId in recordingIds {
+                self.removeRecording(forId: recordingId, deleteWithFile: true)
+            }
+        }
     }
     
     func signout() {
