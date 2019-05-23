@@ -1044,14 +1044,23 @@ extension PlaylistContentsViewController {
     
     func refreshData() {
         
+        var leadingString = "Timers"
+        
+        if self.isPlaying {
+            leadingString = "Remaining Timers"
+        } else {
+            leadingString = "Timers"
+        }
+        
         let countDownTimer = self.viewModel.totalSumOfRemainingTimers()
-        self.labelSumOfTimers.text = String(format: "Timers: %d:%02d", countDownTimer / 60, countDownTimer % 60)
+        self.labelSumOfTimers.text = String(format: "%@: %d:%02d", leadingString, countDownTimer / 60, countDownTimer % 60)
         if countDownTimer > 0 {
             self.constraintForHeaderViewHeight.constant = 40
         } else {
             self.constraintForHeaderViewHeight.constant = 0
         }
         self.tableViewMain.reloadData()
+        
     }
     
     func duplicate(for item: PlaylistPracticeEntry) {
