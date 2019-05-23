@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="87D-AM-Dd3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="87D-AM-Dd3">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="Lato-Bold.ttf">
+            <string>Lato-Bold</string>
+        </array>
         <array key="Lato-Regular.ttf">
             <string>Lato-Regular</string>
         </array>
@@ -53,6 +56,12 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="STAGING VERSION" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KiQ-ae-Bdg">
+                                <rect key="frame" x="134.66666666666666" y="498" width="106" height="15.666666666666629"/>
+                                <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="12"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -60,7 +69,9 @@
                             <constraint firstItem="IeJ-d7-9CU" firstAttribute="top" secondItem="X91-vB-giB" secondAttribute="bottom" constant="14" id="4n6-wr-YEJ"/>
                             <constraint firstItem="Jqq-bV-6JJ" firstAttribute="bottom" secondItem="IeJ-d7-9CU" secondAttribute="bottom" constant="47" id="BPH-gy-evd"/>
                             <constraint firstItem="sfh-XF-fsR" firstAttribute="centerX" secondItem="Jqq-bV-6JJ" secondAttribute="centerX" id="Dzi-Hm-kWQ"/>
+                            <constraint firstItem="KiQ-ae-Bdg" firstAttribute="centerX" secondItem="sfh-XF-fsR" secondAttribute="centerX" id="FPI-Kz-hVj"/>
                             <constraint firstItem="ZKJ-EZ-II1" firstAttribute="bottom" secondItem="Jqq-bV-6JJ" secondAttribute="bottom" constant="40" id="V7g-Sp-opv"/>
+                            <constraint firstItem="KiQ-ae-Bdg" firstAttribute="top" secondItem="sfh-XF-fsR" secondAttribute="bottom" constant="15" id="YMk-OB-UMr"/>
                             <constraint firstItem="IeJ-d7-9CU" firstAttribute="centerX" secondItem="ZKJ-EZ-II1" secondAttribute="centerX" id="buI-eC-HZT"/>
                             <constraint firstItem="ZKJ-EZ-II1" firstAttribute="trailing" secondItem="Jqq-bV-6JJ" secondAttribute="trailing" id="lUh-pf-tZj"/>
                             <constraint firstItem="sfh-XF-fsR" firstAttribute="centerY" secondItem="Jqq-bV-6JJ" secondAttribute="centerY" id="qMh-36-MEz"/>
@@ -73,6 +84,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="Sx0-Jb-DWY"/>
                     <connections>
+                        <outlet property="labelVersionChecking" destination="KiQ-ae-Bdg" id="mBV-2h-oXV"/>
                         <outlet property="labelWait" destination="X91-vB-giB" id="GLo-9V-4qu"/>
                         <segue destination="kyk-Ey-mBX" kind="show" identifier="sid_home" id="LnI-bT-DmF"/>
                     </connections>

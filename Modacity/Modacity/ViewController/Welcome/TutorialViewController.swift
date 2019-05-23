@@ -61,6 +61,7 @@ class TutorialViewController: ModacityParentViewController {
     @IBOutlet weak var constraintForContentViewLeading: NSLayoutConstraint!
     @IBOutlet weak var constraintForContentViewTrailing: NSLayoutConstraint!
     @IBOutlet weak var pageControl: UIPageControl!
+    @IBOutlet weak var labelVersionChecking: UILabel!
     
     @IBOutlet weak var constraintForBottomBarHeight: NSLayoutConstraint!
     
@@ -87,6 +88,15 @@ class TutorialViewController: ModacityParentViewController {
         // Do any additional setup after loading the view.
         self.configureTableViewToPageViewLooking()
         self.relayoutForDeviceSizes()
+        
+        switch AppConfig.appVersion {
+        case .dev:
+            self.labelVersionChecking.text = "(Dev Version)"
+        case .staging:
+            self.labelVersionChecking.text = "(Staging Version)"
+        case .live:
+            self.labelVersionChecking.text = ""
+        }
     }
 
     override func viewDidLayoutSubviews() {

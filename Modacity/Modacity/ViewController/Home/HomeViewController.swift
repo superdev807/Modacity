@@ -39,6 +39,7 @@ class HomeViewController: ModacityParentViewController {
     
     @IBOutlet weak var constraintForRecentCollectionViewHeight: NSLayoutConstraint!
     @IBOutlet weak var constraintForFavoritesCollectionViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var labelVersionChecking: UILabel!
     
     var metrodroneView : MetrodroneView!
     var recentPlaylists = [Playlist]()
@@ -94,6 +95,15 @@ class HomeViewController: ModacityParentViewController {
     }
     
     func configureUI() {
+        
+        switch AppConfig.appVersion {
+        case .dev:
+            self.labelVersionChecking.text = "(Dev Version)"
+        case .staging:
+            self.labelVersionChecking.text = "(Staging Version)"
+        case .live:
+            self.labelVersionChecking.text = ""
+        }
         
         self.textfieldTotalHours.tintColor = Color.white
         self.textfieldDayStreak.tintColor = Color.white

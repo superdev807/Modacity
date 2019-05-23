@@ -19,6 +19,7 @@ class CreateAccountViewController: ModacityParentViewController {
     @IBOutlet weak var buttonClose: UIButton!
     @IBOutlet weak var buttonEmailSignIn: UIButton!
     @IBOutlet weak var buttonSkip: UIButton!
+    @IBOutlet weak var lableVersionChecking: UILabel!
     
     var switchFromGuest = false
     
@@ -37,6 +38,15 @@ class CreateAccountViewController: ModacityParentViewController {
         self.initControls()
         self.bindViewModel()
         GIDSignIn.sharedInstance().uiDelegate = self
+        
+        switch AppConfig.appVersion {
+        case .dev:
+            self.lableVersionChecking.text = "(Dev Version)"
+        case .staging:
+            self.lableVersionChecking.text = "(Staging Version)"
+        case .live:
+            self.lableVersionChecking.text = ""
+        }
     }
 
     override func didReceiveMemoryWarning() {

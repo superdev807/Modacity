@@ -13,11 +13,22 @@ class SplashViewController: ModacityParentViewController {
     let waitingTimeLongLimit: Int = 5
     
     @IBOutlet weak var labelWait: UILabel!
+    @IBOutlet weak var labelVersionChecking: UILabel!
+    
     var waitingTimer: Timer? = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        switch AppConfig.appVersion {
+        case .dev:
+            self.labelVersionChecking.text = "(Dev Version)"
+        case .staging:
+            self.labelVersionChecking.text = "(Staging Version)"
+        case .live:
+            self.labelVersionChecking.text = ""
+        }
         
         self.labelWait.isHidden = true
         

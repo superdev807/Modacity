@@ -217,6 +217,12 @@
                                     <constraint firstItem="Pup-kb-CY9" firstAttribute="top" secondItem="EHa-b0-C02" secondAttribute="top" id="f9u-HG-oMn"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(STAGING VERSION)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9K9-7e-RFr">
+                                <rect key="frame" x="121" y="46.5" width="84.5" height="11"/>
+                                <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="9"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.15686274510000001" green="0.4039215686" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -230,6 +236,8 @@
                             <constraint firstItem="dBh-fy-jLL" firstAttribute="top" secondItem="Mhz-EY-M6e" secondAttribute="bottom" constant="10" id="R8Q-hc-SSE"/>
                             <constraint firstItem="T5S-Xz-5qV" firstAttribute="trailing" secondItem="58a-4E-eao" secondAttribute="trailing" id="Xfr-dK-HKn"/>
                             <constraint firstItem="EHa-b0-C02" firstAttribute="leading" secondItem="T5S-Xz-5qV" secondAttribute="leading" id="bXv-WH-SuD"/>
+                            <constraint firstItem="9K9-7e-RFr" firstAttribute="leading" secondItem="Mhz-EY-M6e" secondAttribute="trailing" constant="8" id="did-YC-YWE"/>
+                            <constraint firstItem="9K9-7e-RFr" firstAttribute="centerY" secondItem="Mhz-EY-M6e" secondAttribute="centerY" id="icw-U0-cXV"/>
                             <constraint firstItem="pCO-dX-9gf" firstAttribute="top" secondItem="FpO-l0-4uO" secondAttribute="top" id="ixq-A0-zHw"/>
                             <constraint firstItem="dBh-fy-jLL" firstAttribute="leading" secondItem="pCO-dX-9gf" secondAttribute="leading" id="j3j-oy-MQx"/>
                             <constraint firstItem="pCO-dX-9gf" firstAttribute="leading" secondItem="T5S-Xz-5qV" secondAttribute="leading" id="lhw-dx-8Il"/>
@@ -247,6 +255,7 @@
                         <outlet property="constraintForContentViewLeading" destination="j3j-oy-MQx" id="9vb-qX-Usz"/>
                         <outlet property="constraintForContentViewTrailing" destination="txU-UN-Bzf" id="4k5-gZ-ZLu"/>
                         <outlet property="horizontalTableViewTutorial" destination="dBh-fy-jLL" id="H67-2O-L3F"/>
+                        <outlet property="labelVersionChecking" destination="9K9-7e-RFr" id="03U-M6-Z9q"/>
                         <outlet property="pageControl" destination="70T-l7-Mrn" id="nsf-hi-gGW"/>
                         <segue destination="Wwc-UZ-FlQ" kind="show" identifier="sid_startup" id="m3p-n8-QsD"/>
                     </connections>
@@ -392,6 +401,12 @@
                                     <action selector="onSkip:" destination="Wwc-UZ-FlQ" eventType="touchUpInside" id="hJb-gH-haD"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(STAGING VERSION)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gre-1X-wns">
+                                <rect key="frame" x="121" y="47" width="84.5" height="11"/>
+                                <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="9"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.16470588235294117" green="0.19607843137254902" blue="0.32156862745098036" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -399,6 +414,7 @@
                             <constraint firstItem="Pp0-zG-AEC" firstAttribute="leading" secondItem="xUA-am-5jO" secondAttribute="leading" id="E0x-WW-sRI"/>
                             <constraint firstItem="Spr-RC-lfe" firstAttribute="leading" secondItem="xUA-am-5jO" secondAttribute="leading" constant="50" id="INb-8m-xOP"/>
                             <constraint firstItem="Iar-xQ-FQ2" firstAttribute="centerY" secondItem="gkQ-Xw-PQq" secondAttribute="centerY" id="JLX-7G-Ivc"/>
+                            <constraint firstItem="gre-1X-wns" firstAttribute="leading" secondItem="gkQ-Xw-PQq" secondAttribute="trailing" constant="8" id="Lmd-WZ-7lt"/>
                             <constraint firstItem="geo-rj-wNZ" firstAttribute="top" secondItem="d77-5O-tBZ" secondAttribute="bottom" constant="8.5" id="NZc-y4-14G"/>
                             <constraint firstItem="xUA-am-5jO" firstAttribute="trailing" secondItem="Iar-xQ-FQ2" secondAttribute="trailing" constant="16" id="O7G-CF-tiQ"/>
                             <constraint firstItem="MNa-a2-MCF" firstAttribute="trailing" secondItem="xUA-am-5jO" secondAttribute="trailing" id="Qbn-9I-rlo"/>
@@ -409,6 +425,7 @@
                             <constraint firstItem="Pp0-zG-AEC" firstAttribute="bottom" secondItem="xUA-am-5jO" secondAttribute="bottom" constant="40" id="bLV-ET-AXd"/>
                             <constraint firstItem="Pp0-zG-AEC" firstAttribute="trailing" secondItem="xUA-am-5jO" secondAttribute="trailing" id="bn9-5Q-zuD"/>
                             <constraint firstItem="qKV-nU-cMt" firstAttribute="top" secondItem="Spr-RC-lfe" secondAttribute="bottom" constant="10" id="f18-oY-dY2"/>
+                            <constraint firstItem="gre-1X-wns" firstAttribute="centerY" secondItem="gkQ-Xw-PQq" secondAttribute="centerY" id="fEY-ba-GvH"/>
                             <constraint firstItem="Pp0-zG-AEC" firstAttribute="top" secondItem="ETv-Dw-jeq" secondAttribute="top" id="fzs-ZJ-bBm"/>
                             <constraint firstItem="MNa-a2-MCF" firstAttribute="leading" secondItem="xUA-am-5jO" secondAttribute="leading" id="lck-yX-t5d"/>
                             <constraint firstItem="xUA-am-5jO" firstAttribute="trailing" secondItem="Spr-RC-lfe" secondAttribute="trailing" constant="50" id="m9P-X0-c4Z"/>
@@ -423,6 +440,7 @@
                         <outlet property="buttonEmailSignIn" destination="d77-5O-tBZ" id="pYK-mw-74R"/>
                         <outlet property="buttonSkip" destination="geo-rj-wNZ" id="oUf-LE-vCi"/>
                         <outlet property="labelWaiting" destination="Spr-RC-lfe" id="xoX-j9-fkK"/>
+                        <outlet property="lableVersionChecking" destination="gre-1X-wns" id="6Y1-WF-hgV"/>
                         <outlet property="spinnerFacebook" destination="Vea-OK-UcC" id="FTC-2J-FMs"/>
                         <outlet property="spinnerGoogle" destination="g5w-cm-SQP" id="1LX-VF-XG0"/>
                         <outlet property="spinnerProcessing" destination="qKV-nU-cMt" id="t3F-Up-wsk"/>
