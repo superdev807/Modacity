@@ -53,6 +53,16 @@ class ImprovementViewModel: ViewModel {
         }
     }
     
+    func hypoethsisExistCheck(_ hypothsis: String) -> String? {
+        for hypo in self.hypothesisList() {
+            if hypo.lowercased() == hypothsis {
+                return hypo
+            }
+        }
+        
+        return nil
+    }
+    
     func generateImprovement(with playlist: Playlist, practice: PlaylistPracticeEntry) -> Improvement {
         return Improvement(JSON: ["id":UUID().uuidString,
                                   "playlist_id": playlist.id,
@@ -64,6 +74,7 @@ class ImprovementViewModel: ViewModel {
     }
     
     func processSuggestionCustomization() {
+        
         
         DeliberatePracticeManager.manager.storeCustomDeliberate(isNewSuggestion: (self.selectedSuggestionData == nil),
                                                                 newSuggestionName: self.selectedSuggestion,

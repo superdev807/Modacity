@@ -102,7 +102,7 @@ class StatisticsView: UIView {
                     for daily in dailyDatas {
                         totalSeconds = totalSeconds + daily.practiceTimeInSeconds
                         
-                        if daily.rating != nil && daily.rating > 0 {
+                        if daily.rating != nil {
                             let ratingKey = (daily.entryDateString + " " + daily.fromTime).date(format: "yy-MM-dd HH:mm:ss")!.timeIntervalSince1970
                             ratings[ratingKey] = daily.rating
                         }
@@ -355,6 +355,7 @@ extension StatisticsView {
         chartViewStarRatings.xAxis.drawAxisLineEnabled = true
         chartViewStarRatings.xAxis.drawLabelsEnabled = true
         
+        
         chartViewStarRatings.chartDescription?.enabled = false
         chartViewStarRatings.rightAxis.enabled = false
         chartViewStarRatings.leftAxis.enabled = true
@@ -371,7 +372,7 @@ extension StatisticsView {
         
         chartViewStarRatings.leftAxis.valueFormatter = ChartAxisLineIntFormatter()
         
-        chartViewStarRatings.leftAxis.axisMinimum = 0.5
+        chartViewStarRatings.leftAxis.axisMinimum = 0
         chartViewStarRatings.leftAxis.axisMaximum = 5.5
         
         chartViewStarRatings.xAxis.spaceMin = 0.1

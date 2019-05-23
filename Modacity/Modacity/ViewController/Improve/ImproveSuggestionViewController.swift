@@ -94,15 +94,16 @@ class ImproveSuggestionViewController: ModacityParentViewController {
         if suggestion == "" {
             AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Please enter a sugestion.")
         } else {
-            self.viewModel.selectedSuggestion = suggestion
+            if let sugg = DeliberatePracticeManager.manager.isExistingSuggestion(suggestion) {
+                self.viewModel.selectedSuggestionData = sugg
+            } else {
+                self.viewModel.selectedSuggestion = suggestion
+            }
             self.performSegue(withIdentifier: "sid_next", sender: nil)
         }
     }
     
     @IBAction func onEditingChangedOnField(_ sender: Any) {
-        if "" != self.textfieldInputBox.text {
-            self.viewModel.selectedSuggestion = self.textfieldInputBox.text ?? ""
-        }
     }
     
     @objc func onKeyboardWillShow(notification: Notification) {

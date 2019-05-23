@@ -41,6 +41,11 @@ class ImproveHypothesisViewController: ModacityParentViewController {
         self.buttonTryAgain.isHidden = true
         self.bindViewModel()
         
+        let attributedString = NSMutableAttributedString(string: "What ", attributes: [NSAttributedStringKey.foregroundColor: Color.white, NSAttributedStringKey.font: UIFont(name: AppConfig.UI.Fonts.appFontLatoBold, size: 16)!])
+        attributedString.append(NSAttributedString(string: "strategy ", attributes: [NSAttributedStringKey.foregroundColor: Color.white, NSAttributedStringKey.font: UIFont(name: AppConfig.UI.Fonts.appFontLatoBoldItalic, size: 16)!]))
+        attributedString.append(NSAttributedString(string: "will you try\nto make this improvement??", attributes: [NSAttributedStringKey.foregroundColor: Color.white, NSAttributedStringKey.font: UIFont(name: AppConfig.UI.Fonts.appFontLatoBold, size: 16)!]))
+        self.labelHeaderNote.attributedText = attributedString
+        
         NotificationCenter.default.addObserver(self, selector: #selector(onKeyboardWillShow), name: Notification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(onKeyboardWillChangeFrame), name: Notification.Name.UIKeyboardWillChangeFrame, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(onKeyboardWillHide), name: Notification.Name.UIKeyboardWillHide, object: nil)
@@ -69,7 +74,7 @@ class ImproveHypothesisViewController: ModacityParentViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if self.viewModel.alreadyTried {
-            self.labelHeaderNote.attributedText = NSAttributedString(string: "Try again! or attempt\nsomething different.", attributes: [NSAttributedStringKey.foregroundColor: Color.white])
+            self.labelHeaderNote.attributedText = NSAttributedString(string: "Try again! or attempt\nsomething different.", attributes: [NSAttributedStringKey.foregroundColor: Color.white, NSAttributedStringKey.font: UIFont(name: AppConfig.UI.Fonts.appFontLatoRegular, size: 16)!])
             self.textfieldInputBox.text = self.viewModel.selectedHypothesis
         }
     }
@@ -89,19 +94,31 @@ class ImproveHypothesisViewController: ModacityParentViewController {
     }
     
     @IBAction func onDidEndOnExit(_ sender: Any) {
-        self.viewModel.selectedHypothesis = self.textfieldInputBox.text ?? ""
-        self.viewModel.isNewHypo = true
-        if AppUtils.sizeModelOfiPhone() == .iphone5_4in || AppUtils.sizeModelOfiPhone() == .iphone4_35in {
-            self.performSegue(withIdentifier: "sid_next_small_sizes", sender: nil)
+        
+        let hypothesis = (self.textfieldInputBox.text ?? "").trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        if hypothesis == "" {
+            AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Please enter a hypothesis.")
         } else {
-            self.performSegue(withIdentifier: "sid_next", sender: nil)
+            if let hypo = self.viewModel.hypoethsisExistCheck(hypothesis) {
+                self.viewModel.selectedHypothesis = hypo
+                self.viewModel.isNewHypo = false
+            } else {
+                self.viewModel.selectedHypothesis = hypothesis
+                self.viewModel.isNewHypo = true
+            }
+            
+            if AppUtils.sizeModelOfiPhone() == .iphone5_4in || AppUtils.sizeModelOfiPhone() == .iphone4_35in {
+                self.performSegue(withIdentifier: "sid_next_small_sizes", sender: nil)
+            } else {
+                self.performSegue(withIdentifier: "sid_next", sender: nil)
+            }
         }
     }
     
     @IBAction func onEditingChanged(_ sender: Any) {
-        if "" != self.textfieldInputBox.text {
-            self.viewModel.selectedHypothesis = self.textfieldInputBox.text ?? ""
-        }
+//        if "" != self.textfieldInputBox.text {
+//            self.viewModel.selectedHypothesis = self.textfieldInputBox.text ?? ""
+//        }
     }
     
     @objc func onKeyboardWillChangeFrame(notification: Notification) {

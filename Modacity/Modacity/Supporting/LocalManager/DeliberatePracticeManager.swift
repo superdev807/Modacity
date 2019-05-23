@@ -48,6 +48,16 @@ class DeliberatePracticeManager: NSObject {
         })
     }
     
+    func isExistingSuggestion(_ suggestionName: String) -> DeliberatePracticeSuggestion? {
+        let suggestions = self.suggestionsList()
+        for suggestion in suggestions {
+            if suggestionName.lowercased() == suggestion.suggestion.lowercased() {
+                return suggestion
+            }
+        }
+        return nil
+    }
+    
     func storeCustomDeliberate(isNewSuggestion: Bool,
                                newSuggestionName: String?,
                                suggestionId: String?,
