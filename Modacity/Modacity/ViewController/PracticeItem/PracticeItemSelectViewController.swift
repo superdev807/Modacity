@@ -89,11 +89,10 @@ class PracticeItemSelectViewController: ModacityParentViewController {
             self.tableViewMain.reloadData()
         }
         self.processWalkthrough()
-        NotificationCenter.default.addObserver(self, selector: #selector(onKeyboardWillChangeFrame), name: Notification.Name.UIKeyboardWillChangeFrame, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(onKeyboardWillHide), name: Notification.Name.UIKeyboardWillHide, object: nil)
     }
     
-    deinit {
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self)
     }
     
@@ -108,6 +107,11 @@ class PracticeItemSelectViewController: ModacityParentViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(onKeyboardWillChangeFrame), name: Notification.Name.UIKeyboardWillChangeFrame, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onKeyboardWillHide), name: Notification.Name.UIKeyboardWillHide, object: nil)
+
+        
         if !firstAppearing {
             self.sortKey = AppOveralDataManager.manager.sortKey()
             self.sortOption = AppOveralDataManager.manager.sortOption()
@@ -195,6 +199,10 @@ class PracticeItemSelectViewController: ModacityParentViewController {
 extension PracticeItemSelectViewController {
     
     @IBAction func onBack(_ sender: Any) {
+        
+        if !(self.viewWalkthrough.isHidden) {
+            AppOveralDataManager.manager.walkthroughSetFlag(key: "walkthrough_second_page", value: true)
+        }
 
         if let parentController = self.parentController {
             if parentController.shouldStartFromPracticeSelection {

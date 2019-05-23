@@ -300,6 +300,11 @@ class PlaylistContentsViewController: ModacityParentViewController {
         if self.viewModel.playlistName == "" {
             let alertController = UIAlertController(title: nil, message: "You need to enter the name of the session to save this list.", preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: "Save", style: .default, handler: { (_) in
+                
+                if self.showingWalkThroughNaming {
+                    self.dismissWalkThroughNaming()
+                }
+                
                 self.isNameEditing = true
                 self.buttonEditPlaylistNameLarge.isHidden = true
                 self.labelPlaylistName.isHidden = true
@@ -309,6 +314,10 @@ class PlaylistContentsViewController: ModacityParentViewController {
                 self.textfieldPlaylistName.becomeFirstResponder()
             }))
             alertController.addAction(UIAlertAction(title: "Close", style: .cancel, handler: { (_) in
+                
+                if self.showingWalkThroughNaming {
+                    AppOveralDataManager.manager.walkthroughSetFlag(key: "walkthrough_playlist_naming", value: true)
+                }
                 
                 if self.isPlaying {
                     if self.viewModel.playlistName == "" {
@@ -340,21 +349,12 @@ class PlaylistContentsViewController: ModacityParentViewController {
             self.present(alertController, animated: true, completion: nil)
             
         } else {
+            
             if self.isPlaying {
                 
                 let alertController = UIAlertController(title: nil, message: "This will end your practice session. Are you sure to close the page?", preferredStyle: .alert)
                 
                 alertController.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (_) in
-                    
-//                    if self.viewModel.playlistName == "" {
-//                        self.playlistPracticeTotalTimeInSec = self.viewModel.totalPracticedTime()
-//                        if self.navigationController?.viewControllers.count == 1 {
-//                            self.navigationController?.dismiss(animated: true, completion: nil)
-//                        } else {
-//                            self.navigationController?.popViewController(animated: true)
-//                        }
-//                        return
-//                    }
                     
                     self.playlistPracticeTotalTimeInSec = self.viewModel.totalPracticedTime()
                     if self.navigationController?.viewControllers.count == 1 {

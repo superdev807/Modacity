@@ -56,6 +56,7 @@ class AppOveralDataManager {
 
         for (key, _) in UserDefaults.standard.dictionaryRepresentation() {
             if key != "tutorial_read" {
+                print("removed key \(key)")
                 UserDefaults.standard.removeObject(forKey: key)
             }
         }
