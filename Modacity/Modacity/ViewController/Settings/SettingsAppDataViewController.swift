@@ -89,6 +89,7 @@ extension SettingsAppDataViewController {
                                 AppOveralDataManager.manager.viewModel?.prepareFavoriteItems()
                                 DispatchQueue.main.async {hud.label.text = "Synchronizing overall data..."}
                                 OverallDataRemoteManager.manager.fullSync(completion: {
+                                    AppOveralDataManager.manager.viewModel?.prepareTotalImprovementValue()
                                     DispatchQueue.main.async { hud.label.text = "Synchronizing goals..." }
                                     GoalsRemoteManager.manager.fullSync(completion: {
                                         DispatchQueue.main.async { hud.label.text = "Synchronizing practice history..." }

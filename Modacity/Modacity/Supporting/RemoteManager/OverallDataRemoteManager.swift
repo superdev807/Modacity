@@ -62,6 +62,7 @@ class OverallDataRemoteManager {
     
     func fullSync(completion: @escaping ()->()) {
         if let userId = MyProfileLocalManager.manager.userId() {
+            self.refUser.child(userId).child("overall").keepSynced(true)
             self.refUser.child(userId).child("overall").observeSingleEvent(of: .value) { (snapshot) in
                 if let overallData = snapshot.value as? [String:Any] {
                     AppOveralDataManager.manager.forcelySetValues(totalImprovements: overallData["total_improvements"] as? Int ?? 0,

@@ -130,7 +130,7 @@ class SettingsViewController: ModacityParentViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        OverallDataRemoteManager.manager.startUpdatingOverallData()
+//        OverallDataRemoteManager.manager.startUpdatingOverallData()
     }
     
     deinit {
