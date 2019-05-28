@@ -296,6 +296,12 @@ extension PracticeViewController: MetrodroneViewDelegate, SubdivisionSelectViewD
     
     @objc func processRouteChange(notification: Notification) {
         
+        if let _ = self.player {
+            if self.isPlaying {
+                self.onPlayPauseAudio(self)
+            }
+        }
+        
         guard let userInfo = notification.userInfo,
             let reasonValue = userInfo[AVAudioSessionRouteChangeReasonKey] as? UInt,
             let reason = AVAudioSessionRouteChangeReason(rawValue:reasonValue) else {

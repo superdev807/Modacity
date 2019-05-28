@@ -21,18 +21,33 @@ class ModacityAudioSessionManager: NSObject {
         let audioSession = AVAudioSession.sharedInstance()
         do {
             if #available(iOS 10.0, *) {
-                try audioSession.setCategory(AVAudioSessionCategoryPlayback, with: [.defaultToSpeaker, .allowBluetooth, .allowAirPlay, .allowBluetoothA2DP, .mixWithOthers])
+                try audioSession.setCategory(AVAudioSessionCategoryPlayback)
+//                try audioSession.setCategory(AVAudioSessionCategoryPlayback, with: [.defaultToSpeaker, .allowBluetooth, /*.allowAirPlay, .allowBluetoothA2DP,*/ .mixWithOthers])
             } else {
                 try audioSession.setCategory(AVAudioSessionCategoryPlayback, with: [.defaultToSpeaker, .allowBluetooth, .mixWithOthers])
             }
+        } catch let error {
+            ModacityDebugger.debug("audio session error in init audio setCategory \(error)")
+        }
+        
+        do {
             try audioSession.setActive(true)
             audioRecordingEnabled = false
         } catch let error {
-            ModacityDebugger.debug("audio session error \(error)")
+            ModacityDebugger.debug("audio session error in init audio setActive(true) \(error)")
         }
+        
+        do {
+            try audioSession.overrideOutputAudioPort(.speaker)
+        } catch let error {
+            ModacityDebugger.debug("audio session error in init audio overrideOutputAudioPort(true) \(error)")
+        }
+        
     }
     
     func openRecording() {
+        
+        ModacityDebugger.debug("OPENING AUDIO SESSION FOR RECORDING")
         let audioSession = AVAudioSession.sharedInstance()
         do {
             if #available(iOS 10.0, *) {
@@ -43,11 +58,12 @@ class ModacityAudioSessionManager: NSObject {
             audioRecordingEnabled = true
             try audioSession.setActive(true)
         } catch let error {
-            ModacityDebugger.debug("audio session error \(error)")
+            ModacityDebugger.debug("audio session error in open recording \(error)")
         }
     }
     
     func closeRecording() {
+        ModacityDebugger.debug("CLOSING AUDIO SESSION FOR RECORDING")
         initAudioSession()
     }
     

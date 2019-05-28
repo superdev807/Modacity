@@ -737,10 +737,12 @@ extension PracticeItemSelectViewController: SortOptionsViewControllerDelegate {
                 keyString = "\(Int(practice.rating)) STARS"
             }
             
-            if self.sectionedPracticeItems[keyString] != nil {
-                self.sectionedPracticeItems[keyString]!.append(practice)
-            } else {
-                self.sectionedPracticeItems[keyString] = [practice]
+            if self.sectionedPracticeItems != nil {
+                if self.sectionedPracticeItems[keyString] != nil {
+                    self.sectionedPracticeItems[keyString]!.append(practice)
+                } else {
+                    self.sectionedPracticeItems[keyString] = [practice]
+                }
             }
         }
     }

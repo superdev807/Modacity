@@ -231,7 +231,7 @@ class PracticeItemListViewController: ModacityParentViewController {
                     keyString = "\(Int(practice.rating)) STARS"
                 }
                 
-                if self.sectionedPracticeItems[keyString] != nil {
+                if self.sectionedPracticeItems != nil {
                     self.sectionedPracticeItems[keyString]!.append(practice)
                 } else {
                     self.sectionedPracticeItems[keyString] = [practice]
