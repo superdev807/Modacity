@@ -43,10 +43,24 @@ class StatisticsView: UIView {
     @IBOutlet weak var labelTotalTime: UILabel!
     @IBOutlet weak var labelTotalTimeUnit: UILabel!
     
+    @IBOutlet weak var labelStarRatingEndDate: UILabel!
+    @IBOutlet weak var labelStarRatingStartDate: UILabel!
+    @IBOutlet weak var labelTappedTime: UILabel!
+    
+    @IBOutlet weak var constraintForTappedLabelTopSpace: NSLayoutConstraint!
+    @IBOutlet weak var constraintForTappedLabelLeadingSpace: NSLayoutConstraint!
+    
+    @IBOutlet weak var constraintForEndDateLabelTopSpace: NSLayoutConstraint!
+    @IBOutlet weak var constraintForEndDateLabelTrailingSpace: NSLayoutConstraint!
+    @IBOutlet weak var constraintForStartDateLabelLeadingSpace: NSLayoutConstraint!
+    @IBOutlet weak var constraintForStartDateLabelTopSpace: NSLayoutConstraint!
+    
     var practiceItemIdForStats: String!
     var practiceData: [String: [PracticeDaily]]! = nil
     
     var date = Date()
+    
+    var timestampsOnRatingGraph = [TimeInterval]()
     
     override init(frame: CGRect) {
         super.init(frame:frame)
@@ -303,34 +317,13 @@ extension StatisticsView {
     
     func setRatingLineChart(values: [Double], timeStamp: [TimeInterval]) {
         
-        let formatter = BarChartFormatter()
-        
-        let xaxis:XAxis = XAxis()
-        
-        var dates = [String]()
-        
         var dataEntries: [ChartDataEntry] = []
         
         for i in 0..<values.count {
             let dataEntry = ChartDataEntry(x: Double(i), y: values[i])
             dataEntries.append(dataEntry)
-            let time = timeStamp[i]
-            if time > 0 {
-                if i == values.count - 1 || i == 0 {
-                    let date = Date(timeIntervalSince1970: time)
-                    dates.append(date.toString(format: "MMM d"))
-                } else {
-                    dates.append("")
-                }
-            } else {
-                dates.append("")
-            }
         }
-        
-        formatter.setValues(values: dates)
-        xaxis.valueFormatter = formatter
-        chartViewStarRatings.xAxis.valueFormatter = xaxis.valueFormatter
-        
+
         let chartDataSet = LineChartDataSet(values: dataEntries, label: nil)
         
         let gradientColors = [Color(hexString: "#6815CE").cgColor, Color(hexString: "#2B67F5").cgColor] as CFArray
@@ -353,8 +346,7 @@ extension StatisticsView {
         chartViewStarRatings.xAxis.labelPosition = .bottom
         chartViewStarRatings.xAxis.drawGridLinesEnabled = false
         chartViewStarRatings.xAxis.drawAxisLineEnabled = true
-        chartViewStarRatings.xAxis.drawLabelsEnabled = true
-        
+        chartViewStarRatings.xAxis.drawLabelsEnabled = false
         
         chartViewStarRatings.chartDescription?.enabled = false
         chartViewStarRatings.rightAxis.enabled = false
@@ -383,7 +375,43 @@ extension StatisticsView {
         chartViewStarRatings.xAxis.granularityEnabled = true
         chartViewStarRatings.xAxis.granularity = 1.0
         chartViewStarRatings.xAxis.decimals = 0
-        chartViewStarRatings.xAxis.labelTextColor = Color.white.alpha(0.5)
+        chartViewStarRatings.pinchZoomEnabled = false
+        chartViewStarRatings.doubleTapToZoomEnabled = false
+        chartViewStarRatings.delegate = self
+        
+        labelTappedTime.isHidden = true
+        
+        self.timestampsOnRatingGraph = timeStamp
+        
+        if timeStamp.count < 2 {
+            self.labelStarRatingEndDate.isHidden = true
+            self.labelStarRatingStartDate.isHidden = true
+        } else {
+            self.labelStarRatingEndDate.isHidden = false
+            self.labelStarRatingStartDate.isHidden = false
+            
+            if timeStamp.first! == 0 {
+                self.labelStarRatingStartDate.isHidden = true
+            }
+            
+            self.labelStarRatingStartDate.text = Date(timeIntervalSince1970: timeStamp.first!).toString(format: "MM/dd/yy")
+            self.labelStarRatingEndDate.text = Date(timeIntervalSince1970: timeStamp.last!).toString(format: "MM/dd/yy")
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
+                
+                var pos = self.chartViewStarRatings.getPosition(entry: dataEntries.first!, axis: .left)
+                self.constraintForStartDateLabelLeadingSpace.constant = pos.x
+                
+                pos = self.chartViewStarRatings.getPosition(entry: dataEntries.last!, axis: .left)
+                self.constraintForEndDateLabelTrailingSpace.constant = pos.x - self.chartViewStarRatings.frame.width
+                
+                pos = self.chartViewStarRatings.getTransformer(forAxis: .left).pixelForValues(x: 0, y: 0)
+                
+                self.constraintForStartDateLabelTopSpace.constant = pos.y - self.chartViewStarRatings.frame.height + 3
+                self.constraintForEndDateLabelTopSpace.constant = pos.y - self.chartViewStarRatings.frame.height + 3
+                self.constraintForTappedLabelTopSpace.constant = pos.y - self.chartViewStarRatings.frame.height + 3
+            }
+        }
     }
     
     func initializeBarChart() {
@@ -455,6 +483,17 @@ extension StatisticsView {
     }
 }
 
+extension StatisticsView: ChartViewDelegate {
+    
+    func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
+        self.labelTappedTime.isHidden = false
+        self.labelTappedTime.text = Date(timeIntervalSince1970: self.timestampsOnRatingGraph[Int(entry.x)]).toString(format: "MM/dd/yy")
+        
+        let pos = self.chartViewStarRatings.getPosition(entry: entry, axis: .left)
+        self.constraintForTappedLabelLeadingSpace.constant = pos.x
+    }
+}
+
 @objc(BarChartFormatter)
 public class BarChartFormatter: NSObject, IAxisValueFormatter
 {
@@ -479,16 +518,6 @@ public class ChartAxisLineIntFormatter: NSObject, IAxisValueFormatter
         return "\(Int(value)) ★"
     }
 }
-
-//@objc(ChartXAxisLineDateFormatter)
-//public class ChartXAxisLineDateFormatter: NSObject, IAxisValueFormatter
-//{
-//    public func stringForValue(_ value: String, axis: AxisBase?) -> String
-//    {
-//        return value
-//    }
-//}
-
 
 class BarChartIntFormatter: NSObject, IValueFormatter{
     public func stringForValue(_ value: Double, entry: ChartDataEntry, dataSetIndex: Int, viewPortHandler: ViewPortHandler?) -> String {

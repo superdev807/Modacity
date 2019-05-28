@@ -27,6 +27,12 @@
                 <outlet property="buttonPreviousWeek" destination="iLM-f1-wJD" id="h6f-HL-lOv"/>
                 <outlet property="chartViewBarGraph" destination="JII-ER-AnU" id="CXf-0n-yh1"/>
                 <outlet property="chartViewStarRatings" destination="GuV-gy-AU7" id="deF-6Q-shE"/>
+                <outlet property="constraintForEndDateLabelTopSpace" destination="dap-6F-KPU" id="EF4-jT-gtT"/>
+                <outlet property="constraintForEndDateLabelTrailingSpace" destination="rYh-fT-fw7" id="xPi-6B-hVZ"/>
+                <outlet property="constraintForStartDateLabelLeadingSpace" destination="JZq-SA-Wkf" id="oEl-bs-Ubg"/>
+                <outlet property="constraintForStartDateLabelTopSpace" destination="9I7-ea-DiL" id="igb-Hs-Ape"/>
+                <outlet property="constraintForTappedLabelLeadingSpace" destination="Qq6-LG-QZt" id="dRA-TM-mEw"/>
+                <outlet property="constraintForTappedLabelTopSpace" destination="isP-dH-lcp" id="tM5-Yg-v4O"/>
                 <outlet property="labelAverageDailyTime" destination="Jpa-JV-v9y" id="B8M-35-CH2"/>
                 <outlet property="labelAverageDailyTimeUnit" destination="9aO-0G-kX3" id="H2k-nD-shI"/>
                 <outlet property="labelAverageSessionDuration" destination="RbO-Hb-U7u" id="dSS-z3-mbq"/>
@@ -35,6 +41,9 @@
                 <outlet property="labelLastMonthUnit" destination="8ZB-Vz-brF" id="HOH-WB-rjD"/>
                 <outlet property="labelLastWeekTotal" destination="Fbl-pd-Gr2" id="QHw-bP-UxF"/>
                 <outlet property="labelLastWeekUnit" destination="m1l-5g-FO4" id="4lf-GB-Qsl"/>
+                <outlet property="labelStarRatingEndDate" destination="HMC-eh-z84" id="R3R-4i-zPT"/>
+                <outlet property="labelStarRatingStartDate" destination="tGx-6O-tNi" id="CLA-5Z-UEX"/>
+                <outlet property="labelTappedTime" destination="utf-eP-jyu" id="2Hg-R3-LM7"/>
                 <outlet property="labelThisMonthTotal" destination="7IK-TC-Bqg" id="Ff4-ml-E4d"/>
                 <outlet property="labelThisMonthUnit" destination="dqw-ou-Jts" id="h6p-1h-S9Z"/>
                 <outlet property="labelThisWeekTotal" destination="uei-r9-PbS" id="Cd7-YZ-VZT"/>
@@ -457,17 +466,41 @@
                                     <rect key="frame" x="0.0" y="684" width="456" height="200"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GuV-gy-AU7" customClass="LineChartView" customModule="Charts">
-                                            <rect key="frame" x="10" y="10" width="436" height="180"/>
+                                            <rect key="frame" x="15" y="10" width="426" height="170"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </view>
+                                        <label opaque="NO" userInteractionEnabled="NO" alpha="0.80000001192092896" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MINUTES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tGx-6O-tNi">
+                                            <rect key="frame" x="-7.5" y="180" width="45" height="12"/>
+                                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="10"/>
+                                            <color key="textColor" red="0.45098039220000002" green="0.42745098040000001" blue="0.71372549019999998" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" alpha="0.80000001192092896" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MINUTES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HMC-eh-z84">
+                                            <rect key="frame" x="419" y="180" width="44.5" height="12"/>
+                                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="10"/>
+                                            <color key="textColor" red="0.45098039220000002" green="0.42745098040000001" blue="0.71372549019999998" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" alpha="0.80000001192092896" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="utf-eP-jyu">
+                                            <rect key="frame" x="205" y="94" width="44.5" height="12"/>
+                                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="10"/>
+                                            <color key="textColor" red="0.45098039220000002" green="0.42745098040000001" blue="0.71372549019999998" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
+                                        <constraint firstItem="tGx-6O-tNi" firstAttribute="top" secondItem="GuV-gy-AU7" secondAttribute="bottom" id="9I7-ea-DiL"/>
+                                        <constraint firstItem="tGx-6O-tNi" firstAttribute="centerX" secondItem="GuV-gy-AU7" secondAttribute="leading" id="JZq-SA-Wkf"/>
                                         <constraint firstItem="GuV-gy-AU7" firstAttribute="top" secondItem="kNl-Nq-jnt" secondAttribute="top" constant="10" id="OYM-nx-adk"/>
-                                        <constraint firstAttribute="trailing" secondItem="GuV-gy-AU7" secondAttribute="trailing" constant="10" id="Tov-p5-79d"/>
+                                        <constraint firstItem="utf-eP-jyu" firstAttribute="centerX" secondItem="GuV-gy-AU7" secondAttribute="leading" id="Qq6-LG-QZt"/>
+                                        <constraint firstAttribute="trailing" secondItem="GuV-gy-AU7" secondAttribute="trailing" constant="15" id="Tov-p5-79d"/>
                                         <constraint firstAttribute="height" constant="200" id="WK4-8b-fWH"/>
-                                        <constraint firstAttribute="bottom" secondItem="GuV-gy-AU7" secondAttribute="bottom" constant="10" id="lbj-ez-egC"/>
-                                        <constraint firstItem="GuV-gy-AU7" firstAttribute="leading" secondItem="kNl-Nq-jnt" secondAttribute="leading" constant="10" id="qe6-Yi-pIQ"/>
+                                        <constraint firstItem="HMC-eh-z84" firstAttribute="top" secondItem="GuV-gy-AU7" secondAttribute="bottom" id="dap-6F-KPU"/>
+                                        <constraint firstItem="utf-eP-jyu" firstAttribute="top" secondItem="GuV-gy-AU7" secondAttribute="bottom" id="isP-dH-lcp"/>
+                                        <constraint firstAttribute="bottom" secondItem="GuV-gy-AU7" secondAttribute="bottom" constant="20" id="lbj-ez-egC"/>
+                                        <constraint firstItem="GuV-gy-AU7" firstAttribute="leading" secondItem="kNl-Nq-jnt" secondAttribute="leading" constant="15" id="qe6-Yi-pIQ"/>
+                                        <constraint firstItem="HMC-eh-z84" firstAttribute="centerX" secondItem="GuV-gy-AU7" secondAttribute="trailing" id="rYh-fT-fw7"/>
                                     </constraints>
                                 </view>
                             </subviews>
