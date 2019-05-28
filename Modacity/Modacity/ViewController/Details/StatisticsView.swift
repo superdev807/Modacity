@@ -117,8 +117,11 @@ class StatisticsView: UIView {
                         totalSeconds = totalSeconds + daily.practiceTimeInSeconds
                         
                         if daily.rating != nil {
-                            let ratingKey = (daily.entryDateString + " " + daily.fromTime).date(format: "yy-MM-dd HH:mm:ss")!.timeIntervalSince1970
-                            ratings[ratingKey] = daily.rating
+                            let timeInterval = (daily.entryDateString + " " + daily.fromTime).date(format: "yy-MM-dd HH:mm:ss")!.timeIntervalSince1970
+                            if daily.rating > 0 || timeInterval > "2019-05-27".date(format: "yyyy-MM-dd")!.timeIntervalSince1970 {
+                                let ratingKey = (daily.entryDateString + " " + daily.fromTime).date(format: "yy-MM-dd HH:mm:ss")!.timeIntervalSince1970
+                                ratings[ratingKey] = daily.rating
+                            }
                         }
                     }
                 }
@@ -409,7 +412,7 @@ extension StatisticsView {
                 
                 self.constraintForStartDateLabelTopSpace.constant = pos.y - self.chartViewStarRatings.frame.height + 3
                 self.constraintForEndDateLabelTopSpace.constant = pos.y - self.chartViewStarRatings.frame.height + 3
-                self.constraintForTappedLabelTopSpace.constant = pos.y - self.chartViewStarRatings.frame.height + 3
+//                self.constraintForTappedLabelTopSpace.constant = pos.y - self.chartViewStarRatings.frame.height + 3
             }
         }
     }
@@ -486,7 +489,11 @@ extension StatisticsView {
 extension StatisticsView: ChartViewDelegate {
     
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
-        self.labelTappedTime.isHidden = false
+        if self.timestampsOnRatingGraph[Int(entry.x)] > 0 {
+            self.labelTappedTime.isHidden = false
+        } else {
+            self.labelTappedTime.isHidden = true
+        }
         self.labelTappedTime.text = Date(timeIntervalSince1970: self.timestampsOnRatingGraph[Int(entry.x)]).toString(format: "MM/dd/yy")
         
         let pos = self.chartViewStarRatings.getPosition(entry: entry, axis: .left)

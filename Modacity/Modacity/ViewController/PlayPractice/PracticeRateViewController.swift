@@ -39,6 +39,21 @@ class PracticeRateViewController: ModacityParentViewController {
         self.rateView.contentMode = .scaleAspectFit
         self.rateView.delegate = self
         
+        var practiceItemId = ""
+        
+        if self.playlistViewModel != nil {
+            practiceItemId = self.playlistViewModel.currentPracticeEntry.practiceItemId
+        } else {
+            practiceItemId = self.practiceItem.id
+        }
+        
+        if let practice = PracticeItemLocalManager.manager.practiceItem(forId: practiceItemId) {
+            if practice.rating != nil {
+                self.rateView.rating = practice.rating
+            }
+        }
+        
+        
         if !AppOveralDataManager.manager.walkThroughFlagChecking(key: "walkthrough_practice_rate_page") {
             self.showWalkThrough() // for Modacity coding style, put stuff like this in separate functions... especially viewDidLoad should always read easy and be short.
         } else {
