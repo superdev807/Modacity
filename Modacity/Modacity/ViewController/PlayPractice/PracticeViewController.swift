@@ -583,8 +583,6 @@ extension PracticeViewController: AVAudioPlayerDelegate, FDWaveformViewDelegate 
     }
     
     func resetPlaybackRate() {
-        /*self.currentRate = 1.0
-        self.showRateValue()*/
         self.setPlaybackRate(1.0)
     }
     
@@ -601,8 +599,26 @@ extension PracticeViewController: AVAudioPlayerDelegate, FDWaveformViewDelegate 
             self.viewRatePanel.isHidden = true
         } else {
             self.viewRatePanel.isHidden = false
-            self.imageViewRateDirection.image = UIImage(named:"icon_forward_white")
-            self.labelRateValue.text = "\(Float(self.currentRate))"
+            if self.currentRate > 1 {
+                self.imageViewRateDirection.image = UIImage(named:"icon_forward_white")
+                self.labelRateValue.text = "\(Float(self.currentRate))"
+            } else {
+                self.imageViewRateDirection.image = UIImage(named:"icon_backward")
+                switch self.currentRate {
+                case 1.0:
+                    self.labelRateValue.text = "1"
+                case 0.7:
+                    self.labelRateValue.text = "1.5"
+                case 0.5:
+                    self.labelRateValue.text = "2"
+                case 0.25:
+                    self.labelRateValue.text = "4"
+                case 0.125:
+                    self.labelRateValue.text = "8"
+                default:
+                    self.labelRateValue.text = "1"
+                }
+            }
         }
     }
     
@@ -611,16 +627,14 @@ extension PracticeViewController: AVAudioPlayerDelegate, FDWaveformViewDelegate 
         var newRate = 1.0
         
         switch(self.currentRate) {
-        case 0.6:
-            newRate = 0.5
+        case 0.25:
+            newRate = 0.125
+        case 0.5:
+            newRate = 0.25
         case 0.7:
-            newRate = 0.6
-        case 0.8:
-            newRate = 0.7
-        case 0.9:
-            newRate = 0.8
+            newRate = 0.5
         case 1.0:
-            newRate = 0.9
+            newRate = 0.7
         default:
             newRate = 1.0
         }
@@ -632,18 +646,14 @@ extension PracticeViewController: AVAudioPlayerDelegate, FDWaveformViewDelegate 
         var newRate = 1.0
         
         switch(self.currentRate) {
+        case 4.0:
+            newRate = 8.0
+        case 2.0:
+            newRate = 4.0
         case 1.5:
             newRate = 2.0
-        case 1.4:
-            newRate = 1.5
-        case 1.3:
-            newRate = 1.4
-        case 1.2:
-            newRate = 1.3
-        case 1.1:
-            newRate = 1.2
         case 1:
-            newRate = 1.1
+            newRate = 1.5
         default:
             // covers the case where rate = 8x
             // and the case when user has been slow playing

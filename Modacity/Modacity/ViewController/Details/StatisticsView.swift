@@ -146,10 +146,10 @@ class StatisticsView: UIView {
                 ratingsTimeStamp.append(timeStamp)
             }
             
-            if ratingsLine.count == 1 {
-                ratingsLine.insert(0, at: 0)
-                ratingsTimeStamp.insert(0, at: 0)
-            }
+//            if ratingsLine.count == 1 {
+//                ratingsLine.insert(0, at: 0)
+//                ratingsTimeStamp.insert(0, at: 0)
+//            }
             
             setRatingLineChart(values: ratingsLine, timeStamp: ratingsTimeStamp)
         } else {
@@ -378,8 +378,8 @@ extension StatisticsView {
         chartViewStarRatings.xAxis.granularityEnabled = true
         chartViewStarRatings.xAxis.granularity = 1.0
         chartViewStarRatings.xAxis.decimals = 0
-        chartViewStarRatings.pinchZoomEnabled = false
-        chartViewStarRatings.doubleTapToZoomEnabled = false
+        
+        
         chartViewStarRatings.delegate = self
         
         labelTappedTime.isHidden = true
@@ -389,6 +389,12 @@ extension StatisticsView {
         if timeStamp.count < 2 {
             self.labelStarRatingEndDate.isHidden = true
             self.labelStarRatingStartDate.isHidden = true
+            
+            chartDataSet.setCircleColor(Color(hexString: "#2B67F5"))
+            chartDataSet.circleHoleColor = Color.clear
+            chartDataSet.circleHoleRadius = 3
+            chartDataSet.drawCirclesEnabled = true
+            
         } else {
             self.labelStarRatingEndDate.isHidden = false
             self.labelStarRatingStartDate.isHidden = false
@@ -415,6 +421,12 @@ extension StatisticsView {
 //                self.constraintForTappedLabelTopSpace.constant = pos.y - self.chartViewStarRatings.frame.height + 3
             }
         }
+        
+        
+        chartViewStarRatings.doubleTapToZoomEnabled = false
+        chartViewStarRatings.pinchZoomEnabled = false
+        chartViewStarRatings.dragEnabled = false
+        chartViewStarRatings.setScaleEnabled(false)
     }
     
     func initializeBarChart() {
