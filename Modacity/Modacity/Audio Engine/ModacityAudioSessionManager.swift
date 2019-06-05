@@ -19,15 +19,30 @@ class ModacityAudioSessionManager: NSObject {
     func initAudioSession() {
         
         let audioSession = AVAudioSession.sharedInstance()
+        
+        var sessionCategoryDidSet = false
         do {
             if #available(iOS 10.0, *) {
-                try audioSession.setCategory(AVAudioSessionCategoryPlayback)
-//                try audioSession.setCategory(AVAudioSessionCategoryPlayback, with: [.defaultToSpeaker, .allowBluetooth, /*.allowAirPlay, .allowBluetoothA2DP,*/ .mixWithOthers])
+                try audioSession.setCategory(AVAudioSessionCategoryPlayback, with: [.defaultToSpeaker, .allowBluetooth, /*.allowAirPlay, .allowBluetoothA2DP,*/ .mixWithOthers])
             } else {
                 try audioSession.setCategory(AVAudioSessionCategoryPlayback, with: [.defaultToSpeaker, .allowBluetooth, .mixWithOthers])
             }
+            sessionCategoryDidSet = true
         } catch let error {
-            ModacityDebugger.debug("audio session error in init audio setCategory \(error)")
+            ModacityDebugger.debug("audio session first step init error in init audio setCategory \(error)")
+        }
+        
+        if !sessionCategoryDidSet {
+            do {
+                if #available(iOS 10.0, *) {
+                    try audioSession.setCategory(AVAudioSessionCategoryPlayback)
+                } else {
+                    try audioSession.setCategory(AVAudioSessionCategoryPlayback, with: [.defaultToSpeaker, .allowBluetooth, .mixWithOthers])
+                }
+                sessionCategoryDidSet = true
+            } catch let error {
+                ModacityDebugger.debug("audio session second step initerror in init audio setCategory \(error)")
+            }
         }
         
         do {
@@ -37,10 +52,12 @@ class ModacityAudioSessionManager: NSObject {
             ModacityDebugger.debug("audio session error in init audio setActive(true) \(error)")
         }
         
-        do {
-            try audioSession.overrideOutputAudioPort(.speaker)
-        } catch let error {
-            ModacityDebugger.debug("audio session error in init audio overrideOutputAudioPort(true) \(error)")
+        if !sessionCategoryDidSet {
+            do {
+                try audioSession.overrideOutputAudioPort(.speaker)
+            } catch let error {
+                ModacityDebugger.debug("audio session error in init audio overrideOutputAudioPort(true) \(error)")
+            }
         }
         
     }

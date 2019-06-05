@@ -298,7 +298,9 @@ extension PracticeViewController: MetrodroneViewDelegate, SubdivisionSelectViewD
         
         if let _ = self.player {
             if self.isPlaying {
-                self.onPlayPauseAudio(self)
+                DispatchQueue.main.async {
+                    self.onPlayPauseAudio(self)
+                }
             }
         }
         
@@ -312,6 +314,7 @@ extension PracticeViewController: MetrodroneViewDelegate, SubdivisionSelectViewD
             fallthrough
         case .oldDeviceUnavailable:
             ModacityDebugger.debug("Audio route changed!")
+            ModacityAudioSessionManager.manager.closeRecording()
             DispatchQueue.main.async {
                 self.resetMetrodroneEngine()
             }
@@ -329,9 +332,15 @@ extension PracticeViewController: MetrodroneViewDelegate, SubdivisionSelectViewD
             self.audioEngineRegreshing = true
             player.stopPlayer()
             self.metrodroneView?.metrodonePlayer = nil
-            self.metrodroneView?.prepareMetrodrone()
             
-            self.perform(#selector(processAudioEnginePrepared), with: nil, afterDelay: 1.0)
+            DispatchQueue.global(qos: .background).async {
+                ModacityAudioSessionManager.manager.openRecording()
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1000), execute: {
+                    self.metrodroneView?.prepareMetrodrone()
+                    self.processAudioEnginePrepared()
+                })
+            }
         }
     }
     
