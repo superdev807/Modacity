@@ -74,8 +74,6 @@ class ImprovementViewModel: ViewModel {
     }
     
     func processSuggestionCustomization() {
-        
-        
         DeliberatePracticeManager.manager.storeCustomDeliberate(isNewSuggestion: (self.selectedSuggestionData == nil),
                                                                 newSuggestionName: self.selectedSuggestion,
                                                                 suggestionId: (self.selectedSuggestionData == nil) ? nil : self.selectedSuggestionData!.id,

@@ -16,6 +16,7 @@ class DeliberatePracticeSuggestion: Mappable {
     var hypos = [String]()
     var isStandard = true
     var createdAt = Date().timeIntervalSince1970
+    var lastUseAt = Date().timeIntervalSince1970
     
     init() {
         
@@ -29,5 +30,6 @@ class DeliberatePracticeSuggestion: Mappable {
         suggestion  <- map["suggestion"]
         hypos       <- map["hypos"]
         createdAt   <- map["created"]
+        lastUseAt   <- map["last_use"]
     }
 }

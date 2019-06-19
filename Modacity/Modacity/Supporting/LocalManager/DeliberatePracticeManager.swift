@@ -39,7 +39,7 @@ class DeliberatePracticeManager: NSObject {
             if suggestion1.id.count < 4 && suggestion2.id.count > 4 {
                 return true
             } else if suggestion1.id.count > 4 && suggestion2.id.count > 4 {
-                return suggestion1.createdAt < suggestion2.createdAt
+                return suggestion1.lastUseAt > suggestion2.lastUseAt
             } else if suggestion1.id.count > 4 && suggestion2.id.count < 4 {
                 return false
             } else {
@@ -64,11 +64,20 @@ class DeliberatePracticeManager: NSObject {
                                isNewHypo: Bool,
                                newHypoName: String?) {
         
+        var suggestions = loadSuggestionsFromCustom()
+        
         if !isNewSuggestion && !isNewHypo {
+            if let suggestionId = suggestionId {
+                if let suggestion = suggestions[suggestionId] {
+                    suggestion.lastUseAt = Date().timeIntervalSince1970
+                    suggestions[suggestionId] = suggestion
+                    self.storeCustomSuggestions(suggestions)
+                    DeliberatePracticeRemoteManager.manager.storeNewSuggestion(suggestion, updating: true)
+                }
+            }
             return
         }
         
-        var suggestions = loadSuggestionsFromCustom()
         var newSuggestion: DeliberatePracticeSuggestion?
         
         var isUpdating = false
@@ -79,14 +88,17 @@ class DeliberatePracticeManager: NSObject {
             newSuggestion!.id = newSuggestionId
             newSuggestion!.suggestion = newSuggestionName!
             newSuggestion!.createdAt = Date().timeIntervalSince1970
+            newSuggestion!.lastUseAt = Date().timeIntervalSince1970
             isUpdating = false
         } else {
             if suggestions[suggestionId!] != nil {
                 newSuggestion = suggestions[suggestionId!]
+                newSuggestion!.lastUseAt = Date().timeIntervalSince1970
                 isUpdating = true
             } else {
                 newSuggestion = DeliberatePracticeSuggestion()
                 newSuggestion!.id = suggestionId!
+                newSuggestion!.lastUseAt = Date().timeIntervalSince1970
                 isUpdating = false
             }
         }
