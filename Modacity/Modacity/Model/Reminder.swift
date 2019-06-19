@@ -181,7 +181,7 @@ class ReminderCustomRepeatData: Mappable {
 
 class Reminder: Mappable {
     
-    static let reminderRepeatingModes = ["Does Not Repeat", "Daily", "Every Weekday(Monday to Friday)", "Custom"]
+    static let reminderRepeatingModes = ["Does Not Repeat", "Daily", "Every Weekday (Monday to Friday)", "Custom"]
     
     var id: String!
     var practiceSessionId: String?

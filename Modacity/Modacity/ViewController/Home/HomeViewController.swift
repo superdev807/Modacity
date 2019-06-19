@@ -191,7 +191,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             if collectionView == self.collectionViewRecentPlaylists {
                 label.text = self.recentPlaylists[indexPath.row].name
                 let typeLabel = cell.viewWithTag(12) as! UILabel
-                typeLabel.text = "SESSION"
+                typeLabel.text = "LIST"
             } else {
                 if let iconView = cell.viewWithTag(11) as? UIImageView {
                     let item = self.favoriteItems[indexPath.row]
@@ -200,7 +200,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
                         if type == "playlist" {
                             if let playlist = item["data"] as? Playlist {
                                 label.text = playlist.name
-                                typeLabel.text = "SESSION"
+                                typeLabel.text = "LIST"
                             }
                             iconView.image = UIImage(named: "icon_playlist_blue")
                         } else {

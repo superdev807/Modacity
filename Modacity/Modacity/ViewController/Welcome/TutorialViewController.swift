@@ -72,7 +72,7 @@ class TutorialViewController: ModacityParentViewController {
                      ["image":"img_carousel_2",
                       "title1":"ORGANIZE",
                       "title2":"YOUR PRACTICE",
-                      "desc":"Add the pieces you’re working on and create practice sessions - saving you time and increasing retention."],
+                      "desc":"Add the pieces you’re working on and create practice lists - saving you time and increasing retention."],
                      ["image":"img_carousel_3",
                       "title1":"PRACTICE",
                       "title2":"WELL",

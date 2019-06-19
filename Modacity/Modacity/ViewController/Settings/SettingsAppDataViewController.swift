@@ -74,6 +74,7 @@ extension SettingsAppDataViewController: UITableViewDataSource, UITableViewDeleg
 extension SettingsAppDataViewController {
     
     func sync() {
+        ModacityAnalytics.LogStringEvent("pressed-sync")
         let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
         hud.label.text = "Synchronizing practice items..."
         DispatchQueue.global(qos: .background).async {
@@ -97,6 +98,7 @@ extension SettingsAppDataViewController {
                                             DailyPracticingRemoteManager.manager.syncPracticeData {
                                                 DispatchQueue.main.async {
                                                     hud.hide(animated: true)
+                                                    ModacityAnalytics.LogStringEvent("sync-finish-success")
                                                     AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Sync Complete - You have the latest data")
                                                 }
                                             }

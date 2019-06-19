@@ -95,7 +95,7 @@ class PlaylistContentsViewController: ModacityParentViewController {
                 self.openPracticeItemsSelection()
                 return
             }
-            self.viewModel.playlistName = "My First Practice Session"
+            self.viewModel.playlistName = "My First Practice List"
             self.buttonEditName.isHidden = false
             self.openPracticeItemsSelection()
         } else {
@@ -352,7 +352,7 @@ class PlaylistContentsViewController: ModacityParentViewController {
             
             if self.isPlaying {
                 
-                let alertController = UIAlertController(title: nil, message: "This will end your practice session. Are you sure to close the page?", preferredStyle: .alert)
+                let alertController = UIAlertController(title: nil, message: "This will end your practice list. Are you sure to close the page?", preferredStyle: .alert)
                 
                 alertController.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (_) in
                     

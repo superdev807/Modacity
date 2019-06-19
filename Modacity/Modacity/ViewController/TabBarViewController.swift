@@ -298,7 +298,7 @@ class TabBarViewController: UITabBarController {
                 let label = UILabel()
                 label.translatesAutoresizingMaskIntoConstraints = false
                 label.numberOfLines = 0
-                label.text = "To get started, create a\npractice session."
+                label.text = "To get started, create a\npractice list."
                 label.textAlignment = .center
                 label.textColor = Color.white
                 label.font = UIFont(name: AppConfig.UI.Fonts.appFontLatoBoldItalic, size: 18)

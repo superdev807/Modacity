@@ -55,7 +55,7 @@ class PlaylistListViewController: ModacityParentViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationItem.title = "Playlist"
+        self.navigationItem.title = "Practice Lists"
         self.loadPlaylists()
     }
     
@@ -226,18 +226,19 @@ extension PlaylistListViewController: PlaylistCellDelegate {
         
         let indexPath = IndexPath(row: insertingRow, section: 0)
         self.tableViewMain.scrollToRow(at: indexPath, at: .top, animated: false)
-        if let cell = self.tableViewMain.cellForRow(at: indexPath) as? PlaylistCell {
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
+            if let cell = self.tableViewMain.cellForRow(at: indexPath) as? PlaylistCell {
                 self.rename(on: cell)
+            } else {
+                print("Cell is nil")
             }
-        } else {
-            print("Cell is nil")
         }
     }
     
     func deletePlaylist(for playlist:Playlist) {
         
-        let alert = UIAlertController(title: nil, message: "Are you sure to remove this practice session and all reminders for it?", preferredStyle: .alert)
+        let alert = UIAlertController(title: nil, message: "Are you sure to remove this practice list and all reminders for it?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (_) in
             for row in 0..<self.playlists.count {
                 if self.playlists[row].id == playlist.id {

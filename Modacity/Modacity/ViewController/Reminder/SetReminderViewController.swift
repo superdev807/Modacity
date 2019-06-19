@@ -234,7 +234,7 @@ extension SetReminderViewController: PlaylistListViewControllerDelegate {
             }
         } else {
             self.labelPracticeSession.textColor = labelsPlaceholderColor
-            self.labelPracticeSession.text = "Practice Session (Optional)"
+            self.labelPracticeSession.text = "Practice List (Optional)"
         }
     }
     

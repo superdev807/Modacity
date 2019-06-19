@@ -53,7 +53,7 @@ class PracticeItemListViewController: ModacityParentViewController {
         if AppUtils.sizeModelOfiPhone() == .iphoneX_xS || AppUtils.sizeModelOfiPhone() == .iphonexR_xSMax {
             self.constraintForHeaderImageViewHeight.constant = 108
         } else {
-            if AppUtils.sizeModelOfiPhone() == .iphone4_35in || AppUtils.sizeModelOfiPhone() == .iphone5_4in {
+            if AppUtils.sizeModelOfiPhone() == .iphone4_35in {
                 self.constraintForHeaderImageViewHeight.constant = 70
             } else {
                 self.constraintForHeaderImageViewHeight.constant = 88
@@ -641,10 +641,13 @@ extension PracticeItemListViewController: SortOptionsViewControllerDelegate {
         self.tableViewMain.reloadData()
         self.tableViewMain.scrollToRow(at: IndexPath(row: indexPath.row + 1, section:indexPath.section), at: .none, animated: false)
         
-        if let cell = self.tableViewMain.cellForRow(at: IndexPath(row: indexPath.row + 1, section:indexPath.section)) as? PracticeItemCell {
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
+            if let cell = self.tableViewMain.cellForRow(at: IndexPath(row: indexPath.row + 1, section:indexPath.section)) as? PracticeItemCell {
                 self.rename(on: cell)
+            } else {
+                print("rename cell is nil, need to wait more.")
             }
+            
         }
         
         DispatchQueue.global(qos: .background).async {

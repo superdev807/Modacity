@@ -157,7 +157,7 @@ class ReminderCell: UITableViewCell {
         
         self.reminder = reminder
         
-        self.labelPlaylistName.text = "Practice session: \(reminder.practiceSessionDescription())"
+        self.labelPlaylistName.text = "Practice list: \(reminder.practiceSessionDescription())"
         
         if reminder.repeatMode == nil || reminder.repeatMode! == 0 {
             self.labelRepeats.text = reminder.repeatDescription()
