@@ -103,6 +103,8 @@ class PlaylistContentsViewController: ModacityParentViewController {
         }
       
         self.practiceBreakTime = AppOveralDataManager.manager.practiceBreakTime() * 60
+        
+        self.tableViewMain.isEditing = true
     }
     
     deinit {
@@ -281,9 +283,9 @@ class PlaylistContentsViewController: ModacityParentViewController {
         self.tableViewMain.tableFooterView = UIView()
         self.tableViewMain.allowsSelectionDuringEditing = true
         
-        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressGestureRecognized))
-        longPressGesture.minimumPressDuration = 0.48
-        self.tableViewMain.addGestureRecognizer(longPressGesture)
+//        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressGestureRecognized))
+//        longPressGesture.minimumPressDuration = 0.48
+//        self.tableViewMain.addGestureRecognizer(longPressGesture)
         
         self.buttonStartPlaylist.isEnabled = false
         self.buttonStartPlaylist.alpha = 0.5
@@ -750,7 +752,7 @@ extension PlaylistContentsViewController: UITableViewDelegate, UITableViewDataSo
     }
     
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        return false
+        return true
     }
     
     func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
@@ -813,7 +815,22 @@ extension PlaylistContentsViewController: UITableViewDelegate, UITableViewDataSo
                 if !(indexPath == sourceIndexPath) {
                     self.viewModel.chaneOrder(source: indexPath.row, target: self.sourceIndexPath!.row)
                     self.tableViewMain.moveRow(at: sourceIndexPath!, to: indexPath)
-                    self.tableViewMain.scrollToRow(at: indexPath, at: .top, animated: true)
+                    if let visibleIndexPaths = self.tableViewMain.indexPathsForVisibleRows {
+                        var minRow = -99999
+                        var maxRow = 99999
+                        for iPath in visibleIndexPaths {
+                            if iPath.row > minRow {
+                                minRow = iPath.row
+                            }
+                            
+                            if iPath.row < maxRow {
+                                maxRow = iPath.row
+                            }
+                        }
+                        if !(visibleIndexPaths.contains(indexPath)) || indexPath.row == minRow || indexPath.row == maxRow {
+                            self.tableViewMain.scrollToRow(at: indexPath, at: .top, animated: true)
+                        }
+                    }
                     sourceIndexPath = indexPath
                 }
             }
@@ -999,6 +1016,20 @@ class  PlaylistPracticeItemCell: UITableViewCell {
     @IBAction func onHeart(_ sender: Any) {
         if self.delegate != nil {
             self.delegate!.onLike(item: self.practiceItem.practiceItem())
+        }
+    }
+    
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        
+        if editing {
+            for view in subviews where view.description.contains("Reorder") {
+                for case let subview as UIImageView in view.subviews {
+                    subview.image = UIImage(named: "icon_reorder")
+                    subview.contentMode = .scaleAspectFill
+                    subview.alpha = 0.5
+                }
+            }
         }
     }
 }
