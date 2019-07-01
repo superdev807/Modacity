@@ -278,9 +278,13 @@ class PracticeViewController: ModacityParentViewController {
         UIApplication.shared.isIdleTimerDisabled = false
         
         if (self.stopAudioOnSegue) {
-            if let _ = self.player {
+            if let player = self.player {
                 if self.isPlaying {
-                    self.onPlayPauseAudio(self)
+                    player.pause()
+                    player.stop()
+                    self.player = nil
+                    self.isPlaying = false
+                    self.buttonAudioPlay.setImage(UIImage(named: "icon_play"), for: .normal)
                 }
             }
         }
@@ -490,6 +494,8 @@ extension PracticeViewController {
             return
         }
         
+        
+        
         ModacityAudioSessionManager.manager.closeRecording()
         
         if self.playlistViewModel != nil {
@@ -510,43 +516,9 @@ extension PracticeViewController {
             self.timer.invalidate()
         }
         
-//        var practiceCompleted = false
-//
-//        if self.countDownDuration == 0 {
-//            practiceCompleted = true
-//        } else {
-//            if self.countDownPlayed < self.countDownDuration {
-//                practiceCompleted = false
-//            } else {
-//                practiceCompleted = true
-//            }
-//        }
-        
         self.cancelCountDownNotification()
 
         self.performSegue(withIdentifier: "sid_rate", sender: nil)
-        
-//        if practiceCompleted {
-//            self.performSegue(withIdentifier: "sid_rate", sender: nil)
-//        } else {
-//            if self.playlistViewModel != nil {
-//                let id = PracticingDailyLocalManager.manager.saveNewPracticing(practiceItemId: self.playlistViewModel.currentPracticeEntry.practiceItemId,
-//                                                                      started: self.playlistViewModel.sessionTimeStarted ?? Date(),
-//                                                                      duration: self.overallPracticeTimeInSeconds,
-//                                                                      rating: 0,
-//                                                                      inPlaylist: self.playlistViewModel.playlist.id,
-//                                                                      forPracticeEntry: self.playlistViewModel.currentPracticeEntry.entryId,
-//                                                                      improvements: self.playlistViewModel.sessionImproved,
-//                                                                      parentId: self.playlistViewModel.playlistPracticeData.entryId)
-//                self.playlistViewModel.playlistPracticeData.practices.append(id)
-//                self.playlistViewModel.playlistPracticeData.practiceTimeInSeconds = self.playlistViewModel.totalPracticedTime()/* + self.playlistViewModel.sessionPlayedInPlaylistPage*/
-//                PlaylistDailyLocalManager.manager.saveNewPlaylistPracticing(self.playlistViewModel.playlistPracticeData)
-//                self.playlistViewModel.sessionImproved = [ImprovedRecord]()
-//                self.navigationController?.popViewController(animated: true)
-//            } else {
-//                self.performSegue(withIdentifier: "sid_rate", sender: nil)
-//            }
-//        }
     }
     
     @IBAction func onToggleFavorite(_ sender: Any) {
