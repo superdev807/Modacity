@@ -813,6 +813,7 @@ extension PlaylistContentsViewController: UITableViewDelegate, UITableViewDataSo
                 if !(indexPath == sourceIndexPath) {
                     self.viewModel.chaneOrder(source: indexPath.row, target: self.sourceIndexPath!.row)
                     self.tableViewMain.moveRow(at: sourceIndexPath!, to: indexPath)
+                    self.tableViewMain.scrollToRow(at: indexPath, at: .top, animated: true)
                     sourceIndexPath = indexPath
                 }
             }
