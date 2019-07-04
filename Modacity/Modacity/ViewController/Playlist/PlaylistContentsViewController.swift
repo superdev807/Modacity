@@ -90,6 +90,8 @@ class PlaylistContentsViewController: ModacityParentViewController {
         self.viewWalkThroughNaming.alpha = 0
         self.viewWalkThrough2.isHidden = true
         
+        self.tableViewMain.isEditing = true
+        
         if self.shouldStartFromPracticeSelection {
             if AppOveralDataManager.manager.firstPlaylistGenerated() {
                 self.openPracticeItemsSelection()
@@ -103,8 +105,6 @@ class PlaylistContentsViewController: ModacityParentViewController {
         }
       
         self.practiceBreakTime = AppOveralDataManager.manager.practiceBreakTime() * 60
-        
-        self.tableViewMain.isEditing = true
     }
     
     deinit {

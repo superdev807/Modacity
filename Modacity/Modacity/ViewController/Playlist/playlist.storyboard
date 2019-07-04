@@ -582,7 +582,7 @@ for quick access.</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q4g-fd-eof">
-                                        <rect key="frame" x="266" y="230" width="97" height="34"/>
+                                        <rect key="frame" x="266" y="220" width="97" height="34"/>
                                         <string key="text">Set an item timer
 or write a note.</string>
                                         <fontDescription key="fontDescription" name="Lato-Italic" family="Lato" pointSize="14"/>
@@ -590,7 +590,7 @@ or write a note.</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="walkthrough_practice_arrow_2" translatesAutoresizingMaskIntoConstraints="NO" id="qTc-Tp-Sw2">
-                                        <rect key="frame" x="342" y="200" width="12" height="25"/>
+                                        <rect key="frame" x="308" y="190" width="12" height="25"/>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eq1-qc-bWw">
                                         <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
@@ -608,14 +608,14 @@ or write a note.</string>
                                 <constraints>
                                     <constraint firstItem="q4g-fd-eof" firstAttribute="top" secondItem="qTc-Tp-Sw2" secondAttribute="bottom" constant="5" id="8Pn-u0-2af"/>
                                     <constraint firstItem="u39-3p-xLC" firstAttribute="top" secondItem="EtW-4w-uhG" secondAttribute="bottom" constant="8" id="Bcx-fg-eZP"/>
-                                    <constraint firstAttribute="trailing" secondItem="qTc-Tp-Sw2" secondAttribute="trailing" constant="21" id="CJ2-yg-gyh"/>
+                                    <constraint firstAttribute="trailing" secondItem="qTc-Tp-Sw2" secondAttribute="trailing" constant="55" id="CJ2-yg-gyh"/>
                                     <constraint firstItem="n2i-lb-xnf" firstAttribute="leading" secondItem="qBo-xF-4pQ" secondAttribute="leading" constant="33" id="CM8-NA-k5D"/>
                                     <constraint firstItem="GHg-uy-fD1" firstAttribute="leading" secondItem="qBo-xF-4pQ" secondAttribute="leading" constant="19" id="FFb-fF-fbI"/>
                                     <constraint firstItem="n2i-lb-xnf" firstAttribute="top" secondItem="qBo-xF-4pQ" secondAttribute="top" constant="200" id="IhK-e2-ewc"/>
                                     <constraint firstItem="GHg-uy-fD1" firstAttribute="top" secondItem="n2i-lb-xnf" secondAttribute="bottom" constant="5" id="JBO-qZ-nwC"/>
                                     <constraint firstAttribute="trailing" secondItem="q4g-fd-eof" secondAttribute="trailing" constant="12" id="OcX-Op-S9W"/>
                                     <constraint firstAttribute="bottom" secondItem="u39-3p-xLC" secondAttribute="bottom" constant="70" id="YMf-Hf-beX"/>
-                                    <constraint firstItem="qTc-Tp-Sw2" firstAttribute="top" secondItem="qBo-xF-4pQ" secondAttribute="top" constant="200" id="Zjf-1L-a0c"/>
+                                    <constraint firstItem="qTc-Tp-Sw2" firstAttribute="top" secondItem="qBo-xF-4pQ" secondAttribute="top" constant="190" id="Zjf-1L-a0c"/>
                                     <constraint firstAttribute="trailing" secondItem="u39-3p-xLC" secondAttribute="trailing" constant="70" id="Zz8-Sb-9zr"/>
                                     <constraint firstItem="eq1-qc-bWw" firstAttribute="top" secondItem="qBo-xF-4pQ" secondAttribute="top" id="gU4-vg-wnR"/>
                                     <constraint firstItem="eq1-qc-bWw" firstAttribute="leading" secondItem="qBo-xF-4pQ" secondAttribute="leading" id="uk2-bF-Mmo"/>
@@ -647,16 +647,14 @@ done practicing!</string>
                                         <color key="textColor" red="0.75686274509803919" green="0.76078431372549016" blue="0.78823529411764703" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uuE-8M-lOL">
-                                        <rect key="frame" x="262" y="229" width="101" height="34"/>
-                                        <string key="text">Press &amp; drag item 
-to re-order.</string>
+                                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap, hold &amp; drag to re-order items." textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uuE-8M-lOL">
+                                        <rect key="frame" x="171.5" y="229" width="191.5" height="17"/>
                                         <fontDescription key="fontDescription" name="Lato-Italic" family="Lato" pointSize="14"/>
-                                        <color key="textColor" red="0.78431372549019607" green="0.78431372549019607" blue="0.80784313725490198" alpha="0.75" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="walkthrough_arrow_3" translatesAutoresizingMaskIntoConstraints="NO" id="URC-9T-EM3">
-                                        <rect key="frame" x="323" y="200" width="12" height="24"/>
+                                        <rect key="frame" x="342" y="200" width="12" height="24"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="walkthrough_arrow_3" translatesAutoresizingMaskIntoConstraints="NO" id="BhB-mV-7i2">
                                         <rect key="frame" x="213" y="120" width="12" height="24"/>
@@ -687,7 +685,7 @@ items any time.</string>
                                     <constraint firstItem="eKv-7F-2s6" firstAttribute="top" secondItem="mXI-KA-4Ff" secondAttribute="top" constant="200" id="62Z-bK-4H7"/>
                                     <constraint firstItem="2hq-OF-W6Y" firstAttribute="leading" secondItem="mXI-KA-4Ff" secondAttribute="leading" constant="19" id="67i-I5-0eO"/>
                                     <constraint firstItem="BhB-mV-7i2" firstAttribute="top" secondItem="mXI-KA-4Ff" secondAttribute="top" constant="120" id="72e-75-WHt"/>
-                                    <constraint firstAttribute="trailing" secondItem="URC-9T-EM3" secondAttribute="trailing" constant="40" id="IXO-7P-hNj"/>
+                                    <constraint firstAttribute="trailing" secondItem="URC-9T-EM3" secondAttribute="trailing" constant="21" id="IXO-7P-hNj"/>
                                     <constraint firstAttribute="trailing" secondItem="uuE-8M-lOL" secondAttribute="trailing" constant="12" id="OrL-Kc-MY7"/>
                                     <constraint firstAttribute="trailing" secondItem="BhB-mV-7i2" secondAttribute="trailing" constant="150" id="RfE-qf-EET"/>
                                     <constraint firstItem="xdB-M4-Vgz" firstAttribute="top" secondItem="REo-yP-hmX" secondAttribute="bottom" constant="8" id="Vbt-jI-2or"/>
