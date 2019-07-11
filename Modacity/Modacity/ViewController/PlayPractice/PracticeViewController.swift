@@ -15,6 +15,11 @@ import MBProgressHUD
 import Crashlytics
 import UserNotifications
 
+extension Notification.Name {
+    static let needToPromptPracticeBreakTime = Notification.Name("needToPromptPracticeBreakTime")
+    static let practiceBreakTimePromptDismissed = Notification.Name("practiceBreakTimePromptDismissed")
+}
+
 class PracticeViewController: ModacityParentViewController {
     
     var playlistViewModel: PlaylistContentsViewModel!
@@ -177,8 +182,9 @@ class PracticeViewController: ModacityParentViewController {
         
         self.addTabBar()
         
-        ModacityAudioSessionManager.manager.openRecording()
+        self.configurePracticeBreakTimeNotifications()
         
+        ModacityAudioSessionManager.manager.openRecording()
         ModacityAnalytics.LogEvent(.StartPracticeItem, extraParamName: "ItemName", extraParamValue: self.labelPracticeItemName.text)
         NotificationCenter.default.addObserver(self, selector: #selector(applicationWillEnterBackground), name: Notification.Name.UIApplicationDidEnterBackground, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(applicationWillEnterForeground), name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
@@ -1631,6 +1637,17 @@ extension PracticeViewController: TimerInputViewDelegate {
 }
 
 extension PracticeViewController: PracticeBreakPromptViewDelegate {
+    
+    func configurePracticeBreakTimeNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(dismissPracticeBreakTimePromptView), name: .practiceBreakTimePromptDismissed, object: nil)
+    }
+    
+    @objc func dismissPracticeBreakTimePromptView() {
+        if self.viewPracticeBreakPrompt != nil {
+            self.dismiss(practiceBreakPromptView: self.viewPracticeBreakPrompt)
+        }
+    }
+    
     func dismiss(practiceBreakPromptView: PracticeBreakPromptView) {
         if self.viewPracticeBreakPrompt != nil {
             self.viewPracticeBreakPrompt.removeFromSuperview()
@@ -1651,7 +1668,6 @@ extension PracticeViewController: PracticeBreakPromptViewDelegate {
             self.viewPracticeBreakPrompt.removeFromSuperview()
         }
         self.viewPracticeBreakPrompt = PracticeBreakPromptView()
-        self.viewPracticeBreakPrompt.delegate = self
         self.view.addSubview(self.viewPracticeBreakPrompt)
         self.view.topAnchor.constraint(equalTo: self.viewPracticeBreakPrompt.topAnchor).isActive = true
         self.view.leadingAnchor.constraint(equalTo: self.viewPracticeBreakPrompt.leadingAnchor).isActive = true
@@ -1665,13 +1681,14 @@ extension PracticeViewController: PracticeBreakPromptViewDelegate {
         }
         self.view.bringSubview(toFront: self.viewPracticeBreakPrompt)
         if self.playlistViewModel != nil && self.parentContentViewController != nil {
-            self.viewPracticeBreakPrompt.showPracticeTime(self.playlistViewModel.totalPracticedTime() + /*self.playlistViewModel.sessionPlayedInPlaylistPage +*/ self.overallPracticeTimeInSeconds)
-//            self.parentContentViewController.lastPracticeBreakTimeShown = self.playlistViewModel.totalPracticedTime() + self.overallPracticeTimeInSeconds
+            self.viewPracticeBreakPrompt.showPracticeTime(self.playlistViewModel.totalPracticedTime() + self.overallPracticeTimeInSeconds)
+            NotificationCenter.default.post(name: .needToPromptPracticeBreakTime, object: nil, userInfo: ["time": self.playlistViewModel.totalPracticedTime() + self.overallPracticeTimeInSeconds])
         } else {
             self.viewPracticeBreakPrompt.showPracticeTime(self.overallPracticeTimeInSeconds)
-//            self.parentContentViewController.lastPracticeBreakTimeShown = self.overallPracticeTimeInSeconds
+            NotificationCenter.default.post(name: .needToPromptPracticeBreakTime, object: nil, userInfo: ["time": self.overallPracticeTimeInSeconds])
         }
         self.viewPracticeBreakPrompt.startCountUpTimer()
+        
     }
     
     func stopMetrodronePlay() {

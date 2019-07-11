@@ -639,15 +639,25 @@ extension PracticeItemListViewController: SortOptionsViewControllerDelegate {
         }
         
         self.tableViewMain.reloadData()
-        self.tableViewMain.scrollToRow(at: IndexPath(row: indexPath.row + 1, section:indexPath.section), at: .none, animated: false)
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
-            if let cell = self.tableViewMain.cellForRow(at: IndexPath(row: indexPath.row + 1, section:indexPath.section)) as? PracticeItemCell {
-                self.rename(on: cell)
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
+            if !(self.tableViewMain.indexPathsForVisibleRows!.contains(IndexPath(row: indexPath.row + 1, section:indexPath.section))) {
+                self.tableViewMain.scrollToRow(at: IndexPath(row: indexPath.row + 1, section:indexPath.section), at: .none, animated: false)
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
+                    if let cell = self.tableViewMain.cellForRow(at: IndexPath(row: indexPath.row + 1, section:indexPath.section)) as? PracticeItemCell {
+                        self.rename(on: cell)
+                    } else {
+                        print("rename cell is nil, need to wait more.")
+                    }
+                }
             } else {
-                print("rename cell is nil, need to wait more.")
+                if let cell = self.tableViewMain.cellForRow(at: IndexPath(row: indexPath.row + 1, section:indexPath.section)) as? PracticeItemCell {
+                    self.rename(on: cell)
+                } else {
+                    print("rename cell is nil, need to wait more.")
+                }
             }
-            
         }
         
         DispatchQueue.global(qos: .background).async {

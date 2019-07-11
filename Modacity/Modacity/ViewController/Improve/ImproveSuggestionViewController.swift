@@ -16,6 +16,8 @@ class ImproveSuggestionViewController: ModacityParentViewController {
     var practiceItem: PracticeItem!
     var deliverModel: PlaylistAndPracticeDeliverModel!
     
+    var viewPracticeBreakPrompt: PracticeBreakPromptView! = nil
+    
     @IBOutlet weak var labelPracticeName: UILabel!
     @IBOutlet weak var textfieldInputBox: UITextField!
     @IBOutlet weak var viewInputBox: UIView!
@@ -58,6 +60,16 @@ class ImproveSuggestionViewController: ModacityParentViewController {
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.configurePracticeBreakTimeNotifications()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.removePracticeBreakTimeNotification()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -205,5 +217,52 @@ extension ImproveSuggestionViewController: SuggestCellDelegate {
                                         self.present(alert, animated: true, completion: nil)
 
         }
+    }
+}
+
+extension ImproveSuggestionViewController: PracticeBreakPromptViewDelegate {
+    
+    func configurePracticeBreakTimeNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(needToShowPracticeBreakTimePrompt), name: .needToPromptPracticeBreakTime, object: nil)
+    }
+    
+    func removePracticeBreakTimeNotification() {
+        NotificationCenter.default.removeObserver(self, name: .needToPromptPracticeBreakTime, object: nil)
+    }
+    
+    func dismiss(practiceBreakPromptView: PracticeBreakPromptView) {
+        if self.viewPracticeBreakPrompt != nil {
+            self.viewPracticeBreakPrompt.removeFromSuperview()
+            self.viewPracticeBreakPrompt = nil
+            NotificationCenter.default.post(name: .practiceBreakTimePromptDismissed, object: nil)
+        }
+    }
+    
+    @objc func needToShowPracticeBreakTimePrompt(notification: Notification) {
+        if let userInfo = notification.userInfo {
+            if let time = userInfo["time"] as? Int {
+                self.showPracticeBreakPrompt(with: time)
+            }
+        }
+    }
+    
+    func showPracticeBreakPrompt(with time: Int) {
+        if self.viewPracticeBreakPrompt != nil {
+            self.viewPracticeBreakPrompt.removeFromSuperview()
+        }
+        self.viewPracticeBreakPrompt = PracticeBreakPromptView()
+        self.viewPracticeBreakPrompt.delegate = self
+        self.view.addSubview(self.viewPracticeBreakPrompt)
+        self.view.topAnchor.constraint(equalTo: self.viewPracticeBreakPrompt.topAnchor).isActive = true
+        self.view.leadingAnchor.constraint(equalTo: self.viewPracticeBreakPrompt.leadingAnchor).isActive = true
+        self.view.trailingAnchor.constraint(equalTo: self.viewPracticeBreakPrompt.trailingAnchor).isActive = true
+        if #available(iOS 11.0, *) {
+            self.view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: self.viewPracticeBreakPrompt.bottomAnchor).isActive = true
+        } else {
+            self.view.bottomAnchor.constraint(equalTo: self.viewPracticeBreakPrompt.bottomAnchor).isActive = true
+        }
+        self.view.bringSubview(toFront: self.viewPracticeBreakPrompt)
+        self.viewPracticeBreakPrompt.showPracticeTime(time)
+        self.viewPracticeBreakPrompt.startCountUpTimer()
     }
 }

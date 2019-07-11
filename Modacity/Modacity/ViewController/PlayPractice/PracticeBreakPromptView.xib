@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -42,26 +42,14 @@
                     </connections>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aoG-nI-MIx">
-                    <rect key="frame" x="67" y="205.5" width="260" height="276"/>
+                    <rect key="frame" x="67" y="206" width="260" height="275"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cnb-UG-jBF">
-                            <rect key="frame" x="58" y="30" width="145.5" height="50"/>
+                            <rect key="frame" x="57.5" y="30" width="145.5" height="49"/>
                             <attributedString key="attributedText">
-                                <fragment content="IT’S TIME TO">
-                                    <attributes>
-                                        <font key="NSFont" size="21" name="Lato-Light"/>
-                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                    </attributes>
-                                </fragment>
-                                <fragment content=" ">
+                                <fragment content="IT’S TIME TO TAKE A BREAK">
                                     <attributes>
                                         <font key="NSFont" metaFont="system" size="21"/>
-                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                    </attributes>
-                                </fragment>
-                                <fragment content="TAKE A BREAK">
-                                    <attributes>
-                                        <font key="NSFont" size="21" name="Lato-Black"/>
                                         <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                     </attributes>
                                 </fragment>
@@ -69,7 +57,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aoC-cS-u7c">
-                            <rect key="frame" x="30" y="90" width="200" height="43"/>
+                            <rect key="frame" x="30" y="89" width="200" height="43"/>
                             <string key="text">You’ve been practicing for 
 10 minutes, don’t forget to take a moment to rest.</string>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -77,10 +65,10 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZwR-si-7ni">
-                            <rect key="frame" x="64.5" y="143" width="131" height="49"/>
+                            <rect key="frame" x="64.5" y="142" width="131" height="49"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UiD-zj-cLd">
-                                    <rect key="frame" x="0.0" y="13" width="40" height="24"/>
+                                    <rect key="frame" x="0.0" y="12.5" width="40" height="24"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="40" id="71r-e5-pQ0"/>
                                     </constraints>
@@ -89,13 +77,13 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=":" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4QT-GD-s4g">
-                                    <rect key="frame" x="40" y="12" width="5.5" height="24"/>
+                                    <rect key="frame" x="40" y="12.5" width="5.5" height="24"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OAO-YI-h0r">
-                                    <rect key="frame" x="45.5" y="13" width="40" height="24"/>
+                                    <rect key="frame" x="45.5" y="12.5" width="40" height="24"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="40" id="h28-SD-2TO"/>
                                     </constraints>
@@ -104,13 +92,13 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=":" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yk7-FJ-Cqr">
-                                    <rect key="frame" x="85.5" y="13" width="5.5" height="24"/>
+                                    <rect key="frame" x="85.5" y="12.5" width="5.5" height="24"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qKP-nA-Lq6">
-                                    <rect key="frame" x="91" y="13" width="40" height="24"/>
+                                    <rect key="frame" x="91" y="12.5" width="40" height="24"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="40" id="ZgX-J0-uKP"/>
                                     </constraints>
@@ -137,7 +125,7 @@
                             </constraints>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="066-DR-Ifr">
-                            <rect key="frame" x="59" y="202" width="142" height="44"/>
+                            <rect key="frame" x="59" y="201" width="142" height="44"/>
                             <color key="backgroundColor" red="0.40784313725490196" green="0.082352941176470587" blue="0.80784313725490198" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="44" id="Wo7-Ck-jOu"/>
