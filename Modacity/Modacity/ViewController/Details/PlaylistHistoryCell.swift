@@ -45,7 +45,8 @@ class PlaylistHistoryCell: UITableViewCell {
         self.viewContainer.layer.shadowRadius = 3.0
         self.viewContainer.backgroundColor = Color(hexString: "#2e2d4f")
         
-        self.labelDate.text = data.date.toString(format: "MMMM d").uppercased()
+        self.labelDate.text = data.date.localeDisplay(dateStyle: .long).uppercased()
+        
         var totalSeconds = 0
         
         self.viewDetailsListContainer.subviews.forEach {$0.removeFromSuperview()}

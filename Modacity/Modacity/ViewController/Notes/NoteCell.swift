@@ -36,7 +36,8 @@ class NoteCell: UITableViewCell {
         if note.createdAt == nil {
             self.labelNoteCreated.text = ""
         } else {
-            self.labelNoteCreated.text = Date(timeIntervalSince1970: Double(note.createdAt) ?? 0).toString(format: "MM/dd/yy")
+            
+            self.labelNoteCreated.text = Date(timeIntervalSince1970: Double(note.createdAt) ?? 0).localeDisplay()//toString(format: "MM/dd/yy")
         }
         self.labelNoteSubTitle.text = note.subTitle
         self.labelNoteSubTitle.isHidden = true

@@ -49,7 +49,9 @@ class RecordingCell: UITableViewCell, FDWaveformViewDelegate {
         
         self.recording = recording
         self.labelPracticeName.text = recording.practiceName + " - " + recording.fileName
-        self.labelRecordedTime.text = (Date(timeIntervalSince1970: Double(recording.createdAt) ?? 0)).toString(format: "MM/dd/yy @ h:mm a")
+        let date = Date(timeIntervalSince1970: Double(recording.createdAt) ?? 0)
+        self.labelRecordedTime.text = "\(date.localeDisplay(dateStyle: .short)) @ \(date.toString(format: "h:mm a"))"
+        
         self.viewAudioPlaybackRatePanel.isHidden = true
         
         if isPlaying {

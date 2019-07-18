@@ -164,4 +164,15 @@ extension Date {
         return Int(((diffInSec >= 0 ? diffInSec : -(diffInSec)) / (3600 * 24))) + 1
     }
     
+    func localeDisplay(dateStyle: DateFormatter.Style = .short, timeStyle: DateFormatter.Style = .none, _ locale: Locale = Locale.current) -> String {
+        
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateStyle = dateStyle
+        dateFormatter.timeStyle = timeStyle
+        dateFormatter.locale = locale
+        
+        return dateFormatter.string(from: self)
+    }
+    
 }

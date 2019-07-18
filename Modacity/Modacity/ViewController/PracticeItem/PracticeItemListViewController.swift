@@ -139,11 +139,12 @@ class PracticeItemListViewController: ModacityParentViewController {
     func updateList(completed: CompletedAction? = nil) {
         self.operationQueue.cancelAllOperations()
         self.operationQueue.addOperation {
-            DispatchQueue.global().async {
-                self.practiceItems = PracticeItemLocalManager.manager.loadPracticeItems()?.sorted(by: { (item1, item2) -> Bool in
+            DispatchQueue.global().async { [weak self] in
+                guard let this = self else { return }
+                this.practiceItems = PracticeItemLocalManager.manager.loadPracticeItems()?.sorted(by: { (item1, item2) -> Bool in
                     return item1.name < item2.name
                 })
-                self.refreshList(completed: completed)
+                this.refreshList(completed: completed)
             }
         }
     }
@@ -152,9 +153,10 @@ class PracticeItemListViewController: ModacityParentViewController {
         self.filter()
         self.categorize()
         self.sort()
-        DispatchQueue.main.async {
-            MBProgressHUD.hide(for: self.view, animated: true)
-            self.tableViewMain.reloadData()
+        DispatchQueue.main.async { [weak self] in
+            guard let this = self else { return }
+            MBProgressHUD.hide(for: this.view, animated: true)
+            this.tableViewMain.reloadData()
             
             if let completed = completed {
                 completed()
@@ -195,22 +197,23 @@ class PracticeItemListViewController: ModacityParentViewController {
         
         if var practiceItems = self.filteredPracticeItems {
             
-            practiceItems.sort { (item1, item2) -> Bool in
-                switch self.sortKey {
+            practiceItems.sort { [weak self] (item1, item2) -> Bool in
+                guard let this = self else { return false }
+                switch this.sortKey {
                 case .rating:
                     if item1.rating == item2.rating {
-                        return (self.sortOption == .ascending) ? (item1.name < item2.name) : (item1.name > item2.name)
+                        return (this.sortOption == .ascending) ? (item1.name < item2.name) : (item1.name > item2.name)
                     } else {
-                        return (self.sortOption == .ascending) ? (item1.rating < item2.rating) : (item1.rating > item2.rating)
+                        return (this.sortOption == .ascending) ? (item1.rating < item2.rating) : (item1.rating > item2.rating)
                     }
                 case .favorites:
                     fallthrough
                 case .name:
-                    return (self.sortOption == .ascending) ? (item1.name < item2.name) : (item1.name > item2.name)
+                    return (this.sortOption == .ascending) ? (item1.name < item2.name) : (item1.name > item2.name)
                 case .lastPracticedTime:
                     let key1 = item1.lastPracticedSortKey ?? ""
                     let key2 = item2.lastPracticedSortKey ?? ""
-                    return (self.sortOption == .ascending) ? (key1 < key2) : (key1 > key2)
+                    return (this.sortOption == .ascending) ? (key1 < key2) : (key1 > key2)
                 }
             }
             
@@ -430,8 +433,8 @@ extension PracticeItemListViewController: UITableViewDataSource, UITableViewDele
                                        rows: [["icon":"icon_notes", "text":"Details"],
                                               ["icon":"icon_pen_white", "text":"Rename"],
                                               ["icon":"icon_duplicate", "text":"Duplicate"],
-                                              ["icon":"icon_row_delete", "text":"Delete"]]) { (row) in
-                                                self.processAction(row, cell)
+                                              ["icon":"icon_row_delete", "text":"Delete"]]) { [weak self ](row) in
+                                                self?.processAction(row, cell)
         }
     }
     
@@ -537,8 +540,8 @@ extension PracticeItemListViewController: UITextFieldDelegate {
         
         self.operationQueue.cancelAllOperations()
         self.operationQueue.addOperation {
-            DispatchQueue.global().async {
-                self.refreshList()
+            DispatchQueue.global().async { [weak self] in
+                self?.refreshList()
             }
         }
         self.buttonRemoveKeyboard.isHidden = (newKeyword == "")
@@ -550,8 +553,8 @@ extension PracticeItemListViewController: UITextFieldDelegate {
         
         if Authorizer.authorizer.isGuestLogin() {
             self.view.isUserInteractionEnabled = true
-            AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Please login to add new practice item.") { (_) in
-                self.openSignup()
+            AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Please login to add new practice item.") { [weak self] (_) in
+                self?.openSignup()
             }
             return
         }
@@ -605,13 +608,21 @@ extension PracticeItemListViewController: SortOptionsViewControllerDelegate {
     func changeOptions(key: SortKeyOption, option: SortOption) {
         self.sortOption = option
         self.sortKey = key
-        AppOveralDataManager.manager.saveSortKey(self.sortKey)
-        AppOveralDataManager.manager.saveSortOption(self.sortOption)
-        DispatchQueue.global().async {
-            self.categorize()
-            self.sort()
-            DispatchQueue.main.async {
-                self.tableViewMain.reloadData()
+        
+        if key == .favorites {
+            self.practiceItems = PracticeItemLocalManager.manager.loadPracticeItems()?.sorted(by: { (item1, item2) -> Bool in
+                return item1.name < item2.name
+            })
+            self.updateList()
+        } else {
+            AppOveralDataManager.manager.saveSortKey(self.sortKey)
+            AppOveralDataManager.manager.saveSortOption(self.sortOption)
+            DispatchQueue.global().async { [weak self] in
+                self?.categorize()
+                self?.sort()
+                DispatchQueue.main.async { [weak self] in
+                    self?.tableViewMain.reloadData()
+                }
             }
         }
     }
@@ -640,20 +651,21 @@ extension PracticeItemListViewController: SortOptionsViewControllerDelegate {
         
         self.tableViewMain.reloadData()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
-            if !(self.tableViewMain.indexPathsForVisibleRows!.contains(IndexPath(row: indexPath.row + 1, section:indexPath.section))) {
-                self.tableViewMain.scrollToRow(at: IndexPath(row: indexPath.row + 1, section:indexPath.section), at: .none, animated: false)
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) { [weak self] in
+            guard let this = self else { return }
+            if !(this.tableViewMain.indexPathsForVisibleRows!.contains(IndexPath(row: indexPath.row + 1, section:indexPath.section))) {
+                this.tableViewMain.scrollToRow(at: IndexPath(row: indexPath.row + 1, section:indexPath.section), at: .none, animated: false)
                 
-                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
-                    if let cell = self.tableViewMain.cellForRow(at: IndexPath(row: indexPath.row + 1, section:indexPath.section)) as? PracticeItemCell {
-                        self.rename(on: cell)
+                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) { [weak self] in
+                    if let cell = self?.tableViewMain.cellForRow(at: IndexPath(row: indexPath.row + 1, section:indexPath.section)) as? PracticeItemCell {
+                        self?.rename(on: cell)
                     } else {
                         print("rename cell is nil, need to wait more.")
                     }
                 }
             } else {
-                if let cell = self.tableViewMain.cellForRow(at: IndexPath(row: indexPath.row + 1, section:indexPath.section)) as? PracticeItemCell {
-                    self.rename(on: cell)
+                if let cell = this.tableViewMain.cellForRow(at: IndexPath(row: indexPath.row + 1, section:indexPath.section)) as? PracticeItemCell {
+                    this.rename(on: cell)
                 } else {
                     print("rename cell is nil, need to wait more.")
                 }

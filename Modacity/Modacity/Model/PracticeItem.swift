@@ -170,7 +170,7 @@ class PracticeItem: Mappable {
             if timeInterval == 0 {
                 return ""
             } else {
-                let last = AppUtils.stringFromDateLocale(from: Date(timeIntervalSince1970: timeInterval))
+                let last = Date(timeIntervalSince1970: timeInterval).localeDisplay(dateStyle: .short)
                 let seconds = self.lastPracticedDurationInSecond ?? 0
                 var timeString = "\(seconds)"
                 var unit = "seconds"

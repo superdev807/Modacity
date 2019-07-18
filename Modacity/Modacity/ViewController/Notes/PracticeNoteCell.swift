@@ -38,7 +38,7 @@ class PracticeNoteCell: UICollectionViewCell, UIGestureRecognizerDelegate {
         if note.createdAt == nil {
             self.labelTime.text = ""
         } else {
-            self.labelTime.text = Date(timeIntervalSince1970: Double(note.createdAt) ?? 0).toString(format: "MM/dd/yy")
+            self.labelTime.text = Date(timeIntervalSince1970: Double(note.createdAt) ?? 0).localeDisplay(dateStyle: .short)//toString(format: "MM/dd/yy")
         }
         
         if note.isDeliberatePracticeNote {

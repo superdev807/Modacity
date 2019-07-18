@@ -44,7 +44,7 @@ class PracticeHistoryCell: UITableViewCell, PracticeHistoryDetailsRowViewDelegat
         self.viewContainer.layer.shadowOpacity = 0.4
         self.viewContainer.layer.shadowRadius = 3.0
 
-        self.labelDate.text = date.toString(format: "MMMM d").uppercased()
+        self.labelDate.text = date.localeDisplay(dateStyle: .long).uppercased()
         if total > 60 {
             if total < 600 {
                 self.totalPractice.text = String(format: "%.1f", Double(total) / 60.0)

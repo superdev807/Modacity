@@ -123,7 +123,8 @@ class PlaylistStatsView: UIView {
             monday = self.date.weekDay(for: .mon).addingTimeInterval(-1 * 7 * 24 * 3600)
             sunday = monday.addingTimeInterval(6 * 24 * 3600)
         }
-        self.labelWeekDuration.text = "\(monday.toString(format: "MMM d yyyy")) - \(sunday.toString(format: "MMM d yyyy"))"
+        self.labelWeekDuration.text = "\(monday.localeDisplay(dateStyle: .medium)) - \(sunday.localeDisplay(dateStyle: .medium))"
+//        self.labelWeekDuration.text = "\(monday.toString(format: "MMM d yyyy")) - \(sunday.toString(format: "MMM d yyyy"))"
         
         if self.date.startOfDate().timeIntervalSince1970 == Date().startOfDate().timeIntervalSince1970 {
             self.buttonNextWeek.isHidden = true
