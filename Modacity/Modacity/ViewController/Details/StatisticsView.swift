@@ -403,8 +403,8 @@ extension StatisticsView {
                 self.labelStarRatingStartDate.isHidden = true
             }
             
-            self.labelStarRatingStartDate.text = Date(timeIntervalSince1970: timeStamp.first!).toString(format: "MM/dd/yy")
-            self.labelStarRatingEndDate.text = Date(timeIntervalSince1970: timeStamp.last!).toString(format: "MM/dd/yy")
+            self.labelStarRatingStartDate.text = Date(timeIntervalSince1970: timeStamp.first!).localeDisplay(dateStyle: .short)//toString(format: "MM/dd/yy")
+            self.labelStarRatingEndDate.text = Date(timeIntervalSince1970: timeStamp.last!).localeDisplay(dateStyle: .short)//.toString(format: "MM/dd/yy")
             
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
                 

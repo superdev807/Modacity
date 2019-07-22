@@ -140,7 +140,7 @@ extension SetReminderViewController: TimePickerOverlayViewDelegate {
             if time.isToday {
                 self.labelSelectedTime.text = "Today at \(time.toString(format: "h:mm a"))"
             } else {
-                self.labelSelectedTime.text = time.toString(format: "h:mm a, MMM d")
+                self.labelSelectedTime.text = "\(time.toString(format: "h:mm a")), \(time.localeDisplay(dateStyle: .medium))"
             }
             
         } else {

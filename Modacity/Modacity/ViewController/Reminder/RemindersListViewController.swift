@@ -170,7 +170,7 @@ class ReminderCell: UITableViewCell {
             } else if nextSchedule.isTomorrow {
                 self.labelNextSchedule.text = "Next scheduled :  Tomorrow \(nextSchedule.toString(format: "h:mm a"))"
             } else {
-                self.labelNextSchedule.text = "Next scheduled : \(reminder.nextScheduledTime().toString(format: "MMM d, h:mm a"))"
+                self.labelNextSchedule.text = "Next scheduled : \(reminder.nextScheduledTime().localeDisplay(dateStyle:.medium)) \(reminder.nextScheduledTime().toString(format: "h:mm a"))"
             }
         }
         

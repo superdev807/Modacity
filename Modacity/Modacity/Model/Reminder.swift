@@ -85,9 +85,9 @@ class ReminderCustomRepeatData: Mappable {
             if let endDate = self.repeatEndDate() {
                 
                 if resultString.isEmpty {
-                    resultString = " Until \(endDate.toString(format: "MMM d, yyyy"))"
+                    resultString = " Until \(endDate.localeDisplay(dateStyle: .medium))"
                 } else {
-                    resultString = resultString + ", until \(endDate.toString(format: "MMM d, yyyy"))"
+                    resultString = resultString + ", until \(endDate.localeDisplay(dateStyle: .medium))"
                 }
                 
             }
@@ -236,7 +236,7 @@ class Reminder: Mappable {
                 if (self.timeStringFormat == nil) {
                     return "Today at \(timeFormattedString)"
                 } else {
-                    let dateString = time.toString(format: "MMM d")
+                    let dateString = time.localeDisplay(dateStyle: .medium)//.toString(format: "MMM d")
                     let timeString = time.toString(format: "h:mm a").uppercased()
                     if time.isToday {
                         return "Today at \(timeString)"

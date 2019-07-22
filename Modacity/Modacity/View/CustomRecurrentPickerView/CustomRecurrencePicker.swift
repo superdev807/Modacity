@@ -174,7 +174,7 @@ class CustomRecurrencePicker: UIView {
     
     func configureRepeatEndsAfterTime() {
         if let date = self.repeatEndsAfterDate {
-            self.labelAfterTime.text = date.toString(format: "MMM d, yyyy")
+            self.labelAfterTime.text = date.localeDisplay(dateStyle: .medium)//toString(format: "MMM d, yyyy")
             self.labelAfterTime.textColor = Color.darkGray
         } else {
             self.labelAfterTime.text = "Select End Date"
