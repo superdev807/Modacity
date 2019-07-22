@@ -19,7 +19,7 @@ class DropdownMenuView {
     let heightOf4RowsDropdownView = CGFloat(203)
     
     var currentView: UIView? = nil
-    
+    var textSize: CGFloat = 12
     var onClick: ((Int)->())? = nil
     
     func dismiss(_ callbackClick: Bool, row: Int) {
@@ -39,7 +39,7 @@ class DropdownMenuView {
         
     }
     
-    func show(in view:UIView, on anchorView:UIView, rows:[[String:String]], onClick: @escaping (Int)->()) {
+    func show(in view:UIView, on anchorView:UIView, rows:[[String:String]], textSize: CGFloat = 14, onClick: @escaping (Int)->()) {
         
         if let currentView = currentView {
             currentView.removeFromSuperview()
@@ -107,7 +107,7 @@ class DropdownMenuView {
         }
         
         self.onClick = onClick
-        self.addRows(rows, into: menuView.viewWithTag(11)!, to: to)
+        self.addRows(rows, into: menuView.viewWithTag(11)!, to: to, with: textSize)
         
         view.addSubview(menuView)
         
@@ -150,7 +150,7 @@ class DropdownMenuView {
         
     }
     
-    func addRows(_ rows:[[String:String]], into viewPopup: UIView, to: Int) {
+    func addRows(_ rows:[[String:String]], into viewPopup: UIView, to: Int, with textSize: CGFloat = 12) {
         
         let rowHeight = (to == 0) ? CGFloat(40) : CGFloat(40)
         let rowMargin = CGFloat(5)
@@ -177,6 +177,7 @@ class DropdownMenuView {
             let labelText = UILabel(frame: CGRect(x: rowMargin + rowHeight + 5, y: y, width: widthOfDropdownView - (rowMargin * 2 + rowHeight + 5) - 10, height: rowHeight))
             labelText.textColor = Color.white
             labelText.text = text
+            labelText.font = AppConfig.UI.Fonts.latoRegular(with: textSize)
             viewPopup.addSubview(labelText)
             
             y = y + rowHeight

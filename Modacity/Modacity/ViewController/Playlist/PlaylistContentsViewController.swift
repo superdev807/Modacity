@@ -61,12 +61,15 @@ class PlaylistContentsViewController: ModacityParentViewController {
     
     var animatedShowing = false
     
-    var sortKey = SortKeyOption.name
-    var sortOption = SortOption.descending
+    var sortKeyForDeliver = SortKeyOption.name
+    var sortOptionForDeliver = SortOption.descending
     var deliveredSectionNames = [String]()
     var deliveredPracticeItems = [PracticeItem]()
     var deliveredSectionedPracticeItems = [String:[PracticeItem]]()
     var dataDelivered = false
+    
+    var sortKeyForItems = SortKeyOption.name
+    var sortOptionForItems = SortOption.descending
     
     var firstPracticeItemPlaying = false
     var shouldStartFrom: Int!
@@ -118,8 +121,8 @@ class PlaylistContentsViewController: ModacityParentViewController {
         controller.animatedShowing = self.animatedShowing
         
         if self.shouldStartFromPracticeSelection {
-            controller.sortKey = self.sortKey
-            controller.sortOption = self.sortOption
+            controller.sortKey = self.sortKeyForDeliver
+            controller.sortOption = self.sortOptionForDeliver
             controller.dataDelivered = self.dataDelivered
             controller.sectionNames = self.deliveredSectionNames
             controller.practiceItems = self.deliveredPracticeItems
@@ -384,12 +387,36 @@ class PlaylistContentsViewController: ModacityParentViewController {
     }
     
     @IBAction func onNotes(_ sender: Any) {
+        DropdownMenuView.instance.show(in: self.view,
+                                       on: self.buttonEditName,
+                                       rows: [["icon":"icon_notes", "text":"Stats & Notes"],
+                                              ["icon":"icon_sort_menu", "text":"Sort"]],
+                                       textSize: 13) { [unowned self] (row) in
+                                                if row == 0 {
+                                                    self.openDetails()
+                                                } else if row == 1 {
+                                                    self.openSort()
+                                                }
+                                        }
+    }
+    
+    private func openDetails() {
         let controller = UIStoryboard(name: "details", bundle: nil).instantiateViewController(withIdentifier: "DetailsScene") as! UINavigationController
         let detailsViewController = controller.viewControllers[0] as! DetailsViewController
         detailsViewController.playlistItemId = self.viewModel.playlist.id
         detailsViewController.startTabIdx = 2
         self.present(controller, animated: true, completion: nil)
         ModacityAnalytics.LogStringEvent("Tapped Playlist Notes", extraParamName: "playlistName", extraParamValue: self.viewModel.playlist.name)
+    }
+    
+    private func openSort() {
+        let controller = UIStoryboard(name: "practice_item", bundle: nil).instantiateViewController(withIdentifier: "SortOptionsViewController") as! SortOptionsViewController
+        controller.sortOption = self.sortOptionForItems
+        controller.sortKey = self.sortKeyForItems
+        controller.delegate = self
+        controller.modalPresentationStyle = .overCurrentContext
+        controller.modalTransitionStyle = .crossDissolve
+        self.present(controller, animated: true, completion: nil)
     }
     
     
@@ -1098,4 +1125,19 @@ extension PlaylistContentsViewController {
     func duplicate(for item: PlaylistPracticeEntry) {
         self.viewModel.duplicate(entry: item)
     }
+}
+
+extension PlaylistContentsViewController:  SortOptionsViewControllerDelegate {
+    
+    func changeOptions(key: SortKeyOption, option: SortOption) {
+        self.sortOptionForItems = option
+        self.sortKeyForItems = key
+        
+        self.sortItems()
+    }
+    
+    private func sortItems() {
+        self.viewModel.sortItems(key: self.sortKeyForItems, option: self.sortOptionForItems)
+    }
+    
 }

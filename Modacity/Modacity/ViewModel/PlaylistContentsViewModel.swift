@@ -236,6 +236,35 @@ class PlaylistContentsViewModel: ViewModel {
         disableCallbackForRowEditing = false
     }
     
+    func sortItems(key: SortKeyOption, option: SortOption) {
+        self.playlistPracticeEntries.sort { [unowned self] (playlistPracticeEntry1, playlistPracticeEntry2) -> Bool in
+            switch key {
+            case .name:
+                let itemName1 = playlistPracticeEntry1.practiceItem()?.name ?? "---"
+                let itemName2 = playlistPracticeEntry2.practiceItem()?.name ?? "---"
+                return itemName1.compare(itemName2) == ((option == .ascending) ? .orderedAscending : .orderedDescending)
+            case .favorites:
+                let isFavorite1 = self.isFavoritePracticeItem(forItemId: playlistPracticeEntry1.practiceItemId) ? 1 : 0
+                let isFavorite2 = self.isFavoritePracticeItem(forItemId: playlistPracticeEntry2.practiceItemId) ? 1 : 0
+                if isFavorite1 == isFavorite2 {
+                    let itemName1 = playlistPracticeEntry1.practiceItem()?.name ?? "---"
+                    let itemName2 = playlistPracticeEntry2.practiceItem()?.name ?? "---"
+                    return itemName1.compare(itemName2) == ((option == .ascending) ? .orderedAscending : .orderedDescending)
+                } else {
+                    return (option == .ascending) ? (isFavorite1 < isFavorite2) : (isFavorite1 > isFavorite2)
+                }
+            case .lastPracticedTime:
+                let key1 = playlistPracticeEntry1.practiceItem()?.lastPracticedSortKey ?? ""
+                let key2 = playlistPracticeEntry2.practiceItem()?.lastPracticedSortKey ?? ""
+                return (option == .ascending) ? (key1 < key2) : (key1 > key2)
+            case .rating:
+                let rate1 = self.rating(forPracticeItemId: playlistPracticeEntry1.practiceItemId) ?? 0
+                let rate2 = self.rating(forPracticeItemId: playlistPracticeEntry2.practiceItemId) ?? 0
+                return (option == .ascending) ? (rate1 < rate2) : (rate1 > rate2)
+            }
+        }
+    }
+    
     func changePlaylistName(to name:String) {
         if name != "" {
             self.playlistName = name

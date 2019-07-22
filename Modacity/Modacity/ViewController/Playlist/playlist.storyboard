@@ -475,12 +475,12 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Be4-54-9ng">
-                                <rect key="frame" x="321" y="20.5" width="44" height="44"/>
+                                <rect key="frame" x="331" y="20.5" width="44" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="M5O-1P-nxy"/>
                                     <constraint firstAttribute="width" constant="44" id="enV-gh-VVY"/>
                                 </constraints>
-                                <state key="normal" image="icon_notes"/>
+                                <state key="normal" image="icon_vertical_dots"/>
                                 <connections>
                                     <action selector="onNotes:" destination="2UX-vR-wCX" eventType="touchUpInside" id="3RK-1z-LV4"/>
                                 </connections>
@@ -773,7 +773,7 @@ named to be saved.</string>
                             <constraint firstItem="dnc-dX-9ia" firstAttribute="leading" secondItem="qrw-ma-BZY" secondAttribute="leading" id="c7r-GS-WPw"/>
                             <constraint firstItem="qBo-xF-4pQ" firstAttribute="trailing" secondItem="9Oe-7j-x9G" secondAttribute="trailing" id="cGy-Fy-6Kg"/>
                             <constraint firstItem="rrG-Lr-8tt" firstAttribute="bottom" secondItem="9Oe-7j-x9G" secondAttribute="bottom" constant="11" id="cgb-iJ-xNM"/>
-                            <constraint firstItem="9Oe-7j-x9G" firstAttribute="trailing" secondItem="Be4-54-9ng" secondAttribute="trailing" constant="10" id="cvQ-2y-b8Y"/>
+                            <constraint firstItem="9Oe-7j-x9G" firstAttribute="trailing" secondItem="Be4-54-9ng" secondAttribute="trailing" id="cvQ-2y-b8Y"/>
                             <constraint firstItem="rrG-Lr-8tt" firstAttribute="top" secondItem="YZj-6x-Drz" secondAttribute="bottom" id="fRo-7N-Lv1"/>
                             <constraint firstAttribute="bottom" secondItem="mXI-KA-4Ff" secondAttribute="bottom" id="gId-JV-Wsu"/>
                             <constraint firstItem="URf-yU-XAy" firstAttribute="bottom" secondItem="9Oe-7j-x9G" secondAttribute="bottom" constant="40" id="hKz-tD-uLu"/>
@@ -1458,7 +1458,6 @@ named to be saved.</string>
         <image name="icon_congratelations_quote" width="37" height="37"/>
         <image name="icon_heart" width="16" height="15"/>
         <image name="icon_menu" width="20" height="14"/>
-        <image name="icon_notes" width="16" height="16"/>
         <image name="icon_remind_calendar" width="20" height="22"/>
         <image name="icon_vertical_dots" width="4" height="18"/>
         <image name="img_btn_logo" width="33" height="32"/>
