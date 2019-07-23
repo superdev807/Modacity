@@ -391,7 +391,7 @@ class PlaylistContentsViewController: ModacityParentViewController {
                                        on: self.buttonEditName,
                                        rows: [["icon":"icon_notes", "text":"Stats & Notes"],
                                               ["icon":"icon_sort_menu", "text":"Sort"]],
-                                       textSize: 13) { [unowned self] (row) in
+                                       textSize: 12) { [unowned self] (row) in
                                                 if row == 0 {
                                                     self.openDetails()
                                                 } else if row == 1 {
@@ -411,6 +411,7 @@ class PlaylistContentsViewController: ModacityParentViewController {
     
     private func openSort() {
         let controller = UIStoryboard(name: "practice_item", bundle: nil).instantiateViewController(withIdentifier: "SortOptionsViewController") as! SortOptionsViewController
+        controller.sortKeys = [.name, .favorites, .lastPracticedTime, .random, .manual]
         controller.sortOption = self.sortOptionForItems
         controller.sortKey = self.sortKeyForItems
         controller.delegate = self
@@ -1137,7 +1138,12 @@ extension PlaylistContentsViewController:  SortOptionsViewControllerDelegate {
     }
     
     private func sortItems() {
-        self.viewModel.sortItems(key: self.sortKeyForItems, option: self.sortOptionForItems)
+        
+        if self.sortKeyForItems == .random {
+            self.shufflePlaylist()
+        } else {
+            self.viewModel.sortItems(key: self.sortKeyForItems, option: self.sortOptionForItems)
+        }
     }
     
 }

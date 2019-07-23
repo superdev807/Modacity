@@ -15,6 +15,7 @@ class PlaylistPracticeEntry: Mappable {
 //    var name: String!
     var countDownDuration: Int?
     var practiceItemId: String!
+    var addedTime: TimeInterval?
     
     init() {
         self.entryId = UUID().uuidString
@@ -29,6 +30,7 @@ class PlaylistPracticeEntry: Mappable {
 //        name                <- map["name"]
         countDownDuration   <- map["count_down_duration"]
         practiceItemId      <- map["item_id"]
+        addedTime           <- map["added_time"]
     }
     
     func practiceItem() -> PracticeItem? {

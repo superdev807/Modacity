@@ -169,6 +169,8 @@ class PracticeItemViewModel: ViewModel {
                 keyString = item.lastPracticedDateString()
             case .rating:
                 keyString = item.ratingString()
+            default:
+                keyString = ""
             }
             
             if finalResult[keyString] != nil {
@@ -196,6 +198,8 @@ class PracticeItemViewModel: ViewModel {
                         let sortingKey1 = item1.lastPracticeTime().toString(format: "yyyyMMddHHmmss") + item1.name
                         let sortingKey2 = item2.lastPracticeTime().toString(format: "yyyyMMddHHmmss") + item2.name
                         return (self.sortOption == .ascending) ? (sortingKey1 < sortingKey2) : (sortingKey1 > sortingKey2)
+                    default:
+                        return true
                     }
                 })
             }

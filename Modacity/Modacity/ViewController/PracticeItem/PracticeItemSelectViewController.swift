@@ -719,6 +719,8 @@ extension PracticeItemSelectViewController: SortOptionsViewControllerDelegate {
                 let key1 = item1.lastPracticedSortKey ?? ""
                 let key2 = item2.lastPracticedSortKey ?? ""
                 return (self.sortOption == .ascending) ? (key1 < key2) : (key1 > key2)
+            default:
+                return true
             }
         }
         
@@ -735,6 +737,8 @@ extension PracticeItemSelectViewController: SortOptionsViewControllerDelegate {
                 keyString = practice.lastPracticedDateKeyString ?? "" //lastPracticedDateString()
             case .rating:
                 keyString = "\(Int(practice.rating)) STARS"
+            default:
+                keyString = ""
             }
             
             if self.sectionedPracticeItems != nil {

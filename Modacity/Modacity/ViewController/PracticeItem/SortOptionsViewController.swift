@@ -9,15 +9,23 @@
 import UIKit
 
 enum SortKeyOption: String {
-    case name = "name";
-    case lastPracticedTime = "last_practiced_time";
-    case rating = "rating";
-    case favorites = "favorites";
+    case name = "name"
+    case lastPracticedTime = "last_practiced_time"
+    case rating = "rating"
+    case favorites = "favorites"
+    case random = "random"
+    case manual = "manual"
 }
 
 enum SortOption: String {
-    case ascending = "ascending";
-    case descending = "descending";
+    case ascending = "ascending"
+    case descending = "descending"
+}
+
+struct SortKeyData {
+    let key: SortKeyOption = .name
+    let ascendingText: String = "Ascending"
+    let descendingText: String = "Descending"
 }
 
 protocol SortOptionsViewControllerDelegate {
@@ -26,20 +34,22 @@ protocol SortOptionsViewControllerDelegate {
 
 class SortOptionsViewController: ModacityParentViewController {
     
+    @IBOutlet weak var constraintSortListHeight: NSLayoutConstraint!
+    @IBOutlet weak var constraintSortOptionsBoxHeight: NSLayoutConstraint!
+    
     @IBOutlet weak var imageViewCheckDescending: UIImageView!
     @IBOutlet weak var imageViewCheckAscending: UIImageView!
-    
-    @IBOutlet weak var imageViewCheckByName: UIImageView!
-    @IBOutlet weak var imageViewCheckByLastPracticeTime: UIImageView!
-    @IBOutlet weak var imageViewCheckByRating: UIImageView!
-    @IBOutlet weak var imageViewCheckByFavorites: UIImageView!
     
     @IBOutlet weak var labelOption1: UILabel!
     @IBOutlet weak var labelOption2: UILabel!
     
+    @IBOutlet weak var tableViewSortOptions: UITableView!
+    
     var sortKey = SortKeyOption.name
     var sortOption = SortOption.ascending
     var delegate: SortOptionsViewControllerDelegate?
+    
+    var sortKeys:[SortKeyOption] = [.name, .lastPracticedTime, .rating, .favorites]
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -73,34 +83,6 @@ class SortOptionsViewController: ModacityParentViewController {
 //        }
     }
     
-    @IBAction func onSelectOptionName(_ sender: Any) {
-        self.sortKey = .name
-        self.callDelegate()
-        self.configureOptions()
-        self.close()
-    }
-    
-    @IBAction func onSelectOptionLastPracticed(_ sender: Any) {
-        self.sortKey = .lastPracticedTime
-        self.callDelegate()
-        self.configureOptions()
-        self.close()
-    }
-    
-    @IBAction func onSelectOptionRating(_ sender: Any) {
-        self.sortKey = .rating
-        self.callDelegate()
-        self.configureOptions()
-        self.close()
-    }
-    
-    @IBAction func onSelectOptionFavorites(_ sender: Any) {
-        self.sortKey = .favorites
-        self.callDelegate()
-        self.configureOptions()
-        self.close()
-    }
-    
     @IBAction func onSelectOptionDescending(_ sender: Any) {
         if self.sortKey == .name {
             self.sortOption = .ascending
@@ -124,12 +106,18 @@ class SortOptionsViewController: ModacityParentViewController {
     }
     
     func configureOptions() {
-        self.deselectAllKeys()
+        self.constraintSortListHeight.constant = 64 * self.sortKeys.count
+        self.tableViewSortOptions.reloadData()
         self.deselectAllOptions()
         
-        switch sortKey {
+        if self.sortKey == .random {
+            self.constraintSortOptionsBoxHeight.constant = 0
+        } else {
+            self.constraintSortOptionsBoxHeight.constant = 46
+        }
+        
+        switch self.sortKey {
         case .name:
-            self.imageViewCheckByName.isHidden = false
             self.labelOption1.text = "A-Z"
             self.labelOption2.text = "Z-A"
             switch sortOption {
@@ -139,7 +127,6 @@ class SortOptionsViewController: ModacityParentViewController {
                 self.imageViewCheckDescending.isHidden = false
             }
         case .favorites:
-            self.imageViewCheckByFavorites.isHidden = false
             self.labelOption1.text = "Favorite"
             self.labelOption2.text = "Not Favorite"
             switch sortOption {
@@ -149,7 +136,6 @@ class SortOptionsViewController: ModacityParentViewController {
                 self.imageViewCheckDescending.isHidden = false
             }
         case .lastPracticedTime:
-            self.imageViewCheckByLastPracticeTime.isHidden = false
             self.labelOption1.text = "Most Recent"
             self.labelOption2.text = "Least Recent"
             switch sortOption {
@@ -159,7 +145,6 @@ class SortOptionsViewController: ModacityParentViewController {
                 self.imageViewCheckDescending.isHidden = false
             }
         case .rating:
-            self.imageViewCheckByRating.isHidden = false
             self.labelOption1.text = "High to Low"
             self.labelOption2.text = "Low to High"
             switch sortOption {
@@ -168,20 +153,82 @@ class SortOptionsViewController: ModacityParentViewController {
             case .descending:
                 self.imageViewCheckDescending.isHidden = false
             }
+        case .manual:
+            self.labelOption1.text = "Most Recent"
+            self.labelOption2.text = "Least Recent"
+            switch sortOption {
+            case .ascending:
+                self.imageViewCheckAscending.isHidden = false
+            case .descending:
+                self.imageViewCheckDescending.isHidden = false
+            }
+        case .random:
+            return
         }
-        
-        
-    }
-    
-    func deselectAllKeys() {
-        self.imageViewCheckByName.isHidden = true
-        self.imageViewCheckByRating.isHidden = true
-        self.imageViewCheckByLastPracticeTime.isHidden = true
-        self.imageViewCheckByFavorites.isHidden = true
     }
     
     func deselectAllOptions() {
         self.imageViewCheckAscending.isHidden = true
         self.imageViewCheckDescending.isHidden = true
     }
+}
+
+extension SortOptionsViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.sortKeys.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SortOptionCell") as! SortOptionCell
+        cell.configure(self.sortKeys[indexPath.row], isChecked: self.isChecked(self.sortKeys[indexPath.row]))
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 64
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.tableViewSortOptions.deselectRow(at: indexPath, animated: true)
+        self.sortKey = self.sortKeys[indexPath.row]
+        self.callDelegate()
+        self.configureOptions()
+        self.close()
+    }
+    
+    private func isChecked(_ sortKey: SortKeyOption) -> Bool {
+        return sortKey == self.sortKey
+    }
+}
+
+class SortOptionCell: UITableViewCell {
+    
+    @IBOutlet weak var imageViewChecked: UIImageView!
+    @IBOutlet weak var imageViewIcon: UIImageView!
+    @IBOutlet weak var labelSortOption: UILabel!
+    
+    func configure(_ sortOption: SortKeyOption, isChecked: Bool) {
+        self.imageViewChecked.isHidden = !isChecked
+        switch sortOption {
+        case .name:
+            self.labelSortOption.text = "Sort by Name"
+            self.imageViewIcon.image = UIImage(named: "icon_sort_name")
+        case .favorites:
+            self.labelSortOption.text = "Favorites"
+            self.imageViewIcon.image = UIImage(named: "icon_sort_heart")
+        case .lastPracticedTime:
+            self.labelSortOption.text = "Sort by Last Practiced"
+            self.imageViewIcon.image = UIImage(named: "icon_sort_last_practiced")
+        case .rating:
+            self.labelSortOption.text = "Sort by Rating"
+            self.imageViewIcon.image = UIImage(named: "icon_sort_rating")
+        case .random:
+            self.labelSortOption.text = "Sort by Random"
+            self.imageViewIcon.image = UIImage(named: "icon_sort_random")
+        case .manual:
+            self.labelSortOption.text = "Sort by Manual"
+            self.imageViewIcon.image = UIImage(named: "icon_sort_last_practiced")
+        }
+    }
+    
 }

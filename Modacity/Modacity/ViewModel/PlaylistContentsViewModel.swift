@@ -177,6 +177,7 @@ class PlaylistContentsViewModel: ViewModel {
         for item in items {
             let practiceItemEntry = PlaylistPracticeEntry()
             practiceItemEntry.practiceItemId = item.id
+            practiceItemEntry.addedTime = Date().timeIntervalSince1970
             self.playlistPracticeEntries.append(practiceItemEntry)
         }
         
@@ -237,6 +238,8 @@ class PlaylistContentsViewModel: ViewModel {
     }
     
     func sortItems(key: SortKeyOption, option: SortOption) {
+        
+        
         self.playlistPracticeEntries.sort { [unowned self] (playlistPracticeEntry1, playlistPracticeEntry2) -> Bool in
             switch key {
             case .name:
@@ -261,6 +264,18 @@ class PlaylistContentsViewModel: ViewModel {
                 let rate1 = self.rating(forPracticeItemId: playlistPracticeEntry1.practiceItemId) ?? 0
                 let rate2 = self.rating(forPracticeItemId: playlistPracticeEntry2.practiceItemId) ?? 0
                 return (option == .ascending) ? (rate1 < rate2) : (rate1 > rate2)
+            case .manual:
+                let time1 = playlistPracticeEntry1.addedTime ?? TimeInterval(0)
+                let time2 = playlistPracticeEntry2.addedTime ?? TimeInterval(0)
+                if time1 == time2 {
+                    let itemName1 = playlistPracticeEntry1.practiceItem()?.name ?? "---"
+                    let itemName2 = playlistPracticeEntry2.practiceItem()?.name ?? "---"
+                    return itemName1.compare(itemName2) == ((option == .ascending) ? .orderedAscending : .orderedDescending)
+                } else {
+                    return (option == .ascending) ? (time1 < time2) : (time1 > time2)
+                }
+            default:
+                return true
             }
         }
     }

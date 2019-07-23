@@ -201,7 +201,7 @@ extension PlaylistListViewController: PlaylistCellDelegate {
             newEntry.entryId = UUID().uuidString
             newEntry.practiceItemId = entry.practiceItemId
             newEntry.countDownDuration = entry.countDownDuration
-            
+            newEntry.addedTime = Date().timeIntervalSince1970
             newPlaylist.playlistPracticeEntries.append(newEntry)
         }
         

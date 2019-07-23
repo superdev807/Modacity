@@ -214,6 +214,8 @@ class PracticeItemListViewController: ModacityParentViewController {
                     let key1 = item1.lastPracticedSortKey ?? ""
                     let key2 = item2.lastPracticedSortKey ?? ""
                     return (this.sortOption == .ascending) ? (key1 < key2) : (key1 > key2)
+                default:
+                    return true
                 }
             }
             
@@ -232,6 +234,8 @@ class PracticeItemListViewController: ModacityParentViewController {
                     keyString = practice.lastPracticedDateKeyString ?? ""//lastPracticedDateString()
                 case .rating:
                     keyString = "\(Int(practice.rating)) STARS"
+                default:
+                    keyString = ""
                 }
                 
                 if self.sectionedPracticeItems != nil && self.sectionedPracticeItems[keyString] != nil {
