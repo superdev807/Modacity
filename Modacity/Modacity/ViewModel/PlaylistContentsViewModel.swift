@@ -427,6 +427,10 @@ class PlaylistContentsViewModel: ViewModel {
         self.playlist.changeNoteTitle(for: noteId, title: title)
     }
     
+    func changeNoteYoutubeId(noteId: String, youtubeId: String) {
+        self.playlist.changeNoteYoutubeId(for: noteId, to: youtubeId)
+    }
+    
     func changeNoteSubTitle(noteId: String, subTitle: String) {
         self.playlist.changeNoteSubTitle(for: noteId, subTitle: subTitle)
     }

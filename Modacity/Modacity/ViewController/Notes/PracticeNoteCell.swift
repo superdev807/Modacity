@@ -20,6 +20,8 @@ class PracticeNoteCell: UICollectionViewCell, UIGestureRecognizerDelegate {
     @IBOutlet weak var textViewNote: UITextView!
     @IBOutlet weak var viewImprovementHeader: UIView!
     @IBOutlet weak var constraintBodyTopSpace: NSLayoutConstraint!
+    @IBOutlet weak var viewYoutube: UIView!
+    @IBOutlet weak var imageViewYoutube: UIImageView!
     
     var note: Note!
     var delegate: PracticeNoteCellDelegate!
@@ -73,6 +75,15 @@ class PracticeNoteCell: UICollectionViewCell, UIGestureRecognizerDelegate {
         
         self.tapTerm.delegate = self
         self.textViewNote.addGestureRecognizer(self.tapTerm)
+        
+        if !note.youtubeId.isEmpty {
+            self.textViewNote.isHidden = true
+            self.viewYoutube.isHidden = false
+            self.imageViewYoutube.showImage(url: "https://img.youtube.com/vi/\(note.youtubeId)/0.jpg")
+        } else {
+            self.textViewNote.isHidden = false
+            self.viewYoutube.isHidden = true
+        }
     }
     
     @objc func handleGesture() {

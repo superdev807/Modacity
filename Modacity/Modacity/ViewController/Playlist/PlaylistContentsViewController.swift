@@ -411,7 +411,7 @@ class PlaylistContentsViewController: ModacityParentViewController {
     
     private func openSort() {
         let controller = UIStoryboard(name: "practice_item", bundle: nil).instantiateViewController(withIdentifier: "SortOptionsViewController") as! SortOptionsViewController
-        controller.sortKeys = [.name, .favorites, .lastPracticedTime, .random, .manual]
+        controller.sortKeys = [.name, .favorites, .lastPracticedTime, .rating, .random, .manual]
         controller.sortOption = self.sortOptionForItems
         controller.sortKey = self.sortKeyForItems
         controller.delegate = self
@@ -651,8 +651,8 @@ class PlaylistContentsViewController: ModacityParentViewController {
   
     override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
-            self.shufflePlaylist()
-            ModacityDebugger.debug("SHAKEN!");
+//            self.shufflePlaylist()
+            ModacityDebugger.debug("SHAKEN!")
         }
     }
     

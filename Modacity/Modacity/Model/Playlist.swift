@@ -61,6 +61,12 @@ class Playlist: Mappable {
         self.updateMe()
     }
     
+    func changeNoteYoutubeId(for noteId: String, to youtubeId: String) {
+        let note = self.notes?.first { $0.id == noteId }
+        note?.youtubeId = youtubeId
+        self.updateMe()
+    }
+    
     func deleteNote(for noteId:String) {
         
         self.notes = self.notes?.filter { $0.id != noteId }

@@ -25,8 +25,12 @@ class NoteCell: UITableViewCell {
     @IBOutlet weak var textfieldNoteTitle: UITextField!
     @IBOutlet weak var textViewNote: UITextView!
     @IBOutlet weak var textViewNoteSubTitle: UITextView!
-    
     @IBOutlet weak var constraintForCheckImageView: NSLayoutConstraint!
+    
+    @IBOutlet weak var imageViewYoutubeThumbnail: UIImageView!
+    @IBOutlet weak var constraintForYoutubeThumbnail: NSLayoutConstraint!
+    
+    
     var delegate: NoteCellDelegate!
     var note: Note!
     var tapTerm: UITapGestureRecognizer!
@@ -89,6 +93,13 @@ class NoteCell: UITableViewCell {
             self.labelNote.attributedText = attributedString
             self.textViewNote.attributedText = attributedString
             self.imageViewChecked.image = UIImage(named:"icon_checkmark_blue_deselected")
+        }
+        
+        if !note.youtubeId.isEmpty {
+            self.constraintForYoutubeThumbnail.constant = 64
+            self.imageViewYoutubeThumbnail.showImage(url: "https://img.youtube.com/vi/\(note.youtubeId)/0.jpg")
+        } else {
+            self.constraintForYoutubeThumbnail.constant = 0
         }
     }
     

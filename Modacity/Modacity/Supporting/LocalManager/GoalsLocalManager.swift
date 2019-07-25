@@ -73,7 +73,7 @@ class GoalsLocalManager: NSObject {
         }
     }
     
-    func changeGoalTitleAndSubTitle(goalId: String, title: String? = nil, subTitle: String? = nil) {
+    func changeGoalTitleAndSubTitle(goalId: String, title: String? = nil, subTitle: String? = nil, youtubeId: String? = nil) {
         if let json = UserDefaults.standard.object(forKey: "goal_\(goalId)") as? [String:Any] {
             if let goal = Note(JSON: json) {
                 if title != nil {
@@ -81,6 +81,9 @@ class GoalsLocalManager: NSObject {
                 }
                 if subTitle != nil {
                     goal.subTitle = subTitle
+                }
+                if let youtubeId = youtubeId {
+                    goal.youtubeId = youtubeId
                 }
                 UserDefaults.standard.set(goal.toJSON(), forKey: "goal_\(goal.id ?? "")")
                 UserDefaults.standard.synchronize()

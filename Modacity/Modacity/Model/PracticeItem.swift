@@ -122,6 +122,12 @@ class PracticeItem: Mappable {
         self.updateMe()
     }
     
+    func changeNoteYoutubeId(for noteId: String, youtubeId: String) {
+        let note = self.notes?.first { $0.id == noteId }
+        note?.youtubeId = youtubeId
+        self.updateMe()
+    }
+    
     func updateMe() {
         PracticeItemLocalManager.manager.updatePracticeItem(self)
     }

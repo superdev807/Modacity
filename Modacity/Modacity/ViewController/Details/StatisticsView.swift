@@ -146,11 +146,6 @@ class StatisticsView: UIView {
                 ratingsTimeStamp.append(timeStamp)
             }
             
-//            if ratingsLine.count == 1 {
-//                ratingsLine.insert(0, at: 0)
-//                ratingsTimeStamp.insert(0, at: 0)
-//            }
-            
             setRatingLineChart(values: ratingsLine, timeStamp: ratingsTimeStamp)
         } else {
             setRatingLineChart(values: [], timeStamp: [])
@@ -506,7 +501,7 @@ extension StatisticsView: ChartViewDelegate {
         } else {
             self.labelTappedTime.isHidden = true
         }
-        self.labelTappedTime.text = Date(timeIntervalSince1970: self.timestampsOnRatingGraph[Int(entry.x)]).toString(format: "MM/dd/yy")
+        self.labelTappedTime.text = Date(timeIntervalSince1970: self.timestampsOnRatingGraph[Int(entry.x)]).localeDisplay(dateStyle: .short)
         
         let pos = self.chartViewStarRatings.getPosition(entry: entry, axis: .left)
         self.constraintForTappedLabelLeadingSpace.constant = pos.x

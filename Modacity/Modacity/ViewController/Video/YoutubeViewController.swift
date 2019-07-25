@@ -7,13 +7,13 @@
 //
 
 import UIKit
-import YouTubePlayer_Swift
+import YoutubePlayer_in_WKWebView
 
 class YoutubeViewController: ModacityParentViewController {
 
     @IBOutlet weak var labelTitle: UILabel!
     
-    @IBOutlet weak var youtubePlayerView: YouTubePlayerView!
+    @IBOutlet weak var youtubePlayerView: WKYTPlayerView!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     var titleString = ""
@@ -22,7 +22,8 @@ class YoutubeViewController: ModacityParentViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        self.youtubePlayerView.loadVideoID(videoId)
+        self.youtubePlayerView.load(withVideoId: videoId)
+//        self.youtubePlayerView.delegate = self
         self.labelTitle.text = titleString
     }
     
@@ -39,19 +40,19 @@ class YoutubeViewController: ModacityParentViewController {
     }
 }
 
-extension YoutubeViewController: YouTubePlayerDelegate {
-    func playerReady(_ videoPlayer: YouTubePlayerView) {
-        
-    }
-    
-    func playerStateChanged(_ videoPlayer: YouTubePlayerView, playerState: YouTubePlayerState) {
-        if playerState == .Ended {
-            print("Youtube player ended")
-            self.setNeedsStatusBarAppearanceUpdate()
-        }
-    }
-    
-    func playerQualityChanged(_ videoPlayer: YouTubePlayerView, playbackQuality: YouTubePlaybackQuality) {
-        
-    }
+extension YoutubeViewController {
+//    func playerReady(_ videoPlayer: YouTubePlayerView) {
+//
+//    }
+//
+//    func playerStateChanged(_ videoPlayer: YouTubePlayerView, playerState: YouTubePlayerState) {
+//        if playerState == .Ended {
+//            print("Youtube player ended")
+//            self.setNeedsStatusBarAppearanceUpdate()
+//        }
+//    }
+//
+//    func playerQualityChanged(_ videoPlayer: YouTubePlayerView, playbackQuality: YouTubePlaybackQuality) {
+//
+//    }
 }

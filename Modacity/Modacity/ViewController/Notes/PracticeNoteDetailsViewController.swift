@@ -9,12 +9,15 @@
 import UIKit
 import UITextView_Placeholder
 import CHGInputAccessoryView
+import YoutubePlayer_in_WKWebView
 
 class PracticeNoteDetailsViewController: ModacityParentViewController {
 
     @IBOutlet weak var labelNoteTitle: UILabel!
     @IBOutlet weak var textViewInputBox: UITextView!
     @IBOutlet weak var constraintForInputboxBottomSpace: NSLayoutConstraint!
+    @IBOutlet weak var youtubeView: WKYTPlayerView!
+    @IBOutlet weak var constraintForYoutubeViewHeight: NSLayoutConstraint!
     
     var playlistViewModel: PlaylistContentsViewModel!
     var playlistPracticeEntry: PlaylistPracticeEntry!
@@ -28,15 +31,18 @@ class PracticeNoteDetailsViewController: ModacityParentViewController {
     var noteIsForPlaylist = false
     var note: Note!
     
+    var youtubeVideoId: String = ""
+    var tempVideoId = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.textViewInputBox.placeholder = "Add a note..."
-        self.textViewInputBox.text = note.subTitle
+        
         self.labelNoteTitle.text = note.note
         self.textViewNoteTitleEdit.text = note.note
         self.labelNoteTitle.isHidden = true
-        self.textViewInputBox.becomeFirstResponder()
+        
         self.textViewInputBox.placeholderColor = Color.white.alpha(0.7)
         self.textViewInputBox.tintColor = Color.white
         NotificationCenter.default.addObserver(self, selector: #selector(onKeyboardWillShow), name: Notification.Name.UIKeyboardWillShow, object: nil)
@@ -45,6 +51,23 @@ class PracticeNoteDetailsViewController: ModacityParentViewController {
         self.textViewNoteTitleEdit.textContainerInset = .zero
         self.attachInputAccessoryView()
         self.processLabelAlignments()
+        
+        self.textViewInputBox.text = note.subTitle
+        
+        if self.note.youtubeId == nil || self.note.youtubeId == "" {
+            if let videoId = self.extractYoutubeId(from: self.note.subTitle) {
+                tempVideoId = videoId
+                self.youtubeView.delegate = self
+                self.youtubeView.load(withVideoId: videoId)
+            } else {
+                self.constraintForYoutubeViewHeight.constant = 0
+                self.textViewInputBox.becomeFirstResponder()
+            }
+        } else {
+            self.constraintForYoutubeViewHeight.constant = 240
+            self.youtubeView.load(withVideoId: note.youtubeId)
+            self.youtubeVideoId = note.youtubeId
+        }
         
     }
     
@@ -58,23 +81,26 @@ class PracticeNoteDetailsViewController: ModacityParentViewController {
     }
 
     @IBAction func onBack(_ sender:Any) {
-        
         if self.playlistViewModel != nil {
             if self.noteIsForPlaylist {
                 self.playlistViewModel.changeNoteTitle(noteId: self.note.id, title: self.textViewNoteTitleEdit.text ?? "")
                 self.playlistViewModel.changeNoteSubTitle(noteId: self.note.id, subTitle: self.textViewInputBox.text)
+                self.playlistViewModel.changeNoteYoutubeId(noteId: self.note.id, youtubeId: self.youtubeVideoId)
             } else {
                 self.playlistPracticeEntry.practiceItem()?.changeNoteTitle(for: self.note.id, title: self.textViewNoteTitleEdit.text ?? "")
                 self.playlistPracticeEntry.practiceItem()?.changeNoteSubTitle(for: self.note.id, subTitle: self.textViewInputBox.text)
+                self.playlistPracticeEntry.practiceItem()?.changeNoteYoutubeId(for: self.note.id, youtubeId: self.youtubeVideoId)
             }
         } else if self.practiceItem != nil {
             self.practiceItem.changeNoteSubTitle(for: self.note.id, subTitle: self.textViewInputBox.text)
             self.practiceItem.changeNoteTitle(for: self.note.id, title: self.textViewNoteTitleEdit.text ?? "")
+            self.practiceItem.changeNoteYoutubeId(for: self.note.id, youtubeId: self.youtubeVideoId)
         } else if self.playlist != nil {
             self.playlist.changeNoteSubTitle(for: self.note.id, subTitle: self.textViewInputBox.text)
             self.playlist.changeNoteTitle(for: self.note.id, title: self.textViewNoteTitleEdit.text ?? "")
+            self.playlist.changeNoteYoutubeId(for: self.note.id, to: self.youtubeVideoId)
         } else {
-            GoalsLocalManager.manager.changeGoalTitleAndSubTitle(goalId: self.note.id, title: self.textViewNoteTitleEdit.text ?? "", subTitle: self.textViewInputBox.text)
+            GoalsLocalManager.manager.changeGoalTitleAndSubTitle(goalId: self.note.id, title: self.textViewNoteTitleEdit.text ?? "", subTitle: self.textViewInputBox.text, youtubeId: self.youtubeVideoId)
         }
         
         self.navigationController?.popViewController(animated: true)
@@ -143,17 +169,50 @@ class PracticeNoteDetailsViewController: ModacityParentViewController {
             }
         }
     }
+    
+    @IBAction func onDeleteYoutube(_ sender: Any) {
+        self.youtubeVideoId = ""
+        self.constraintForYoutubeViewHeight.constant = 0
+    }
+    
+    private func extractYoutubeId(from text: String) -> String? {
+        let nsText = NSString(string: text)
+        let range1 = nsText.range(of: "youtu")
+        if range1.location != NSNotFound {
+            let afterString = NSString(string: nsText.substring(from: range1.location))
+            let range2 = afterString.range(of: "v=")
+            if range2.location != NSNotFound {
+                let vAfterString = NSString(string: afterString.substring(from: (range2.location + range2.length)))
+                let regex = try! NSRegularExpression(pattern: ",|\\s|\\.|&", options: .caseInsensitive)
+                if let match = regex.firstMatch(in: vAfterString as String, options: [], range: NSRange(location: 0, length: vAfterString.length)) {
+                    print("Found video Id - \(vAfterString.substring(to: match.range.location))")
+                    return vAfterString.substring(to: match.range.location)
+                } else {
+                    if !vAfterString.isEqual(to: "") {
+                        print("Found video Id - \(vAfterString)")
+                        return vAfterString as String
+                    }
+                    return nil
+                }
+            }
+        }
+        
+        return nil
+    }
 }
 
 extension PracticeNoteDetailsViewController: CHGInputAccessoryViewDelegate {
     
     func attachInputAccessoryView() {
         var inputAccessoryView = CHGInputAccessoryView.inputAccessoryView() as! CHGInputAccessoryView
+        let youtube = CHGInputAccessoryViewItem.button(withTitle: "Embed Youtube")!
+        youtube.tintColor = Color.black
+        youtube.tag = 102
         var flexible = CHGInputAccessoryViewItem.flexibleSpace()!
         let close = CHGInputAccessoryViewItem.button(withTitle: "Close")!
         close.tintColor = Color.black
         close.tag = 100
-        inputAccessoryView.items = [flexible, close]
+        inputAccessoryView.items = [youtube, flexible, close]
         inputAccessoryView.inputAccessoryViewDelegate = self
         self.textViewInputBox.inputAccessoryView = inputAccessoryView
         
@@ -173,6 +232,8 @@ extension PracticeNoteDetailsViewController: CHGInputAccessoryViewDelegate {
         } else if item.tag == 101 {
             self.onDidEndOnExitOnField(self)
             self.textViewInputBox.becomeFirstResponder()
+        } else if item.tag == 102 {
+            self.inputYoutubeId()
         }
     }
     
@@ -194,6 +255,56 @@ extension PracticeNoteDetailsViewController: UITextViewDelegate {
         if textView == self.textViewNoteTitleEdit {
             self.labelNoteTitle.text = self.textViewNoteTitleEdit.text
             self.processLabelAlignments()
+        } else if textView == self.textViewInputBox {
+            if self.youtubeVideoId.isEmpty {
+                if let videoIdExtracted = self.extractYoutubeId(from: textView.text) {
+                    self.showVideoId(videoIdExtracted)
+                }
+            }
         }
+    }
+    
+    private func showVideoId(_ videoId: String) {
+        self.tempVideoId = videoId
+        self.youtubeView.load(withVideoId: videoId)
+        self.youtubeView.delegate = self
+    }
+}
+
+extension PracticeNoteDetailsViewController: WKYTPlayerViewDelegate {
+
+    func playerViewDidBecomeReady(_ playerView: WKYTPlayerView) {
+        self.constraintForYoutubeViewHeight.constant = 240
+        self.youtubeVideoId = self.tempVideoId
+    }
+    
+    func inputYoutubeId() {
+        
+        if !self.youtubeVideoId.isEmpty {
+            let alert = UIAlertController(title: nil, message: "Your current video ID will be replaced.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Continue", style: .default, handler: { (_) in
+                self.textViewInputBox.resignFirstResponder()
+                self.embedYoutubeId()
+            }))
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        } else {
+            self.embedYoutubeId()
+        }
+        
+    }
+    
+    private func embedYoutubeId() {
+        let alert = UIAlertController(title: nil, message: "Please enter your video id.", preferredStyle: .alert)
+        alert.addTextField { (textField) in
+            textField.placeholder = "https://www.youtube.com/watch?v="
+        }
+        alert.addAction(UIAlertAction(title: "Embed", style: .default, handler: { (_) in
+            if let textField = alert.textFields?[0], let text = textField.text, !text.isEmpty {
+                self.showVideoId(text)
+            }
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
 }

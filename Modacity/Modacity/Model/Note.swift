@@ -15,6 +15,7 @@ class Note: Mappable {
     var note: String! = ""
     var subTitle: String! = ""
     var archived: Bool! = false
+    var youtubeId: String = ""
     
     var isDeliberatePracticeNote = false
     
@@ -32,6 +33,7 @@ class Note: Mappable {
         archived                    <- map["archived"]
         subTitle                    <- map["subtitle"]
         isDeliberatePracticeNote    <- map["improved"]
+        youtubeId                   <- map["youtube"]
     }
     
     func deliberatePracticeNoteProcess() -> NSAttributedString {
