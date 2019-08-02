@@ -180,9 +180,8 @@ class PracticeNoteDetailsViewController: ModacityParentViewController {
         let range1 = nsText.range(of: "youtu")
         if range1.location != NSNotFound {
             let afterString = NSString(string: nsText.substring(from: range1.location))
-            let range2 = afterString.range(of: "v=")
-            if range2.location != NSNotFound {
-                let vAfterString = NSString(string: afterString.substring(from: (range2.location + range2.length)))
+            if afterString.hasPrefix("youtu.be/") {
+                let vAfterString = NSString(string: afterString.substring(from: "youtu.be/".count))
                 let regex = try! NSRegularExpression(pattern: ",|\\s|\\.|&", options: .caseInsensitive)
                 if let match = regex.firstMatch(in: vAfterString as String, options: [], range: NSRange(location: 0, length: vAfterString.length)) {
                     print("Found video Id - \(vAfterString.substring(to: match.range.location))")
@@ -193,6 +192,22 @@ class PracticeNoteDetailsViewController: ModacityParentViewController {
                         return vAfterString as String
                     }
                     return nil
+                }
+            } else {
+                let range2 = afterString.range(of: "v=")
+                if range2.location != NSNotFound {
+                    let vAfterString = NSString(string: afterString.substring(from: (range2.location + range2.length)))
+                    let regex = try! NSRegularExpression(pattern: ",|\\s|\\.|&", options: .caseInsensitive)
+                    if let match = regex.firstMatch(in: vAfterString as String, options: [], range: NSRange(location: 0, length: vAfterString.length)) {
+                        print("Found video Id - \(vAfterString.substring(to: match.range.location))")
+                        return vAfterString.substring(to: match.range.location)
+                    } else {
+                        if !vAfterString.isEqual(to: "") {
+                            print("Found video Id - \(vAfterString)")
+                            return vAfterString as String
+                        }
+                        return nil
+                    }
                 }
             }
         }
@@ -209,10 +224,10 @@ extension PracticeNoteDetailsViewController: CHGInputAccessoryViewDelegate {
         youtube.tintColor = Color.black
         youtube.tag = 102
         var flexible = CHGInputAccessoryViewItem.flexibleSpace()!
-        let close = CHGInputAccessoryViewItem.button(withTitle: "Close")!
-        close.tintColor = Color.black
+        let close = CHGInputAccessoryViewItem.button(withTitle: "Done")!
+        close.tintColor = Color.blue
         close.tag = 100
-        inputAccessoryView.items = [youtube, flexible, close]
+        inputAccessoryView.items = [flexible, close]
         inputAccessoryView.inputAccessoryViewDelegate = self
         self.textViewInputBox.inputAccessoryView = inputAccessoryView
         
@@ -256,11 +271,11 @@ extension PracticeNoteDetailsViewController: UITextViewDelegate {
             self.labelNoteTitle.text = self.textViewNoteTitleEdit.text
             self.processLabelAlignments()
         } else if textView == self.textViewInputBox {
-            if self.youtubeVideoId.isEmpty {
+//            if self.youtubeVideoId.isEmpty {
                 if let videoIdExtracted = self.extractYoutubeId(from: textView.text) {
                     self.showVideoId(videoIdExtracted)
                 }
-            }
+//            }
         }
     }
     
@@ -274,8 +289,21 @@ extension PracticeNoteDetailsViewController: UITextViewDelegate {
 extension PracticeNoteDetailsViewController: WKYTPlayerViewDelegate {
 
     func playerViewDidBecomeReady(_ playerView: WKYTPlayerView) {
+        print("player view did become ready")
         self.constraintForYoutubeViewHeight.constant = 240
         self.youtubeVideoId = self.tempVideoId
+    }
+    
+    func playerViewIframeAPIDidFailed(toLoad playerView: WKYTPlayerView) {
+        print("player view iframe api did failed")
+    }
+    
+    func playerView(_ playerView: WKYTPlayerView, didChangeTo state: WKYTPlayerState) {
+        print("player view did change to state - \(state.rawValue)")
+    }
+    
+    func playerView(_ playerView: WKYTPlayerView, receivedError error: WKYTPlayerError) {
+        print("player view did receive error - \(error.rawValue)")
     }
     
     func inputYoutubeId() {

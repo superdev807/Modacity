@@ -42,6 +42,8 @@ class SortOptionsViewController: ModacityParentViewController {
     
     @IBOutlet weak var labelOption1: UILabel!
     @IBOutlet weak var labelOption2: UILabel!
+    @IBOutlet weak var buttonOption1: UIButton!
+    @IBOutlet weak var buttonOption2: UIButton!
     
     @IBOutlet weak var tableViewSortOptions: UITableView!
     
@@ -111,9 +113,19 @@ class SortOptionsViewController: ModacityParentViewController {
         self.deselectAllOptions()
         
         if self.sortKey == .random {
-            self.constraintSortOptionsBoxHeight.constant = 0
+            self.imageViewCheckAscending.alpha = 0.5
+            self.imageViewCheckDescending.alpha = 0.5
+            self.labelOption1.alpha = 0.5
+            self.labelOption2.alpha = 0.5
+            self.buttonOption1.isEnabled = false
+            self.buttonOption2.isEnabled = false
         } else {
-            self.constraintSortOptionsBoxHeight.constant = 46
+            self.imageViewCheckAscending.alpha = 1
+            self.imageViewCheckDescending.alpha = 1
+            self.labelOption1.alpha = 1
+            self.labelOption2.alpha = 1
+            self.buttonOption1.isEnabled = true
+            self.buttonOption2.isEnabled = true
         }
         
         switch self.sortKey {
@@ -223,10 +235,10 @@ class SortOptionCell: UITableViewCell {
             self.labelSortOption.text = "Sort by Rating"
             self.imageViewIcon.image = UIImage(named: "icon_sort_rating")
         case .random:
-            self.labelSortOption.text = "Sort by Random"
+            self.labelSortOption.text = "Shuffle"
             self.imageViewIcon.image = UIImage(named: "icon_sort_random")
         case .manual:
-            self.labelSortOption.text = "Sort by Manual"
+            self.labelSortOption.text = "Manual Order"
             self.imageViewIcon.image = UIImage(named: "icon_sort_last_practiced")
         }
     }

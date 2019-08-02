@@ -68,7 +68,7 @@ class PlaylistContentsViewController: ModacityParentViewController {
     var deliveredSectionedPracticeItems = [String:[PracticeItem]]()
     var dataDelivered = false
     
-    var sortKeyForItems = SortKeyOption.name
+    var sortKeyForItems = SortKeyOption.manual
     var sortOptionForItems = SortOption.descending
     
     var firstPracticeItemPlaying = false

@@ -600,27 +600,27 @@ Working On?</string>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SortOptionCell" id="7JX-Zj-w5M" customClass="SortOptionCell" customModule="Modacity" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
-                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7JX-Zj-w5M" id="aZ7-11-cRc">
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7JX-Zj-w5M" id="aZ7-11-cRc">
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="icO-PA-8Wc">
-                                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                                             <subviews>
                                                                 <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_sort_checked" translatesAutoresizingMaskIntoConstraints="NO" id="6vw-ff-DZi">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="24" height="44.5"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="24" height="44"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="24" id="qXr-t0-HHf"/>
                                                                     </constraints>
                                                                 </imageView>
                                                                 <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_sort_heart" translatesAutoresizingMaskIntoConstraints="NO" id="cSO-Se-FmG">
-                                                                    <rect key="frame" x="24" y="0.0" width="40" height="44.5"/>
+                                                                    <rect key="frame" x="24" y="0.0" width="40" height="44"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="40" id="fKP-Sh-PZA"/>
                                                                     </constraints>
                                                                 </imageView>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Favorites" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ih7-Bb-P0V">
-                                                                    <rect key="frame" x="64" y="14" width="56" height="17"/>
+                                                                    <rect key="frame" x="64" y="13.5" width="56" height="17"/>
                                                                     <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                                                                     <color key="textColor" red="0.1450980392" green="0.1529411765" blue="0.21960784310000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
@@ -714,6 +714,8 @@ Working On?</string>
                         <viewLayoutGuide key="safeArea" id="PmT-so-aDy"/>
                     </view>
                     <connections>
+                        <outlet property="buttonOption1" destination="OEL-bh-0jt" id="YjM-sx-RUR"/>
+                        <outlet property="buttonOption2" destination="yg0-Qs-NTf" id="rud-2U-mD5"/>
                         <outlet property="constraintSortListHeight" destination="4np-zg-iyp" id="uMT-5q-DJl"/>
                         <outlet property="constraintSortOptionsBoxHeight" destination="8el-zV-ubm" id="Z6q-gG-Ddx"/>
                         <outlet property="imageViewCheckAscending" destination="F6y-Pc-hCh" id="TY2-Bq-DSg"/>
