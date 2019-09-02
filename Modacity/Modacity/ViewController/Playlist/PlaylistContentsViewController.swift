@@ -599,7 +599,6 @@ class PlaylistContentsViewController: ModacityParentViewController {
         self.viewModel.playlistPracticeData.entryDateString = now.toString(format: "yy-MM-dd")
         self.viewModel.playlistPracticeData.fromTime = now.toString(format: "HH:mm:ss")
         self.viewModel.playlistPracticeData.started = now.timeIntervalSince1970
-//        self.viewModel.playlistPracticeData.practices = [String]()
         PlaylistDailyLocalManager.manager.saveNewPlaylistPracticing(self.viewModel.playlistPracticeData)
         
         self.viewModel.sessionImproved = [ImprovedRecord]()
@@ -629,7 +628,6 @@ class PlaylistContentsViewController: ModacityParentViewController {
             shouldStartFrom = 0
             self.viewModel.currentPracticeEntry = self.viewModel.playlistPracticeEntries[0]
             self.openPracticeViewController()
-//            self.startPractice(withItem: 0)
         } else {
             self.finishPlaylist()
         }
@@ -651,7 +649,6 @@ class PlaylistContentsViewController: ModacityParentViewController {
   
     override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
-//            self.shufflePlaylist()
             ModacityDebugger.debug("SHAKEN!")
         }
     }
@@ -763,7 +760,7 @@ extension PlaylistContentsViewController: UITableViewDelegate, UITableViewDataSo
                 shouldStartFrom = indexPath.row
                 self.viewModel.currentPracticeEntry = self.viewModel.playlistPracticeEntries[indexPath.row]
                 self.openPracticeViewController()
-//                self.startPractice(withItem: indexPath.row)
+                
             } else {
                 
                 self.viewModel.currentPracticeEntry = self.viewModel.playlistPracticeEntries[indexPath.row]
@@ -771,6 +768,7 @@ extension PlaylistContentsViewController: UITableViewDelegate, UITableViewDataSo
                 self.viewModel.sessionTimeStarted = Date()
 
                 self.openPracticeViewController()
+                
             }
         }
     }
@@ -780,7 +778,11 @@ extension PlaylistContentsViewController: UITableViewDelegate, UITableViewDataSo
     }
     
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        return true
+        if self.sortKeyForItems == .manual {
+            return true
+        } else {
+            return false
+        }
     }
     
     func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {

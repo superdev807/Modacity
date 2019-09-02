@@ -80,9 +80,6 @@ class SortOptionsViewController: ModacityParentViewController {
     }
     
     func close() {
-//        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
-//            self.dismiss(animated: true, completion: nil)
-//        }
     }
     
     @IBAction func onSelectOptionDescending(_ sender: Any) {
@@ -132,6 +129,7 @@ class SortOptionsViewController: ModacityParentViewController {
         case .name:
             self.labelOption1.text = "A-Z"
             self.labelOption2.text = "Z-A"
+            self.constraintSortOptionsBoxHeight.constant = 46
             switch sortOption {
             case .descending:
                 self.imageViewCheckAscending.isHidden = false
@@ -141,6 +139,7 @@ class SortOptionsViewController: ModacityParentViewController {
         case .favorites:
             self.labelOption1.text = "Favorite"
             self.labelOption2.text = "Not Favorite"
+            self.constraintSortOptionsBoxHeight.constant = 46
             switch sortOption {
             case .ascending:
                 self.imageViewCheckAscending.isHidden = false
@@ -150,6 +149,7 @@ class SortOptionsViewController: ModacityParentViewController {
         case .lastPracticedTime:
             self.labelOption1.text = "Most Recent"
             self.labelOption2.text = "Least Recent"
+            self.constraintSortOptionsBoxHeight.constant = 46
             switch sortOption {
             case .ascending:
                 self.imageViewCheckAscending.isHidden = false
@@ -159,6 +159,7 @@ class SortOptionsViewController: ModacityParentViewController {
         case .rating:
             self.labelOption1.text = "High to Low"
             self.labelOption2.text = "Low to High"
+            self.constraintSortOptionsBoxHeight.constant = 46
             switch sortOption {
             case .ascending:
                 self.imageViewCheckAscending.isHidden = false
@@ -168,6 +169,7 @@ class SortOptionsViewController: ModacityParentViewController {
         case .manual:
             self.labelOption1.text = "Most Recent"
             self.labelOption2.text = "Least Recent"
+            self.constraintSortOptionsBoxHeight.constant = 0
             switch sortOption {
             case .ascending:
                 self.imageViewCheckAscending.isHidden = false
@@ -175,6 +177,7 @@ class SortOptionsViewController: ModacityParentViewController {
                 self.imageViewCheckDescending.isHidden = false
             }
         case .random:
+            self.constraintSortOptionsBoxHeight.constant = 0
             return
         }
     }
@@ -203,6 +206,11 @@ extension SortOptionsViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.tableViewSortOptions.deselectRow(at: indexPath, animated: true)
         self.sortKey = self.sortKeys[indexPath.row]
+        if self.sortKey == .lastPracticedTime || self.sortKey == .rating || self.sortKey == .name {
+            self.sortOption = .ascending
+        } else {
+            self.sortOption = .descending
+        }
         self.callDelegate()
         self.configureOptions()
         self.close()

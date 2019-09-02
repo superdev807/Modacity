@@ -120,7 +120,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     func application(_ application: UIApplication, didReceive notification: UILocalNotification) {
         if "timesup" != notification.alertAction {
-            self.showNotificationView(title:notification.alertTitle ?? "", body: notification.alertBody ?? "")
+//            self.showNotificationView(title:notification.alertTitle ?? "", body: notification.alertBody ?? "")
         }
     }
     
