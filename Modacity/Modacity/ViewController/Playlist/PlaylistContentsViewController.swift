@@ -303,7 +303,7 @@ class PlaylistContentsViewController: ModacityParentViewController {
         ModacityAnalytics.LogStringEvent("Playlist Back Button", extraParamName: "duringSession", extraParamValue: self.isPlaying)
         
         if self.viewModel.playlistName == "" {
-            let alertController = UIAlertController(title: nil, message: "You need to enter the name of the session to save this list.", preferredStyle: .alert)
+            let alertController = UIAlertController(title: nil, message: "You need to enter the name of the list to save.", preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: "Save", style: .default, handler: { (_) in
                 
                 if self.showingWalkThroughNaming {

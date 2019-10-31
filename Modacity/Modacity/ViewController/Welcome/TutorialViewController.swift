@@ -131,7 +131,7 @@ class TutorialViewController: ModacityParentViewController {
     }
     
     func configureTableViewToPageViewLooking() {
-        self.horizontalTableViewTutorial.transform = CGAffineTransform(rotationAngle:(CGFloat(-1 * Double.pi / 2)))
+        self.horizontalTableViewTutorial.transform = CGAffineTransform(rotationAngle:(CGFloat(-Double.pi / 2)))
         self.horizontalTableViewTutorial.isPagingEnabled = true
         self.horizontalTableViewTutorial.showsVerticalScrollIndicator = false
     }

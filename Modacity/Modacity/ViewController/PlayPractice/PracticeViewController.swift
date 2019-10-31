@@ -752,7 +752,7 @@ extension PracticeViewController: AVAudioPlayerDelegate, FDWaveformViewDelegate 
             }
         }
         alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
-            if let name = alertController.textFields?[0].text {
+            if let name = alertController.textFields?[0].text?.trimmingCharacters(in: .whitespacesAndNewlines) {
                 if name != "" {
                     if self.playlistViewModel != nil {
                         AppOveralDataManager.manager.increaseAutoIncrementedNumber()
@@ -771,6 +771,8 @@ extension PracticeViewController: AVAudioPlayerDelegate, FDWaveformViewDelegate 
                     ModacityAnalytics.LogStringEvent("Saved Practice Recording",
                                                     extraParamName: "filename",
                                                     extraParamValue:name)
+                } else {
+                    AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Please enter the name of your recording.")
                 }
             }
         }))
