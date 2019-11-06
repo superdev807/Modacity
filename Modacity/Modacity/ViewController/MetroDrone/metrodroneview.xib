@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -54,16 +50,16 @@
                     </constraints>
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LvR-aM-JVq" userLabel="Metrodrone Title">
-                    <rect key="frame" x="142.5" y="8" width="90" height="36"/>
+                    <rect key="frame" x="131.5" y="8" width="112" height="36"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="METRODRONE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O1j-Y0-mV6">
-                            <rect key="frame" x="0.0" y="12" width="70" height="12"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Metronome &amp; Drone" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O1j-Y0-mV6">
+                            <rect key="frame" x="0.0" y="12" width="92" height="12"/>
                             <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="10"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <imageView userInteractionEnabled="NO" alpha="0.60000002384185791" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_arrow_down" translatesAutoresizingMaskIntoConstraints="NO" id="MPx-fc-AU7">
-                            <rect key="frame" x="80.5" y="15" width="10" height="6"/>
+                            <rect key="frame" x="102" y="15" width="10" height="6"/>
                         </imageView>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -92,16 +88,16 @@
                             <rect key="frame" x="24.5" y="24.5" width="195" height="195"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r16-tn-bA3" userLabel="Octave Sustain">
-                                    <rect key="frame" x="10.5" y="47.5" width="175" height="100"/>
+                                    <rect key="frame" x="10" y="48" width="175" height="99.5"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OCTAVE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="in6-hb-5yD">
-                                            <rect key="frame" x="68.5" y="0.0" width="39" height="12"/>
+                                            <rect key="frame" x="68" y="0.0" width="39" height="12"/>
                                             <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="10"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dtf-YH-xfe" userLabel="Sustain">
-                                            <rect key="frame" x="52.5" y="65" width="70" height="35"/>
+                                            <rect key="frame" x="52.5" y="64.5" width="70" height="35"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="70" id="9rW-0d-dHS"/>
                                                 <constraint firstAttribute="width" secondItem="dtf-YH-xfe" secondAttribute="height" multiplier="2:1" id="AfT-VJ-glg"/>
@@ -122,14 +118,14 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" alpha="0.75" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DGk-qj-mh1" userLabel="OctaveDown">
-                                            <rect key="frame" x="38.5" y="19" width="36" height="36"/>
+                                            <rect key="frame" x="38.5" y="18.5" width="36" height="36"/>
                                             <state key="normal" image="icon_minus"/>
                                             <connections>
                                                 <action selector="onOctaveDown:" destination="-1" eventType="touchUpInside" id="UMu-yM-rXi"/>
                                             </connections>
                                         </button>
                                         <button opaque="NO" alpha="0.75" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2PE-xa-yHF" userLabel="OctaveUp">
-                                            <rect key="frame" x="100.5" y="19" width="36" height="36"/>
+                                            <rect key="frame" x="100.5" y="18.5" width="36" height="36"/>
                                             <state key="normal" image="icon_plus"/>
                                             <connections>
                                                 <action selector="onOctaveUp:" destination="-1" eventType="touchUpInside" id="Y0n-at-szY"/>
@@ -186,7 +182,7 @@
                             <rect key="frame" x="45" y="6" width="50" height="12"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_min_track" translatesAutoresizingMaskIntoConstraints="NO" id="OiX-Uh-91g">
-                                    <rect key="frame" x="-0.5" y="0.0" width="115" height="12"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="115" height="12"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="12" id="ULE-qi-Uma"/>
                                         <constraint firstAttribute="width" constant="115" id="bAN-3B-6H8"/>
@@ -201,13 +197,13 @@
                             </constraints>
                         </view>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_max_track" translatesAutoresizingMaskIntoConstraints="NO" id="Eyn-xK-9IR">
-                            <rect key="frame" x="45" y="6" width="128" height="12"/>
+                            <rect key="frame" x="45" y="6" width="127.5" height="12"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="12" id="Zgd-na-uXz"/>
                             </constraints>
                         </imageView>
                         <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="8Jy-bl-wLW">
-                            <rect key="frame" x="43" y="5.5" width="131.5" height="13"/>
+                            <rect key="frame" x="43" y="6" width="131.5" height="13"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="12" id="0Q3-0t-uwX"/>
                             </constraints>
@@ -258,7 +254,7 @@
                     <rect key="frame" x="260" y="49" width="110" height="272"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6ZI-eK-Slj">
-                            <rect key="frame" x="0.0" y="0.0" width="110" height="93.5"/>
+                            <rect key="frame" x="0.0" y="0.0" width="110" height="94"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fgh-Gr-I7N" userLabel="tempo Area">
                                     <rect key="frame" x="9" y="15.5" width="92" height="63"/>
@@ -310,7 +306,7 @@
                             </constraints>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="unh-EW-uoS" userLabel="btn Play">
-                            <rect key="frame" x="-1" y="93.5" width="112" height="65.5"/>
+                            <rect key="frame" x="-1" y="94" width="112" height="65"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="unh-EW-uoS" secondAttribute="height" multiplier="112:65" id="VLw-kg-aUD"/>
                             </constraints>

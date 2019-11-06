@@ -14,7 +14,7 @@ class LeftMenuViewController: ModacityParentViewController, UNUserNotificationCe
     
     @IBOutlet weak var tableViewMain: UITableView!
     
-    let menuTitles = ["Home", "Metrodrone", /*"Recordings",*/"Overview", "Settings", "Reminders", "Feedback", "About Us", "Sign Out"]
+    let menuTitles = ["Home", "Metronome & Drone", /*"Recordings",*/"Overview", "Settings", "Reminders", "Feedback", "About Us", "Sign Out"]
     let menuIcons = ["icon_menu_home", "icon_menu_metrodrone", /*"icon_menu_mic",*/"icon_menu_overview", "icon_menu_settings", "icon_menu_reminder", "icon_menu_feedbacks_new", "icon_menu_about", "icon_menu_signout"]
     
     override func viewDidLoad() {
