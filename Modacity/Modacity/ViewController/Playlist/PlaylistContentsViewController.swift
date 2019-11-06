@@ -286,15 +286,10 @@ class PlaylistContentsViewController: ModacityParentViewController {
         self.tableViewMain.tableFooterView = UIView()
         self.tableViewMain.allowsSelectionDuringEditing = true
         
-//        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressGestureRecognized))
-//        longPressGesture.minimumPressDuration = 0.48
-//        self.tableViewMain.addGestureRecognizer(longPressGesture)
-        
         self.buttonStartPlaylist.isEnabled = false
         self.buttonStartPlaylist.alpha = 0.5
         
         self.buttonEditPlaylistNameLarge.isHidden = false
-        
         self.viewKeyboardDismiss.isHidden = true
     }
     
@@ -390,14 +385,21 @@ class PlaylistContentsViewController: ModacityParentViewController {
         DropdownMenuView.instance.show(in: self.view,
                                        on: self.buttonEditName,
                                        rows: [["icon":"icon_notes", "text":"Stats & Notes"],
-                                              ["icon":"icon_sort_menu", "text":"Sort"]],
+                                              ["icon":"icon_sort_menu", "text":"Sort"]/*,
+                                              ["icon":"icon_menu_settings", "text":"Options"]*/],
                                        textSize: 12) { [unowned self] (row) in
                                                 if row == 0 {
                                                     self.openDetails()
                                                 } else if row == 1 {
                                                     self.openSort()
+                                                } else if row == 2 {
+                                                    self.openPlaylistSettings()
                                                 }
                                         }
+    }
+    
+    private func openPlaylistSettings() {
+        
     }
     
     private func openDetails() {

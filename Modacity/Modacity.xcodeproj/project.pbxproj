@@ -406,6 +406,12 @@
 		AFF978EB219922B7009B25C5 /* deliberate_suggestions.plist in Resources */ = {isa = PBXBuildFile; fileRef = AFF978E9219922B7009B25C5 /* deliberate_suggestions.plist */; };
 		AFF978ED219925E2009B25C5 /* DeliberatePracticeSuggestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF978EC219925E2009B25C5 /* DeliberatePracticeSuggestion.swift */; };
 		AFF978EE219925E2009B25C5 /* DeliberatePracticeSuggestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF978EC219925E2009B25C5 /* DeliberatePracticeSuggestion.swift */; };
+		C0484D9E236C667700A9B1F5 /* PlaylistContentSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0484D9D236C667700A9B1F5 /* PlaylistContentSettingsViewController.swift */; };
+		C0484D9F236C667700A9B1F5 /* PlaylistContentSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0484D9D236C667700A9B1F5 /* PlaylistContentSettingsViewController.swift */; };
+		C0484DA0236C667700A9B1F5 /* PlaylistContentSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0484D9D236C667700A9B1F5 /* PlaylistContentSettingsViewController.swift */; };
+		C0484DA2236C67C100A9B1F5 /* playlistcontentsettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0484DA1236C67C100A9B1F5 /* playlistcontentsettings.storyboard */; };
+		C0484DA3236C67C100A9B1F5 /* playlistcontentsettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0484DA1236C67C100A9B1F5 /* playlistcontentsettings.storyboard */; };
+		C0484DA4236C67C100A9B1F5 /* playlistcontentsettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0484DA1236C67C100A9B1F5 /* playlistcontentsettings.storyboard */; };
 		C35DB76B47BB2A4F19B7DBE7 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		D5D01DA66863667F3893F5E8 /* Pods_Modacity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A149D4BB60C226601C42112 /* Pods_Modacity.framework */; };
 		E2083FA420DD376100BCE27F /* RecordingsListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2083FA220DD376000BCE27F /* RecordingsListView.xib */; };
@@ -870,6 +876,8 @@
 		AFF7D35E2199F64700D5A6E2 /* DeliberatePracticeRemoteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliberatePracticeRemoteManager.swift; sourceTree = "<group>"; };
 		AFF978E9219922B7009B25C5 /* deliberate_suggestions.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = deliberate_suggestions.plist; sourceTree = "<group>"; };
 		AFF978EC219925E2009B25C5 /* DeliberatePracticeSuggestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliberatePracticeSuggestion.swift; sourceTree = "<group>"; };
+		C0484D9D236C667700A9B1F5 /* PlaylistContentSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistContentSettingsViewController.swift; sourceTree = "<group>"; };
+		C0484DA1236C67C100A9B1F5 /* playlistcontentsettings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = playlistcontentsettings.storyboard; sourceTree = "<group>"; };
 		C7502E348716E20F4E0B7E5C /* libPods-ModacityUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ModacityUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C925C622EB9C22985FEC136B /* Pods-ModacityTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ModacityTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ModacityTests/Pods-ModacityTests.release.xcconfig"; sourceTree = "<group>"; };
 		CA2B3FB269EEE0DEA241813C /* Pods-ModacityUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ModacityUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ModacityUITests/Pods-ModacityUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -1324,6 +1332,7 @@
 		8ED83FC4200325FC00052256 /* Playlist */ = {
 			isa = PBXGroup;
 			children = (
+				C0484D9C236C65E900A9B1F5 /* PlaylistContentSettings */,
 				8EA33BA020052A3300539A3F /* playlist.storyboard */,
 				8EA33BA220052A4A00539A3F /* PlaylistListViewController.swift */,
 				AF7E51AD21A300A8003DC2CB /* PlaylistCell.swift */,
@@ -1493,6 +1502,15 @@
 				AF0BBA2B219BCCE800D6313B /* video.storyboard */,
 			);
 			path = Video;
+			sourceTree = "<group>";
+		};
+		C0484D9C236C65E900A9B1F5 /* PlaylistContentSettings */ = {
+			isa = PBXGroup;
+			children = (
+				C0484D9D236C667700A9B1F5 /* PlaylistContentSettingsViewController.swift */,
+				C0484DA1236C67C100A9B1F5 /* playlistcontentsettings.storyboard */,
+			);
+			path = PlaylistContentSettings;
 			sourceTree = "<group>";
 		};
 		E2083FAE20DD479400BCE27F /* Notes */ = {
@@ -1900,6 +1918,7 @@
 				8EDEB709203DE38F00E8D48D /* Lato-Regular.ttf in Resources */,
 				E251C9D420E14AA000C8BC49 /* PracticeHistoryDetailsRowView.xib in Resources */,
 				E2CDBEA82101098F00119D77 /* PremiumUpgradeSlideComingSoonView.xib in Resources */,
+				C0484DA2236C67C100A9B1F5 /* playlistcontentsettings.storyboard in Resources */,
 				A3E44697225F3D600047D469 /* TimePickerOverlayView.xib in Resources */,
 				A3E44682225E56D40047D469 /* reminder.storyboard in Resources */,
 				E267CFAA20CE18CA003D708B /* PlayPracticeWalkthroughView.xib in Resources */,
@@ -1988,6 +2007,7 @@
 				A39CBDC1228068320069CE52 /* Info-dev.plist in Resources */,
 				A39CBDC2228068320069CE52 /* RepeatOnCell.xib in Resources */,
 				A39CBDC3228068320069CE52 /* practice_item.storyboard in Resources */,
+				C0484DA4236C67C100A9B1F5 /* playlistcontentsettings.storyboard in Resources */,
 				A39CBDC4228068320069CE52 /* home.storyboard in Resources */,
 				A39CBDC5228068320069CE52 /* PlayPracticeWalkthroughView.xib in Resources */,
 				A39CBDC6228068320069CE52 /* HistoryListView.xib in Resources */,
@@ -2064,6 +2084,7 @@
 				A3E446C1225F96310047D469 /* RepeatOnCell.xib in Resources */,
 				E2806C3D20ABCE0B0066959A /* practice_item.storyboard in Resources */,
 				E21BEA052091796A000D1877 /* home.storyboard in Resources */,
+				C0484DA3236C67C100A9B1F5 /* playlistcontentsettings.storyboard in Resources */,
 				E267CFAB20CE18CA003D708B /* PlayPracticeWalkthroughView.xib in Resources */,
 				E251C9C920E13C2700C8BC49 /* HistoryListView.xib in Resources */,
 				E2083FC920DD481200BCE27F /* NoteCell.xib in Resources */,
@@ -2471,6 +2492,7 @@
 				E283C51E20D1696A002651E0 /* TimerInputView.swift in Sources */,
 				E264C09920CB02F50016CF8D /* MetrodroneView.swift in Sources */,
 				E2143CA9213784A900A204B8 /* pitchshift.c in Sources */,
+				C0484D9E236C667700A9B1F5 /* PlaylistContentSettingsViewController.swift in Sources */,
 				8EDEB70C203DE38F00E8D48D /* AppConfig.swift in Sources */,
 				8EB479BB20458B7C00BE6461 /* AboutViewController.swift in Sources */,
 				E29A30B220DA547D006125E2 /* PracticeTimerUpWalkThroughView.swift in Sources */,
@@ -2658,6 +2680,7 @@
 				A39CBD15228068320069CE52 /* TimerInputView.swift in Sources */,
 				A39CBD16228068320069CE52 /* MetrodroneView.swift in Sources */,
 				A39CBD17228068320069CE52 /* pitchshift.c in Sources */,
+				C0484DA0236C667700A9B1F5 /* PlaylistContentSettingsViewController.swift in Sources */,
 				A39CBD18228068320069CE52 /* AppConfig.swift in Sources */,
 				A39CBD19228068320069CE52 /* AboutViewController.swift in Sources */,
 				A39CBD1A228068320069CE52 /* PracticeTimerUpWalkThroughView.swift in Sources */,
@@ -2829,6 +2852,7 @@
 				E283C51F20D1696A002651E0 /* TimerInputView.swift in Sources */,
 				E264C09A20CB02F50016CF8D /* MetrodroneView.swift in Sources */,
 				E2143CAA213784A900A204B8 /* pitchshift.c in Sources */,
+				C0484D9F236C667700A9B1F5 /* PlaylistContentSettingsViewController.swift in Sources */,
 				E21BE9C12091796A000D1877 /* AppConfig.swift in Sources */,
 				E21BE9C22091796A000D1877 /* AboutViewController.swift in Sources */,
 				E29A30B320DA547D006125E2 /* PracticeTimerUpWalkThroughView.swift in Sources */,
