@@ -226,6 +226,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             controller.parentViewModel = deliverViewModel
             let nav = UINavigationController(rootViewController: controller)
             nav.isNavigationBarHidden = true
+            nav.modalPresentationStyle = .fullScreen
             self.tabBarController?.present(nav, animated: true, completion: nil)
         } else {
             
@@ -238,6 +239,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 controller.parentViewModel = deliverViewModel
                 let nav = UINavigationController(rootViewController: controller)
                 nav.isNavigationBarHidden = true
+                nav.modalPresentationStyle = .fullScreen
                 self.tabBarController?.present(nav, animated: true, completion: nil)
                 ModacityAnalytics.LogStringEvent("Selected Favorite Playlist", extraParamName: "Name", extraParamValue: deliverViewModel.deliverPlaylist.name)
                 

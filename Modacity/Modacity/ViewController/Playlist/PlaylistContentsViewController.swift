@@ -449,7 +449,7 @@ class PlaylistContentsViewController: ModacityParentViewController {
         
         if newPlaylistName != "" && !(self.viewModel.checkPlaylistNameAvailable(newPlaylistName)) {
             
-            AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Sesion name exists.", handler: { _ in
+            AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Session name exists.", handler: { _ in
                 self.textfieldPlaylistName.becomeFirstResponder()
             })
             
