@@ -9,6 +9,11 @@
 import UIKit
 import GoogleSignIn
 import MBProgressHUD
+import AuthenticationServices
+
+#if canImport(CryptoKit)
+import CryptoKit
+#endif
 
 class CreateAccountViewController: ModacityParentViewController {
 
@@ -20,7 +25,10 @@ class CreateAccountViewController: ModacityParentViewController {
     @IBOutlet weak var buttonEmailSignIn: UIButton!
     @IBOutlet weak var buttonSkip: UIButton!
     @IBOutlet weak var lableVersionChecking: UILabel!
+    @IBOutlet weak var spinnerApple: UIActivityIndicatorView!
     
+    fileprivate var currentNonce: String?
+
     var switchFromGuest = false
     
     let waitingTimeLongLimit: Int = 5
@@ -47,6 +55,7 @@ class CreateAccountViewController: ModacityParentViewController {
         case .live:
             self.lableVersionChecking.text = ""
         }
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -62,12 +71,35 @@ class CreateAccountViewController: ModacityParentViewController {
 //            self.buttonSkip.isHidden = false
 //        }
     }
+
+    @IBAction func onAppleLogin(_ sender: Any) {
+        if #available(iOS 13.0, *) {
+            
+            let nonce = randomNonceString()
+            currentNonce = nonce
+            let appleIDProvider = ASAuthorizationAppleIDProvider()
+            let request = appleIDProvider.createRequest()
+            request.requestedScopes = [.email, .fullName]
+            request.nonce = sha256(nonce)
+
+            self.spinnerApple.startAnimating()
+            let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+            authorizationController.delegate = self
+            authorizationController.presentationContextProvider = self
+            authorizationController.performRequests()
+            
+        } else {
+            // Fallback on earlier versions
+        }
+        
+    }
     
     func initControls() {
         
         self.spinnerFacebook.stopAnimating()
         self.spinnerGoogle.stopAnimating()
         self.spinnerProcessing.stopAnimating()
+        self.spinnerApple.stopAnimating()
         self.labelWaiting.isHidden = true
         
         if Authorizer.authorizer.isGuestLogin() {
@@ -283,3 +315,119 @@ extension CreateAccountViewController {
         }
     }
 }
+
+@available(iOS 13.0, *)
+extension CreateAccountViewController: ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
+    
+    private func sha256(_ input: String) -> String {
+        let inputData = Data(input.utf8)
+        
+        #if canImport(CryptoKit)
+        let hashedData = SHA256.hash(data: inputData)
+        
+        let hashString = hashedData.compactMap {
+            return String(format: "%02x", $0)
+        }.joined()
+
+        return hashString
+        #else
+        return input
+        #endif
+        
+    }
+    
+    private func randomNonceString(length: Int = 32) -> String {
+        precondition(length > 0)
+        let charset: Array<Character> = Array("0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._")
+        var result = ""
+        var remainingLength = length
+
+        while remainingLength > 0 {
+            let randoms: [UInt8] = (0 ..< 16).map { _ in
+                var random: UInt8 = 0
+                let errorCode = SecRandomCopyBytes(kSecRandomDefault, 1, &random)
+                if errorCode != errSecSuccess {
+                    fatalError("Unable to generate nonce. SecRandomCopyBytes failed with OSStatus \(errorCode)")
+                }
+                return random
+            }
+
+            randoms.forEach { random in
+                if remainingLength == 0 {
+                    return
+                }
+
+                if random < charset.count {
+                    result.append(charset[Int(random)])
+                    remainingLength -= 1
+                }
+            }
+        }
+
+        return result
+    }
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        
+        if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+            guard let nonce = currentNonce else {
+                fatalError("Invalid state: A login callback was received, but no login request was sent.")
+            }
+            guard let appleIDToken = appleIDCredential.identityToken else {
+                spinnerApple.stopAnimating()
+                AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Unable to fetch identity token")
+                return
+            }
+            guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
+                spinnerApple.stopAnimating()
+                AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "ID Token is invalid")
+                return
+            }
+            
+            var emailAddress = ""
+            var userDispayName = ""
+            
+            if let email = appleIDCredential.email {
+                emailAddress = email
+                UserDefaults.standard.set(email, forKey: "apple-email-\(appleIDCredential.user)")
+            } else if let email = UserDefaults.standard.string(forKey: "apple-email-\(appleIDCredential.user)") {
+                emailAddress = email
+            }
+            
+            if let fullName = appleIDCredential.fullName {
+                let familyName = fullName.familyName ?? ""
+                let givenName = fullName.givenName ?? ""
+                userDispayName = "\(givenName) \(familyName)"
+                UserDefaults.standard.set(userDispayName, forKey: "apple-email-\(appleIDCredential.user)")
+            } else if let fulName = UserDefaults.standard.string(forKey: "apple-email-\(appleIDCredential.user)") {
+                userDispayName = fulName
+            }
+            
+            Authorizer.authorizer.appleLogin(with: idTokenString, nonce: nonce, email: emailAddress, name: userDispayName, appleUserId: appleIDCredential.user) { [weak self] err in
+                guard let self = self else { return }
+                self.spinnerApple.stopAnimating()
+                if let err = err {
+                    AppUtils.showSimpleAlertMessage(for: self, title: nil, message: err)
+                } else {
+                    let controller = UIStoryboard(name: "sidemenu", bundle: nil).instantiateViewController(withIdentifier: "SideMenuController") as! SideMenuController
+                    self.navigationController?.pushViewController(controller, animated: true)
+                }
+            }
+            
+        } else {
+            spinnerApple.stopAnimating()
+            AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Failed to sign in with Apple")
+        }
+    }
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        self.spinnerApple.stopAnimating()
+        
+        AppUtils.showSimpleAlertMessage(for: self, title: nil, message: "Apple sign in failed with error \(error.localizedDescription)")
+    }
+    
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return self.view.window!
+    }
+}
+

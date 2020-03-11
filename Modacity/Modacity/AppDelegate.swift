@@ -48,7 +48,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         Mint.sharedInstance().disableNetworkMonitoring()
         Mint.sharedInstance().initAndStartSession(withAPIKey: AppConfig.ThirdParty.appMintApiKey)
         
-        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+        ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         
         FirebaseApp.configure()
         
@@ -106,7 +106,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-        FBSDKAppEvents.activateApp()
+        AppEvents.activateApp()
         ModacityAnalytics.LogEvent(.ResumeActive)
         AppsFlyerTracker.shared().trackAppLaunch()
 //        AppOveralDataManager.manager.saveStreak()
@@ -125,7 +125,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-        return FBSDKApplicationDelegate.sharedInstance().application(app, open: url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String ?? "", annotation: options[UIApplicationOpenURLOptionsKey.annotation]) || GIDSignIn.sharedInstance().handle(url,                                                                                                                                                                                                                                                                                         sourceApplication:options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String,                                                                                                                                          annotation: [:])
+        return ApplicationDelegate.shared.application(app, open: url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String ?? "", annotation: options[UIApplicationOpenURLOptionsKey.annotation]) || GIDSignIn.sharedInstance().handle(url,                                                                                                                                                                                                                                                                                         sourceApplication:options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String,                                                                                                                                          annotation: [:])
     }
     
     func registerNotifications(_ application: UIApplication) {
@@ -153,7 +153,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         let view = MessageView.viewFromNib(layout: .cardView)
         
         var config = SwiftMessages.Config()
-        config.presentationContext = .window(windowLevel: UIWindowLevelStatusBar)
+//        config.presentationContext = .window(windowLevel: UIWindowLevelStatusBar)
         config.duration = .seconds(seconds: 10)
         config.dimMode = .gray(interactive: true)
         config.interactiveHide = true

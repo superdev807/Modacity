@@ -194,17 +194,95 @@ class Authorizer: NSObject {
         }
     }
     
+    func appleLogin(with idToken: String,
+                    nonce: String,
+                    email: String,
+                    name: String,
+                    appleUserId: String,
+                    completion: @escaping (String?) ->()) {
+        
+        let credential = OAuthProvider.credential(withProviderID: "apple.com", idToken: idToken, rawNonce: nonce)
+        
+        Auth.auth().signIn(with: credential) { (authDataResult, error) in
+            
+            if error == nil {
+                let user = authDataResult?.user
+                self.database.child("users").child(user!.uid).child("profile").observeSingleEvent(of: .value, with: { (snapshot) in
+                    if snapshot.exists() {
+                        
+                        MyProfileRemoteManager.manager.updateMyProfile(userId: user!.uid, data: ["authorizedBy": "apple", "appleId": appleUserId])
+                        
+                        DispatchQueue.global(qos: .background).async {
+                            MyProfileRemoteManager.manager.configureMyProfileListener()
+                        }
+                        completion(nil)
+                    } else {
+                        
+                        ModacityAnalytics.LogEvent(ModacityEvent.CreatedAccount,
+                                                   params: ["by": "apple",
+                                                            "uid": user!.uid,
+                                                            "email": email,
+                                                            "name": name,
+                                                            "appleUserId": appleUserId,
+                                                            "guest": "no"])
+                        
+                        MyProfileRemoteManager.manager.createMyProfile(userId: user!.uid, data:[
+                            "uid":user!.uid,
+                            "name": name,
+                            "email": email,
+                            "appleId": appleUserId,
+                            "authorizedBy":"apple",
+                            "created":"\(Date().timeIntervalSince1970)"])
+                        DispatchQueue.global(qos: .background).async {
+                            MyProfileRemoteManager.manager.configureMyProfileListener()
+                        }
+                        completion(nil)
+                    }
+                })
+            } else {
+                let errorCode = (error! as NSError).code
+                
+                if let firebaseError = AuthErrorCode(rawValue: errorCode) {
+                    switch firebaseError {
+                    case .emailAlreadyInUse:
+                        completion("Email already in use.")
+                    case .appNotAuthorized:
+                        completion("App not authorized.")
+                    case .appNotVerified:
+                        completion("App not verified")
+                    case .accountExistsWithDifferentCredential:
+                        completion("Your accont had already been created with different social platform.")
+                    case .credentialAlreadyInUse:
+                        completion("Credential already in use.")
+                    case .internalError:
+                        completion("Internal error occured.")
+                    default:
+                        completion("Firebase error occured. Code - \(firebaseError)")
+                    }
+                } else {
+                    if errorCode == AuthErrorCode.emailAlreadyInUse.rawValue {
+                        completion("Email already in use.")
+                    } else if errorCode == AuthErrorCode.accountExistsWithDifferentCredential.rawValue || errorCode == AuthErrorCode.providerAlreadyLinked.rawValue {
+                        completion("This email address is already in use with a different service.")
+                    } else {
+                        completion(error!.localizedDescription)
+                    }
+                }
+            }
+        }
+    }
+    
     func facebookLoginForGuestUser(controller: UIViewController, completion: @escaping (String?) ->()) {
-        let loginManager = FBSDKLoginManager()
-        loginManager.logIn(withReadPermissions: ["public_profile", "email"], from: controller) { (result, error) in
+        let loginManager = LoginManager()
+        loginManager.logIn(permissions: ["public_profile", "email"], from: controller) { (result, error) in
             if let error = error {
                 completion(error.localizedDescription)
             } else if result!.isCancelled {
                 completion("Facebook login canceled.")
             } else {
-                if result!.grantedPermissions.contains("email") {
-                    let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
-                    Auth.auth().currentUser?.linkAndRetrieveData(with: credential, completion: { (authDataResult, error) in
+                if result!.grantedPermissions.contains("email"), let accessToken = AccessToken.current?.tokenString {
+                    let credential = FacebookAuthProvider.credential(withAccessToken: accessToken)
+                    Auth.auth().currentUser?.link(with: credential, completion: { (authDataResult, error) in
                         if let error = error {
                             let errorCode = UInt((error as NSError).code)
                             print("error code - \(errorCode)")
@@ -215,7 +293,7 @@ class Authorizer: NSObject {
                             }
                         } else {
                             if let user = authDataResult?.user {
-                                FBSDKGraphRequest(graphPath: "me", parameters: ["fields":"id,name,first_name,last_name,picture.type(large), email"]).start(completionHandler: { (connection, result, error) in
+                                GraphRequest(graphPath: "me", parameters: ["fields":"id,name,first_name,last_name,picture.type(large), email"]).start(completionHandler: { (connection, result, error) in
                                     
                                     if error == nil {
                                         if let result = result as? [String:Any] {
@@ -265,7 +343,7 @@ class Authorizer: NSObject {
     }
     
     func facebookLogout() {
-        let loginManager = FBSDKLoginManager()
+        let loginManager = LoginManager()
         loginManager.logOut()
     }
     
@@ -275,50 +353,50 @@ class Authorizer: NSObject {
             self.database.child("users").child(currentGuestUserId).updateChildValues(["closed":"\(Date().timeIntervalSince1970)"])
         }
         
-        if FBSDKAccessToken.current().tokenString == nil {
-            completion("Encountered unexpected problems.  Please try again")
-            return
-        }
         
-        let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
-        Auth.auth().signInAndRetrieveData(with: credential, completion: { (authDataResult, error) in
-            if error == nil {
-                let user = authDataResult?.user
-                self.database.child("users").child(user!.uid).child("profile").observeSingleEvent(of: .value, with: { (snapshot) in
-                    if snapshot.exists() {
-                        DispatchQueue.global(qos: .background).async {
-                            MyProfileRemoteManager.manager.configureMyProfileListener()
+        if let accessTokenString = AccessToken.current?.tokenString {
+            let credential = FacebookAuthProvider.credential(withAccessToken: accessTokenString)
+            Auth.auth().signIn(with: credential, completion: { (authDataResult, error) in
+                if error == nil {
+                    let user = authDataResult?.user
+                    self.database.child("users").child(user!.uid).child("profile").observeSingleEvent(of: .value, with: { (snapshot) in
+                        if snapshot.exists() {
+                            DispatchQueue.global(qos: .background).async {
+                                MyProfileRemoteManager.manager.configureMyProfileListener()
+                            }
+                            completion(nil)
+                        } else {
+                            completion("unknown error")
                         }
-                        completion(nil)
-                    } else {
-                        completion("unknown error")
-                    }
-                })
-            } else {
-                let errorCode = UInt((error! as NSError).code)
-                if errorCode == AuthErrorCode.emailAlreadyInUse.rawValue {
-                    completion("Email already in use.")
-                } else if errorCode == AuthErrorCode.accountExistsWithDifferentCredential.rawValue || errorCode == AuthErrorCode.providerAlreadyLinked.rawValue {
-                    completion("This email address is already in use with a different service.")
+                    })
                 } else {
-                    completion(error!.localizedDescription)
+                    let errorCode = UInt((error! as NSError).code)
+                    if errorCode == AuthErrorCode.emailAlreadyInUse.rawValue {
+                        completion("Email already in use.")
+                    } else if errorCode == AuthErrorCode.accountExistsWithDifferentCredential.rawValue || errorCode == AuthErrorCode.providerAlreadyLinked.rawValue {
+                        completion("This email address is already in use with a different service.")
+                    } else {
+                        completion(error!.localizedDescription)
+                    }
                 }
-            }
-        })
+            })
+        } else {
+            completion("Access token is invalid.")
+        }
     }
     
     func facebookLogin(controller: UIViewController, completion: @escaping (String?)->()) {
-        let loginManager = FBSDKLoginManager()
-        loginManager.logIn(withReadPermissions: ["public_profile", "email"], from: controller) { (result, error) in
+        let loginManager = LoginManager()
+        loginManager.logIn(permissions: ["public_profile", "email"], from: controller) { (result, error) in
             if let error = error {
                 completion(error.localizedDescription)
             } else if result!.isCancelled {
                 completion("Facebook login canceled.")
             } else {
-                if result!.grantedPermissions.contains("email") {
-                    let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
+                if result!.grantedPermissions.contains("email"), let accessToken = AccessToken.current?.tokenString {
+                    let credential = FacebookAuthProvider.credential(withAccessToken: accessToken)
                     
-                    Auth.auth().signInAndRetrieveData(with: credential, completion: { (authDataResult, error) in
+                    Auth.auth().signIn(with: credential, completion: { (authDataResult, error) in
                         if error == nil {
                             let user = authDataResult?.user
                             self.database.child("users").child(user!.uid).child("profile").observeSingleEvent(of: .value, with: { (snapshot) in
@@ -328,7 +406,7 @@ class Authorizer: NSObject {
                                     }
                                     completion(nil)
                                 } else {
-                                    FBSDKGraphRequest(graphPath: "me", parameters: ["fields":"id,name,first_name,last_name,picture.type(large), email"]).start(completionHandler: { (connection, result, error) in
+                                    GraphRequest(graphPath: "me", parameters: ["fields":"id,name,first_name,last_name,picture.type(large), email"]).start(completionHandler: { (connection, result, error) in
                                         
                                         if error == nil {
                                             

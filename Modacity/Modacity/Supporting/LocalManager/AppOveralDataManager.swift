@@ -39,7 +39,7 @@ class AppOveralDataManager {
         
         if with3rdPartyLogout {
             GIDSignIn.sharedInstance().signOut()
-            FBSDKLoginManager().logOut()
+            LoginManager().logOut()
         }
         
         RemindersManager.manager.cleanReminders()
@@ -55,7 +55,7 @@ class AppOveralDataManager {
     func removeValues() {
 
         for (key, _) in UserDefaults.standard.dictionaryRepresentation() {
-            if key != "tutorial_read" {
+            if key != "tutorial_read" && !(key.starts(with: "apple-")) {
                 print("removed key \(key)")
                 UserDefaults.standard.removeObject(forKey: key)
             }

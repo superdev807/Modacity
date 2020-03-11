@@ -109,7 +109,7 @@ class ModacityAnalytics: NSObject {
                 ModacityDebugger.debug(debugPrefix + "\(eventString), \(paramName) = \(value!)")
             }
 
-            FBSDKAppEvents.logEvent(eventString, parameters: [paramName: value!])
+            AppEvents.logEvent(AppEvents.Name(rawValue: eventString), parameters: [paramName: value!])
             Amplitude.instance().logEvent(eventString, withEventProperties: [paramName: value!])
             Intercom.logEvent(withName: eventString, metaData: [paramName : value!])
             AppsFlyerTracker.shared()?.trackEvent(eventString, withValues: [paramName: value!])
@@ -119,7 +119,7 @@ class ModacityAnalytics: NSObject {
                 ModacityDebugger.debug(debugPrefix + eventString)
             }
             
-            FBSDKAppEvents.logEvent(eventString)
+            AppEvents.logEvent(AppEvents.Name(rawValue: eventString))
             Amplitude.instance().logEvent(eventString)
             Intercom.logEvent(withName: eventString)
             AppsFlyerTracker.shared()?.trackEvent(eventString, withValues: [String:Any]())
@@ -141,7 +141,7 @@ class ModacityAnalytics: NSObject {
     
     static func LogEvent(_ event: ModacityEvent, params: [String:Any]?) {
         if AppConfig.appVersion == .live {
-            FBSDKAppEvents.logEvent(event.rawValue, parameters: params)
+            AppEvents.logEvent(AppEvents.Name(rawValue: event.rawValue), parameters: params ?? [:])
             Amplitude.instance().logEvent(event.rawValue, withEventProperties: params)
             Intercom.logEvent(withName: event.rawValue, metaData: params ?? [String:Any]())
             AppsFlyerTracker.shared()?.trackEvent(event.rawValue, withValues: params ?? [String:Any]())

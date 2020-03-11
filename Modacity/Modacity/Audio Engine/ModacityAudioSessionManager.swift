@@ -136,7 +136,7 @@ class ModacityAudioSessionManager: NSObject {
         let view = MessageView.viewFromNib(layout: .cardView)
         
         var config = SwiftMessages.Config()
-        config.presentationContext = .window(windowLevel: UIWindowLevelStatusBar)
+//        config.presentationContext = .window(windowLevel: UIWindowLevelStatusBar)
         config.duration = .seconds(seconds: 10)
         config.dimMode = .gray(interactive: true)
         config.interactiveHide = true

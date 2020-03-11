@@ -520,7 +520,7 @@ extension PlaylistStatsView {
             dataEntries.append(dataEntry)
         }
         
-        let chartDataSet = BarChartDataSet(values: dataEntries, label: nil)
+        let chartDataSet = BarChartDataSet(entries: dataEntries, label: nil)
         var valueColors = [UIColor]()
         var barColors = [UIColor]()
         for _ in dataEntries {

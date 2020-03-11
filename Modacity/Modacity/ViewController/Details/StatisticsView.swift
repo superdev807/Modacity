@@ -322,7 +322,7 @@ extension StatisticsView {
             dataEntries.append(dataEntry)
         }
 
-        let chartDataSet = LineChartDataSet(values: dataEntries, label: nil)
+        let chartDataSet = LineChartDataSet(entries: dataEntries, label: nil)
         
         let gradientColors = [Color(hexString: "#6815CE").cgColor, Color(hexString: "#2B67F5").cgColor] as CFArray
         let colorLocations:[CGFloat] = [1.0, 0.0]
@@ -469,7 +469,7 @@ extension StatisticsView {
             dataEntries.append(dataEntry)
         }
         
-        let chartDataSet = BarChartDataSet(values: dataEntries, label: nil)
+        let chartDataSet = BarChartDataSet(entries: dataEntries, label: nil)
         var valueColors = [UIColor]()
         var barColors = [UIColor]()
         for _ in dataEntries {
